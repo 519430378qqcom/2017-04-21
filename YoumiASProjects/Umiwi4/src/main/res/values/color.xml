@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="color_primary">#ff6600</color>
+    <color name="color_primary_dark">#F57C00</color>
+    <color name="color_primary_light">#FFE0B2</color>
+    <color name="color_accent">#FFC107</color>
+    <color name="color_primary_text">#212121</color>
+    <color name="color_secondary_text">#727272</color>
+    <color name="color_icons">#212121</color>
+    <color name="color_divider">#B6B6B6</color>
+    
+    
+    <color name="frame_bg">#ffefeff4</color>
+    <color name="transparent">#00000000</color>
+
+    <color name="ijk_transparent_dark">#77000000</color>
+
+    <color name="text_white_enabled">#FFFFFFFF</color>
+    <color name="text_white_disabled">#5CFFFFFF</color>
+    <color name="text_black_enabled">#FF000000</color>
+    <color name="text_black_disabled">#5C000000</color>
+
+    <!-- zxing -->
+    <color name="viewfinder_laser">#ffff0000</color>
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="result_view">#b0000000</color>
+    <color name="possible_result_points">#c0ffff00</color>
+    
+
+</resources>

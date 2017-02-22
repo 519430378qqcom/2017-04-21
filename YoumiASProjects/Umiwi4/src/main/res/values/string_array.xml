@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <!-- 搜索全部条件 -->
+    <string-array name="search_condition_array">
+        <item>全部</item>
+        <item>可看</item>
+    </string-array>
+
+    <!-- 搜索更新条件 -->
+    <string-array name="search_time_condition">
+        <item>相关</item>
+        <item>最新</item>
+        <item>最热</item>
+    </string-array>
+
+
+</resources>

@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/item_layout"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@color/white"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:text="最新免费 "
+            android:id="@+id/type_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="8dp"
+            android:drawableLeft="@drawable/home_grid_line"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp"
+            android:textColor="@color/umiwi_gray_3"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:visibility="visible" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:id="@+id/tag_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:orientation="horizontal" >
+        </LinearLayout>
+    </LinearLayout>
+
+    <com.umiwi.ui.view.AlignViewGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:id="@+id/top_left_container"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/selectable_background_apptheme_umiwi"
+            android:padding="1dip" >
+
+            <ImageView
+                android:id="@+id/cover_image_view"
+                style="@style/recommendImageStyle" />
+
+            <TextView
+                android:id="@+id/subscript_name"
+                style="@style/recommendSubscriptStyle"
+                android:layout_alignBaseline="@+id/cover_image_view"
+                android:layout_alignRight="@+id/cover_image_view"
+                android:layout_alignTop="@+id/cover_image_view"
+                android:visibility="gone"
+                tools:ignore="DuplicateIds" />
+
+            <TextView
+                android:id="@+id/sub_title"
+                style="@style/recommendSubTitleStyle"
+                android:layout_alignBaseline="@+id/cover_image_view"
+                android:layout_alignBottom="@+id/cover_image_view"
+                android:visibility="gone"
+                tools:ignore="DuplicateIds" />
+
+            <TextView
+                android:id="@+id/course_title"
+                style="@style/recommendCourseTitleStyle"
+                android:layout_below="@+id/cover_image_view"
+                tools:ignore="DuplicateIds" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/top_right_container"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/selectable_background_apptheme_umiwi"
+            android:padding="1dip" >
+
+            <ImageView
+                android:id="@+id/cover_image_view"
+                style="@style/recommendImageStyle"
+                tools:ignore="DuplicateIds" />
+
+            <TextView
+                android:id="@+id/subscript_name"
+                style="@style/recommendSubscriptStyle"
+                android:layout_alignBaseline="@+id/cover_image_view"
+                android:layout_alignRight="@+id/cover_image_view"
+                android:layout_alignTop="@+id/cover_image_view"
+                android:visibility="gone"
+                tools:ignore="DuplicateIds" />
+
+            <TextView
+                android:id="@+id/sub_title"
+                style="@style/recommendSubTitleStyle"
+                android:layout_alignBaseline="@+id/cover_image_view"
+                android:layout_alignBottom="@+id/cover_image_view"
+                android:visibility="gone"
+                tools:ignore="DuplicateIds" />
+
+            <TextView
+                android:id="@+id/course_title"
+                style="@style/recommendCourseTitleStyle"
+                android:layout_below="@+id/cover_image_view"
+                tools:ignore="DuplicateIds" />
+        </RelativeLayout>
+    </com.umiwi.ui.view.AlignViewGroup>
+
+    <com.umiwi.ui.view.AlignViewGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:id="@+id/bottom_left_container"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/selectable_background_apptheme_umiwi"
+            android:padding="1dip" >
+
+            <ImageView
+                android:id="@+id/cover_image_view"
+                style="@style/recommendImageStyle"
+                tools:ignore="DuplicateIds" />
+
+            <TextView
+                android:id="@+id/subscript_name"
+                style="@style/recommendSubscriptStyle"
+                android:layout_alignBaseline="@+id/cover_image_view"
+                android:layout_alignRight="@+id/cover_image_view"
+                android:layout_alignTop="@+id/cover_image_view"
+                android:visibility="gone"
+                tools:ignore="DuplicateIds" />
+
+            <TextView
+                android:id="@+id/sub_title"
+                style="@style/recommendSubTitleStyle"
+                android:layout_alignBaseline="@+id/cover_image_view"
+                android:layout_alignBottom="@+id/cover_image_view"
+                android:visibility="gone"
+                tools:ignore="DuplicateIds" />
+
+            <TextView
+                android:id="@+id/course_title"
+                style="@style/recommendCourseTitleStyle"
+                android:layout_below="@+id/cover_image_view"
+                tools:ignore="DuplicateIds" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/bottom_right_container"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/selectable_background_apptheme_umiwi"
+            android:padding="1dip" >
+
+            <ImageView
+                android:id="@+id/cover_image_view"
+                style="@style/recommendImageStyle"
+                tools:ignore="DuplicateIds" />
+
+            <TextView
+                android:id="@+id/subscript_name"
+                style="@style/recommendSubscriptStyle"
+                android:layout_alignBaseline="@+id/cover_image_view"
+                android:layout_alignRight="@+id/cover_image_view"
+                android:layout_alignTop="@+id/cover_image_view"
+                android:visibility="gone"
+                tools:ignore="DuplicateIds" />
+
+            <TextView
+                android:id="@+id/sub_title"
+                style="@style/recommendSubTitleStyle"
+                android:layout_alignBaseline="@+id/cover_image_view"
+                android:layout_alignBottom="@+id/cover_image_view"
+                android:visibility="gone"
+                tools:ignore="DuplicateIds" />
+
+            <TextView
+                android:id="@+id/course_title"
+                style="@style/recommendCourseTitleStyle"
+                android:layout_below="@+id/cover_image_view"
+                tools:ignore="DuplicateIds" />
+        </RelativeLayout>
+    </com.umiwi.ui.view.AlignViewGroup>
+
+</LinearLayout>

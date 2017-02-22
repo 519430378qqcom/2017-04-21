@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/video_panel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:id="@+id/player_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/try_course_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@color/ijk_transparent_dark"
+            android:gravity="bottom"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:text="可试看到00:09:99，购买后可完整观看"
+            android:textColor="@color/white"
+            android:visibility="gone" />
+
+    </FrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/competence_bottom_container"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bottom_bar_height"
+        android:layout_alignParentBottom="true"
+        android:background="@color/umiwi_gray_f7"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/bottom_competence_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="12dip"
+            android:gravity="center_vertical"
+            android:paddingBottom="4dp"
+            android:paddingTop="4dp"
+            android:text="994444"
+            android:textColor="@color/umiwi_gray_9"
+            android:textSize="14sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="12dip"
+            android:gravity="center_vertical"
+            android:paddingBottom="4dp"
+            android:paddingTop="4dp"
+            android:text="99"
+            android:textColor="@color/umiwi_orange"
+            android:textSize="24sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/course_buy_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="8dip"
+            android:layout_toRightOf="@+id/price"
+            android:gravity="center_vertical"
+            android:paddingBottom="4dp"
+            android:paddingTop="4dp"
+            android:text="@string/course_buy_str"
+            android:textColor="@color/umiwi_orange"
+            android:textSize="14sp"
+            android:visibility="gone" />
+
+
+        <TextView
+            android:id="@+id/bottom_competence_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="12dp"
+            android:background="@drawable/button_red_selector"
+            android:gravity="center_vertical"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:text="开通钻石会员"
+            android:textColor="@color/umiwi_white"
+            android:textSize="14sp"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/frame_bg">
+
+        <include layout="@layout/include_listview" />
+
+        <LinearLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/header_height"
+            android:layout_gravity="center"
+            android:background="@color/umiwi_gray_d"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/umiwi_white"
+                android:checkedButton="@+id/scroll_detail"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/scroll_detail"
+                    style="@style/bottombuttonstyle"
+                    android:text="详情"></RadioButton>
+
+                <RadioButton
+                    android:id="@+id/scroll_teacher"
+                    style="@style/bottombuttonstyle"
+                    android:text="讲师"></RadioButton>
+
+                <RadioButton
+                    android:id="@+id/scroll_relate"
+                    style="@style/bottombuttonstyle"
+                    android:text="推荐"></RadioButton>
+
+                <RadioButton
+                    android:id="@+id/scroll_comment"
+                    style="@style/bottombuttonstyle"
+                    android:text="评论"></RadioButton>
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/bottom_bar_container"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/bottom_bar_height"
+            android:layout_alignParentBottom="true"
+            android:background="@color/umiwi_gray_f7"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/comment_button"
+                style="@style/sharebuttonstyle"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dip"
+                android:layout_weight="2"
+                android:drawableLeft="@drawable/selector_ic_comment"
+                android:drawablePadding="15dip"
+                android:text="@string/comment"
+                android:visibility="visible"></RadioButton>
+
+            <RadioButton
+                android:id="@+id/download_button"
+                style="@style/sharebuttonstyle"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/selector_ic_down"
+                android:visibility="visible"></RadioButton>
+
+            <RadioButton
+                android:id="@+id/fav_button"
+                style="@style/favbuttonstyle"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/selector_ic_fav"></RadioButton>
+
+            <RadioButton
+                android:id="@+id/share_radiobutton"
+                style="@style/sharebuttonstyle"
+                android:layout_marginRight="8dp"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/selector_ic_share"></RadioButton>
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

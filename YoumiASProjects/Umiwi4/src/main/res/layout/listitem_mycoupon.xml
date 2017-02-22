@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/umiwi_white"
+    android:orientation="horizontal"
+    android:padding="12dp">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/ic_coupon_value"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/coupon_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/coupon_type"
+            android:layout_gravity="center_horizontal"
+            android:paddingTop="8dp"
+            android:text="$40"
+            android:textColor="@color/umiwi_red"
+            android:textSize="26sp" />
+
+        <TextView
+            android:id="@+id/coupon_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:paddingBottom="8dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:text="(限专辑使用)"
+            android:textColor="@color/umiwi_red"
+            android:textSize="13sp" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="8dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/coupon_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="券号:C20493204"
+            android:singleLine="true"
+            android:textColor="@color/umiwi_black"
+            android:textSize="16sp" />
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:id="@+id/value_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:background="@drawable/ic_coupon_title"
+                android:text="满减券"
+                android:textColor="@color/umiwi_gray_3"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/value_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/value_type"
+                android:paddingLeft="12dp"
+                android:text="满40立减"
+                android:textColor="@color/umiwi_gray_3"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:id="@+id/expiretime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="24小时内过期"
+                android:textColor="@color/umiwi_gray_6"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/mycoupon_open"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:textColor="@color/umiwi_black"
+                android:textSize="18sp"
+                android:visibility="gone" />
+        </FrameLayout>
+
+    </LinearLayout>
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/category_hot"
+        android:scaleType="fitXY" />
+</LinearLayout>

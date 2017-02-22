@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/umiwi_gray_f7"
+        android:gravity="center"
+        android:padding="12dp"
+        android:text="@string/title_changelog"
+        android:textColor="#006b9a"
+        android:textSize="18sp" />
+
+    <WebView
+        android:id="@+id/webView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="none"
+        tools:ignore="WebViewLayout" />
+
+    <TextView
+        android:id="@+id/close"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/umiwi_gray_f7"
+        android:gravity="center"
+        android:padding="12dp"
+        android:text="关闭"
+        android:textColor="@color/umiwi_gray_9"
+        android:textSize="18sp" />
+
+</LinearLayout>

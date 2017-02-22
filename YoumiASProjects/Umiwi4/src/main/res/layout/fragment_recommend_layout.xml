@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/pull_to_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <include layout="@layout/include_listview"/>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <include layout="@layout/expert_recommend_layout" />
+
+            <include layout="@layout/new_free_item_layout" />
+
+            <include layout="@layout/expert_answer_layout" />
+
+            <include layout="@layout/pay_selected_item_layout" />
+
+            <include layout="@layout/youmi_big_shot_item_layout" />
+
+            <include layout="@layout/line_action_item_layout" />
+
+            <TextView
+                android:id="@+id/text_feedback1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/textview_fillet_question_bg"
+                android:paddingBottom="12dp"
+                android:layout_gravity="center"
+                android:paddingTop="12dp"
+                android:paddingRight="5dp"
+                android:paddingLeft="5dp"
+                android:text="意见反馈--测试"
+                android:textColor="@color/main_color"
+                android:textSize="18sp"
+                android:onClick="feedback_clock"
+                android:visibility="gone"/>
+        </LinearLayout>
+    </ScrollView>
+
+
+
+
+</LinearLayout>

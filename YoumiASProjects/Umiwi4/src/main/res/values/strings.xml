@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+
+    <string name="app_name">优米创业</string>
+    <string name="action_settings">设置</string>
+    <string name="hello_world">Hello world!</string>
+    <!-- 测试字体 -->
+    <string name="delete">删除</string>
+    <string name="cancel">取消</string>
+    <string name="ok">确定</string>
+    <string name="save">保存</string>
+    <string name="a_umiwi_login">登录</string>
+    <string name="jump_go_home"><u>跳过</u></string>
+    <string name="a_umiwi_forget_password">忘记密码？</string>
+    <string name="right_version">版权信息</string>
+    <string name="right_share">邀请小伙伴</string>
+    <string name="right_downpath">下载路径</string>
+    <string name="right_update">检查更新</string>
+    <string name="right_push">勿扰模式</string>
+    <string name="right_feedback">意见反馈</string>
+
+    <!-- 对话框 -->
+    <string name="new_version_detected">检测到新版本</string>
+    <string name="net_address">网址</string>
+    <string name="update">升级</string>
+    <string name="visit">访问</string>
+    <string name="set_network">设置网络</string>
+    <string name="network_error">网络错误,请检查网络的设置</string>
+    <string name="quit_confirm">退出确认</string>
+    <string name="logiin">登录</string>
+    <string name="logout">退出</string>
+    <string name="are_yout_sure_your_wanna_loggout">您确定要退出登录?</string>
+    <string name="logging_out">正在退出登录</string>
+    <string name="about_umiwi">关于优米</string>
+
+
+    <string name="comment">写评论</string>
+
+    <string name="title_changelog">更新日志</string>
+
+    <string formatted="false" name="pay_result_callback_msg">微信支付结果：%s</string>
+    <string name="getting_prepayid">正在获取预支付订单...</string>
+    <string name="getting_access_token">正在获取access token...</string>
+    <string name="get_access_token_succ">获取access token成功</string>
+    <string formatted="false" name="get_access_token_fail">获取access token失败，原因%s</string>
+    <string name="home_mine_user_name">立即登录</string>
+    <string name="home_mine_user_time">登录后免费看、云同步</string>
+
+    <string name="login_camera_">用电脑打开p.youmi.cn \n扫描二维码登录优米网页版</string>
+
+
+    <string name="share_app_title">我发现一款很酷的学习应用</string>
+
+    <string name="share_app_content">你恐惧变化，我在变化中寻找机遇；你抱怨现状，我在困境中突破自己；你迷茫，我从改变中获得自信；@优米创业 ，改变的人都这里。我在这里，你还不来？立即下载 http://m.youmi.cn/m.shtml </string>
+
+    <string name="share_app_weburl">http://m.youmi.cn/m.shtml</string>
+    <string name="share_app_image">http://i1.umivi.net/v/static/images/clientshare.png</string>
+
+
+    <string name="action_share">分享</string>
+    <string name="action_search">搜索</string>
+    <string name="action_delete">删除</string>
+    <string name="course_buy_str"><u>购买单课</u></string>
+
+    <string name="show_3g_toast">您正使用2G/3G/4G网络下观看视频 ,可以在设置中关闭</string>
+
+    <string name="competence_vip_button">开通钻石会员</string>
+    <string name="competence_login_button">立即登录</string>
+
+    <string name="competence_vip_show_content">钻石会员专享课程</string>
+    <string name="competence_login_show_content">登录免费看课程</string>
+
+    <string name="competence_vip_subtitle">此课程是钻石会员专享课程 ,支付后可继续观看 !</string>
+    <string name="competence_course_subtitle">此课程是付费课程 ,支付后可继续观看!</string>
+    <string name="competence_login_subtitle">此课程登录后可免费观看 !</string>
+
+
+    <string name="competence_play_content">重新播放此课程</string>
+
+    <string name="version_umiwi_introduce">关于优米：\n \t\t优米公司成立于2010年3月17日，由著名制片人王利芬女士创办的，是一个面向创业者的综合性服务平台。优米网是公司旗下的视频网站，是为创业者提供有价值视频的服务平台。优米创业产品聚焦“创业”智慧，提供在线点播等服务，是“创业智慧供应商”。优米网同时为手机用户打造优质的移动客户端创业课件。</string>
+</resources>

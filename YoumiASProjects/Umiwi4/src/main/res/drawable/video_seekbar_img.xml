@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<!-- 背景图 -->
+
+	<item android:id="@+android:id/background">
+		<shape>
+
+			<corners android:radius="10dip" />
+
+			<gradient android:angle="270" 
+				android:startColor="#ffFFFFFF" 
+				android:centerColor="#ffFFFFFF"
+				android:endColor="#ffFFFFFF"
+				android:centerY="0.45" 
+				/>
+		</shape>
+	</item>
+	<!-- 全部能量图 -->
+
+	<item android:id="@android:id/secondaryProgress">
+		<clip>
+			<shape>
+				<corners android:radius="5dip" />
+				<gradient 
+					android:startColor="#ff999999"
+					android:centerColor="#ff666666" 
+					android:endColor="#ff999999" 
+					android:centerY="0.45"
+					android:angle="270" />
+			</shape>
+		</clip>
+	</item>
+	<item android:id="@android:id/progress">
+		<clip>
+			<shape>
+				<corners android:radius="5dip" />
+				<gradient 
+					android:startColor="#ff6600"
+					android:centerColor="#ff6600" 
+					android:endColor="#ff6600" 
+					android:centerY="0.45"
+					android:angle="270" />
+			</shape>
+		</clip>
+	</item>
+
+</layer-list>

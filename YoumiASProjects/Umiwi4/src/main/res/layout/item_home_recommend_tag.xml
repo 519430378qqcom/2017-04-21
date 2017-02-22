@@ -1,0 +1,10 @@
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tag_title"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:background="@drawable/selectable_background_apptheme_umiwi"
+    android:gravity="center_vertical|left"
+    android:textAppearance="?android:attr/textAppearanceLarge"
+    android:textColor="@color/umiwi_gray_6"
+    android:textSize="14sp" />

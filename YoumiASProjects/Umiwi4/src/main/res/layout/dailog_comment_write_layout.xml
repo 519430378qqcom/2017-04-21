@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.umiwi.ui.view.ResizeRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/menu_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/frame_bg"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_corner_bg" >
+
+        <TextView
+            android:id="@+id/send_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12dp"
+            android:padding="5dp"
+            android:text="发送"
+            android:textColor="@color/umiwi_black"
+            android:textSize="16sp"
+            android:visibility="visible" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_toLeftOf="@+id/send_comment"
+            android:paddingBottom="8dp" >
+
+            <EditText
+                android:id="@+id/write_comment_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/comment_write_edit_bg"
+                android:cursorVisible="true"
+                android:gravity="left"
+                android:hint="写点什么吧..."
+                android:inputType="textCapSentences|textMultiLine"
+                android:lineSpacingExtra="1dp"
+                android:lines="3"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:textColor="@color/umiwi_black"
+                android:textCursorDrawable="@drawable/cursor"
+                android:visibility="visible" />
+        </FrameLayout>
+    </RelativeLayout>
+
+</com.umiwi.ui.view.ResizeRelativeLayout>

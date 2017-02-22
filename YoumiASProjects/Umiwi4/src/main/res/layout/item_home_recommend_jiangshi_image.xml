@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/selectable_background_apptheme_umiwi" >
+
+    <cn.youmi.framework.view.CircleImageView
+        android:id="@+id/photo"
+        android:layout_width="@dimen/round_image"
+        android:layout_height="@dimen/round_image"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="5dp"
+        app:ci_border_color="#00000000"
+        app:ci_border_width="0dp" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/photo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="8dp"
+        android:gravity="center_vertical"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
+        android:textColor="@color/umiwi_gray_3"
+        android:textSize="16sp"
+        android:visibility="visible" />
+
+</RelativeLayout>

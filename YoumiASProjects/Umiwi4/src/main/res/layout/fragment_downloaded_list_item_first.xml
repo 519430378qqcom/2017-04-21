@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/itemview_relativelayout_first"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#f7f7f7"
+    android:descendantFocusability="blocksDescendants"
+    android:orientation="vertical"
+    android:padding="8dp" >
+
+    <CheckBox
+        android:id="@+id/album_checkbox"
+        style="@style/Widget.Checkbox.Blue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="5dp"
+        android:checked="false"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/album_imageview"
+        android:layout_width="88dp"
+        android:layout_height="66dp"
+        android:layout_toRightOf="@+id/album_checkbox"
+        android:src="@drawable/downloading_icon" />
+
+    <TextView
+        android:id="@+id/albumtitle_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@+id/album_imageview"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textColor="#000000"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/speed_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/albumtitle_textview"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/album_imageview"
+        android:textColor="#999999"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/videocount_textview"
+        android:layout_width="88dp"
+        android:layout_height="30dp"
+        android:layout_alignBottom="@+id/album_imageview"
+        android:layout_toRightOf="@+id/album_checkbox"
+        android:gravity="center"
+        android:textColor="#ffffff"
+        android:textSize="12sp" />
+
+</RelativeLayout>

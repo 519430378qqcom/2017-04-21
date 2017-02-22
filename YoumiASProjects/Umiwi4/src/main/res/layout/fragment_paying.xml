@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <include layout="@layout/toolbar_actionbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/umiwi_white"
+        android:scrollbars="none" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/umiwi_white"
+            android:padding="8dp" >
+
+            <TextView
+                android:id="@+id/tv_pay_payment_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:textSize="18sp"
+                android:visibility="gone" />
+
+            <View
+                android:id="@+id/lines_01"
+                android:layout_width="match_parent"
+                android:layout_height="0.05dp"
+                android:layout_below="@+id/tv_pay_payment_price"
+                android:layout_marginTop="12dp"
+                android:background="@color/umiwi_gray_e"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_pay_payment_balance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lines_01"
+                android:layout_marginTop="12dp"
+                android:textSize="18sp"
+                android:visibility="gone" />
+
+            <View
+                android:id="@+id/lines_02"
+                android:layout_width="match_parent"
+                android:layout_height="0.05dp"
+                android:layout_below="@+id/tv_pay_payment_balance"
+                android:layout_marginTop="12dp"
+                android:background="@color/umiwi_gray_e"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_pay_payment_recharge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lines_02"
+                android:layout_marginTop="12dp"
+                android:textSize="16sp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_pay_payment_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/tv_pay_payment_recharge"
+                android:layout_marginBottom="18dp"
+                android:layout_marginTop="18dp"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_pay_payment_submit"
+                style="@style/Widget.Button.RedButton"
+                android:layout_width="match_parent"
+                android:layout_below="@+id/tv_pay_payment_amount"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="12dip"
+                android:text="立即支付"
+                android:visibility="gone" />
+
+            <View
+                android:id="@+id/lines_03"
+                android:layout_width="match_parent"
+                android:layout_height="12dp"
+                android:layout_below="@+id/tv_pay_payment_amount"
+                android:background="@color/umiwi_gray_f7"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_pay_payment_ing_sdk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lines_03"
+                android:layout_marginTop="10dp"
+                android:text="请选择充值方式"
+                android:textColor="@color/umiwi_gray_6"
+                android:textSize="16sp"
+                android:visibility="gone" />
+
+            <com.umiwi.ui.view.MyListView
+                android:id="@+id/listView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_pay_payment_ing_sdk"
+                android:layout_marginTop="12dp"
+                android:choiceMode="singleChoice"
+                android:divider="@color/umiwi_gray_e"
+                android:dividerHeight="0.05dip"
+                android:drawSelectorOnTop="true"
+                android:fadingEdge="none"
+                android:footerDividersEnabled="true"
+                android:headerDividersEnabled="true"
+                android:paddingLeft="1dip"
+                android:paddingRight="1dip"
+                android:scrollbarStyle="outsideOverlay"
+                android:scrollingCache="true"
+                android:smoothScrollbar="true"
+                android:visibility="gone" />
+
+            <View
+                android:id="@+id/lines_04"
+                android:layout_width="match_parent"
+                android:layout_height="12dp"
+                android:layout_below="@+id/listView"
+                android:background="@color/umiwi_gray_f7"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_pay_payment_ing_bank"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lines_04"
+                android:layout_marginTop="10dp"
+                android:text="选择银行卡支付"
+                android:textColor="@color/umiwi_gray_6"
+                android:textSize="16sp"
+                android:visibility="gone" />
+
+            <com.umiwi.ui.view.PayGridView
+                android:id="@+id/gridview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/tv_pay_payment_ing_bank"
+                android:layout_marginTop="12dp"
+                android:descendantFocusability="blocksDescendants"
+                android:numColumns="auto_fit"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="12dp"
+                android:visibility="gone" >
+            </com.umiwi.ui.view.PayGridView>
+        </RelativeLayout>
+    </ScrollView>
+
+</LinearLayout>

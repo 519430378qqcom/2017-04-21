@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/login_is_rl"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/umiwi_white"
+    android:padding="8dp" >
+
+    <ImageView
+        android:id="@+id/myinfo_iv_"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="12dp"
+        android:background="@drawable/category_hot"
+        android:scaleType="fitXY" />
+
+    <cn.youmi.framework.view.CircleImageView
+        android:id="@+id/user_photo_iv"
+        android:layout_width="@dimen/round_image"
+        android:layout_height="@dimen/round_image"
+        android:layout_alignParentLeft="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="5dp"
+        app:ci_border_color="#00000000"
+        app:ci_border_width="0dp" />
+
+    <RelativeLayout
+        android:id="@+id/login_head"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/user_photo_iv"
+        android:padding="5dp" >
+
+        <TextView
+            android:id="@+id/user_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:textColor="@color/umiwi_gray_3"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/user_grade_image_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/user_name_tv"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@+id/user_name_tv"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/user_time_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/user_name_tv"
+            android:layout_marginTop="3dp"
+            android:gravity="right"
+            android:textColor="@color/umiwi_gray_9"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+</RelativeLayout>

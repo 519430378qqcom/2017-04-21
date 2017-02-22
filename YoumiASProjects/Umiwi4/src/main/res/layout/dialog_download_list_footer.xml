@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/round_corner_bg_bottom" >
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_gravity="top"
+        android:background="@color/color_primary" />
+
+    <TextView
+        android:id="@+id/downloadmanager_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:drawablePadding="8dp"
+        android:drawableRight="@drawable/arrows_right"
+        android:gravity="center"
+        android:padding="12dp"
+        android:text="下载全部"
+        android:textColor="@color/download_all_textcolor"
+        android:textSize="18sp" />
+
+</FrameLayout>

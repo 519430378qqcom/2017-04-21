@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><!--
+ Copyright (C) 2008 ZXing authors
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ -->
+<resources>
+    <!-- Messages IDs -->
+    <item name="auto_focus" type="id" />
+    <item name="decode" type="id" />
+    <item name="decode_failed" type="id" />
+    <item name="decode_succeeded" type="id" />
+    <item name="encode_failed" type="id" />
+    <item name="encode_succeeded" type="id" />
+    <item name="launch_product_query" type="id" />
+    <item name="quit" type="id" />
+    <item name="restart_preview" type="id" />
+    <item name="return_scan_result" type="id" />
+    <item name="search_book_contents_failed" type="id" />
+    <item name="search_book_contents_succeeded" type="id" />
+
+    <item name="key_image_view_url" type="id" />
+
+    <item name="key_search_cloud_key" type="id" />
+
+    <item name="key_single_choice_item_background" type="id" />
+
+    <item name="key_single_choice_item_textview" type="id" />
+
+    <item name="key_single_choice_item_textview_tag" type="id" />
+
+    <item name="key_lecture_follow_number" type="id" />
+
+    <item name="key_stage_section" type="id" />
+
+    <item name="key_play_list_count" type="id" />
+
+    <item name="key_video_item_position" type="id" />
+
+    <item name="video_left_id" type="id" />
+    <item name="video_right_id" type="id" />
+
+</resources>

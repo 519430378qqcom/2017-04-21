@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <corners android:radius="6dip" />
+
+    <!-- <stroke
+        android:width="0.05dp"
+        android:color="@color/umiwi_black" /> -->
+
+    <solid android:color="@color/umiwi_gray_f7" />
+
+</shape>

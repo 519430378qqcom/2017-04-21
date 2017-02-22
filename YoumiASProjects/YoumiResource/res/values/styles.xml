@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="dialog_animation_slide_up">
+        <item name="android:windowEnterAnimation">@anim/slide_down_in</item>
+        <item name="android:windowExitAnimation">@anim/slide_down_out</item>
+    </style>
+    
+    
+    <style name="ActionBarTheme" parent=""><!-- "@style/Widget.AppCompat.Toolbar" -->>
+        <item name="android:textColorPrimary">#fff</item>
+        <item name="colorControlNormal">?actionBarIconColor</item>
+        <item name="colorControlHighlight">#3fff</item>
+    </style>
+    
+    <style name="ActionBarPopupTheme" parent="Theme.AppCompat.Light" />
+    
+    <style name="AppBaseTheme" parent="android:Theme.Light"></style>
+
+    <style name="AppTheme" parent="AppBaseTheme"></style>
+    
+     <style name="Widget"></style>
+    
+    <style name="Widget.Button">
+        <item name="android:layout_height">42dip</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/umiwi_white</item>
+    </style>
+
+    <style name="Widget.Button.RedButton" parent="Widget.Button">
+        <item name="android:background">@drawable/button_red_selector</item>
+    </style>
+
+    <style name="Widget.Button.RedButton.Small" parent="Widget.Button.RedButton">
+        <item name="android:layout_height">38dip</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="Widget.Button.GreenButton" parent="Widget.Button">
+        <item name="android:background">@drawable/button_green_selector</item>
+    </style>
+    
+    <style name="Widget.Button.ShareGreenButton" parent="Widget.Button">
+        <item name="android:background">@drawable/green_share_button_selector</item>
+    </style>
+    
+    <style name="Widget.Button.GreenEmptyButton" parent="Widget.Button">
+        <item name="android:background">@drawable/green_emtpy_button_selector</item>
+    </style>
+    <style name="Widget.Button.WhiteButton" parent="Widget.Button">
+        <item name="android:background">@drawable/button_white_selector</item>
+    </style>
+
+    <style name="Widget.BlueButton" parent="Widget.Button">
+        <item name="android:background">@drawable/blue_button_selector</item>
+    </style>
+    
+    <style name="Widget.Checkbox.Blue" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/selection_check_box_selector</item>
+    </style>
+    
+
+    <style name="Widget.TextView"></style>
+
+    <style name="Widget.TextView.Item">
+        <item name="android:singleLine">true</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="Widget.TextView.Item.Title">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/umiwi_black</item>
+        <item name="android:gravity">bottom</item>
+        <item name="android:layout_marginBottom">2dip</item>
+    </style>
+
+    <style name="Widget.TextView.Item.Subtitle">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/umiwi_gray_9</item>
+        <item name="android:gravity">top</item>
+        <item name="android:layout_marginTop">2dip</item>
+    </style>
+
+</resources>

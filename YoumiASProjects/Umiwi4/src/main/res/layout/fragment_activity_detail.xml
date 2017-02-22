@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical" >
+
+        <com.umiwi.ui.view.LoginScrollView
+            android:id="@+id/content_scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="1" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
+
+                <ImageView
+                    android:id="@+id/image_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY" />
+
+                <TextView
+                    android:id="@+id/offline_activity_title_text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="12dip"
+                    android:textColor="@color/umiwi_black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:padding="12dip"
+                    android:paddingBottom="0dip" >
+
+                    <TableLayout
+                        android:id="@+id/tutor_info_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+
+                        <TableRow
+                            android:id="@+id/name_container"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" >
+
+                            <TextView
+                                style="@style/Widget.TextView.Item.Title"
+                                android:layout_width="wrap_content"
+                                android:paddingTop="6dip"
+                                android:text="讲师:" />
+
+                            <TextView
+                                android:id="@+id/tutor_name_text_view"
+                                style="@style/Widget.TextView.Item.Title"
+                                android:layout_weight="1"
+                                android:paddingTop="6dip" />
+                        </TableRow>
+
+                        <TableRow
+                            android:id="@+id/time_container"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" >
+
+                            <TextView
+                                style="@style/Widget.TextView.Item.Title"
+                                android:paddingTop="6dip"
+                                android:text="时间:" />
+
+                            <TextView
+                                android:id="@+id/time_text_view"
+                                style="@style/Widget.TextView.Item.Title"
+                                android:layout_weight="1"
+                                android:paddingTop="6dip" />
+                        </TableRow>
+
+                        <TableRow
+                            android:id="@+id/address_container"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" >
+
+                            <TextView
+                                style="@style/Widget.TextView.Item.Title"
+                                android:paddingTop="6dip"
+                                android:text="地址:" />
+
+                            <TextView
+                                android:id="@+id/address_text_view"
+                                style="@style/Widget.TextView.Item.Title"
+                                android:layout_weight="1"
+                                android:paddingTop="6dip" />
+                        </TableRow>
+
+                        <TableRow
+                            android:id="@+id/number_container"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" >
+
+                            <TextView
+                                style="@style/Widget.TextView.Item.Title"
+                                android:paddingTop="6dip"
+                                android:text="人数:" />
+
+                            <TextView
+                                android:id="@+id/number_text_view"
+                                style="@style/Widget.TextView.Item.Title"
+                                android:layout_weight="1"
+                                android:paddingTop="6dip" />
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone" >
+
+                            <TextView
+                                style="@style/Widget.TextView.Item.Title"
+                                android:paddingTop="6dip"
+                                android:text="费用:" />
+
+                            <TextView
+                                android:id="@+id/cost_text_view"
+                                style="@style/Widget.TextView.Item.Title"
+                                android:layout_weight="1"
+                                android:paddingTop="6dip" />
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone" >
+
+                            <Button
+                                android:id="@+id/signup_button"
+                                style="@style/Widget.Button.RedButton"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dip"
+                                android:layout_span="2"
+                                android:layout_weight="1"
+                                android:text="我要报名" />
+                        </TableRow>
+                    </TableLayout>
+
+                    <Button
+                        android:id="@+id/signup_button_outer"
+                        style="@style/Widget.Button.RedButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dip"
+                        android:layout_weight="1"
+                        android:text="我要报名"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dip"
+                    android:layout_marginBottom="5dip"
+                    android:layout_marginLeft="12dip"
+                    android:layout_marginRight="12dip"
+                    android:layout_marginTop="5dip"
+                    android:background="@color/umiwi_gray_e" />
+
+                <TextView
+                    style="@style/Widget.TextView.Item.Title"
+                    android:layout_marginTop="10dip"
+                    android:paddingBottom="6dip"
+                    android:paddingLeft="12dip"
+                    android:paddingRight="12dip"
+                    android:text="课程介绍" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:paddingLeft="12dip"
+                    android:paddingRight="12dip" >
+
+                    <com.umiwi.ui.view.ExpandableTextView
+                        android:id="@+id/description_text_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:id="@+id/toggle_expand_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dip"
+                        android:background="@drawable/description_show_all_bg"
+                        android:scaleType="fitXY" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dip"
+                    android:layout_marginBottom="10dip"
+                    android:layout_marginLeft="12dip"
+                    android:layout_marginRight="12dip"
+                    android:layout_marginTop="10dip"
+                    android:background="@color/umiwi_gray_e" />
+
+                <TextView
+                    android:id="@+id/flow_path_text_view"
+                    style="@style/Widget.TextView.Item.Title"
+                    android:layout_marginTop="5dip"
+                    android:paddingBottom="12dip"
+                    android:paddingLeft="12dip"
+                    android:paddingRight="12dip"
+                    android:text="活动流程" />
+
+                <LinearLayout
+                    android:id="@+id/precedures_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="vertical" >
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/diliver_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dip"
+                    android:layout_marginBottom="10dip"
+                    android:layout_marginLeft="12dip"
+                    android:layout_marginRight="12dip"
+                    android:layout_marginTop="10dip"
+                    android:background="@color/umiwi_gray_e" />
+
+                <TextView
+                    android:id="@+id/tutor_intro_text"
+                    style="@style/Widget.TextView.Item.Title"
+                    android:paddingBottom="12dip"
+                    android:paddingLeft="12dip"
+                    android:paddingRight="12dip"
+                    android:text="讲师介绍" />
+
+                <com.umiwi.ui.view.MyListView
+                    android:id="@+id/tutors_list_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+                </com.umiwi.ui.view.MyListView>
+
+                <View
+                    android:id="@+id/tutor_diliver_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dip"
+                    android:layout_marginBottom="10dip"
+                    android:layout_marginLeft="12dip"
+                    android:layout_marginRight="12dip"
+                    android:layout_marginTop="10dip"
+                    android:background="@color/umiwi_gray_e" />
+
+                <TextView
+                    android:id="@+id/joiners_text_view"
+                    style="@style/Widget.TextView.Item.Title"
+                    android:paddingBottom="12dip"
+                    android:paddingLeft="12dip"
+                    android:paddingRight="12dip"
+                    android:text="参与者" />
+
+                <com.devsmart.android.ui.HorizontalListView
+                    android:id="@+id/joiners_list_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="156dip"
+                    android:layout_marginBottom="10dip"
+                    android:background="@color/white"
+                    android:paddingBottom="6dip"
+                    android:paddingTop="12dip" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dip" />
+                />
+            </LinearLayout>
+        </com.umiwi.ui.view.LoginScrollView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/umiwi_gray_e" >
+
+            <TextView
+                android:id="@+id/stuts_text_view"
+                style="@style/Widget.TextView.Item.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="10dip"
+                android:layout_marginTop="3dip"
+                android:singleLine="true"
+                android:text="剩余时间"
+                android:textColor="@color/umiwi_gray_6" />
+
+            <TextView
+                android:id="@+id/count_down_text_view"
+                style="@style/Widget.TextView.Item.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/stuts_text_view"
+                android:layout_below="@+id/stuts_text_view"
+                android:layout_marginBottom="10dip"
+                android:singleLine="true"
+                android:text="剩余时间"
+                android:textColor="@color/umiwi_gray_6"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/signup_submit_text_view"
+                style="@style/Widget.Button.RedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dip"
+                android:paddingLeft="10dip"
+                android:paddingRight="10dip"
+                android:text="我要报名" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <include layout="@layout/toolbar_actionbar_overlay" />
+
+</FrameLayout>

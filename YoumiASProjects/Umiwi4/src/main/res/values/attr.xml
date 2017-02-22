@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="RoundButton">
+        <attr name="cb_color" format="color" />
+        <attr name="cb_pressed_ring_width" format="dimension" />
+    </declare-styleable>
+    <declare-styleable name="StaggeredGridView">
+        <attr name="column_count" format="integer" />
+        <attr name="column_count_portrait" format="integer" />
+        <attr name="column_count_landscape" format="integer" />
+        <attr name="item_margin" format="dimension" />
+        <attr name="grid_paddingLeft" format="dimension" />
+        <attr name="grid_paddingRight" format="dimension" />
+        <attr name="grid_paddingTop" format="dimension" />
+        <attr name="grid_paddingBottom" format="dimension" />
+    </declare-styleable>
+    <declare-styleable name="ProgressBar">
+        <attr name="android:progressDrawable" />
+        <attr name="android:minWidth" />
+        <attr name="android:maxWidth" />
+        <attr name="android:minHeight" />
+        <attr name="android:maxHeight" />
+        <attr name="android:max" />
+        <attr name="android:progress" />
+        <attr name="android:secondaryProgress" />
+    </declare-styleable>
+    <declare-styleable name="SeekBar">
+        <attr name="android:thumb" />
+        <attr name="android:thumbOffset" />
+    </declare-styleable>
+    <declare-styleable name="Theme">
+        <attr name="android:disabledAlpha" />
+    </declare-styleable>
+
+    <attr name="refresh" format="reference" />
+    <attr name="autoScaleTextViewStyle" format="reference" />
+
+    <declare-styleable name="AutoScaleTextView">
+        <attr name="as_color" format="color" />
+        <attr name="as_pressed_ring_width" format="dimension" />
+        <attr name="minTextSize" format="dimension" />
+    </declare-styleable>
+    <declare-styleable name="AutoScaleCheckedText">
+        <attr name="asct_color" format="color" />
+        <attr name="asct_pressed_ring_width" format="dimension" />
+        <attr name="asct_minTextSize" format="dimension" />
+    </declare-styleable>
+
+
+    <attr name="entrySummaries" format="reference" />
+
+    <declare-styleable name="IjkListPreference">
+        <attr name="entrySummaries" />
+    </declare-styleable>
+
+
+
+</resources>

@@ -1,0 +1,40 @@
+apply plugin: 'android-library'
+
+dependencies {
+    compile fileTree(dir: 'libs', include: '*.jar')
+    compile files('libs/MobCommons.jar')
+    compile files('libs/MobTools.jar')
+    compile files('libs/ShareSDK-Core-2.6.6.jar')
+    compile files('libs/ShareSDK-QQ-2.6.6.jar')
+    compile files('libs/ShareSDK-QZone-2.6.6.jar')
+    compile files('libs/ShareSDK-SinaWeibo-2.6.6.jar')
+    compile files('libs/ShareSDK-Wechat-2.6.6.jar')
+    compile files('libs/ShareSDK-Wechat-Core-2.6.6.jar')
+    compile files('libs/ShareSDK-Wechat-Favorite-2.6.6.jar')
+    compile files('libs/ShareSDK-Wechat-Moments-2.6.6.jar')
+}
+
+android {
+    compileSdkVersion COMPILE_SDK_VERSION as int
+    buildToolsVersion BUILD_TOOLS_VERSION
+
+    useLibrary 'org.apache.http.legacy' // 兼容 apache api
+
+    sourceSets {
+        main {
+            jni.srcDirs = []
+            manifest.srcFile 'src/main/AndroidManifest.xml'
+            java.srcDirs = ['src/main/java']
+            resources.srcDirs = ['resources']
+            res.srcDirs = ['src/main/res']
+            aidl.srcDirs = ['src/main/aidl']
+            renderscript.srcDirs = ['src/main/rs']
+            assets.srcDirs = ['src/main/assets']
+            jniLibs.srcDirs = ['src/main/jniLibs']
+        }
+
+        androidTest.setRoot('tests')
+        debug.setRoot('build-types/debug')
+        release.setRoot('build-types/release')
+    }
+}

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/login_tv_umiwititle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/login_et_white_bg"
+        android:gravity="center_horizontal"
+        android:text="优米账号登录"
+        android:textColor="#ffbbbbbb"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/login_tv_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/login_tv_umiwititle"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="1dp"
+        android:background="@drawable/login_et_white_bg"
+        android:gravity="center"
+        android:paddingLeft="20dp"
+        android:text="账号:"
+        android:textColor="@color/umiwi_black"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/login_et_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/login_tv_username"
+        android:layout_marginRight="20dp"
+        android:layout_toRightOf="@+id/login_tv_username"
+        android:background="@drawable/login_et_white_bg"
+        android:hint="手机号或用户名"
+        android:imeOptions="actionNext"
+        android:paddingLeft="20dp"
+        android:singleLine="true"
+        android:textColor="@color/umiwi_black"
+        android:textColorHint="@color/umiwi_gray_b"
+        android:textCursorDrawable="@null"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/login_tv_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/login_tv_username"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="1dp"
+        android:background="@drawable/login_et_white_bg"
+        android:gravity="center"
+        android:paddingLeft="20dp"
+        android:text="密码:"
+        android:textColor="@color/umiwi_black"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/login_et_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/login_tv_password"
+        android:layout_marginRight="20dp"
+        android:layout_toRightOf="@+id/login_tv_password"
+        android:background="@drawable/login_et_white_bg"
+        android:hint="请输入密码"
+        android:imeOptions="actionGo"
+        android:inputType="textPassword"
+        android:paddingLeft="20dp"
+        android:singleLine="true"
+        android:textColor="@color/umiwi_black"
+        android:textColorHint="@color/umiwi_gray_b"
+        android:textCursorDrawable="@null"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/login_tv_fast_regist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/login_bt_login"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:paddingBottom="12dp"
+        android:text="快速注册"
+        android:textColor="#000000"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/login_tv_forget_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/login_bt_login"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/a_umiwi_forget_password"
+        android:textColor="#000000"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/login_bt_login"
+        style="@style/Widget.Button.RedButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/login_tv_forget_password"
+        android:layout_alignRight="@+id/login_tv_fast_regist"
+        android:layout_below="@+id/login_tv_password"
+        android:layout_marginTop="21dp"
+        android:text="@string/a_umiwi_login"
+        android:textColor="@color/umiwi_white" />
+</RelativeLayout>

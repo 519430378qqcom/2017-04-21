@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <include layout="@layout/toolbar_actionbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/umiwi_gray_f7"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/umiwi_gray_f7"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/icon_root"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/login_et_white_bg"
+                android:orientation="horizontal" >
+
+                <cn.youmi.framework.view.CircleImageView
+                    android:id="@+id/icon_image_view"
+                    android:layout_width="72dip"
+                    android:layout_height="72dip"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
+                    app:ci_border_color="#00000000"
+                    app:ci_border_width="0dp" />
+
+                <LinearLayout
+                    android:id="@+id/title_root"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/name_text_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:singleLine="true"
+                        android:text="我是产品部: Modao"
+                        android:textColor="@color/umiwi_black"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:singleLine="true"
+                        android:text="使用不爽?请告知我们！"
+                        android:textColor="@color/umiwi_gray_9"
+                        android:textSize="13sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="1dip"
+                android:background="@drawable/login_et_white_bg"
+                android:paddingBottom="20dip"
+                android:paddingLeft="20dip"
+                android:paddingTop="20dip" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dip"
+                    android:src="@drawable/ic_phone_feedback" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/phone_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginTop="1dip"
+                        android:gravity="center"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/qq"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginTop="1dip"
+                        android:gravity="center"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/service_tel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginTop="1dip"
+                        android:gravity="center"
+                        android:textSize="18sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/content_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="16dip"
+                android:background="@drawable/login_et_white_bg"
+                android:gravity="top"
+                android:hint="输入吐槽\\建议"
+                android:maxLines="5"
+                android:minLines="5"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:textColor="@color/umiwi_black"
+                android:textColorHint="#ffbbbbbb"
+                android:textCursorDrawable="@null"
+                android:textSize="14sp" >
+            </EditText>
+
+            <EditText
+                android:id="@+id/contact_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="16dip"
+                android:background="@drawable/login_et_white_bg"
+                android:hint="留下手机或QQ，我们会联系你的。"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:singleLine="true"
+                android:textColor="@color/umiwi_black"
+                android:textColorHint="#ffbbbbbb"
+                android:textCursorDrawable="@null"
+                android:textSize="14sp" >
+            </EditText>
+
+            <Button
+                android:id="@+id/commit_button"
+                style="@style/Widget.Button.RedButton"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="提交" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

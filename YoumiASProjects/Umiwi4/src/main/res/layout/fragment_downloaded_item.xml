@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/downloadeditem_relativelayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical"
+    android:padding="10dp" >
+
+    <CheckBox
+        android:id="@+id/video_checkbox"
+        style="@style/Widget.Checkbox.Blue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="5dp"
+        android:checked="false"
+        android:focusable="false"
+        android:focusableInTouchMode="true"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/videotitle_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="30dp"
+        android:layout_toRightOf="@+id/video_checkbox"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textColor="#000000"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/filesize_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_alignLeft="@+id/videotitle_textview"
+        android:layout_below="@+id/videotitle_textview"
+        android:layout_toRightOf="@+id/video_checkbox"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textColor="#999999"
+        android:textSize="12sp" />
+
+    <ImageView
+        android:id="@+id/play_imageview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:layout_marginRight="5dp"
+        android:src="@drawable/video_item_play_bg" />
+
+</RelativeLayout>

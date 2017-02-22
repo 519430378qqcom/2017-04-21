@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/umiwi_gray_f7" >
+
+    <include layout="@layout/toolbar_actionbar" />
+
+    <View
+        android:id="@+id/lines_01"
+        android:layout_width="match_parent"
+        android:layout_height="12dp"
+        android:layout_below="@+id/toolbar_actionbar"
+        android:background="@color/umiwi_white" />
+
+    <TextView
+        android:id="@+id/tv_pay_coupon_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lines_01"
+        android:background="@color/umiwi_white"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:text="以下优惠方式不能同时享受"
+        android:textColor="@color/umiwi_gray_9"
+        android:textSize="16sp" />
+
+    <View
+        android:id="@+id/lines_03"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:layout_below="@+id/tv_pay_coupon_title"
+        android:background="@color/umiwi_white" />
+
+    <RadioGroup
+        android:id="@+id/pay_rg_coupon_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lines_03"
+        android:background="@color/umiwi_white"
+        android:orientation="vertical"
+        android:padding="8dp" >
+
+        <RadioButton
+            android:id="@+id/pay_rb_coupon_list_coupon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/category_hot"
+            android:text="优惠券"
+            android:textSize="18sp"
+            android:visibility="gone" >
+        </RadioButton>
+
+        <RadioButton
+            android:id="@+id/pay_rb_coupon_list_timed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="限时折扣"
+            android:textSize="18sp"
+            android:visibility="gone" >
+        </RadioButton>
+
+        <RadioButton
+            android:id="@+id/pay_rb_coupon_list_vip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="会员折扣"
+            android:textSize="18sp"
+            android:visibility="gone" >
+        </RadioButton>
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/tv_pay_coupon_list_hycd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/pay_rg_coupon_list"
+        android:layout_marginTop="24dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:textColor="@color/umiwi_gray_9"
+        android:textSize="18sp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_pay_coupon_list_silverscore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/tv_pay_coupon_list_hycd"
+        android:layout_marginTop="12dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:textColor="@color/umiwi_gray_9"
+        android:textSize="18sp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/pay_tv_coupon_money"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/tv_pay_coupon_list_silverscore"
+        android:layout_marginTop="12dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:textSize="18sp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/pay_tv_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/pay_tv_coupon_money"
+        android:layout_marginTop="12dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:text="系统默认给出最优惠方式"
+        android:textColor="@color/umiwi_gray_9"
+        android:textSize="16sp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/ok"
+        style="@style/Widget.Button.RedButton"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/pay_tv_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="24dp"
+        android:text="确定" />
+
+</RelativeLayout>

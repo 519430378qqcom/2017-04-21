@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/common_padding_left"
+    android:paddingRight="@dimen/common_padding_right"
+    android:background="@color/umiwi_white"
+    android:padding="8dip" >
+
+    <ImageView
+        android:id="@+id/course_image"
+        android:layout_width="90dip"
+        android:layout_height="70dip"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="4dip"
+        android:background="#c9c9c9"
+        android:scaleType="fitXY" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_toRightOf="@+id/course_image"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/course_titile"
+            android:singleLine="true"
+            style="@style/Widget.TextView.Item.Title"
+            android:lines="1"
+            android:ellipsize="marquee" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="播放"
+                android:textColor="@color/umiwi_gray_9"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/playtimes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dip"
+                android:singleLine="true"
+                android:textColor="@color/umiwi_gray_9"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:singleLine="true"
+                android:text="笔记"
+                android:textColor="@color/umiwi_gray_9"
+                android:textSize="15sp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/note_times"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:textColor="@color/umiwi_gray_9"
+                android:textSize="15sp"
+                android:visibility="gone" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

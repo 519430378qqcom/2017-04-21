@@ -1,0 +1,55 @@
+apply plugin: 'android-library'
+
+
+dependencies {
+    compile fileTree(dir: 'libs', include: '*.jar')
+    compile project(':SwipeBackLayoutLib')
+    compile project(':YoumiResource')
+    compile "com.google.code.gson:gson:${GSON_VERSION}"
+    compile 'com.github.lawloretienne:quickreturn:0.0.1'
+
+    compile "com.github.bumptech.glide:glide:${GLIDE_VERSION}"
+    compile "com.github.bumptech.glide:volley-integration:${GLIDE_VOLLEY_INTEGRATION_VERSION}" // https://github.com/bumptech/glide/wiki/Integration-Libraries
+    compile "com.mcxiaoke.volley:library:${VOLLEY_VERSION}" //google velloy 的境像同步
+
+    compile "com.squareup.okio:okio:${OK_IO_VERSION}"
+    compile "com.squareup.okhttp:okhttp:${OK_HTTP_VERSION}"
+
+    compile "com.jakewharton:disklrucache:${DISKLRUCACHE_VERSION}"
+}
+
+
+android {
+    compileSdkVersion COMPILE_SDK_VERSION as int
+    buildToolsVersion BUILD_TOOLS_VERSION
+
+    useLibrary 'org.apache.http.legacy' // 兼容 apache api
+
+    sourceSets {
+        main {
+            jni.srcDirs = []
+            manifest.srcFile 'src/main/AndroidManifest.xml'
+            java.srcDirs = ['src/main/java']
+            resources.srcDirs = ['resources']
+            res.srcDirs = ['src/main/res']
+            aidl.srcDirs = ['src/main/aidl']
+            renderscript.srcDirs = ['src/main/rs']
+            assets.srcDirs = ['src/main/assets']
+            jniLibs.srcDirs = ['src/main/jniLibs']
+        }
+
+        androidTest.setRoot('tests')
+        debug.setRoot('build-types/debug')
+        release.setRoot('build-types/release')
+    }
+
+}
+
+apply plugin: 'idea'
+
+idea {
+    module {
+        downloadJavadoc = true // 下载依赖项目的文档
+        downloadSources = true // 下载依赖项目的源码
+    }
+}

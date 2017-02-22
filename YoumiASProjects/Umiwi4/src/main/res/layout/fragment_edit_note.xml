@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/umiwi_gray_f7"
+    android:orientation="vertical" >
+
+    <android.support.v7.widget.Toolbar
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/toolbar_actionbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/Theme.Apptheme_umiwi"
+        app:navigationIcon="@drawable/delete_fork"
+        app:popupTheme="@style/ActionBarPopupTheme"
+        app:theme="@style/ActionBarTheme"
+        app:titleTextAppearance="@style/ActionBar.TitleTextStyle.Umiwi" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <EditText
+            android:id="@+id/content_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/umiwi_white"
+            android:gravity="top"
+            android:hint="请输入笔记内容"
+            android:lineSpacingMultiplier="1"
+            android:padding="15dp"
+            android:imeOptions="actionDone"
+            android:textColor="@color/umiwi_black"
+            android:textCursorDrawable="@null"
+            android:textSize="16sp" >
+        </EditText>
+    </FrameLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp" >
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/screen_shot_image_viwe"
+                android:layout_width="200dip"
+                android:layout_height="150dip"
+                android:scaleType="fitXY" />
+
+            <ProgressBar
+                android:id="@+id/loading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/save_button"
+            style="@style/Widget.Button.RedButton.Small"
+            android:layout_width="wrap_content"
+            android:layout_alignParentRight="true"
+            android:paddingBottom="5dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="5dp"
+            android:text="@string/save"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+</LinearLayout>

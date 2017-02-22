@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/frame_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical">
+
+    <LinearLayout
+        android:id="@+id/center_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dip"
+        android:layout_marginTop="30dip"
+        android:background="@color/umiwi_gray_e"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="搜索不给力,\n程序员去面壁思过了... ..."
+            android:textColor="@color/umiwi_black"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_unsatisfy"
+            style="@style/Widget.Button.RedButton"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:text="告诉工程师不满的原因"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_cancel"
+        android:layout_width="32dip"
+        android:layout_height="32dip"
+        android:layout_alignRight="@id/center_container"
+        android:layout_alignTop="@id/center_container"
+        android:layout_gravity="top|right"
+        android:layout_marginLeft="16dip"
+        android:layout_marginRight="-14dip"
+        android:layout_marginTop="-14dip"
+        android:background="@drawable/cancel_green_bg" />
+
+</RelativeLayout>

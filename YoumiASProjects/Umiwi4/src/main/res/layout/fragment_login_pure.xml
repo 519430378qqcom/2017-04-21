@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.umiwi.ui.fragment.login.LoginPureFragment">
+
+    <include layout="@layout/toolbar_actionbar" />
+
+    <com.umiwi.ui.view.LoginScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
+
+            <TextView
+                android:id="@+id/login_tv_qqzone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:drawablePadding="2dp"
+                android:drawableTop="@drawable/logo_qq"
+                android:gravity="center"
+                android:padding="2dp"
+                android:text="QQ登录"
+                android:textColor="@color/umiwi_black"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/login_tv_weixin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/login_tv_qqzone"
+                android:layout_marginRight="40dp"
+                android:layout_toLeftOf="@+id/login_tv_qqzone"
+                android:drawablePadding="2dp"
+                android:drawableTop="@drawable/logo_wechat"
+                android:gravity="center"
+                android:padding="2dp"
+                android:text="微信登录"
+                android:textColor="@color/umiwi_black"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/login_tv_sinaweibo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/login_tv_qqzone"
+                android:layout_marginLeft="40dp"
+                android:layout_toRightOf="@+id/login_tv_qqzone"
+                android:drawablePadding="2dp"
+                android:drawableTop="@drawable/logo_sinaweibo"
+                android:gravity="center"
+                android:padding="2dp"
+                android:text="微博登录"
+                android:textColor="@color/umiwi_black"
+                android:textSize="12sp" />
+
+            <include
+                layout="@layout/fragment_login_youmi_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/login_tv_qqzone" />
+
+        </RelativeLayout>
+    </com.umiwi.ui.view.LoginScrollView>
+
+</LinearLayout>

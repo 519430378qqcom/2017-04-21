@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f7f7f7"
+    android:orientation="vertical"
+    android:padding="8dp"
+    android:descendantFocusability="blocksDescendants"
+    android:id="@+id/itemview_relativelayout"
+     >
+	
+    <CheckBox 
+        android:id="@+id/album_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="false"
+        android:visibility="gone"
+        android:layout_marginRight="5dp"
+        android:layout_centerVertical="true"
+        style="@style/Widget.Checkbox.Blue" />
+    
+    
+    <RelativeLayout 
+        android:layout_width="92dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/albumimageview_wrap"
+        android:layout_toRightOf="@+id/album_checkbox"
+        >
+        
+	  	<ImageView
+	    android:id="@+id/album_imageview"
+	    android:layout_width="92dp"
+	    android:layout_height="69dp"
+	    android:src="@drawable/image_loader_min"
+	    android:layout_marginTop="1.5dp"
+	    android:layout_marginRight="2dp"
+	    />
+	  	
+	  	<ImageView
+	    android:id="@+id/album_newicon"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:src="@drawable/newdownload_circle"
+	    android:layout_alignParentTop="true"
+	    android:layout_alignParentRight="true"
+	    android:visibility="gone"
+	    
+	    />
+	  	
+  	</RelativeLayout>
+  	
+    
+  	<TextView
+        android:id="@+id/albumtitle_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:layout_toRightOf="@+id/albumimageview_wrap" 
+        android:layout_marginLeft="20dp"
+        android:singleLine="true"
+        android:ellipsize="end"  />
+  
+   	<ImageView
+	    android:id="@+id/videoicon_imageview"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:src="@drawable/video"
+	    android:layout_toRightOf="@+id/albumimageview_wrap"
+	    android:layout_below="@+id/albumtitle_textview"
+	    android:layout_marginLeft="20dp"
+        android:layout_marginTop="25dp"/>
+   	 <TextView
+        android:id="@+id/videocount_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#999999"
+        android:textSize="12sp"
+        android:layout_toRightOf="@+id/videoicon_imageview" 
+        android:layout_below="@+id/albumtitle_textview"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="21dp"/>
+   	 
+   	  	<TextView
+        android:id="@+id/filesize_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#999999"
+        android:textSize="12sp"
+        android:layout_below="@+id/albumtitle_textview"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="21dp"
+        android:layout_alignParentRight="true"/>
+   	 
+     
+</RelativeLayout>

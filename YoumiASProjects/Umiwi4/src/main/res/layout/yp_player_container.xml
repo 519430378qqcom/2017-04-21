@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/full_holder_inner"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/space_left"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_alignParentLeft="true"></RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/space_middle"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_toLeftOf="@+id/space_right"
+        android:layout_toRightOf="@+id/space_left">
+
+        <RelativeLayout
+            android:id="@+id/space_top"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_alignParentTop="true"></RelativeLayout>
+
+        <!--<com.umiwi.video.widget.media.TextureRenderView-->
+            <!--android:id="@+id/surface_view"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_above="@+id/space_bottom"-->
+            <!--android:layout_below="@+id/space_top"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:focusableInTouchMode="true" />-->
+        <FrameLayout
+            android:id="@+id/surface_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/space_bottom"
+            android:layout_below="@+id/space_top"
+            android:layout_centerInParent="true"
+            android:focusableInTouchMode="true"></FrameLayout>
+
+        <RelativeLayout
+            android:id="@+id/space_bottom"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_alignParentBottom="true"
+            android:background="@android:color/black"></RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/space_right"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_alignParentRight="true"></RelativeLayout>
+
+</RelativeLayout>

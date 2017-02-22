@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/right_panel_container"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_gravity="right"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:background="@color/ijk_transparent_dark"
+        android:orientation="vertical"
+        android:padding="12dip">
+
+        <ImageView
+            android:id="@+id/player_edit_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_video_note_hilight"
+            android:clickable="true" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:background="#777777" />
+
+        <ImageView
+            android:id="@+id/player_select_course_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_video_course_hilight"
+            android:clickable="true"
+            android:enabled="false" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/play_list_view"
+        android:layout_width="269dip"
+        android:layout_height="match_parent"
+        android:background="@color/ijk_transparent_dark"
+        android:divider="#555555"
+        android:dividerHeight="1dip"
+        android:paddingBottom="25dip"
+        android:paddingLeft="18dip"
+        android:paddingRight="18dip"
+        android:paddingTop="25dip"
+        android:visibility="gone" />
+</LinearLayout>

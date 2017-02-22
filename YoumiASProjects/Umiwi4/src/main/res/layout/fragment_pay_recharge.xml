@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/umiwi_gray_f7" >
+
+    <include layout="@layout/toolbar_actionbar" />
+
+    <EditText
+        android:id="@+id/recharge_et_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar_actionbar"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="8dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/login_et_white_bg"
+        android:hint="请输入充值金额"
+        android:maxLength="10"
+        android:numeric="integer"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:singleLine="true"
+        android:textColor="@color/umiwi_black"
+        android:textColorHint="#ffbbbbbb"
+        android:textCursorDrawable="@null"
+        android:textSize="18sp" >
+    </EditText>
+
+    <TextView
+        android:id="@+id/recharge_tv_submit"
+        style="@style/Widget.Button.RedButton"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/recharge_et_input"
+        android:layout_margin="8dp"
+        android:layout_marginTop="24dip"
+        android:background="@drawable/button_red_selector"
+        android:text="去充值" />
+
+</RelativeLayout>

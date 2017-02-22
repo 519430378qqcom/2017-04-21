@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/umiwi_gray_f7"
+    android:orientation="vertical"
+    android:scrollbars="none" >
+
+    <include layout="@layout/toolbar_actionbar" />
+
+    <LinearLayout
+        android:id="@+id/register_phone_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:paddingLeft="12dp"
+    	android:paddingRight="12dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/login_et_white_bg"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:singleLine="true"
+            android:text="手机号:"
+            android:textColor="@color/umiwi_black"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/register_phone_number_edittext"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/login_et_white_bg"
+            android:hint="请输入您的手机号码"
+            android:inputType="phone|textPhonetic"
+            android:maxLength="11"
+            android:phoneNumber="true"
+            android:singleLine="true"
+            android:textColor="@color/umiwi_black"
+            android:textColorHint="@color/umiwi_gray_b"
+            android:textCursorDrawable="@null"
+            android:textSize="14sp" >
+        </EditText>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/imagecode_layout"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="24dp"
+        android:paddingLeft="12dp"
+    	android:paddingRight="12dp"
+        android:orientation="horizontal"
+        android:visibility="gone" >
+
+        <TextView
+            android:id="@+id/code_textveiw"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/login_et_white_bg"
+            android:gravity="center_vertical"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:singleLine="true"
+            android:text="验证码:"
+            android:textColor="@color/umiwi_black"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/code_imageview"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true" />
+
+        <EditText
+            android:id="@+id/code_number_et"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/code_imageview"
+            android:layout_toRightOf="@+id/code_textveiw"
+            android:background="@drawable/login_et_white_bg"
+            android:hint="输入图片验证码"
+            android:inputType="phone|textPhonetic"
+            android:maxLength="11"
+            android:paddingLeft="12dp"
+            android:phoneNumber="true"
+            android:singleLine="true"
+            android:textColor="@color/umiwi_black"
+            android:textColorHint="#ffbbbbbb"
+            android:textCursorDrawable="@null"
+            android:textSize="14sp" >
+        </EditText>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/register_commit_textview"
+        android:layout_marginLeft="12dp"
+    	android:layout_marginRight="12dp"
+        style="@style/Widget.Button.RedButton"
+        android:layout_width="match_parent"
+        android:layout_marginTop="24dp"
+        android:text="立即注册" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
+</LinearLayout>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- <string name="serverurl">http://app.umiwi.com/android/info.xml</string>  --><!-- old -->
+    <!-- <string name="serverurl">http://i3.umivi.net/client/android.xml</string>  --><!-- old -->
+   <!--  <string name="serverurl">http://www.umiwi.com/client/android.xml</string> --> <!-- verison 4.5.1 before-->
+    <string name="serverurl">http://www.youmi.cn/client/android/config/android.xml?</string> <!-- verison 4.5.1 after-->
+    <string name="serverurlgingerbread">http://www.youmi.cn/client/android/config/androidGingerbread.xml?</string> <!-- android2.3 verison 4.7.2 after-->
+    <string name="serverurlics">http://www.youmi.cn/client/android/config/androidICS.xml?</string> <!-- android4.x 4.7.2 after-->
+    
+    <!-- <string name="serverurl">http://www.umiwi.com/client/androidTest.xml?</string>  --><!-- test -->
+</resources>

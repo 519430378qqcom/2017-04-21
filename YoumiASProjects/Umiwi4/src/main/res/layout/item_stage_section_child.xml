@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/umiwi_white">
+
+    <com.umiwi.ui.view.PayGridView
+        android:id="@+id/stage_section_child_gridview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dip"
+        android:layout_marginTop="10dip"
+        android:horizontalSpacing="1dip"
+        android:numColumns="2"
+        android:paddingLeft="5dip"
+        android:paddingRight="5dip"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="5dip" />
+
+</FrameLayout>

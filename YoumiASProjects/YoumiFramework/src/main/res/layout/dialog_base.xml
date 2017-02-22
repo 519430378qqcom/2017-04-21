@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#a8000000"
+    android:paddingLeft="32dp"
+    android:paddingRight="32dp" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/bg_dialog_bottom"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/title_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/bg_dialog_top"
+            android:gravity="center"
+            android:paddingBottom="12dip"
+            android:paddingTop="12dip"
+            android:text="标题"
+            android:textColor="@color/umiwi_orange"
+            android:textSize="18sp" />
+
+        <View
+            android:id="@+id/title_line_view"
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:background="@color/umiwi_green"
+            android:visibility="gone" />
+
+        <FrameLayout
+            android:id="@+id/content_view_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp" >
+        </FrameLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:background="@color/umiwi_gray_e" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <cn.youmi.framework.view.StrokeButton
+                android:id="@+id/negative_button"
+                android:layout_width="0dip"
+                android:layout_height="44dip"
+                android:layout_marginRight="6dip"
+                android:layout_weight="1"
+                android:background="@drawable/selectable_background_transparent"
+                android:clickable="true" />
+
+            <View
+                android:layout_width="1dip"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:background="@color/umiwi_gray_e" />
+
+            <cn.youmi.framework.view.StrokeButton
+                android:id="@+id/positive_button"
+                android:layout_width="0dip"
+                android:layout_height="44dip"
+                android:layout_marginLeft="6dip"
+                android:layout_weight="1"
+                android:background="@drawable/selectable_background_transparent"
+                android:clickable="true" />
+        </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>

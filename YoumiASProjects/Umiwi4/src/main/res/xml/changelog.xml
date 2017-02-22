@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<changelog>
+
+    <release version="5.3.7" versioncode="103" date="01/22/2016">
+        <change>修复视频字幕遮挡问题</change>
+        <change>解决一些错误</change>
+        <change>优化性能，提高稳定性</change>
+        <change>强烈建议升级</change>
+    </release>
+    <release version="5.3.6" versioncode="101" date="01/09/2016">
+        <change>新年第一版</change>
+        <change>解决一堆错误</change>
+        <change>优化性能，提高稳定性</change>
+        <change>强烈建议升级</change>
+    </release>
+
+    <release version="5.3.5" versioncode="100" date="12/17/2015">
+        <change>修复部分机型播放闪屏</change>
+        <change>全新的播放器，更好的播放体验</change>
+        <change>修复一堆错误</change>
+        <change>优化性能，提高稳定性</change>
+        <change>强烈建议升级</change>
+    </release>
+
+    <release version="5.3.1" versioncode="99" date="11/20/2015">
+        <change>全新的播放器，更好的播放体验</change>
+        <change>新增课程排序功能</change>
+        <change>新增我的私信功能</change>
+        <change>修复专题购买功能</change>
+        <change>修复一堆错误</change>
+        <change>优化性能，提高稳定性</change>
+        <change>强烈建议升级</change>
+    </release>
+    <release version="5.3.0" versioncode="98" date="11/13/2015">
+        <change>全新的播放器，更好的播放体验</change>
+        <change>新增课程排序功能</change>
+        <change>新增我的私信功能</change>
+        <change>修复一堆错误</change>
+        <change>优化性能，提高稳定性</change>
+        <change>强烈建议升级</change>
+    </release>
+
+    <release version="5.2.5" versioncode="96" date="08/21/2015">
+        <change>修复一堆错误</change>
+        <change>优化性能，提高稳定性</change>
+        <change>建议升级</change>
+    </release>
+
+    <release version="5.2.2" versioncode="94" date="06/29/2015">
+        <change>修复部分机型可能出现移动网络下崩溃的问题</change>
+        <change>优化性能，提高稳定性</change>
+    </release>
+
+     <release version="5.2.1" versioncode="92" date="06/23/2015">
+    	<change>重新布局，让创客解决创业问题更方便快捷</change>
+    	<change>新增创业直通车，直达十大创业核心痛点</change>
+    	<change>积分功能上线，更多大礼等你兑换</change>
+    	<change>新增学习周报，回顾学习更快乐更轻松</change>
+    	<change>交互优化，界面更美观，使用更流畅</change>
+    	<change>优化性能，提高稳定性</change>
+    </release>
+     <release version="5.1.0" versioncode="90" date="04/30/2015">
+    	<change>播放体验升级，贴心界面，一切为了你</change>
+    	<change>登录注册流程优化，快速登录马上体验</change>
+    	<change>购买流程优化，订单一键搞定</change>
+    	<change>线下活动预告，创业的路上我们在一起</change>
+    	<change>优化应用稳定性</change>
+    </release>
+    
+     <release version="5.0.0" versioncode="88" date="01/22/2015">
+    	<change>新界面、新风格、新栏目</change>
+    	<change>创业分类更全面、内容更丰富</change>
+    	<change>机器推荐+人工推荐找课更容易</change>
+    </release>
+
+    
+    <release version="4.8.4" versioncode="84" date="12/09/2014">
+    	<change>优化启动速度</change>
+    	<change>修复部分登录bug</change>
+    </release>
+    
+    
+     <release version="4.8.3" versioncode="83" date="12/09/2014">
+    	<change>解决部分用户无法登录</change>
+    	<change>优化部分外部储存无法识别</change>
+    </release>
+    <release version="4.8.2" versioncode="82" date="11/24/2014">
+    	<change>解决4.4版本SD卡不能存视频</change>
+    	<change>优化bug闪退和播放黑屏</change>
+    	<change>实现wifi下自动下载视频</change>
+    </release>
+    <release version="4.8.1" versioncode="81" date="11/07/2014">
+        <change>讲师可以陪你聊天咨询啦</change>
+    	<change>学习体验更好，成长更快</change>
+    	<change>修复bug,快快升级吧</change>
+    </release>
+    <release version="4.7.2" versioncode="78" date="10/13/2014">
+        <change>精品专题系统解决问题</change>
+    	<change>下载路径可以随意切换</change>
+    	<change>我们一直努力，系统更稳定</change>
+    </release>
+    <release version="4.7.1" versioncode="77" date="09/26/2014">
+        <change>修复中文注册错误，修复订单支付错误，优化细节体验</change>
+    </release>
+	<release version="4.7.0" versioncode="76" date="09/19/2014">
+        <change>每天摇一摇，给力优惠摇出来！</change>
+        <change>线下活动升级，一起来玩耍吧。</change>
+        <change>优惠券功能升级，也许惊喜就在下一秒。</change>
+        <change>解决了亲们反馈的各种问题,求夸奖，么么哒~</change>
+    </release> 
+	<release version="4.6.8" versioncode="74" date="09/06/2014">
+        <change>课程轮播图有了个性推荐，只给你你想看的</change>
+        <change>新增绑定手机号功能，保护你的账户安全</change>
+        <change>优化了细节样式，界面更优雅</change>
+        <change>解决了用户反馈的问题</change>
+    </release> 
+    <release version="4.6.7" versioncode="73" date="09/02/2014">
+        <change>修复记录笔记崩溃问题</change>
+    </release> 
+    <release version="4.6.6" versioncode="71" date="08/28/2014">
+        <change>优化了播放器手势，看课程更舒服</change>
+        <change>修复新浪微博登录与分享授权错误</change>
+		<change>修复了用户反馈的BUG，我们一直在改进哦~</change>
+    </release> 
+    <release version="4.6.1" versioncode="63" date="08/12/2014">
+        <change>游戏来了，游戏中成长感觉很酷！</change>
+		<change>课程不好可以吐槽了</change>
+		<change>闪退离你而去，快快升级吧</change>
+    </release> 
+    <release version="4.5.1" versioncode="60" date="07/09/2014">
+        <change>全面升级，500门实操课程免费了</change>
+		<change>全新的下载体验，想学就学</change>
+		<change>找课、搜索巨方便，只学有用的</change>
+    </release> 
+    <release version="4.3.6" versioncode="55" date="05/26/2014">
+        <change>修复部分手机打开应用闪退</change>
+		<change>增加来电时视频暂停功能</change>
+    </release> 
+    
+    <release version="4.3.5" versioncode="53" date="05/23/2014">
+        <change>为你定制精品好课，适合你才有价值</change>
+        <change>全新分类，可根据讲师找课</change>
+		<change>解决下载视频无法观看问题</change>
+		<change>添加微信快捷支付</change>
+		<change>修复闪退，增强系统稳定性</change>
+    </release> 
+    
+    <release version="4.3.2" versioncode="51" date="05/20/2014">
+        <change>为你定制精品好课，适合你才有价值</change>
+        <change>全新分类，可根据讲师找课</change>
+		<change>解决下载视频无法观看问题</change>
+		<change>添加微信快捷支付</change>
+		<change>修复闪退，增强系统稳定性</change>
+    </release> 
+    
+    <release version="4.2.1" versioncode="49" date="04/08/2014">
+        <change>修复由于锁屏导致已下载视频损坏的问题</change>
+    </release> 
+    
+    <release version="4.2.0" versioncode="48" date="04/04/2014">
+        <change>解决下载视频无法观看问题</change>
+        <change>观看视频可以手势滑动哦</change>
+		<change>登录不再麻烦！支持微信、微博、QQ一键登录</change>
+		<change>支付极快捷！不信试试看呀</change>
+		<change>修复闪退，增强系统稳定性</change>
+    </release> 
+    
+    <release version="4.1.1" versioncode="45" date="03/12/2014">
+        <change>摇优惠，摇出给力优惠</change>
+        <change>白银会员签到就挣钱</change>
+		<change>修复闪退，下载观看更稳定</change>
+    </release> 
+       
+    <release version="4.00" versioncode="42" date="02/25/2014">
+        <change>优米视频改名为优米课堂了</change>
+        <change>全新设计，界面清新</change>
+		<change>优化缓存，下载观看稳定</change>
+		<change>新增收藏，高效学习</change>
+		<change>稳定流畅，修复闪退</change>
+    </release>  
+    
+    <release version="3.6" versioncode="36"  date="11/12/2013">
+        <change>新增精品专题，知识在这类沉淀</change>
+        <change>新增记录同步，跨屏学习不间断</change>
+        <change>优化体验，更流畅</change>
+    </release>  
+       
+</changelog>
+

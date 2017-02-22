@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <color name="background_tab_pressed">#6633B5E5</color>
+    <!-- 主色调 -->
+    <color name="main_color">#ff7000</color>
+    <!-- 纯黑色 -->
+    <color name="umiwi_black0">#000000</color>
+    <!-- 黑色 -->
+    <color name="umiwi_black">#ff000000</color>
+    <!-- 白色 -->
+    <color name="umiwi_white">#ffffffff</color>
+    <!-- 红色 -->
+    <color name="umiwi_red">#ffff4444</color>
+    <!-- 绿色 -->
+    <color name="umiwi_green">#50b539</color>
+    <!-- 绿色 -->
+    <color name="umiwi_green_share">#4cbf62</color>
+    <!-- 蓝色 -->
+    <color name="umiwi_blue">#006ed3</color>
+    <!-- 字体橘红 ff3f13 -->
+    <color name="umiwi_orange">#ff6600</color>
+    <!-- 黄色 -->
+    <color name="umiwi_yellow">#ffc72f</color>
+
+    <!-- 浅灰色 1 -->
+    <color name="umiwi_gray_1">#ff111111</color>
+    <!-- 浅灰色 3 -->
+    <color name="umiwi_gray_3">#ff333333</color>
+    <!-- 浅灰色 6 -->
+    <color name="umiwi_gray_6">#ff666666</color>
+    <!-- 浅灰色9 -->
+    <color name="umiwi_gray_9">#ff999999</color>
+    <!-- 浅灰色 b -->
+    <color name="umiwi_gray_b">#ffbbbbbb</color>
+    <!-- 浅灰色 c -->
+    <color name="umiwi_gray_c">#ffcccccc</color>
+    <!-- 浅灰色 d -->
+    <color name="umiwi_gray_d">#ffdddddd</color>
+    <!-- 浅灰色 e -->
+    <color name="umiwi_gray_e">#ffeeeeee</color>
+    <!-- 浅灰色f7 -->
+    <color name="umiwi_gray_f7">#fff7f7f7</color>
+    <color name="umiwi_pagerslidingtab_green">#FF7EB706</color>
+    <color name="green">#09aa66</color>
+    <color name="white">#ffffff</color>
+    <color name="bg_gray">#e6e6e6</color>
+    <color name="gray_a">#aaaaaa</color>
+    
+    <color name="black_33">#33000000</color>
+    <color name="black_a8">#a8000000</color>
+    <color name="black">#000000</color>
+</resources>

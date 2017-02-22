@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/downloading_item"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:descendantFocusability="blocksDescendants"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="8dp" >
+
+    <CheckBox
+        android:id="@+id/item_checkbox"
+        style="@style/Widget.Checkbox.Blue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerInParent="true"
+        android:layout_marginRight="10dp"
+        android:checked="false"
+        android:visibility="visible" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/item_checkbox" >
+
+        <TextView
+            android:id="@+id/title_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginRight="4dip"
+            android:layout_toLeftOf="@+id/percentage_tip_textview"
+            android:ellipsize="marquee"
+            android:text=""
+            android:textColor="@color/umiwi_black"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/percentage_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title_textview"
+            android:text="3.27M/6.59M"
+            android:textColor="#888888"
+            android:textSize="12sp"
+            android:typeface="monospace" />
+
+        <com.umiwi.ui.view.CirclePercentageView
+            android:id="@+id/percentage_view"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="4dip"
+            android:focusableInTouchMode="true" />
+
+        <TextView
+            android:id="@+id/percentage_tip_textview"
+            android:layout_width="36dp"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/percentage_view"
+            android:layout_below="@+id/percentage_view"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:ellipsize="end"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:gravity="center_horizontal|top"
+            android:singleLine="true"
+            android:text="等待中"
+            android:textColor="#888888"
+            android:textSize="8sp"  />
+    </RelativeLayout>
+
+</RelativeLayout>

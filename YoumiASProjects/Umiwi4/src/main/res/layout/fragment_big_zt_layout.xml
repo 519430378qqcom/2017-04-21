@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/umiwi_gray_f7"
+    android:orientation="vertical" >
+
+    <include layout="@layout/toolbar_actionbar" />
+
+    <RelativeLayout
+        android:id="@+id/buyzhuanti_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/umiwi_gray_f7"
+        android:orientation="horizontal"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
+        android:visibility="gone" >
+
+        <TextView
+            android:id="@+id/discount_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_toRightOf="@+id/discount_price"
+            android:textColor="@color/umiwi_gray_9"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/buyzhuanti"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="12dp"
+            android:background="@drawable/button_red_selector"
+            android:text="立即购买"
+            android:textColor="@color/umiwi_white"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+    <ExpandableListView
+        android:id="@+id/expandableListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/buyzhuanti_layout"
+        android:layout_below="@+id/toolbar_actionbar"
+        android:divider="@null"
+        android:drawSelectorOnTop="false"
+        android:groupIndicator="@null"
+        android:overScrollMode="never"
+        android:scrollbarStyle="outsideOverlay" />
+
+</RelativeLayout>
