@@ -4,7 +4,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.1'
+        classpath 'com.android.tools.build:gradle:2.2.3'
 
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.3'
 //        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.3.1'
@@ -28,10 +28,10 @@ allprojects {
 }
 
 ext {
-    compileSdkVersion = 23
-    buildToolsVersion = "23.0.1"
+    compileSdkVersion = 24
+    buildToolsVersion = "24.0.2"
 
-    targetSdkVersion = 23
+    targetSdkVersion = 24
 
     versionCode = 404000
     versionName = "0.4.4"
