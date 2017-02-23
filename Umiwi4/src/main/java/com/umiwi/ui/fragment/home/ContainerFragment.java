@@ -7,10 +7,13 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+
 import cn.youmi.account.event.UserEvent;
 import cn.youmi.account.model.UserModel;
 import cn.youmi.framework.fragment.BaseFragment;
@@ -22,6 +25,7 @@ import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 import com.umeng.analytics.MobclickAgent;
 import com.umiwi.ui.R;
+import com.umiwi.ui.fragment.alreadyboughtfragment.AlreadyBoughtFragment;
 import com.umiwi.ui.fragment.home.updatehome.NewHomeRecommendFragment;
 import com.umiwi.ui.managers.YoumiRoomUserManager;
 
@@ -50,13 +54,15 @@ public class ContainerFragment extends BaseFragment {
 			@Override
 			public View createTabView(ViewGroup container, int position,
 					PagerAdapter adapter) {
+//				LinearLayout icon = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.custom_tab_icon,container,false);
                 ImageView icon = (ImageView) LayoutInflater.from(getActivity()).inflate(R.layout.custom_tab_icon, container, false);
                 switch (position) {
                     case 0:
                         icon.setImageDrawable(res.getDrawable(R.drawable.selector_ic_bottom_home));
                         break;
                     case 1:
-                        icon.setImageDrawable(res.getDrawable(R.drawable.selector_ic_bottom_category));
+//                        icon.setImageDrawable(res.getDrawable(R.drawable.selector_ic_bottom_category));
+						icon.setImageDrawable(res.getDrawable(R.drawable.selector_ic_bottom_alreadybought));
                         break;
                     case 2:
                         icon.setImageDrawable(res.getDrawable(R.drawable.selector_ic_bottom_discovery));
@@ -73,7 +79,8 @@ public class ContainerFragment extends BaseFragment {
 		FragmentPagerItems pages = new FragmentPagerItems(getActivity());
 //		pages.add(FragmentPagerItem.of("首页", HomeRecommendFragment.class));
 		pages.add(FragmentPagerItem.of("首页", NewHomeRecommendFragment.class));
-		pages.add(FragmentPagerItem.of("分类",StageSectionCategoryFragment.class));
+//		pages.add(FragmentPagerItem.of("分类",StageSectionCategoryFragment.class));
+		pages.add(FragmentPagerItem.of("分类", AlreadyBoughtFragment.class));
 		pages.add(FragmentPagerItem.of("发现", DiscoveryFragment.class));
 		pages.add(FragmentPagerItem.of("我的",MineFragment.class));
 
