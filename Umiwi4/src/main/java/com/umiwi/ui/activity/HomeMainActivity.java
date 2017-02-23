@@ -76,6 +76,9 @@ import cn.youmi.framework.util.SharePreferenceUtil;
 import cn.youmi.framework.util.ToastU;
 import cn.youmi.framework.util.UpdateUtils;
 
+/**
+ * 主activity添加注释
+ */
 public class HomeMainActivity extends AppCompatActivity {
     private ProgressBar mProgressBar;
 
