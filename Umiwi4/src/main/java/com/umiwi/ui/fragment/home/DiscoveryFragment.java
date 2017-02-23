@@ -150,12 +150,14 @@ public class DiscoveryFragment extends BaseConstantFragment {
                             i.putExtra(WebFragment.WEB_URL, UmiwiAPI.INTEGRAL_SHOP);
                             isWebNotice = true;
                             break;
-                        case 5://发现适合我的课程
+                        case 5://线下活动
+
+                            i.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, OfflineActivityFragment.class);
+                            break;
+                        case 6://发现适合我的课程
+                            //TODO 5-6 切换了下
                             i.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, UserTestInfoFragment.class);
                             i.putExtra(UserTestInfoFragment.URL_CATEGORY, UmiwiAPI.USER_TEST_COURSE);
-                            break;
-                        case 6://线下活动
-                            i.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, OfflineActivityFragment.class);
                             break;
                     }
                     startActivity(i);
