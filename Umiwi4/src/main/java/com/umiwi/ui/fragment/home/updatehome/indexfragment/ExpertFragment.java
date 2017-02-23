@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,11 +19,9 @@ import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.LecturerListAdapter;
 import com.umiwi.ui.beans.LecturerBean;
 import com.umiwi.ui.fragment.LecturerDetailFragment;
-import com.umiwi.ui.fragment.home.updatehome.newtext.MyLetterListViewTwo;
+import com.umiwi.ui.fragment.home.updatehome.newtest.MyLetterListViewTwo;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.UmiwiAPI;
-
-import org.w3c.dom.Text;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;

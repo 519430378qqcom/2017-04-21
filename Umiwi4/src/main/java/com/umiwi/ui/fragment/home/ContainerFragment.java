@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import cn.youmi.account.event.UserEvent;
 import cn.youmi.account.model.UserModel;
@@ -28,6 +29,8 @@ import com.umiwi.ui.R;
 import com.umiwi.ui.fragment.alreadyboughtfragment.AlreadyBoughtFragment;
 import com.umiwi.ui.fragment.home.updatehome.NewHomeRecommendFragment;
 import com.umiwi.ui.managers.YoumiRoomUserManager;
+
+import org.w3c.dom.Text;
 
 /**
  * 首页 //抽屉
@@ -54,8 +57,8 @@ public class ContainerFragment extends BaseFragment {
 			@Override
 			public View createTabView(ViewGroup container, int position,
 					PagerAdapter adapter) {
-//				LinearLayout icon = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.custom_tab_icon,container,false);
                 ImageView icon = (ImageView) LayoutInflater.from(getActivity()).inflate(R.layout.custom_tab_icon, container, false);
+
                 switch (position) {
                     case 0:
                         icon.setImageDrawable(res.getDrawable(R.drawable.selector_ic_bottom_home));
@@ -63,6 +66,7 @@ public class ContainerFragment extends BaseFragment {
                     case 1:
 //                        icon.setImageDrawable(res.getDrawable(R.drawable.selector_ic_bottom_category));
 						icon.setImageDrawable(res.getDrawable(R.drawable.selector_ic_bottom_alreadybought));
+
                         break;
                     case 2:
                         icon.setImageDrawable(res.getDrawable(R.drawable.selector_ic_bottom_discovery));
@@ -80,7 +84,7 @@ public class ContainerFragment extends BaseFragment {
 //		pages.add(FragmentPagerItem.of("首页", HomeRecommendFragment.class));
 		pages.add(FragmentPagerItem.of("首页", NewHomeRecommendFragment.class));
 //		pages.add(FragmentPagerItem.of("分类",StageSectionCategoryFragment.class));
-		pages.add(FragmentPagerItem.of("分类", AlreadyBoughtFragment.class));
+		pages.add(FragmentPagerItem.of("已购", AlreadyBoughtFragment.class));
 		pages.add(FragmentPagerItem.of("发现", DiscoveryFragment.class));
 		pages.add(FragmentPagerItem.of("我的",MineFragment.class));
 

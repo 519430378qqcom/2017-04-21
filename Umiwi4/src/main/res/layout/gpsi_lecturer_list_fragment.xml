@@ -6,7 +6,7 @@
 
     <!--<include layout="@layout/toolbar_actionbar" />-->
 
-    <com.umiwi.ui.fragment.home.updatehome.newtext.MyLetterListViewTwo
+    <com.umiwi.ui.fragment.home.updatehome.newtest.MyLetterListViewTwo
         android:id="@+id/letter_listview"
         android:layout_width="30dip"
         android:layout_height="match_parent"

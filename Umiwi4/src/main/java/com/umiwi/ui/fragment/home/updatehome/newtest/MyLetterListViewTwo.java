@@ -1,4 +1,4 @@
-package com.umiwi.ui.fragment.home.updatehome.newtext;
+package com.umiwi.ui.fragment.home.updatehome.newtest;
 
 import android.content.Context;
 import android.graphics.Canvas;
