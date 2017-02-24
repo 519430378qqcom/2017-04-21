@@ -107,8 +107,8 @@ public class RecommendFragment extends BaseConstantFragment {
     };
 
     /***
-     *   listview  最新免费的布局：new_free_item_layout
      *             行家推荐布局： expert_recommend_layout
+     *   listview  最新免费的布局：new_free_item_layout
      *             行家回答： expert_answer_layout
      *             付费精选：pay_selected_item_layout
      *             优米大咖：youmi_big_shot_item_layout
