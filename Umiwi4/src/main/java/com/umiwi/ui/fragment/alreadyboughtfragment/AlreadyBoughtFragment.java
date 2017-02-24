@@ -11,10 +11,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.nineoldandroids.view.ViewPropertyAnimator;
-import com.ogaclejapan.smarttablayout.utils.v4.FragmentStatePagerItemAdapter;
 import com.umiwi.ui.R;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.AudioFragment;
-import com.umiwi.ui.fragment.home.updatehome.indexfragment.ColumnFragment;
+import com.umiwi.ui.fragment.home.alreadyshopping.ColumnFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.VideoFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 

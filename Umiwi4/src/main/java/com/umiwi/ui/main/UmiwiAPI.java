@@ -385,6 +385,18 @@ public final class UmiwiAPI {
     // QZone授权作用域
     public static final String QZone_SCOPE = "all";
 
+
+    // =================================已购相关=================================================//
+
+    public static final String COlUMN_LIST = "http://i.v.youmi.cn/tutorcolumn/buylist";
+
+
+
+
+
+
+
+
     /////////////========================================优雅的分割线 历史接口=================================================////////////
 //    /** 我的课程未登录默认九宫 */
 //	public static final String VIDEO_DEFAULT_IN_HOME = "http://api.v.youmi.cn/ClientApi/memberindex";
