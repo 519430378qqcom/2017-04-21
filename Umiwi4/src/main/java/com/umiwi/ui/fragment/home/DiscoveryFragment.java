@@ -118,9 +118,8 @@ public class DiscoveryFragment extends BaseConstantFragment {
 
         mlist.add(new MineItem(R.drawable.ic_discovery_lottery, R.drawable.category_hot, "签到", "", ""));
         mlist.add(new MineItem(R.drawable.ic_discovery_store, R.drawable.category_hot, "积分商城", "", ""));
-
-        mlist.add(new MineItem(R.drawable.ic_discovery_usertest, R.drawable.category_hot, "发现适合我的课程", "", ""));
         mlist.add(new MineItem(R.drawable.ic_discovery_offline, R.drawable.category_hot, "线下活动", "", ""));
+        mlist.add(new MineItem(R.drawable.ic_discovery_usertest, R.drawable.category_hot, "发现适合我的课程", "", ""));
 
         mAdapte = new DiscoveryAdapte();
         mListView.setAdapter(mAdapte);
@@ -151,13 +150,13 @@ public class DiscoveryFragment extends BaseConstantFragment {
                             isWebNotice = true;
                             break;
                         case 5://线下活动
-
                             i.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, OfflineActivityFragment.class);
                             break;
                         case 6://发现适合我的课程
                             //TODO 5-6 切换了下
                             i.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, UserTestInfoFragment.class);
                             i.putExtra(UserTestInfoFragment.URL_CATEGORY, UmiwiAPI.USER_TEST_COURSE);
+
                             break;
                     }
                     startActivity(i);
@@ -196,11 +195,14 @@ public class DiscoveryFragment extends BaseConstantFragment {
             mlist.add(new MineItem(R.drawable.ic_discovery_store, R.drawable.category_hot, "积分商城", "", ""));
         }
 
-        mlist.add(new MineItem(R.drawable.ic_discovery_usertest, R.drawable.category_hot, "发现适合我的课程", "", ""));
+//        mlist.add(new MineItem(R.drawable.ic_discovery_usertest, R.drawable.category_hot, "发现适合我的课程", "", ""));
+        mlist.add(new MineItem(R.drawable.ic_discovery_offline, R.drawable.category_hot, "线下活动", "", ""));
         if (Integer.valueOf(noticeModel.getActivity()) > 0) {
-            mlist.add(new MineItem(R.drawable.ic_discovery_offline, R.drawable.red_solid_round_normal, "线下活动", "", ""));
+//            mlist.add(new MineItem(R.drawable.ic_discovery_offline, R.drawable.red_solid_round_normal, "线下活动", "", ""));
+            mlist.add(new MineItem(R.drawable.ic_discovery_usertest, R.drawable.red_solid_round_normal, "发现适合我的课程", "", ""));
         } else {
-            mlist.add(new MineItem(R.drawable.ic_discovery_offline, R.drawable.category_hot, "线下活动", "", ""));
+//            mlist.add(new MineItem(R.drawable.ic_discovery_offline, R.drawable.category_hot, "线下活动", "", ""));
+            mlist.add(new MineItem(R.drawable.ic_discovery_usertest, R.drawable.category_hot, "发现适合我的课程", "", ""));
         }
 
     }
