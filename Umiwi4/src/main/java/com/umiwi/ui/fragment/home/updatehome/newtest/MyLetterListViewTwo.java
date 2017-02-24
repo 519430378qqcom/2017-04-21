@@ -22,7 +22,9 @@ import java.util.ArrayList;
  * 测试用自定义view
  * 行家·列表
  */
-public class MyLetterListViewTwo extends View {
+public class MyLetterListViewTwo  {
+	/*
+	extends View
 		private ExpertFragment.LastnameHandler lastnameHandler;
 
 	OnTouchingLetterChangedListener onTouchingLetterChangedListener;
@@ -69,8 +71,8 @@ public class MyLetterListViewTwo extends View {
 		super.onDraw(canvas);
 		
 		if(showBkg){
-			/*Color color = getContext().getResources().getColor(R.color.umiwi_gray_e);
-		    canvas.drawColor(Color.parseColor("#40000000"));*/
+			*//*Color color = getContext().getResources().getColor(R.color.umiwi_gray_e);
+		    canvas.drawColor(Color.parseColor("#40000000"));*//*
 			//canvas.drawColor(getContext().getResources().getColor(R.color.umiwi_gray_e));
 		}
 		
@@ -115,9 +117,9 @@ public class MyLetterListViewTwo extends View {
 							Message msgShowLastname = lastnameHandler.obtainMessage(ExpertFragment.POP_SHOW);
 							msgShowLastname.obj = b.get(c);
 							msgShowLastname.arg1 = (int) event.getRawY();
-							/*Bundle data = new Bundle();
+							*//*Bundle data = new Bundle();
 							data.putFloat("distanceY", event.getY());
-							msgShowLastname.setData(data); */ 
+							msgShowLastname.setData(data); *//*
 							lastnameHandler.sendMessage(msgShowLastname);
 						}
 						
@@ -176,5 +178,5 @@ public class MyLetterListViewTwo extends View {
 //	}
 	public void setHandler(ExpertFragment.LastnameHandler mHandler){
 		this.lastnameHandler = mHandler;
-	}
+	}*/
 }

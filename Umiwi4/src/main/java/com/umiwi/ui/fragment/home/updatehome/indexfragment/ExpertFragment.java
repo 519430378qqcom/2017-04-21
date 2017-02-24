@@ -47,6 +47,7 @@ public class ExpertFragment  extends BaseConstantFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view =inflater.inflate(R.layout.fragment_expert_layout,null);
+        //expert_context_item.layout 条目
 //        View view =inflater.inflate(R.layout.lecturer_list_fragment,null);
 
         return view;

@@ -116,13 +116,6 @@ public class RecommendFragment extends BaseConstantFragment {
      *
      */
 
-    public void feedback(View view){
-        //TODO 测试反馈
-        Intent i = new Intent(getActivity(),UmiwiContainerActivity.class);
-        i.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, FeedbackFragment.class);
-        startActivity(i);
-    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

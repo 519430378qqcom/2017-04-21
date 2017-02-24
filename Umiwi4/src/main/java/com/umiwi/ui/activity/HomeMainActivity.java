@@ -40,6 +40,7 @@ import com.umiwi.ui.managers.QRCodeManager;
 import com.umiwi.ui.managers.YoumiRoomUserManager;
 import com.umiwi.ui.model.ADSplashModel;
 import com.umiwi.ui.push.Utils;
+import com.umiwi.ui.util.LoginUtil;
 import com.umiwi.ui.util.SDCardManager;
 import com.umiwi.video.control.PlayerController;
 
@@ -173,9 +174,9 @@ public class HomeMainActivity extends AppCompatActivity {
     }
     //TODO  测试
     public void feedback_clock(View view){
-        Intent i = new Intent(HomeMainActivity.this,UmiwiContainerActivity.class);
-        i.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, FeedbackFragment.class);
-        startActivity(i);
+            Intent i = new Intent(HomeMainActivity.this,UmiwiContainerActivity.class);
+            i.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, FeedbackFragment.class);
+            startActivity(i);
     }
 
     @Override

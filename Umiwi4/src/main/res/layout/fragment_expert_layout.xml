@@ -1,13 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/umiwi_gray_f7" >
 
+    <!--<include layout="@layout/toolbar_actionbar" />-->
 
-    <TextView
-        android:gravity="center"
-        android:text="行家"
+    <za.co.immedia.pinnedheaderlistview.PinnedHeaderListView
+        android:id="@+id/lecturer_listview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar_actionbar"
+        android:background="@color/umiwi_gray_f7"
+        android:choiceMode="singleChoice"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0.05dip"
+        android:drawSelectorOnTop="true"
+        android:fadingEdge="none"
+        android:footerDividersEnabled="true"
+        android:headerDividersEnabled="true"
+        android:scrollbars="none"
+        android:scrollingCache="true"
+        android:smoothScrollbar="true" />
 
-</LinearLayout>
+    <com.umiwi.ui.view.MyLetterListView
+        android:id="@+id/letter_listview"
+        android:layout_width="30dip"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/toolbar_actionbar"
+        android:background="@color/umiwi_gray_f7"
+        android:visibility="gone" />
+
+    <FrameLayout
+        android:id="@+id/lastname_pop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/lecturer_listview"
+        android:visibility="gone" >
+
+        <ImageView
+            android:id="@+id/pop_imageview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/lastname_background" />
+
+        <TextView
+            android:id="@+id/lastname_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="L"
+            android:textSize="15sp" />
+    </FrameLayout>
+
+</RelativeLayout>
