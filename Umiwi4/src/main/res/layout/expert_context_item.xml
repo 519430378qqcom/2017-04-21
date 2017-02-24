@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/umiwi_white"
+    android:padding="8dip" >
+
+    <ImageView
+        android:id="@+id/expert_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="4dp"/>
+
+    <RelativeLayout
+        android:id="@+id/right_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/expert_image"
+        android:gravity="center_vertical" >
+
+        <TextView
+            android:id="@+id/name"
+            style="@style/Widget.TextView.Item.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:ellipsize="marquee"
+            android:lines="1"
+            android:text="雷军" />
+        <TextView
+            android:id="@+id/dot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/lecturer_titile"
+            android:layout_toRightOf="@+id/name"
+            android:layout_marginRight="2dp"
+            android:layout_marginLeft="2dp"
+            android:text="·"
+            style="@style/Widget.TextView.Item.Title"
+            />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/dot"
+            android:lines="1"
+            android:text="小米科技创始人 "
+            style="@style/Widget.TextView.Item.Title"
+            android:layout_above="@+id/lecturer_titile"
+            android:layout_alignParentTop="true" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/name"
+            android:paddingTop="10dp"
+            >
+            <LinearLayout
+                android:id="@+id/gap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/expert_tutorcolumn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15.0sp"
+                    android:text="专栏(0人订阅)"
+                    />
+                <TextView
+                    android:id="@+id/expert_question"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15.0sp"
+                    android:layout_marginTop="5dp"
+                    android:text="问答(0次回答)"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/gap"
+                android:layout_marginLeft="12dp"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/expert_audio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15.0sp"
+                    android:text="音频(3)"
+                    />
+                <TextView
+                    android:id="@+id/expert_album"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textSize="15.0sp"
+                    android:text="视频(36)"
+                    />
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

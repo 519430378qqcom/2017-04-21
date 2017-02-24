@@ -84,8 +84,8 @@ public class NewHomeRecommendFragment extends BaseConstantFragment {
 
         fragments = new ArrayList<Fragment>();
         fragments.add(new RecommendFragment());
-//        fragments.add(new ExpertFragment());
-        fragments.add(new LecturerListFragment());
+        fragments.add(new ExpertFragment());
+//        fragments.add(new LecturerListFragment());
         fragments.add(new ColumnFragment());
         fragments.add(new AudioFragment());
         fragments.add(new VideoFragment());
