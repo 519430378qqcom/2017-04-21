@@ -17,6 +17,7 @@ import com.umiwi.ui.R;
 import com.umiwi.ui.fragment.LecturerListFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.AudioFragment;
 import com.umiwi.ui.fragment.home.alreadyshopping.ColumnFragment;
+import com.umiwi.ui.fragment.home.updatehome.indexfragment.ExpertFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.OldYoumiFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.RecommendFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.VideoFragment;

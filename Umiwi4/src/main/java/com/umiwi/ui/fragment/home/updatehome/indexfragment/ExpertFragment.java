@@ -1,39 +1,13 @@
 package com.umiwi.ui.fragment.home.updatehome.indexfragment;
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.Nullable;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.PopupWindow;
-import android.widget.TextView;
 
-import com.umeng.analytics.MobclickAgent;
 import com.umiwi.ui.R;
-import com.umiwi.ui.activity.UmiwiContainerActivity;
-import com.umiwi.ui.adapter.LecturerListAdapter;
-import com.umiwi.ui.beans.LecturerBean;
-import com.umiwi.ui.fragment.LecturerDetailFragment;
-import com.umiwi.ui.fragment.home.updatehome.newtest.MyLetterListViewTwo;
 import com.umiwi.ui.main.BaseConstantFragment;
-import com.umiwi.ui.main.UmiwiAPI;
-
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-
-import cn.youmi.framework.http.AbstractRequest;
-import cn.youmi.framework.http.GetRequest;
-import cn.youmi.framework.http.HttpDispatcher;
-import cn.youmi.framework.http.parsers.GsonParser;
-import cn.youmi.framework.util.ListViewScrollLoader;
-import cn.youmi.framework.view.LoadingFooter;
-import za.co.immedia.pinnedheaderlistview.PinnedHeaderListView;
 
 /**
  * Created by LvDabing on 2017/2/16.

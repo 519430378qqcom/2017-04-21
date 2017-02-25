@@ -30,9 +30,11 @@ import com.umiwi.ui.beans.GiftBeans;
 import com.umiwi.ui.beans.HomeADBeans;
 import com.umiwi.ui.beans.UmiwiListBeans;
 import com.umiwi.ui.beans.updatebeans.NewFree;
+import com.umiwi.ui.beans.updatebeans.RecommendBean;
 import com.umiwi.ui.fragment.GiftFragment;
 import com.umiwi.ui.fragment.UserTestInfoFragment;
 import com.umiwi.ui.fragment.course.CourseDetailPlayFragment;
+import com.umiwi.ui.fragment.home.recommend.widget.FreeLayoutView;
 import com.umiwi.ui.fragment.setting.FeedbackFragment;
 import com.umiwi.ui.http.parsers.ADParser;
 import com.umiwi.ui.http.parsers.CourseListParser;
@@ -42,6 +44,8 @@ import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.managers.NoticeManager;
 import com.umiwi.ui.managers.YoumiRoomUserManager;
 import com.umiwi.ui.parsers.newparsers.NewFreeResult;
+import com.umiwi.ui.util.ApiTester.ApiConnectionTester;
+import com.umiwi.ui.util.ApiTester.bean.IndexActionEntity;
 import com.umiwi.ui.util.CommonHelper;
 import com.umiwi.ui.util.ManifestUtils;
 import com.umiwi.ui.view.AutoViewPager;
@@ -86,6 +90,7 @@ public class RecommendFragment extends BaseConstantFragment {
     private boolean isRecommendShow;
     private boolean isTopic;
     private ListViewScrollLoader mScrollLoader;
+    private FreeLayoutView flv_new_free;
 
     private ArrayList<NewFree> mList;
 
@@ -107,13 +112,12 @@ public class RecommendFragment extends BaseConstantFragment {
     };
 
     /***
-     *             行家推荐布局： expert_recommend_layout
-     *   listview  最新免费的布局：new_free_item_layout
-     *             行家回答： expert_answer_layout
-     *             付费精选：pay_selected_item_layout
-     *             优米大咖：youmi_big_shot_item_layout
-     *             线下活动：line_action_item_layout
-     *
+     * 行家推荐布局： expert_recommend_layout
+     * listview  最新免费的布局：new_free_item_layout
+     * 行家回答： expert_answer_layout
+     * 付费精选：pay_selected_item_layout
+     * 优米大咖：youmi_big_shot_item_layout
+     * 线下活动：line_action_item_layout
      */
 
     @Nullable
@@ -121,11 +125,50 @@ public class RecommendFragment extends BaseConstantFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recommend_layout, null);
         ButterKnife.inject(this, view);
+        initView(view);
         initheader(inflater);
+        loadRecommend();
         return view;
     }
 
+    /**
+     * 初始化View
+     */
+    private void initView(View v) {
+        flv_new_free = (FreeLayoutView) v.findViewById(R.id.flv_new_free);
+    }
 
+    /**
+     * 加载推荐页数据
+     */
+    private void loadRecommend() {
+        getIndexAction();
+    }
+
+    /**
+     * indexAction : 首页（6.6.0ok）
+     */
+    public void getIndexAction() {
+        GetRequest<RecommendBean> request = new GetRequest<>(
+                UmiwiAPI.VIDEO_TUIJIAN, GsonParser.class, RecommendBean.class, indexActionListener);
+        request.go();
+    }
+
+    private AbstractRequest.Listener<RecommendBean> indexActionListener = new AbstractRequest.Listener<RecommendBean>() {
+
+        @Override
+        public void onResult(AbstractRequest<RecommendBean> request, RecommendBean t) {
+            if (null != t) {
+
+                flv_new_free.setData(t.getR().getFree().getRecord(),t.getR().getSec_free_title(),t.getR().getSec_free_huan());
+            }
+        }
+
+        @SuppressWarnings("deprecation")
+        @Override
+        public void onError(AbstractRequest<RecommendBean> requet, int statusCode, String body) {
+        }
+    };
 
     void initheader(LayoutInflater inflater) {
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
@@ -157,7 +200,7 @@ public class RecommendFragment extends BaseConstantFragment {
 
         mLoadingFooter = new LoadingFooter(getActivity());// 加载更多的view
         mListView.addHeaderView(header, null, false);
-      //  mListView.addFooterView(mLoadingFooter.getView());
+        //  mListView.addFooterView(mLoadingFooter.getView());
         mListView.setSelector(R.color.transparent);
 
         mScrollLoader = new ListViewScrollLoader(this, mLoadingFooter);// 初始化加载更多监听
@@ -196,14 +239,14 @@ public class RecommendFragment extends BaseConstantFragment {
 
     }
 
-    AdapterView.OnItemClickListener itemClickListener=new AdapterView.OnItemClickListener() {
+    AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
 //					intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, CourseDetailLayoutFragments.class);
 //					intent.putExtra(CourseDetailLayoutFragments.KEY_DETAIURL, listBeans.getDetailurl());
             intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, CourseDetailPlayFragment.class);
-           // intent.putExtra(CourseDetailPlayFragment.KEY_DETAIURL, mList.get(position).);
+            // intent.putExtra(CourseDetailPlayFragment.KEY_DETAIURL, mList.get(position).);
             //getActivity().startActivity(intent);
             Toast.makeText(getActivity(), "缺少跳转接口", Toast.LENGTH_SHORT).show();
         }
@@ -264,8 +307,8 @@ public class RecommendFragment extends BaseConstantFragment {
 
             Log.i("youmilog", "最新免费数据长度：" + mList.size());
             if (mAdapter == null) {
-                 mAdapter = new NewfreeAdapter(getActivity(), mList);
-                 mListView.setAdapter(mAdapter);// 解析成功 播放列表
+                mAdapter = new NewfreeAdapter(getActivity(), mList);
+                mListView.setAdapter(mAdapter);// 解析成功 播放列表
             } else {
                 mAdapter.notifyDataSetChanged();
             }
@@ -506,7 +549,6 @@ public class RecommendFragment extends BaseConstantFragment {
     }
 
     //TODO  解决推荐页添加轮播图崩溃尝试
-
 
 
 }
