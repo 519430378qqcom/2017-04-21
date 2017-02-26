@@ -22,7 +22,7 @@
                 android:id="@+id/expert_header_imageview"
                 android:layout_width="110dp"
                 android:layout_height="150dp"
-                android:background="@color/main_color" />
+                android:scaleType="centerCrop" />
 
             <RelativeLayout
                 android:id="@+id/expert_right_layout_1"
@@ -46,11 +46,10 @@
                     android:id="@+id/expert_subscribe_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="已订阅205"
                     android:layout_alignParentBottom="true"
-                    android:layout_marginLeft="7dp"/>
+                    android:layout_marginLeft="7dp"
+                    android:text="已订阅205" />
             </RelativeLayout>
-
 
 
             <LinearLayout
@@ -80,7 +79,6 @@
                         android:text="雷军 。精英日课"
                         android:textColor="@color/black"
                         android:textSize="18sp" />
-
 
 
                     <TextView

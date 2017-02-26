@@ -16,6 +16,8 @@ import com.umiwi.ui.main.UmiwiApplication;
 
 import java.util.ArrayList;
 
+import cn.youmi.framework.util.ImageLoader;
+
 /**
  * 类描述：首页—推荐—行家推荐 Adapter
  * Created by Gpsi on 2017-02-25.
@@ -26,17 +28,13 @@ public class ExpertRecAdapter extends BaseAdapter {
     private LayoutInflater mLayoutInflater;
     private ArrayList<RecommendBean.RBean.TutorBean> mList;
     private Activity mActivity;
-
-    public ExpertRecAdapter(Context context) {
-        super();
-        mLayoutInflater = LayoutInflater.from(UmiwiApplication.getInstance());
-        this.mActivity = (Activity) context;
-    }
+    private ImageLoader mImageLoader;
 
     public ExpertRecAdapter(Context context, ArrayList<RecommendBean.RBean.TutorBean> mList) {
         mLayoutInflater = LayoutInflater.from(context);
         this.mActivity = (Activity) context;
         this.mList = mList;
+        mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
     }
 
     @Override
@@ -67,7 +65,7 @@ public class ExpertRecAdapter extends BaseAdapter {
         }
         RecommendBean.RBean.TutorBean tutorBean = mList.get(position);
 
-        viewHolder.expert_header_imageview.setImageURI(Uri.parse(tutorBean.getImage()));
+        mImageLoader.loadImage(tutorBean.getImage(),viewHolder.expert_header_imageview,R.drawable.ic_launcher);
         viewHolder.expert_name_textView_1.setText(tutorBean.getName() + "·" + tutorBean.getTitle());
         viewHolder.expert_context_1.setText(tutorBean.getTutortitle());
         viewHolder.expter_time_textView.setText(tutorBean.getUpdatetime());
@@ -79,7 +77,7 @@ public class ExpertRecAdapter extends BaseAdapter {
         return convertView;
     }
 
-    class ViewHolder {
+    private class ViewHolder {
         public View rootView;
         public ImageView expert_header_imageview;
         //¥299/年
