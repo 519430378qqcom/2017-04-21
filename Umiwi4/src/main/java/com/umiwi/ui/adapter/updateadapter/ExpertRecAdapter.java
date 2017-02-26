@@ -1,0 +1,114 @@
+package com.umiwi.ui.adapter.updateadapter;
+
+import android.app.Activity;
+import android.content.Context;
+import android.net.Uri;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.umiwi.ui.R;
+import com.umiwi.ui.beans.updatebeans.RecommendBean;
+import com.umiwi.ui.main.UmiwiApplication;
+
+import java.util.ArrayList;
+
+/**
+ * 类描述：首页—推荐—行家推荐 Adapter
+ * Created by Gpsi on 2017-02-25.
+ */
+
+public class ExpertRecAdapter extends BaseAdapter {
+
+    private LayoutInflater mLayoutInflater;
+    private ArrayList<RecommendBean.RBean.TutorBean> mList;
+    private Activity mActivity;
+
+    public ExpertRecAdapter(Context context) {
+        super();
+        mLayoutInflater = LayoutInflater.from(UmiwiApplication.getInstance());
+        this.mActivity = (Activity) context;
+    }
+
+    public ExpertRecAdapter(Context context, ArrayList<RecommendBean.RBean.TutorBean> mList) {
+        mLayoutInflater = LayoutInflater.from(context);
+        this.mActivity = (Activity) context;
+        this.mList = mList;
+    }
+
+    @Override
+    public int getCount() {
+        return mList == null ? 0 : mList.size();
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return mList == null ? null : mList.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+
+        ViewHolder viewHolder;
+        if (convertView == null) {
+            convertView = mLayoutInflater.inflate(R.layout.home_expert_rec_layout_item, null);
+            viewHolder = new ViewHolder(convertView);
+            convertView.setTag(viewHolder);
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
+        }
+        RecommendBean.RBean.TutorBean tutorBean = mList.get(position);
+
+        viewHolder.expert_header_imageview.setImageURI(Uri.parse(tutorBean.getImage()));
+        viewHolder.expert_name_textView_1.setText(tutorBean.getName()+"·"+tutorBean.getTitle());
+        viewHolder.expert_context_1.setText(tutorBean.getTutortitle());
+        viewHolder.expter_time_textView.setText(tutorBean.getUpdatetime());
+        viewHolder.expter_detail_textView.setText(tutorBean.getUpdateaudio());
+        viewHolder.expert_subscribe_number.setText(tutorBean.getSalenum());
+        viewHolder.isBuy = tutorBean.getIsbuy();
+        viewHolder.uid = tutorBean.getUid();
+        // TODO 是否已购
+        return convertView;
+    }
+
+    class ViewHolder {
+        public View rootView;
+        public ImageView expert_header_imageview;
+        //¥299/年
+        public TextView expert_price;
+        //以订阅数量
+        public TextView expert_subscribe_number;
+        //名字+title
+        public TextView expert_name_textView_1;
+        //tutortitle: "珠海格力集团有限公司董事长 ",
+        public TextView expert_context_1;
+        // 更新時間updatetime
+        public TextView expter_time_textView;
+        //最新更新
+        public TextView expter_detail_textView;
+        //是否购买
+        public boolean isBuy;
+
+        public String uid;
+
+        public ViewHolder(View convertView) {
+            this.rootView = convertView;
+            expert_header_imageview = (ImageView) rootView.findViewById(R.id.expert_header_imageview);
+            expert_name_textView_1 = (TextView) rootView.findViewById(R.id.expert_name_textView_1);
+            expert_context_1 = (TextView) rootView.findViewById(R.id.expert_context_1);
+            expter_time_textView = (TextView) rootView.findViewById(R.id.expter_time_textView);
+            expter_detail_textView = (TextView) rootView.findViewById(R.id.expter_detail_textView);
+            expert_subscribe_number = (TextView) rootView.findViewById(R.id.expert_subscribe_number);
+            isBuy = false;
+            uid = "";
+        }
+    }
+}

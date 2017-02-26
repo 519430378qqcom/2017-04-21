@@ -109,10 +109,10 @@ public class RecommendBean extends BaseGsonBeans {
         private String sec_dalao_title;
         @SerializedName("sec_huodong_title")
         private String sec_huodong_title;
-        @SerializedName("sec_huodong_more")
-        private String sec_huodong_more;
-        @SerializedName("sec_huodong_moreurl")
-        private String sec_huodong_moreurl;
+        /*        @SerializedName("sec_huodong_more")
+                private String sec_huodong_more;
+                @SerializedName("sec_huodong_moreurl")
+                private String sec_huodong_moreurl;*/
         @SerializedName("sec_feedback")
         private String sec_feedback;
         @SerializedName("free")
@@ -120,7 +120,7 @@ public class RecommendBean extends BaseGsonBeans {
         @SerializedName("charge")
         private ChargeBean charge;
         @SerializedName("tutor")
-        private List<TutorBean> tutor;
+        private ArrayList<TutorBean> tutor;
         @SerializedName("dalao")
         private List<DalaoBean> dalao;
         @SerializedName("asktutor")
@@ -252,7 +252,7 @@ public class RecommendBean extends BaseGsonBeans {
             this.sec_huodong_title = sec_huodong_title;
         }
 
-        public String getSec_huodong_more() {
+/*        public String getSec_huodong_more() {
             return sec_huodong_more;
         }
 
@@ -266,7 +266,7 @@ public class RecommendBean extends BaseGsonBeans {
 
         public void setSec_huodong_moreurl(String sec_huodong_moreurl) {
             this.sec_huodong_moreurl = sec_huodong_moreurl;
-        }
+        }*/
 
         public String getSec_feedback() {
             return sec_feedback;
@@ -292,11 +292,11 @@ public class RecommendBean extends BaseGsonBeans {
             this.charge = charge;
         }
 
-        public List<TutorBean> getTutor() {
+        public ArrayList<TutorBean> getTutor() {
             return tutor;
         }
 
-        public void setTutor(List<TutorBean> tutor) {
+        public void setTutor(ArrayList<TutorBean> tutor) {
             this.tutor = tutor;
         }
 
@@ -340,7 +340,7 @@ public class RecommendBean extends BaseGsonBeans {
             this.bottom = bottom;
         }
 
-        public static class  FreeBean {
+        public static class FreeBean {
             /**
              * record : [{"id":"3","type":"audio","title":"独立音频文件－免费","playtime":"00:00","url":"http://i.v.youmi.cn/audioalbum/getapi?id=3"},{"id":"611","type":"video","title":"如何发现我的客户","playtime":"01:09:31","url":"http://i.v.youmi.cn/album/getApi?id=611"},{"id":"359","type":"video","title":"传统企业的电子商务之路","playtime":"01:23:02","url":"http://i.v.youmi.cn/album/getApi?id=359"}]
              * page : {"currentpage":1,"rows":"3","totalpage":1}
@@ -470,7 +470,18 @@ public class RecommendBean extends BaseGsonBeans {
 
         public static class ChargeBean {
             /**
-             * record : [{"id":"595","image":"http://i1.umivi.net/v/album/2014-05/20140509145409.jpg","pricetag":"¥64","type":"video","title":"什么是创业的必要条件","playtime":"01:13:27","url":"http://i.v.youmi.cn/album/getApi?id=595"},{"id":"586","image":"http://i1.umivi.net/v/album/2013-03/20130326184314.jpg","pricetag":"¥29","type":"video","title":"女性职场性骚扰的雇主责任","playtime":"08:48","url":"http://i.v.youmi.cn/album/getApi?id=586"},{"id":"4","image":"","pricetag":"¥29","type":"audio","title":"独立音频文件－收费","playtime":"00:00","url":"http://i.v.youmi.cn/audioalbum/getapi?id=4"}]
+             * record : [{"id":"595","image":"http://i1.umivi.net/v/album/2014-05/20140509145409.jpg",
+             * "pricetag":"¥64",
+             * "type":"video",
+             * "title":"什么是创业的必要条件",
+             * "playtime":"01:13:27",
+             * "url":"http://i.v.youmi.cn/album/getApi?id=595"},
+             * {"id":"586",
+             * "image":"http://i1.umivi.net/v/album/2013-03/20130326184314.jpg",
+             * "pricetag":"¥29",
+             * "type":"video",
+             * "title":"女性职场性骚扰的雇主责任",
+             * "playtime":"08:48","url":"http://i.v.youmi.cn/album/getApi?id=586"},{"id":"4","image":"","pricetag":"¥29","type":"audio","title":"独立音频文件－收费","playtime":"00:00","url":"http://i.v.youmi.cn/audioalbum/getapi?id=4"}]
              * page : {"currentpage":1,"rows":"3","totalpage":1}
              */
 
@@ -652,6 +663,16 @@ public class RecommendBean extends BaseGsonBeans {
             private String salenum;
             @SerializedName("url")
             private String url;
+            @SerializedName("isbuy")
+            private boolean isbuy;
+
+            public boolean getIsbuy() {
+                return isbuy;
+            }
+
+            public void setIsbuy(boolean isbuy) {
+                this.isbuy = isbuy;
+            }
 
             public String getUid() {
                 return uid;

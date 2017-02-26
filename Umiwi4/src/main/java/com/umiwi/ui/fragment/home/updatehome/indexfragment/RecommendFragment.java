@@ -34,6 +34,8 @@ import com.umiwi.ui.beans.updatebeans.RecommendBean;
 import com.umiwi.ui.fragment.GiftFragment;
 import com.umiwi.ui.fragment.UserTestInfoFragment;
 import com.umiwi.ui.fragment.course.CourseDetailPlayFragment;
+import com.umiwi.ui.fragment.home.recommend.widget.ExpertRecLayoutView;
+import com.umiwi.ui.fragment.home.recommend.widget.ExpertRecLayoutView;
 import com.umiwi.ui.fragment.home.recommend.widget.FreeLayoutView;
 import com.umiwi.ui.fragment.setting.FeedbackFragment;
 import com.umiwi.ui.http.parsers.ADParser;
@@ -91,6 +93,7 @@ public class RecommendFragment extends BaseConstantFragment {
     private boolean isTopic;
     private ListViewScrollLoader mScrollLoader;
     private FreeLayoutView flv_new_free;
+    private ExpertRecLayoutView erl_expert_rec;
 
     private ArrayList<NewFree> mList;
 
@@ -136,6 +139,8 @@ public class RecommendFragment extends BaseConstantFragment {
      */
     private void initView(View v) {
         flv_new_free = (FreeLayoutView) v.findViewById(R.id.flv_new_free);
+        erl_expert_rec = (ExpertRecLayoutView) v.findViewById(R.id.erl_expert_rec);
+
     }
 
     /**
@@ -148,7 +153,7 @@ public class RecommendFragment extends BaseConstantFragment {
     /**
      * indexAction : 首页（6.6.0ok）
      */
-    public void getIndexAction() {
+    private void getIndexAction() {
         GetRequest<RecommendBean> request = new GetRequest<>(
                 UmiwiAPI.VIDEO_TUIJIAN, GsonParser.class, RecommendBean.class, indexActionListener);
         request.go();
@@ -160,7 +165,8 @@ public class RecommendFragment extends BaseConstantFragment {
         public void onResult(AbstractRequest<RecommendBean> request, RecommendBean t) {
             if (null != t) {
 
-                flv_new_free.setData(t.getR().getFree().getRecord(),t.getR().getSec_free_title(),t.getR().getSec_free_huan());
+                flv_new_free.setData(t.getR().getFree().getRecord(), t.getR().getSec_free_title(), t.getR().getSec_free_huan());
+                erl_expert_rec.setData(t.getR().getTutor(),t.getR().getSec_tutor_title(),t.getR().getSec_tutor_more());
             }
         }
 

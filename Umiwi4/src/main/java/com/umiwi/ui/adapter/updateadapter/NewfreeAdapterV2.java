@@ -17,7 +17,7 @@ import com.umiwi.ui.main.UmiwiApplication;
 import java.util.ArrayList;
 
 /**
- * 类描述：
+ * 类描述：首页—推荐—最新免费 Adapter
  * Created by Gpsi on 2017-02-25.
  */
 

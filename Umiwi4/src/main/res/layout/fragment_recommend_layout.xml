@@ -33,7 +33,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <include layout="@layout/expert_recommend_layout" />
+
+            <com.umiwi.ui.fragment.home.recommend.widget.ExpertRecLayoutView
+                android:id="@+id/erl_expert_rec"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
 
             <include layout="@layout/expert_answer_layout" />
 

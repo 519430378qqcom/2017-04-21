@@ -3,6 +3,8 @@ package com.umiwi.ui.fragment.home.recommend.widget;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -46,6 +48,13 @@ public class FreeLayoutView extends LinearLayout {
         title_type_textview = (TextView) findViewById(R.id.title_type_textview);
         title_huan = (TextView) findViewById(R.id.title_huan);
         lv_new_free = (ListView) findViewById(R.id.lv_new_free);
+        lv_new_free.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                mList.get(position).getId();
+
+            }
+        });
 
     }
 
