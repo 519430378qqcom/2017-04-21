@@ -48,8 +48,7 @@
                     android:layout_height="wrap_content"
                     android:text="已订阅205"
                     android:layout_alignParentBottom="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true" />
+                    android:layout_marginLeft="7dp"/>
             </RelativeLayout>
 
 

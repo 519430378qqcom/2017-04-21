@@ -73,11 +73,9 @@ public class NewfreeAdapterV2 extends BaseAdapter {
         viewHolder.free_context_textview_1.setText(newFree.getTitle());
         viewHolder.free_time_textview_1.setText(newFree.getPlaytime());
         if (newFree.getType().equals("video")) {
-            viewHolder.iv_audio.setVisibility(View.GONE);
-            viewHolder.iv_vedio.setVisibility(View.VISIBLE);
+            viewHolder.iv_audio.setImageResource(R.drawable.video_small);
         } else {
-            viewHolder.iv_audio.setVisibility(View.VISIBLE);
-            viewHolder.iv_vedio.setVisibility(View.GONE);
+            viewHolder.iv_audio.setImageResource(R.drawable.audio);
         }
 
         return convertView;
@@ -90,12 +88,11 @@ class ViewHolderV2 {
     public View rootView;
 
     public TextView free_time_textview_1, free_context_textview_1;
-    public ImageView iv_audio, iv_vedio;
+    public ImageView iv_audio;
 
     public ViewHolderV2(View rootView) {
         this.rootView = rootView;
         iv_audio = (ImageView) rootView.findViewById(R.id.iv_audio);
-        iv_vedio = (ImageView) rootView.findViewById(R.id.iv_vedio);
         free_time_textview_1 = (TextView) rootView.findViewById(R.id.free_time_textview_1);
         free_context_textview_1 = (TextView) rootView.findViewById(R.id.free_context_textview_1);
     }

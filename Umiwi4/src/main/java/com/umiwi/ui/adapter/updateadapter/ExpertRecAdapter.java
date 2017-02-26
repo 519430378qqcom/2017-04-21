@@ -68,11 +68,11 @@ public class ExpertRecAdapter extends BaseAdapter {
         RecommendBean.RBean.TutorBean tutorBean = mList.get(position);
 
         viewHolder.expert_header_imageview.setImageURI(Uri.parse(tutorBean.getImage()));
-        viewHolder.expert_name_textView_1.setText(tutorBean.getName()+"·"+tutorBean.getTitle());
+        viewHolder.expert_name_textView_1.setText(tutorBean.getName() + "·" + tutorBean.getTitle());
         viewHolder.expert_context_1.setText(tutorBean.getTutortitle());
         viewHolder.expter_time_textView.setText(tutorBean.getUpdatetime());
         viewHolder.expter_detail_textView.setText(tutorBean.getUpdateaudio());
-        viewHolder.expert_subscribe_number.setText(tutorBean.getSalenum());
+        viewHolder.expert_subscribe_number.setText("已订阅"+tutorBean.getSalenum());
         viewHolder.isBuy = tutorBean.getIsbuy();
         viewHolder.uid = tutorBean.getUid();
         // TODO 是否已购
@@ -83,17 +83,7 @@ public class ExpertRecAdapter extends BaseAdapter {
         public View rootView;
         public ImageView expert_header_imageview;
         //¥299/年
-        public TextView expert_price;
-        //以订阅数量
-        public TextView expert_subscribe_number;
-        //名字+title
-        public TextView expert_name_textView_1;
-        //tutortitle: "珠海格力集团有限公司董事长 ",
-        public TextView expert_context_1;
-        // 更新時間updatetime
-        public TextView expter_time_textView;
-        //最新更新
-        public TextView expter_detail_textView;
+        public TextView expert_price, expter_detail_textView, expter_time_textView, expert_context_1, expert_name_textView_1, expert_subscribe_number;
         //是否购买
         public boolean isBuy;
 
