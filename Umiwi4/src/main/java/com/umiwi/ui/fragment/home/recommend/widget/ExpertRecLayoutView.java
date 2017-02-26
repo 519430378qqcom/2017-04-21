@@ -24,6 +24,7 @@ public class ExpertRecLayoutView extends LinearLayout {
     private Context mContext;
     private TextView tv_tutor_title, tv_tutor_all;
     private ListView lv_home_expert_rec;
+    private LinearLayout ll_expert_root;
     private ExpertRecAdapter mExpertRecAdapter;
 
     private ArrayList<RecommendBean.RBean.TutorBean> mList;
@@ -42,10 +43,11 @@ public class ExpertRecLayoutView extends LinearLayout {
         mContext = context;
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.home_expert_recommend_layout, this);
+        ll_expert_root = (LinearLayout) findViewById(R.id.ll_expert_root);
         tv_tutor_title = (TextView) findViewById(R.id.tv_tutor_title);
         tv_tutor_all = (TextView) findViewById(R.id.tv_tutor_all);
         lv_home_expert_rec = (ListView) findViewById(R.id.lv_home_expert_rec);
-
+        ll_expert_root.setVisibility(GONE);
     }
 
     public void setData(ArrayList<RecommendBean.RBean.TutorBean> tutorBeen, String tutorTitle, String tutorAll) {
@@ -55,7 +57,8 @@ public class ExpertRecLayoutView extends LinearLayout {
         mList = tutorBeen;
         if (null == mList || mList.size() == 0)
             return;
-        mExpertRecAdapter = new ExpertRecAdapter(mContext,mList);
+        ll_expert_root.setVisibility(VISIBLE);
+        mExpertRecAdapter = new ExpertRecAdapter(mContext, mList);
         lv_home_expert_rec.setAdapter(mExpertRecAdapter);
 
     }

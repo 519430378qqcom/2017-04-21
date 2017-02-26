@@ -26,6 +26,7 @@ public class FreeLayoutView extends LinearLayout {
 
     private TextView title_type_textview, title_huan;
     private ListView lv_new_free;
+    private LinearLayout ll_free_root;
     private Context mContext;
 
     private NewfreeAdapterV2 mNewfreeAdapterV2;
@@ -45,6 +46,7 @@ public class FreeLayoutView extends LinearLayout {
         mContext = context;
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.new_free_layout, this);
+        ll_free_root = (LinearLayout) findViewById(R.id.ll_free_root);
         title_type_textview = (TextView) findViewById(R.id.title_type_textview);
         title_huan = (TextView) findViewById(R.id.title_huan);
         lv_new_free = (ListView) findViewById(R.id.lv_new_free);
@@ -55,7 +57,7 @@ public class FreeLayoutView extends LinearLayout {
 
             }
         });
-
+        ll_free_root.setVisibility(GONE);
     }
 
     public void setData(ArrayList<RecommendBean.RBean.FreeBean.RecordBean> freeBean, String titleFree, String titleHuan) {
@@ -64,6 +66,7 @@ public class FreeLayoutView extends LinearLayout {
         mList = freeBean;
         if (null == mList || mList.size() == 0)
             return;
+        ll_free_root.setVisibility(VISIBLE);
         mNewfreeAdapterV2 = new NewfreeAdapterV2(mContext, mList);
         lv_new_free.setAdapter(mNewfreeAdapterV2);
     }
