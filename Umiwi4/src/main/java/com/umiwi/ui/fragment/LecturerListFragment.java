@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -229,6 +230,7 @@ public class LecturerListFragment extends BaseConstantFragment {
 				LecturerBeanRequestData t) {
 			if (t != null) {
 				lecturerWapper = t.getRecord();
+
 				mListAdapter.setLecturers(lecturerWapper);
 
 				initLetterView(lecturerWapper);

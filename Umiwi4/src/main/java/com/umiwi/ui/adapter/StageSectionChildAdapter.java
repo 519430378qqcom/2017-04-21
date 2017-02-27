@@ -3,6 +3,7 @@ package com.umiwi.ui.adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -120,7 +121,6 @@ public class StageSectionChildAdapter extends BaseAdapter {
 			StageSectionBean data = (StageSectionBean) v.getTag(R.id.key_stage_section);
 			
 			Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
-			
 			switch (data.categoryType()) {
 			case COURSE:
 				intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, CourseDetailPlayFragment.class);

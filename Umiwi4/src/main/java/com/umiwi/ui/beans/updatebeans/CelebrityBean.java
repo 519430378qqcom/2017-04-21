@@ -1,32 +1,25 @@
 package com.umiwi.ui.beans.updatebeans;
 
-import com.umiwi.ui.beans.BaseGsonBeans;
-
 import java.util.List;
 
 /**
  * Created by Administrator on 2017/2/27.
  */
 
-public class CelebrityBean extends BaseGsonBeans {
+public class CelebrityBean {
+
+    public List<CelebrityBeanRet> record;
+public  class CelebrityBeanRet {
 
     /**
-     * content : [{"album":"视频(36)","audio":"音频(6)","image":"http://i1.umivi.net/v/teacher/avatar/163.jpg","name":"雷军","question":"问答(0次回答)","title":"小米科技创始人 ","tutorcolumn":"专栏(0人订阅)","tutoruid":"70000026"}]
-     * pinyin : 荐
-     * pinyinname : 荐
+     * pinyinname : 8350
+     * pinyin : 8350
+     * content : [{"tutoruid":"70000026","name":"96f7519b","title":"5c0f7c7379d16280521b59cb4eba ","image":"http://i1.umivi.net/v/teacher/avatar/163.jpg","tutorcolumn":"4e13680f(04eba8ba29605)","audio":"97f39891(6)","question":"95ee7b54(06b2156de7b54)","album":"89c69891(36)"}]
      */
 
-    private String pinyin;
     private String pinyinname;
+    private String pinyin;
     private List<ContentBean> content;
-
-    public String getPinyin() {
-        return pinyin;
-    }
-
-    public void setPinyin(String pinyin) {
-        this.pinyin = pinyin;
-    }
 
     public String getPinyinname() {
         return pinyinname;
@@ -34,6 +27,14 @@ public class CelebrityBean extends BaseGsonBeans {
 
     public void setPinyinname(String pinyinname) {
         this.pinyinname = pinyinname;
+    }
+
+    public String getPinyin() {
+        return pinyin;
+    }
+
+    public void setPinyin(String pinyin) {
+        this.pinyin = pinyin;
     }
 
     public List<ContentBean> getContent() {
@@ -44,49 +45,33 @@ public class CelebrityBean extends BaseGsonBeans {
         this.content = content;
     }
 
-    public static class ContentBean {
+    public  class ContentBean {
         /**
-         * album : 视频(36)
-         * audio : 音频(6)
-         * image : http://i1.umivi.net/v/teacher/avatar/163.jpg
-         * name : 雷军
-         * question : 问答(0次回答)
-         * title : 小米科技创始人
-         * tutorcolumn : 专栏(0人订阅)
          * tutoruid : 70000026
+         * name : 96f7519b
+         * title : 5c0f7c7379d16280521b59cb4eba
+         * image : http://i1.umivi.net/v/teacher/avatar/163.jpg
+         * tutorcolumn : 4e13680f(04eba8ba29605)
+         * audio : 97f39891(6)
+         * question : 95ee7b54(06b2156de7b54)
+         * album : 89c69891(36)
          */
 
-        private String album;
-        private String audio;
-        private String image;
-        private String name;
-        private String question;
-        private String title;
-        private String tutorcolumn;
         private String tutoruid;
+        private String name;
+        private String title;
+        private String image;
+        private String tutorcolumn;
+        private String audio;
+        private String question;
+        private String album;
 
-        public String getAlbum() {
-            return album;
+        public String getTutoruid() {
+            return tutoruid;
         }
 
-        public void setAlbum(String album) {
-            this.album = album;
-        }
-
-        public String getAudio() {
-            return audio;
-        }
-
-        public void setAudio(String audio) {
-            this.audio = audio;
-        }
-
-        public String getImage() {
-            return image;
-        }
-
-        public void setImage(String image) {
-            this.image = image;
+        public void setTutoruid(String tutoruid) {
+            this.tutoruid = tutoruid;
         }
 
         public String getName() {
@@ -97,20 +82,20 @@ public class CelebrityBean extends BaseGsonBeans {
             this.name = name;
         }
 
-        public String getQuestion() {
-            return question;
-        }
-
-        public void setQuestion(String question) {
-            this.question = question;
-        }
-
         public String getTitle() {
             return title;
         }
 
         public void setTitle(String title) {
             this.title = title;
+        }
+
+        public String getImage() {
+            return image;
+        }
+
+        public void setImage(String image) {
+            this.image = image;
         }
 
         public String getTutorcolumn() {
@@ -121,12 +106,29 @@ public class CelebrityBean extends BaseGsonBeans {
             this.tutorcolumn = tutorcolumn;
         }
 
-        public String getTutoruid() {
-            return tutoruid;
+        public String getAudio() {
+            return audio;
         }
 
-        public void setTutoruid(String tutoruid) {
-            this.tutoruid = tutoruid;
+        public void setAudio(String audio) {
+            this.audio = audio;
+        }
+
+        public String getQuestion() {
+            return question;
+        }
+
+        public void setQuestion(String question) {
+            this.question = question;
+        }
+
+        public String getAlbum() {
+            return album;
+        }
+
+        public void setAlbum(String album) {
+            this.album = album;
         }
     }
+}
 }

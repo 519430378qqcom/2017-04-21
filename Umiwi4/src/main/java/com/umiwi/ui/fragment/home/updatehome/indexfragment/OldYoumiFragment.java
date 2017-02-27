@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -53,7 +54,6 @@ public class OldYoumiFragment   extends BaseConstantFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_stage_section, null);
-
 //        TextView title = (TextView) view.findViewById(R.id.title);
 //        title.setText("分类");
         mActionBarToolbar = (Toolbar) view.findViewById(R.id.toolbar_actionbar);
@@ -86,6 +86,7 @@ public class OldYoumiFragment   extends BaseConstantFragment {
         mScrollLoader = new ListViewScrollLoader(this, mLoadingFooter);
 
         stageSectionAdapter = new StageSectionAdapter(getActivity());
+
         stageSectionListView.setAdapter(stageSectionAdapter);
 
         return view;
