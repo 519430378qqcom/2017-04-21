@@ -2,6 +2,8 @@ package com.umiwi.ui.adapter.updateadapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,7 +68,17 @@ public class LineActionadapter extends BaseAdapter {
         mImageLoader.loadImage(huodongBean.getImage(),mViewHolder.line_action_imageview_1,R.drawable.ic_launcher);
         mViewHolder.line_action_name_1.setText(huodongBean.getTitle());
         mViewHolder.line_action_context_1.setText(huodongBean.getContent());
-        mViewHolder.line_action_static_1.setText(huodongBean.getStatus());
+        mViewHolder.status = huodongBean.getStatus();
+
+        if (mViewHolder.status.toString() == "2"){
+            mViewHolder.line_action_static_1.setText("报名中");
+//            mViewHolder.line_action_static_1.setBackgroundResource(R.drawable.textview_fillet_question_bg);
+//            mViewHolder.line_action_static_1.setTextColor(mActivity.getResources().getColorStateList(R.color.main_color));
+        }else{
+            mViewHolder.line_action_static_1.setText("以结束");
+//            mViewHolder.line_action_static_1.setBackgroundResource(R.drawable.textview_line_action_end_bg);
+//            mViewHolder.line_action_static_1.setTextColor(mActivity.getResources().getColorStateList(R.color.umiwi_gray_b));
+        }
 
         return convertView;
     }

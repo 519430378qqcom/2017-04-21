@@ -23,17 +23,19 @@ public class LineActionLayoutViwe extends LinearLayout {
 
     private Context mContext;
     private LinearLayout line_action_root;
-    private TextView title_type_textview,title_tag;
+    private TextView title_type_textview;
     private ListView lv_home_action;
     private LineActionadapter mLineActionadapter;
     private ArrayList<RecommendBean.RBean.HuodongBean> mList;
 
     public LineActionLayoutViwe(Context context) {
         super(context);
+        init(context);
     }
 
     public LineActionLayoutViwe(Context context, AttributeSet attrs) {
         super(context, attrs);
+        init(context);
     }
     private void init(Context context) {
         mContext = context;
@@ -41,7 +43,7 @@ public class LineActionLayoutViwe extends LinearLayout {
         inflater.inflate(R.layout.line_action_item_layout, this);
         line_action_root = (LinearLayout) findViewById(R.id.line_action_root);
         title_type_textview = (TextView) findViewById(R.id.title_type_textview);
-        title_tag = (TextView) findViewById(R.id.title_tag);
+//        title_tag = (TextView) findViewById(R.id.title_tag);
         lv_home_action = (ListView) findViewById(R.id.lv_home_action);
         line_action_root.setVisibility(GONE);
     }
