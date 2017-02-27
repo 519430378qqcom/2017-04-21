@@ -122,7 +122,7 @@ public class RecommendBean extends BaseGsonBeans {
         @SerializedName("tutor")
         private ArrayList<TutorBean> tutor;
         @SerializedName("dalao")
-        private List<DalaoBean> dalao;
+        private ArrayList<DalaoBean> dalao;
         @SerializedName("asktutor")
         private ArrayList<AsktutorBean> asktutor;
         @SerializedName("question")
@@ -300,11 +300,11 @@ public class RecommendBean extends BaseGsonBeans {
             this.tutor = tutor;
         }
 
-        public List<DalaoBean> getDalao() {
+        public ArrayList<DalaoBean> getDalao() {
             return dalao;
         }
 
-        public void setDalao(List<DalaoBean> dalao) {
+        public void setDalao(ArrayList<DalaoBean> dalao) {
             this.dalao = dalao;
         }
 

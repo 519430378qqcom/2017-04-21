@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:id="@+id/youmi_big_shot_root"
     android:orientation="vertical">
 
     <LinearLayout
@@ -27,7 +28,6 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
         </RelativeLayout>
-
     </LinearLayout>
 
     <View
@@ -36,15 +36,11 @@
         android:layout_below="@id/menu"
         android:background="#adadad" />
 
-
-    <HorizontalScrollView
+    <com.devsmart.android.ui.HorizontalListView
+        android:id="@+id/hlv_big_shot"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="15dp">
-
-
-
-    </HorizontalScrollView>
-
+    </com.devsmart.android.ui.HorizontalListView>
 
 </LinearLayout>

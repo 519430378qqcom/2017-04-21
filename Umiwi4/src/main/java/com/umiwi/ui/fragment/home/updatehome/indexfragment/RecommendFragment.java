@@ -20,6 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.devsmart.android.ui.HorizontalListView;
 import com.umeng.analytics.MobclickAgent;
 import com.umiwi.ui.R;
 import com.umiwi.ui.activity.HomeMainActivity;
@@ -34,6 +35,7 @@ import com.umiwi.ui.beans.updatebeans.RecommendBean;
 import com.umiwi.ui.fragment.GiftFragment;
 import com.umiwi.ui.fragment.UserTestInfoFragment;
 import com.umiwi.ui.fragment.course.CourseDetailPlayFragment;
+import com.umiwi.ui.fragment.home.recommend.widget.BigShotLayoutView;
 import com.umiwi.ui.fragment.home.recommend.widget.ExpertAnswerLayoutViwe;
 import com.umiwi.ui.fragment.home.recommend.widget.ExpertRecLayoutView;
 import com.umiwi.ui.fragment.home.recommend.widget.ExpertRecLayoutView;
@@ -98,6 +100,7 @@ public class RecommendFragment extends BaseConstantFragment {
     private ExpertRecLayoutView erl_expert_rec;
     private LineActionLayoutViwe lalv_action_line;
     private ExpertAnswerLayoutViwe ealv_expert_answer;
+    private BigShotLayoutView bslv_big_shot;
     private ArrayList<NewFree> mList;
 
     private NewfreeAdapter mAdapter;
@@ -135,6 +138,9 @@ public class RecommendFragment extends BaseConstantFragment {
         initView(view);
         initheader(inflater);
         loadRecommend();
+
+
+
         return view;
     }
 
@@ -146,7 +152,7 @@ public class RecommendFragment extends BaseConstantFragment {
         erl_expert_rec = (ExpertRecLayoutView) v.findViewById(R.id.erl_expert_rec);
         lalv_action_line = (LineActionLayoutViwe) v.findViewById(R.id.lalv_action_line);
         ealv_expert_answer = (ExpertAnswerLayoutViwe) v.findViewById(R.id.eav_expert_answer);
-
+        bslv_big_shot = (BigShotLayoutView) v.findViewById(R.id.bslv_big_shot);
     }
 
     /**
@@ -176,7 +182,7 @@ public class RecommendFragment extends BaseConstantFragment {
                 erl_expert_rec.setData(t.getR().getTutor(),t.getR().getSec_tutor_title(),t.getR().getSec_tutor_more());
                 lalv_action_line.setData(t.getR().getHuodong(),t.getR().getSec_huodong_title());
                 ealv_expert_answer.setData(t.getR().getAsktutor(),t.getR().getSec_ask_title(),t.getR().getSec_ask_more(),t.getR().getSec_ask_quick());
-
+                bslv_big_shot.setData(t.getR().getDalao(),t.getR().getSec_dalao_title());
             }
         }
 

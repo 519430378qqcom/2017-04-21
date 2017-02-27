@@ -45,7 +45,11 @@
 
                 <include layout="@layout/pay_selected_item_layout" />
 
-                <include layout="@layout/youmi_big_shot_item_layout" />
+                <!-- <include layout="@layout/youmi_big_shot_item_layout" />-->
+                <com.umiwi.ui.fragment.home.recommend.widget.BigShotLayoutView
+                    android:id="@+id/bslv_big_shot"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
                 <!--<include layout="@layout/line_action_item_layout" />-->
                 <com.umiwi.ui.fragment.home.recommend.widget.LineActionLayoutViwe
