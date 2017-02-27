@@ -128,7 +128,7 @@ public class RecommendBean extends BaseGsonBeans {
         @SerializedName("question")
         private List<QuestionBean> question;
         @SerializedName("huodong")
-        private List<HuodongBean> huodong;
+        private ArrayList<HuodongBean> huodong;
         @SerializedName("bottom")
         private List<BottomBean> bottom;
 
@@ -324,11 +324,11 @@ public class RecommendBean extends BaseGsonBeans {
             this.question = question;
         }
 
-        public List<HuodongBean> getHuodong() {
+        public ArrayList<HuodongBean> getHuodong() {
             return huodong;
         }
 
-        public void setHuodong(List<HuodongBean> huodong) {
+        public void setHuodong(ArrayList<HuodongBean> huodong) {
             this.huodong = huodong;
         }
 

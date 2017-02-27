@@ -39,6 +39,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 />
+            <com.umiwi.ui.fragment.home.recommend.widget.LineActionLayoutViwe
+                android:id="@+id/lalv_action_line"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
 
             <include layout="@layout/expert_answer_layout" />
 
@@ -46,7 +51,7 @@
 
             <include layout="@layout/youmi_big_shot_item_layout" />
 
-            <include layout="@layout/line_action_item_layout" />
+            <!--<include layout="@layout/line_action_item_layout" />-->
 
             <TextView
                 android:id="@+id/text_feedback1"

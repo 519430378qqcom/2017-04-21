@@ -71,6 +71,7 @@ public class ExpertRecAdapter extends BaseAdapter {
         viewHolder.expter_time_textView.setText(tutorBean.getUpdatetime());
         viewHolder.expter_detail_textView.setText(tutorBean.getUpdateaudio());
         viewHolder.expert_subscribe_number.setText("已订阅"+tutorBean.getSalenum());
+        viewHolder.expert_price.setText(tutorBean.getPrice());
         viewHolder.isBuy = tutorBean.getIsbuy();
         viewHolder.uid = tutorBean.getUid();
         // TODO 是否已购
@@ -89,6 +90,7 @@ public class ExpertRecAdapter extends BaseAdapter {
 
         public ViewHolder(View convertView) {
             this.rootView = convertView;
+            expert_price = (TextView) rootView.findViewById(R.id.expert_price);
             expert_header_imageview = (ImageView) rootView.findViewById(R.id.expert_header_imageview);
             expert_name_textView_1 = (TextView) rootView.findViewById(R.id.expert_name_textView_1);
             expert_context_1 = (TextView) rootView.findViewById(R.id.expert_context_1);
