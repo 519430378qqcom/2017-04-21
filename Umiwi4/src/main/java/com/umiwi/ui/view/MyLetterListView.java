@@ -15,7 +15,7 @@ import android.view.View;
 import com.umiwi.ui.beans.LecturerBean.LecturerBeanWapper;
 import com.umiwi.ui.fragment.LecturerListFragment;
 import com.umiwi.ui.fragment.LecturerListFragment.LastnameHandler;
-
+import com.umiwi.ui.fragment.home.updatehome.indexfragment.ExpertFragment;
 
 
 public class MyLetterListView extends View {
@@ -160,6 +160,10 @@ public class MyLetterListView extends View {
 	public void setOnTouchingLetterChangedListener(
 			OnTouchingLetterChangedListener onTouchingLetterChangedListener) {
 		this.onTouchingLetterChangedListener = onTouchingLetterChangedListener;
+	}
+
+	public void setHandler(ExpertFragment.LastnameHandler mHandler) {
+
 	}
 
 	public interface OnTouchingLetterChangedListener{
