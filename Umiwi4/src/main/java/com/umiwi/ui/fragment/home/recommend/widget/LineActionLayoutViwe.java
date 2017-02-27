@@ -8,11 +8,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.umiwi.ui.R;
-import com.umiwi.ui.adapter.updateadapter.ExpertRecAdapter;
 import com.umiwi.ui.adapter.updateadapter.LineActionadapter;
 import com.umiwi.ui.beans.updatebeans.RecommendBean;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -37,6 +34,7 @@ public class LineActionLayoutViwe extends LinearLayout {
         super(context, attrs);
         init(context);
     }
+
     private void init(Context context) {
         mContext = context;
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
