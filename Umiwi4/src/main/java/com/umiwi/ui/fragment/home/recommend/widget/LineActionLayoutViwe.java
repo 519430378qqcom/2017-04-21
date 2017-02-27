@@ -14,6 +14,7 @@ import com.umiwi.ui.beans.updatebeans.RecommendBean;
 import java.util.ArrayList;
 
 /**
+ * 首页-推荐-线下活动 Adapter
  * Created by ${Gpsi} on 2017/2/27.
  */
 public class LineActionLayoutViwe extends LinearLayout {

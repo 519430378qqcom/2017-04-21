@@ -34,6 +34,7 @@ import com.umiwi.ui.beans.updatebeans.RecommendBean;
 import com.umiwi.ui.fragment.GiftFragment;
 import com.umiwi.ui.fragment.UserTestInfoFragment;
 import com.umiwi.ui.fragment.course.CourseDetailPlayFragment;
+import com.umiwi.ui.fragment.home.recommend.widget.ExpertAnswerLayoutViwe;
 import com.umiwi.ui.fragment.home.recommend.widget.ExpertRecLayoutView;
 import com.umiwi.ui.fragment.home.recommend.widget.ExpertRecLayoutView;
 import com.umiwi.ui.fragment.home.recommend.widget.FreeLayoutView;
@@ -96,6 +97,7 @@ public class RecommendFragment extends BaseConstantFragment {
     private FreeLayoutView flv_new_free;
     private ExpertRecLayoutView erl_expert_rec;
     private LineActionLayoutViwe lalv_action_line;
+    private ExpertAnswerLayoutViwe ealv_expert_answer;
     private ArrayList<NewFree> mList;
 
     private NewfreeAdapter mAdapter;
@@ -142,6 +144,7 @@ public class RecommendFragment extends BaseConstantFragment {
         flv_new_free = (FreeLayoutView) v.findViewById(R.id.flv_new_free);
         erl_expert_rec = (ExpertRecLayoutView) v.findViewById(R.id.erl_expert_rec);
         lalv_action_line = (LineActionLayoutViwe) v.findViewById(R.id.lalv_action_line);
+//        ealv_expert_answer = (ExpertAnswerLayoutViwe) v.findViewById(R.id.ealv_expert_answer);
     }
 
     /**
@@ -158,6 +161,8 @@ public class RecommendFragment extends BaseConstantFragment {
         GetRequest<RecommendBean> request = new GetRequest<>(
                 UmiwiAPI.VIDEO_TUIJIAN, GsonParser.class, RecommendBean.class, indexActionListener);
         request.go();
+
+
     }
 
     private AbstractRequest.Listener<RecommendBean> indexActionListener = new AbstractRequest.Listener<RecommendBean>() {
@@ -169,6 +174,7 @@ public class RecommendFragment extends BaseConstantFragment {
                 flv_new_free.setData(t.getR().getFree().getRecord(), t.getR().getSec_free_title(), t.getR().getSec_free_huan());
                 erl_expert_rec.setData(t.getR().getTutor(),t.getR().getSec_tutor_title(),t.getR().getSec_tutor_more());
                 lalv_action_line.setData(t.getR().getHuodong(),t.getR().getSec_huodong_title());
+//                ealv_expert_answer.setData(t.getR().getAsktutor(),t.getR().getSec_ask_title(),t.getR().getSec_ask_more(),t.getR().getSec_ask_quick());
 
             }
         }
@@ -289,9 +295,9 @@ public class RecommendFragment extends BaseConstantFragment {
     public void onLoadData() {
         super.onLoadData();
         //最新免费
-        GetRequest<NewFreeResult<NewFree>> request = new GetRequest<NewFreeResult<NewFree>>(
+     /*   GetRequest<NewFreeResult<NewFree>> request = new GetRequest<NewFreeResult<NewFree>>(
                 UmiwiAPI.NEW_FREE, NewFreeParser.class, NewFree.class, listener);
-        request.go();
+        request.go();*/
 
     }
 

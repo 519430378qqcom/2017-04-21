@@ -72,12 +72,12 @@ public class LineActionadapter extends BaseAdapter {
         if (mViewHolder.status.toString().equals("2")){
             //TODO
             mViewHolder.line_action_static_1.setText("报名中");
-//            mViewHolder.line_action_static_1.setBackgroundResource(R.drawable.textview_fillet_question_bg);
-//            mViewHolder.line_action_static_1.setTextColor(mActivity.getResources().getColorStateList(R.color.main_color));
+            mViewHolder.line_action_static_1.setBackgroundResource(R.drawable.textview_fillet_question_bg);
+            mViewHolder.line_action_static_1.setTextColor(mActivity.getResources().getColorStateList(R.color.main_color));
         }if(mViewHolder.status.equals("3")){
             mViewHolder.line_action_static_1.setText("以结束");
-//            mViewHolder.line_action_static_1.setBackgroundResource(R.drawable.textview_line_action_end_bg);
-//            mViewHolder.line_action_static_1.setTextColor(mActivity.getResources().getColorStateList(R.color.umiwi_gray_b));
+            mViewHolder.line_action_static_1.setBackgroundResource(R.drawable.textview_line_action_end_bg);
+            mViewHolder.line_action_static_1.setTextColor(mActivity.getResources().getColorStateList(R.color.umiwi_gray_b));
         }
 
         return convertView;
