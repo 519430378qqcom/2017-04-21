@@ -24,6 +24,7 @@
                     android:id="@+id/iv_expert_answer_header"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
+                    android:scaleType="fitXY"
                     android:background="@color/main_color" />
 
             </LinearLayout>

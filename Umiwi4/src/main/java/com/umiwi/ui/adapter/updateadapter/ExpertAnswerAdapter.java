@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import cn.youmi.framework.util.ImageLoader;
 
 /**
- * 首页-推荐-行家推荐 - Adapter
+ * 首页-推荐-专家问答 - Adapter
  * Created by ${Gpsi} on 2017/2/27.
  */
 
@@ -29,7 +29,8 @@ public class ExpertAnswerAdapter extends BaseAdapter {
     private ArrayList<RecommendBean.RBean.AsktutorBean> mList;
     private ImageLoader mImageLoader;
     private Activity mActivity;
-    public ExpertAnswerAdapter(Context context, ArrayList<RecommendBean.RBean.AsktutorBean> mList){
+
+    public ExpertAnswerAdapter(Context context, ArrayList<RecommendBean.RBean.AsktutorBean> mList) {
         mLayoutInflater = LayoutInflater.from(context);
         this.mActivity = (Activity) context;
         this.mList = mList;
@@ -55,22 +56,23 @@ public class ExpertAnswerAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder mViewHolder;
-        if (convertView == null){
-            convertView = mLayoutInflater.inflate(R.layout.line_action_item,null);
+        if (convertView == null) {
+            convertView = mLayoutInflater.inflate(R.layout.home_expert_answer_item, null);
             mViewHolder = new ViewHolder(convertView);
             convertView.setTag(mViewHolder);
-        }else{
+        } else {
             mViewHolder = (ViewHolder) convertView.getTag();
         }
         RecommendBean.RBean.AsktutorBean asktutorBean = mList.get(position);
 
-        mImageLoader.loadImage(asktutorBean.getThumb(),mViewHolder.iv_expert_answer_header,R.drawable.ic_launcher);
+        mImageLoader.loadImage(asktutorBean.getThumb(), mViewHolder.iv_expert_answer_header, R.drawable.ic_launcher);
         mViewHolder.tv_expert_name.setText(asktutorBean.getName());
         mViewHolder.expert_job_textview.setText(asktutorBean.getTitle());
 
         return convertView;
     }
-    public class ViewHolder{
+
+    public class ViewHolder {
         public View rootView;
         public ImageView iv_expert_answer_header;
         //姓名-职位-提问按钮-

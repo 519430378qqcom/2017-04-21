@@ -40,7 +40,7 @@ public class ExpertAnswerLayoutViwe extends LinearLayout {
     private void init(Context context) {
         mContext = context;
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.expert_answer_layout, this);
+        inflater.inflate(R.layout.home_expert_answer_layout, this);
         expert_answer_root = (LinearLayout) findViewById(R.id.expert_answer_root);
         tv_expert_answer_title = (TextView) findViewById(R.id.tv_expert_answer_title);
         tv_experttitle_tag = (TextView) findViewById(R.id.tv_experttitle_tag);

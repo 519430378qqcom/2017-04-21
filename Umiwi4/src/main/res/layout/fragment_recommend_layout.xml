@@ -7,77 +7,73 @@
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/pull_to_refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone">
+        android:layout_height="match_parent">
 
 
+        <ScrollView
 
-    </android.support.v4.widget.SwipeRefreshLayout>
-
-    <ScrollView
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:visibility="visible">
-            <include layout="@layout/include_listview" />
-            <!--<include layout="@layout/include_listview" />-->
+            android:layout_height="wrap_content">
 
-            <!--<include layout="@layout/new_free_layout" />-->
-            <com.umiwi.ui.fragment.home.recommend.widget.FreeLayoutView
-                android:id="@+id/flv_new_free"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <include layout="@layout/include_listview" />
+                <!--<include layout="@layout/include_listview" />-->
+
+                <!--<include layout="@layout/new_free_layout" />-->
+                <com.umiwi.ui.fragment.home.recommend.widget.FreeLayoutView
+                    android:id="@+id/flv_new_free"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
 
-            <com.umiwi.ui.fragment.home.recommend.widget.ExpertRecLayoutView
-                android:id="@+id/erl_expert_rec"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
-<!--            <com.umiwi.ui.fragment.home.recommend.widget.ExpertAnswerLayoutViwe
-                android:id="@+id/ealv_expert_answer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />-->
+                <com.umiwi.ui.fragment.home.recommend.widget.ExpertRecLayoutView
+                    android:id="@+id/erl_expert_rec"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-            <!--<include layout="@layout/expert_answer_layout" />-->
+                <com.umiwi.ui.fragment.home.recommend.widget.ExpertAnswerLayoutViwe
+                    android:id="@+id/eav_expert_answer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-            <include layout="@layout/pay_selected_item_layout" />
+                <!--<include layout="@layout/expert_answer_layout" />-->
 
-            <include layout="@layout/youmi_big_shot_item_layout" />
+                <include layout="@layout/pay_selected_item_layout" />
 
-            <!--<include layout="@layout/line_action_item_layout" />-->
-            <com.umiwi.ui.fragment.home.recommend.widget.LineActionLayoutViwe
-                android:id="@+id/lalv_action_line"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
+                <include layout="@layout/youmi_big_shot_item_layout" />
 
-            <TextView
-                android:id="@+id/text_feedback1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center"
-                android:layout_marginBottom="30dp"
-                android:layout_marginTop="30dp"
-                android:background="@drawable/textview_fillet_question_bg"
-                android:onClick="feedback_clock"
-                android:paddingBottom="5dp"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:paddingTop="5dp"
-                android:text="意见反馈"
-                android:textColor="@color/main_color"
-                android:textSize="18sp"
-                android:visibility="visible" />
-        </LinearLayout>
-    </ScrollView>
+                <!--<include layout="@layout/line_action_item_layout" />-->
+                <com.umiwi.ui.fragment.home.recommend.widget.LineActionLayoutViwe
+                    android:id="@+id/lalv_action_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/text_feedback1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="30dp"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/textview_fillet_question_bg"
+                    android:onClick="feedback_clock"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="5dp"
+                    android:text="意见反馈"
+                    android:textColor="@color/main_color"
+                    android:textSize="18sp"
+                    android:visibility="visible" />
+            </LinearLayout>
+        </ScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>

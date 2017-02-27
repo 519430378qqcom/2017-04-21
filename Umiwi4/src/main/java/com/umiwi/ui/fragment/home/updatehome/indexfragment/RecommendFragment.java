@@ -113,7 +113,8 @@ public class RecommendFragment extends BaseConstantFragment {
             mList.clear();
             mAdapter.notifyDataSetChanged();
             loadLunboData();
-            mScrollLoader.onLoadFirstPage();
+            getIndexAction();
+//            mScrollLoader.onLoadFirstPage();
         }
     };
 
@@ -144,7 +145,8 @@ public class RecommendFragment extends BaseConstantFragment {
         flv_new_free = (FreeLayoutView) v.findViewById(R.id.flv_new_free);
         erl_expert_rec = (ExpertRecLayoutView) v.findViewById(R.id.erl_expert_rec);
         lalv_action_line = (LineActionLayoutViwe) v.findViewById(R.id.lalv_action_line);
-//        ealv_expert_answer = (ExpertAnswerLayoutViwe) v.findViewById(R.id.ealv_expert_answer);
+        ealv_expert_answer = (ExpertAnswerLayoutViwe) v.findViewById(R.id.eav_expert_answer);
+
     }
 
     /**
@@ -162,7 +164,6 @@ public class RecommendFragment extends BaseConstantFragment {
                 UmiwiAPI.VIDEO_TUIJIAN, GsonParser.class, RecommendBean.class, indexActionListener);
         request.go();
 
-
     }
 
     private AbstractRequest.Listener<RecommendBean> indexActionListener = new AbstractRequest.Listener<RecommendBean>() {
@@ -174,7 +175,7 @@ public class RecommendFragment extends BaseConstantFragment {
                 flv_new_free.setData(t.getR().getFree().getRecord(), t.getR().getSec_free_title(), t.getR().getSec_free_huan());
                 erl_expert_rec.setData(t.getR().getTutor(),t.getR().getSec_tutor_title(),t.getR().getSec_tutor_more());
                 lalv_action_line.setData(t.getR().getHuodong(),t.getR().getSec_huodong_title());
-//                ealv_expert_answer.setData(t.getR().getAsktutor(),t.getR().getSec_ask_title(),t.getR().getSec_ask_more(),t.getR().getSec_ask_quick());
+                ealv_expert_answer.setData(t.getR().getAsktutor(),t.getR().getSec_ask_title(),t.getR().getSec_ask_more(),t.getR().getSec_ask_quick());
 
             }
         }
@@ -201,9 +202,7 @@ public class RecommendFragment extends BaseConstantFragment {
 
         mAutoViewPager.setAdapter(new LunboAdapter(getActivity(), mLunboList));
         mIndicator.setViewPager(mAutoViewPager);
-        //TODO   删除了一些东西，出错原因可能在这
         mAutoViewPager.setStopScrollWhenTouch(false);
-
 
         refreshLayout.setOnRefreshListener(mOnRefreshListener);
         int color = getResources().getColor(R.color.umiwi_orange);
@@ -211,7 +210,6 @@ public class RecommendFragment extends BaseConstantFragment {
 
         mList = new ArrayList<NewFree>();
         mAdapter = new NewfreeAdapter(getActivity(), mList);
-
 
         mLoadingFooter = new LoadingFooter(getActivity());// 加载更多的view
         mListView.addHeaderView(header, null, false);
@@ -225,7 +223,6 @@ public class RecommendFragment extends BaseConstantFragment {
         mListView.setOnScrollListener(mScrollLoader);// 添加加载更多到listveiw
 
         loadLunboData();
-
 
         mScrollLoader.onLoadFirstPage();// 初始化接口，加载第一页
 
@@ -542,19 +539,15 @@ public class RecommendFragment extends BaseConstantFragment {
                     loginupate();
                     instance.PushString();
                     break;
-
                 default:
                     break;
             }
-
         }
-
         @Override
         public void onModelsGet(UserEvent key, List<UserModel> models) {
         }
 
     };
-
 
     @Override
     public void onDestroyView() {
@@ -562,8 +555,4 @@ public class RecommendFragment extends BaseConstantFragment {
         ButterKnife.reset(this);
         YoumiRoomUserManager.getInstance().unregisterListener(userListener);
     }
-
-    //TODO  解决推荐页添加轮播图崩溃尝试
-
-
 }
