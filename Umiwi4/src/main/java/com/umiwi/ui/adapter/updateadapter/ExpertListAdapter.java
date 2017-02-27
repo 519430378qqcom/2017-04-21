@@ -32,14 +32,14 @@ public class ExpertListAdapter extends SectionedBaseAdapter {
 
 	private LayoutInflater inflater;
 
-	private List<CelebrityBean>  lecturerWappers;
+    List<CelebrityBean.CelebrityBeanRet>  lecturerWappers;
 
 	public ExpertListAdapter(Context context) {
 		super();
 		this.inflater = LayoutInflater.from(context);
 	}
 
-	public void setLecturers(List<CelebrityBean>  lecturerWappers) {
+	public void setLecturers(List<CelebrityBean.CelebrityBeanRet>  lecturerWappers) {
 		this.lecturerWappers = lecturerWappers;
 		this.notifyDataSetChanged();
 	}
@@ -82,7 +82,7 @@ public class ExpertListAdapter extends SectionedBaseAdapter {
 	@Override
 	public int getCountForSection(int section) {
 		if(lecturerWappers != null) {
-			return lecturerWappers.size();
+			return lecturerWappers.get(section).getContent().size();
 		}
 		return 0;
 	}

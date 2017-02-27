@@ -23,7 +23,7 @@ import java.util.List;
  */
 
 public class MyCelebrityLetterListView extends View {
-    private LecturerListFragment.LastnameHandler lastnameHandler;
+    private ExpertFragment.LastnameHandler  lastnameHandler;
 
     MyLetterListView.OnTouchingLetterChangedListener onTouchingLetterChangedListener;
 
@@ -34,7 +34,7 @@ public class MyCelebrityLetterListView extends View {
     Paint paint = new Paint();
 
 
-    List<CelebrityBean> lecturerWapper;
+    List<CelebrityBean.CelebrityBeanRet> lecturerWapper;
 
     public MyCelebrityLetterListView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -48,18 +48,18 @@ public class MyCelebrityLetterListView extends View {
         super(context);
     }
 
-    public void setData(List<CelebrityBean> lecturerWapper) {
+    public void setData(List<CelebrityBean.CelebrityBeanRet> lecturerWapper) {
         this.lecturerWapper = lecturerWapper;
         parseLetters(lecturerWapper);
     }
 
-    private void parseLetters(List<CelebrityBean> lecturerWappers) {
+    private void parseLetters(List<CelebrityBean.CelebrityBeanRet> lecturerWappers) {
         if(lecturerWappers != null) {
             this.b = new ArrayList<String>(lecturerWappers.size());
 
             for(int i=0; i<lecturerWappers.size(); i++) {
-                CelebrityBean lecturerWapper = lecturerWappers.get(i);
-                String lastName = lecturerWapper.getPinyinname();
+                CelebrityBean.CelebrityBeanRet celebrityBeanRets = lecturerWappers.get(i);
+                String lastName = celebrityBeanRets.getPinyinname();
                 b.add(lastName);
             }
         }
@@ -167,6 +167,7 @@ public class MyCelebrityLetterListView extends View {
     }
 
     public void setHandler(ExpertFragment.LastnameHandler mHandler) {
+        this.lastnameHandler = mHandler;
 
     }
 
@@ -175,8 +176,5 @@ public class MyCelebrityLetterListView extends View {
     }
 
 
-    public void setHandler(LecturerListFragment.LastnameHandler mHandler) {
-        this.lastnameHandler = mHandler;
-    }
 
 }
