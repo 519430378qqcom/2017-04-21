@@ -23,7 +23,7 @@
         android:scrollingCache="true"
         android:smoothScrollbar="true" />
 
-    <com.umiwi.ui.view.MyLetterListView
+    <com.umiwi.ui.view.MyCelebrityLetterListView
         android:id="@+id/letter_listview"
         android:layout_width="30dip"
         android:layout_height="match_parent"

@@ -4,6 +4,24 @@
     android:layout_height="wrap_content"
     android:background="@drawable/selectable_background_apptheme_umiwi" >
 
+    <View
+        android:id="@+id/right_line"
+        android:layout_width="0.05dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="right|center_vertical"
+        android:layout_marginBottom="4dp"
+        android:layout_marginTop="2dp"
+        android:background="@color/umiwi_gray_c"
+        android:visibility="gone" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.05dp"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="6dp"
+        android:background="@color/umiwi_gray_c" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,23 +44,5 @@
             android:textColor="@color/umiwi_gray_6"
             android:textSize="14sp" />
     </LinearLayout>
-
-    <View
-        android:id="@+id/right_line"
-        android:layout_width="0.05dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="right|center_vertical"
-        android:layout_marginBottom="4dp"
-        android:layout_marginTop="2dp"
-        android:background="@color/umiwi_gray_c"
-        android:visibility="gone" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.05dp"
-        android:layout_gravity="bottom"
-        android:layout_marginLeft="2dp"
-        android:layout_marginRight="6dp"
-        android:background="@color/umiwi_gray_c" />
 
 </FrameLayout>

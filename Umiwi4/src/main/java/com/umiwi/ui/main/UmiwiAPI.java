@@ -391,8 +391,8 @@ public final class UmiwiAPI {
     public static final String COlUMN_LIST = "http://i.v.youmi.cn/tutorcolumn/buylist";
 
 
-
-
+    // =================================新优米首页相关=================================================//
+    public static final String CELEBRTYY_LIST = "http://i.v.youmi.cn/apireader/tutorList";
 
 
 

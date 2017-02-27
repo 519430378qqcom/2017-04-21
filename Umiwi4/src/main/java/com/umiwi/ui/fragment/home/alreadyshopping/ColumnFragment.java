@@ -13,7 +13,6 @@ import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.ColumnAdapter;
 import com.umiwi.ui.beans.ActivityItemBean;
-import com.umiwi.ui.fragment.ActivityDetailFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 import java.util.ArrayList;
 import cn.youmi.framework.util.ListViewScrollLoader;
@@ -25,7 +24,7 @@ import cn.youmi.framework.view.LoadingFooter;
  * Detail:专栏
  */
 
-public class ColumnFragment  extends BaseConstantFragment {
+public class ColumnFragment extends BaseConstantFragment {
 
     private ListView listView;
     private ArrayList<ActivityItemBean> mList;
