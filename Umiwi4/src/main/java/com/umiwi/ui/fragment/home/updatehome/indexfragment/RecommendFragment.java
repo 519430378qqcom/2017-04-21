@@ -17,10 +17,10 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
+import android.widget.ScrollView;
+android.widget.TextView;
 import android.widget.Toast;
 
-import com.devsmart.android.ui.HorizontalListView;
 import com.umeng.analytics.MobclickAgent;
 import com.umiwi.ui.R;
 import com.umiwi.ui.activity.HomeMainActivity;
@@ -44,6 +44,7 @@ import com.umiwi.ui.fragment.home.recommend.widget.FreeLayoutView;
 import com.umiwi.ui.fragment.home.recommend.widget.LineActionLayoutViwe;
 import com.umiwi.ui.fragment.home.recommend.widget.PaySelectedLayoutViwe;
 import com.umiwi.ui.fragment.setting.FeedbackFragment;
+import com.umiwi.ui.fragment.home.updatehome.NewHomeRecommendFragment;
 import com.umiwi.ui.http.parsers.ADParser;
 import com.umiwi.ui.http.parsers.CourseListParser;
 import com.umiwi.ui.http.parsers.newhttpparsers.NewFreeParser;
@@ -86,6 +87,8 @@ public class RecommendFragment extends BaseConstantFragment {
     ListView mListView;
     @InjectView(R.id.pull_to_refresh_layout)
     SwipeRefreshLayout refreshLayout;
+    @InjectView(R.id.sc_recomment_root)
+    ScrollView sc_recomment_root;
 
     private View header;
     private ArrayList<UmiwiListBeans> mLunboList;
@@ -143,8 +146,6 @@ public class RecommendFragment extends BaseConstantFragment {
         initheader(inflater);
         loadRecommend();
 
-
-
         return view;
     }
 
@@ -188,7 +189,7 @@ public class RecommendFragment extends BaseConstantFragment {
                 erl_expert_rec.setData(t.getR().getTutor(),t.getR().getSec_tutor_title(),t.getR().getSec_tutor_more());
                 lalv_action_line.setData(t.getR().getHuodong(),t.getR().getSec_huodong_title());
                 ealv_expert_answer.setData(t.getR().getAsktutor(),t.getR().getSec_ask_title(),t.getR().getSec_ask_more());
-                bslv_big_shot.setData(t.getR().getDalao(),t.getR().getSec_dalao_title());
+                bslv_big_shot.setData(NewHomeRecommendFragment.getRootViewpager(), sc_recomment_root, t.getR().getDalao(), t.getR().getSec_dalao_title());
                 eadlv_expert_answer.setData(t.getR().getQuestion(),t.getR().getSec_ask_quick());
                 pslv_pay_selected.setData(t.getR().getCharge().getRecord(),t.getR().getSec_charge_title(),t.getR().getSec_charge_huan());
             }
@@ -300,7 +301,6 @@ public class RecommendFragment extends BaseConstantFragment {
         mAutoViewPager.stopAutoScroll();
         MobclickAgent.onPageEnd(fragmentName);
     }
-
 
     @Override
     public void onLoadData() {
@@ -557,6 +557,7 @@ public class RecommendFragment extends BaseConstantFragment {
                     break;
             }
         }
+
         @Override
         public void onModelsGet(UserEvent key, List<UserModel> models) {
         }
