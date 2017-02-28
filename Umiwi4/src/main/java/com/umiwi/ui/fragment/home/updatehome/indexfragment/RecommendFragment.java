@@ -36,6 +36,7 @@ import com.umiwi.ui.fragment.GiftFragment;
 import com.umiwi.ui.fragment.UserTestInfoFragment;
 import com.umiwi.ui.fragment.course.CourseDetailPlayFragment;
 import com.umiwi.ui.fragment.home.recommend.widget.BigShotLayoutView;
+import com.umiwi.ui.fragment.home.recommend.widget.ExpertAnswerDwonLayoutViwe;
 import com.umiwi.ui.fragment.home.recommend.widget.ExpertAnswerLayoutViwe;
 import com.umiwi.ui.fragment.home.recommend.widget.ExpertRecLayoutView;
 import com.umiwi.ui.fragment.home.recommend.widget.ExpertRecLayoutView;
@@ -101,6 +102,7 @@ public class RecommendFragment extends BaseConstantFragment {
     private LineActionLayoutViwe lalv_action_line;
     private ExpertAnswerLayoutViwe ealv_expert_answer;
     private BigShotLayoutView bslv_big_shot;
+    private ExpertAnswerDwonLayoutViwe eadlv_expert_answer;
     private ArrayList<NewFree> mList;
 
     private NewfreeAdapter mAdapter;
@@ -153,6 +155,7 @@ public class RecommendFragment extends BaseConstantFragment {
         lalv_action_line = (LineActionLayoutViwe) v.findViewById(R.id.lalv_action_line);
         ealv_expert_answer = (ExpertAnswerLayoutViwe) v.findViewById(R.id.eav_expert_answer);
         bslv_big_shot = (BigShotLayoutView) v.findViewById(R.id.bslv_big_shot);
+        eadlv_expert_answer = (ExpertAnswerDwonLayoutViwe) v.findViewById(R.id.eadlv_expert_answer);
     }
 
     /**
@@ -181,8 +184,9 @@ public class RecommendFragment extends BaseConstantFragment {
                 flv_new_free.setData(t.getR().getFree().getRecord(), t.getR().getSec_free_title(), t.getR().getSec_free_huan());
                 erl_expert_rec.setData(t.getR().getTutor(),t.getR().getSec_tutor_title(),t.getR().getSec_tutor_more());
                 lalv_action_line.setData(t.getR().getHuodong(),t.getR().getSec_huodong_title());
-                ealv_expert_answer.setData(t.getR().getAsktutor(),t.getR().getSec_ask_title(),t.getR().getSec_ask_more(),t.getR().getSec_ask_quick());
+                ealv_expert_answer.setData(t.getR().getAsktutor(),t.getR().getSec_ask_title(),t.getR().getSec_ask_more());
                 bslv_big_shot.setData(t.getR().getDalao(),t.getR().getSec_dalao_title());
+                eadlv_expert_answer.setData(t.getR().getQuestion(),t.getR().getSec_ask_quick());
             }
         }
 

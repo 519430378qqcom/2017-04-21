@@ -126,7 +126,7 @@ public class RecommendBean extends BaseGsonBeans {
         @SerializedName("asktutor")
         private ArrayList<AsktutorBean> asktutor;
         @SerializedName("question")
-        private List<QuestionBean> question;
+        private ArrayList<QuestionBean> question;
         @SerializedName("huodong")
         private ArrayList<HuodongBean> huodong;
         @SerializedName("bottom")
@@ -316,11 +316,11 @@ public class RecommendBean extends BaseGsonBeans {
             this.asktutor = asktutor;
         }
 
-        public List<QuestionBean> getQuestion() {
+        public ArrayList<QuestionBean> getQuestion() {
             return question;
         }
 
-        public void setQuestion(List<QuestionBean> question) {
+        public void setQuestion(ArrayList<QuestionBean> question) {
             this.question = question;
         }
 

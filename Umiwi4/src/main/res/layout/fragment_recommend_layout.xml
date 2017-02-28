@@ -39,7 +39,13 @@
                 <com.umiwi.ui.fragment.home.recommend.widget.ExpertAnswerLayoutViwe
                     android:id="@+id/eav_expert_answer"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"/>
+
+                <com.umiwi.ui.fragment.home.recommend.widget.ExpertAnswerDwonLayoutViwe
+                    android:id="@+id/eadlv_expert_answer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
 
                 <!--<include layout="@layout/expert_answer_layout" />-->
 

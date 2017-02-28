@@ -22,7 +22,7 @@ public class ExpertAnswerLayoutViwe extends LinearLayout {
 
     private Context mContext;
     private LinearLayout expert_answer_root;
-    private TextView tv_expert_answer_title,tv_experttitle_tag,tv_expert_answer_fask_ask;
+    private TextView tv_expert_answer_title,tv_experttitle_tag;
     private ListView lv_expert_answer;
     private ExpertAnswerAdapter mExpertAnswerAdapter;
     private ArrayList<RecommendBean.RBean.AsktutorBean> mList;
@@ -44,16 +44,14 @@ public class ExpertAnswerLayoutViwe extends LinearLayout {
         expert_answer_root = (LinearLayout) findViewById(R.id.expert_answer_root);
         tv_expert_answer_title = (TextView) findViewById(R.id.tv_expert_answer_title);
         tv_experttitle_tag = (TextView) findViewById(R.id.tv_experttitle_tag);
-        tv_expert_answer_fask_ask = (TextView) findViewById(R.id.tv_expert_answer_fask_ask);
         lv_expert_answer = (ListView) findViewById(R.id.lv_expert_answer);
         expert_answer_root.setVisibility(GONE);
     }
 
-    public void setData(ArrayList<RecommendBean.RBean.AsktutorBean> asktutorBeen, String answerTitle,String experttitleTag,String faskAsk) {
+    public void setData(ArrayList<RecommendBean.RBean.AsktutorBean> asktutorBeen, String answerTitle,String experttitleTag) {
 
         tv_expert_answer_title.setText(answerTitle);
         tv_experttitle_tag.setText(experttitleTag);
-        tv_expert_answer_fask_ask.setText(faskAsk);
         mList = asktutorBeen;
         if (null == mList || mList.size() == 0)
             return;
