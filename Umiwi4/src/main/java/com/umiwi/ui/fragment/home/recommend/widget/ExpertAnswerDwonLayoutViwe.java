@@ -47,7 +47,7 @@ public class ExpertAnswerDwonLayoutViwe extends LinearLayout {
         expert_answer_dwon_root.setVisibility(GONE);
     }
 
-    public void setData(ArrayList<RecommendBean.RBean.QuestionBean> questionBeen,String fask_ask) {
+    public void setData(ArrayList<RecommendBean.RBean.QuestionBean> questionBeen, String fask_ask) {
 
         tv_expert_answer_fask_ask.setText(fask_ask);
         mList = questionBeen;

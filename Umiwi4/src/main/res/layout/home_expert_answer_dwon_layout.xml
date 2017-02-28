@@ -6,15 +6,16 @@
     android:orientation="vertical">
 
 
-
     <com.umiwi.ui.fragment.home.recommend.widget.ListViewInScroll
         android:id="@+id/lv_expert_dwon_answer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"

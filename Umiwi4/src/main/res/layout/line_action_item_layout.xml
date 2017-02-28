@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/line_action_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/line_action_root"
     android:orientation="vertical">
 
     <LinearLayout
@@ -37,8 +37,8 @@
                 android:layout_marginRight="15dp"
                 android:text="换一批"
                 android:textColor="#adadad"
-                android:visibility="gone"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:visibility="gone" />
 
         </RelativeLayout>
 

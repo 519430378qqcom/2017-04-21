@@ -9,7 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <ScrollView
 
             android:layout_width="match_parent"
@@ -22,48 +21,51 @@
                 android:visibility="visible">
 
                 <include layout="@layout/include_listview" />
-                <!--<include layout="@layout/include_listview" />-->
 
-                <!--<include layout="@layout/new_free_layout" />-->
                 <com.umiwi.ui.fragment.home.recommend.widget.FreeLayoutView
                     android:id="@+id/flv_new_free"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
+                <include layout="@layout/include_view" />
 
                 <com.umiwi.ui.fragment.home.recommend.widget.ExpertRecLayoutView
                     android:id="@+id/erl_expert_rec"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
+                <include layout="@layout/include_view" />
+
                 <com.umiwi.ui.fragment.home.recommend.widget.ExpertAnswerLayoutViwe
                     android:id="@+id/eav_expert_answer"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content" />
 
                 <com.umiwi.ui.fragment.home.recommend.widget.ExpertAnswerDwonLayoutViwe
                     android:id="@+id/eadlv_expert_answer"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    />
+                    android:layout_height="wrap_content" />
 
-                <!--<include layout="@layout/expert_answer_layout" />-->
-
-                <!--<include layout="@layout/pay_selected_item_layout" />-->
+                <include layout="@layout/include_view" />
 
                 <com.umiwi.ui.fragment.home.recommend.widget.PaySelectedLayoutViwe
                     android:id="@+id/pslv_pay_selected"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
 
                     />
-                <!-- <include layout="@layout/youmi_big_shot_item_layout" />-->
+
+                <include layout="@layout/include_view" />
+
                 <com.umiwi.ui.fragment.home.recommend.widget.BigShotLayoutView
                     android:id="@+id/bslv_big_shot"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp" />
 
-                <!--<include layout="@layout/line_action_item_layout" />-->
+                <include layout="@layout/include_view" />
+
                 <com.umiwi.ui.fragment.home.recommend.widget.LineActionLayoutViwe
                     android:id="@+id/lalv_action_line"
                     android:layout_width="match_parent"
