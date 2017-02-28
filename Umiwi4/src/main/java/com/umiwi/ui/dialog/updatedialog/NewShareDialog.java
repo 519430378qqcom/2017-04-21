@@ -45,7 +45,7 @@ public class NewShareDialog {
 
 
         ViewHolder holder = new ViewHolder(R.layout.new_dialog_share);
-        DialogPlus dialogPlus = new DialogPlus.Builder(mContext)
+        final DialogPlus dialogPlus = new DialogPlus.Builder(mContext)
                 .setContentHolder(holder)
                 .setGravity(Gravity.BOTTOM)
                 .setOnDismissListener(new OnDismissListener() {
@@ -63,16 +63,15 @@ public class NewShareDialog {
         view.findViewById(R.id.sinaweibo).setOnClickListener(SinaWeiboClick);
         view.findViewById(R.id.wechatfriends).setOnClickListener(WechatFriendsClick);
         view.findViewById(R.id.qq).setOnClickListener(QQClick);
-        view.findViewById(R.id.new_share_close).setOnClickListener(CloseClick);
+        view.findViewById(R.id.new_share_close).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogPlus.dismiss();
+            }
+        });
 
         dialogPlus.show();
     }
-    OnClickListener CloseClick =new OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            //TODO 关闭页面
-        }
-    };
 
     OnClickListener SinaWeiboClick = new OnClickListener() {
 
