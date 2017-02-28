@@ -13,6 +13,8 @@ import com.umiwi.ui.R;
 import com.umiwi.ui.adapter.updateadapter.NewfreeAdapterV2;
 import com.umiwi.ui.beans.updatebeans.NewFree;
 import com.umiwi.ui.beans.updatebeans.RecommendBean;
+import com.umiwi.ui.dialog.updatedialog.NewShareDialog;
+import com.umiwi.ui.main.UmiwiApplication;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +56,9 @@ public class FreeLayoutView extends LinearLayout {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 mList.get(position).getId();
-
+                // TODO 分享测试
+                NewShareDialog.getInstance().showDialog(mContext,"gps",mList.get(position).getTitle()
+                        ,mList.get(position).getUrl(),"www.gpsi_img.com");
             }
         });
         ll_free_root.setVisibility(GONE);

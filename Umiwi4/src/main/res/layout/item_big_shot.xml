@@ -14,8 +14,10 @@
         android:layout_marginLeft="7dp"
         android:layout_marginRight="7dp"
         android:src="@drawable/text_text"
-        app:border_color="#000000"
-        app:border_width="2dp" />
+        />
+
+    <!-- app:border_color="#FFFFFF"
+    app:border_width="2dp" -->
 
     <TextView
         android:id="@+id/big_sot_name"
