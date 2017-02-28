@@ -46,8 +46,9 @@
     <color name="white">#ffffff</color>
     <color name="bg_gray">#e6e6e6</color>
     <color name="gray_a">#aaaaaa</color>
-    
+    <color name="line">#D4D4D4</color>
     <color name="black_33">#33000000</color>
     <color name="black_a8">#a8000000</color>
     <color name="black">#000000</color>
+    <color name="black_alpf">#333333</color>
 </resources>

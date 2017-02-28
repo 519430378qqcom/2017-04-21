@@ -320,7 +320,7 @@ public class HorizontalListView extends AdapterView<ListAdapter> {
      * @param attrs   The Attribute Set containing the ColumnView attributes
      */
     private void retrieveXmlConfiguration(Context context, AttributeSet attrs) {
-        if (attrs != null) {
+      /*  if (attrs != null) {
             TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.HorizontalListView);
 
             // Get the provided drawable from the XML
@@ -337,7 +337,7 @@ public class HorizontalListView extends AdapterView<ListAdapter> {
             }
 
             a.recycle();
-        }
+        }*/
     }
 
     @Override
