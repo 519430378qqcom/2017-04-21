@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+android.widget.TextView;
 import android.widget.Toast;
 
 import com.umeng.analytics.MobclickAgent;
@@ -35,18 +36,25 @@ import com.umiwi.ui.fragment.GiftFragment;
 import com.umiwi.ui.fragment.UserTestInfoFragment;
 import com.umiwi.ui.fragment.course.CourseDetailPlayFragment;
 import com.umiwi.ui.fragment.home.recommend.widget.BigShotLayoutView;
+import com.umiwi.ui.fragment.home.recommend.widget.ExpertAnswerDwonLayoutViwe;
 import com.umiwi.ui.fragment.home.recommend.widget.ExpertAnswerLayoutViwe;
+import com.umiwi.ui.fragment.home.recommend.widget.ExpertRecLayoutView;
 import com.umiwi.ui.fragment.home.recommend.widget.ExpertRecLayoutView;
 import com.umiwi.ui.fragment.home.recommend.widget.FreeLayoutView;
 import com.umiwi.ui.fragment.home.recommend.widget.LineActionLayoutViwe;
+import com.umiwi.ui.fragment.home.recommend.widget.PaySelectedLayoutViwe;
+import com.umiwi.ui.fragment.setting.FeedbackFragment;
 import com.umiwi.ui.fragment.home.updatehome.NewHomeRecommendFragment;
 import com.umiwi.ui.http.parsers.ADParser;
 import com.umiwi.ui.http.parsers.CourseListParser;
+import com.umiwi.ui.http.parsers.newhttpparsers.NewFreeParser;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.managers.NoticeManager;
 import com.umiwi.ui.managers.YoumiRoomUserManager;
 import com.umiwi.ui.parsers.newparsers.NewFreeResult;
+import com.umiwi.ui.util.ApiTester.ApiConnectionTester;
+import com.umiwi.ui.util.ApiTester.bean.IndexActionEntity;
 import com.umiwi.ui.util.CommonHelper;
 import com.umiwi.ui.util.ManifestUtils;
 import com.umiwi.ui.view.AutoViewPager;
@@ -98,6 +106,8 @@ public class RecommendFragment extends BaseConstantFragment {
     private LineActionLayoutViwe lalv_action_line;
     private ExpertAnswerLayoutViwe ealv_expert_answer;
     private BigShotLayoutView bslv_big_shot;
+    private ExpertAnswerDwonLayoutViwe eadlv_expert_answer;
+    private PaySelectedLayoutViwe pslv_pay_selected;
     private ArrayList<NewFree> mList;
 
     private NewfreeAdapter mAdapter;
@@ -148,6 +158,8 @@ public class RecommendFragment extends BaseConstantFragment {
         lalv_action_line = (LineActionLayoutViwe) v.findViewById(R.id.lalv_action_line);
         ealv_expert_answer = (ExpertAnswerLayoutViwe) v.findViewById(R.id.eav_expert_answer);
         bslv_big_shot = (BigShotLayoutView) v.findViewById(R.id.bslv_big_shot);
+        eadlv_expert_answer = (ExpertAnswerDwonLayoutViwe) v.findViewById(R.id.eadlv_expert_answer);
+        pslv_pay_selected = (PaySelectedLayoutViwe) v.findViewById(R.id.pslv_pay_selected);
     }
 
     /**
@@ -174,10 +186,12 @@ public class RecommendFragment extends BaseConstantFragment {
             if (null != t) {
 
                 flv_new_free.setData(t.getR().getFree().getRecord(), t.getR().getSec_free_title(), t.getR().getSec_free_huan());
-                erl_expert_rec.setData(t.getR().getTutor(), t.getR().getSec_tutor_title(), t.getR().getSec_tutor_more());
-                lalv_action_line.setData(t.getR().getHuodong(), t.getR().getSec_huodong_title());
-                ealv_expert_answer.setData(t.getR().getAsktutor(), t.getR().getSec_ask_title(), t.getR().getSec_ask_more(), t.getR().getSec_ask_quick());
+                erl_expert_rec.setData(t.getR().getTutor(),t.getR().getSec_tutor_title(),t.getR().getSec_tutor_more());
+                lalv_action_line.setData(t.getR().getHuodong(),t.getR().getSec_huodong_title());
+                ealv_expert_answer.setData(t.getR().getAsktutor(),t.getR().getSec_ask_title(),t.getR().getSec_ask_more());
                 bslv_big_shot.setData(NewHomeRecommendFragment.getRootViewpager(), sc_recomment_root, t.getR().getDalao(), t.getR().getSec_dalao_title());
+                eadlv_expert_answer.setData(t.getR().getQuestion(),t.getR().getSec_ask_quick());
+                pslv_pay_selected.setData(t.getR().getCharge().getRecord(),t.getR().getSec_charge_title(),t.getR().getSec_charge_huan());
             }
         }
 
@@ -286,12 +300,6 @@ public class RecommendFragment extends BaseConstantFragment {
         super.onPause();
         mAutoViewPager.stopAutoScroll();
         MobclickAgent.onPageEnd(fragmentName);
-    }
-
-    @Override
-    protected void onVisible() {
-        super.onVisible();
-        getIndexAction();
     }
 
     @Override

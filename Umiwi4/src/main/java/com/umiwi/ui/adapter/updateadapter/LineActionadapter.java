@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import cn.youmi.framework.util.ImageLoader;
 
 /**
+ * 首页-推荐-热门活动 - Adapter
  * Created by ${Gpsi} on 2017/2/27.
  */
 
