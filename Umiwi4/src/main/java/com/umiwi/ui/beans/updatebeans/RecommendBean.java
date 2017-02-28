@@ -488,7 +488,7 @@ public class RecommendBean extends BaseGsonBeans {
             @SerializedName("page")
             private PageBeanX page;
             @SerializedName("record")
-            private List<RecordBeanX> record;
+            private ArrayList<RecordBeanX> record;
 
             public PageBeanX getPage() {
                 return page;
@@ -498,11 +498,11 @@ public class RecommendBean extends BaseGsonBeans {
                 this.page = page;
             }
 
-            public List<RecordBeanX> getRecord() {
+            public ArrayList<RecordBeanX> getRecord() {
                 return record;
             }
 
-            public void setRecord(List<RecordBeanX> record) {
+            public void setRecord(ArrayList<RecordBeanX> record) {
                 this.record = record;
             }
 

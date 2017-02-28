@@ -42,6 +42,7 @@ import com.umiwi.ui.fragment.home.recommend.widget.ExpertRecLayoutView;
 import com.umiwi.ui.fragment.home.recommend.widget.ExpertRecLayoutView;
 import com.umiwi.ui.fragment.home.recommend.widget.FreeLayoutView;
 import com.umiwi.ui.fragment.home.recommend.widget.LineActionLayoutViwe;
+import com.umiwi.ui.fragment.home.recommend.widget.PaySelectedLayoutViwe;
 import com.umiwi.ui.fragment.setting.FeedbackFragment;
 import com.umiwi.ui.http.parsers.ADParser;
 import com.umiwi.ui.http.parsers.CourseListParser;
@@ -103,6 +104,7 @@ public class RecommendFragment extends BaseConstantFragment {
     private ExpertAnswerLayoutViwe ealv_expert_answer;
     private BigShotLayoutView bslv_big_shot;
     private ExpertAnswerDwonLayoutViwe eadlv_expert_answer;
+    private PaySelectedLayoutViwe pslv_pay_selected;
     private ArrayList<NewFree> mList;
 
     private NewfreeAdapter mAdapter;
@@ -156,6 +158,7 @@ public class RecommendFragment extends BaseConstantFragment {
         ealv_expert_answer = (ExpertAnswerLayoutViwe) v.findViewById(R.id.eav_expert_answer);
         bslv_big_shot = (BigShotLayoutView) v.findViewById(R.id.bslv_big_shot);
         eadlv_expert_answer = (ExpertAnswerDwonLayoutViwe) v.findViewById(R.id.eadlv_expert_answer);
+        pslv_pay_selected = (PaySelectedLayoutViwe) v.findViewById(R.id.pslv_pay_selected);
     }
 
     /**
@@ -187,6 +190,7 @@ public class RecommendFragment extends BaseConstantFragment {
                 ealv_expert_answer.setData(t.getR().getAsktutor(),t.getR().getSec_ask_title(),t.getR().getSec_ask_more());
                 bslv_big_shot.setData(t.getR().getDalao(),t.getR().getSec_dalao_title());
                 eadlv_expert_answer.setData(t.getR().getQuestion(),t.getR().getSec_ask_quick());
+                pslv_pay_selected.setData(t.getR().getCharge().getRecord(),t.getR().getSec_charge_title(),t.getR().getSec_charge_huan());
             }
         }
 
