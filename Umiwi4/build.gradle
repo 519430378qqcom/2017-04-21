@@ -34,6 +34,9 @@ dependencies {
     compile files('libs/nineoldandroids-2.4.0.jar')
     compile 'com.zhy:okhttputils:2.6.2'
     compile 'com.alibaba:fastjson:1.2.24'
+    compile 'com.android.support:design:24.0.0'
+
+
 }
 
 android {

@@ -72,6 +72,7 @@ public class NewHomeRecommendFragment extends BaseConstantFragment {
         View view = inflater.inflate(R.layout.fragment_home_recommend_new, null);
 
         ButterKnife.inject(this, view);
+
         rootviewPager = viewPager;
         initMenuTab();
         return view;

@@ -121,6 +121,7 @@ public class StageSectionChildAdapter extends BaseAdapter {
 			StageSectionBean data = (StageSectionBean) v.getTag(R.id.key_stage_section);
 			
 			Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
+
 			switch (data.categoryType()) {
 			case COURSE:
 				intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, CourseDetailPlayFragment.class);

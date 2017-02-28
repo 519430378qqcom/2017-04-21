@@ -83,6 +83,7 @@ public class ExpertFragment  extends BaseConstantFragment {
     private ListViewScrollLoader mScrollLoader;
 
     public static String SIGN="key.sign";
+    private List<CelebrityBean.CelebrityBeanRet> letterList;
 
     public static class LastnameHandler extends Handler{
         WeakReference<ExpertFragment> expertFragment;
@@ -149,24 +150,20 @@ public class ExpertFragment  extends BaseConstantFragment {
         mScrollLoader.onLoadFirstPage();
         lecturerListView.setOnScrollListener(mScrollLoader);
 
-       /* lecturerListView
+        lecturerListView
                 .setOnItemClickListener(new PinnedHeaderListView.OnItemClickListener() {
 
                     @Override
                     public void onItemClick(AdapterView<?> adapterView,
                                             View view, int section, int position, long id) {
-                        if (lecturerWapper != null && lecturerWapper.size() > 0) {
-                            CelebrityBean.CelebritBeanWapper celebrityBean = lecturerWapper
-                                    .get(section);
-                            ArrayList<CelebrityBean> lecturers = celebrityBean
-                                    .getCelebrits();
-                            if (lecturers != null && lecturers.size() > 0) {
-                                CelebrityBean lecturer = lecturers.get(position);
-
+                        if (letterList != null && letterList.size() > 0) {
+                            List<CelebrityBean.CelebrityBeanRet.ContentBean> contents = letterList.get(section).getContent();
+                            if (contents != null && contents.size() > 0) {
+                                String tutoruid = contents.get(position).getTutoruid();
                                 Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
-                                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, LecturerDetailFragment.class);
-                                intent.putExtra(LecturerDetailFragment.KEY_DEFAULT_DETAILURL,lecturer.getCourseurl());
-//                                startActivity(intent);
+                                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, ExperDetailsFragment.class);
+                                intent.putExtra(ExperDetailsFragment.KEY_DEFAULT_TUTORUID,tutoruid);
+                                startActivity(intent);
 
                             }
                         }
@@ -177,7 +174,7 @@ public class ExpertFragment  extends BaseConstantFragment {
                                                View view, int section, long id) {
                         // TODO Auto-generated method stub
                     }
-                });*/
+                });
 
         dissmiss = new Runnable() {
             @Override
@@ -274,7 +271,7 @@ public class ExpertFragment  extends BaseConstantFragment {
            public void onSucess(String data) {
                Log.e("data","数据进行请求成功了"+data);
                CelebrityBean celebrityBean = JsonUtil.json2Bean(data, CelebrityBean.class);
-               List<CelebrityBean.CelebrityBeanRet> letterList = celebrityBean.record;
+               letterList = celebrityBean.record;
 
                Log.e("data","data"+celebrityBean.record.size());
                Log.e("data","data"+celebrityBean.record.get(0).getPinyinname());

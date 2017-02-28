@@ -55,10 +55,13 @@ public class ExpertListAdapter extends SectionedBaseAdapter {
 	}
 	
 	private static class LecturerViewHolder {
-		ImageView consultImageView;
-		CircleImageView iconImageView;
+		ImageView iconImageView;
 		TextView nameTextView;
-		TextView jobTitleTextView;
+		TextView zhuanlan;
+		TextView expert_audio;
+		TextView expert_question;
+		TextView expert_album;
+		TextView title;
 	}
 
 	@Override
@@ -92,14 +95,16 @@ public class ExpertListAdapter extends SectionedBaseAdapter {
 			ViewGroup parent) {
 		LecturerViewHolder holder = null;
 		if(convertView == null) {
-			convertView = inflater.inflate(R.layout.lecturer_content_item, null);
+			convertView = inflater.inflate(R.layout.expert_context_item, null);
 			
 			holder = new LecturerViewHolder();
-			holder.nameTextView = (TextView)convertView.findViewById(R.id.title); 
-			holder.jobTitleTextView = (TextView)convertView.findViewById(R.id.lecturer_titile); 
-			holder.iconImageView = (CircleImageView)convertView.findViewById(R.id.image); 
-			holder.consultImageView=(ImageView) convertView.findViewById(R.id.consult_pic);
-
+			holder.nameTextView = (TextView)convertView.findViewById(R.id.name);
+			holder.title = (TextView)convertView.findViewById(R.id.title);
+			holder.iconImageView = (ImageView)convertView.findViewById(R.id.expert_image);
+			holder.zhuanlan = (TextView) convertView.findViewById(R.id.expert_tutorcolumn);
+			holder.expert_audio = (TextView) convertView.findViewById(R.id.expert_audio);
+			holder.expert_question = (TextView) convertView.findViewById(R.id.expert_question);
+			holder.expert_album = (TextView) convertView.findViewById(R.id.expert_album);
 			final View rightContainer = convertView.findViewById(R.id.right_container);
 			final View iconView = holder.iconImageView;
 			
@@ -135,12 +140,13 @@ public class ExpertListAdapter extends SectionedBaseAdapter {
 		}
 
 		holder.nameTextView.setText(lecturerWappers.get(section).getContent().get(position).getName());
-		holder.jobTitleTextView.setText(lecturerWappers.get(section).getContent().get(position).getTitle());
-
+		holder.title.setText(lecturerWappers.get(section).getContent().get(position).getTitle());
 		ImageLoader mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
 		mImageLoader.loadImage(lecturerWappers.get(section).getContent().get(position).getImage(), holder.iconImageView);
-
-		
+		holder.zhuanlan.setText(lecturerWappers.get(section).getContent().get(position).getTutorcolumn());
+		holder.expert_album.setText(lecturerWappers.get(section).getContent().get(position).getAlbum());
+		holder.expert_audio.setText(lecturerWappers.get(section).getContent().get(position).getAudio());
+		holder.expert_question.setText(lecturerWappers.get(section).getContent().get(position).getQuestion());
 		return convertView;
 	}
 
