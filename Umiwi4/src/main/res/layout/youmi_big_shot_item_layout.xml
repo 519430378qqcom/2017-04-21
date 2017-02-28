@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/youmi_big_shot_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/youmi_big_shot_root"
     android:orientation="vertical">
 
     <LinearLayout
@@ -33,14 +33,11 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:layout_below="@id/menu"
         android:background="#adadad" />
 
-    <com.devsmart.android.ui.HorizontalListView
+    <com.umiwi.ui.fragment.home.recommend.widget.HorizontalListView
         android:id="@+id/hlv_big_shot"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="15dp">
-    </com.devsmart.android.ui.HorizontalListView>
-
+        android:layout_height="150dp"
+        android:paddingLeft="7dp" />
 </LinearLayout>

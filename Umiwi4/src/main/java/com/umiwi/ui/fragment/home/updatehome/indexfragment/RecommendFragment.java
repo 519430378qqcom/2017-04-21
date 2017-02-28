@@ -17,10 +17,9 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
-import com.devsmart.android.ui.HorizontalListView;
 import com.umeng.analytics.MobclickAgent;
 import com.umiwi.ui.R;
 import com.umiwi.ui.activity.HomeMainActivity;
@@ -38,20 +37,16 @@ import com.umiwi.ui.fragment.course.CourseDetailPlayFragment;
 import com.umiwi.ui.fragment.home.recommend.widget.BigShotLayoutView;
 import com.umiwi.ui.fragment.home.recommend.widget.ExpertAnswerLayoutViwe;
 import com.umiwi.ui.fragment.home.recommend.widget.ExpertRecLayoutView;
-import com.umiwi.ui.fragment.home.recommend.widget.ExpertRecLayoutView;
 import com.umiwi.ui.fragment.home.recommend.widget.FreeLayoutView;
 import com.umiwi.ui.fragment.home.recommend.widget.LineActionLayoutViwe;
-import com.umiwi.ui.fragment.setting.FeedbackFragment;
+import com.umiwi.ui.fragment.home.updatehome.NewHomeRecommendFragment;
 import com.umiwi.ui.http.parsers.ADParser;
 import com.umiwi.ui.http.parsers.CourseListParser;
-import com.umiwi.ui.http.parsers.newhttpparsers.NewFreeParser;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.managers.NoticeManager;
 import com.umiwi.ui.managers.YoumiRoomUserManager;
 import com.umiwi.ui.parsers.newparsers.NewFreeResult;
-import com.umiwi.ui.util.ApiTester.ApiConnectionTester;
-import com.umiwi.ui.util.ApiTester.bean.IndexActionEntity;
 import com.umiwi.ui.util.CommonHelper;
 import com.umiwi.ui.util.ManifestUtils;
 import com.umiwi.ui.view.AutoViewPager;
@@ -84,6 +79,8 @@ public class RecommendFragment extends BaseConstantFragment {
     ListView mListView;
     @InjectView(R.id.pull_to_refresh_layout)
     SwipeRefreshLayout refreshLayout;
+    @InjectView(R.id.sc_recomment_root)
+    ScrollView sc_recomment_root;
 
     private View header;
     private ArrayList<UmiwiListBeans> mLunboList;
@@ -139,8 +136,6 @@ public class RecommendFragment extends BaseConstantFragment {
         initheader(inflater);
         loadRecommend();
 
-
-
         return view;
     }
 
@@ -179,10 +174,10 @@ public class RecommendFragment extends BaseConstantFragment {
             if (null != t) {
 
                 flv_new_free.setData(t.getR().getFree().getRecord(), t.getR().getSec_free_title(), t.getR().getSec_free_huan());
-                erl_expert_rec.setData(t.getR().getTutor(),t.getR().getSec_tutor_title(),t.getR().getSec_tutor_more());
-                lalv_action_line.setData(t.getR().getHuodong(),t.getR().getSec_huodong_title());
-                ealv_expert_answer.setData(t.getR().getAsktutor(),t.getR().getSec_ask_title(),t.getR().getSec_ask_more(),t.getR().getSec_ask_quick());
-                bslv_big_shot.setData(t.getR().getDalao(),t.getR().getSec_dalao_title());
+                erl_expert_rec.setData(t.getR().getTutor(), t.getR().getSec_tutor_title(), t.getR().getSec_tutor_more());
+                lalv_action_line.setData(t.getR().getHuodong(), t.getR().getSec_huodong_title());
+                ealv_expert_answer.setData(t.getR().getAsktutor(), t.getR().getSec_ask_title(), t.getR().getSec_ask_more(), t.getR().getSec_ask_quick());
+                bslv_big_shot.setData(NewHomeRecommendFragment.getRootViewpager(), sc_recomment_root, t.getR().getDalao(), t.getR().getSec_dalao_title());
             }
         }
 
@@ -293,6 +288,11 @@ public class RecommendFragment extends BaseConstantFragment {
         MobclickAgent.onPageEnd(fragmentName);
     }
 
+    @Override
+    protected void onVisible() {
+        super.onVisible();
+        getIndexAction();
+    }
 
     @Override
     public void onLoadData() {
@@ -549,6 +549,7 @@ public class RecommendFragment extends BaseConstantFragment {
                     break;
             }
         }
+
         @Override
         public void onModelsGet(UserEvent key, List<UserModel> models) {
         }

@@ -4,7 +4,13 @@
         <attr name="border_width" format="dimension" />
         <attr name="border_color" format="color" />
         <attr name="border_overlay" format="boolean" />
-        <attr name="civ_fill_color" format="color"/>
+        <attr name="civ_fill_color" format="color" />
+    </declare-styleable>
+    <declare-styleable name="HorizontalListView">
+        <attr name="dividerWidth" format="dimension" />
+        <attr name="android:divider" />
+        <attr name="android:requiresFadingEdge" />
+        <attr name="android:fadingEdgeLength" />
     </declare-styleable>
 
 </resources>

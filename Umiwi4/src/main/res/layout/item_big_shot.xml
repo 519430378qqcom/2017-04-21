@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    android:gravity="center"
     android:orientation="vertical">
 
     <com.umiwi.ui.view.CircleImageView
@@ -10,6 +11,8 @@
         android:layout_width="96dp"
         android:layout_height="96dp"
         android:layout_centerInParent="true"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="7dp"
         android:src="@drawable/text_text"
         app:border_color="#000000"
         app:border_width="2dp" />
@@ -20,5 +23,5 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
-        android:text="333333" />
+        android:text="柳传志" />
 </LinearLayout>

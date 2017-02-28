@@ -1,16 +1,15 @@
 package com.umiwi.ui.fragment.home.recommend.widget;
 
 import android.content.Context;
+import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
-import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.devsmart.android.ui.HorizontalListView;
 import com.umiwi.ui.R;
 import com.umiwi.ui.adapter.updateadapter.BigShotAdapter;
-import com.umiwi.ui.adapter.updateadapter.ExpertAnswerAdapter;
 import com.umiwi.ui.beans.updatebeans.RecommendBean;
 
 import java.util.ArrayList;
@@ -51,13 +50,14 @@ public class BigShotLayoutView extends LinearLayout {
 
     }
 
-    public void setData(ArrayList<RecommendBean.RBean.DalaoBean> dalaoBeen, String answerTitle) {
+    public void setData(ViewPager rootViewPager, ScrollView rootScroll, ArrayList<RecommendBean.RBean.DalaoBean> dalaoBeen, String answerTitle) {
 
         title_type_textview.setText(answerTitle);
         mList = dalaoBeen;
         if (null == mList || mList.size() == 0)
             return;
         youmi_big_shot_root.setVisibility(VISIBLE);
+        hlv_big_shot.setRootParent(rootViewPager, rootScroll);
         mBigShotAdapter = new BigShotAdapter(mContext, mList);
         hlv_big_shot.setAdapter(mBigShotAdapter);
 

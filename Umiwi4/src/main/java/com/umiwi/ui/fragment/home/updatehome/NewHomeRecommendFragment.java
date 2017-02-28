@@ -61,13 +61,18 @@ public class NewHomeRecommendFragment extends BaseConstantFragment {
     private ArrayList<Fragment> fragments;
     private int line_width;
 
+    private static ViewPager rootviewPager;
+    public static ViewPager getRootViewpager(){
+        return rootviewPager;
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home_recommend_new, null);
 
         ButterKnife.inject(this, view);
-
+        rootviewPager = viewPager;
         initMenuTab();
         return view;
     }
