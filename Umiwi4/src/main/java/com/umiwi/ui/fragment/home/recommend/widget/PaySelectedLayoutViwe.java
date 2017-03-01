@@ -3,15 +3,18 @@ package com.umiwi.ui.fragment.home.recommend.widget;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.umiwi.ui.R;
-import com.umiwi.ui.adapter.updateadapter.PaySelectedAdapter;
 import com.umiwi.ui.beans.updatebeans.RecommendBean;
+import com.umiwi.ui.main.UmiwiApplication;
 
 import java.util.ArrayList;
+
+import cn.youmi.framework.util.ImageLoader;
 
 /**
  * 首页-推荐-付费精选
@@ -20,11 +23,12 @@ import java.util.ArrayList;
 public class PaySelectedLayoutViwe extends LinearLayout {
 
     private Context mContext;
-    private LinearLayout ll_pay_selected_root;
-    private TextView tv_title_type, tv_title_tag;
-    private ListView lv_home_pay_selected;
-    private PaySelectedAdapter mPaySelectedAdapter;
-    private ArrayList<RecommendBean.RBean.ChargeBean.RecordBeanX> mList;
+    private LinearLayout ll_pay_selected_root, ll_pay_right_video, ll_pay_selected_audio;
+    private TextView tv_title_type, tv_title_tag, tv_pay_video_tag_right, tv_pay_video_tag_left, tv_pay_video_tag_right_1, tv_pay_video_tag_left_1,
+            tv_audio_pay_time, tv_audio_pay_context, tv_audio_pay_price;
+    private View v_pay_selected_interval;
+    private ImageView iv_pay_video, iv_pay_video_1;
+    private ImageLoader mImageLoader;
 
     public PaySelectedLayoutViwe(Context context) {
         super(context);
@@ -43,20 +47,90 @@ public class PaySelectedLayoutViwe extends LinearLayout {
         ll_pay_selected_root = (LinearLayout) findViewById(R.id.ll_pay_selected_root);
         tv_title_type = (TextView) findViewById(R.id.tv_title_type);
         tv_title_tag = (TextView) findViewById(R.id.tv_title_tag);
-        lv_home_pay_selected = (ListView) findViewById(R.id.lv_home_pay_selected);
+        tv_pay_video_tag_right = (TextView) findViewById(R.id.tv_pay_video_tag_right);
+        tv_pay_video_tag_left = (TextView) findViewById(R.id.tv_pay_video_tag_left);
+        tv_pay_video_tag_right_1 = (TextView) findViewById(R.id.tv_pay_video_tag_right_1);
+        tv_pay_video_tag_left_1 = (TextView) findViewById(R.id.tv_pay_video_tag_left_1);
+        tv_audio_pay_time = (TextView) findViewById(R.id.tv_audio_pay_time);
+        tv_audio_pay_context = (TextView) findViewById(R.id.tv_audio_pay_context);
+        tv_audio_pay_price = (TextView) findViewById(R.id.tv_audio_pay_price);
+
+        ll_pay_right_video = (LinearLayout) findViewById(R.id.ll_pay_right_video);
+        ll_pay_selected_audio = (LinearLayout) findViewById(R.id.ll_pay_selected_audio);
+
+        iv_pay_video = (ImageView) findViewById(R.id.iv_pay_video);
+        iv_pay_video_1 = (ImageView) findViewById(R.id.iv_pay_video_1);
+
         ll_pay_selected_root.setVisibility(GONE);
+
+        mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
     }
 
-    public void setData(ArrayList<RecommendBean.RBean.ChargeBean.RecordBeanX> recordBeanXes, String chargeTitle,String chargehuan) {
+    public void setData(ArrayList<RecommendBean.RBean.ChargeBean.RecordBeanX> recordBeanXes, String chargeTitle, String chargehuan) {
 
+        if (null == recordBeanXes || recordBeanXes.size() == 0)
+            return;
         tv_title_type.setText(chargeTitle);
         tv_title_tag.setText(chargehuan);
-        mList = recordBeanXes;
-        if (null == mList || mList.size() == 0)
-            return;
         ll_pay_selected_root.setVisibility(VISIBLE);
-        mPaySelectedAdapter = new PaySelectedAdapter(mContext, mList);
-        lv_home_pay_selected.setAdapter(mPaySelectedAdapter);
+        initView(recordBeanXes);
 
+    }
+
+    /**
+     * 初始化音频，视频布局
+     */
+    private void initView(ArrayList<RecommendBean.RBean.ChargeBean.RecordBeanX> datas) {
+
+        RecommendBean.RBean.ChargeBean.RecordBeanX recordBeanX;
+
+        /**视频**/
+        int videoSize = 0;
+        for (int i = 0; i < datas.size(); i++) {
+            if (datas.get(i).getType().equals("video"))
+                videoSize = videoSize + 1;
+        }
+        if (videoSize == 1) {
+            recordBeanX = datas.get(0);
+            mImageLoader.loadImage(recordBeanX.getImage(), iv_pay_video, R.drawable.ic_launcher);
+            tv_pay_video_tag_right.setText(recordBeanX.getPricetag());
+            tv_pay_video_tag_left.setText(recordBeanX.getPlaytime());
+            ll_pay_right_video.setVisibility(View.GONE);
+        } else if (videoSize == 2) {
+            /**左侧**/
+            recordBeanX = datas.get(0);
+            mImageLoader.loadImage(recordBeanX.getImage(), iv_pay_video, R.drawable.ic_launcher);
+            tv_pay_video_tag_right.setText(recordBeanX.getPricetag());
+            tv_pay_video_tag_left.setText(recordBeanX.getPlaytime());
+            /**右侧**/
+            ll_pay_right_video.setVisibility(View.VISIBLE);
+            recordBeanX = datas.get(1);
+            mImageLoader.loadImage(recordBeanX.getImage(), iv_pay_video_1, R.drawable.ic_launcher);
+            tv_pay_video_tag_right_1.setText(recordBeanX.getPricetag());
+            tv_pay_video_tag_left_1.setText(recordBeanX.getPlaytime());
+        }
+        ll_pay_selected_audio.removeAllViews();
+        /**音频**/
+        for (int i = videoSize; i < datas.size(); i++) {
+
+            recordBeanX = datas.get(i);
+            View view = LayoutInflater.from(mContext).inflate(R.layout.pay_selected_item, null);
+            tv_audio_pay_time = (TextView) view.findViewById(R.id.tv_audio_pay_time);
+            tv_audio_pay_context = (TextView) view.findViewById(R.id.tv_audio_pay_context);
+            tv_audio_pay_price = (TextView) view.findViewById(R.id.tv_audio_pay_price);
+            v_pay_selected_interval = view.findViewById(R.id.v_pay_selected_interval);
+
+            tv_audio_pay_time.setText(recordBeanX.getPlaytime());
+            tv_audio_pay_context.setText(recordBeanX.getTitle());
+            tv_audio_pay_price.setText(recordBeanX.getPricetag());
+
+            if (i == datas.size() - 1) {
+                v_pay_selected_interval.setVisibility(GONE);
+            } else {
+                v_pay_selected_interval.setVisibility(VISIBLE);
+            }
+
+            ll_pay_selected_audio.addView(view);
+        }
     }
 }
