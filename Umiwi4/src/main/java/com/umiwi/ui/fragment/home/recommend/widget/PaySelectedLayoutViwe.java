@@ -26,6 +26,7 @@ public class PaySelectedLayoutViwe extends LinearLayout {
     private LinearLayout ll_pay_selected_root, ll_pay_right_video, ll_pay_selected_audio;
     private TextView tv_title_type, tv_title_tag, tv_pay_video_tag_right, tv_pay_video_tag_left, tv_pay_video_tag_right_1, tv_pay_video_tag_left_1,
             tv_audio_pay_time, tv_audio_pay_context, tv_audio_pay_price;
+    private View v_pay_selected_interval;
     private ImageView iv_pay_video, iv_pay_video_1;
     private ImageLoader mImageLoader;
 
@@ -108,7 +109,7 @@ public class PaySelectedLayoutViwe extends LinearLayout {
             tv_pay_video_tag_right_1.setText(recordBeanX.getPricetag());
             tv_pay_video_tag_left_1.setText(recordBeanX.getPlaytime());
         }
-
+        ll_pay_selected_audio.removeAllViews();
         /**音频**/
         for (int i = videoSize; i < datas.size(); i++) {
 
@@ -117,10 +118,17 @@ public class PaySelectedLayoutViwe extends LinearLayout {
             tv_audio_pay_time = (TextView) view.findViewById(R.id.tv_audio_pay_time);
             tv_audio_pay_context = (TextView) view.findViewById(R.id.tv_audio_pay_context);
             tv_audio_pay_price = (TextView) view.findViewById(R.id.tv_audio_pay_price);
+            v_pay_selected_interval = view.findViewById(R.id.v_pay_selected_interval);
 
             tv_audio_pay_time.setText(recordBeanX.getPlaytime());
             tv_audio_pay_context.setText(recordBeanX.getTitle());
             tv_audio_pay_price.setText(recordBeanX.getPricetag());
+
+            if (i == datas.size() - 1) {
+                v_pay_selected_interval.setVisibility(GONE);
+            } else {
+                v_pay_selected_interval.setVisibility(VISIBLE);
+            }
 
             ll_pay_selected_audio.addView(view);
         }
