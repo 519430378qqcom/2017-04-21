@@ -1,6 +1,8 @@
 package com.umiwi.ui.fragment.home.recommend.widget;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -60,6 +62,14 @@ public class BigShotLayoutView extends LinearLayout {
         hlv_big_shot.setRootParent(rootViewPager, rootScroll);
         mBigShotAdapter = new BigShotAdapter(mContext, mList);
         hlv_big_shot.setAdapter(mBigShotAdapter);
-
+        handler.sendEmptyMessageDelayed(0, 2000);
     }
+
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            mBigShotAdapter.notifyDataSetChanged();
+            super.handleMessage(msg);
+        }
+    };
 }

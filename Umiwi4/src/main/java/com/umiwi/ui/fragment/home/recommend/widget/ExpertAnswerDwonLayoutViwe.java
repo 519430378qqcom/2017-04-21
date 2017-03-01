@@ -1,6 +1,8 @@
 package com.umiwi.ui.fragment.home.recommend.widget;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
@@ -56,6 +58,15 @@ public class ExpertAnswerDwonLayoutViwe extends LinearLayout {
         expert_answer_dwon_root.setVisibility(VISIBLE);
         mExpertADAdapter = new ExpertAnswerDowndapter(mContext, mList);
         lv_expert_dwon_answer.setAdapter(mExpertADAdapter);
+        handler.sendEmptyMessageDelayed(0, 2000);
 
     }
+
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            mExpertADAdapter.notifyDataSetChanged();
+            super.handleMessage(msg);
+        }
+    };
 }

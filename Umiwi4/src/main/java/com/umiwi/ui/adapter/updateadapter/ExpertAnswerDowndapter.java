@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.umiwi.ui.R;
 import com.umiwi.ui.beans.updatebeans.RecommendBean;
 import com.umiwi.ui.main.UmiwiApplication;
+import com.umiwi.ui.view.CircleImageView;
 
 import java.util.ArrayList;
 
@@ -90,7 +91,7 @@ public class ExpertAnswerDowndapter extends BaseAdapter {
 
         public ViewHolder(View convertView) {
             this.rootView = convertView;
-            iv_expert_header = (ImageView) rootView.findViewById(R.id.expert_header_imageview);
+            iv_expert_header = (CircleImageView) rootView.findViewById(R.id.expert_header_imageview);
             tv_expert_question = (TextView) rootView.findViewById(R.id.expert_question_textView_1);
             tv_time_limit_hear = (TextView) rootView.findViewById(R.id.time_limit_hear_textview_1);
             tv_head_time = (TextView) rootView.findViewById(R.id.head_time_textview_1);
