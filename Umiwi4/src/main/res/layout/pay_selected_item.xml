@@ -5,109 +5,6 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/ll_pay_video"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="18dp">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="130dp"
-                android:layout_marginRight="5dp"
-                android:layout_weight="1">
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="130dp">
-
-                    <ImageView
-                        android:id="@+id/iv_pay_video"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/umiwi_blue"
-                        android:scaleType="fitXY" />
-
-                    <TextView
-                        android:id="@+id/tv_pay_video_tag_left"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:background="@drawable/pay_video_tag_left"
-                        android:gravity="center"
-                        android:text="在线教育"
-                        android:textColor="@color/white"
-                        android:textSize="10sp"
-                        android:visibility="gone" />
-
-                    <TextView
-                        android:id="@+id/tv_pay_video_tag_right"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="right"
-                        android:layout_marginTop="5dp"
-                        android:background="@drawable/pngpay_video_tag_right"
-                        android:gravity="center"
-                        android:text="¥0"
-                        android:textColor="@color/white"
-                        android:textSize="10sp" />
-                </FrameLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ll_pay_right_video"
-                android:layout_width="0dp"
-                android:layout_height="130dp"
-                android:layout_marginLeft="5dp"
-                android:layout_weight="1">
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="130dp">
-
-                    <TextView
-                        android:id="@+id/tv_pay_video_tag_left_1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:background="@drawable/pay_video_tag_left"
-                        android:gravity="center"
-                        android:text="在线教育"
-                        android:textColor="@color/white"
-                        android:textSize="10sp"
-                        android:visibility="gone" />
-
-                    <TextView
-                        android:id="@+id/tv_pay_video_tag_right_1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="right"
-                        android:layout_marginTop="5dp"
-                        android:background="@drawable/pngpay_video_tag_right"
-                        android:gravity="center"
-                        android:text="¥0"
-                        android:textColor="@color/white"
-                        android:textSize="10sp" />
-
-                    <ImageView
-                        android:id="@+id/iv_pay_video_1"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/umiwi_blue"
-                        android:scaleType="fitXY" />
-                </FrameLayout>
-            </LinearLayout>
-
-        </LinearLayout>
-    </LinearLayout>
-
-
-    <LinearLayout
         android:id="@+id/ll_pay_audio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -134,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:text="04:15" />
+                android:text="0" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -154,7 +51,7 @@
                     android:paddingBottom="10dp"
                     android:paddingTop="10dp"
                     android:singleLine="true"
-                    android:text="教育教育教育教育教育"
+                    android:text="0"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
@@ -168,7 +65,7 @@
                     android:paddingLeft="8dp"
                     android:paddingRight="8dp"
                     android:paddingTop="3dp"
-                    android:text="¥ 10元"
+                    android:text="¥ 0元"
                     android:textColor="@color/main_color" />
 
             </LinearLayout>
@@ -181,6 +78,4 @@
             android:layout_marginRight="15dp"
             android:background="#adadad" />
     </LinearLayout>
-
-
 </LinearLayout>
