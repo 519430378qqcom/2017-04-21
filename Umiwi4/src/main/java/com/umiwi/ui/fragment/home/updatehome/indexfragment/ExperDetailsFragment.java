@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import com.umiwi.ui.R;
 import com.umiwi.ui.main.BaseConstantFragment;
