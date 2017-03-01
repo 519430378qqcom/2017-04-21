@@ -1,18 +1,24 @@
 package com.umiwi.ui.fragment.home.recommend.widget;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.umiwi.ui.R;
+import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.updateadapter.BigShotAdapter;
+import com.umiwi.ui.beans.updatebeans.CelebrityBean;
 import com.umiwi.ui.beans.updatebeans.RecommendBean;
+import com.umiwi.ui.fragment.home.updatehome.indexfragment.ExperDetailsFragment;
 
 import java.util.ArrayList;
 
@@ -49,6 +55,16 @@ public class BigShotLayoutView extends LinearLayout {
         title_type_textview = (TextView) findViewById(R.id.title_type_textview);
         hlv_big_shot = (HorizontalListView) findViewById(R.id.hlv_big_shot);
         youmi_big_shot_root.setVisibility(GONE);
+        hlv_big_shot.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String tutoruid = mList.get(position).getUid();
+                Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
+                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, ExperDetailsFragment.class);
+                intent.putExtra(ExperDetailsFragment.KEY_DEFAULT_TUTORUID,tutoruid);
+                mContext.startActivity(intent);
+            }
+        });
 
     }
 
