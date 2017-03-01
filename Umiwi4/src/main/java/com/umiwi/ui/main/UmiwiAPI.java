@@ -394,6 +394,8 @@ public final class UmiwiAPI {
     // =================================新优米首页相关=================================================//
     public static final String CELEBRTYY_LIST = "http://i.v.youmi.cn/apireader/tutorList";
 
+    public static final String CELEBRTYY_DETAILS = "http://i.v.youmi.cn/api8/gettutor/?uid=";
+
 
 
 

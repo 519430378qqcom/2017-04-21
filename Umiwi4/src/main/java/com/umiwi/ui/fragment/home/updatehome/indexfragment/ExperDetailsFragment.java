@@ -76,7 +76,8 @@ public class ExperDetailsFragment extends BaseConstantFragment {
         mTitleList.add("音频");
         mTitleList.add("视频");
         mTitleList.add("问答");
-        mTitleList.add("评论");
+        mTitleList.add("评论"
+        );
         //设置tab模式，当前为系统默认模式
         tabsOrder.setTabMode(TabLayout.MODE_SCROLLABLE);
         //添加tab选项卡
