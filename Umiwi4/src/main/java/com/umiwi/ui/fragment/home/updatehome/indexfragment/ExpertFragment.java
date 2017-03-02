@@ -150,8 +150,7 @@ public class ExpertFragment  extends BaseConstantFragment {
         mScrollLoader.onLoadFirstPage();
         lecturerListView.setOnScrollListener(mScrollLoader);
 
-        lecturerListView
-                .setOnItemClickListener(new PinnedHeaderListView.OnItemClickListener() {
+        lecturerListView.setOnItemClickListener(new PinnedHeaderListView.OnItemClickListener() {
 
                     @Override
                     public void onItemClick(AdapterView<?> adapterView,
@@ -185,8 +184,40 @@ public class ExpertFragment  extends BaseConstantFragment {
             }
         };
 
-
+        getInfo();
         return view;
+    }
+
+    private void getInfo() {
+        Log.e("data","名人列表数据进行请求了");
+    /*    GetRequest<CelebrityBean.RBean> request = new GetRequest<CelebrityBean.RBean>(
+                UmiwiAPI.CELEBRTYY_LIST, GsonParser.class,
+                CelebrityBean.RBean.class, listener);
+        HttpDispatcher.getInstance().go(request);*/
+        OkHttpUtils.get().url(UmiwiAPI.CELEBRTYY_LIST).build().execute(new CustomStringCallBack() {
+            @Override
+            public void onFaild() {
+                Log.e("data","名人列表数据进行请求失败了");
+                mScrollLoader.onLoadErrorPage();
+
+            }
+
+            @Override
+            public void onSucess(String data) {
+                Log.e("data","名人列表数据进行请求成功了"+data);
+                CelebrityBean celebrityBean = JsonUtil.json2Bean(data, CelebrityBean.class);
+                letterList = celebrityBean.record;
+
+                Log.e("data","data"+celebrityBean.record.size());
+                Log.e("data","data"+celebrityBean.record.get(0).getPinyinname());
+                Log.e("data","data"+celebrityBean.record.get(0).getContent().size());
+                Log.e("data","data"+celebrityBean.record.get(0).getContent().get(0).getName());
+                mListAdapter.setLecturers(letterList);
+                initLetterView(letterList);
+                mLoadingFooter.setState(LoadingFooter.State.TheEnd);
+
+            }
+        });
     }
 
 
@@ -220,70 +251,6 @@ public class ExpertFragment  extends BaseConstantFragment {
     public void showLastname(String lastname, Integer locationY) {
         lastnameTextView.setText(lastname);
         popWindow.showAtLocation(letterListView, Gravity.CENTER, 0, 0);
-    }
-
-   /* private AbstractRequest.Listener<CelebrityBean.RBean> listener = new AbstractRequest.Listener<CelebrityBean.RBean>() {
-        @Override
-        public void onResult(AbstractRequest<CelebrityBean.RBean> reques,CelebrityBean.RBean t) {
-
-
-            if (t != null) {
-
-                lecturerWapper = t.getRecord();
-                mListAdapter.setLecturers(lecturerWapper);
-
-                initLetterView(lecturerWapper);
-                mLoadingFooter.setState(LoadingFooter.State.TheEnd);
-            }
-        }
-
-        @Override
-        public void onError(AbstractRequest<CelebrityBean.RBean> requet,
-                            int statusCode, String body) {
-            mLoadingFooter.setState(LoadingFooter.State.Error);
-            mLoadingFooter.getView().setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    Log.e("data","数据进行请求了失败了");
-                    mScrollLoader.onLoadErrorPage();
-                }
-            });
-        }
-    };*/
-
-    @Override
-    public void onLoadData() {
-        Log.e("data","数据进行请求了");
-    /*    GetRequest<CelebrityBean.RBean> request = new GetRequest<CelebrityBean.RBean>(
-                UmiwiAPI.CELEBRTYY_LIST, GsonParser.class,
-                CelebrityBean.RBean.class, listener);
-        HttpDispatcher.getInstance().go(request);*/
-       OkHttpUtils.get().url(UmiwiAPI.CELEBRTYY_LIST).build().execute(new CustomStringCallBack() {
-           @Override
-           public void onFaild() {
-               Log.e("data","数据进行请求失败了");
-               mScrollLoader.onLoadErrorPage();
-
-           }
-
-           @Override
-           public void onSucess(String data) {
-               Log.e("data","数据进行请求成功了"+data);
-               CelebrityBean celebrityBean = JsonUtil.json2Bean(data, CelebrityBean.class);
-               letterList = celebrityBean.record;
-
-               Log.e("data","data"+celebrityBean.record.size());
-               Log.e("data","data"+celebrityBean.record.get(0).getPinyinname());
-               Log.e("data","data"+celebrityBean.record.get(0).getContent().size());
-               Log.e("data","data"+celebrityBean.record.get(0).getContent().get(0).getName());
-               mListAdapter.setLecturers(letterList);
-               initLetterView(letterList);
-               mLoadingFooter.setState(LoadingFooter.State.TheEnd);
-
-           }
-       });
-
     }
 
     // 显示字母view

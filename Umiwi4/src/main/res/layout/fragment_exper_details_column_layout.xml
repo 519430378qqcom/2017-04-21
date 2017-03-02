@@ -15,6 +15,7 @@
              android:layout_width="match_parent"
              android:layout_height="wrap_content">
              <TextView
+                 android:id="@+id/title"
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
                  android:text="关系攻略：残酷社会生存法则"
@@ -24,6 +25,7 @@
                  android:layout_centerVertical="true"
                  />
               <TextView
+                  android:id="@+id/priceinfo"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:text="￥165/年"
@@ -41,12 +43,14 @@
              android:layout_marginTop="10dp"
              >
           <TextView
+              android:id="@+id/shortcontent"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:text="每周更新一期"
               android:layout_marginLeft="10dp"
               />
               <TextView
+                  android:id="@+id/salenum"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:text="订阅666人"
@@ -72,16 +76,14 @@
                   android:layout_marginLeft="10dp"
                   android:layout_marginTop="20dp"
                   />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="10dp"
-                    android:textSize="16sp"
-                    android:paddingBottom="10dp"
-                    />
+                  <com.umiwi.ui.view.NoScrollListview
+                      android:id="@+id/description"
+                      android:layout_marginLeft="10dp"
+                      android:layout_marginRight="10dp"
+                      android:layout_marginTop="10dp"
+                      android:paddingBottom="10dp"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"/>
               <View
                   android:layout_width="match_parent"
                   android:layout_height="1px"
@@ -103,6 +105,7 @@
                  android:layout_marginLeft="10dp"
                  />
                <TextView
+                   android:id="@+id/targetuser"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:text="25-40周岁年龄段"
@@ -131,14 +134,15 @@
                  android:layout_marginTop="20dp"
                  android:layout_marginLeft="10dp"
                  />
-             <TextView
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:text="快点定，货存有限哦快点定，货存有限哦快点定，货存有限哦快点定，货存有限哦快点定，货存有限哦"
+             <com.umiwi.ui.view.NoScrollListview
+                 android:id="@+id/attention_listview"
                  android:layout_marginLeft="10dp"
                  android:layout_marginTop="10dp"
                  android:paddingBottom="10dp"
-                 />
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"/>
+
+
              <View
                  android:layout_width="match_parent"
                  android:layout_height="1px"
@@ -157,122 +161,18 @@
                   android:text="最近更新"
                   android:layout_marginTop="20dp"
                   />
+
+                 <com.umiwi.ui.view.NoScrollListview
+                     android:id="@+id/last_record"
+                     android:layout_width="match_parent"
+                     android:layout_marginLeft="10dp"
+                     android:layout_marginTop="10dp"
+                     android:layout_height="wrap_content"/>
               <RelativeLayout
                   android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="10dp"
-                  android:layout_marginLeft="10dp"
-                  >
-                  <TextView
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:text="我们已貌取人，但我们并不残忍"
-                      android:textSize="16sp"
-                      android:textColor="@color/black_alpf"
-                      android:layout_centerVertical="true"
-                      />
-
-                   <TextView
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:layout_alignParentRight="true"
-                       android:text="1小时前"
-                       android:layout_marginRight="5dp"
-                       android:layout_centerVertical="true"
-                       />
-              </RelativeLayout>
-              <RelativeLayout
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="10dp"
-                  android:layout_marginLeft="10dp"
-                  >
-                  <TextView
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:text="我们已貌取人，但我们并不残忍"
-                      android:textSize="16sp"
-                      android:textColor="@color/black_alpf"
-                      android:layout_centerVertical="true"
-                      />
-
-                  <TextView
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:layout_alignParentRight="true"
-                      android:text="1小时前"
-                      android:layout_marginRight="5dp"
-                      android:layout_centerVertical="true"
-                      />
-              </RelativeLayout>
-              <RelativeLayout
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="10dp"
-                  android:layout_marginLeft="10dp"
-                  android:layout_marginBottom="10dp"
-                  >
-                  <TextView
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:text="我们已貌取人，但我们并不残忍"
-                      android:textSize="16sp"
-                      android:textColor="@color/black_alpf"
-                      android:layout_centerVertical="true"
-                      />
-
-                  <TextView
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:layout_alignParentRight="true"
-                      android:text="1小时前"
-                      android:layout_marginRight="5dp"
-                      android:layout_centerVertical="true"
-                      />
+                  android:layout_height="60dp">
               </RelativeLayout>
           </LinearLayout>
      </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:background="@color/white"
-        android:layout_alignParentBottom="true"
-        >
 
-        <RelativeLayout
-            android:layout_marginLeft="10dp"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/white_color_button_bg"
-            android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="免费阅读"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:layout_centerInParent="true"
-            />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/main_color_button_bg"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="订阅：199元一年"
-                android:textSize="20sp"
-                android:textColor="@color/white"
-                android:layout_centerInParent="true"
-                />
-        </RelativeLayout>
-    </LinearLayout>
 </RelativeLayout>

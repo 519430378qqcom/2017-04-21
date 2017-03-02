@@ -50,7 +50,7 @@ public class ExperDetailsFragment extends BaseConstantFragment {
     private TabLayout tabsOrder;
     private FrameLayout fl_content;
     private Fragment detailsColumnFragment, experDetailsVoiceFragment, experDetailsVideoFragment, experDetailsWendaFragment,experDetailsCommentFragment;
-    private TopFloatScrollView scroll_view;
+    public static TopFloatScrollView scroll_view;
     public static int CurrentPosition ;
     private String uid;
     private String experName;
@@ -62,6 +62,7 @@ public class ExperDetailsFragment extends BaseConstantFragment {
     public static String questionurl;
     public static String tcolumnurl;
     public static String threadurl;
+    public static LinearLayout tv_more;
 
     @Nullable
     @Override
@@ -79,12 +80,12 @@ public class ExperDetailsFragment extends BaseConstantFragment {
 
             @Override
             public void onFaild() {
-                Log.e("data","请求数据失败");
+                Log.e("data","名人详情请求数据失败");
             }
 
             @Override
             public void onSucess(String data) {
-                Log.e("data","请求数据成功"+data);
+                Log.e("data","名人详情请求数据成功"+data);
                 ExperDetailsBean experDetailsBean = JsonUtil.json2Bean(data, ExperDetailsBean.class);
                 experName = experDetailsBean.getName();
                 tutorimage = experDetailsBean.getTutorimage();
@@ -107,6 +108,8 @@ public class ExperDetailsFragment extends BaseConstantFragment {
                     tcolumnurl = resultUrl.getTcolumnurl();
                     //评论
                     threadurl = resultUrl.getThreadurl();
+                    cutTheme(0);
+
                 }
 
             }
@@ -124,36 +127,16 @@ public class ExperDetailsFragment extends BaseConstantFragment {
         tv_unfold = (TextView) view.findViewById(R.id.tv_unfold);
         tabsOrder = (TabLayout) view.findViewById(R.id.tabs_order);
         fl_content = (FrameLayout) view.findViewById(R.id.fl_content);
-        final LinearLayout tv_more = (LinearLayout) view.findViewById(R.id.more);
+        tv_more = (LinearLayout) view.findViewById(R.id.more);
         scroll_view = (TopFloatScrollView) view.findViewById(R.id.scroll_view);
+        tv_unfold.setOnClickListener(new UnfoldOnClickListener());
+        iv_back.setOnClickListener(new BackOnClickListener());
         scroll_view.registerOnScrollViewScrollToBottom(new TopFloatScrollView.OnScrollBottomListener() {
             @Override
             public void onLoading() {
-                tv_more.setVisibility(View.VISIBLE);
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            Thread.sleep(3000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                tv_more.setVisibility(View.GONE);
-
-                            }
-                        });
-                    }
-                }).start();
 
             }
         });
-        tv_unfold.setOnClickListener(new UnfoldOnClickListener());
-        iv_back.setOnClickListener(new BackOnClickListener());
-        cutTheme(0);
-
         initTabLayout();
 
     }

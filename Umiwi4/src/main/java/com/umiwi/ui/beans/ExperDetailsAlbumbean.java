@@ -25,7 +25,6 @@ public class ExperDetailsAlbumbean {
      * tutor_uid : 70000010
      * updatedescription :
      */
-
     private String image;
     private boolean isbuy;
     private String price;
