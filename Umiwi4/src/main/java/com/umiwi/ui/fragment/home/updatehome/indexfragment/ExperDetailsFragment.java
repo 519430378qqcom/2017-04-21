@@ -1,27 +1,35 @@
 package com.umiwi.ui.fragment.home.updatehome.indexfragment;
-
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
+
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TableLayout;
+
 import android.widget.TextView;
 import com.umiwi.ui.R;
+import com.umiwi.ui.beans.ExperDetailsBean;
 import com.umiwi.ui.main.BaseConstantFragment;
+
+import com.umiwi.ui.main.CustomStringCallBack;
+import com.umiwi.ui.main.UmiwiAPI;
+import com.umiwi.ui.main.UmiwiApplication;
+import com.umiwi.ui.util.JsonUtil;
+import com.umiwi.ui.view.TopFloatScrollView;
+import com.zhy.http.okhttp.OkHttpUtils;
+
 import java.util.ArrayList;
 
+import cn.youmi.framework.util.ImageLoader;
 
 /**
  * Created by lws on 2017/2/28.
@@ -42,14 +50,70 @@ public class ExperDetailsFragment extends BaseConstantFragment {
     private TabLayout tabsOrder;
     private FrameLayout fl_content;
     private Fragment detailsColumnFragment, experDetailsVoiceFragment, experDetailsVideoFragment, experDetailsWendaFragment,experDetailsCommentFragment;
-
+    public static TopFloatScrollView scroll_view;
+    public static int CurrentPosition ;
+    private String uid;
+    private String experName;
+    private String tutorimage;
+    private String description;
+    private String tutortitle;
+    public static String albumurl;
+    public static String audioalbumurl;
+    public static String questionurl;
+    public static String tcolumnurl;
+    public static String threadurl;
+    public static LinearLayout tv_more;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_expert_details_layout, null);
+        uid = getActivity().getIntent().getStringExtra(ExperDetailsFragment.this.KEY_DEFAULT_TUTORUID);
+        getInfo();
+
         initView(view);
         return view;
+    }
+
+    private void getInfo() {
+        OkHttpUtils.get().url(UmiwiAPI.CELEBRTYY_DETAILS+uid).build().execute(new CustomStringCallBack() {
+
+            @Override
+            public void onFaild() {
+                Log.e("data","名人详情请求数据失败");
+            }
+
+            @Override
+            public void onSucess(String data) {
+                Log.e("data","名人详情请求数据成功"+data);
+                ExperDetailsBean experDetailsBean = JsonUtil.json2Bean(data, ExperDetailsBean.class);
+                experName = experDetailsBean.getName();
+                tutorimage = experDetailsBean.getTutorimage();
+                description = experDetailsBean.getDescription();
+                tutortitle = experDetailsBean.getTutortitle();
+                tv_name.setText(experName);
+                tv_describe.setText(tutortitle);
+                tv_content.setText(description);
+                ImageLoader mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
+                mImageLoader.loadImage(tutorimage,head);
+                ExperDetailsBean.ResultBean resultUrl = experDetailsBean.getResult();
+                if (resultUrl!=null){
+                    //专栏
+                    albumurl = resultUrl.getAlbumurl();
+                    //音频
+                    audioalbumurl = resultUrl.getAudioalbumurl();
+                    //问答数据
+                    questionurl = resultUrl.getQuestionurl();
+                    //视频
+                    tcolumnurl = resultUrl.getTcolumnurl();
+                    //评论
+                    threadurl = resultUrl.getThreadurl();
+                    cutTheme(0);
+
+                }
+
+            }
+        });
     }
 
     private void initView(View view) {
@@ -63,11 +127,16 @@ public class ExperDetailsFragment extends BaseConstantFragment {
         tv_unfold = (TextView) view.findViewById(R.id.tv_unfold);
         tabsOrder = (TabLayout) view.findViewById(R.id.tabs_order);
         fl_content = (FrameLayout) view.findViewById(R.id.fl_content);
-
+        tv_more = (LinearLayout) view.findViewById(R.id.more);
+        scroll_view = (TopFloatScrollView) view.findViewById(R.id.scroll_view);
         tv_unfold.setOnClickListener(new UnfoldOnClickListener());
         iv_back.setOnClickListener(new BackOnClickListener());
-        cutTheme(0);
+        scroll_view.registerOnScrollViewScrollToBottom(new TopFloatScrollView.OnScrollBottomListener() {
+            @Override
+            public void onLoading() {
 
+            }
+        });
         initTabLayout();
 
     }
@@ -77,8 +146,7 @@ public class ExperDetailsFragment extends BaseConstantFragment {
         mTitleList.add("音频");
         mTitleList.add("视频");
         mTitleList.add("问答");
-        mTitleList.add("评论"
-        );
+        mTitleList.add("评论");
         //设置tab模式，当前为系统默认模式
         tabsOrder.setTabMode(TabLayout.MODE_SCROLLABLE);
         //添加tab选项卡
@@ -106,6 +174,8 @@ public class ExperDetailsFragment extends BaseConstantFragment {
         });
     }
 
+
+
     private void cutTheme(int position) {
         FragmentManager fm = getFragmentManager();
         // 开启Fragment事务
@@ -113,6 +183,7 @@ public class ExperDetailsFragment extends BaseConstantFragment {
         hideFragments(transaction);
         switch (position){
             case 0:
+                CurrentPosition = 0;
                 if (detailsColumnFragment == null) {
                     detailsColumnFragment = new DetailsColumnFragment();
                     transaction.add(R.id.fl_content, detailsColumnFragment);
@@ -121,6 +192,8 @@ public class ExperDetailsFragment extends BaseConstantFragment {
                 }
                 break;
             case 1:
+                CurrentPosition = 1;
+
                 if (experDetailsVoiceFragment == null) {
                     experDetailsVoiceFragment = new ExperDetailsVoiceFragment();
                     transaction.add(R.id.fl_content, experDetailsVoiceFragment);
@@ -129,6 +202,8 @@ public class ExperDetailsFragment extends BaseConstantFragment {
                 }
                 break;
             case 2:
+                CurrentPosition = 2;
+
                 if (experDetailsVideoFragment == null) {
                     experDetailsVideoFragment = new ExperDetailsVideoFragment();
                     transaction.add(R.id.fl_content, experDetailsVideoFragment);
@@ -137,6 +212,8 @@ public class ExperDetailsFragment extends BaseConstantFragment {
                 }
                 break;
             case 3:
+                CurrentPosition = 3;
+
                 if (experDetailsWendaFragment == null) {
                     experDetailsWendaFragment = new ExperDetailsWendaFragment();
                     transaction.add(R.id.fl_content, experDetailsWendaFragment);
@@ -145,6 +222,8 @@ public class ExperDetailsFragment extends BaseConstantFragment {
                 }
                 break;
             case 4:
+                CurrentPosition = 4;
+
                 if (experDetailsCommentFragment == null) {
                     experDetailsCommentFragment = new ExperDetailsCommentFragment();
                     transaction.add(R.id.fl_content, experDetailsCommentFragment);
