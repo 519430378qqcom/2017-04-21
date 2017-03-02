@@ -16,7 +16,9 @@ import com.umiwi.ui.beans.ExperDetailsAlbumbean;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.CustomStringCallBack;
 import com.umiwi.ui.util.JsonUtil;
+import com.umiwi.ui.view.MonitorScrollView;
 import com.umiwi.ui.view.NoScrollListview;
+import com.umiwi.ui.view.TopFloatScrollView;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.List;
@@ -58,8 +60,17 @@ public class DetailsColumnFragment extends BaseConstantFragment {
             getInfos(albumurl);
         }
         ButterKnife.inject(this, view);
+        ExperDetailsFragment.setOnScrollListener(new ExperDetailsFragment.OnScrollListener() {
+            @Override
+            public void IsColumnbottom() {
+                Log.e("is","专栏");
+            }
+
+
+        });
         return view;
     }
+
 
     private void getInfos(String albumurl) {
         OkHttpUtils.get().url(albumurl).build().execute(new CustomStringCallBack() {

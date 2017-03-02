@@ -15,7 +15,7 @@ import android.widget.ScrollView;
  */
 public class MonitorScrollView extends ScrollView {
 	private OnScrollListener mListener;
-   private Context context;
+    private Context context;
 	private int _calCount;
 
 	public MonitorScrollView(Context context) {

@@ -1,4 +1,5 @@
 package com.umiwi.ui.fragment.home.updatehome.indexfragment;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -16,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import android.widget.TextView;
+
 import com.umiwi.ui.R;
 import com.umiwi.ui.beans.ExperDetailsBean;
 import com.umiwi.ui.main.BaseConstantFragment;
@@ -24,6 +26,7 @@ import com.umiwi.ui.main.CustomStringCallBack;
 import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.main.UmiwiApplication;
 import com.umiwi.ui.util.JsonUtil;
+import com.umiwi.ui.view.MonitorScrollView;
 import com.umiwi.ui.view.TopFloatScrollView;
 import com.zhy.http.okhttp.OkHttpUtils;
 
@@ -49,9 +52,9 @@ public class ExperDetailsFragment extends BaseConstantFragment {
     private ArrayList<String> mTitleList = new ArrayList<String>();
     private TabLayout tabsOrder;
     private FrameLayout fl_content;
-    private Fragment detailsColumnFragment, experDetailsVoiceFragment, experDetailsVideoFragment, experDetailsWendaFragment,experDetailsCommentFragment;
+    private Fragment detailsColumnFragment, experDetailsVoiceFragment, experDetailsVideoFragment, experDetailsWendaFragment, experDetailsCommentFragment;
     public static TopFloatScrollView scroll_view;
-    public static int CurrentPosition ;
+    public int CurrentPosition;
     private String uid;
     private String experName;
     private String tutorimage;
@@ -63,6 +66,25 @@ public class ExperDetailsFragment extends BaseConstantFragment {
     public static String tcolumnurl;
     public static String threadurl;
     public static LinearLayout tv_more;
+    public static OnScrollListener mListener;
+
+    public static void setOnScrollListener(OnScrollListener listener) {
+        mListener = listener;
+    }
+
+    public interface OnScrollListener {
+        void IsColumnbottom();
+
+    }
+    public static OnScrollListenerVoice mListenerVoice;
+
+    public static void setOnScrollListenerVoice(OnScrollListenerVoice listener) {
+        mListenerVoice = listener;
+    }
+
+    public interface OnScrollListenerVoice {
+        void IsvoiceBottom();
+    }
 
     @Nullable
     @Override
@@ -76,16 +98,16 @@ public class ExperDetailsFragment extends BaseConstantFragment {
     }
 
     private void getInfo() {
-        OkHttpUtils.get().url(UmiwiAPI.CELEBRTYY_DETAILS+uid).build().execute(new CustomStringCallBack() {
+        OkHttpUtils.get().url(UmiwiAPI.CELEBRTYY_DETAILS + uid).build().execute(new CustomStringCallBack() {
 
             @Override
             public void onFaild() {
-                Log.e("data","名人详情请求数据失败");
+                Log.e("data", "名人详情请求数据失败");
             }
 
             @Override
             public void onSucess(String data) {
-                Log.e("data","名人详情请求数据成功"+data);
+                Log.e("data", "名人详情请求数据成功" + data);
                 ExperDetailsBean experDetailsBean = JsonUtil.json2Bean(data, ExperDetailsBean.class);
                 experName = experDetailsBean.getName();
                 tutorimage = experDetailsBean.getTutorimage();
@@ -95,9 +117,9 @@ public class ExperDetailsFragment extends BaseConstantFragment {
                 tv_describe.setText(tutortitle);
                 tv_content.setText(description);
                 ImageLoader mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
-                mImageLoader.loadImage(tutorimage,head);
+                mImageLoader.loadImage(tutorimage, head);
                 ExperDetailsBean.ResultBean resultUrl = experDetailsBean.getResult();
-                if (resultUrl!=null){
+                if (resultUrl != null) {
                     //专栏
                     albumurl = resultUrl.getAlbumurl();
                     //音频
@@ -134,12 +156,20 @@ public class ExperDetailsFragment extends BaseConstantFragment {
         scroll_view.registerOnScrollViewScrollToBottom(new TopFloatScrollView.OnScrollBottomListener() {
             @Override
             public void onLoading() {
-
+                int position = (int) scroll_view.getTag();
+                if (position == 0) {
+                    Log.e("onload", "专栏");
+                    mListener.IsColumnbottom();
+                } else if (position == 1) {
+                    Log.e("onload", "音频");
+                    mListenerVoice.IsvoiceBottom();
+                }
             }
         });
         initTabLayout();
 
     }
+
     //初始化 TabLayout
     private void initTabLayout() {
         mTitleList.add("专栏");
@@ -159,7 +189,7 @@ public class ExperDetailsFragment extends BaseConstantFragment {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 int position = tab.getPosition();
-                 cutTheme(position);
+                cutTheme(position);
             }
 
             @Override
@@ -175,31 +205,34 @@ public class ExperDetailsFragment extends BaseConstantFragment {
     }
 
 
-
     private void cutTheme(int position) {
         FragmentManager fm = getFragmentManager();
         // 开启Fragment事务
         FragmentTransaction transaction = fm.beginTransaction();
         hideFragments(transaction);
-        switch (position){
+        switch (position) {
             case 0:
                 CurrentPosition = 0;
+                scroll_view.setTag(0);
                 if (detailsColumnFragment == null) {
                     detailsColumnFragment = new DetailsColumnFragment();
                     transaction.add(R.id.fl_content, detailsColumnFragment);
                 } else {
                     transaction.show(detailsColumnFragment);
                 }
+
                 break;
             case 1:
-                CurrentPosition = 1;
+                scroll_view.setTag(1);
 
+                CurrentPosition = 1;
                 if (experDetailsVoiceFragment == null) {
                     experDetailsVoiceFragment = new ExperDetailsVoiceFragment();
                     transaction.add(R.id.fl_content, experDetailsVoiceFragment);
                 } else {
                     transaction.show(experDetailsVoiceFragment);
                 }
+
                 break;
             case 2:
                 CurrentPosition = 2;
@@ -236,6 +269,7 @@ public class ExperDetailsFragment extends BaseConstantFragment {
         transaction.commitAllowingStateLoss();
 
     }
+
     public void hideFragments(FragmentTransaction ft) {
         if (detailsColumnFragment != null)
             ft.hide(detailsColumnFragment);
@@ -245,7 +279,7 @@ public class ExperDetailsFragment extends BaseConstantFragment {
             ft.hide(experDetailsVideoFragment);
         if (experDetailsWendaFragment != null)
             ft.hide(experDetailsWendaFragment);
-        if (experDetailsCommentFragment!=null){
+        if (experDetailsCommentFragment != null) {
             ft.hide(experDetailsCommentFragment);
         }
     }
@@ -264,11 +298,11 @@ public class ExperDetailsFragment extends BaseConstantFragment {
         }
     }
 
-    class BackOnClickListener implements View.OnClickListener{
+    class BackOnClickListener implements View.OnClickListener {
 
         @Override
         public void onClick(View view) {
-          getActivity().finish();
+            getActivity().finish();
         }
     }
 

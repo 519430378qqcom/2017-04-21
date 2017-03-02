@@ -2,6 +2,7 @@ package com.umiwi.ui.fragment.home.updatehome.indexfragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,8 @@ import com.umiwi.ui.adapter.ExperDetailsVideoAdapter;
 import com.umiwi.ui.beans.ActivityItemBean;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.view.NoScrollListview;
+import com.umiwi.ui.view.TopFloatScrollView;
+
 import java.util.ArrayList;
 
 /**
@@ -35,6 +38,10 @@ public class ExperDetailsVideoFragment extends BaseConstantFragment {
 
             }
         });
+
+
         return view;
     }
+
+
 }
