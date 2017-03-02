@@ -4,6 +4,7 @@ package com.umiwi.ui.beans.updatebeans;
 import com.google.gson.annotations.SerializedName;
 import com.umiwi.ui.beans.BaseGsonBeans;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -130,7 +131,7 @@ public class RecommendBean extends BaseGsonBeans {
         @SerializedName("huodong")
         private ArrayList<HuodongBean> huodong;
         @SerializedName("bottom")
-        private List<BottomBean> bottom;
+        private ArrayList<BottomBean> bottom;
 
         public String getSec_free_title() {
             return sec_free_title;
@@ -332,11 +333,11 @@ public class RecommendBean extends BaseGsonBeans {
             this.huodong = huodong;
         }
 
-        public List<BottomBean> getBottom() {
+        public ArrayList<BottomBean> getBottom() {
             return bottom;
         }
 
-        public void setBottom(List<BottomBean> bottom) {
+        public void setBottom(ArrayList<BottomBean> bottom) {
             this.bottom = bottom;
         }
 

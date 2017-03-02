@@ -1,16 +1,22 @@
 package com.umiwi.ui.fragment.home.recommend.widget;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.umiwi.ui.R;
+import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.updateadapter.ExpertRecAdapter;
 import com.umiwi.ui.beans.updatebeans.RecommendBean;
+import com.umiwi.ui.fragment.home.updatehome.NewHomeRecommendFragment;
+import com.umiwi.ui.fragment.home.updatehome.indexfragment.ExperDetailsFragment;
 
 import java.util.ArrayList;
 
@@ -26,6 +32,7 @@ public class ExpertRecLayoutView extends LinearLayout {
     private ListView lv_home_expert_rec;
     private LinearLayout ll_expert_root;
     private ExpertRecAdapter mExpertRecAdapter;
+    private RelativeLayout rl_tutor_all;
 
     private ArrayList<RecommendBean.RBean.TutorBean> mList;
 
@@ -46,8 +53,25 @@ public class ExpertRecLayoutView extends LinearLayout {
         ll_expert_root = (LinearLayout) findViewById(R.id.ll_expert_root);
         tv_tutor_title = (TextView) findViewById(R.id.tv_tutor_title);
         tv_tutor_all = (TextView) findViewById(R.id.tv_tutor_all);
+        rl_tutor_all = (RelativeLayout) findViewById(R.id.rl_tutor_all);
         lv_home_expert_rec = (ListView) findViewById(R.id.lv_home_expert_rec);
         ll_expert_root.setVisibility(GONE);
+        lv_home_expert_rec.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String tutoruid = mList.get(position).getUid();
+                Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
+                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, ExperDetailsFragment.class);
+                intent.putExtra(ExperDetailsFragment.KEY_DEFAULT_TUTORUID,tutoruid);
+                mContext.startActivity(intent);
+            }
+        });
+        rl_tutor_all.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NewHomeRecommendFragment.getRootViewpager().setCurrentItem(1);
+            }
+        });
     }
 
     public void setData(ArrayList<RecommendBean.RBean.TutorBean> tutorBeen, String tutorTitle, String tutorAll) {

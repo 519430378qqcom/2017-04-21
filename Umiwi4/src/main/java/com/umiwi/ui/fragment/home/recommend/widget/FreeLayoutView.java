@@ -1,6 +1,7 @@
 package com.umiwi.ui.fragment.home.recommend.widget;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,12 +9,15 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.umiwi.ui.R;
+import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.updateadapter.NewfreeAdapterV2;
 import com.umiwi.ui.beans.updatebeans.NewFree;
 import com.umiwi.ui.beans.updatebeans.RecommendBean;
 import com.umiwi.ui.dialog.updatedialog.NewShareDialog;
+import com.umiwi.ui.fragment.course.CourseDetailPlayFragment;
 import com.umiwi.ui.main.UmiwiApplication;
 
 import java.util.ArrayList;
@@ -52,19 +56,19 @@ public class FreeLayoutView extends LinearLayout {
         title_type_textview = (TextView) findViewById(R.id.title_type_textview);
         title_huan = (TextView) findViewById(R.id.title_huan);
         lv_new_free = (ListView) findViewById(R.id.lv_new_free);
-        lv_new_free.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                mList.get(position).getId();
-                // TODO 分享测试
-                NewShareDialog.getInstance().showDialog(mContext,"gps",mList.get(position).getTitle()
-                        ,mList.get(position).getUrl(),"www.gpsi_img.com");
-            }
-        });
+//        lv_new_free.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                mList.get(position).getId();
+//                // TODO 分享测试
+//                NewShareDialog.getInstance().showDialog(mContext, "gps", mList.get(position).getTitle()
+//                        , mList.get(position).getUrl(), "www.gpsi_img.com");
+//            }
+//        });
         ll_free_root.setVisibility(GONE);
     }
 
-    public void setData(ArrayList<RecommendBean.RBean.FreeBean.RecordBean> freeBean, String titleFree, String titleHuan) {
+    public void setData(final ArrayList<RecommendBean.RBean.FreeBean.RecordBean> freeBean, String titleFree, String titleHuan) {
         title_type_textview.setText(titleFree);
         title_huan.setText(titleHuan);
         mList = freeBean;
@@ -73,5 +77,20 @@ public class FreeLayoutView extends LinearLayout {
         ll_free_root.setVisibility(VISIBLE);
         mNewfreeAdapterV2 = new NewfreeAdapterV2(mContext, mList);
         lv_new_free.setAdapter(mNewfreeAdapterV2);
+
+        lv_new_free.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (freeBean.get(position).getType().equals("video")) {
+                    Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
+                    intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, CourseDetailPlayFragment.class);
+                    intent.putExtra(CourseDetailPlayFragment.KEY_DETAIURL, freeBean.get(position).getUrl());
+                    mContext.startActivity(intent);
+                } else if (freeBean.get(position).getType().equals("audio")) {
+                    //TODO
+                    Toast.makeText(mContext, "敬请期待", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }

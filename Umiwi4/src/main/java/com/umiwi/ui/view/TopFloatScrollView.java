@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -35,6 +36,15 @@ public class TopFloatScrollView extends FrameLayout implements MonitorScrollView
     private int mFloatToTopHeight;
     // 一直在头部的容器
     private RelativeLayout mFloatTopContainer;
+    private OnScrollBottomListener listener;
+
+    public interface OnScrollBottomListener {
+        void onLoading();
+    }
+
+    public void registerOnScrollViewScrollToBottom(OnScrollBottomListener l) {
+        listener = l;
+    }
 
     public TopFloatScrollView(Context context) {
         this(context, null);
@@ -201,6 +211,13 @@ public class TopFloatScrollView extends FrameLayout implements MonitorScrollView
             } else {
                 addFloatToRootView();
             }
+        }
+    }
+
+    @Override
+    public void isBotton(boolean isBotton) {
+        if (isBotton == true) {
+            listener.onLoading();
         }
     }
 

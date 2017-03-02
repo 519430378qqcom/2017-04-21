@@ -29,7 +29,7 @@ import java.util.ArrayList;
 
 public class ExperDetailsFragment extends BaseConstantFragment {
     public static final String KEY_DEFAULT_TUTORUID = "key.defaulttutoruid";
-    private RelativeLayout head;
+    private ImageView head;
     private ImageView iv_back;
     private ImageView iv_shared;
     private TextView tv_name;
@@ -54,7 +54,7 @@ public class ExperDetailsFragment extends BaseConstantFragment {
 
     private void initView(View view) {
         isFirstOnMeasure = true;
-        head = (RelativeLayout) view.findViewById(R.id.head);
+        head = (ImageView) view.findViewById(R.id.head);
         iv_back = (ImageView) view.findViewById(R.id.iv_back);
         iv_shared = (ImageView) view.findViewById(R.id.iv_shared);
         tv_name = (TextView) view.findViewById(R.id.tv_name);
@@ -77,7 +77,8 @@ public class ExperDetailsFragment extends BaseConstantFragment {
         mTitleList.add("音频");
         mTitleList.add("视频");
         mTitleList.add("问答");
-        mTitleList.add("评论");
+        mTitleList.add("评论"
+        );
         //设置tab模式，当前为系统默认模式
         tabsOrder.setTabMode(TabLayout.MODE_SCROLLABLE);
         //添加tab选项卡
