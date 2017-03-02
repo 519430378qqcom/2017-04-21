@@ -57,6 +57,11 @@ public class ExperDetailsFragment extends BaseConstantFragment {
     private String tutorimage;
     private String description;
     private String tutortitle;
+    public static String albumurl;
+    public static String audioalbumurl;
+    public static String questionurl;
+    public static String tcolumnurl;
+    public static String threadurl;
 
     @Nullable
     @Override
@@ -70,7 +75,7 @@ public class ExperDetailsFragment extends BaseConstantFragment {
     }
 
     private void getInfo() {
-        OkHttpUtils.get().url(UmiwiAPI.CELEBRTYY_DETAILS+uid).build().execute(new CustomStringCallBack("r") {
+        OkHttpUtils.get().url(UmiwiAPI.CELEBRTYY_DETAILS+uid).build().execute(new CustomStringCallBack() {
 
             @Override
             public void onFaild() {
@@ -90,6 +95,19 @@ public class ExperDetailsFragment extends BaseConstantFragment {
                 tv_content.setText(description);
                 ImageLoader mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
                 mImageLoader.loadImage(tutorimage,head);
+                ExperDetailsBean.ResultBean resultUrl = experDetailsBean.getResult();
+                if (resultUrl!=null){
+                    //专栏
+                    albumurl = resultUrl.getAlbumurl();
+                    //音频
+                    audioalbumurl = resultUrl.getAudioalbumurl();
+                    //问答数据
+                    questionurl = resultUrl.getQuestionurl();
+                    //视频
+                    tcolumnurl = resultUrl.getTcolumnurl();
+                    //评论
+                    threadurl = resultUrl.getThreadurl();
+                }
 
             }
         });

@@ -259,7 +259,7 @@ public class ExpertFragment  extends BaseConstantFragment {
                 UmiwiAPI.CELEBRTYY_LIST, GsonParser.class,
                 CelebrityBean.RBean.class, listener);
         HttpDispatcher.getInstance().go(request);*/
-       OkHttpUtils.get().url(UmiwiAPI.CELEBRTYY_LIST).build().execute(new CustomStringCallBack("r") {
+       OkHttpUtils.get().url(UmiwiAPI.CELEBRTYY_LIST).build().execute(new CustomStringCallBack() {
            @Override
            public void onFaild() {
                Log.e("data","数据进行请求失败了");

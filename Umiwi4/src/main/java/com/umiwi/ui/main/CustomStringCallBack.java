@@ -17,10 +17,10 @@ import okhttp3.Call;
 
 public abstract class CustomStringCallBack extends StringCallback {
 
-    public String content;
 
-    public CustomStringCallBack(String content) {
-        this.content = content;
+
+    public CustomStringCallBack() {
+
     }
 
     @Override
@@ -32,7 +32,7 @@ public abstract class CustomStringCallBack extends StringCallback {
     public void onResponse(String response, int id) {
         try {
             JSONObject jsonObject = new JSONObject(response);
-            String data = jsonObject.getString(content);
+            String data = jsonObject.getString("r");
             onSucess(data);
         } catch (JSONException e) {
             onFaild();
