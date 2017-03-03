@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_marginLeft="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:src="@drawable/login_icon_default" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_audio_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:text="破解时代"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp"
+                android:background="@drawable/tv_corner"
+                android:paddingBottom="3dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingTop="3dp"
+                android:layout_toRightOf="@+id/tv_audio_name"
+                android:text="创业"
+                android:textColor="@color/color_primary"
+                android:textSize="11sp" />
+
+            <TextView
+                android:id="@+id/tv_prize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:padding="12dp"
+                android:text="199"
+                android:layout_marginRight="10dp"
+                android:textColor="@color/umiwi_orange"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_audio_name"
+                android:layout_marginLeft="12dp"
+                android:padding="3dp"
+                android:text="04.15"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_dian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_audio_name"
+                android:layout_toRightOf="@+id/tv_time"
+                android:gravity="center"
+                android:padding="1dp"
+                android:text="." />
+
+            <TextView
+                android:id="@+id/tv_watchnum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_audio_name"
+                android:layout_toRightOf="@+id/tv_dian"
+                android:padding="3dp"
+                android:text="15"
+                android:textSize="14sp" />
+
+
+            <TextView
+                android:id="@+id/tv_percent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/tv_audio_name"
+                android:layout_marginLeft="12dp"
+                android:padding="3dp"
+                android:text="已播15%"
+                android:layout_marginRight="10dp"
+                android:textSize="14sp" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <TextView
+        android:layout_marginTop="4dp"
+        android:layout_marginLeft="18dp"
+        android:background="@color/color_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+
+</LinearLayout>

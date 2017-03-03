@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:background="@color/text_white_enabled"
+        android:layout_width="match_parent"
+        android:layout_height="240dp">
+
+        <LinearLayout
+            android:id="@+id/ll_header"
+            android:visibility="visible"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <cn.youmi.framework.view.CircleImageView
+                android:id="@+id/user_photo_iv"
+                android:layout_width="@dimen/round_image"
+                android:layout_height="@dimen/round_image"
+                android:src="@drawable/user_test_business"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                app:ci_border_color="#00000000" />
+
+            <TextView
+                android:text="登录"
+                android:layout_below="@+id/user_photo_iv"
+                android:background="@drawable/tv_corner_login"
+                android:paddingLeft="25dp"
+                android:paddingRight="25dp"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/user_name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/umiwi_gray_3"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="240dp">
+
+    <LinearLayout
+        android:id="@+id/ll_header_login"
+        android:visibility="visible"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <cn.youmi.framework.view.CircleImageView
+            android:id="@+id/user_photo_iv_login"
+            android:layout_width="@dimen/round_image"
+            android:layout_height="@dimen/round_image"
+            android:layout_marginLeft="5dp"
+            android:src="@drawable/action_bar_logo_new"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            app:ci_border_color="#00000000" />
+
+        <TextView
+            android:id="@+id/tv_user_name"
+            android:text="高速公路"
+            android:layout_below="@+id/user_photo_iv"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
+            android:paddingBottom="6dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:textColor="@color/umiwi_gray_3"
+            android:textSize="18sp" />
+
+        <TextView
+            android:background="@color/color_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
+
+        <LinearLayout
+            android:padding="15dp"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="80dp">
+
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_time"
+                    android:textSize="16sp"
+                    android:layout_width="wrap_content"
+                    android:gravity="center"
+                    android:text="4时15分"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:textSize="11sp"
+                    android:gravity="center"
+                    android:text="学习时间"
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_gravity="center"
+                android:background="@color/color_divider"
+                android:layout_width="1dp"
+                android:layout_height="40dp" />
+
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_answer"
+                    android:textSize="16sp"
+                    android:layout_width="wrap_content"
+                    android:gravity="center"
+                    android:text="190"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:textSize="11sp"
+                    android:gravity="center"
+                    android:text="我的提问"
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_gravity="center"
+                android:background="@color/color_divider"
+                android:layout_width="1dp"
+                android:layout_height="40dp" />
+
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_study_time"
+                    android:textSize="16sp"
+                    android:layout_width="wrap_content"
+                    android:gravity="center"
+                    android:text="8天"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:textSize="11sp"
+                    android:gravity="center"
+                    android:text="连续学习"
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
