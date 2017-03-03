@@ -175,8 +175,9 @@
 
     </com.umiwi.ui.view.TopFloatScrollView>
     <LinearLayout
+        android:id="@+id/yuedu"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:background="@color/white"

@@ -9,6 +9,7 @@
          android:orientation="horizontal"
          >
          <ImageView
+             android:id="@+id/limage"
              android:layout_width="115dp"
              android:layout_height="90dp"
              android:src="@drawable/guide_splash"
@@ -16,14 +17,18 @@
              android:layout_marginTop="10dp"
              android:layout_marginBottom="10dp"
              android:layout_marginLeft="10dp"
+             android:layout_gravity="center_vertical"
              />
            <LinearLayout
-               android:layout_width="match_parent"
-               android:layout_height="match_parent"
-               android:orientation="vertical"
+               android:layout_marginTop="10dp"
+               android:layout_marginBottom="10dp"
                android:layout_marginLeft="10dp"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="vertical"
                >
                <TextView
+                   android:id="@+id/tv_short"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:text="创始人团队最重要的是什么？"
@@ -31,57 +36,75 @@
                    android:textColor="@color/black_alpf"
                    android:layout_marginTop="10dp"
                    />
-               <TextView
+               <LinearLayout
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:text="三分力.优米创始人"
-                   android:layout_marginTop="5dp"
-                   />
+                   android:orientation="horizontal"
+                   >
+                   <TextView
+                       android:id="@+id/name"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="三分力"
+                       android:layout_marginTop="5dp"
+                       />
+                   <TextView
+                       android:layout_marginLeft="10dp"
+                       android:id="@+id/tutortitle"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="优米创始人"
+                       android:layout_marginTop="5dp"
+                       />
+               </LinearLayout>
+
                <LinearLayout
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:orientation="horizontal"
                    android:layout_marginTop="5dp"
-
                    >
                <TextView
+                   android:id="@+id/watchnum"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:text="播放 2600"
                    />
                    <TextView
+                       android:id="@+id/time"
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:text="2017.2.6"
                        android:layout_marginLeft="10dp"
                        />
                </LinearLayout>
-                <RelativeLayout
-                    android:layout_marginTop="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="￥16"
-                        android:layout_centerVertical="true"
-                        android:textColor="@color/main_color"
-                        />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/main_color"
-                        android:text="购买"
-                        android:paddingBottom="5dp"
-                        android:paddingTop="5dp"
-                        android:paddingLeft="15dp"
-                        android:layout_centerVertical="true"
-                        android:paddingRight="15dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="10dp"
-                        android:background="@drawable/textview_fillet_question_bg"
-                        />
-                </RelativeLayout>
+
+               <RelativeLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content">
+                   <TextView
+                       android:id="@+id/price"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="￥16"
+                       android:layout_centerVertical="true"
+                       android:textColor="@color/main_color"
+                       />
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:textColor="@color/main_color"
+                       android:text="购买"
+                       android:paddingBottom="5dp"
+                       android:paddingTop="5dp"
+                       android:paddingLeft="15dp"
+                       android:layout_centerVertical="true"
+                       android:paddingRight="15dp"
+                       android:layout_alignParentRight="true"
+                       android:layout_marginRight="10dp"
+                       android:background="@drawable/textview_fillet_question_bg"
+                       />
+               </RelativeLayout>
            </LinearLayout>
      </LinearLayout>
 </LinearLayout>

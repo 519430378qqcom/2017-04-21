@@ -67,6 +67,7 @@ public class ExperDetailsFragment extends BaseConstantFragment {
     public static String threadurl;
     public static LinearLayout tv_more;
     public static OnScrollListener mListener;
+    private LinearLayout yuedu;
 
     public static void setOnScrollListener(OnScrollListener listener) {
         mListener = listener;
@@ -84,6 +85,37 @@ public class ExperDetailsFragment extends BaseConstantFragment {
 
     public interface OnScrollListenerVoice {
         void IsvoiceBottom();
+    }
+
+    public static OnScrollListenerVideo mListenerVideo;
+
+    public static void setOnScrollListenerVideo(OnScrollListenerVideo listener) {
+        mListenerVideo = listener;
+    }
+
+    public interface OnScrollListenerVideo {
+        void IsVideoBottom();
+    }
+
+
+    public static OnScrollListenerWenda mListenerWenda;
+
+    public static void setOnScrollListenerWenda(OnScrollListenerWenda listener) {
+        mListenerWenda = listener;
+    }
+
+    public interface OnScrollListenerWenda {
+        void IswendaBottom();
+    }
+
+    public static OnScrollListenerComment mListenerComment;
+
+    public static void setOnScrollListenerComment(OnScrollListenerComment listener) {
+        mListenerComment = listener;
+    }
+
+    public interface OnScrollListenerComment {
+        void IsCommentBottom();
     }
 
     @Nullable
@@ -150,6 +182,7 @@ public class ExperDetailsFragment extends BaseConstantFragment {
         tabsOrder = (TabLayout) view.findViewById(R.id.tabs_order);
         fl_content = (FrameLayout) view.findViewById(R.id.fl_content);
         tv_more = (LinearLayout) view.findViewById(R.id.more);
+        yuedu = (LinearLayout) view.findViewById(R.id.yuedu);
         scroll_view = (TopFloatScrollView) view.findViewById(R.id.scroll_view);
         tv_unfold.setOnClickListener(new UnfoldOnClickListener());
         iv_back.setOnClickListener(new BackOnClickListener());
@@ -163,6 +196,17 @@ public class ExperDetailsFragment extends BaseConstantFragment {
                 } else if (position == 1) {
                     Log.e("onload", "音频");
                     mListenerVoice.IsvoiceBottom();
+                }else if (position == 2){
+                    Log.e("onload", "视频");
+                    mListenerVideo.IsVideoBottom();
+                }else if (position == 3){
+                    Log.e("onload", "问答");
+
+                    mListenerWenda.IswendaBottom();
+                }else if (position == 4){
+                    Log.e("onload", "评论");
+
+                    mListenerComment.IsCommentBottom();
                 }
             }
         });
@@ -214,6 +258,7 @@ public class ExperDetailsFragment extends BaseConstantFragment {
             case 0:
                 CurrentPosition = 0;
                 scroll_view.setTag(0);
+                yuedu.setVisibility(View.VISIBLE);
                 if (detailsColumnFragment == null) {
                     detailsColumnFragment = new DetailsColumnFragment();
                     transaction.add(R.id.fl_content, detailsColumnFragment);
@@ -224,7 +269,7 @@ public class ExperDetailsFragment extends BaseConstantFragment {
                 break;
             case 1:
                 scroll_view.setTag(1);
-
+                yuedu.setVisibility(View.GONE);
                 CurrentPosition = 1;
                 if (experDetailsVoiceFragment == null) {
                     experDetailsVoiceFragment = new ExperDetailsVoiceFragment();
@@ -236,6 +281,9 @@ public class ExperDetailsFragment extends BaseConstantFragment {
                 break;
             case 2:
                 CurrentPosition = 2;
+                scroll_view.setTag(2);
+
+                yuedu.setVisibility(View.GONE);
 
                 if (experDetailsVideoFragment == null) {
                     experDetailsVideoFragment = new ExperDetailsVideoFragment();
@@ -245,7 +293,10 @@ public class ExperDetailsFragment extends BaseConstantFragment {
                 }
                 break;
             case 3:
+                scroll_view.setTag(3);
+
                 CurrentPosition = 3;
+                yuedu.setVisibility(View.GONE);
 
                 if (experDetailsWendaFragment == null) {
                     experDetailsWendaFragment = new ExperDetailsWendaFragment();
@@ -255,7 +306,10 @@ public class ExperDetailsFragment extends BaseConstantFragment {
                 }
                 break;
             case 4:
+                scroll_view.setTag(4);
+
                 CurrentPosition = 4;
+                yuedu.setVisibility(View.GONE);
 
                 if (experDetailsCommentFragment == null) {
                     experDetailsCommentFragment = new ExperDetailsCommentFragment();

@@ -396,6 +396,8 @@ public final class UmiwiAPI {
 
     public static final String CELEBRTYY_DETAILS = "http://i.v.youmi.cn/api8/gettutor/?uid=";
 
+    public static final String TUTORCOLUMN = "http://i.v.youmi.cn/tutorcolumn/listApi/?p=";
+
     //首页音频页面数据
     public static final String Login_Audio = "http://i.v.youmi.cn/api8/audiolist";
 

@@ -11,6 +11,7 @@
         android:orientation="vertical"
         >
         <TextView
+            android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="微信小程序能够进行直播吗？"
@@ -28,7 +29,7 @@
             android:gravity="center_vertical"
             >
             <cn.youmi.framework.view.CircleImageView
-                android:id="@+id/image"
+                android:id="@+id/tavatar"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_alignParentLeft="true"
@@ -37,7 +38,7 @@
                  />
 
             <TextView
-                android:id="@+id/change_hear_textview_2"
+                android:id="@+id/buttontag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -55,6 +56,7 @@
                 android:layout_weight="1"
                 />
              <TextView
+                 android:id="@+id/listennum"
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
                  android:text="听过 666人"
@@ -67,12 +69,9 @@
             android:layout_marginBottom="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="40分钟前"
-                />
-             <TextView
+                android:id="@+id/goodnum"
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
                  android:text="666"
@@ -81,6 +80,15 @@
                  android:drawablePadding="5dp"
                  android:layout_alignParentRight="true"
                  />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="40分钟前"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:id="@+id/playtime" />
         </RelativeLayout>
     </LinearLayout>
 </LinearLayout>

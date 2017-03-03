@@ -1,7 +1,9 @@
 package com.umiwi.ui.fragment.home.updatehome.indexfragment;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,11 +12,17 @@ import android.widget.AdapterView;
 import com.umiwi.ui.R;
 import com.umiwi.ui.adapter.ExperDetailsVideoAdapter;
 import com.umiwi.ui.beans.ActivityItemBean;
+import com.umiwi.ui.beans.VoiceBean;
+import com.umiwi.ui.beans.updatebeans.VideoBean;
 import com.umiwi.ui.main.BaseConstantFragment;
+import com.umiwi.ui.main.CustomStringCallBack;
+import com.umiwi.ui.util.JsonUtil;
 import com.umiwi.ui.view.NoScrollListview;
 import com.umiwi.ui.view.TopFloatScrollView;
+import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 行家详情视频
@@ -23,25 +31,92 @@ import java.util.ArrayList;
 
 public class ExperDetailsVideoFragment extends BaseConstantFragment {
     private NoScrollListview listView;
-    private ArrayList<ActivityItemBean> mList;
+    private  List<VideoBean.RecordBean> videoInfos = new ArrayList<>();
+    private int page;
+    private int totalpage;
+    private ExperDetailsVideoAdapter experDetailsVideoAdapter;
+    private boolean isBottom = false;
+    private boolean stopThread = false;
+    private Handler handler;
+    private Runnable runnable;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_exper_details_video_layout, null);
         listView = (NoScrollListview) view.findViewById(R.id.noscroll_listview);
-        mList = new ArrayList<>();
-        ExperDetailsVideoAdapter experDetailsVideoAdapter = new ExperDetailsVideoAdapter(getActivity(), mList);
+        experDetailsVideoAdapter = new ExperDetailsVideoAdapter(getActivity());
+        experDetailsVideoAdapter.setData(videoInfos);
         listView.setAdapter(experDetailsVideoAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        ExperDetailsFragment.setOnScrollListenerVideo(new ExperDetailsFragment.OnScrollListenerVideo() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+            public void IsVideoBottom() {
+                Log.e("is","video");
+                page++;
+                isBottom = true;
+                if (page<=totalpage){
+                    ExperDetailsFragment.tv_more.setVisibility(View.VISIBLE);
+                    getInfos();
+                }
             }
         });
-
-
+        getInfos();
+        handler = new Handler();
         return view;
     }
 
+    private void getInfos() {
+        String albumurl = ExperDetailsFragment.albumurl;
+        if (!TextUtils.isEmpty(albumurl)){
+           String url = albumurl+"/?p="+page;
+            OkHttpUtils.get().url(url).build().execute(new CustomStringCallBack() {
 
+                @Override
+                public void onFaild() {
+                     Log.e("data","名人详情视频数据请求失败");
+                }
+
+                @Override
+                public void onSucess(final String data) {
+                    Log.e("data","名人详情视频数据请求成功"+data);
+                     if (!TextUtils.isEmpty(data)){
+                         if (isBottom == true){
+                             if (runnable==null){
+                                 runnable = new Runnable() {
+                                     @Override
+                                     public void run() {
+                                         getActivity().runOnUiThread(new Runnable() {
+                                             @Override
+                                             public void run() {
+                                                 ExperDetailsFragment.tv_more.setVisibility(View.GONE);
+                                                 VideoBean videoBean = JsonUtil.json2Bean(data, VideoBean.class);
+                                                 totalpage = videoBean.getPage().getTotalpage();
+                                                 List<VideoBean.RecordBean> record = videoBean.getRecord();
+                                                 videoInfos.addAll(record);
+                                                 experDetailsVideoAdapter.setData(videoInfos);
+                                             }
+                                         });
+                                     }
+                                 };
+                             }
+                             handler.postDelayed(runnable,1000);
+                         }else {
+                             VideoBean videoBean = JsonUtil.json2Bean(data, VideoBean.class);
+                             totalpage = videoBean.getPage().getTotalpage();
+                             List<VideoBean.RecordBean> record = videoBean.getRecord();
+                             videoInfos.addAll(record);
+                             experDetailsVideoAdapter.setData(videoInfos);
+                         }
+
+                     }
+                }
+            });
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        handler.removeCallbacks(runnable);
+        super.onDestroy();
+    }
 }

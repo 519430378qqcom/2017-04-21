@@ -82,6 +82,7 @@
                       android:layout_marginRight="10dp"
                       android:layout_marginTop="10dp"
                       android:paddingBottom="10dp"
+                      android:divider="@null"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"/>
               <View
@@ -139,6 +140,7 @@
                  android:layout_marginLeft="10dp"
                  android:layout_marginTop="10dp"
                  android:paddingBottom="10dp"
+                 android:divider="@null"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"/>
 
@@ -160,6 +162,9 @@
                   android:layout_marginLeft="10dp"
                   android:text="最近更新"
                   android:layout_marginTop="20dp"
+                  android:textSize="16sp"
+                  android:textColor="@color/black_alpf"
+
                   />
 
                  <com.umiwi.ui.view.NoScrollListview
@@ -167,6 +172,7 @@
                      android:layout_width="match_parent"
                      android:layout_marginLeft="10dp"
                      android:layout_marginTop="10dp"
+                     android:divider="@null"
                      android:layout_height="wrap_content"/>
               <RelativeLayout
                   android:layout_width="match_parent"

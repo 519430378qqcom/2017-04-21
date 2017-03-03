@@ -3,6 +3,8 @@ package com.umiwi.ui.fragment.home.alreadyshopping;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +15,13 @@ import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.ColumnAdapter;
 import com.umiwi.ui.beans.ActivityItemBean;
+import com.umiwi.ui.beans.updatebeans.HomeCoumnBean;
 import com.umiwi.ui.main.BaseConstantFragment;
+import com.umiwi.ui.main.CustomStringCallBack;
+import com.umiwi.ui.main.UmiwiAPI;
+import com.umiwi.ui.util.JsonUtil;
+import com.zhy.http.okhttp.OkHttpUtils;
+
 import java.util.ArrayList;
 import cn.youmi.framework.util.ListViewScrollLoader;
 import cn.youmi.framework.view.LoadingFooter;
@@ -73,8 +81,23 @@ public class ColumnFragment extends BaseConstantFragment {
 
     @Override
     public void onLoadData(int page) {
-     /*   GetRequest<UmiwiListResult<ActivityItemBean>> get = new GetRequest<UmiwiListResult<ActivityItemBean>>(String.format(UmiwiAPI.COlUMN_LIST, status, page), UmiwiListParser.class, ActivityItemBean.class, listener);
-        get.go();*/
+        String url = UmiwiAPI.TUTORCOLUMN+page;
+        OkHttpUtils.get().url(url).build().execute(new CustomStringCallBack() {
+            @Override
+            public void onFaild() {
+                Log.e("data","首页专栏列表请求数据失败");
+            }
+
+            @Override
+            public void onSucess(String data) {
+                Log.e("data","首页专栏列表请求数据成功"+data);
+                if (!TextUtils.isEmpty(data)){
+                    HomeCoumnBean homeCoumnBean = JsonUtil.json2Bean(data, HomeCoumnBean.class);
+                    Log.e("data",homeCoumnBean.getPage().getTotalpage()+"");
+                }
+
+            }
+        });
     }
 }
 

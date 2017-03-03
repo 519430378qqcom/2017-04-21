@@ -2,6 +2,7 @@ package com.umiwi.ui.fragment.home.updatehome.indexfragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,16 +55,16 @@ public class DetailsColumnFragment extends BaseConstantFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_exper_details_column_layout, null);
-        String albumurl = ExperDetailsFragment.albumurl;
+        String albumurl = ExperDetailsFragment.tcolumnurl;
         ExperDetailsFragment.tv_more.setVisibility(View.GONE);
-        if (albumurl != null) {
+        if (!TextUtils.isEmpty(albumurl)) {
             getInfos(albumurl);
         }
         ButterKnife.inject(this, view);
         ExperDetailsFragment.setOnScrollListener(new ExperDetailsFragment.OnScrollListener() {
             @Override
             public void IsColumnbottom() {
-                Log.e("is","专栏");
+
             }
 
 
@@ -101,6 +102,7 @@ public class DetailsColumnFragment extends BaseConstantFragment {
         String salenum = experDetailsAlbumbean.getSalenum();
         List<ExperDetailsAlbumbean.LastRecordBean> last_record = experDetailsAlbumbean.getLast_record();
         String targetuser = experDetailsAlbumbean.getTargetuser();
+        priceinfo.setText(experDetailsAlbumbean.getPriceinfo());
         if (title!=null){
             tv_title.setText(title);
         }
@@ -122,7 +124,6 @@ public class DetailsColumnFragment extends BaseConstantFragment {
 
         if (last_record!=null&&last_record.size()>0){
             lastRecord.setAdapter(new LastRecordAdapter(getActivity(),last_record));
-
         }
 
     }

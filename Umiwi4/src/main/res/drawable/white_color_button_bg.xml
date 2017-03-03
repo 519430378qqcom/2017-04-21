@@ -6,7 +6,7 @@
     <corners android:radius="30dp" /> <!-- 圆角半径 -->
 
     <stroke
-        android:width="2dp"
+        android:width="1px"
         android:color="@color/line" /> <!-- 矩形的边线 -->
 
     <gradient
