@@ -17,6 +17,7 @@ import java.util.List;
 
 public class AudioAdapter extends BaseAdapter {
 
+
     private final Context context;
     private final List<AudioBean.RecordBean> mList;
 
