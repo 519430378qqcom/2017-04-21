@@ -1,13 +1,328 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <TextView
-        android:gravity="center"
-        android:text="音频"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="1dp"
+        android:background="@color/umiwi_gray_c" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp">
+
+        <TextView
+            android:textSize="16sp"
+            android:id="@+id/tv_all_one"
+            android:layout_width="60dp"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="全部"
+            android:textColor="@color/umiwi_orange" />
+        <!--android:textColor="@drawable/text_color_selector"-->
+
+        <TextView
+            android:layout_width="1dp"
+            android:layout_height="12dp"
+            android:layout_marginTop="3dp"
+            android:background="@color/umiwi_gray_b" />
+
+        <TextView
+            android:textSize="16sp"
+            android:id="@+id/tv_cy"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="创业"
+            android:textColor="@color/umiwi_gray_6" />
+
+        <TextView
+            android:textSize="16sp"
+            android:id="@+id/tv_zc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="职场"
+            android:textColor="@color/umiwi_gray_6" />
+
+        <TextView
+            android:textSize="16sp"
+            android:id="@+id/tv_my"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="母婴"
+            android:textColor="@color/umiwi_gray_6" />
+
+        <TextView
+            android:textSize="16sp"
+            android:id="@+id/tv_ly"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="旅游"
+            android:textColor="@color/umiwi_gray_6" />
+
+        <TextView
+            android:textSize="16sp"
+            android:id="@+id/tv_jk"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="健康"
+            android:textColor="@color/umiwi_gray_6" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:textSize="16sp"
+            android:id="@+id/tv_all_two"
+            android:layout_width="60dp"
+            android:gravity="center"
+            android:textColor="@color/umiwi_orange"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="全部" />
+
+        <TextView
+            android:layout_width="1dp"
+            android:layout_height="12dp"
+            android:layout_marginTop="3dp"
+            android:background="@color/umiwi_gray_b" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:textSize="16sp"
+                    android:id="@+id/tv_qc"
+                    android:layout_width="95dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="汽车"
+                    android:textColor="@color/umiwi_gray_6" />
+
+                <TextView
+                    android:textSize="16sp"
+                    android:id="@+id/tv_xwcb"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="新闻出版"
+                    android:textColor="@color/umiwi_gray_6" />
+
+                <TextView
+                    android:textSize="16sp"
+                    android:id="@+id/tv_xxjs"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="信息技术"
+                    android:textColor="@color/umiwi_gray_6" />
+
+                <TextView
+                    android:textSize="16sp"
+                    android:id="@+id/tv_cyjd"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="酒店餐饮"
+                    android:textColor="@color/umiwi_gray_6" />
+
+                <TextView
+                    android:textSize="16sp"
+                    android:id="@+id/tv_jdrj"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="家电软件"
+                    android:textColor="@color/umiwi_gray_6" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:textSize="16sp"
+                    android:id="@+id/tv_wlw"
+                    android:layout_width="95dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="物联网"
+                    android:textColor="@color/umiwi_gray_6" />
+
+                <TextView
+                    android:textSize="16sp"
+                    android:id="@+id/tv_ny"
+                    android:layout_width="95dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="能源"
+                    android:textColor="@color/umiwi_gray_6" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="18dp"
+        android:background="@color/umiwi_gray_c" />
+
+    <LinearLayout
+        android:layout_marginLeft="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_all_three"
+            android:layout_width="60dp"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:textColor="@color/umiwi_orange"
+            android:layout_height="wrap_content"
+            android:padding="13dp"
+            android:text="全部" />
+
+        <TextView
+            android:layout_width="1dp"
+            android:layout_height="12dp"
+            android:layout_marginTop="3dp"
+            android:background="@color/umiwi_gray_b" />
+
+        <TextView
+            android:id="@+id/tv_free"
+            android:layout_width="65dp"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:padding="8dp"
+            android:textSize="16sp"
+            android:text="免费" />
+
+        <TextView
+            android:id="@+id/tv_pay"
+            android:layout_width="65dp"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:textSize="16sp"
+            android:text="付费" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="18dp"
+        android:background="@color/bg_gray" />
+
+    <LinearLayout
+        android:layout_marginLeft="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_new"
+            android:layout_width="60dp"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:padding="13dp"
+            android:text="最新"
+            android:textSize="16sp"
+            android:textColor="@color/umiwi_orange" />
+
+        <TextView
+            android:textSize="16sp"
+            android:id="@+id/tv_host"
+            android:layout_width="65dp"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:padding="8dp"
+            android:text="最热" />
+
+        <TextView
+            android:id="@+id/tv_good"
+            android:gravity="center"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:textSize="16sp"
+            android:text="好评" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="18dp"
+        android:background="@color/umiwi_gray_b" />
+
+    <include layout="@layout/include_listview" />
+
+    <!--<za.co.immedia.pinnedheaderlistview.PinnedHeaderListView-->
+    <!--android:id="@+id/lecturer_listview"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_below="@+id/toolbar_actionbar"-->
+    <!--android:background="@color/umiwi_gray_f7"-->
+    <!--android:choiceMode="singleChoice"-->
+    <!--android:divider="@android:color/transparent"-->
+    <!--android:dividerHeight="0.05dip"-->
+    <!--android:drawSelectorOnTop="true"-->
+    <!--android:fadingEdge="none"-->
+    <!--android:footerDividersEnabled="true"-->
+    <!--android:headerDividersEnabled="true"-->
+    <!--android:scrollbars="none"-->
+    <!--android:scrollingCache="true"-->
+    <!--android:smoothScrollbar="true" />-->
 
 </LinearLayout>

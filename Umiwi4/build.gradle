@@ -48,7 +48,7 @@ android {
 
     defaultConfig {//指令集 是不是用armeabi-v7a
         applicationId PACKAGE_NAME
-        minSdkVersion 14
+        minSdkVersion 16
         targetSdkVersion 23
         versionCode Integer.parseInt(VERSION_CODE)
         versionName VERSION_NAME
@@ -60,6 +60,7 @@ android {
         ndkConfig.abiFilters "x86_64"
 
         manifestPlaceholders = [UMENG_CHANNEL_VALUE: "itest"]
+        multiDexEnabled true
     }
 
 
