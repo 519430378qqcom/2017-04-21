@@ -29,13 +29,11 @@ import cn.youmi.framework.util.ImageLoader;
 import cn.youmi.framework.util.ToastU;
 
 public class LunboAdapter extends PagerAdapter {
-	
+
 	private Context mContext;
-	public Context context;
 	public ArrayList<UmiwiListBeans> data;
-	
+
     public LunboAdapter(Context context, ArrayList<UmiwiListBeans> arrayList){
-    	this.context = context;
     	this.mContext = context;
     	this.data = arrayList;
     }
@@ -43,6 +41,10 @@ public class LunboAdapter extends PagerAdapter {
     @Override
     public int getCount() {
         return data == null ? 0 : data.size();
+//		if (data != null && data.size() > 0) {
+//			return Integer.MAX_VALUE;
+//		}
+//		return 0;
     }
 
     public Object getItem(int position) {
@@ -62,7 +64,7 @@ public class LunboAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, final int position) {
     	LayoutParams para = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-    	ImageView imageView = new ImageView(context);
+    	ImageView imageView = new ImageView(mContext);
     	
         final UmiwiListBeans listBeans = (UmiwiListBeans) getItem(position % data.size());
         

@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.umiwi.ui.R;
 import com.umiwi.ui.adapter.AudioAdapter;
+import com.umiwi.ui.adapter.VideoAdapter;
 import com.umiwi.ui.beans.AudioBean;
 import com.umiwi.ui.beans.updatebeans.CelebrityBean;
 import com.umiwi.ui.main.BaseConstantFragment;
@@ -23,6 +24,7 @@ import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.util.JsonUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.youmi.framework.util.ListViewScrollLoader;
@@ -37,7 +39,7 @@ import cn.youmi.framework.view.LoadingFooter;
 public class AudioFragment extends BaseConstantFragment {
 
     private ListView listView;
-    private List<AudioBean.RecordBean> mList;
+    private List<AudioBean.RecordBean> mList = new ArrayList<>();
 
     private String tutoruid = "";//行家UID
     private String catid = "";//分类ID
@@ -48,8 +50,7 @@ public class AudioFragment extends BaseConstantFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_audio_layout, null);
-        getData();
-//        onLoadData();
+
         initView(view);
         return view;
     }
@@ -256,7 +257,7 @@ public class AudioFragment extends BaseConstantFragment {
                 tv_host.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
                 tv_good.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
                 orderby = "ctime";
-                getData();
+                onLoadData(1);
             }
         });
 
@@ -269,7 +270,7 @@ public class AudioFragment extends BaseConstantFragment {
                 tv_host.setTextColor(getActivity().getResources().getColor(R.color.umiwi_orange));
                 tv_good.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
                 orderby = "watchnum";
-                getData();
+                onLoadData(1);
             }
         });
         //好评
@@ -281,7 +282,7 @@ public class AudioFragment extends BaseConstantFragment {
                 tv_new.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
                 tv_host.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
                 orderby = "usefulnum";
-                getData();
+                onLoadData(1);
             }
         });
 
@@ -294,7 +295,7 @@ public class AudioFragment extends BaseConstantFragment {
                 tv_pay.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
                 tv_all_three.setTextColor(getActivity().getResources().getColor(R.color.umiwi_orange));
                 orderby = "";
-                getData();
+                onLoadData(1);
             }
         });
         //免费
@@ -307,7 +308,7 @@ public class AudioFragment extends BaseConstantFragment {
                 tv_all_three.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
 
                 price = "free";
-                getData();
+                onLoadData(1);
             }
         });
         //付费
@@ -320,7 +321,7 @@ public class AudioFragment extends BaseConstantFragment {
                 tv_all_three.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
 
                 price = "charge";
-                getData();
+                onLoadData(1);
             }
         });
 
@@ -374,17 +375,18 @@ public class AudioFragment extends BaseConstantFragment {
     }
 
     private int p = 1;
-    public void getData() {
-        String url = UmiwiAPI.Login_Audio;
+
+    @Override
+    public void onLoadData(int page) {
+        super.onLoadData();
+
+        String url = UmiwiAPI.Login_Audio+"?p="+page;
 
         if(price != null && price != ""){
             url += "?price="+price;
         }
         if(orderby != null && orderby != ""){
             url += "?orderby="+orderby;
-        }
-        if(String.valueOf(p) != null && String.valueOf(p) != ""){
-            url += "?p="+p;
         }
 
         Log.e("MZX",url);
@@ -403,56 +405,33 @@ public class AudioFragment extends BaseConstantFragment {
 
                 AudioBean.PageBean pagebean = audioBean.getPage();
 
+                if(audioBean.getPage().getCurrentpage() >= audioBean.getPage().getTotalpage()){
+//                    Toast.makeText(getActivity(), "没有更多数据", Toast.LENGTH_SHORT).show();
+                    mScrollLoader.setEnd(true);
+                    mLoadingFooter.setState(LoadingFooter.State.NoMore);
+                    return;
+                }
+
+                if(pagebean.getCurrentpage() == 1){
+                    mList.clear();
+                }
+
+                mScrollLoader.setPage(pagebean.getCurrentpage());
+                mScrollLoader.setloading(false);
+
                 if (mList == null) {
                     mList = audioBean.getRecord();
                 } else {
-
-                    if(p == 1){
-                        mList.clear();
-                    }
-                    mList.addAll(audioBean.getRecord());
+//                    if(audioBean.getPage().getCurrentpage() != 1){
+                        mList.addAll(audioBean.getRecord());
+//                    }
                 }
+
 
                 listView.setAdapter(new AudioAdapter(getActivity(), mList));
 //                mLoadingFooter.setState(LoadingFooter.State.TheEndHint);
             }
         });
-//        OkHttpUtils.get().url(url).build().execute(new CustomStringCallBack("r") {
-//            @Override
-//            public void onFaild() {
-//                Log.e("MZX", "数据进行请求失败了");
-//                mLoadingFooter.setState(LoadingFooter.State.Error);
-//                mLoadingFooter.getView().setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        mScrollLoader.onLoadErrorPage();
-//                    }
-//                });
-//            }
-//
-//            @Override
-//            public void onSucess(String data) {
-//                Log.e("MZX", "数据进行请求成功了--x-" + data);
-//
-//                AudioBean audioBean = new Gson().fromJson(data, AudioBean.class);
-//                Log.e("MZX", "audioBean---" + audioBean.toString());
-//
-//                AudioBean.PageBean pagebean = audioBean.getPage();
-//
-//                if (mList == null) {
-//                    mList = audioBean.getRecord();
-//                } else {
-//
-//                    if(p == 1){
-//                        mList.clear();
-//                    }
-//                    mList.addAll(audioBean.getRecord());
-//                }
-//
-//                listView.setAdapter(new AudioAdapter(getActivity(), mList));
-////                mLoadingFooter.setState(LoadingFooter.State.TheEndHint);
-//            }
-//        });
     }
 }
 

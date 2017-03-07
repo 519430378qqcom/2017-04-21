@@ -1,12 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
-        android:gravity="center"
-        android:text="问听"
+        android:background="@color/color_divider"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="10dp" />
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+
+        <LinearLayout
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="@color/text_white_enabled"
+            android:layout_height="match_parent">
+
+            <!--android:background="@drawable/tv_back_corner"-->
+            <TextView
+                android:id="@+id/tv_hear"
+                android:background="@drawable/tv_back_corner_selector"
+                android:text="我问"
+                android:textColor="@color/text_white_enabled"
+                android:textSize="16sp"
+                android:layout_width="60dp"
+                android:gravity="center"
+                android:layout_height="60dp" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="@color/text_white_enabled"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_ask"
+                android:background="@drawable/tv_back_corner_selector"
+                android:text="我听"
+                android:textColor="@color/text_white_enabled"
+                android:textSize="16sp"
+                android:layout_width="60dp"
+                android:gravity="center"
+                android:layout_height="60dp" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:background="@color/color_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+
+    <ListView
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </ListView>
 </LinearLayout>

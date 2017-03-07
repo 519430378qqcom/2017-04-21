@@ -73,7 +73,7 @@ public class VideoFragment extends BaseConstantFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_audio_layout, null);
 
-        getData();
+        onLoadData(1);
         initView(view);
         return view;
     }
@@ -253,7 +253,7 @@ public class VideoFragment extends BaseConstantFragment {
                 tv_good.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
                 orderby = "ctime";
 
-                getData();
+                onLoadData(1);
             }
         });
 
@@ -267,7 +267,7 @@ public class VideoFragment extends BaseConstantFragment {
                 tv_good.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
                 orderby = "watchnum";
 
-                getData();
+                onLoadData(1);
             }
         });
         //好评
@@ -280,7 +280,7 @@ public class VideoFragment extends BaseConstantFragment {
                 tv_host.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
                 orderby = "usefulnum";
 
-                getData();
+                onLoadData(1);
             }
         });
 
@@ -293,7 +293,7 @@ public class VideoFragment extends BaseConstantFragment {
                 tv_pay.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
                 tv_all_three.setTextColor(getActivity().getResources().getColor(R.color.umiwi_orange));
                 price = "";
-                getData();
+                onLoadData(1);
             }
         });
         //免费
@@ -306,7 +306,7 @@ public class VideoFragment extends BaseConstantFragment {
                 tv_all_three.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
 
                 price = "free";
-                getData();
+                onLoadData(1);
             }
         });
         //付费
@@ -319,7 +319,7 @@ public class VideoFragment extends BaseConstantFragment {
                 tv_all_three.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
 
                 price = "charge";
-                getData();
+                onLoadData(1);
             }
         });
 
@@ -372,19 +372,17 @@ public class VideoFragment extends BaseConstantFragment {
     }
 
     private int p = 1;
-    private ArrayList mList = new ArrayList();
+    private List<VideoBean.RecordBean> mList = new ArrayList<>();
 
-    public void getData() {
-        String url = UmiwiAPI.Login_Video;
+    public void onLoadData(final int page){
+        String url = UmiwiAPI.Login_Video+"?orderby="+orderby;
 
         if(price != null && price != ""){
             url += "?price="+price;
         }
-        if(orderby != null && orderby != ""){
-            url += "?orderby="+orderby;
-        }
+
         if(String.valueOf(p) != null && String.valueOf(p) != ""){
-            url += "?p="+p;
+            url += "?p="+page;
         }
 
         Log.e("MZX",url);
@@ -403,18 +401,32 @@ public class VideoFragment extends BaseConstantFragment {
                 VideoBean audioBean = new Gson().fromJson(data, VideoBean.class);
                 VideoBean.PageBean pagebean = audioBean.getPage();
 
-                mList.clear();
-                List<VideoBean.RecordBean> record = audioBean.getRecord();
-                mList.addAll(record);
+                Log.e("TAG",audioBean.getPage().getCurrentpage()+"");
+                Log.e("TAG",audioBean.getPage().getTotalpage()+"");
 
-                if(videoAdapter == null){
-                    videoAdapter = new VideoAdapter(getActivity(), mList);
-                    listView.setAdapter(videoAdapter);
-                }else{
-                    videoAdapter.notifyDataSetChanged();
+                if(audioBean.getPage().getCurrentpage() >= audioBean.getPage().getTotalpage()){
+                    mLoadingFooter.setState(LoadingFooter.State.NoMore);
+                    mScrollLoader.setEnd(true);
+                    return;
                 }
 
-//                mLoadingFooter.setState(LoadingFooter.State.TheEndHint);
+                if(pagebean.getCurrentpage() == 1){
+                    mList.clear();
+                }
+
+                mScrollLoader.setPage(pagebean.getCurrentpage());
+                mScrollLoader.setloading(false);
+
+                if (mList == null) {
+                      mList = audioBean.getRecord();
+                } else {
+//                    if(audioBean.getPage().getCurrentpage() != 1){
+                        mList.addAll(audioBean.getRecord());
+                    }
+//                }
+
+                videoAdapter = new VideoAdapter(getActivity(), mList);
+                listView.setAdapter(videoAdapter);
             }
         });
     }

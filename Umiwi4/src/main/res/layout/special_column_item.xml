@@ -13,7 +13,7 @@
             android:id="@+id/special_header_imageview_1"
             android:layout_width="110dp"
             android:layout_height="150dp"
-            android:background="@color/main_color" />
+            android:scaleType="fitXY"/>
 
         <RelativeLayout
             android:id="@+id/special_right_layout_1"
@@ -22,10 +22,9 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:paddingBottom="1dp">
+            android:paddingBottom="6dp">
 
             <TextView
-
                 android:id="@+id/special_price_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -68,7 +67,7 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:singleLine="true"
-                    android:text="雷军 。精英日课"
+                    android:text="雷军.精英日课"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
 
@@ -106,7 +105,7 @@
                     android:id="@+id/expter_detail_textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="8dp"
                     android:ellipsize="end"
                     android:singleLine="true"
                     android:text="飞在互联网的猪"

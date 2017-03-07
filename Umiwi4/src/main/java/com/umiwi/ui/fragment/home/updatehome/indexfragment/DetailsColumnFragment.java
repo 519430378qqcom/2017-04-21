@@ -66,8 +66,6 @@ public class DetailsColumnFragment extends BaseConstantFragment {
             public void IsColumnbottom() {
 
             }
-
-
         });
         return view;
     }

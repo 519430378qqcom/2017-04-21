@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -75,6 +76,9 @@ import cn.youmi.framework.manager.ModelManager;
 import cn.youmi.framework.util.DimensionUtil;
 import cn.youmi.framework.util.ListViewScrollLoader;
 import cn.youmi.framework.view.LoadingFooter;
+
+import static com.umiwi.ui.R.id.view_pager;
+
 
 /**
  * Created by LvDabing on 2017/2/16.
@@ -210,7 +214,7 @@ public class RecommendFragment extends BaseConstantFragment {
         mLunboList = new ArrayList<UmiwiListBeans>();
         error_empty = (ImageView) header.findViewById(R.id.image_sc);
         error_empty.setVisibility(View.GONE);
-        mAutoViewPager = (AutoViewPager) header.findViewById(R.id.view_pager);
+        mAutoViewPager = (AutoViewPager) header.findViewById(view_pager);
         ViewGroup.LayoutParams para = mAutoViewPager.getLayoutParams();
         para.width = DimensionUtil.getScreenWidth(getActivity());
         para.height = (para.width * 300) / 640;
@@ -220,7 +224,7 @@ public class RecommendFragment extends BaseConstantFragment {
 
         mAutoViewPager.setAdapter(new LunboAdapter(getActivity(), mLunboList));
         mIndicator.setViewPager(mAutoViewPager);
-        mAutoViewPager.setStopScrollWhenTouch(false);
+        mAutoViewPager.setStopScrollWhenTouch(true);//
 
         refreshLayout.setOnRefreshListener(mOnRefreshListener);
         int color = getResources().getColor(R.color.umiwi_orange);

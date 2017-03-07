@@ -404,8 +404,14 @@ public final class UmiwiAPI {
     //首页视频页面数据
     public static final String Login_Video = "http://i.v.youmi.cn/api8/videoindex";
 
-    //音频详情页
-    public static final String Login_Audio_details = "http://i.v.youmi.cn/api8//audioalbum/getApi";
+    //我的—回答（已回答，待回答）
+    public static final String Mine_Answer = "http://i.v.youmi.cn/api8/myquestion";
+
+    //未购专栏详情页
+    public static final String No_buy_column = "http://i.v.youmi.cn/api8//tutorcolumn/detailApi";
+
+    //已购买
+    public static final String Ask_Hear = "http://i.v.youmi.cn/api8/buyquestion";
 
 
 

@@ -48,6 +48,8 @@ import cn.youmi.framework.manager.ModelManager;
 import cn.youmi.framework.util.ImageLoader;
 import cn.youmi.framework.view.CircleImageView;
 
+import static com.umiwi.ui.R.id.myinfo_tv_info;
+
 /**
  * Created by Administrator on 2017/3/3.
  */
@@ -68,6 +70,7 @@ public class NewMineFragment extends BaseConstantFragment implements ActivityCom
     private TextView user_time;
     private TextView user_answer;
     private TextView user_study_time;
+    private String balance;
 
 
     @Nullable
@@ -131,11 +134,11 @@ public class NewMineFragment extends BaseConstantFragment implements ActivityCom
                 if (YoumiRoomUserManager.getInstance().isLogin()) {
                     startActivity(intent);
                 } else {
-                    if (i <= 17) {
+//                    if (i <= 17) {
                         showLogin();
-                    } else {
-                        startActivity(intent);
-                    }
+//                    } else {
+//                        startActivity(intent);
+//                    }
                 }
             }
         });
@@ -224,13 +227,14 @@ public class NewMineFragment extends BaseConstantFragment implements ActivityCom
         if (YoumiRoomUserManager.getInstance().isLogin()) {
             UserModel mUser = YoumiRoomUserManager.getInstance().getUser();
 
-            Log.e("MZX", mUser.toString());
-
             String username = mUser.getUsername();
             String useridentity = mUser.getIdentity();
             String userphoto = mUser.getAvatar();
             String usergrade = mUser.getGrade();
             String usertime = mUser.getIdentity_expire();
+            balance = mUser.getBalance();
+
+            Log.e("TAG", mUser.toString());
 
             // 加载用户名
             user_name.setText(username);
@@ -244,7 +248,7 @@ public class NewMineFragment extends BaseConstantFragment implements ActivityCom
                     user_time.setText("会员有效期至： " + usertime);
                 }
             } else {
-                user_time.setVisibility(View.INVISIBLE);
+//                user_time.setVisibility(View.INVISIBLE);
             }
 //            if (!"".equals(usergrade) && !"".equals(useridentity)) {
 //                user_grade.setVisibility(View.VISIBLE);
@@ -291,7 +295,6 @@ public class NewMineFragment extends BaseConstantFragment implements ActivityCom
            //未登录
 
         }
-
         mlist.add(new NewMineFragment.MineItem(true));
         mlist.add(new NewMineFragment.MineItem(R.drawable.feed_back, R.drawable.category_hot, "", "意见反馈", ""));
         mlist.add(new NewMineFragment.MineItem(true));
@@ -423,7 +426,7 @@ public class NewMineFragment extends BaseConstantFragment implements ActivityCom
                         ImageView icon = (ImageView) convertView.findViewById(R.id.icon_iv);
                         ImageView itemImage = (ImageView) convertView.findViewById(R.id.myinfo_iv_);
                         TextView itemTitle = (TextView) convertView.findViewById(R.id.myinfo_tv_title);
-                        TextView itemContent = (TextView) convertView.findViewById(R.id.myinfo_tv_info);
+                        TextView itemContent = (TextView) convertView.findViewById(myinfo_tv_info);
                         TextView itemMoney = (TextView) convertView.findViewById(R.id.myinfo_tv_money);
                         icon.setImageResource(categoryItem.iconId);
                         if (categoryItem.imageResourseId != 0) {
@@ -437,7 +440,11 @@ public class NewMineFragment extends BaseConstantFragment implements ActivityCom
                         if (position == 9) {
                             itemContent.setTextColor(getActivity().getResources().getColor(R.color.umiwi_red));
                         }
-                        itemContent.setText(categoryItem.item_Content);
+                        if(position == 5){
+                            if(balance != null && balance != ""){
+                                itemContent.setText(balance);
+                            }
+                        }
                     }
             }
             return convertView;
