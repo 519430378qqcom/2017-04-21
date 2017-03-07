@@ -3,6 +3,7 @@ package com.umiwi.ui.fragment.home.updatehome.indexfragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +31,15 @@ import java.util.List;
 import cn.youmi.framework.util.ListViewScrollLoader;
 import cn.youmi.framework.view.LoadingFooter;
 
+import static com.umiwi.ui.R.id.tv_all_two;
+import static com.umiwi.ui.R.id.tv_cyjd;
+import static com.umiwi.ui.R.id.tv_jdrj;
+import static com.umiwi.ui.R.id.tv_ny;
+import static com.umiwi.ui.R.id.tv_qc;
+import static com.umiwi.ui.R.id.tv_wlw;
+import static com.umiwi.ui.R.id.tv_xwcb;
+import static com.umiwi.ui.R.id.tv_xxjs;
+
 /**
  * Created by LvDabing on 2017/2/16.
  * Email：lvdabing@lvshandian.com
@@ -38,11 +48,16 @@ import cn.youmi.framework.view.LoadingFooter;
 
 public class AudioFragment extends BaseConstantFragment {
 
+    private TextView tv_all_one,tv_all_two,tv_all_three,tv_new,tv_host,tv_good,tv_free,
+            tv_pay,tv_cy,tv_zc,tv_my,tv_ly,tv_jk,tv_qc,
+            tv_xwcb,tv_xxjs,tv_cyjd,tv_jdrj,tv_wlw,tv_ny;
+
     private ListView listView;
+    private LoadingFooter mLoadingFooter;
+    private ListViewScrollLoader mScrollLoader;
+
     private List<AudioBean.RecordBean> mList = new ArrayList<>();
 
-    private String tutoruid = "";//行家UID
-    private String catid = "";//分类ID
     private String price = "";//free-免费，charge-收费
     private String orderby = "ctime";//ctime-最新，watchnum-最热,usefulnum-好评
 
@@ -55,35 +70,7 @@ public class AudioFragment extends BaseConstantFragment {
         return view;
     }
 
-
-    private TextView tv_all_one;
-    private TextView tv_all_two;
-    private TextView tv_all_three;
-    private TextView tv_new;
-    private TextView tv_host;
-    private TextView tv_good;
-    private TextView tv_free;
-    private TextView tv_pay;
-
-    private TextView tv_cy;
-    private TextView tv_zc;
-    private TextView tv_my;
-    private TextView tv_ly;
-    private TextView tv_jk;
-
-    private TextView tv_qc;
-    private TextView tv_xwcb;
-    private TextView tv_xxjs;;
-    private TextView tv_cyjd;
-    private TextView tv_jdrj;
-    private TextView tv_wlw;
-    private TextView tv_ny;
-
-    private LoadingFooter mLoadingFooter;
-    private ListViewScrollLoader mScrollLoader;
-
     private void initView(View view) {
-
         tv_qc = (TextView) view.findViewById(R.id.tv_qc);
         tv_qc.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -374,14 +361,11 @@ public class AudioFragment extends BaseConstantFragment {
         mScrollLoader.onLoadFirstPage();
     }
 
-    private int p = 1;
-
     @Override
     public void onLoadData(int page) {
         super.onLoadData();
 
         String url = UmiwiAPI.Login_Audio+"?p="+page;
-
         if(price != null && price != ""){
             url += "?price="+price;
         }
@@ -422,11 +406,8 @@ public class AudioFragment extends BaseConstantFragment {
                 if (mList == null) {
                     mList = audioBean.getRecord();
                 } else {
-//                    if(audioBean.getPage().getCurrentpage() != 1){
-                        mList.addAll(audioBean.getRecord());
-//                    }
+                    mList.addAll(audioBean.getRecord());
                 }
-
 
                 listView.setAdapter(new AudioAdapter(getActivity(), mList));
 //                mLoadingFooter.setState(LoadingFooter.State.TheEndHint);

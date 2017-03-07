@@ -413,6 +413,9 @@ public final class UmiwiAPI {
     //已购买
     public static final String Ask_Hear = "http://i.v.youmi.cn/api8/buyquestion";
 
+    //试读页面
+    public static final String Logincal_thinking = "http://i.v.youmi.cn/api8/tutorcolumn/detailpurchasedApi";
+
 
 
     /////////////========================================优雅的分割线 历史接口=================================================////////////

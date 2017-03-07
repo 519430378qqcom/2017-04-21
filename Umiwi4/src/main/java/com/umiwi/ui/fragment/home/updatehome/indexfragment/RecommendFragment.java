@@ -5,17 +5,20 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -60,9 +63,12 @@ import com.umiwi.ui.util.CommonHelper;
 import com.umiwi.ui.util.ManifestUtils;
 import com.umiwi.ui.view.AutoViewPager;
 import com.umiwi.ui.view.CirclePageIndicator;
+import com.umiwi.ui.view.MyViewpager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -78,6 +84,7 @@ import cn.youmi.framework.util.ListViewScrollLoader;
 import cn.youmi.framework.view.LoadingFooter;
 
 import static com.umiwi.ui.R.id.view_pager;
+import static com.umiwi.ui.fragment.search.SearchFragment.SHOW_NEXT;
 
 
 /**
@@ -97,8 +104,8 @@ public class RecommendFragment extends BaseConstantFragment {
     private View header;
     private ArrayList<UmiwiListBeans> mLunboList;
     private ImageView error_empty;
-    private AutoViewPager mAutoViewPager;
-    private CirclePageIndicator mIndicator;
+    private MyViewpager mAutoViewPager;
+//    private CirclePageIndicator mIndicator;
     private LoadingFooter mLoadingFooter;
     private LunboAdapter mLunboAdapter;
     private boolean isLunboShow;
@@ -114,12 +121,21 @@ public class RecommendFragment extends BaseConstantFragment {
     private PaySelectedLayoutViwe pslv_pay_selected;
     private RecommentBottomLayoutView rblv_bottom;
     private ArrayList<NewFree> mList;
+    private LinearLayout ll_point;
 
     private NewfreeAdapter mAdapter;
 
     private SharedPreferences mSharedPreferences;
 
     private RelativeLayout topic_rl;
+
+    private android.os.Handler handler = new android.os.Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            mAutoViewPager.setCurrentItem(mAutoViewPager.getCurrentItem()+1);
+        }
+    };
 
     private SwipeRefreshLayout.OnRefreshListener mOnRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
         @Override
@@ -150,6 +166,10 @@ public class RecommendFragment extends BaseConstantFragment {
         initView(view);
         initheader(inflater);
         loadRecommend();
+
+        if (mLunboList.size() > 1) {
+            mHandler.sendEmptyMessageDelayed(SHOW_NEXT, 5000);
+        }
 
         return view;
     }
@@ -208,23 +228,23 @@ public class RecommendFragment extends BaseConstantFragment {
         }
     };
 
+    private int preSelectPosition;
     void initheader(LayoutInflater inflater) {
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         header = inflater.inflate(R.layout.fragment_home_recommend_gallery, null);
         mLunboList = new ArrayList<UmiwiListBeans>();
         error_empty = (ImageView) header.findViewById(R.id.image_sc);
         error_empty.setVisibility(View.GONE);
-        mAutoViewPager = (AutoViewPager) header.findViewById(view_pager);
+        mAutoViewPager = (MyViewpager) header.findViewById(view_pager);
+        ll_point = (LinearLayout) header.findViewById(R.id.ll_point);
+
         ViewGroup.LayoutParams para = mAutoViewPager.getLayoutParams();
         para.width = DimensionUtil.getScreenWidth(getActivity());
         para.height = (para.width * 300) / 640;
         mAutoViewPager.setLayoutParams(para);
 
-        mIndicator = (CirclePageIndicator) header.findViewById(R.id.indicator);
-
-        mAutoViewPager.setAdapter(new LunboAdapter(getActivity(), mLunboList));
-        mIndicator.setViewPager(mAutoViewPager);
-        mAutoViewPager.setStopScrollWhenTouch(true);//
+//        mIndicator = (CirclePageIndicator) header.findViewById(R.id.indicator);
+//        mIndicator.setViewPager(mAutoViewPager);
 
         refreshLayout.setOnRefreshListener(mOnRefreshListener);
         int color = getResources().getColor(R.color.umiwi_orange);
@@ -271,6 +291,56 @@ public class RecommendFragment extends BaseConstantFragment {
         }
         mListView.setOnItemClickListener(itemClickListener);
 
+        mAutoViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+                if(mLunboList.size() >0){
+                    int currentPosition = position%mLunboList.size();
+                    ll_point.getChildAt(preSelectPosition).setEnabled(false);
+                    ll_point.getChildAt(currentPosition).setEnabled(true);
+                    preSelectPosition = currentPosition;
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                if(state ==ViewPager.SCROLL_STATE_DRAGGING){
+                    handler.removeCallbacksAndMessages(null);
+                }else if(state ==ViewPager.SCROLL_STATE_IDLE){
+                    handler.removeCallbacksAndMessages(null);
+                    handler.sendEmptyMessageDelayed(0, 5000);
+                }else if(state ==ViewPager.SCROLL_STATE_SETTLING){
+                    handler.removeCallbacksAndMessages(null);
+                }
+            }
+        });
+
+        mAutoViewPager.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                switch (motionEvent.getAction()){
+                    case MotionEvent.ACTION_DOWN:
+                        handler.removeCallbacksAndMessages(null);
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        handler.removeCallbacksAndMessages(null);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        handler.removeCallbacksAndMessages(null);
+                        handler.sendEmptyMessageDelayed(0, 5000);
+                        break;
+                }
+                return false;
+            }
+        });
+
+        Log.e("TAG",mLunboList.size()+"-----------");
     }
 
     AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener() {
@@ -298,14 +368,14 @@ public class RecommendFragment extends BaseConstantFragment {
         if (mSharedPreferences.getBoolean("isCanShowGift", false) && !mSharedPreferences.getBoolean("isShowGiftOnceAndNoToShowAgain", false)) {
             getRegisterDevice();
         }
-        mAutoViewPager.startAutoScroll(5000);
+//        mAutoViewPager.startAutoScroll(5000);
         MobclickAgent.onPageStart(fragmentName);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        mAutoViewPager.stopAutoScroll();
+//        mAutoViewPager.stopAutoScroll();
         MobclickAgent.onPageEnd(fragmentName);
     }
 
@@ -468,12 +538,34 @@ public class RecommendFragment extends BaseConstantFragment {
         public void onResult(AbstractRequest<UmiwiListBeans.ChartsListRequestData> request, UmiwiListBeans.ChartsListRequestData t) {
             if (null != t && null != t.getRecord()) {
                 mLunboAdapter = new LunboAdapter(getActivity(), t.getRecord());
-                mAutoViewPager.setAdapter(mLunboAdapter);
-                mIndicator.setViewPager(mAutoViewPager);
-                mAutoViewPager.setInterval(5000);
-                mAutoViewPager.setSlideBorderMode(AutoViewPager.SLIDE_BORDER_MODE_CYCLE);// 循环。
+                mLunboList = t.getRecord();
+
+                for (int i = 0; i <mLunboList.size(); i++) {
+                    ImageView point = new ImageView(getActivity());
+                    point.setBackgroundResource(R.drawable.point_selector);
+                    if(i == 0){
+                        point.setEnabled(true);
+                    }else{
+                        point.setEnabled(false);
+                    }
+
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,-2);
+                    if(i != 0){
+                        params.leftMargin = 10;//设置间距为10个像数
+                    }
+                    point.setLayoutParams(params);
+
+                    //添加到线性布局
+                    ll_point.addView(point);
+                }
+
+//                mAutoViewPager.setAdapter(mLunboAdapter);
+                mAutoViewPager.setAdapter(new LunboAdapter(getActivity(), mLunboList));
+//                mIndicator.setViewPager(mAutoViewPager);
+//                mAutoViewPager.setInterval(5000);
+//                mAutoViewPager.setSlideBorderMode(AutoViewPager.SLIDE_BORDER_MODE_CYCLE);// 循环。
                 mAutoViewPager.setAnimation(new AlphaAnimation(1, (float) 0.2));
-                mAutoViewPager.startAutoScroll(5000);
+//                mAutoViewPager.startAutoScroll(5000);
                 isLunboShow = true;
                 refreshLayout.setRefreshing(false);
             }
@@ -568,7 +660,6 @@ public class RecommendFragment extends BaseConstantFragment {
         @Override
         public void onModelsGet(UserEvent key, List<UserModel> models) {
         }
-
     };
 
     @Override

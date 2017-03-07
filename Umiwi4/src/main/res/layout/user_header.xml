@@ -11,6 +11,7 @@
         android:layout_height="240dp">
 
         <LinearLayout
+            android:background="@color/text_white_enabled"
             android:id="@+id/ll_header"
             android:visibility="visible"
             android:gravity="center"
@@ -22,7 +23,7 @@
                 android:id="@+id/user_photo_iv"
                 android:layout_width="@dimen/round_image"
                 android:layout_height="@dimen/round_image"
-                android:src="@drawable/user_test_business"
+                android:src="@drawable/icon_no_login"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="30dp"
                 app:ci_border_color="#00000000" />
@@ -41,7 +42,7 @@
                 android:id="@+id/user_name_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/umiwi_gray_3"
+                android:textColor="@color/umiwi_white"
                 android:textSize="18sp" />
         </LinearLayout>
     </RelativeLayout>

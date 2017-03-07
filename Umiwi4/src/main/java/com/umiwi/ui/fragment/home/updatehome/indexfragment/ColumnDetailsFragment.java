@@ -1,5 +1,6 @@
 package com.umiwi.ui.fragment.home.updatehome.indexfragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -14,12 +15,16 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.umiwi.ui.R;
+import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.ColumnAdapter;
 import com.umiwi.ui.adapter.ColumnAttentionAdapter;
 import com.umiwi.ui.adapter.ColumnDetailsAdapter;
 import com.umiwi.ui.adapter.ColumnRecordAdapter;
 import com.umiwi.ui.beans.ColumnDetailsBean;
 import com.umiwi.ui.beans.updatebeans.HomeCoumnBean;
+import com.umiwi.ui.dialog.updatedialog.NewShareDialog;
+import com.umiwi.ui.fragment.home.alreadyshopping.LogicalThinkingFragment;
+import com.umiwi.ui.fragment.setting.FeedbackFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.CustomStringCallBack;
 import com.umiwi.ui.main.UmiwiAPI;
@@ -62,6 +67,7 @@ public class ColumnDetailsFragment extends BaseConstantFragment {
     private NoScrollListview description;
     private NoScrollListview attention_listview;
     private NoScrollListview last_record;
+    private ColumnDetailsBean columnDetailsBean;
 
     @Nullable
     @Override
@@ -90,7 +96,11 @@ public class ColumnDetailsFragment extends BaseConstantFragment {
         tv_free_read.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(), "免费试读", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(), "免费试读", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
+                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, LogicalThinkingFragment.class);
+                intent.putExtra("id",columnDetailsBean.getId());
+                startActivity(intent);
             }
         });
 
@@ -107,7 +117,8 @@ public class ColumnDetailsFragment extends BaseConstantFragment {
         iv_shared.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(), "分享", Toast.LENGTH_SHORT).show();
+                NewShareDialog.getInstance().showDialog(getActivity(), columnDetailsBean.getSharetitle(),
+                        columnDetailsBean.getSharecontent(),columnDetailsBean.getShareurl(), columnDetailsBean.getShareimg());
             }
         });
         tv_title = (TextView) view.findViewById(R.id.tv_title);
@@ -128,13 +139,13 @@ public class ColumnDetailsFragment extends BaseConstantFragment {
             public void onSucess(String data) {
                 Log.e("data","请求数据成功"+data);
                 if (!TextUtils.isEmpty(data)){
-                    ColumnDetailsBean columnDetailsBean = JsonUtil.json2Bean(data, ColumnDetailsBean.class);
+                    columnDetailsBean = JsonUtil.json2Bean(data, ColumnDetailsBean.class);
                     List<ColumnDetailsBean.ContentBean> content = columnDetailsBean.getContent();//详情简介
 
                     description.setAdapter(new ColumnDetailsAdapter(getActivity(),content));
                     targetuser.setText(columnDetailsBean.getTargetuser());
-                    attention_listview.setAdapter(new ColumnAttentionAdapter(getActivity(),columnDetailsBean.getAttention()));
-                    last_record.setAdapter(new ColumnRecordAdapter(getActivity(),columnDetailsBean.getLast_record()));
+                    attention_listview.setAdapter(new ColumnAttentionAdapter(getActivity(), columnDetailsBean.getAttention()));
+                    last_record.setAdapter(new ColumnRecordAdapter(getActivity(), columnDetailsBean.getLast_record()));
 
                     title.setText(columnDetailsBean.getSharetitle());
                     priceinfo.setText(columnDetailsBean.getPriceinfo());
@@ -144,7 +155,7 @@ public class ColumnDetailsFragment extends BaseConstantFragment {
                     Glide.with(getActivity()).load(columnDetailsBean.getImage()).into(iv_image);
                     tv_name.setText(columnDetailsBean.getTutor_name());
                     tv_title.setText(columnDetailsBean.getTutor_title());
-                    tv_prize.setText("订阅："+columnDetailsBean.getPrice()+"元一年");
+                    tv_prize.setText("订阅："+ columnDetailsBean.getPrice()+"元一年");
                 }
             }
         });

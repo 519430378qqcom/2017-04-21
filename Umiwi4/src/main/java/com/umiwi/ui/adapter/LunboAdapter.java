@@ -40,11 +40,7 @@ public class LunboAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return data == null ? 0 : data.size();
-//		if (data != null && data.size() > 0) {
-//			return Integer.MAX_VALUE;
-//		}
-//		return 0;
+        return data == null ? 0 : data.size()*10000000;
     }
 
     public Object getItem(int position) {
@@ -65,17 +61,16 @@ public class LunboAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, final int position) {
     	LayoutParams para = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
     	ImageView imageView = new ImageView(mContext);
-    	
+
         final UmiwiListBeans listBeans = (UmiwiListBeans) getItem(position % data.size());
-        
-        
+
         ImageLoader mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
 		mImageLoader.loadImage(listBeans.getImage(), imageView, R.drawable.image_loader_big);
-		
-        
+
+
         imageView.setScaleType(ImageView.ScaleType.FIT_XY);
     	imageView.setLayoutParams(para);
-    	
+
         imageView.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -112,7 +107,7 @@ public class LunboAdapter extends PagerAdapter {
 					ToastU.showLong(mContext, "版本不支持，请更新版本");
 				}
 				MobclickAgent.onEvent(mContext, "首页VI", "轮播");
-				
+
 				StatisticsManager.getInstance().getResultInfo(listBeans.getSpmurl());
 			}
 		});

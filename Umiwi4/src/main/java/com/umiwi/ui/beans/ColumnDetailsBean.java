@@ -289,4 +289,30 @@ public class ColumnDetailsBean {
             this.audiotype = audiotype;
         }
     }
+
+    @Override
+    public String toString() {
+        return "ColumnDetailsBean{" +
+                "tutor_uid='" + tutor_uid + '\'' +
+                ", tutor_name='" + tutor_name + '\'' +
+                ", tutor_title='" + tutor_title + '\'' +
+                ", id='" + id + '\'' +
+                ", image='" + image + '\'' +
+                ", title='" + title + '\'' +
+                ", shortcontent='" + shortcontent + '\'' +
+                ", updatedescription='" + updatedescription + '\'' +
+                ", salenum='" + salenum + '\'' +
+                ", targetuser='" + targetuser + '\'' +
+                ", isbuy=" + isbuy +
+                ", priceinfo='" + priceinfo + '\'' +
+                ", price='" + price + '\'' +
+                ", sharetitle='" + sharetitle + '\'' +
+                ", shareurl='" + shareurl + '\'' +
+                ", sharecontent='" + sharecontent + '\'' +
+                ", shareimg='" + shareimg + '\'' +
+                ", content=" + content +
+                ", attention=" + attention +
+                ", last_record=" + last_record +
+                '}';
+    }
 }

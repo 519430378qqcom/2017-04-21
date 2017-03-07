@@ -60,7 +60,7 @@ android {
         ndkConfig.abiFilters "x86_64"
 
         manifestPlaceholders = [UMENG_CHANNEL_VALUE: "itest"]
-        multiDexEnabled true
+//        multiDexEnabled true
     }
 
 

@@ -180,25 +180,28 @@ public class AutoViewPager extends ViewPager {
              */
             if ((currentItem == 0 && downX <= touchX) || (currentItem == pageCount - 1 && downX >= touchX)) {//(currentItem == 0 && downX <= touchX) || 
                 if (slideBorderMode == SLIDE_BORDER_MODE_TO_PARENT) {
-                    getParent().requestDisallowInterceptTouchEvent(false);
+                    getParent().requestDisallowInterceptTouchEvent(true);
                 } else {
                     if (pageCount > 1) {
                         setCurrentItem(pageCount - currentItem - 1, isBorderAnimation);
                     }
                     getParent().requestDisallowInterceptTouchEvent(true);
                 }
-                return super.onTouchEvent(ev);
+                super.onTouchEvent(ev);
+                return true;
             }
         }
         getParent().requestDisallowInterceptTouchEvent(true);
-        return super.onTouchEvent(ev);
+        super.onTouchEvent(ev);
+        return true;
     }
     
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
     	// TODO Auto-generated method stub
     	getParent().requestDisallowInterceptTouchEvent(true);
-    	return super.dispatchTouchEvent(ev);
+                super.dispatchTouchEvent(ev);
+    	return true;
     }
 
     private class MyHandler extends Handler {

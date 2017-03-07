@@ -14,6 +14,7 @@ import java.util.ArrayList;
  * Created by Administrator on 2017/2/24.
  */
 
+
 public class LogicalThinkingAdapter extends BaseAdapter {
     private FragmentActivity activity;
     private ArrayList mList;

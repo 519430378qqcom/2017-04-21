@@ -3,20 +3,37 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content" >
 
-    <com.umiwi.ui.view.AutoViewPager
+    <!--<com.umiwi.ui.view.AutoViewPager-->
+        <!--android:id="@+id/view_pager"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:gravity="center_horizontal" >-->
+    <!--</com.umiwi.ui.view.AutoViewPager>-->
+    <com.umiwi.ui.view.MyViewpager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal" >
-    </com.umiwi.ui.view.AutoViewPager>
+    </com.umiwi.ui.view.MyViewpager>
 
-    <com.umiwi.ui.view.CirclePageIndicator
-        android:id="@+id/indicator"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <!--<com.umiwi.ui.view.CirclePageIndicator-->
+        <!--android:id="@+id/indicator"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignBottom="@+id/view_pager"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:padding="8dp" />-->
+
+    <LinearLayout
+        android:id="@+id/ll_point"
+        android:padding="8dp"
+        android:gravity="center"
         android:layout_alignBottom="@+id/view_pager"
-        android:layout_centerHorizontal="true"
-        android:padding="8dp" />
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/topic_rl"
@@ -44,9 +61,5 @@
             android:textColor="@color/umiwi_white"
             android:textSize="30sp" />
     </RelativeLayout>
-
     <include layout="@layout/image_layout" />
-
-
-
 </RelativeLayout>
