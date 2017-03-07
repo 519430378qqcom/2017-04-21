@@ -1,5 +1,6 @@
 package com.umiwi.ui.fragment.home.updatehome.indexfragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -8,8 +9,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import com.umiwi.ui.R;
+import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.ExperDetailsVoiceAdapter;
 import com.umiwi.ui.beans.VoiceBean;
 import com.umiwi.ui.beans.updatebeans.VideoBean;
@@ -18,6 +21,7 @@ import com.umiwi.ui.main.CustomStringCallBack;
 import com.umiwi.ui.util.JsonUtil;
 import com.umiwi.ui.view.NoScrollListview;
 import com.umiwi.ui.view.TopFloatScrollView;
+import com.umiwi.video.control.PlayerController;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.ArrayList;
@@ -50,6 +54,14 @@ public class ExperDetailsVoiceFragment extends BaseConstantFragment {
         experDetailsVoiceAdapter = new ExperDetailsVoiceAdapter(getActivity());
         experDetailsVoiceAdapter.setData(voiceList);
         noscrollListview.setAdapter(experDetailsVoiceAdapter);
+        noscrollListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
+                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
+                startActivity(intent);
+            }
+        });
         ExperDetailsFragment.setOnScrollListenerVoice(new ExperDetailsFragment.OnScrollListenerVoice() {
             @Override
             public void IsvoiceBottom() {
@@ -70,7 +82,7 @@ public class ExperDetailsVoiceFragment extends BaseConstantFragment {
         Log.d("data","名人详情音频列表请求了。。。");
 
         String audioalbumurl = ExperDetailsFragment.audioalbumurl;
-        Log.e("url",audioalbumurl+",.......");
+
         if (!TextUtils.isEmpty(audioalbumurl)){
             url = audioalbumurl+"/?p="+page;
             if (url!=null||url!=""){

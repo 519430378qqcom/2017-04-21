@@ -237,7 +237,9 @@
         <service
             android:name="com.baidu.android.pushservice.CommandService"
             android:exported="true" />
-
+          <service android:name="com.umiwi.video.services.VoiceService"
+              android:exported="true"
+              />
         <!--<activity-->
         <!--android:name="com.baidu.android.pushservice.PushKeepAlive"-->
         <!--android:theme="@android:style/Theme.Translucent.NoTitleBar" />-->

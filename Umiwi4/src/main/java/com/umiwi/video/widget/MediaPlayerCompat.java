@@ -56,7 +56,7 @@ public class MediaPlayerCompat {
         IjkMediaPlayer ijkMediaPlayer = getIjkMediaPlayer(mp);
         if (ijkMediaPlayer == null)
             return;
-        ijkMediaPlayer.selectTrack(stream);
+            ijkMediaPlayer.selectTrack(stream);
     }
 
     public static void deselectTrack(IMediaPlayer mp, int stream) {

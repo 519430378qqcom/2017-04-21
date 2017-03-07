@@ -26,7 +26,6 @@ import com.umiwi.ui.main.CustomStringCallBack;
 import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.main.UmiwiApplication;
 import com.umiwi.ui.util.JsonUtil;
-import com.umiwi.ui.view.MonitorScrollView;
 import com.umiwi.ui.view.TopFloatScrollView;
 import com.zhy.http.okhttp.OkHttpUtils;
 
