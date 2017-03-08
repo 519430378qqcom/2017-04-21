@@ -540,6 +540,7 @@ public class RecommendFragment extends BaseConstantFragment {
                 mLunboAdapter = new LunboAdapter(getActivity(), t.getRecord());
                 mLunboList = t.getRecord();
 
+                ll_point.removeAllViews();
                 for (int i = 0; i <mLunboList.size(); i++) {
                     ImageView point = new ImageView(getActivity());
                     point.setBackgroundResource(R.drawable.point_selector);
