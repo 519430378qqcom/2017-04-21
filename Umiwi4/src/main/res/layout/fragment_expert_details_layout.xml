@@ -53,11 +53,21 @@
                         android:layout_marginTop="20dp"
                         android:src="@drawable/share_img" />
                 </RelativeLayout>
-
+                <TextView
+                    android:id="@+id/question"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="向TA提问"
+                    android:visibility="gone"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/button_red_rectangle"
+                    android:textColor="@color/white"
+                    />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="60dp"
+                    android:layout_marginTop="10dp"
                     android:gravity="center"
                     android:orientation="horizontal">
 

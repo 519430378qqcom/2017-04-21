@@ -60,7 +60,7 @@ android {
         ndkConfig.abiFilters "x86_64"
 
         manifestPlaceholders = [UMENG_CHANNEL_VALUE: "itest"]
-//        multiDexEnabled true
+        multiDexEnabled true
     }
 
     productFlavors {  //./gradlew assembleRelease
@@ -190,7 +190,10 @@ android {
         debug.setRoot('build-types/debug')
         release.setRoot('build-types/release')
     }
-
+    dexOptions {
+        incremental true
+        javaMaxHeapSize "4g"
+    }
 }
 
 apply plugin: 'idea'

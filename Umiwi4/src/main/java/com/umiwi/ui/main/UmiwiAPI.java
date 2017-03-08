@@ -416,7 +416,12 @@ public final class UmiwiAPI {
     //试读页面
     public static final String Logincal_thinking = "http://i.v.youmi.cn/api8/tutorcolumn/detailpurchasedApi";
 
+    //指定行家问答界面
 
+    public static final String NAMED_QUESTIONA ="http://i.v.youmi.cn/question/namedquestionApi";
+
+
+    public static final String QUESTION_LIST ="http://i.v.youmi.cn/api8/questionlist";
 
     /////////////========================================优雅的分割线 历史接口=================================================////////////
 //    /** 我的课程未登录默认九宫 */

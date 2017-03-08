@@ -1,11 +1,13 @@
 package com.umiwi.ui.fragment.home.updatehome.indexfragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.umiwi.ui.R;
+import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.beans.ExperDetailsBean;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.CustomStringCallBack;
@@ -63,6 +66,8 @@ public class ExperDetailsFragment extends BaseConstantFragment {
     public static LinearLayout tv_more;
     public static OnScrollListener mListener;
     private LinearLayout yuedu;
+    private TextView question;
+    private String uid1;
 
     public static void setOnScrollListener(OnScrollListener listener) {
         mListener = listener;
@@ -140,6 +145,13 @@ public class ExperDetailsFragment extends BaseConstantFragment {
                 tutorimage = experDetailsBean.getTutorimage();
                 description = experDetailsBean.getDescription();
                 tutortitle = experDetailsBean.getTutortitle();
+                String isopenask = experDetailsBean.getIsopenask();
+                uid1 = experDetailsBean.getUid();
+                if (isopenask.equals("1")){
+                    question.setVisibility(View.GONE);
+                }else if (isopenask.equals("2")){
+                    question.setVisibility(View.VISIBLE);
+                }
                 tv_name.setText(experName);
                 tv_describe.setText(tutortitle);
                 tv_content.setText(description);
@@ -177,6 +189,16 @@ public class ExperDetailsFragment extends BaseConstantFragment {
         tabsOrder = (TabLayout) view.findViewById(R.id.tabs_order);
         fl_content = (FrameLayout) view.findViewById(R.id.fl_content);
         tv_more = (LinearLayout) view.findViewById(R.id.more);
+        question = (TextView) view.findViewById(R.id.question);
+        question.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(),UmiwiContainerActivity.class);
+                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, AskQuestionFragment.class);
+                intent.putExtra("uid",uid1);
+                startActivity(intent);
+            }
+        });
         yuedu = (LinearLayout) view.findViewById(R.id.yuedu);
         scroll_view = (TopFloatScrollView) view.findViewById(R.id.scroll_view);
         tv_unfold.setOnClickListener(new UnfoldOnClickListener());
