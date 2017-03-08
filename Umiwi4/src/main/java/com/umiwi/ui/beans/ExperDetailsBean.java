@@ -22,6 +22,7 @@ public class ExperDetailsBean {
     private String tutortitle;
     private String tutorimage;
     private String description;
+    private String isopenask;
     private ShareBean share;
 
     public ResultBean getResult() {
@@ -39,13 +40,20 @@ public class ExperDetailsBean {
     public void setUid(String uid) {
         this.uid = uid;
     }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getIsopenask() {
+        return isopenask;
+    }
+
+    public void setIsopenask(String isopenask) {
+        this.isopenask = isopenask;
     }
 
     public String getTutortitle() {
