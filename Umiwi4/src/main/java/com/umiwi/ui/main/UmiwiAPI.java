@@ -144,7 +144,10 @@ public final class UmiwiAPI {
      * 首页推荐
      */
     public static final String VIDEO_TUIJIAN = "http://v.youmi.cn/api8/index ";
-
+    /**
+     * 更多行家回答
+     */
+    public static final String VIDEO_MORE_ASK = "http://i.v.youmi.cn/api8/questionmore";
     //================================抽屉模块===================================//
 
     /**

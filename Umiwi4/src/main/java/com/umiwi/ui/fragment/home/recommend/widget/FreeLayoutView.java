@@ -15,10 +15,17 @@ import android.widget.Toast;
 import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.updateadapter.NewfreeAdapterV2;
+import com.umiwi.ui.beans.updatebeans.FreeRecordBean;
 import com.umiwi.ui.beans.updatebeans.RecommendBean;
 import com.umiwi.ui.fragment.course.CourseDetailPlayFragment;
+import com.umiwi.ui.fragment.home.updatehome.NewHomeRecommendFragment;
+import com.umiwi.ui.main.UmiwiAPI;
 
 import java.util.ArrayList;
+
+import cn.youmi.framework.http.AbstractRequest;
+import cn.youmi.framework.http.GetRequest;
+import cn.youmi.framework.http.parsers.GsonParser;
 
 /**
  * 类描述：首页—推荐—最新免费
@@ -34,6 +41,10 @@ public class FreeLayoutView extends LinearLayout {
 
     private NewfreeAdapterV2 mNewfreeAdapterV2;
     private ArrayList<RecommendBean.RBean.FreeBean.RecordBean> mList;
+
+    private String mHuanUrl;
+    private int currentpage = 1;
+    private int totalpage = 1;
 
     public FreeLayoutView(Context context) {
         super(context);
@@ -65,10 +76,12 @@ public class FreeLayoutView extends LinearLayout {
         ll_free_root.setVisibility(GONE);
     }
 
-    public void setData(final ArrayList<RecommendBean.RBean.FreeBean.RecordBean> freeBean, String titleFree, String titleHuan) {
+    public void setData(final RecommendBean.RBean.FreeBean freeBean, String titleFree, String titleHuan, String huanUrl) {
+        totalpage = freeBean.getPage().getTotalpage();
         title_type_textview.setText(titleFree);
         title_huan.setText(titleHuan);
-        mList = freeBean;
+        mList = freeBean.getRecord();
+        mHuanUrl = huanUrl;
         if (null == mList || mList.size() == 0)
             return;
         ll_free_root.setVisibility(VISIBLE);
@@ -78,18 +91,58 @@ public class FreeLayoutView extends LinearLayout {
         lv_new_free.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (freeBean.get(position).getType().equals("video")) {
+                if (mList.get(position).getType().equals("video")) {
                     Log.e("TAG", "这是免费视频可以观看");
                     Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
                     intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, CourseDetailPlayFragment.class);
-                    intent.putExtra(CourseDetailPlayFragment.KEY_DETAIURL, freeBean.get(position).getUrl());
+                    intent.putExtra(CourseDetailPlayFragment.KEY_DETAIURL, mList.get(position).getUrl());
                     mContext.startActivity(intent);
-                } else if (freeBean.get(position).getType().equals("audio")) {
+                } else if (mList.get(position).getType().equals("audio")) {
                     //TODO
                     Toast.makeText(mContext, "敬请期待", Toast.LENGTH_SHORT).show();
-                    
+
                 }
             }
         });
+        title_huan.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getData();
+            }
+        });
     }
+
+    private void getData() {
+        if (currentpage <= totalpage) {
+            currentpage = 1;
+        } else {
+            currentpage = currentpage + 1;
+        }
+        GetRequest<FreeRecordBean> request = new GetRequest<>(
+                mHuanUrl, GsonParser.class, FreeRecordBean.class, huanListener);
+        request.addParam("p", currentpage + "");
+        request.go();
+    }
+
+    private AbstractRequest.Listener<FreeRecordBean> huanListener = new AbstractRequest.Listener<FreeRecordBean>() {
+
+        @Override
+        public void onResult(AbstractRequest<FreeRecordBean> request, FreeRecordBean t) {
+            if (null != t && null != t.getR()) {
+                currentpage = t.getR().getPage().getCurrentpage();
+                totalpage = t.getR().getPage().getTotalpage();
+                mList.clear();
+                mList.addAll(t.getR().getRecord());
+                mNewfreeAdapterV2.notifyDataSetChanged();
+            }
+
+        }
+
+        @SuppressWarnings("deprecation")
+        @Override
+        public void onError(AbstractRequest<FreeRecordBean> requet, int statusCode, String body) {
+
+        }
+    };
+
 }
