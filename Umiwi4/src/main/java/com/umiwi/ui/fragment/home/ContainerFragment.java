@@ -84,7 +84,7 @@ public class ContainerFragment extends BaseFragment {
 //		pages.add(FragmentPagerItem.of("首页", HomeRecommendFragment.class));
 		pages.add(FragmentPagerItem.of("首页", NewHomeRecommendFragment.class));
 //		pages.add(FragmentPagerItem.of("分类",StageSectionCategoryFragment.class));
-		pages.add(FragmentPagerItem.of("已购", AlreadyBoughtFragment.class));
+		pages.add(FragmentPagerItem.of("111", AlreadyBoughtFragment.class));
 		pages.add(FragmentPagerItem.of("发现", DiscoveryFragment.class));
 //		pages.add(FragmentPagerItem.of("我的",MineFragment.class));
 		pages.add(FragmentPagerItem.of("我的",NewMineFragment.class));
