@@ -1,16 +1,20 @@
 package com.umiwi.ui.fragment.home.recommend.widget;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.umiwi.ui.R;
+import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.updateadapter.ExpertAnswerAdapter;
-import com.umiwi.ui.adapter.updateadapter.LineActionadapter;
 import com.umiwi.ui.beans.updatebeans.RecommendBean;
+import com.umiwi.ui.fragment.ExpertQuestAnswerFragment;
 
 import java.util.ArrayList;
 
@@ -48,16 +52,25 @@ public class ExpertAnswerLayoutViwe extends LinearLayout {
         expert_answer_root.setVisibility(GONE);
     }
 
-    public void setData(ArrayList<RecommendBean.RBean.AsktutorBean> asktutorBeen, String answerTitle,String experttitleTag) {
+    public void setData(ArrayList<RecommendBean.RBean.AsktutorBean> asktutorBeen, String answerTitle, final String experttitleTag) {
 
         tv_expert_answer_title.setText(answerTitle);
         tv_experttitle_tag.setText(experttitleTag);
+//        Log.e("TAG", "experttitleTag=" + experttitleTag);
         mList = asktutorBeen;
         if (null == mList || mList.size() == 0)
             return;
         expert_answer_root.setVisibility(VISIBLE);
         mExpertAnswerAdapter = new ExpertAnswerAdapter(mContext, mList);
         lv_expert_answer.setAdapter(mExpertAnswerAdapter);
-
+        tv_experttitle_tag.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("TAG", "experttitleTag=" + experttitleTag);
+                Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
+                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, ExpertQuestAnswerFragment.class);
+                mContext.startActivity(intent);
+            }
+        });
     }
 }

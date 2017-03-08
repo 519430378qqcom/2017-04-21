@@ -3,6 +3,7 @@ package com.umiwi.ui.fragment.home.recommend.widget;
 import android.content.Context;
 import android.content.Intent;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,14 +15,10 @@ import android.widget.Toast;
 import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.updateadapter.NewfreeAdapterV2;
-import com.umiwi.ui.beans.updatebeans.NewFree;
 import com.umiwi.ui.beans.updatebeans.RecommendBean;
-import com.umiwi.ui.dialog.updatedialog.NewShareDialog;
 import com.umiwi.ui.fragment.course.CourseDetailPlayFragment;
-import com.umiwi.ui.main.UmiwiApplication;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 类描述：首页—推荐—最新免费
@@ -82,6 +79,7 @@ public class FreeLayoutView extends LinearLayout {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (freeBean.get(position).getType().equals("video")) {
+                    Log.e("TAG", "这是免费视频可以观看");
                     Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
                     intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, CourseDetailPlayFragment.class);
                     intent.putExtra(CourseDetailPlayFragment.KEY_DETAIURL, freeBean.get(position).getUrl());
@@ -89,6 +87,7 @@ public class FreeLayoutView extends LinearLayout {
                 } else if (freeBean.get(position).getType().equals("audio")) {
                     //TODO
                     Toast.makeText(mContext, "敬请期待", Toast.LENGTH_SHORT).show();
+                    
                 }
             }
         });

@@ -8,20 +8,16 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
-
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-
 import android.widget.TextView;
 
 import com.umiwi.ui.R;
 import com.umiwi.ui.beans.ExperDetailsBean;
 import com.umiwi.ui.main.BaseConstantFragment;
-
 import com.umiwi.ui.main.CustomStringCallBack;
 import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.main.UmiwiApplication;
@@ -190,10 +186,10 @@ public class ExperDetailsFragment extends BaseConstantFragment {
             public void onLoading() {
                 int position = (int) scroll_view.getTag();
                 if (position == 0) {
-                    Log.e("onload", "专栏");
+                    Log.e("TAG", "专栏");
                     mListener.IsColumnbottom();
                 } else if (position == 1) {
-                    Log.e("onload", "音频");
+                    Log.e("TAG", "音频");
                     mListenerVoice.IsvoiceBottom();
                 }else if (position == 2){
                     Log.e("onload", "视频");

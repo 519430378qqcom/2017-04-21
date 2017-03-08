@@ -42,33 +42,24 @@ import com.umiwi.ui.fragment.home.recommend.widget.BigShotLayoutView;
 import com.umiwi.ui.fragment.home.recommend.widget.ExpertAnswerDwonLayoutViwe;
 import com.umiwi.ui.fragment.home.recommend.widget.ExpertAnswerLayoutViwe;
 import com.umiwi.ui.fragment.home.recommend.widget.ExpertRecLayoutView;
-import com.umiwi.ui.fragment.home.recommend.widget.ExpertRecLayoutView;
 import com.umiwi.ui.fragment.home.recommend.widget.FreeLayoutView;
 import com.umiwi.ui.fragment.home.recommend.widget.LineActionLayoutViwe;
 import com.umiwi.ui.fragment.home.recommend.widget.PaySelectedLayoutViwe;
 import com.umiwi.ui.fragment.home.recommend.widget.RecommentBottomLayoutView;
-import com.umiwi.ui.fragment.setting.FeedbackFragment;
 import com.umiwi.ui.fragment.home.updatehome.NewHomeRecommendFragment;
 import com.umiwi.ui.http.parsers.ADParser;
 import com.umiwi.ui.http.parsers.CourseListParser;
-import com.umiwi.ui.http.parsers.newhttpparsers.NewFreeParser;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.managers.NoticeManager;
 import com.umiwi.ui.managers.YoumiRoomUserManager;
 import com.umiwi.ui.parsers.newparsers.NewFreeResult;
-import com.umiwi.ui.util.ApiTester.ApiConnectionTester;
-import com.umiwi.ui.util.ApiTester.bean.IndexActionEntity;
 import com.umiwi.ui.util.CommonHelper;
 import com.umiwi.ui.util.ManifestUtils;
-import com.umiwi.ui.view.AutoViewPager;
-import com.umiwi.ui.view.CirclePageIndicator;
 import com.umiwi.ui.view.MyViewpager;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Handler;
-import java.util.logging.LogRecord;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -209,9 +200,12 @@ public class RecommendFragment extends BaseConstantFragment {
 
         @Override
         public void onResult(AbstractRequest<RecommendBean> request, RecommendBean t) {
+            Log.e("TAG", "t为" + t);
+//            Log.e("TAG", "t=" + t.getR().getSec_free_title().toString());
             if (null != t) {
 
                 flv_new_free.setData(t.getR().getFree().getRecord(), t.getR().getSec_free_title(), t.getR().getSec_free_huan());
+                Log.e("TAG", "t=" + t.getR().getSec_free_title().toString());
                 erl_expert_rec.setData(t.getR().getTutor(), t.getR().getSec_tutor_title(), t.getR().getSec_tutor_more());
                 lalv_action_line.setData(t.getR().getHuodong(), t.getR().getSec_huodong_title());
                 ealv_expert_answer.setData(t.getR().getAsktutor(), t.getR().getSec_ask_title(), t.getR().getSec_ask_more());
@@ -220,11 +214,13 @@ public class RecommendFragment extends BaseConstantFragment {
                 pslv_pay_selected.setData(t.getR().getCharge().getRecord(), t.getR().getSec_charge_title(), t.getR().getSec_charge_huan());
                 rblv_bottom.setData(getActivity(), t.getR().getBottom());
             }
+
         }
 
         @SuppressWarnings("deprecation")
         @Override
         public void onError(AbstractRequest<RecommendBean> requet, int statusCode, String body) {
+
         }
     };
 
@@ -582,7 +578,7 @@ public class RecommendFragment extends BaseConstantFragment {
 
                 @Override
                 public void onClick(View v) {
-                    loadLunboData();
+//                    loadLunboData();
                     error_empty.setVisibility(View.GONE);
                     if (!isRecommendShow) {
                         mScrollLoader.onLoadErrorPage();

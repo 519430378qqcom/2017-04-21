@@ -4,13 +4,13 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.umiwi.ui.R;
-import com.umiwi.ui.adapter.updateadapter.ExpertAnswerAdapter;
 import com.umiwi.ui.adapter.updateadapter.ExpertAnswerDowndapter;
 import com.umiwi.ui.beans.updatebeans.RecommendBean;
 
@@ -52,6 +52,7 @@ public class ExpertAnswerDwonLayoutViwe extends LinearLayout {
     public void setData(ArrayList<RecommendBean.RBean.QuestionBean> questionBeen, String fask_ask) {
 
         tv_expert_answer_fask_ask.setText(fask_ask);
+        Log.e("TAG", "fask_ask=" + fask_ask);
         mList = questionBeen;
         if (null == mList || mList.size() == 0)
             return;

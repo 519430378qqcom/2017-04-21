@@ -31,13 +31,15 @@
                 android:id="@+id/tv_experttitle_tag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="15dp"
+                android:layout_marginRight="13dp"
                 android:paddingLeft="10dp"
                 android:text="更多"
                 android:textColor="#adadad"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="13dp" />
         </RelativeLayout>
 
         <View

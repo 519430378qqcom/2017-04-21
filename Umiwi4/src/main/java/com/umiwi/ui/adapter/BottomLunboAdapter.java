@@ -1,7 +1,6 @@
 package com.umiwi.ui.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.util.Log;
 import android.view.View;
@@ -12,21 +11,12 @@ import android.widget.ImageView;
 
 import com.umeng.analytics.MobclickAgent;
 import com.umiwi.ui.R;
-import com.umiwi.ui.activity.UmiwiContainerActivity;
-import com.umiwi.ui.beans.UmiwiListBeans;
 import com.umiwi.ui.beans.updatebeans.RecommendBean;
-import com.umiwi.ui.fragment.LecturerDetailFragment;
-import com.umiwi.ui.fragment.ShareArticleFragment;
-import com.umiwi.ui.fragment.WebFragment;
-import com.umiwi.ui.fragment.course.CourseDetailPlayFragment;
-import com.umiwi.ui.fragment.course.JPZTDetailFragment;
 import com.umiwi.ui.main.UmiwiApplication;
-import com.umiwi.ui.managers.StatisticsManager;
 
 import java.util.ArrayList;
 
 import cn.youmi.framework.util.ImageLoader;
-import cn.youmi.framework.util.ToastU;
 
 /**
  * 首页-推荐-底部轮播图adapter
@@ -115,6 +105,7 @@ public class BottomLunboAdapter extends PagerAdapter {
                 MobclickAgent.onEvent(mContext, "首页VI", "轮播");
 
 //                StatisticsManager.getInstance().getResultInfo(listBeans.getSpmurl());
+                Log.e("TAG", "推荐底部轮播图");
             }
         });
         container.addView(imageView, 0);

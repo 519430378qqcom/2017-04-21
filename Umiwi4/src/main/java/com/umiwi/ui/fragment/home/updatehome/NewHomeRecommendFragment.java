@@ -140,6 +140,7 @@ public class NewHomeRecommendFragment extends BaseConstantFragment {
             @Override
             public void onClick(View arg0) {
                 viewPager.setCurrentItem(0);
+
             }
         });
 

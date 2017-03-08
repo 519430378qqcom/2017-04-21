@@ -3,7 +3,7 @@
     package="com.umiwi.ui"
     android:installLocation="internalOnly">
 
-    <!--基本网络读取相关-->
+    <!-- 基本网络读取相关 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -12,25 +12,23 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.VIBRATE" />
-
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
-    <!--快捷键创建相关-->
+    <!-- 快捷键创建相关 -->
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
     <uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT" />
     <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
     <uses-permission android:name="com.android.launcher.permission.WRITE_SETTINGS" />
 
-    <!--读取应用运行日志-->
+    <!-- 读取应用运行日志 -->
     <uses-permission android:name="android.permission.READ_LOGS" />
 
-    <!--后台下载-->
+    <!-- 后台下载 -->
     <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
 
-    <!--拍照-->
+    <!-- 拍照 -->
     <uses-permission android:name="android.permission.CAMERA" />
 
     <uses-feature
@@ -38,12 +36,10 @@
         android:required="true" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
-    <!--<uses-permission-->
-    <!--android:name="android.permission.WRITE_APN_SETTINGS"-->
-    <!--tools:ignore="ProtectedPermissions" />-->
-
-    <!--<uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />  暂时不要-->
-
+    <!-- <uses-permission -->
+    <!-- android:name="android.permission.WRITE_APN_SETTINGS" -->
+    <!-- tools:ignore="ProtectedPermissions" /> -->
+    <!-- <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />  暂时不要 -->
     <!-- android:largeHeap="true" -->
     <application
         android:name=".main.UmiwiApplication"
@@ -72,7 +68,7 @@
         <!-- new key -->
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="543b7aebfd98c5178a04cceb"></meta-data>
+            android:value="543b7aebfd98c5178a04cceb" />
         <meta-data
             android:name="com.bumptech.glide.integration.volley.VolleyGlideModule"
             android:value="GlideModule" />
@@ -98,13 +94,13 @@
             android:name=".activity.Splash360Activity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.HomeMainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Apptheme_umiwi_no_windowIsTranslucent"></activity>
+            android:theme="@style/Theme.Apptheme_umiwi_no_windowIsTranslucent" />
         <!-- 课程详情页 -->
         <activity
             android:name=".activity.UmiwiDetailActivity"
@@ -120,57 +116,57 @@
 
                 <data
                     android:host="com.umiwi.wap"
-                    android:scheme="umiwischeme"></data>
+                    android:scheme="umiwischeme" />
                 <!-- 以后用下面的协议 -->
                 <data
                     android:host="cn.youmi.wap"
                     android:path="/albumurl"
-                    android:scheme="youmi"></data>
+                    android:scheme="youmi" />
                 <data
                     android:host="cn.youmi.wap"
                     android:path="/zhuantiurl"
-                    android:scheme="youmi"></data>
+                    android:scheme="youmi" />
                 <data
                     android:host="cn.youmi.wap"
                     android:path="/app"
-                    android:scheme="youmi"></data>
+                    android:scheme="youmi" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activity.UmiwiContainerActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name="cn.youmi.framework.activity.FragmentContainerUnSwipeActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.PlayerActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".zxing.activity.CaptureActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-            android:windowSoftInputMode="stateAlwaysHidden"></activity>
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".activity.YMLoginActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".camera.CameraActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity android:name="com.android.camera.CropImage" />
         <activity
             android:name=".activity.YMPayActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
 
         <!-- 网页容器 -->
 
@@ -178,14 +174,14 @@
             android:name="cn.youmi.pay.ui.WebActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name="cn.youmi.pay.ui.PayWebActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
 
-        <service android:name=".main.UmiwiService"></service>
+        <service android:name=".main.UmiwiService" />
 
         <!-- 第三方 -->
 
@@ -237,12 +233,13 @@
         <service
             android:name="com.baidu.android.pushservice.CommandService"
             android:exported="true" />
-          <service android:name="com.umiwi.video.services.VoiceService"
-              android:exported="true"
-              />
-        <!--<activity-->
-        <!--android:name="com.baidu.android.pushservice.PushKeepAlive"-->
-        <!--android:theme="@android:style/Theme.Translucent.NoTitleBar" />-->
+        <service
+            android:name="com.umiwi.video.services.VoiceService"
+            android:exported="true" />
+        <!-- <activity -->
+        <!-- android:name="com.baidu.android.pushservice.PushKeepAlive" -->
+        <!-- android:theme="@android:style/Theme.Translucent.NoTitleBar" /> -->
+
 
         <!-- Push 服务 -->
         <service
@@ -257,9 +254,9 @@
         <!-- //课程或专题测试用 -->
 
 
-        <!--<meta-data-->
-        <!--android:name="api_key"-->
-        <!--android:value="KSQtdtGBgvvY4UG9FxkSLgac" />-->
+        <!-- <meta-data -->
+        <!-- android:name="api_key" -->
+        <!-- android:value="KSQtdtGBgvvY4UG9FxkSLgac" /> -->
 
         <meta-data
             android:name="api_key"
@@ -271,18 +268,18 @@
         <!-- alipay skd start -->
         <activity
             android:name="com.alipay.android.app.sdk.WapPayActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
             android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden"></activity>
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name="com.alipay.sdk.auth.AuthActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
-            android:screenOrientation="behind"></activity>
+            android:screenOrientation="behind" />
 
         <!-- alipay skd end -->
 
@@ -292,20 +289,19 @@
             android:excludeFromRecents="true"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.UPPay"></activity>
-
+            android:theme="@style/Theme.UPPay" />
         <activity
             android:name="com.unionpay.uppay.PayActivityEx"
             android:configChanges="keyboardHidden|orientation"
             android:excludeFromRecents="true"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize"></activity>
+            android:windowSoftInputMode="adjustResize" />
         <!-- 微信分享回调 -->
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true" />
@@ -314,7 +310,7 @@
             android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"
             android:configChanges="keyboardHidden|orientation"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize"></activity>
+            android:windowSoftInputMode="adjustResize" />
 
         <!-- QZone授权回调Activity AuthActivity 和 AssistActivity -->
         <activity
@@ -357,6 +353,7 @@
             <!-- 调用新浪原生SDK，需要注册的回调activity -->
             <intent-filter>
                 <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
