@@ -57,8 +57,11 @@ public class ExperDetailsVoiceFragment extends BaseConstantFragment {
         noscrollListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                VoiceBean.RecordBean recordBean = voiceList.get(i);
+                String hrefurl = recordBean.getHrefurl();
                 Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
                 intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
+                intent.putExtra("herfurl",hrefurl);
                 startActivity(intent);
             }
         });

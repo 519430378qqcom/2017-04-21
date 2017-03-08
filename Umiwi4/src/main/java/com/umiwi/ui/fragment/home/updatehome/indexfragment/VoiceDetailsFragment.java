@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,11 +15,17 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
-
 import com.umiwi.ui.R;
+import com.umiwi.ui.beans.updatebeans.ExperDetailsVoiceBean;
 import com.umiwi.ui.main.BaseConstantFragment;
+import com.umiwi.ui.main.CustomStringCallBack;
+import com.umiwi.ui.main.UmiwiApplication;
 import com.umiwi.ui.util.DateUtils;
+import com.umiwi.ui.util.JsonUtil;
 import com.umiwi.video.services.VoiceService;
+import com.zhy.http.okhttp.OkHttpUtils;
+
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -45,8 +52,9 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
     TextView changeTimes;
     @InjectView(R.id.total_time)
     TextView totalTime;
+    private String CurrentvoiceId;
     private Handler handler = new Handler();
-    private Runnable runnable = new Runnable() {
+    public Runnable runnable = new Runnable() {
         @Override
         public void run() {
             seekbar.setProgress(mBinder.getCurrentDuration());
@@ -75,16 +83,49 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
             handler.postDelayed(runnable, (int) ((float) mBinder.getCurrentDuration() / (float) mBinder.getDuration() * 100));
         }
     };
+    private String source;
+    private String voices;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_voice_details_layout, null);
         ButterKnife.inject(this, view);
+        String herfurl = getActivity().getIntent().getStringExtra("herfurl");
+        if (!TextUtils.isEmpty(herfurl)) {
+            getInfos(herfurl);
+        }
         seekbar = (SeekBar) view.findViewById(R.id.seekbar);
-        bindVoiceSerive();
         initListener();
         return view;
+    }
+
+    private void getInfos(String herfurl) {
+        OkHttpUtils.get().url(herfurl).build().execute(new CustomStringCallBack() {
+            @Override
+            public void onFaild() {
+                Log.e("data", "音频url获取失败");
+            }
+
+            @Override
+            public void onSucess(String data) {
+                Log.e("data", "音频url获取成功");
+                if (!TextUtils.isEmpty(data)) {
+                    ExperDetailsVoiceBean experDetailsVoiceBean = JsonUtil.json2Bean(data, ExperDetailsVoiceBean.class);
+                    List<ExperDetailsVoiceBean.AudiofileBean> audiofile = experDetailsVoiceBean.getAudiofile();
+                    if (audiofile != null && audiofile.size() > 0) {
+                        ExperDetailsVoiceBean.AudiofileBean audiofileBean = audiofile.get(0);
+                        source = audiofileBean.getSource();
+                        if (source!=null){
+                            UmiwiApplication.getInstance().getBinder().searchInfo(source);
+                        }
+                    }
+
+                }
+            }
+
+        });
+
     }
 
     private void initListener() {
@@ -97,7 +138,6 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
     private void bindVoiceSerive() {
 
         Intent intent = new Intent(getActivity(), VoiceService.class);
-        intent.putExtra("url", "http://i5.umivi.net/audio/audiofile/2017/03/06//20170306/0_ee634f1f686fbe00.mp3");
         getActivity().bindService(intent, new MyConn(), getActivity().BIND_AUTO_CREATE);
 
     }
@@ -111,13 +151,13 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
             case R.id.last_voice:
                 break;
             case R.id.start_player:
-                if (mBinder.getMediaplayer().isPlaying()) {
-                    startPlayer.setImageResource(R.drawable.pause_player);
-                } else {
-                    startPlayer.setImageResource(R.drawable.start_player);
-                }
-                mBinder.playOrPause();
-                break;
+//                if (mBinder.getMediaplayer().isPlaying()) {
+//                    startPlayer.setImageResource(R.drawable.pause_player);
+//                } else {
+//                    startPlayer.setImageResource(R.drawable.start_player);
+//                }
+//                mBinder.playOrPause();
+//                break;
             case R.id.next_voice:
                 break;
 
@@ -130,9 +170,9 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
             mBinder = (VoiceService.VoiceBinder) iBinder;
             Log.e("mbinder", "拿到代理人对象");
-            mBinder.playVoice("http://i5.umivi.net/audio/audiofile/2017/03/06//20170306/0_ee634f1f686fbe00.mp3");
+         /*   mBinder.playVoice(voices);
             seekbar.setMax(mBinder.getDuration());
-            handler.post(runnable);
+            handler.post(runnable);*/
         }
 
         @Override

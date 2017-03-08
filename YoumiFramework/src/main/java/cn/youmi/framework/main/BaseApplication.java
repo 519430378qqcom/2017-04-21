@@ -6,7 +6,7 @@ import android.content.Context;
 /**
  * Created by tangixyong on 16/1/21.
  */
-public class BaseApplication extends Application {
+public class BaseApplication extends Application{
     private static Context sContext;
 
     private static BaseApplication baseApplication = null;

@@ -4,16 +4,20 @@ import android.app.Service;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Binder;
-import android.os.Handler;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
-import android.widget.SeekBar;
 
-import com.umiwi.ui.fragment.home.updatehome.indexfragment.VoiceDetailsFragment;
-import com.umiwi.video.control.IMusicPlayerService;
+import com.umiwi.ui.beans.VoiceBean;
+import com.umiwi.ui.beans.updatebeans.SouceBean;
+import com.umiwi.ui.main.CustomStringCallBack;
+import com.umiwi.ui.main.UmiwiApplication;
+import com.umiwi.ui.util.JsonUtil;
+import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.io.IOException;
+
 
 /**
  * Created by Administrator on 2017/3/7.
@@ -76,11 +80,29 @@ public class VoiceService extends Service {
             return mediaPlayer;
         }
 
+        public void searchInfo(String url){
+            OkHttpUtils.get().url(url).build().execute(new CustomStringCallBack() {
+                @Override
+                public void onFaild() {
+
+                }
+
+                @Override
+                public void onSucess(String data) {
+                    if (!TextUtils.isEmpty(data)){
+                        SouceBean voiceBean = JsonUtil.json2Bean(data, SouceBean.class);
+                        if (voiceBean!= null){
+                            UmiwiApplication.getInstance().getBinder().playVoice(voiceBean.getSource());
+                        }
+                    }
+
+                }
+            });
+        }
     }
 
     @Override
     public void onCreate() {
-
         super.onCreate();
     }
 
@@ -88,7 +110,6 @@ public class VoiceService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         url = intent.getStringExtra("url");
-        Log.e("service", "service被绑定...");
         return new VoiceBinder();
     }
 

@@ -1,9 +1,13 @@
 package com.umiwi.ui.main;
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.os.Handler;
+import android.os.IBinder;
 import android.preference.PreferenceManager;
 
 import com.tencent.bugly.crashreport.CrashReport;
@@ -12,6 +16,7 @@ import com.umiwi.ui.R;
 import com.umiwi.ui.managers.YoumiRoomUserManager;
 import com.umiwi.ui.util.ManifestUtils;
 import com.umiwi.video.application.Settings;
+import com.umiwi.video.services.VoiceService;
 
 import cn.youmi.account.manager.UserManager;
 import cn.youmi.framework.main.BaseApplication;
@@ -27,9 +32,10 @@ import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 /**
  * @author tangxiyong 2013-11-21下午6:22:32
  */
-public class UmiwiApplication extends BaseApplication {
+public class UmiwiApplication extends BaseApplication implements ServiceConnection {
 
     private static Context sContext;
+    private static VoiceService.VoiceBinder mBinder;
 
     private Activity activity = null;
 
@@ -75,6 +81,7 @@ public class UmiwiApplication extends BaseApplication {
         ConstantProvider.setInstance(YoumiConstantProvider.getInstance());
 
         sContext = getApplicationContext();
+        bindservice();
 
 //		HttpDispatcher.getInstance().registerDispatcherObserver(observer);
 //		String version = Build.VERSION.RELEASE;
@@ -138,6 +145,11 @@ public class UmiwiApplication extends BaseApplication {
         }
     }
 
+    private void bindservice() {
+        Intent intent = new Intent(this, VoiceService.class);
+        this.bindService(intent, this, BIND_AUTO_CREATE);
+    }
+
     public synchronized SharePreferenceUtil getSpUtil() {
         if (mSpUtil == null)
             mSpUtil = new SharePreferenceUtil(this, SP_PUSH_NAME);
@@ -160,10 +172,23 @@ public class UmiwiApplication extends BaseApplication {
     public Handler getUIHandler() {
         return handler;
     }
-
+    public VoiceService.VoiceBinder  getBinder(){
+         return mBinder;
+    }
     public void exitApp() {
         System.gc();
         MobclickAgent.onKillProcess(this);
         android.os.Process.killProcess(android.os.Process.myPid());
+    }
+
+    @Override
+    public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+        mBinder = (VoiceService.VoiceBinder) iBinder;
+
+    }
+
+    @Override
+    public void onServiceDisconnected(ComponentName componentName) {
+
     }
 }
