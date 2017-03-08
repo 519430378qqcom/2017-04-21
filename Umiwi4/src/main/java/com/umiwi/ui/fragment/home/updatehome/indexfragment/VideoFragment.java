@@ -378,11 +378,11 @@ public class VideoFragment extends BaseConstantFragment {
         String url = UmiwiAPI.Login_Video+"?orderby="+orderby;
 
         if(price != null && price != ""){
-            url += "?price="+price;
+            url += "&price="+price;
         }
 
         if(String.valueOf(p) != null && String.valueOf(p) != ""){
-            url += "?p="+page;
+            url += "&p="+page;
         }
 
         Log.e("MZX",url);
@@ -391,7 +391,7 @@ public class VideoFragment extends BaseConstantFragment {
 
             @Override
             public void onFaild() {
-                mScrollLoader.onLoadErrorPage();
+//                mScrollLoader.onLoadErrorPage();
             }
 
             @Override
@@ -400,9 +400,6 @@ public class VideoFragment extends BaseConstantFragment {
 
                 VideoBean audioBean = new Gson().fromJson(data, VideoBean.class);
                 VideoBean.PageBean pagebean = audioBean.getPage();
-
-                Log.e("TAG",audioBean.getPage().getCurrentpage()+"");
-                Log.e("TAG",audioBean.getPage().getTotalpage()+"");
 
                 if(audioBean.getPage().getCurrentpage() >= audioBean.getPage().getTotalpage()){
                     mLoadingFooter.setState(LoadingFooter.State.NoMore);

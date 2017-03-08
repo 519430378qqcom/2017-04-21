@@ -63,8 +63,6 @@ android {
 //        multiDexEnabled true
     }
 
-
-
     productFlavors {  //./gradlew assembleRelease
        // itest {}
         portalv {}//官网

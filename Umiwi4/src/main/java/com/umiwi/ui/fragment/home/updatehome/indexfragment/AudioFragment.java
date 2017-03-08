@@ -361,23 +361,20 @@ public class AudioFragment extends BaseConstantFragment {
         mScrollLoader.onLoadFirstPage();
     }
 
-    @Override
     public void onLoadData(int page) {
-        super.onLoadData();
-
         String url = UmiwiAPI.Login_Audio+"?p="+page;
         if(price != null && price != ""){
-            url += "?price="+price;
+            url += "&price="+price;
         }
         if(orderby != null && orderby != ""){
-            url += "?orderby="+orderby;
+            url += "&orderby="+orderby;
         }
 
         Log.e("MZX",url);
         OkHttpUtils.get().url(url).build().execute(new CustomStringCallBack() {
             @Override
             public void onFaild() {
-                mScrollLoader.onLoadErrorPage();
+//                mScrollLoader.onLoadErrorPage();
             }
 
             @Override

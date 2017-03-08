@@ -255,6 +255,4 @@ public class AlreadyBoughtFragment extends BaseConstantFragment {
             ViewPropertyAnimator.animate(abAskHear).scaleY(1.0f).setDuration(200);
         }
     }
-
-
 }
