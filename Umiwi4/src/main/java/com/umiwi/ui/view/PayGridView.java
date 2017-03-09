@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 import android.widget.GridView;
 
 public class PayGridView extends GridView {
+
 	public PayGridView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 	}
@@ -16,7 +17,6 @@ public class PayGridView extends GridView {
 		int expandSpec = MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2,
 				MeasureSpec.AT_MOST);
 		super.onMeasure(widthMeasureSpec, expandSpec);
-
 	}
 
 	/*GestureDetector gestureDetector;

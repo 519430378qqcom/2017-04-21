@@ -414,7 +414,6 @@ public class PayingFragment extends BaseFragment{
 		}
 	}
 
-
 	ModelStatusListener<UserEvent, UserModel> userListener = new ModelStatusListener<UserEvent, UserModel>() {
 
 		@Override

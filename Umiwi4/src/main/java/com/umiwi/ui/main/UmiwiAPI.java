@@ -144,10 +144,7 @@ public final class UmiwiAPI {
      * 首页推荐
      */
     public static final String VIDEO_TUIJIAN = "http://v.youmi.cn/api8/index ";
-    /**
-     * 更多行家回答
-     */
-    public static final String VIDEO_MORE_ASK = "http://i.v.youmi.cn/api8/questionmore";
+
     //================================抽屉模块===================================//
 
     /**
@@ -417,9 +414,13 @@ public final class UmiwiAPI {
     public static final String Ask_Hear = "http://i.v.youmi.cn/api8/buyquestion";
 
     //试读页面
-    public static final String Logincal_thinking = "http://i.v.youmi.cn/api8/tutorcolumn/detailpurchasedApi";
+    public static final String Logincal_thinking = "http://i.v.youmi.cn/tutorcolumn/detailpurchasedApi?id=";
 
 
+    public static final String audio_head = "http://i.v.youmi.cn/api8/tagTreeApi/?from=audio";
+    public static final String video_head = "http://i.v.youmi.cn/api8/tagTreeApi/?from=video";
+    public static final String QUESTION_LIST = "http://i.v.youmi.cn/api8/questionlist";
+    public static final String NAMED_QUESTIONA = "http://i.v.youmi.cn/question/namedquestionApi";
 
     /////////////========================================优雅的分割线 历史接口=================================================////////////
 //    /** 我的课程未登录默认九宫 */

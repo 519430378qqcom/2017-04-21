@@ -40,9 +40,9 @@
             android:textSize="18sp" />
 
         <TextView
-            android:background="@color/color_divider"
+            android:background="#f2f2f2"
             android:layout_width="match_parent"
-            android:layout_height="1dp" />
+            android:layout_height="1px" />
 
         <LinearLayout
             android:background="@color/text_white_enabled"
@@ -80,8 +80,8 @@
 
             <TextView
                 android:layout_gravity="center"
-                android:background="@color/color_divider"
-                android:layout_width="1dp"
+                android:background="#f2f2f2"
+                android:layout_width="1px"
                 android:layout_height="40dp" />
 
             <LinearLayout
@@ -112,8 +112,8 @@
 
             <TextView
                 android:layout_gravity="center"
-                android:background="@color/color_divider"
-                android:layout_width="1dp"
+                android:background="#f2f2f2"
+                android:layout_width="1px"
                 android:layout_height="40dp" />
 
             <LinearLayout

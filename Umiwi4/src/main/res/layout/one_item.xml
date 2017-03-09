@@ -11,8 +11,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:padding="8dp"
-        android:text=""
+        android:padding="0dp"
+        android:text="1111"
         android:textColor="@color/umiwi_gray_6" />
 
 </LinearLayout>

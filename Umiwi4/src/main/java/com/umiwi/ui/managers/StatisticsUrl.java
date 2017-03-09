@@ -62,8 +62,4 @@ public final class StatisticsUrl {
 	public static final String DETAIL_COMMENT_WRITE = BASE_STATISTICS_URL+"/ttag/taglist&spm=2.0.0.0.0.0";
 	/** 详情页评论列表*/
 	public static final String DETAIL_COMMENT_LIST = "&spm=1.0.0.0.0.0";
-	
-	
-	
-	
 }
