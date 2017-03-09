@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:gravity="center"
-    android:layout_height="match_parent">
-
-    <include layout="@layout/include_view" />
-
-    <ListView
-        android:id="@+id/lv_answer_answered"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+      <Button
+          android:id="@+id/button"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="进入录音界面"
+          />
+    <com.umiwi.ui.view.RefreshLayout
+        android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </ListView>
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/lv_answer_answered"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </com.umiwi.ui.view.RefreshLayout>
 </LinearLayout>

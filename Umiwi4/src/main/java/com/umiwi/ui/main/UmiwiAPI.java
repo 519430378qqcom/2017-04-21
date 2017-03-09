@@ -414,8 +414,7 @@ public final class UmiwiAPI {
     public static final String Ask_Hear = "http://i.v.youmi.cn/api8/buyquestion";
 
     //试读页面
-    public static final String Logincal_thinking = "http://i.v.youmi.cn/tutorcolumn/detailpurchasedApi?id=";
-
+    public static final String Logincal_thinking = "http://i.v.youmi.cn/api8/tutorcolumn/detailpurchasedApi";
 
     public static final String audio_head = "http://i.v.youmi.cn/api8/tagTreeApi/?from=audio";
     public static final String video_head = "http://i.v.youmi.cn/api8/tagTreeApi/?from=video";

@@ -1,6 +1,7 @@
 package com.umiwi.ui.main;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.squareup.okhttp.Request;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -32,6 +33,7 @@ public abstract class CustomStringCallBack extends StringCallback {
     public void onResponse(String response, int id) {
         try {
             JSONObject jsonObject = new JSONObject(response);
+            Log.e("response","onResponse :"+response);
             String data = jsonObject.getString("r");
             onSucess(data);
         } catch (JSONException e) {

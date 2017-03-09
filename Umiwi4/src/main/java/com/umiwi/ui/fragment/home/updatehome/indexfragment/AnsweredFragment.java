@@ -65,7 +65,6 @@ public class AnsweredFragment extends BaseConstantFragment {
     private String p = "1";
     private ArrayList mList = new ArrayList();
     private String  answerstate = "2";
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

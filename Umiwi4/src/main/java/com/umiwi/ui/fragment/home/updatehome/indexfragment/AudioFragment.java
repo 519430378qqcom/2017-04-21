@@ -85,6 +85,7 @@ public class AudioFragment extends BaseConstantFragment {
 
             @Override
             public void onFaild() {
+
             }
 
             @Override
