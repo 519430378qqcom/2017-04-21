@@ -416,6 +416,9 @@ public final class UmiwiAPI {
     //试读页面
     public static final String Logincal_thinking = "http://i.v.youmi.cn/api8/tutorcolumn/detailpurchasedApi";
 
+    public static final String video_head = "http://i.v.youmi.cn/api8/tagTreeApi?from=video";
+    public static final String audio_head = "http://i.v.youmi.cn/api8/tagTreeApi?from=audio";
+
 
 
     /////////////========================================优雅的分割线 历史接口=================================================////////////

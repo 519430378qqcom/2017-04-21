@@ -1,14 +1,19 @@
 package com.umiwi.ui.fragment.home.updatehome.indexfragment;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,6 +23,7 @@ import com.umiwi.ui.R;
 import com.umiwi.ui.adapter.AudioAdapter;
 import com.umiwi.ui.adapter.VideoAdapter;
 import com.umiwi.ui.beans.AudioBean;
+import com.umiwi.ui.beans.VideoHeadBean;
 import com.umiwi.ui.beans.updatebeans.CelebrityBean;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.CustomStringCallBack;
@@ -25,32 +31,26 @@ import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.util.JsonUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.youmi.framework.util.ListViewScrollLoader;
 import cn.youmi.framework.view.LoadingFooter;
 
-import static com.umiwi.ui.R.id.tv_all_two;
-import static com.umiwi.ui.R.id.tv_cyjd;
-import static com.umiwi.ui.R.id.tv_jdrj;
-import static com.umiwi.ui.R.id.tv_ny;
-import static com.umiwi.ui.R.id.tv_qc;
-import static com.umiwi.ui.R.id.tv_wlw;
-import static com.umiwi.ui.R.id.tv_xwcb;
-import static com.umiwi.ui.R.id.tv_xxjs;
-
 /**
  * Created by LvDabing on 2017/2/16.
  * Email：lvdabing@lvshandian.com
  * Detail:音频
  */
-
 public class AudioFragment extends BaseConstantFragment {
 
     private TextView tv_all_one,tv_all_two,tv_all_three,tv_new,tv_host,tv_good,tv_free,
-            tv_pay,tv_cy,tv_zc,tv_my,tv_ly,tv_jk,tv_qc,
-            tv_xwcb,tv_xxjs,tv_cyjd,tv_jdrj,tv_wlw,tv_ny;
+            tv_pay;
 
     private ListView listView;
     private LoadingFooter mLoadingFooter;
@@ -60,6 +60,11 @@ public class AudioFragment extends BaseConstantFragment {
 
     private String price = "";//free-免费，charge-收费
     private String orderby = "ctime";//ctime-最新，watchnum-最热,usefulnum-好评
+    private String  tutoruid = "";
+    private String  catid = "";
+
+    private GridView gv_one;
+    private GridView gv_two;
 
     @Nullable
     @Override
@@ -67,173 +72,73 @@ public class AudioFragment extends BaseConstantFragment {
         View view = inflater.inflate(R.layout.fragment_audio_layout, null);
 
         initView(view);
+        getData();
         return view;
     }
 
+    private ArrayList<VideoHeadBean.InfoBean> oneList;
+    private ArrayList<VideoHeadBean.SubtreeBean> twoList;
+    private List<VideoHeadBean.SubtreeBean> subtree;//二级数据
+    private void getData(){
+        String URL= UmiwiAPI.audio_head;
+        OkHttpUtils.get().url(URL).build().execute(new CustomStringCallBack() {
+
+            @Override
+            public void onFaild() {
+            }
+
+            @Override
+            public void onSucess(String data) {
+                Log.e("TAG---",data);
+                try {
+                    JSONArray jsonArray = new JSONArray(data);
+                    oneList = new ArrayList();
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject temp = (JSONObject)jsonArray.get(i);
+                        VideoHeadBean videoHeadBean = new Gson().fromJson(temp.toString(), VideoHeadBean.class);
+                        oneList.add(i,videoHeadBean.getInfo());
+                        subtree = videoHeadBean.getSubtree();
+                        Log.e("TAG",videoHeadBean.getInfo().getName());
+                    }
+                    Log.e("TAG",oneList.size()+"");
+                    final AudioFragment.OneAdapter oneAdapter = new AudioFragment.OneAdapter(getActivity(),oneList);
+                    gv_one.setAdapter(oneAdapter);
+                    gv_one.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            oneAdapter.setSeclection(position);
+                            oneAdapter.notifyDataSetChanged();
+                            tv_all_one.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
+
+                            catid = oneList.get(position).getId();
+                            onLoadData(1);
+                        }
+                    });
+
+                    final TwoAdapter twoAdapter = new AudioFragment.TwoAdapter(getActivity(),subtree);
+                    gv_two.setAdapter(twoAdapter);
+                    gv_two.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            twoAdapter.setSeclection(position);
+                            twoAdapter.notifyDataSetChanged();
+                            tv_all_two.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
+
+                            catid = subtree.get(position).getId();
+                            onLoadData(1);
+                        }
+                    });
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
     private void initView(View view) {
-        tv_qc = (TextView) view.findViewById(R.id.tv_qc);
-        tv_qc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                tv_qc.setTextColor(getActivity().getResources().getColor(R.color.umiwi_orange));
-                tv_xwcb.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_xxjs.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_cyjd.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_jdrj.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_wlw.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_ny.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_all_two.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-            }
-        });
-        tv_ny = (TextView) view.findViewById(R.id.tv_ny);
-        tv_ny.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                tv_qc.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_xwcb.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_xxjs.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_cyjd.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_jdrj.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_wlw.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_ny.setTextColor(getActivity().getResources().getColor(R.color.umiwi_orange));
-                tv_all_two.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-            }
-        });
-        tv_wlw = (TextView) view.findViewById(R.id.tv_wlw);
-        tv_wlw.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                tv_qc.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_xwcb.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_xxjs.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_cyjd.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_jdrj.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_wlw.setTextColor(getActivity().getResources().getColor(R.color.umiwi_orange));
-                tv_ny.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_all_two.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-            }
-        });
-        tv_jdrj = (TextView) view.findViewById(R.id.tv_jdrj);
-        tv_jdrj.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                tv_qc.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_xwcb.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_xxjs.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_cyjd.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_jdrj.setTextColor(getActivity().getResources().getColor(R.color.umiwi_orange));
-                tv_wlw.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_ny.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_all_two.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-            }
-        });
-
-        tv_xwcb = (TextView) view.findViewById(R.id.tv_xwcb);
-        tv_xwcb.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                tv_qc.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_xwcb.setTextColor(getActivity().getResources().getColor(R.color.umiwi_orange));
-                tv_xxjs.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_cyjd.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_jdrj.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_wlw.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_ny.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_all_two.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-
-            }
-        });
-        tv_xxjs = (TextView) view.findViewById(R.id.tv_xxjs);
-        tv_xxjs.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                tv_qc.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_xwcb.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_xxjs.setTextColor(getActivity().getResources().getColor(R.color.umiwi_orange));
-                tv_cyjd.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_jdrj.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_wlw.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_ny.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_all_two.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-
-            }
-        });
-        tv_cyjd = (TextView) view.findViewById(R.id.tv_cyjd);
-        tv_cyjd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                tv_qc.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_xwcb.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_xxjs.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_cyjd.setTextColor(getActivity().getResources().getColor(R.color.umiwi_orange));
-                tv_jdrj.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_wlw.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_ny.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_all_two.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-            }
-        });
-
-        tv_cy = (TextView) view.findViewById(R.id.tv_cy);
-        tv_cy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                tv_cy.setTextColor(getActivity().getResources().getColor(R.color.umiwi_orange));
-                tv_zc.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_my.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_ly.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_jk.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_all_one.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-            }
-        });
-        tv_zc = (TextView) view.findViewById(R.id.tv_zc);
-        tv_zc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                tv_cy.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_zc.setTextColor(getActivity().getResources().getColor(R.color.umiwi_orange));
-                tv_my.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_ly.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_jk.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_all_one.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-            }
-        });
-        tv_my = (TextView) view.findViewById(R.id.tv_my);
-        tv_my.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                tv_cy.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_zc.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_my.setTextColor(getActivity().getResources().getColor(R.color.umiwi_orange));
-                tv_ly.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_jk.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_all_one.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-            }
-        });
-        tv_ly = (TextView) view.findViewById(R.id.tv_ly);
-        tv_ly.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                tv_cy.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_zc.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_my.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_ly.setTextColor(getActivity().getResources().getColor(R.color.umiwi_orange));
-                tv_jk.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_all_one.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-            }
-        });
-        tv_jk = (TextView) view.findViewById(R.id.tv_jk);
-        tv_jk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                tv_cy.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_zc.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_my.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_ly.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_jk.setTextColor(getActivity().getResources().getColor(R.color.umiwi_orange));
-                tv_all_one.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-            }
-        });
-
+        gv_one = (GridView) view.findViewById(R.id.gv_one);
+        gv_two = (GridView) view.findViewById(R.id.gv_two);
 
         //最新
         tv_new = (TextView) view.findViewById(R.id.tv_new);
@@ -317,31 +222,36 @@ public class AudioFragment extends BaseConstantFragment {
         tv_all_one.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tv_cy.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_zc.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_my.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_ly.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_jk.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
+                int childCount = gv_one.getChildCount();
+                Log.e("MZX",childCount+"");
+                for (int i = 0; i < childCount; i++) {
+                    TextView textView = (TextView) gv_one.getChildAt(i).findViewById(R.id.textview);
+                    textView.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
+                }
                 tv_all_one.setTextColor(getActivity().getResources().getColor(R.color.umiwi_orange));
+                catid = "";
+                onLoadData(1);
             }
         });
+
 
         tv_all_two = (TextView) view.findViewById(R.id.tv_all_two);
         tv_all_two.setTextColor(getActivity().getResources().getColor(R.color.umiwi_orange));
         tv_all_two.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                int childCount = gv_two.getChildCount();
+                Log.e("MZX",childCount+"");
+                for (int i = 0; i < childCount; i++) {
+                    TextView textView = (TextView) gv_two.getChildAt(i).findViewById(R.id.textview);
+                    textView.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
+                }
                 tv_all_two.setTextColor(getActivity().getResources().getColor(R.color.umiwi_orange));
-
-                tv_qc.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_xwcb.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_xxjs.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_cyjd.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_jdrj.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_wlw.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
-                tv_ny.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
+                catid = "";
+                onLoadData(1);
             }
         });
+
 
         listView = (ListView) view.findViewById(R.id.listView);
         listView = (ListView) view.findViewById(R.id.listView);
@@ -361,13 +271,16 @@ public class AudioFragment extends BaseConstantFragment {
         mScrollLoader.onLoadFirstPage();
     }
 
-    public void onLoadData(int page) {
+    public void onLoadData(final int page) {
         String url = UmiwiAPI.Login_Audio+"?p="+page;
         if(price != null && price != ""){
             url += "&price="+price;
         }
         if(orderby != null && orderby != ""){
             url += "&orderby="+orderby;
+        }
+        if(catid != null && catid != ""){
+            url += "&catid="+catid;
         }
 
         Log.e("MZX",url);
@@ -393,12 +306,12 @@ public class AudioFragment extends BaseConstantFragment {
                     return;
                 }
 
+                mScrollLoader.setPage(pagebean.getCurrentpage());
+                mScrollLoader.setloading(false);
+
                 if(pagebean.getCurrentpage() == 1){
                     mList.clear();
                 }
-
-                mScrollLoader.setPage(pagebean.getCurrentpage());
-                mScrollLoader.setloading(false);
 
                 if (mList == null) {
                     mList = audioBean.getRecord();
@@ -406,11 +319,155 @@ public class AudioFragment extends BaseConstantFragment {
                     mList.addAll(audioBean.getRecord());
                 }
 
-                listView.setAdapter(new AudioAdapter(getActivity(), mList));
-//                mLoadingFooter.setState(LoadingFooter.State.TheEndHint);
+                AudioAdapter audioAdapter = new AudioAdapter(getActivity(), mList);
+                if(page == 1){
+                    listView.setAdapter(audioAdapter);
+                }else{
+                    audioAdapter.notifyDataSetChanged();
+                }
             }
         });
     }
+
+    private class OneAdapter extends BaseAdapter {
+        private FragmentActivity activity;
+        private  ArrayList<VideoHeadBean.InfoBean> headList;
+
+        private int clickTemp = -1;//标识被选择的item
+        private int[] clickedList;//这个数组用来存放item的点击状态
+
+        public OneAdapter(FragmentActivity activity, ArrayList<VideoHeadBean.InfoBean> oneList) {
+            this.activity = activity;
+            this.headList = oneList;
+            clickedList=new int[headList.size()];
+            for (int i =0;i<headList.size();i++){
+                clickedList[i]=0;      //初始化item点击状态的数组
+            }
+        }
+
+        public void setSeclection(int posiTion) {
+            clickTemp = posiTion;
+        }
+
+        @Override
+        public int getCount() {
+            return headList.size();
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return headList.get(i);
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return i;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            AudioFragment.OneAdapter.ViewHoler viewHoler;
+            if(convertView == null){
+                viewHoler = new AudioFragment.OneAdapter.ViewHoler();
+                convertView = View.inflate(activity, R.layout.one_item,null);
+
+                viewHoler.textview = (TextView) convertView. findViewById(R.id.textview);
+
+                convertView.setTag(viewHoler);
+            }else{
+                viewHoler = (AudioFragment.OneAdapter.ViewHoler) convertView.getTag();
+            }
+
+            if(clickTemp==position){    //根据点击的Item当前状态设置背景
+                if (clickedList[position]==0){
+                    viewHoler.textview.setTextColor(getActivity().getResources().getColor(R.color.umiwi_orange));
+//                    tv_all_one.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
+
+                    for (int i = 0; i <headList.size() ; i++) {
+                        clickedList[position]=0;
+                    }
+                }
+            }else{
+                viewHoler.textview.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
+            }
+
+            viewHoler.textview.setText(headList.get(position).getName());
+            return convertView;
+        }
+
+        class ViewHoler{
+            private TextView textview;
+        }
+    }
+
+    private class TwoAdapter extends BaseAdapter {
+        private int clickTemp = -1;//标识被选择的item
+        private int[] clickedList;//这个数组用来存放item的点击状态
+
+        private  FragmentActivity activity;
+        private  List<VideoHeadBean.SubtreeBean> headList;
+
+        public TwoAdapter(FragmentActivity activity, List<VideoHeadBean.SubtreeBean> oneList) {
+            this.activity = activity;
+            this.headList = oneList;
+            clickedList=new int[headList.size()];
+            for (int i =0;i<headList.size();i++){
+                clickedList[i]=0;      //初始化item点击状态的数组
+            }
+        }
+
+        public void setSeclection(int posiTion) {
+            clickTemp = posiTion;
+        }
+
+        @Override
+        public int getCount() {
+            return headList.size();
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return headList.get(i);
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return i;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            AudioFragment.TwoAdapter.ViewHoler viewHoler;
+            if(convertView == null){
+                viewHoler = new AudioFragment.TwoAdapter.ViewHoler();
+                convertView = View.inflate(activity, R.layout.one_item,null);
+                viewHoler.textview = (TextView) convertView. findViewById(R.id.textview);
+                convertView.setTag(viewHoler);
+            }else{
+                viewHoler = (AudioFragment.TwoAdapter.ViewHoler) convertView.getTag();
+            }
+
+            if(clickTemp==position){    //根据点击的Item当前状态设置背景
+                if (clickedList[position]==0){
+                    viewHoler.textview.setTextColor(getActivity().getResources().getColor(R.color.umiwi_orange));
+
+                    for (int i = 0; i <headList.size() ; i++) {
+                        clickedList[position]=0;
+                    }
+                }
+            }else{
+                viewHoler.textview.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
+            }
+
+            viewHoler.textview.setText(headList.get(position).getName());
+            return convertView;
+        }
+
+        class ViewHoler{
+            private TextView textview;
+        }
+    }
+
 }
 
 

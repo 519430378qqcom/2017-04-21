@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,10 @@ import com.umiwi.ui.fragment.home.updatehome.indexfragment.ExpertFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.OldYoumiFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.RecommendFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.VideoFragment;
+import com.umiwi.ui.main.CustomStringCallBack;
+import com.umiwi.ui.main.UmiwiAPI;
+import com.zhy.http.okhttp.OkHttpUtils;
+
 import java.util.ArrayList;
 import cn.youmi.framework.fragment.BaseFragment;
 

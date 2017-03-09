@@ -32,6 +32,7 @@ import com.umiwi.ui.fragment.mine.RecordFragment;
 import com.umiwi.ui.fragment.pay.PayRechargeFragment;
 import com.umiwi.ui.fragment.setting.FeedbackFragment;
 import com.umiwi.ui.fragment.setting.SettingFragment;
+import com.umiwi.ui.fragment.user.UserSettingFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.managers.NoticeManager;
@@ -49,6 +50,7 @@ import cn.youmi.framework.util.ImageLoader;
 import cn.youmi.framework.view.CircleImageView;
 
 import static com.umiwi.ui.R.id.myinfo_tv_info;
+import static com.umiwi.ui.R.id.user_photo_iv_login;
 
 /**
  * Created by Administrator on 2017/3/3.
@@ -219,6 +221,15 @@ public class NewMineFragment extends BaseConstantFragment implements ActivityCom
 
     private void configUserItme(View view) {
         user_photo = (CircleImageView) view.findViewById(R.id.user_photo_iv_login);//头像
+        user_photo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), UmiwiContainerActivity.class);
+                i.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, UserSettingFragment.class);
+                startActivity(i);
+            }
+        });
+
         user_name = (TextView) view.findViewById(R.id.tv_user_name);//用户名
         user_time = (TextView) view.findViewById(R.id.tv_time);//学习事件
         user_answer = (TextView) view.findViewById(R.id.tv_answer);//提问
@@ -272,7 +283,6 @@ public class NewMineFragment extends BaseConstantFragment implements ActivityCom
 //                }
 //            }
 
-        } else {
         }
     }
 

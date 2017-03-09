@@ -2,11 +2,13 @@ package com.umiwi.ui.fragment.home.updatehome.indexfragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 
 import com.google.gson.Gson;
@@ -49,6 +51,7 @@ import static android.R.attr.data;
 import static com.umiwi.ui.R.id.listView;
 import static com.umiwi.ui.R.id.lv_expert_dwon_answer;
 import static u.aly.x.S;
+import static u.aly.x.V;
 
 /**
  * Created by Administrator on 2017/3/3.
@@ -60,7 +63,7 @@ public class AnsweredFragment extends BaseConstantFragment {
     private ListView lv_answer_answered;
     private String url;
     private String p = "1";
-    private ArrayList mList;
+    private ArrayList mList = new ArrayList();
     private String  answerstate = "2";
 
     @Nullable
@@ -78,7 +81,7 @@ public class AnsweredFragment extends BaseConstantFragment {
 
     private void getData() {
         mList = new ArrayList();
-        url = UmiwiAPI.Mine_Answer;
+        url = UmiwiAPI.Mine_Answer+"?answerstate=1";
 
         OkHttpUtils.get().url(url).build().execute(new CustomStringCallBack() {
             @Override
@@ -95,5 +98,54 @@ public class AnsweredFragment extends BaseConstantFragment {
 
     private void initView(View view) {
         lv_answer_answered = (ListView) view.findViewById(R.id.lv_answer_answered);
+        lv_answer_answered.setAdapter(new AnsweredAdapter(getActivity(),mList));
+    }
+
+    public class AnsweredAdapter extends BaseAdapter{
+
+        private ArrayList mList;
+        private FragmentActivity activity;
+
+        public AnsweredAdapter(FragmentActivity activity, ArrayList mList) {
+            this.activity = activity;
+            this.mList = mList;
+        }
+
+        @Override
+        public int getCount() {
+            return 2;
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup viewGroup) {
+            ViewHolder viewHolder;
+            if(convertView == null){
+                viewHolder = new ViewHolder();
+                convertView = View.inflate(activity, R.layout.answered_item, null);
+
+
+
+                convertView.setTag(viewHolder);
+            }else{
+                viewHolder = (ViewHolder) convertView.getTag();
+            }
+
+
+            return convertView;
+        }
+
+        class ViewHolder{
+
+        }
     }
 }
