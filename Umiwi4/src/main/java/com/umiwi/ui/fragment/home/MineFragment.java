@@ -154,6 +154,8 @@ public class MineFragment extends BaseConstantFragment implements ActivityCompat
                     case 10:// 我的笔记
 
 
+
+
                         i.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, MyNoteFragment.class);
                         break;
 //				case 7:
