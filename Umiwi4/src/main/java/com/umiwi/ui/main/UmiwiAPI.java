@@ -144,7 +144,10 @@ public final class UmiwiAPI {
      * 首页推荐
      */
     public static final String VIDEO_TUIJIAN = "http://v.youmi.cn/api8/index ";
-
+    /**
+     * 更多行家回答
+     */
+    public static final String VIDEO_MORE_ASK = "http://i.v.youmi.cn/api8/questionmore";
     //================================抽屉模块===================================//
 
     /**
@@ -415,9 +418,6 @@ public final class UmiwiAPI {
 
     //试读页面
     public static final String Logincal_thinking = "http://i.v.youmi.cn/api8/tutorcolumn/detailpurchasedApi";
-
-    public static final String video_head = "http://i.v.youmi.cn/api8/tagTreeApi?from=video";
-    public static final String audio_head = "http://i.v.youmi.cn/api8/tagTreeApi?from=audio";
 
 
 

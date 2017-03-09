@@ -204,7 +204,7 @@ public class RecommendFragment extends BaseConstantFragment {
 //            Log.e("TAG", "t=" + t.getR().getSec_free_title().toString());
             if (null != t) {
 
-                flv_new_free.setData(t.getR().getFree().getRecord(), t.getR().getSec_free_title(), t.getR().getSec_free_huan());
+                flv_new_free.setData(t.getR().getFree(), t.getR().getSec_free_title(), t.getR().getSec_free_huan(),t.getR().getSec_free_huanurl());
                 Log.e("TAG", "t=" + t.getR().getSec_free_title().toString());
                 erl_expert_rec.setData(t.getR().getTutor(), t.getR().getSec_tutor_title(), t.getR().getSec_tutor_more());
                 lalv_action_line.setData(t.getR().getHuodong(), t.getR().getSec_huodong_title());
