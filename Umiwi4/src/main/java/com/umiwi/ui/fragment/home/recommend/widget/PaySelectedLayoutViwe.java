@@ -173,6 +173,8 @@ public class PaySelectedLayoutViwe extends LinearLayout {
             view.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+
                     Log.e("TAG", "付费音频=" + datas.get(finalI));
                 }
             });
