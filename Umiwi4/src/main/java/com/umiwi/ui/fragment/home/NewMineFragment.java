@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -73,6 +74,7 @@ public class NewMineFragment extends BaseConstantFragment implements ActivityCom
     private TextView user_answer;
     private TextView user_study_time;
     private String balance;
+    private ImageView user_grade;
 
 
     @Nullable
@@ -81,7 +83,9 @@ public class NewMineFragment extends BaseConstantFragment implements ActivityCom
         View view = inflater.inflate(R.layout.fragment_home_mine_new, null);
 
         imageLoader = new ImageLoader(getActivity());
-
+        TextView title = (TextView) view.findViewById(R.id.title);
+        title.setText("我的");
+        mActionBarToolbar = (Toolbar) view.findViewById(R.id.toolbar_actionbar);
         mListView = (ListView) view.findViewById(R.id.listView);
         setMineList();
 
@@ -93,6 +97,9 @@ public class NewMineFragment extends BaseConstantFragment implements ActivityCom
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
                 switch (i){
+                    case 0:
+                        intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, UserSettingFragment.class);
+                        break;
                     case 2://意见
                         intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, FeedbackFragment.class);
                         break;
@@ -112,7 +119,7 @@ public class NewMineFragment extends BaseConstantFragment implements ActivityCom
                         intent.putExtra(WebFragment.WEB_URL, UmiwiAPI.WEEK_REPORT);
                         break;
                     case 10://我答
-                        intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, MyAnswerFragment.class);
+//                        intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, MyAnswerFragment.class);
                         break;
                     case 11://下载
                         intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, DownloadedListFragment.class);
@@ -220,36 +227,22 @@ public class NewMineFragment extends BaseConstantFragment implements ActivityCom
     };
 
     private void configUserItme(View view) {
-        user_photo = (CircleImageView) view.findViewById(R.id.user_photo_iv_login);//头像
-        user_photo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getActivity(), UmiwiContainerActivity.class);
-                i.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, UserSettingFragment.class);
-                startActivity(i);
-            }
-        });
-
-        user_name = (TextView) view.findViewById(R.id.tv_user_name);//用户名
-        user_time = (TextView) view.findViewById(R.id.tv_time);//学习事件
-        user_answer = (TextView) view.findViewById(R.id.tv_answer);//提问
-        user_study_time = (TextView) view.findViewById(R.id.tv_study_time);//连续学习时间
+        user_photo = (CircleImageView) view.findViewById(R.id.user_photo_iv);
+        user_name = (TextView) view.findViewById(R.id.user_name_tv);
+        user_time = (TextView) view.findViewById(R.id.user_time_tv);
+        user_grade = (ImageView) view.findViewById(R.id.user_grade_image_iv);
 
         if (YoumiRoomUserManager.getInstance().isLogin()) {
             UserModel mUser = YoumiRoomUserManager.getInstance().getUser();
-
             String username = mUser.getUsername();
             String useridentity = mUser.getIdentity();
             String userphoto = mUser.getAvatar();
             String usergrade = mUser.getGrade();
             String usertime = mUser.getIdentity_expire();
-            balance = mUser.getBalance();
-
-            Log.e("TAG", mUser.toString());
 
             // 加载用户名
             user_name.setText(username);
-            imageLoader.loadImage(userphoto, user_photo, R.drawable.fragment_mine_login_no);
+            imageLoader.loadImage(userphoto, user_photo, R.drawable.fragment_mine_photo);
             // 加载会员有效期
             if (!TextUtils.isEmpty(usertime)) {
                 user_time.setVisibility(View.VISIBLE);
@@ -259,32 +252,41 @@ public class NewMineFragment extends BaseConstantFragment implements ActivityCom
                     user_time.setText("会员有效期至： " + usertime);
                 }
             } else {
-//                user_time.setVisibility(View.INVISIBLE);
+                user_time.setVisibility(View.INVISIBLE);
             }
-//            if (!"".equals(usergrade) && !"".equals(useridentity)) {
-//                user_grade.setVisibility(View.VISIBLE);
-//
-//                switch (Integer.parseInt(useridentity)) {
-//                    case 1:// 普通未续费会员
-//                        user_grade.setVisibility(View.GONE);
-//                        break;
-//                    case 23:// 钻石会员
-//                        user_grade.setImageResource(R.drawable.mine_user_diamond);
-//                        break;
-//                    case 20:// 白银会员
-//                        user_grade.setImageResource(R.drawable.mine_user_silvery);
-//                        break;
-//                    case 22:// 黄金会员
-//                        user_grade.setImageResource(R.drawable.mine_user_gold);
-//                        break;
-//                    case 24:// 皇冠会员
-//                        user_grade.setImageResource(R.drawable.mine_user_crown);
-//                        break;
-//                }
-//            }
+            if (!"".equals(usergrade) && !"".equals(useridentity)) {
+                user_grade.setVisibility(View.VISIBLE);
+
+                switch (Integer.parseInt(useridentity)) {
+                    case 1:// 普通未续费会员
+                        user_grade.setVisibility(View.GONE);
+                        break;
+                    case 23:// 钻石会员
+                        user_grade.setImageResource(R.drawable.mine_user_diamond);
+                        break;
+                    case 20:// 白银会员
+                        user_grade.setImageResource(R.drawable.mine_user_silvery);
+                        break;
+                    case 22:// 黄金会员
+                        user_grade.setImageResource(R.drawable.mine_user_gold);
+                        break;
+                    case 24:// 皇冠会员
+                        user_grade.setImageResource(R.drawable.mine_user_crown);
+                        break;
+                }
+            }
+
+        } else {
+            user_photo.setImageResource(R.drawable.fragment_mine_photo);
+            user_grade.setVisibility(View.GONE);
+            user_name.setText(getString(R.string.home_mine_user_name));
+            user_time.setText(getString(R.string.home_mine_user_time));
+            user_time.setVisibility(View.VISIBLE);
 
         }
     }
+
+
 
     public void updateShowView() {
         setMineList();
@@ -415,12 +417,8 @@ public class NewMineFragment extends BaseConstantFragment implements ActivityCom
 
             switch (getItemViewType(position)){
                 case ITEM_TYPE_USER:
-                    if(YoumiRoomUserManager.getInstance().isLogin()){
-                        convertView = inflater.inflate(R.layout.item_user_info, null);
-                        configUserItme(convertView);
-                    }else{
-                        convertView = inflater.inflate(R.layout.user_header, null);
-                    }
+                    convertView = inflater.inflate(R.layout.item_myinfo_user, null);
+                    configUserItme(convertView);
                     break;
                 case ITEM_TYPE_LIST:
                     NewMineFragment.MineItem categoryItem = mlist.get(position-1);

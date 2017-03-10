@@ -1,5 +1,6 @@
 package com.umiwi.ui.fragment.home.updatehome.indexfragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -10,12 +11,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import com.umiwi.ui.R;
+import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.ExperDetailsVideoAdapter;
 import com.umiwi.ui.beans.ActivityItemBean;
 import com.umiwi.ui.beans.VoiceBean;
 import com.umiwi.ui.beans.updatebeans.VideoBean;
+import com.umiwi.ui.fragment.course.CourseDetailPlayFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.CustomStringCallBack;
+import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.util.JsonUtil;
 import com.umiwi.ui.view.NoScrollListview;
 import com.umiwi.ui.view.TopFloatScrollView;
@@ -39,7 +43,6 @@ public class ExperDetailsVideoFragment extends BaseConstantFragment {
     private boolean stopThread = false;
     private Handler handler;
     private Runnable runnable;
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -62,6 +65,15 @@ public class ExperDetailsVideoFragment extends BaseConstantFragment {
         });
         getInfos();
         handler = new Handler();
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
+                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, CourseDetailPlayFragment.class);
+                intent.putExtra(CourseDetailPlayFragment.KEY_DETAIURL,UmiwiAPI.VODEI_URL+videoInfos.get(i).getId());
+                getActivity().startActivity(intent);
+            }
+        });
         return view;
     }
 

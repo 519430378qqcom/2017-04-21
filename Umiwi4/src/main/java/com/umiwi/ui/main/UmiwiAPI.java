@@ -421,6 +421,11 @@ public final class UmiwiAPI {
     public static final String QUESTION_LIST = "http://i.v.youmi.cn/api8/questionlist";
     public static final String NAMED_QUESTIONA = "http://i.v.youmi.cn/question/namedquestionApi";
 
+    public static final String VODEI_URL = "http://i.v.youmi.cn/ClientApi/getAlbumDetail?id=";
+
+
+
+
     /////////////========================================优雅的分割线 历史接口=================================================////////////
 //    /** 我的课程未登录默认九宫 */
 //	public static final String VIDEO_DEFAULT_IN_HOME = "http://api.v.youmi.cn/ClientApi/memberindex";

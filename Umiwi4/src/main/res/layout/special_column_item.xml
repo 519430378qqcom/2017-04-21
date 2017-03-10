@@ -9,12 +9,6 @@
         android:layout_height="wrap_content"
         android:padding="15dp">
 
-        <ImageView
-            android:id="@+id/special_header_imageview_1"
-            android:layout_width="110dp"
-            android:layout_height="150dp"
-            android:scaleType="fitXY"/>
-
         <RelativeLayout
             android:id="@+id/special_right_layout_1"
             android:layout_width="wrap_content"
@@ -116,6 +110,14 @@
 
         </LinearLayout>
 
+        <ImageView
+            android:id="@+id/special_header_imageview_1"
+            android:layout_width="110dp"
+            android:layout_height="150dp"
+            android:scaleType="fitXY"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
 
     </RelativeLayout>

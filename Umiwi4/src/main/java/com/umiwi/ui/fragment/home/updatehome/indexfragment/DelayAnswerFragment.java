@@ -62,9 +62,11 @@ public class DelayAnswerFragment extends BaseFragment {
         String cookie = YoumiRoomUserManager.getInstance().getUser().getCookie();
 
 //        if ()
-        OkHttpUtils.get().url(UmiwiAPI.Mine_Answer).addParams("p", page + "").addParams("answerstate", "1").build().execute(new CustomStringCallBack() {
+
+        OkHttpUtils.get().url(UmiwiAPI.Mine_Answer).addParams("p",page +"").addParams("answerstate","1").build().execute(new CustomStringCallBack() {
             @Override
             public void onFaild() {
+
             }
 
             @Override

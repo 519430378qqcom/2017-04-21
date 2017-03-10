@@ -54,7 +54,7 @@ public class RecordVoiceFragment extends BaseConstantFragment implements View.On
     TextView tvLuyin;
     private boolean isRecord = true;
     private AudioManager audioManager;
-   private Timer timer = new Timer();
+    private Timer timer = new Timer();
     private int recLen = 0;
     @Nullable
     @Override
@@ -98,7 +98,6 @@ public class RecordVoiceFragment extends BaseConstantFragment implements View.On
                 public void wellPrepared() {
                     tvLuyin.setText("录音中，点击停止录音");
                     timer.schedule(task, 1000, 1000);
-
                 }
             });
         }
@@ -174,6 +173,7 @@ public class RecordVoiceFragment extends BaseConstantFragment implements View.On
                 recordLenght.setTextColor(getResources().getColor(R.color.gray_a));
                 break;
             case R.id.commit:  // 提交
+
                 break;
         }
     }

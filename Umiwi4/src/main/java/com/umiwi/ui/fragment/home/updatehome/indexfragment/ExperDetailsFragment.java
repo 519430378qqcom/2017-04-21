@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.beans.ExperDetailsBean;
+import com.umiwi.ui.dialog.updatedialog.NewShareDialog;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.CustomStringCallBack;
 import com.umiwi.ui.main.UmiwiAPI;
@@ -68,6 +69,7 @@ public class ExperDetailsFragment extends BaseConstantFragment {
     private LinearLayout yuedu;
     private TextView question;
     private String uid1;
+    private ExperDetailsBean.ShareBean share;
 
     public static void setOnScrollListener(OnScrollListener listener) {
         mListener = listener;
@@ -145,6 +147,7 @@ public class ExperDetailsFragment extends BaseConstantFragment {
                 tutorimage = experDetailsBean.getTutorimage();
                 description = experDetailsBean.getDescription();
                 tutortitle = experDetailsBean.getTutortitle();
+                share = experDetailsBean.getShare();
                 String isopenask = experDetailsBean.getIsopenask();
                 uid1 = experDetailsBean.getUid();
                 if (isopenask.equals("1")){
@@ -197,6 +200,16 @@ public class ExperDetailsFragment extends BaseConstantFragment {
                 intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, AskQuestionFragment.class);
                 intent.putExtra("uid",uid1);
                 startActivity(intent);
+            }
+        });
+        iv_shared.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (share.getSharecontent()!=null&&share.getShareimg()!=null&& share.getSharetitle()!=null&&share.getShareurl()!=null){
+                    NewShareDialog.getInstance().showDialog(getActivity(), share.getSharetitle(),
+                            share.getSharecontent(),share.getShareurl(), share.getShareimg());
+                }
+
             }
         });
         yuedu = (LinearLayout) view.findViewById(R.id.yuedu);

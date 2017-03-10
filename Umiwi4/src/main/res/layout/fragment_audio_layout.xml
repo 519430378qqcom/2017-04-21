@@ -26,8 +26,8 @@
         <!--android:textColor="@drawable/text_color_selector"-->
 
         <TextView
-            android:layout_width="1dp"
-            android:layout_height="12dp"
+            android:layout_width="1px"
+            android:layout_height="6dp"
             android:layout_marginTop="3dp"
             android:background="@color/umiwi_gray_b" />
 
@@ -59,8 +59,8 @@
             android:text="全部" />
 
         <TextView
-            android:layout_width="1dp"
-            android:layout_height="12dp"
+            android:layout_width="1px"
+            android:layout_height="6dp"
             android:layout_marginTop="3dp"
             android:background="@color/umiwi_gray_b" />
 
@@ -84,14 +84,13 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginLeft="18dp"
+        android:layout_height="1px"
         android:background="@color/umiwi_gray_c" />
 
     <LinearLayout
-        android:layout_marginLeft="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
         android:orientation="horizontal">
 
         <TextView
@@ -105,8 +104,8 @@
             android:text="全部" />
 
         <TextView
-            android:layout_width="1dp"
-            android:layout_height="12dp"
+            android:layout_width="1px"
+            android:layout_height="6dp"
             android:layout_marginTop="3dp"
             android:background="@color/umiwi_gray_b" />
 
@@ -133,7 +132,7 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="18dp"
+        android:layout_height="6dp"
         android:background="@color/bg_gray" />
 
     <LinearLayout
@@ -175,8 +174,7 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginLeft="18dp"
+        android:layout_height="1px"
         android:background="@color/umiwi_gray_b" />
 
     <include layout="@layout/include_listview" />

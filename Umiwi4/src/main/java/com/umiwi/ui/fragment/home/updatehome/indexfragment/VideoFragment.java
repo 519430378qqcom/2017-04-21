@@ -211,12 +211,12 @@ public class VideoFragment extends BaseConstantFragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
+               /* Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
 //					intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, CourseDetailLayoutFragments.class);
 //					intent.putExtra(CourseDetailLayoutFragments.KEY_DETAIURL, listBeans.getDetailurl());
                 intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, CourseDetailPlayFragment.class);
 //                intent.putExtra(CourseDetailPlayFragment.KEY_DETAIURL, mList.get();
-                getActivity().startActivity(intent);
+                getActivity().startActivity(intent);*/
             }
         });
 

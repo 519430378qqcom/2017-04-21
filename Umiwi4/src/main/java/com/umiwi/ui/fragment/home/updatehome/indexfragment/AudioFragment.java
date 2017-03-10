@@ -259,7 +259,6 @@ public class AudioFragment extends BaseConstantFragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getActivity(), "2222", Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,10 +24,12 @@ import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.MineNoteListAdapter;
 import com.umiwi.ui.main.BaseConstantFragment;
+import com.umiwi.ui.main.CustomStringCallBack;
 import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.model.CourseListModel;
 import com.umiwi.ui.parsers.UmiwiListParser;
 import com.umiwi.ui.parsers.UmiwiListResult;
+import com.zhy.http.okhttp.OkHttpUtils;
 
 /**
  * 我的笔记
@@ -78,7 +82,6 @@ public class MyNoteFragment extends BaseConstantFragment {
 		});
 
 		mScrollLoader.onLoadFirstPage();
-
 		return view;
 	}
 

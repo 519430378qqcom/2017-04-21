@@ -121,11 +121,9 @@
         </LinearLayout>
     </LinearLayout>
 
-    <TextView
+    <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:layout_marginLeft="18dp"
-        android:layout_marginTop="4dp"
-        android:background="@color/color_divider" />
-
+        android:background="@color/line"
+        />
 </LinearLayout>

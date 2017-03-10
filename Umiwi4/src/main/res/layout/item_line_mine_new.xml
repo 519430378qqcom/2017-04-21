@@ -6,6 +6,6 @@
     <View
         android:background="@color/color_divider_two"
         android:layout_width="match_parent"
-        android:layout_height="12dip" />
+        android:layout_height="6dp" />
 
 </FrameLayout>

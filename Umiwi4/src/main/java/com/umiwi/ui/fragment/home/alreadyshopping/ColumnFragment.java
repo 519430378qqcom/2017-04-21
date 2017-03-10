@@ -70,7 +70,7 @@ public class ColumnFragment extends BaseConstantFragment {
                 Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
                 intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, ColumnDetailsFragment.class);//详情页
                 intent.putExtra("columnurl", mList.get(i).getColumnurl());
-                ;
+
                 startActivity(intent);
             }
         });

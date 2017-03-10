@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.umiwi.ui.view.ScrollViewExtend
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -58,17 +58,17 @@
 
                         <TextView
                             android:id="@+id/tv_name"
+                            android:textColor="@color/white"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="111111"
                             android:textSize="20sp" />
 
                         <TextView
                             android:id="@+id/tv_title"
+                            android:textColor="@color/white"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:text="22222"
                             android:textSize="12sp" />
                     </LinearLayout>
 
@@ -244,7 +244,7 @@
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-    </com.umiwi.ui.view.ScrollViewExtend>
+    </ScrollView>
 
     <LinearLayout
         android:id="@+id/yuedu"
