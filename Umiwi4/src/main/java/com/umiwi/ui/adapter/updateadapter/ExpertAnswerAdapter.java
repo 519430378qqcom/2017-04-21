@@ -2,6 +2,8 @@ package com.umiwi.ui.adapter.updateadapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +12,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.umiwi.ui.R;
+import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.beans.updatebeans.RecommendBean;
+import com.umiwi.ui.fragment.home.updatehome.indexfragment.AskQuestionFragment;
 import com.umiwi.ui.main.UmiwiApplication;
 
 import java.util.ArrayList;
@@ -63,12 +67,21 @@ public class ExpertAnswerAdapter extends BaseAdapter {
         } else {
             mViewHolder = (ViewHolder) convertView.getTag();
         }
-        RecommendBean.RBean.AsktutorBean asktutorBean = mList.get(position);
+        final RecommendBean.RBean.AsktutorBean asktutorBean = mList.get(position);
 
         mImageLoader.loadImage(asktutorBean.getThumb(), mViewHolder.iv_expert_answer_header, R.drawable.ic_launcher);
         mViewHolder.tv_expert_name.setText(asktutorBean.getName());
         mViewHolder.expert_job_textview.setText(asktutorBean.getTitle());
-
+        mViewHolder.tv_expert_put_questions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mActivity, UmiwiContainerActivity.class);
+                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, AskQuestionFragment.class);
+                intent.putExtra("uid",asktutorBean.getUid());
+                Log.e("TAG", "asktutorBean.getUid()=" + asktutorBean.getUid());
+                mActivity.startActivity(intent);
+            }
+        });
         return convertView;
     }
 
@@ -87,8 +100,10 @@ public class ExpertAnswerAdapter extends BaseAdapter {
             iv_expert_answer_header = (ImageView) rootView.findViewById(R.id.iv_expert_answer_header);
             tv_expert_name = (TextView) rootView.findViewById(R.id.tv_expert_name);
             expert_job_textview = (TextView) rootView.findViewById(R.id.expert_job_textview);
+            tv_expert_put_questions = (TextView) rootView.findViewById(R.id.tv_expert_put_questions);
             thumbtype = "2";
             uid = "0";
+
         }
     }
 }

@@ -61,6 +61,7 @@
                     android:textSize="15sp" />
 
                 <TextView
+                    android:clickable="true"
                     android:id="@+id/tv_expert_put_questions"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

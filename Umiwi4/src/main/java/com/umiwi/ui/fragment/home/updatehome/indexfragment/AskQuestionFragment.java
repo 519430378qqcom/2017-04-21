@@ -2,7 +2,6 @@ package com.umiwi.ui.fragment.home.updatehome.indexfragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextUtils;
@@ -12,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -21,7 +19,6 @@ import com.umiwi.ui.R;
 import com.umiwi.ui.adapter.updateadapter.AskQuestionAdapter;
 import com.umiwi.ui.beans.updatebeans.NamedQuestionBean;
 import com.umiwi.ui.beans.updatebeans.QuestionListBean;
-import com.umiwi.ui.beans.updatebeans.VideoBean;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.CustomStringCallBack;
 import com.umiwi.ui.main.UmiwiAPI;
@@ -30,7 +27,6 @@ import com.umiwi.ui.util.JsonUtil;
 import com.umiwi.ui.view.CircleImageView;
 import com.umiwi.ui.view.MonitorScrollView;
 import com.umiwi.ui.view.NoScrollListview;
-import com.umiwi.ui.view.TopFloatScrollView;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.ArrayList;
@@ -44,7 +40,7 @@ import cn.youmi.framework.util.ImageLoader;
  * Created by Administrator on 2017/3/8.
  */
 
-public class AskQuestionFragment extends BaseConstantFragment {
+public class AskQuestionFragment extends BaseConstantFragment implements View.OnClickListener {
 
     @InjectView(R.id.back)
     ImageView back;
@@ -114,6 +110,7 @@ public class AskQuestionFragment extends BaseConstantFragment {
                 }
             }
         });
+        back.setOnClickListener(this);
         return view;
     }
 
@@ -214,5 +211,14 @@ public class AskQuestionFragment extends BaseConstantFragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.reset(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.back :
+                getActivity().finish();
+                break;
+        }
     }
 }

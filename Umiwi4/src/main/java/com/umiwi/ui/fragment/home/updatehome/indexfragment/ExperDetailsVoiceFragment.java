@@ -15,13 +15,10 @@ import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.ExperDetailsVoiceAdapter;
 import com.umiwi.ui.beans.VoiceBean;
-import com.umiwi.ui.beans.updatebeans.VideoBean;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.CustomStringCallBack;
 import com.umiwi.ui.util.JsonUtil;
 import com.umiwi.ui.view.NoScrollListview;
-import com.umiwi.ui.view.TopFloatScrollView;
-import com.umiwi.video.control.PlayerController;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.ArrayList;
@@ -61,7 +58,7 @@ public class ExperDetailsVoiceFragment extends BaseConstantFragment {
                 String hrefurl = recordBean.getHrefurl();
                 Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
                 intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
-                intent.putExtra("herfurl",hrefurl);
+                intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL,hrefurl);
                 startActivity(intent);
             }
         });

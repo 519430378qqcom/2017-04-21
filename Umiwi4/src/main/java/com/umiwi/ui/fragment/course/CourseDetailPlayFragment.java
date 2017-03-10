@@ -13,6 +13,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Pair;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -169,6 +170,7 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
             return;
 
         detaiURL = getActivity().getIntent().getStringExtra(KEY_DETAIURL);
+        Log.e("TAG", "detailRUL==" + detaiURL);
         PlayerController.getInstance().initPlayerController(getActivity());
         PlayerController.getInstance().initNativeMediaPlayer();
         collectionDao = new CollectionDao();

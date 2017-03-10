@@ -26,6 +26,7 @@ dependencies {
 
     compile project(':ijkplayer-java')
     // compile 'tv.danmaku.ijk.media:ijkplayer-java:0.4.4'
+    testCompile 'junit:junit:4.12'
 }
 
 ext {

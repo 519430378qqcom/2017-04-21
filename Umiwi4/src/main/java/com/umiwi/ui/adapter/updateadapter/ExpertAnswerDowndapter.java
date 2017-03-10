@@ -2,6 +2,7 @@ package com.umiwi.ui.adapter.updateadapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.umiwi.ui.R;
+import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.beans.updatebeans.RecommendBean;
+import com.umiwi.ui.fragment.home.updatehome.indexfragment.AskQuestionFragment;
 import com.umiwi.ui.main.UmiwiApplication;
 import com.umiwi.ui.view.CircleImageView;
 
@@ -63,7 +66,7 @@ public class ExpertAnswerDowndapter extends BaseAdapter {
         }else{
             mViewHolder = (ViewHolder) convertView.getTag();
         }
-        RecommendBean.RBean.QuestionBean questionBean = mList.get(position);
+        final RecommendBean.RBean.QuestionBean questionBean = mList.get(position);
 
         mImageLoader.loadImage(questionBean.getTavatar(),mViewHolder.iv_expert_header,R.drawable.ic_launcher);
         mViewHolder.tv_expert_question.setText(questionBean.getTitle());
@@ -72,6 +75,20 @@ public class ExpertAnswerDowndapter extends BaseAdapter {
         mViewHolder.tv_time_limit_number.setText("听过 "+questionBean.getListennum()+"人");
         mViewHolder.tv_expert_question_name.setText(questionBean.getTname());
         mViewHolder.tv_expert_question_job.setText(questionBean.getTtitle());
+
+        mViewHolder.iv_expert_header.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Intent intent = new Intent (mActivity,UmiwiContainerActivity.class);
+//                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
+//                intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL,);
+//                mActivity.startActivity(intent);
+                Intent intent = new Intent(mActivity, UmiwiContainerActivity.class);
+                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, AskQuestionFragment.class);
+                intent.putExtra("uid",questionBean.getTuid());
+                mActivity.startActivity(intent);
+            }
+        });
         return convertView;
     }
     public class ViewHolder{

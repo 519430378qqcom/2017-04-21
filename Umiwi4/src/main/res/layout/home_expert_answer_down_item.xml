@@ -51,6 +51,7 @@
 
 
                 <TextView
+                    android:clickable="true"
                     android:id="@+id/time_limit_hear_textview_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

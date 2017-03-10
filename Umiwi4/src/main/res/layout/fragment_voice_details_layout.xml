@@ -16,10 +16,13 @@
                 android:id="@+id/iv_header"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+
                 android:scaleType="centerCrop"
                 android:src="@drawable/icon_umiwi" />
 
             <ImageView
+                android:padding="5dp"
+                android:clickable="true"
                 android:id="@+id/iv_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -40,6 +43,9 @@
                 android:layout_height="wrap_content"
                 android:maxHeight="1.5dp"
                 android:minHeight="1.5dp"
+                android:indeterminate="false"
+                android:max="100"
+                android:progress="0"
                 android:progressDrawable="@drawable/video_seekbar_img"
                 android:thumb="@drawable/video_player_seekbar_thumb" />
         </LinearLayout>
@@ -74,6 +80,7 @@
             android:orientation="horizontal">
 
             <ImageView
+                android:clickable="true"
                 android:id="@+id/last_voice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -81,12 +88,14 @@
                 android:src="@drawable/last_voice" />
 
             <ImageView
+                android:clickable="true"
                 android:id="@+id/start_player"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/start_player" />
+                android:background="@drawable/start_player" />
 
             <ImageView
+                android:clickable="true"
                 android:id="@+id/next_voice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -94,4 +103,5 @@
                 android:src="@drawable/next_voice" />
         </LinearLayout>
     </RelativeLayout>
+    <include layout="@layout/voice_detail_fragment_layout"/>
 </LinearLayout>

@@ -1,7 +1,9 @@
 package com.umiwi.ui.fragment.home.recommend.widget;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -9,7 +11,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.umiwi.ui.R;
+import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.beans.updatebeans.RecommendBean;
+import com.umiwi.ui.fragment.course.CourseDetailPlayFragment;
 import com.umiwi.ui.main.UmiwiApplication;
 
 import java.util.ArrayList;
@@ -61,6 +65,8 @@ public class PaySelectedLayoutViwe extends LinearLayout {
         iv_pay_video = (ImageView) findViewById(R.id.iv_pay_video);
         iv_pay_video_1 = (ImageView) findViewById(R.id.iv_pay_video_1);
 
+
+
         ll_pay_selected_root.setVisibility(GONE);
 
         mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
@@ -80,7 +86,7 @@ public class PaySelectedLayoutViwe extends LinearLayout {
     /**
      * 初始化音频，视频布局
      */
-    private void initView(ArrayList<RecommendBean.RBean.ChargeBean.RecordBeanX> datas) {
+    private void initView(final ArrayList<RecommendBean.RBean.ChargeBean.RecordBeanX> datas) {
 
         RecommendBean.RBean.ChargeBean.RecordBeanX recordBeanX;
 
@@ -96,19 +102,53 @@ public class PaySelectedLayoutViwe extends LinearLayout {
             tv_pay_video_tag_right.setText(recordBeanX.getPricetag());
             tv_pay_video_tag_left.setText(recordBeanX.getPlaytime());
             ll_pay_right_video.setVisibility(View.GONE);
+
+            //点击跳转
+            final RecommendBean.RBean.ChargeBean.RecordBeanX finalRecordBeanX = recordBeanX;
+            iv_pay_video.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
+                    intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, CourseDetailPlayFragment.class);
+                    intent.putExtra(CourseDetailPlayFragment.KEY_DETAIURL, finalRecordBeanX.getUrl());
+                    mContext.startActivity(intent);
+                }
+            });
         } else if (videoSize == 2) {
             /**左侧**/
             recordBeanX = datas.get(0);
             mImageLoader.loadImage(recordBeanX.getImage(), iv_pay_video, R.drawable.ic_launcher);
             tv_pay_video_tag_right.setText(recordBeanX.getPricetag());
             tv_pay_video_tag_left.setText(recordBeanX.getPlaytime());
+
             /**右侧**/
             ll_pay_right_video.setVisibility(View.VISIBLE);
             recordBeanX = datas.get(1);
             mImageLoader.loadImage(recordBeanX.getImage(), iv_pay_video_1, R.drawable.ic_launcher);
             tv_pay_video_tag_right_1.setText(recordBeanX.getPricetag());
             tv_pay_video_tag_left_1.setText(recordBeanX.getPlaytime());
+            //点击跳转
+            iv_pay_video.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
+                    intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, CourseDetailPlayFragment.class);
+                    intent.putExtra(CourseDetailPlayFragment.KEY_DETAIURL, datas.get(0).getUrl());
+                    mContext.startActivity(intent);
+                }
+            });
+            iv_pay_video_1.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
+                    intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, CourseDetailPlayFragment.class);
+                    intent.putExtra(CourseDetailPlayFragment.KEY_DETAIURL, datas.get(1).getUrl());
+                    mContext.startActivity(intent);
+                }
+            });
+
         }
+
         ll_pay_selected_audio.removeAllViews();
         /**音频**/
         for (int i = videoSize; i < datas.size(); i++) {
@@ -129,8 +169,16 @@ public class PaySelectedLayoutViwe extends LinearLayout {
             } else {
                 v_pay_selected_interval.setVisibility(VISIBLE);
             }
+            final int finalI = i;
+            view.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.e("TAG", "付费音频=" + datas.get(finalI));
+                }
+            });
 
             ll_pay_selected_audio.addView(view);
         }
+
     }
 }

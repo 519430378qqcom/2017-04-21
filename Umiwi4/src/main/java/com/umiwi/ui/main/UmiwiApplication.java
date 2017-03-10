@@ -21,7 +21,6 @@ import com.umiwi.video.services.VoiceService;
 import cn.youmi.account.manager.UserManager;
 import cn.youmi.framework.main.BaseApplication;
 import cn.youmi.framework.main.ConstantProvider;
-import cn.youmi.framework.main.ContextProvider;
 import cn.youmi.framework.util.AndroidSDK;
 import cn.youmi.framework.util.SharePreferenceUtil;
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
@@ -35,7 +34,7 @@ import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 public class UmiwiApplication extends BaseApplication implements ServiceConnection {
 
     private static Context sContext;
-    private static VoiceService.VoiceBinder mBinder;
+//    private static VoiceService.VoiceBinder mBinder;
 
     private Activity activity = null;
 
@@ -81,7 +80,7 @@ public class UmiwiApplication extends BaseApplication implements ServiceConnecti
         ConstantProvider.setInstance(YoumiConstantProvider.getInstance());
 
         sContext = getApplicationContext();
-        bindservice();
+//        bindservice();
 
 //		HttpDispatcher.getInstance().registerDispatcherObserver(observer);
 //		String version = Build.VERSION.RELEASE;
@@ -172,9 +171,9 @@ public class UmiwiApplication extends BaseApplication implements ServiceConnecti
     public Handler getUIHandler() {
         return handler;
     }
-    public VoiceService.VoiceBinder  getBinder(){
-         return mBinder;
-    }
+//    public VoiceService.VoiceBinder  getBinder(){
+//         return mBinder;
+//    }
     public void exitApp() {
         System.gc();
         MobclickAgent.onKillProcess(this);
@@ -183,7 +182,7 @@ public class UmiwiApplication extends BaseApplication implements ServiceConnecti
 
     @Override
     public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-        mBinder = (VoiceService.VoiceBinder) iBinder;
+//        mBinder = (VoiceService.VoiceBinder) iBinder;
 
     }
 

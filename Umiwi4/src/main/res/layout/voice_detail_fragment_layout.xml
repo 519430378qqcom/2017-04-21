@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/frame_bg">
+
+        <include layout="@layout/include_listview" />
+
+        <LinearLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/header_height"
+            android:layout_gravity="center"
+            android:background="@color/umiwi_gray_d"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/umiwi_white"
+                android:checkedButton="@+id/scroll_detail"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/scroll_detail"
+                    style="@style/bottombuttonstyle"
+                    android:text="详情"></RadioButton>
+                <RadioButton
+                    android:id="@+id/scroll_relate"
+                    style="@style/bottombuttonstyle"
+                    android:text="目录"></RadioButton>
+
+                <RadioButton
+                    android:id="@+id/scroll_teacher"
+                    style="@style/bottombuttonstyle"
+                    android:text="讲师"></RadioButton>
+
+
+                <RadioButton
+                    android:id="@+id/scroll_comment"
+                    style="@style/bottombuttonstyle"
+                    android:text="评论"></RadioButton>
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/bottom_bar_container"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/bottom_bar_height"
+            android:layout_alignParentBottom="true"
+            android:background="@color/umiwi_gray_f7"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/comment_button"
+                style="@style/sharebuttonstyle"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dip"
+                android:layout_weight="2"
+                android:drawableLeft="@drawable/selector_ic_comment"
+                android:drawablePadding="15dip"
+                android:text="@string/comment"
+                android:visibility="visible"></RadioButton>
+
+            <RadioButton
+                android:id="@+id/download_button"
+                style="@style/sharebuttonstyle"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/selector_ic_down"
+                android:visibility="visible"></RadioButton>
+
+            <RadioButton
+                android:id="@+id/fav_button"
+                style="@style/favbuttonstyle"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/selector_ic_fav"></RadioButton>
+
+            <RadioButton
+                android:id="@+id/share_radiobutton"
+                style="@style/sharebuttonstyle"
+                android:layout_marginRight="8dp"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/selector_ic_share"></RadioButton>
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

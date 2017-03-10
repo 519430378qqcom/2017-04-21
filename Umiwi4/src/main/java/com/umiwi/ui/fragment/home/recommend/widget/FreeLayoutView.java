@@ -10,7 +10,6 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
@@ -18,8 +17,7 @@ import com.umiwi.ui.adapter.updateadapter.NewfreeAdapterV2;
 import com.umiwi.ui.beans.updatebeans.FreeRecordBean;
 import com.umiwi.ui.beans.updatebeans.RecommendBean;
 import com.umiwi.ui.fragment.course.CourseDetailPlayFragment;
-import com.umiwi.ui.fragment.home.updatehome.NewHomeRecommendFragment;
-import com.umiwi.ui.main.UmiwiAPI;
+import com.umiwi.ui.fragment.home.updatehome.indexfragment.VoiceDetailsFragment;
 
 import java.util.ArrayList;
 
@@ -33,6 +31,7 @@ import cn.youmi.framework.http.parsers.GsonParser;
  */
 
 public class FreeLayoutView extends LinearLayout {
+
 
     private TextView title_type_textview, title_huan;
     private ListView lv_new_free;
@@ -99,7 +98,13 @@ public class FreeLayoutView extends LinearLayout {
                     mContext.startActivity(intent);
                 } else if (mList.get(position).getType().equals("audio")) {
                     //TODO
-                    Toast.makeText(mContext, "敬请期待", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(mContext, "敬请期待", Toast.LENGTH_SHORT).show();
+                    Log.e("TAG", "freeBean.get(po)=" + mList.get(position).getUrl());
+                    Intent intent = new Intent (mContext,UmiwiContainerActivity.class);
+                    intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
+                    intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL,mList.get(position).getUrl());
+                    mContext.startActivity(intent);
+//                    Toast.makeText(mContext, "敬请期待", Toast.LENGTH_SHORT).show();
 
                 }
             }
