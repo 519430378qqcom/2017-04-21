@@ -255,6 +255,7 @@ public class AskQuestionFragment extends BaseConstantFragment implements View.On
 
     /**
      * 获取提问的payurl
+     *
      * @param questionId 问题id
      */
     private void getOrderId(String questionId) {
@@ -283,6 +284,7 @@ public class AskQuestionFragment extends BaseConstantFragment implements View.On
 
     /**
      * 跳转到购买界面
+     *
      * @param payurl
      */
     public void questionBuyDialog(String payurl) {
