@@ -219,10 +219,11 @@
             android:background="@drawable/main_color_button_bg">
 
             <TextView
+                android:id="@+id/subscriber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="订阅：199元一年"
+                android:text="订阅：0元/年"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
         </RelativeLayout>

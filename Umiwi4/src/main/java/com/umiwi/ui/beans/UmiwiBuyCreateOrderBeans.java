@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by Administrator on 2017/3/10.
  */
 
-public class UmiwiBuyQuestionBeans extends BaseGsonBeans {
+public class UmiwiBuyCreateOrderBeans extends BaseGsonBeans {
     private static final long serialVersionUID = -497879362129406698L;
     @SerializedName("e")
     private String e;

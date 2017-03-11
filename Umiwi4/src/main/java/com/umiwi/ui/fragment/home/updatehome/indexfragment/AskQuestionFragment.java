@@ -3,7 +3,6 @@ package com.umiwi.ui.fragment.home.updatehome.indexfragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextUtils;
@@ -13,28 +12,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.umeng.analytics.MobclickAgent;
 import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.updateadapter.AskQuestionAdapter;
 import com.umiwi.ui.beans.UmiwiAddQuestionBeans;
-import com.umiwi.ui.beans.UmiwiBuyQuestionBeans;
-import com.umiwi.ui.beans.UmiwiPayOrderBeans;
+import com.umiwi.ui.beans.UmiwiBuyCreateOrderBeans;
 import com.umiwi.ui.beans.updatebeans.NamedQuestionBean;
 import com.umiwi.ui.beans.updatebeans.QuestionListBean;
-import com.umiwi.ui.fragment.pay.PayOrderDetailFragment;
-import com.umiwi.ui.fragment.pay.PayTypeEvent;
 import com.umiwi.ui.fragment.pay.PayingFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.CustomStringCallBack;
 import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.main.UmiwiApplication;
-import com.umiwi.ui.managers.StatisticsUrl;
 import com.umiwi.ui.managers.YoumiRoomUserManager;
 import com.umiwi.ui.util.JsonUtil;
 import com.umiwi.ui.util.LoginUtil;
@@ -232,6 +225,10 @@ public class AskQuestionFragment extends BaseConstantFragment implements View.On
         LoginUtil.getInstance().showLoginView(getActivity());
     }
 
+
+    /**
+     * 提交问题
+     */
     private void addQuestion() {
         String url = null;
         url = String.format(UmiwiAPI.ADD_QUESTIONA, uid, etQuestion.getText().toString().trim());
@@ -242,12 +239,11 @@ public class AskQuestionFragment extends BaseConstantFragment implements View.On
         request.go();
     }
 
-    private String price;
+
     private Listener<UmiwiAddQuestionBeans> addQuestionListener = new Listener<UmiwiAddQuestionBeans>() {
         @Override
         public void onResult(AbstractRequest<UmiwiAddQuestionBeans> request, UmiwiAddQuestionBeans umiwiAddQuestionBeans) {
             String questionId = umiwiAddQuestionBeans.getR().getQid();
-            price = umiwiAddQuestionBeans.getR().getPrice();
             getOrderId(questionId);
         }
 
@@ -257,35 +253,39 @@ public class AskQuestionFragment extends BaseConstantFragment implements View.On
         }
     };
 
+    /**
+     * 获取提问的payurl
+     * @param questionId 问题id
+     */
     private void getOrderId(String questionId) {
         String url = null;
         url = String.format(UmiwiAPI.CREATE_QUESTIN_ORDERID, "json", questionId);
-        GetRequest<UmiwiBuyQuestionBeans> request = new GetRequest<UmiwiBuyQuestionBeans>(
+        GetRequest<UmiwiBuyCreateOrderBeans> request = new GetRequest<UmiwiBuyCreateOrderBeans>(
                 url, GsonParser.class,
-                UmiwiBuyQuestionBeans.class,
+                UmiwiBuyCreateOrderBeans.class,
                 addQuestionOrderListener);
         request.go();
     }
 
-    private Listener<UmiwiBuyQuestionBeans> addQuestionOrderListener = new Listener<UmiwiBuyQuestionBeans>() {
+    private Listener<UmiwiBuyCreateOrderBeans> addQuestionOrderListener = new Listener<UmiwiBuyCreateOrderBeans>() {
         @Override
-        public void onResult(AbstractRequest<UmiwiBuyQuestionBeans> request, UmiwiBuyQuestionBeans umiwiBuyQuestionBeans) {
-            String payurl = umiwiBuyQuestionBeans.getR().getPayurl();
-            showCourseBuyDialog(payurl);
+        public void onResult(AbstractRequest<UmiwiBuyCreateOrderBeans> request, UmiwiBuyCreateOrderBeans umiwiBuyCreateOrderBeans) {
+            String payurl = umiwiBuyCreateOrderBeans.getR().getPayurl();
+            questionBuyDialog(payurl);
         }
 
         @Override
-        public void onError(AbstractRequest<UmiwiBuyQuestionBeans> requet, int statusCode, String body) {
+        public void onError(AbstractRequest<UmiwiBuyCreateOrderBeans> requet, int statusCode, String body) {
 
         }
     };
 
 
     /**
-     *
+     * 跳转到购买界面
      * @param payurl
      */
-    public void showCourseBuyDialog(String payurl) {
+    public void questionBuyDialog(String payurl) {
         Intent i = new Intent(getActivity(), UmiwiContainerActivity.class);
         i.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, PayingFragment.class);
         i.putExtra(PayingFragment.KEY_PAY_URL, payurl);

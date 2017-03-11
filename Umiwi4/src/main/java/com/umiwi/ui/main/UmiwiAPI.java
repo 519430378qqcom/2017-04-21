@@ -426,8 +426,10 @@ public final class UmiwiAPI {
     public static final String NAMED_QUESTIONA = "http://i.v.youmi.cn/question/namedquestionApi";
     //新增问题
     public static final String ADD_QUESTIONA = "http://i.v.youmi.cn/question/addApi?tutoruid=%s&title=%s";
-    //生成订单
+    //体温问题生成订单
     public static final String CREATE_QUESTIN_ORDERID = "http://i.v.youmi.cn/orders/buyquestion?format=%s&qid=%s";
+    //专栏购买生成订单
+    public static final String CREATE_SUBSCRIBER_ORDERID = "http://i.v.youmi.cn/orders/buycolumn?format=%s&id=%s";
 
     public static final String VODEI_URL = "http://i.v.youmi.cn/ClientApi/getAlbumDetail?id=";
 

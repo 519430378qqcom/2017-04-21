@@ -7,7 +7,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,6 +45,7 @@ public class ExperDetailsFragment extends BaseConstantFragment {
     private TextView tv_describe;
     private TextView tv_content;
     private TextView tv_unfold;
+    public static TextView subscriber;
     private boolean isUnfold = true;
     private boolean isFirstOnMeasure;
     private ArrayList<String> mTitleList = new ArrayList<String>();
@@ -79,6 +79,7 @@ public class ExperDetailsFragment extends BaseConstantFragment {
         void IsColumnbottom();
 
     }
+
     public static OnScrollListenerVoice mListenerVoice;
 
     public static void setOnScrollListenerVoice(OnScrollListenerVoice listener) {
@@ -143,6 +144,7 @@ public class ExperDetailsFragment extends BaseConstantFragment {
             public void onSucess(String data) {
                 Log.e("data", "名人详情请求数据成功" + data);
                 ExperDetailsBean experDetailsBean = JsonUtil.json2Bean(data, ExperDetailsBean.class);
+                String id = experDetailsBean.getResult().getTcolumnurl();
                 experName = experDetailsBean.getName();
                 tutorimage = experDetailsBean.getTutorimage();
                 description = experDetailsBean.getDescription();
@@ -150,9 +152,9 @@ public class ExperDetailsFragment extends BaseConstantFragment {
                 share = experDetailsBean.getShare();
                 String isopenask = experDetailsBean.getIsopenask();
                 uid1 = experDetailsBean.getUid();
-                if (isopenask.equals("1")){
+                if (isopenask.equals("1")) {
                     question.setVisibility(View.GONE);
-                }else if (isopenask.equals("2")){
+                } else if (isopenask.equals("2")) {
                     question.setVisibility(View.VISIBLE);
                 }
                 tv_name.setText(experName);
@@ -193,25 +195,27 @@ public class ExperDetailsFragment extends BaseConstantFragment {
         fl_content = (FrameLayout) view.findViewById(R.id.fl_content);
         tv_more = (LinearLayout) view.findViewById(R.id.more);
         question = (TextView) view.findViewById(R.id.question);
+        subscriber = (TextView) view.findViewById(R.id.subscriber);
         question.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(),UmiwiContainerActivity.class);
+                Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
                 intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, AskQuestionFragment.class);
-                intent.putExtra("uid",uid1);
+                intent.putExtra("uid", uid1);
                 startActivity(intent);
             }
         });
         iv_shared.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (share.getSharecontent()!=null&&share.getShareimg()!=null&& share.getSharetitle()!=null&&share.getShareurl()!=null){
+                if (share.getSharecontent() != null && share.getShareimg() != null && share.getSharetitle() != null && share.getShareurl() != null) {
                     NewShareDialog.getInstance().showDialog(getActivity(), share.getSharetitle(),
-                            share.getSharecontent(),share.getShareurl(), share.getShareimg());
+                            share.getSharecontent(), share.getShareurl(), share.getShareimg());
                 }
 
             }
         });
+
         yuedu = (LinearLayout) view.findViewById(R.id.yuedu);
         scroll_view = (TopFloatScrollView) view.findViewById(R.id.scroll_view);
         tv_unfold.setOnClickListener(new UnfoldOnClickListener());
@@ -226,14 +230,14 @@ public class ExperDetailsFragment extends BaseConstantFragment {
                 } else if (position == 1) {
                     Log.e("TAG", "音频");
                     mListenerVoice.IsvoiceBottom();
-                }else if (position == 2){
+                } else if (position == 2) {
                     Log.e("onload", "视频");
                     mListenerVideo.IsVideoBottom();
-                }else if (position == 3){
+                } else if (position == 3) {
                     Log.e("onload", "问答");
 
                     mListenerWenda.IswendaBottom();
-                }else if (position == 4){
+                } else if (position == 4) {
                     Log.e("onload", "评论");
 
                     mListenerComment.IsCommentBottom();
@@ -389,5 +393,6 @@ public class ExperDetailsFragment extends BaseConstantFragment {
             getActivity().finish();
         }
     }
+
 
 }
