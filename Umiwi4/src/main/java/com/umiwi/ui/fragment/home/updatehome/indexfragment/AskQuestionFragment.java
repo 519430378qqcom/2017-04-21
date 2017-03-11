@@ -29,6 +29,7 @@ import com.umiwi.ui.beans.updatebeans.NamedQuestionBean;
 import com.umiwi.ui.beans.updatebeans.QuestionListBean;
 import com.umiwi.ui.fragment.pay.PayOrderDetailFragment;
 import com.umiwi.ui.fragment.pay.PayTypeEvent;
+import com.umiwi.ui.fragment.pay.PayingFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.CustomStringCallBack;
 import com.umiwi.ui.main.UmiwiAPI;
@@ -222,7 +223,6 @@ public class AskQuestionFragment extends BaseConstantFragment implements View.On
                     return;
                 }
                 addQuestion();
-                MobclickAgent.onEvent(getActivity(), "购买提问", "单次购买");
             }
 
         }
@@ -270,8 +270,8 @@ public class AskQuestionFragment extends BaseConstantFragment implements View.On
     private Listener<UmiwiBuyQuestionBeans> addQuestionOrderListener = new Listener<UmiwiBuyQuestionBeans>() {
         @Override
         public void onResult(AbstractRequest<UmiwiBuyQuestionBeans> request, UmiwiBuyQuestionBeans umiwiBuyQuestionBeans) {
-            String orderId = umiwiBuyQuestionBeans.getR().getOrder_id();
-            showCourseBuyDialog(orderId);
+            String payurl = umiwiBuyQuestionBeans.getR().getPayurl();
+            showCourseBuyDialog(payurl);
         }
 
         @Override
@@ -282,18 +282,15 @@ public class AskQuestionFragment extends BaseConstantFragment implements View.On
 
 
     /**
-     * 提问
      *
-     * @author
-     * @version
+     * @param payurl
      */
-    public void showCourseBuyDialog(String orderId) {
-        Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
-        intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, PayOrderDetailFragment.class);
-        intent.putExtra(PayOrderDetailFragment.KEY_ORDER_ID, orderId);
-        intent.putExtra(PayOrderDetailFragment.KEY_ORDER_TYPE, PayTypeEvent.LECTURER);
-        intent.putExtra(PayOrderDetailFragment.KEY_SPM, String.format(StatisticsUrl.ORDER_LECTURER, "7", orderId, price));
-        startActivity(intent);
+    public void showCourseBuyDialog(String payurl) {
+        Intent i = new Intent(getActivity(), UmiwiContainerActivity.class);
+        i.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, PayingFragment.class);
+        i.putExtra(PayingFragment.KEY_PAY_URL, payurl);
+        startActivity(i);
+        getActivity().finish();
     }
 
 
@@ -327,7 +324,7 @@ public class AskQuestionFragment extends BaseConstantFragment implements View.On
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.back :
+            case R.id.back:
                 getActivity().finish();
                 break;
         }
