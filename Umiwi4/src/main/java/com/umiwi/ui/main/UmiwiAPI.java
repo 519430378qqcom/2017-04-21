@@ -138,7 +138,7 @@ public final class UmiwiAPI {
      * 轮播 添加专题&version=2
      */
     public static final String VIDEO_LUNBO = "http://i.v.youmi.cn/lunbo/list?android";
-    public static final String VIDEO_LUNBO_NEW= "http://i.v.youmi.cn/lunbo/list";
+    public static final String VIDEO_LUNBO_NEW = "http://i.v.youmi.cn/lunbo/list";
 //	public static final String VIDEO_LUNBO = "http://i.v.youmi.cn/ClientApi/list?type=lunbo&version=2";//old api
     /**
      * 首页推荐
@@ -244,13 +244,17 @@ public final class UmiwiAPI {
      * 积分
      */
     public static final String INTEGRAL = "http://v.youmi.cn/mobile/cdetail/";
-    /**积分商城*/
+    /**
+     * 积分商城
+     */
     public static final String INTEGRAL_SHOP = "http://v.youmi.cn/mobile/cdetail/?type=shop";
     /**
      * 周报
      */
     public static final String WEEK_REPORT = "http://v.youmi.cn/weekreport/";
-    /**我的私信*/
+    /**
+     * 我的私信
+     */
     public static final String MINE_MESSAGE = "http://api.v.youmi.cn/ClientApi/mymessage?pagenum=8";
     // ===============================================================================//
 
@@ -420,6 +424,10 @@ public final class UmiwiAPI {
     public static final String video_head = "http://i.v.youmi.cn/api8/tagTreeApi/?from=video";
     public static final String QUESTION_LIST = "http://i.v.youmi.cn/api8/questionlist";
     public static final String NAMED_QUESTIONA = "http://i.v.youmi.cn/question/namedquestionApi";
+    //新增问题
+    public static final String ADD_QUESTIONA = "http://i.v.youmi.cn/question/addApi?tutoruid=%s&title=%s";
+    //生成订单
+    public static final String CREATE_QUESTIN_ORDERID = "http://i.v.youmi.cn/orders/buyquestion?format=%s&qid=%s";
 
     public static final String VODEI_URL = "http://i.v.youmi.cn/ClientApi/getAlbumDetail?id=";
 

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -95,7 +96,6 @@ public class PayOrderDetailFragment extends BaseFragment {
 		order_type = ((PayTypeEvent) i.getSerializableExtra(KEY_ORDER_TYPE)).getValue() +"";
 		spmurl = i.getStringExtra(KEY_SPM);
 		pay_order(order_id, order_type, ordercoupon);
-
 		return view;
 	}
 
