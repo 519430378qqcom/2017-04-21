@@ -58,5 +58,13 @@
             android:scaleType="fitXY"
             android:visibility="gone" />
     </LinearLayout>
-
+    <TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="15dip"
+    android:text="目录"
+    android:textAppearance="?android:attr/textAppearanceLarge"
+    android:textColor="@color/umiwi_gray_3"
+    android:textSize="18sp"
+    android:textStyle="bold" />
 </LinearLayout>

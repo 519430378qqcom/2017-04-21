@@ -780,9 +780,7 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
                 } else {
                     mAdapter.notifyDataSetChanged();
                 }
-
             }
-
         }
 
         @Override

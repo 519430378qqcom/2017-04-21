@@ -9,10 +9,6 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.umiwi.ui.IVoiceService;
-import com.umiwi.ui.beans.updatebeans.AudioResourceBean;
-import com.umiwi.ui.main.CustomStringCallBack;
-import com.umiwi.ui.util.JsonUtil;
-import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.io.IOException;
 
@@ -24,7 +20,7 @@ import java.io.IOException;
 public class VoiceService extends Service {
 
 
-    private String url;
+    public static String url;
     /**
      * 打开完成的信息
      */
@@ -67,39 +63,9 @@ public class VoiceService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-//        getVoiceUrl();
         Log.e("TAG", "voiceService + onCreate()");
     }
 
-    private String source;
-
-    /**
-     * 得到播放音频资源
-     *
-     * @param
-     */
-    private void getVoiceUrl() {
-
-        new Thread() {
-            public void run() {
-                OkHttpUtils.get().url(url).build().execute(new CustomStringCallBack() {
-                    @Override
-                    public void onFaild() {
-
-                    }
-
-                    @Override
-                    public void onSucess(String data) {
-                        Log.e("TAG", "data1111=" + data);
-                        AudioResourceBean audioResourceBean = JsonUtil.json2Bean(data, AudioResourceBean.class);
-                        source = audioResourceBean.getSource();
-                        Log.e("TAG", "source==" + source);
-                    }
-                });
-            }
-        }.start();
-
-    }
 
     @Nullable
     @Override
@@ -108,24 +74,6 @@ public class VoiceService extends Service {
 //        Log.e("TAG", "url123=" + url);
         Log.e("TAG", "onBind()");
         return myBinder;
-    }
-
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.e("TAG", "onStartCommand()");
-        source = intent.getStringExtra("source");
-        Log.e("TAG", "source===" + source);
-        if(source != null) {
-            mediaPlayer = new MediaPlayer();
-            mediaPlayer.setOnPreparedListener(mOnPreparedListener);
-            try {
-                mediaPlayer.setDataSource(source);
-                mediaPlayer.prepareAsync();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return super.onStartCommand(intent, flags, startId);
     }
 
     /**
@@ -216,8 +164,8 @@ public class VoiceService extends Service {
      * @param url
      */
     private void openAudio(String url) {
-//        this.url = url;
-
+        this.url = url;
+        Log.e("TAG", "服务里传递的URL=" + url);
         if (mediaPlayer != null) {
             //把上一个音频资源释放
             mediaPlayer.reset();
@@ -234,7 +182,6 @@ public class VoiceService extends Service {
         //设置播放地址
         try {
             mediaPlayer.setDataSource(url);
-//                Log.e("TAG", "voiceUrl=" + voiceUrl);
             mediaPlayer.prepareAsync();
         } catch (IOException e) {
             e.printStackTrace();
@@ -249,7 +196,6 @@ public class VoiceService extends Service {
      */
     private int getDuration() {
         if(mediaPlayer != null) {
-//            Log.e("TAG", "mediaPlayer.getDuration() = " + mediaPlayer.getDuration());
             return  mediaPlayer.getDuration();
         }
         return 0;
@@ -328,8 +274,11 @@ public class VoiceService extends Service {
 
     @Override
     public void onDestroy() {
+        if(mediaPlayer !=null) {
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
         super.onDestroy();
-        mediaPlayer.release();
         Log.e("TAG", "voiceService + onDestory()");
     }
     //  public static MediaPlayer mediaPlayer;

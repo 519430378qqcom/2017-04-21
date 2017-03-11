@@ -9,16 +9,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.umiwi.ui.R;
-import com.umiwi.ui.beans.LecturerBean.LecturerBeanWapper;
 import com.umiwi.ui.beans.updatebeans.CelebrityBean;
 import com.umiwi.ui.main.UmiwiApplication;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import cn.youmi.framework.util.AndroidSDK;
 import cn.youmi.framework.util.ImageLoader;
-import cn.youmi.framework.view.CircleImageView;
 import za.co.immedia.pinnedheaderlistview.SectionedBaseAdapter;
 
 /**

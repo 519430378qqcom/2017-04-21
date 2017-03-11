@@ -6,6 +6,7 @@ import android.os.Message;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -61,6 +62,13 @@ public class ExpertAnswerDwonLayoutViwe extends LinearLayout {
         lv_expert_dwon_answer.setAdapter(mExpertADAdapter);
         handler.sendEmptyMessageDelayed(0, 2000);
 
+        //快速提问
+        tv_expert_answer_fask_ask.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     private Handler handler = new Handler() {

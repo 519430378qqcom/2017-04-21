@@ -72,6 +72,15 @@ public class ExpertAnswerAdapter extends BaseAdapter {
         mImageLoader.loadImage(asktutorBean.getThumb(), mViewHolder.iv_expert_answer_header, R.drawable.ic_launcher);
         mViewHolder.tv_expert_name.setText(asktutorBean.getName());
         mViewHolder.expert_job_textview.setText(asktutorBean.getTitle());
+        mViewHolder.iv_expert_answer_header.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mActivity, UmiwiContainerActivity.class);
+                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, AskQuestionFragment.class);
+                intent.putExtra("uid",asktutorBean.getUid());
+                mActivity.startActivity(intent);
+            }
+        });
         mViewHolder.tv_expert_put_questions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

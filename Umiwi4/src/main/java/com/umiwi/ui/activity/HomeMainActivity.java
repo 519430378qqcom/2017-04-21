@@ -9,7 +9,6 @@ import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -17,12 +16,12 @@ import android.view.View.OnClickListener;
 import android.widget.FrameLayout;
 import android.widget.FrameLayout.LayoutParams;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.baidu.android.pushservice.PushConstants;
 import com.baidu.android.pushservice.PushManager;
 import com.bumptech.glide.Glide;
 import com.umeng.analytics.MobclickAgent;
+import com.umiwi.ui.IVoiceService;
 import com.umiwi.ui.R;
 import com.umiwi.ui.beans.AddFavBeans;
 import com.umiwi.ui.beans.QRCodeBeans;
@@ -40,11 +39,8 @@ import com.umiwi.ui.managers.QRCodeManager;
 import com.umiwi.ui.managers.YoumiRoomUserManager;
 import com.umiwi.ui.model.ADSplashModel;
 import com.umiwi.ui.push.Utils;
-import com.umiwi.ui.util.LoginUtil;
 import com.umiwi.ui.util.SDCardManager;
 import com.umiwi.video.control.PlayerController;
-
-import org.w3c.dom.Text;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -91,7 +87,11 @@ public class HomeMainActivity extends AppCompatActivity {
     public static final String KEY_AD_TIME = "key.ad.time";
 
     public static final String mPicturePath = Environment.getExternalStorageDirectory().getPath() + "/Android/data/" + UmiwiApplication.getContext().getPackageName() + "/cache/adpicture.png";
-
+    public String musicUrl;
+    /**
+     * VoiceService的代理类
+     */
+    public IVoiceService service;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +100,7 @@ public class HomeMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_home);
 
         mSpUtil = UmiwiApplication.getInstance().getSpUtil();
-
+        UmiwiApplication.mainActivity = this;
         createProgressBar();
 
         ShareSDK.initSDK(getApplicationContext());
@@ -224,6 +224,7 @@ public class HomeMainActivity extends AppCompatActivity {
         VersionManager.getInstance().unregisterListener(versionListener);
         QRCodeManager.getInstance().unregisterListener(qrCodeManagerListener);
         PreferenceUtils.setPrefBoolean(this, "isShowGiftOnceAndNoToShowAgain", false);
+        UmiwiApplication.mainActivity = null;
         super.onDestroy();
 
 
