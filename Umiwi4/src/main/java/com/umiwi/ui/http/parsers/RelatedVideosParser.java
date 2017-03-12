@@ -36,7 +36,7 @@ public class RelatedVideosParser implements
 //			vm.setTitle(db.getTitle());
 //			vm.setAlbumId((String) request.getTag());
 //			vm.setVideoUrl(db.getUrl());
-//			vm.setVideoId(db.getId() + "");
+//			vm.setAudioId(db.getId() + "");
 //			vm.setImageURL(db.getImage());
 //			vm.setAlbumImageurl(db.getImage());
 //			VideoManager.getInstance().saveVideo(vm);

@@ -43,25 +43,39 @@ import com.umeng.analytics.MobclickAgent;
 import com.umiwi.ui.IVoiceService;
 import com.umiwi.ui.R;
 import com.umiwi.ui.adapter.VoiceDetailsAdapter;
+import com.umiwi.ui.beans.AddFavBeans;
 import com.umiwi.ui.beans.updatebeans.AudioResourceBean;
 import com.umiwi.ui.beans.updatebeans.ExperDetailsVoiceBean;
+import com.umiwi.ui.dao.CollectionDao;
+import com.umiwi.ui.dialog.DownloadAudioListDialog;
 import com.umiwi.ui.dialog.ShareDialog;
+import com.umiwi.ui.http.parsers.AudioDetailParser;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.CustomStringCallBack;
+import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.main.UmiwiApplication;
+import com.umiwi.ui.managers.AudioManager;
 import com.umiwi.ui.managers.YoumiRoomUserManager;
+import com.umiwi.ui.model.AudioModel;
 import com.umiwi.ui.util.JsonUtil;
 import com.umiwi.ui.util.LoginUtil;
+import com.umiwi.ui.util.PermissionUtil;
 import com.umiwi.ui.util.Utils;
 import com.umiwi.ui.view.ResizeRelativeLayout;
 import com.umiwi.video.control.PlayerController;
 import com.umiwi.video.services.VoiceService;
 import com.zhy.http.okhttp.OkHttpUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import cn.youmi.account.manager.UserManager;
+import cn.youmi.framework.http.AbstractRequest;
+import cn.youmi.framework.http.GetRequest;
+import cn.youmi.framework.http.HttpDispatcher;
+import cn.youmi.framework.http.parsers.GsonParser;
 import cn.youmi.framework.util.DimensionUtil;
 import cn.youmi.framework.util.ImageLoader;
 import cn.youmi.framework.util.ListViewQuickReturnScrollLoader;
@@ -187,6 +201,8 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
     private LoadingFooter mLoadingFooter;
     private String herfurl;
     private VoiceDetailsAdapter mAdapter;
+    private String albumID;
+
 
 
     @Override
@@ -201,7 +217,38 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
         if (!TextUtils.isEmpty(herfurl)) {
             getInfos(herfurl);
         }
+        collectionDao = new CollectionDao();
+//        onLoadDetailData();
     }
+
+    private void onLoadDetailData() {
+        if (TextUtils.isEmpty(herfurl)) {
+            return;
+        }
+//        showLoading();
+
+        GetRequest<ExperDetailsVoiceBean.AudiofileBean> req = new GetRequest<ExperDetailsVoiceBean.AudiofileBean>(
+                herfurl, AudioDetailParser.class, detailListener);
+        HttpDispatcher.getInstance().go(req);
+    }
+    private AbstractRequest.Listener<ExperDetailsVoiceBean.AudiofileBean> detailListener = new AbstractRequest.Listener<ExperDetailsVoiceBean.AudiofileBean>() {
+        @Override
+        public void onResult(AbstractRequest<ExperDetailsVoiceBean.AudiofileBean> request,
+                             ExperDetailsVoiceBean.AudiofileBean audiofileBean) {
+//            if (UserManager.getInstance().isLogin() && collectionDao.isSaved(albumID)) {
+//                saveButton.setChecked(true);
+//            } else {
+//                saveButton.setChecked(false);
+//            }
+            Log.e("TAG", "数据请求成功");
+        }
+
+        @Override
+        public void onError(AbstractRequest<ExperDetailsVoiceBean.AudiofileBean> requet,
+                            int statusCode, String body) {
+
+        }
+    };
     @SuppressLint("InflateParams")
     @Nullable
     @Override
@@ -346,15 +393,18 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
         scrollRelate.setOnClickListener(scrollListener);
         scrollComment.setOnClickListener(scrollListener);
 
+        //下载
         downLoadButton = (RadioButton) rootView.findViewById(R.id.download_button);
-        downLoadButton.setOnClickListener(downloadListClickListener);
 
+
+        //评论
         commentButton = (RadioButton) rootView.findViewById(R.id.comment_button);
         commentButton.setOnClickListener(writeCommentListener);
 
+        //收藏
         saveButton = (RadioButton) rootView.findViewById(R.id.fav_button);
         saveButton.setOnClickListener(favClickListener);
-
+        //分享
         rootView.findViewById(R.id.share_radiobutton).setOnClickListener(shareCourseClickListener);
 
         //listview滑动监听
@@ -399,13 +449,107 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
             mListView.invalidate();
         }
     };
+    private CollectionDao collectionDao;
     //收藏
     private View.OnClickListener favClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            if (TextUtils.isEmpty(albumID)) {
+                return;
+            }
 
+            if (!UserManager.getInstance().isLogin()) {
+                saveButton.setChecked(false);
+                showLogin();
+                return;
+            }
+            if (!collectionDao.isSaved(albumID)) {
+                // 收藏
+                addFav();
+                MobclickAgent.onEvent(getActivity(), "详情页面V", "收藏");
+            } else {
+                removeFav();
+            }
         }
     };
+
+    //收藏
+    private void addFav() {
+        albumID = String.valueOf(experDetailsVoiceBean.getId());
+
+        if (TextUtils.isEmpty(albumID)) {
+            return;
+        }
+
+        collectionDao.saveCollection(albumID);
+
+        String favStr = String.format(UmiwiAPI.UMIWI_FAV_ADD_VIDEO_ALBUMID, albumID);
+
+        GetRequest<AddFavBeans.AddFavBeansRequestData> req = new GetRequest<AddFavBeans.AddFavBeansRequestData>(
+                favStr, GsonParser.class,
+                AddFavBeans.AddFavBeansRequestData.class, favListener);
+        HttpDispatcher.getInstance().go(req);
+    }
+    //移除收藏
+    private void removeFav() {
+        albumID = String.valueOf(experDetailsVoiceBean.getId());
+
+        if (TextUtils.isEmpty(albumID)) {
+            return;
+        }
+
+        collectionDao.deleteCollectionCompelete(albumID);
+
+        String favStr = String.format(UmiwiAPI.FAV_REMOVE_VIDEO_ALBUMID + "&isalbum=y", albumID);
+
+        GetRequest<AddFavBeans.AddFavBeansRequestData> req = new GetRequest<AddFavBeans.AddFavBeansRequestData>(
+                favStr, GsonParser.class,
+                AddFavBeans.AddFavBeansRequestData.class, removeListener);
+        HttpDispatcher.getInstance().go(req);
+    }
+    private AbstractRequest.Listener<AddFavBeans.AddFavBeansRequestData> removeListener = new AbstractRequest.Listener<AddFavBeans.AddFavBeansRequestData>() {
+
+        @Override
+        public void onResult(AbstractRequest<AddFavBeans.AddFavBeansRequestData> request,
+                             AddFavBeans.AddFavBeansRequestData t) {
+            collectionDao.updateCollection(albumID);
+            changeSaveButton();
+            ToastU.showShort(getActivity(), "取消收藏");
+        }
+
+        @Override
+        public void onError(AbstractRequest<AddFavBeans.AddFavBeansRequestData> requet,
+                            int statusCode, String body) {
+            ToastU.showShort(getActivity(), body);
+            changeSaveButton();
+        }
+    };
+
+    private AbstractRequest.Listener<AddFavBeans.AddFavBeansRequestData> favListener = new AbstractRequest.Listener<AddFavBeans.AddFavBeansRequestData>() {
+
+        @Override
+        public void onResult(AbstractRequest<AddFavBeans.AddFavBeansRequestData> request,
+                             AddFavBeans.AddFavBeansRequestData t) {
+            collectionDao.updateCollection(albumID);
+            changeSaveButton();
+            ToastU.showShort(getActivity(), "收藏成功");
+        }
+
+        @Override
+        public void onError(AbstractRequest<AddFavBeans.AddFavBeansRequestData> requet,
+                            int statusCode, String body) {
+            ToastU.showShort(getActivity(), body);
+            changeSaveButton();
+        }
+    };
+    //改变收藏按钮状态
+    private void changeSaveButton() {
+        if (collectionDao.isSaved(albumID)) {
+            saveButton.setChecked(true);
+        } else {
+            saveButton.setChecked(false);
+        }
+    }
     private void showLogin() {
         LoginUtil.getInstance().showLoginView(getActivity());
     }
@@ -512,11 +656,49 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
             }
 
             //下载的dialog
-//            DownloadListDialog.getInstance().showDialog(getActivity(), getVideos());
+            DownloadAudioListDialog.getInstance().showDialog(getActivity(), getAudios());
             MobclickAgent.onEvent(getActivity(), "详情页面V", "下载");
         }
 
     };
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_PERMISSION_CODE_TAKE_STORAGE:
+                if (PermissionUtil.verifyPermissions(grantResults)) {
+                    DownloadAudioListDialog.getInstance().showDialog(getActivity(), getAudios());
+                    MobclickAgent.onEvent(getActivity(), "详情页面V", "下载");
+                } else {
+                    ToastU.showShort(getActivity(), "无法读取存储卡，请先授权");
+                }
+                break;
+        }
+    }
+    public ArrayList<AudioModel> getAudios() {
+        if (experDetailsVoiceBean == null) {
+            return null;
+        }
+        Log.e("TAG", "experDetailsVoiceBean==" + experDetailsVoiceBean.getAudiofile().size());
+        ArrayList<AudioModel> videos = new ArrayList<AudioModel>(experDetailsVoiceBean
+                .getAudiofile().size());
+
+        for (int i = 0; i < experDetailsVoiceBean.getAudiofile().size(); i++) {
+            ExperDetailsVoiceBean.AudiofileBean audiofileBean = experDetailsVoiceBean.getAudiofile().get(i);
+            Log.e("TAG", "audiofileBean=" + audiofileBean.getAid());
+            AudioModel video = AudioManager.getInstance().getVideoById(
+                    audiofileBean.getAid() + "");
+            video.setVideoUrl(source);
+            Log.e("TAG", "设置audio的URL=" + source);
+            videos.add(video);
+            Log.e("TAG", "video=" + video.getAlbumTitle());//怎么对公司进行调研
+            Log.e("TAG", "video=" + video.getVideoId());//57
+            Log.e("TAG", "video=" + video.getAlbumId());//55
+            Log.e("TAG", "video=" + video.getFileName());//null
+            Log.e("TAG", "video=" + video.getTitle());//怎样对公司进行调研
+            Log.e("TAG", "video=" + video.getVideoUrl());//http://v.youmi.cn/audioalbum/playsourceapi?audioalbumid=55&audiofileid=57
+        }
+        return videos;
+    }
 
     //分享
     private View.OnClickListener shareCourseClickListener = new View.OnClickListener() {
@@ -549,7 +731,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                     experDetailsVoiceBean = JsonUtil.json2Bean(data, ExperDetailsVoiceBean.class);
                     String imageurl = experDetailsVoiceBean.getImage();
                     Log.e("TAG", "imageurl=" + imageurl);
-
+                    albumID = experDetailsVoiceBean.getId();
                     imageLoader.loadImage(imageurl,ivHeader,R.drawable.icon_umiwi);
 
                     audioFileList = experDetailsVoiceBean.getAudiofile();
@@ -557,18 +739,54 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                         audiofileBean = audioFileList.get(0);
 //                        source = audiofileBean.getSource();
                         url = audiofileBean.getSource();
-//                        Log.e("TAG", "url =" + url);
+                        Log.e("TAG", "url =" + url);
 //                        if (url!=null){
 //                            UmiwiApplication.getInstance().getBinder().searchInfo(source);
 //                        }
                         if (url != null) {
                             getData(url);
                         }
+                        //请求音频数据，保存数据库中去
+                        for(ExperDetailsVoiceBean.AudiofileBean db :experDetailsVoiceBean.getAudiofile()){
+                            AudioModel vm = AudioManager.getInstance().getVideoById(db.getAid()+"");
+                            if(vm == null){
+                                vm = new AudioModel();
+                            }
+
+                            String albumTitle = experDetailsVoiceBean.getTitle();
+                            if(albumTitle == null) {
+                                albumTitle = experDetailsVoiceBean.getTitle();
+                            }
+
+                            vm.setTitle(db.getAtitle());
+                            vm.setVideoUrl(db.getSource());
+                            vm.setVideoId(db.getAid() + "");
+                            vm.setAlbumId(experDetailsVoiceBean.getId() + "");
+                            vm.setAlbumTitle(albumTitle);
+                            vm.setExpiretime(db.getAplaytime());
+                            vm.setUid(YoumiRoomUserManager.getInstance().getUid());
+//				vm.setImageURL(res.getImage());
+                            vm.setTry(false);
+//				vm.setLastwatchposition((int) (db.getDuration() * db.getWatchProgress() / 100.0f * 1000));
+
+                            AudioManager.getInstance().saveVideo(vm);
+                        }
+
                     }
-                    mAdapter = new VoiceDetailsAdapter(getActivity(),audioFileList,experDetailsVoiceBean);
+                    mAdapter = new VoiceDetailsAdapter(getActivity(),audioFileList,experDetailsVoiceBean,VoiceDetailsFragment.this);
                     mListView.setAdapter(mAdapter);
                     Log.e("TAG", "11111audioFileList=" + audioFileList);
                     Log.e("TAG", "1111111mAdapter=" + mAdapter);
+
+                    mAdapter.setWriteCommenntViewOnClickListener(writeCommentListener);
+//                    收藏按钮
+                    if (UserManager.getInstance().isLogin() && collectionDao.isSaved(albumID)) {
+                        saveButton.setChecked(true);
+                    } else {
+                        saveButton.setChecked(false);
+                    }
+                    //下载
+                    downLoadButton.setOnClickListener(downloadListClickListener);
 
                 }
             }
@@ -589,6 +807,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                 if (source != null ) {
                     bindVoiceSerive();
                 }
+                ArrayList<AudioModel> audios = getAudios();
 
             }
         });
@@ -656,7 +875,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
     /**
      * 绑定服务
      */
-    private void bindVoiceSerive() {
+    public void bindVoiceSerive() {
         //发消息，更新进度
         handler.sendEmptyMessage(PROGRESS);
         if(source.equals(UmiwiApplication.mainActivity.musicUrl)) {
@@ -793,6 +1012,4 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
 
         super.onDestroy();
     }
-
-
 }

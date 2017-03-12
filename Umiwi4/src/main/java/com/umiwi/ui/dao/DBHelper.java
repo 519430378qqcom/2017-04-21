@@ -1,20 +1,21 @@
 package com.umiwi.ui.dao;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Locale;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import cn.youmi.framework.util.SingletonFactory;
 
 import com.umiwi.ui.main.UmiwiApplication;
 import com.umiwi.ui.model.VideoModel;
 import com.umiwi.ui.model.VideoModel.DownloadStatus;
 import com.umiwi.ui.util.CommonHelper;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Locale;
+
+import cn.youmi.framework.util.SingletonFactory;
 
 /**
  * umiwi数据库
@@ -67,6 +68,7 @@ public class DBHelper extends SQLiteOpenHelper {
 		// 创建视频表
 		// 4.4
 		createVideoTable(db);
+		createAudioTable(db);
 		SettingDao.getInstance().createTable(db);
 
 		// 创建笑话
@@ -167,6 +169,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
 		if (oldVersion <= 24) {
 			createVideoTable(db);
+			createAudioTable(db);
 			SettingDao.getInstance().createTable(db);
 			transferNewLoadedToVideoTable(db);
 		}
@@ -177,6 +180,12 @@ public class DBHelper extends SQLiteOpenHelper {
 				db.execSQL("alter table [video_table] add column watched int");
 			}
 			c.close();
+
+			Cursor c1 = db.rawQuery("SELECT * FROM [audio_table] limit 1", null);
+			if(c1.getColumnIndex("watched") == -1){
+				db.execSQL("alter table [video_table] add column watched int");
+			}
+			c1.close();
 		}
 
 		// 销毁热词
@@ -218,7 +227,31 @@ public class DBHelper extends SQLiteOpenHelper {
 		
 		createSearchHistoryTable(db);
 	}
+	private void createAudioTable(SQLiteDatabase db) {
+		// 4.3 创建音频表
+		String createAudioTableSql = "CREATE TABLE IF NOT EXISTS [audio_table] ("
+				+ "[videoID] TEXT NOT NULL ON CONFLICT REPLACE, "
+				+ "[albumID] TEXT, "
+				+ "[albumTitle] TEXT, "
+				+ "[videoUrl] TEXT, "
+				+ "[filePath] TEXT, "
+				+ "[fileName] TEXT, "
+				+ "[fileSize] TEXT, "
+				+ "[extention] TEXT, "
+				+ "[title] TEXT, "
+				+ "[expireTime] TEXT, "
+				+ "[uid] TEXT, "
+				+ "[downloadStatus] INT, "
+				+ "[classes] TEXT, "
+				+ "[istry] INT, "
+				+ "[watched] INT);"
+				+ "CREATE UNIQUE INDEX [index_videoID] ON [audio_table] ([videoID]);";
+		db.execSQL(createAudioTableSql);
+		// 4.3 创建视频索引
+		// db.execSQL("CREATE  UNIQUE INDEX  IF NOT EXISTS albumvideo on videos(albumid, videoid) ");
 
+
+	}
 	private void createVideoTable(SQLiteDatabase db) {
 		// 4.3 创建视频表
 		String createVideoTableSql = "CREATE TABLE IF NOT EXISTS [video_table] ("

@@ -2,6 +2,7 @@ package com.umiwi.ui.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -13,10 +14,11 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.umiwi.ui.R;
+import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.beans.updatebeans.ExperDetailsVoiceBean;
+import com.umiwi.ui.fragment.home.updatehome.indexfragment.ExperDetailsFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.VoiceDetailsFragment;
 import com.umiwi.ui.main.UmiwiApplication;
 import com.umiwi.ui.managers.YoumiRoomUserManager;
@@ -44,19 +46,7 @@ public class VoiceDetailsAdapter extends BaseAdapter {
     private ExperDetailsVoiceBean experDetailsVoiceBean;
 
     private VoiceDetailsFragment voiceDetailsFragment;
-    public VoiceDetailsAdapter(Context context, List<ExperDetailsVoiceBean.AudiofileBean> audioFileList, VoiceDetailsFragment voiceDetailsFragment) {
-        this.mActivity = (FragmentActivity) context;
-        this.mContext = context;
-        this.audioFileList = audioFileList;
-        this.voiceDetailsFragment = voiceDetailsFragment;
 
-    }
-
-    public VoiceDetailsAdapter(Context context, List<ExperDetailsVoiceBean.AudiofileBean> audioFileList) {
-        this.mActivity = (FragmentActivity) context;
-        this.mContext = context;
-        this.audioFileList = audioFileList;
-    }
 
     public VoiceDetailsAdapter(Context context, List<ExperDetailsVoiceBean.AudiofileBean> audioFileList, ExperDetailsVoiceBean experDetailsVoiceBean) {
         this.mActivity = (FragmentActivity) context;
@@ -65,12 +55,21 @@ public class VoiceDetailsAdapter extends BaseAdapter {
         this.experDetailsVoiceBean = experDetailsVoiceBean;
     }
 
+    public VoiceDetailsAdapter(Context context, List<ExperDetailsVoiceBean.AudiofileBean> audioFileList, ExperDetailsVoiceBean experDetailsVoiceBean, VoiceDetailsFragment voiceDetailsFragment) {
+        this.mActivity = (FragmentActivity) context;
+        this.mContext = context;
+        this.audioFileList = audioFileList;
+        this.experDetailsVoiceBean = experDetailsVoiceBean;
+        this.voiceDetailsFragment = voiceDetailsFragment;
+    }
+
+
     @Override
     public int getCount() {
-        if(audioFileList == null) {
+        if (audioFileList == null) {
             return 4;
         }
-        if(experDetailsVoiceBean == null) {
+        if (experDetailsVoiceBean == null) {
             return 0;
         }
         return 4 + audioFileList.size();
@@ -89,13 +88,13 @@ public class VoiceDetailsAdapter extends BaseAdapter {
 
     @Override
     public int getItemViewType(int position) {
-        if(position == 0) {
+        if (position == 0) {
             return ITEM_TYPE_DETAIL;
         }
-        if(position >= 1 && position < (1 + audioFileList.size())) {
+        if (position >= 1 && position < (1 + audioFileList.size())) {
             return ITEM_TYPE_DIRECTORY;
         }
-        if(position == (1 + audioFileList.size())) {
+        if (position == (1 + audioFileList.size())) {
             return ITEM_TYPE_TEACHER;
         }
         if (position == (2 + audioFileList.size())) {
@@ -109,29 +108,30 @@ public class VoiceDetailsAdapter extends BaseAdapter {
     public int getViewTypeCount() {
         return 5;
     }
+
     @SuppressLint("InflateParams")
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if(getItemViewType(position) == ITEM_TYPE_DETAIL) {
-            if(convertView == null) {
+        if (getItemViewType(position) == ITEM_TYPE_DETAIL) {
+            if (convertView == null) {
                 convertView = LayoutInflater.from(UmiwiApplication.getApplication()).
                         inflate(R.layout.item_audio_detail_layout, null);
             }
             configureDetailItem(convertView, position);
         }
-        if(getItemViewType(position) == ITEM_TYPE_DIRECTORY) {
-            if(convertView == null) {
+        if (getItemViewType(position) == ITEM_TYPE_DIRECTORY) {
+            if (convertView == null) {
                 convertView = LayoutInflater.from(UmiwiApplication.getApplication())
                         .inflate(R.layout.voice_directory_item, null);
             }
             configureDirectoryItem(convertView, position);
         }
-        if(getItemViewType(position) == ITEM_TYPE_TEACHER) {
-            if(convertView == null) {
+        if (getItemViewType(position) == ITEM_TYPE_TEACHER) {
+            if (convertView == null) {
                 convertView = LayoutInflater.from(UmiwiApplication.getApplication())
-                        .inflate(R.layout.item_audio_teacher_layout,null);
+                        .inflate(R.layout.item_audio_teacher_layout, null);
             }
-            configuretTeacherItem(convertView,position);
+            configuretTeacherItem(convertView, position);
         }
         if (getItemViewType(position) == ITEM_TYPE_COMMENT_WRITE) {
             if (convertView == null) {
@@ -166,6 +166,12 @@ public class VoiceDetailsAdapter extends BaseAdapter {
         TextView contentTextView = (TextView) view.findViewById(R.id.content_textview);
     }
 
+    View.OnClickListener writeCommentViewOnClickListener = null;
+
+    public void setWriteCommenntViewOnClickListener(View.OnClickListener l) {
+        this.writeCommentViewOnClickListener = l;
+    }
+
     //评论
     private void configureCommentWriteItme(View view, final int position) {
 
@@ -177,13 +183,7 @@ public class VoiceDetailsAdapter extends BaseAdapter {
         commentNum.setText("评论 (" + "0" + ")");
         ImageLoader mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
         mImageLoader.loadImage(YoumiRoomUserManager.getInstance().getUser().getAvatar(), header, R.drawable.fragment_mine_photo);
-        writeComment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(mActivity, "点击评论", Toast.LENGTH_SHORT).show();
-
-            }
-        });
+        writeComment.setOnClickListener(writeCommentViewOnClickListener);
     }
 
     //讲师
@@ -207,7 +207,12 @@ public class VoiceDetailsAdapter extends BaseAdapter {
         lectureContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mActivity, "点击进入详细页面", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(mActivity, "点击进入详细页面", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
+                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, ExperDetailsFragment.class);
+                intent.putExtra(ExperDetailsFragment.KEY_DEFAULT_TUTORUID, experDetailsVoiceBean.getUid());
+                mActivity.startActivity(intent);
+
             }
         });
     }
@@ -229,10 +234,12 @@ public class VoiceDetailsAdapter extends BaseAdapter {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mActivity, "点击播放试听", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(mActivity, "点击播放试听", Toast.LENGTH_SHORT).show();
+                voiceDetailsFragment.bindVoiceSerive();
             }
         });
     }
+
     //详情
     private void configureDetailItem(View view, int position) {
         final View tempView = view;
@@ -243,7 +250,7 @@ public class VoiceDetailsAdapter extends BaseAdapter {
         if (TextUtils.isEmpty(experDetailsVoiceBean.getPlaytime())) {
             videoWatches.setText("播放 : " + experDetailsVoiceBean.getWatchnum());
         } else {
-            videoWatches.setText(experDetailsVoiceBean.getOnlinetime() +"更新"  + "\t 播放 : " + experDetailsVoiceBean.getWatchnum());
+            videoWatches.setText(experDetailsVoiceBean.getOnlinetime() + "更新" + "\t 播放 : " + experDetailsVoiceBean.getWatchnum());
         }
 
         final TextView courseDescription = (TextView) view.findViewById(R.id.course_description);

@@ -367,7 +367,7 @@ public class DownloadingFragment extends BaseFragment implements
 //			@Override
 //			public void onClick(View v) {
 //				VideoDownloadManager.getInstance().deleteDownloadingByVideoId(
-//						holder.video.getVideoId());
+//						holder.video.getAudioId());
 //				update();
 //				dialog.dismissAllowingStateLoss();
 //			}
