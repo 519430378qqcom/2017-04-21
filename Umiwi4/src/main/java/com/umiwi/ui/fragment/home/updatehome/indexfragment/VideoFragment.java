@@ -40,6 +40,7 @@ import com.zhy.http.okhttp.OkHttpUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -179,7 +180,7 @@ public class VideoFragment extends BaseConstantFragment {
             @Override
             public void onClick(View view) {
                 int childCount = gv_one.getChildCount();
-                Log.e("MZX",childCount+"");
+                Log.e("MZX", childCount + "");
                 for (int i = 0; i < childCount; i++) {
                     TextView textView = (TextView) gv_one.getChildAt(i).findViewById(R.id.textview);
                     textView.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
@@ -196,7 +197,7 @@ public class VideoFragment extends BaseConstantFragment {
             @Override
             public void onClick(View view) {
                 int childCount = gv_two.getChildCount();
-                Log.e("MZX",childCount+"");
+                Log.e("MZX", childCount + "");
                 for (int i = 0; i < childCount; i++) {
                     TextView textView = (TextView) gv_two.getChildAt(i).findViewById(R.id.textview);
                     textView.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
@@ -211,12 +212,13 @@ public class VideoFragment extends BaseConstantFragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-               /* Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
-//					intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, CourseDetailLayoutFragments.class);
-//					intent.putExtra(CourseDetailLayoutFragments.KEY_DETAIURL, listBeans.getDetailurl());
-                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, CourseDetailPlayFragment.class);
-//                intent.putExtra(CourseDetailPlayFragment.KEY_DETAIURL, mList.get();
-                getActivity().startActivity(intent);*/
+//                Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
+////					intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, CourseDetailLayoutFragments.class);
+////					intent.putExtra(CourseDetailLayoutFragments.KEY_DETAIURL, listBeans.getDetailurl());
+////                  intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, CourseDetailPlayFragment.class);
+//////                intent.putExtra(CourseDetailPlayFragment.KEY_DETAIURL, mList.get();
+//
+//                getActivity().startActivity(intent);
             }
         });
 
@@ -231,8 +233,9 @@ public class VideoFragment extends BaseConstantFragment {
 
     private ArrayList<VideoHeadBean.InfoBean> oneList;
     private ArrayList<VideoHeadBean.SubtreeBean> twoList;
-    private void getData(){
-        String URL= UmiwiAPI.video_head;
+
+    private void getData() {
+        String URL = UmiwiAPI.video_head;
         OkHttpUtils.get().url(URL).build().execute(new CustomStringCallBack() {
 
             @Override
@@ -241,19 +244,19 @@ public class VideoFragment extends BaseConstantFragment {
 
             @Override
             public void onSucess(String data) {
-                Log.e("TAG---",data);
+                Log.e("TAG---", data);
                 try {
-                    JSONArray  jsonArray = new JSONArray(data);
+                    JSONArray jsonArray = new JSONArray(data);
                     oneList = new ArrayList();
                     for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject temp = (JSONObject)jsonArray.get(i);
+                        JSONObject temp = (JSONObject) jsonArray.get(i);
                         VideoHeadBean videoHeadBean = new Gson().fromJson(temp.toString(), VideoHeadBean.class);
-                        oneList.add(i,videoHeadBean.getInfo());
+                        oneList.add(i, videoHeadBean.getInfo());
                         subtree = videoHeadBean.getSubtree();
-                        Log.e("TAG",videoHeadBean.getInfo().getName());
+                        Log.e("TAG", videoHeadBean.getInfo().getName());
                     }
-                    Log.e("TAG",oneList.size()+"");
-                    final OneAdapter oneAdapter = new OneAdapter(getActivity(),oneList);
+                    Log.e("TAG", oneList.size() + "");
+                    final OneAdapter oneAdapter = new OneAdapter(getActivity(), oneList);
                     gv_one.setAdapter(oneAdapter);
                     gv_one.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
@@ -268,7 +271,7 @@ public class VideoFragment extends BaseConstantFragment {
                         }
                     });
 
-                    final TwoAdapter twoAdapter = new TwoAdapter(getActivity(),subtree);
+                    final TwoAdapter twoAdapter = new TwoAdapter(getActivity(), subtree);
                     gv_two.setAdapter(twoAdapter);
                     gv_two.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
@@ -295,21 +298,21 @@ public class VideoFragment extends BaseConstantFragment {
     private int p = 1;
     private List<VideoBean.RecordBean> mList = new ArrayList<>();
 
-    public void onLoadData(final int page){
-        String url = UmiwiAPI.Login_Video+"?orderby="+orderby;
+    public void onLoadData(final int page) {
+        String url = UmiwiAPI.Login_Video + "?orderby=" + orderby;
 
-        if(price != null && price != ""){
-            url += "&price="+price;
+        if (price != null && price != "") {
+            url += "&price=" + price;
         }
-        if(catid != null && catid != ""){
-            url += "&catid="+catid;
-        }
-
-        if(String.valueOf(p) != null && String.valueOf(p) != ""){
-            url += "&p="+page;
+        if (catid != null && catid != "") {
+            url += "&catid=" + catid;
         }
 
-        Log.e("MZX",url);
+        if (String.valueOf(p) != null && String.valueOf(p) != "") {
+            url += "&p=" + page;
+        }
+
+        Log.e("MZX", url);
         OkHttpUtils.get().url(url).build().execute(new CustomStringCallBack() {
             private VideoAdapter videoAdapter;
 
@@ -325,7 +328,7 @@ public class VideoFragment extends BaseConstantFragment {
                 VideoBean audioBean = new Gson().fromJson(data, VideoBean.class);
                 VideoBean.PageBean pagebean = audioBean.getPage();
 
-                if(audioBean.getPage().getCurrentpage() >= audioBean.getPage().getTotalpage()){
+                if (audioBean.getPage().getCurrentpage() >= audioBean.getPage().getTotalpage()) {
                     mLoadingFooter.setState(LoadingFooter.State.NoMore);
                     mScrollLoader.setEnd(true);
                     return;
@@ -335,23 +338,23 @@ public class VideoFragment extends BaseConstantFragment {
                 mScrollLoader.setPage(pagebean.getCurrentpage());
                 mScrollLoader.setloading(false);
 
-                if(page == 1){
+                if (page == 1) {
                     mList.clear();
                 }
 
                 if (mList == null) {
                     mList = audioBean.getRecord();
                 } else {
-                    if(page == 1){
+                    if (page == 1) {
                         mList.clear();
                     }
                     mList.addAll(audioBean.getRecord());
                 }
 
                 videoAdapter = new VideoAdapter(getActivity(), mList);
-                if(page == 1){
+                if (page == 1) {
                     listView.setAdapter(videoAdapter);
-                }else{
+                } else {
                     videoAdapter.notifyDataSetChanged();
                 }
             }
@@ -359,8 +362,8 @@ public class VideoFragment extends BaseConstantFragment {
     }
 
     private class OneAdapter extends BaseAdapter {
-        private  FragmentActivity activity;
-        private  ArrayList<VideoHeadBean.InfoBean> headList;
+        private FragmentActivity activity;
+        private ArrayList<VideoHeadBean.InfoBean> headList;
 
         private int clickTemp = -1;//标识被选择的item
         private int[] clickedList;//这个数组用来存放item的点击状态
@@ -368,9 +371,9 @@ public class VideoFragment extends BaseConstantFragment {
         public OneAdapter(FragmentActivity activity, ArrayList<VideoHeadBean.InfoBean> oneList) {
             this.activity = activity;
             this.headList = oneList;
-            clickedList=new int[headList.size()];
-            for (int i =0;i<headList.size();i++){
-                clickedList[i]=0;      //初始化item点击状态的数组
+            clickedList = new int[headList.size()];
+            for (int i = 0; i < headList.size(); i++) {
+                clickedList[i] = 0;      //初始化item点击状态的数组
             }
         }
 
@@ -396,31 +399,30 @@ public class VideoFragment extends BaseConstantFragment {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             ViewHoler viewHoler;
-            if(convertView == null){
+            if (convertView == null) {
                 viewHoler = new ViewHoler();
-                convertView = View.inflate(activity, R.layout.one_item,null);
+                convertView = View.inflate(activity, R.layout.one_item, null);
 
-               viewHoler.textview = (TextView) convertView. findViewById(R.id.textview);
+                viewHoler.textview = (TextView) convertView.findViewById(R.id.textview);
 
                 convertView.setTag(viewHoler);
-            }else{
-               viewHoler = (ViewHoler) convertView.getTag();
+            } else {
+                viewHoler = (ViewHoler) convertView.getTag();
             }
 
-            if(clickTemp==position){    //根据点击的Item当前状态设置背景
-                if (clickedList[position]==0){
+            if (clickTemp == position) {    //根据点击的Item当前状态设置背景
+                if (clickedList[position] == 0) {
                     viewHoler.textview.setTextColor(getActivity().getResources().getColor(R.color.umiwi_orange));
 //                    tv_all_one.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
 
-                    for (int i = 0; i <headList.size() ; i++) {
-                        clickedList[position]=0;
+                    for (int i = 0; i < headList.size(); i++) {
+                        clickedList[position] = 0;
                     }
-                }
-                else {
+                } else {
 //                    viewHoler.textview.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
 //                    clickedList[position]=0;
                 }
-            }else{
+            } else {
                 viewHoler.textview.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
 //                tv_all_one.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
             }
@@ -429,14 +431,14 @@ public class VideoFragment extends BaseConstantFragment {
             return convertView;
         }
 
-        class ViewHoler{
+        class ViewHoler {
             private TextView textview;
         }
     }
 
     private class TwoAdapter extends BaseAdapter {
-        private  FragmentActivity activity;
-        private  List<VideoHeadBean.SubtreeBean> headList;
+        private FragmentActivity activity;
+        private List<VideoHeadBean.SubtreeBean> headList;
 
         private int clickTemp = -1;//标识被选择的item
         private int[] clickedList;//这个数组用来存放item的点击状态
@@ -444,9 +446,9 @@ public class VideoFragment extends BaseConstantFragment {
         public TwoAdapter(FragmentActivity activity, List<VideoHeadBean.SubtreeBean> oneList) {
             this.activity = activity;
             this.headList = oneList;
-            clickedList=new int[headList.size()];
-            for (int i =0;i<headList.size();i++){
-                clickedList[i]=0;      //初始化item点击状态的数组
+            clickedList = new int[headList.size()];
+            for (int i = 0; i < headList.size(); i++) {
+                clickedList[i] = 0;      //初始化item点击状态的数组
             }
         }
 
@@ -472,29 +474,28 @@ public class VideoFragment extends BaseConstantFragment {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             ViewHoler viewHoler;
-            if(convertView == null){
+            if (convertView == null) {
                 viewHoler = new ViewHoler();
-                convertView = View.inflate(activity, R.layout.one_item,null);
-                viewHoler.textview = (TextView) convertView. findViewById(R.id.textview);
+                convertView = View.inflate(activity, R.layout.one_item, null);
+                viewHoler.textview = (TextView) convertView.findViewById(R.id.textview);
                 convertView.setTag(viewHoler);
-            }else{
+            } else {
                 viewHoler = (ViewHoler) convertView.getTag();
             }
 
-            if(clickTemp==position){    //根据点击的Item当前状态设置背景
-                if (clickedList[position]==0){
+            if (clickTemp == position) {    //根据点击的Item当前状态设置背景
+                if (clickedList[position] == 0) {
                     viewHoler.textview.setTextColor(getActivity().getResources().getColor(R.color.umiwi_orange));
 //                    tv_all_two.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
 
-                    for (int i = 0; i <headList.size() ; i++) {
-                        clickedList[position]=0;
+                    for (int i = 0; i < headList.size(); i++) {
+                        clickedList[position] = 0;
                     }
-                }
-                else {
+                } else {
 //                    viewHoler.textview.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
 //                    clickedList[position]=0;
                 }
-            }else{
+            } else {
                 viewHoler.textview.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
 //                tv_all_two.setTextColor(getActivity().getResources().getColor(R.color.umiwi_gray_6));
             }
@@ -503,7 +504,7 @@ public class VideoFragment extends BaseConstantFragment {
             return convertView;
         }
 
-        class ViewHoler{
+        class ViewHoler {
             private TextView textview;
         }
     }

@@ -3,6 +3,7 @@ package com.umiwi.ui.fragment.mine;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,8 @@ import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.managers.NoticeManager;
 import com.umiwi.ui.managers.YoumiRoomUserManager;
 import com.umiwi.ui.model.MineMessageModel;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
 
 import java.util.ArrayList;
 
@@ -26,6 +29,7 @@ import cn.youmi.framework.http.GetRequest;
 import cn.youmi.framework.http.parsers.ListResult;
 import cn.youmi.framework.util.ListViewScrollLoader;
 import cn.youmi.framework.view.LoadingFooter;
+import okhttp3.Call;
 
 /**
  * Created by txy on 15/10/30. 私信
@@ -82,6 +86,7 @@ public class MyMessageFragment extends BaseConstantFragment {
                 UmiwiAPI.MINE_MESSAGE + "&p=" + page, ListOldParser.class,
                 MineMessageModel.class, listener);
         request.go();
+
     }
 
     private Listener<ListResult<MineMessageModel>> listener = new Listener<ListResult<MineMessageModel>>() {

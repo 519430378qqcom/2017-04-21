@@ -57,6 +57,7 @@ import com.umiwi.ui.beans.CommentResultBean;
 import com.umiwi.ui.beans.UmiwiListBeans;
 import com.umiwi.ui.beans.UmiwiListDetailBeans;
 import com.umiwi.ui.beans.UmiwiListDetailBeans.ListDetailRequestData;
+import com.umiwi.ui.beans.UmiwiMyCardBeans;
 import com.umiwi.ui.dao.CollectionDao;
 import com.umiwi.ui.dialog.DownloadListDialog;
 import com.umiwi.ui.dialog.ShareDialog;
@@ -414,6 +415,7 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
         GetRequest<ListDetailRequestData> req = new GetRequest<ListDetailRequestData>(
                 detaiURL, CourseDetailParser.class, detailListener);
         HttpDispatcher.getInstance().go(req);
+
     }
 
     @Override

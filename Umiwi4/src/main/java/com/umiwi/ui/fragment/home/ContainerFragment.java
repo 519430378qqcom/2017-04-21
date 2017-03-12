@@ -7,13 +7,10 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import cn.youmi.account.event.UserEvent;
 import cn.youmi.account.model.UserModel;
@@ -30,7 +27,6 @@ import com.umiwi.ui.fragment.alreadyboughtfragment.AlreadyBoughtFragment;
 import com.umiwi.ui.fragment.home.updatehome.NewHomeRecommendFragment;
 import com.umiwi.ui.managers.YoumiRoomUserManager;
 
-import org.w3c.dom.Text;
 
 /**
  * 首页 //抽屉

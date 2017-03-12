@@ -121,7 +121,6 @@ public class DBHelper extends SQLiteOpenHelper {
 				+"[level] INT);"
 				);
 	}
-
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		String strSource = "strSource";

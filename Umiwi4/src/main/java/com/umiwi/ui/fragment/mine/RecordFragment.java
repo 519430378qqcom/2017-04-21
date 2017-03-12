@@ -2,6 +2,7 @@ package com.umiwi.ui.fragment.mine;
 
 import java.util.ArrayList;
 
+import okhttp3.Call;
 import za.co.immedia.pinnedheaderlistview.PinnedHeaderListView;
 import za.co.immedia.pinnedheaderlistview.PinnedHeaderListView.OnItemClickListener;
 import android.annotation.SuppressLint;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -41,6 +43,8 @@ import com.umiwi.ui.beans.UmiwiResultBeans.ResultBeansRequestData;
 import com.umiwi.ui.fragment.course.CourseDetailPlayFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.UmiwiAPI;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
 
 /**
  * 播放记录

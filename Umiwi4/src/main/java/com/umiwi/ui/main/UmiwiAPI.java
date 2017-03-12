@@ -409,13 +409,19 @@ public final class UmiwiAPI {
     public static final String Login_Video = "http://i.v.youmi.cn/api8/videoindex";
 
     //我的—回答（已回答，待回答）
-    public static final String Mine_Answer = "http://i.v.youmi.cn/api8/myquestion";
+    public static final String Mine_Answer = "http://i.v.youmi.cn/api8/myquestion?p=%s&answerstate=%s";
+     //提交音频
+    public static final String COMMIT_VOICE = "http://i.v.youmi.cn/document/showdoclist1#questioncontroller6";
 
     //未购专栏详情页
     public static final String No_buy_column = "http://i.v.youmi.cn/api8//tutorcolumn/detailApi";
 
     //已购买
     public static final String Ask_Hear = "http://i.v.youmi.cn/api8/buyquestion";
+
+    public static final String ALREADY_VOICE = "http://i.v.youmi.cn/audioalbum/buylist";
+
+    public static final String Hear_url = "http://i.v.youmi.cn/api8/questionlisten";
 
     //试读页面
     public static final String Logincal_thinking = "http://i.v.youmi.cn/api8/tutorcolumn/detailpurchasedApi";

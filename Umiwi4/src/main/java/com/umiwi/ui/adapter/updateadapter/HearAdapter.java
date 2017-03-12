@@ -1,4 +1,4 @@
-package com.umiwi.ui.adapter;
+package com.umiwi.ui.adapter.updateadapter;
 
 import android.media.MediaPlayer;
 import android.support.v4.app.FragmentActivity;
@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.umiwi.ui.R;
+import com.umiwi.ui.adapter.AskHearAdapter;
 import com.umiwi.ui.beans.updatebeans.AlreadyAskBean;
 import com.umiwi.ui.beans.updatebeans.DelayAnswerVoiceBean;
 import com.umiwi.video.recorder.MediaManager;
@@ -20,25 +21,21 @@ import java.util.ArrayList;
 import cn.youmi.framework.http.AbstractRequest;
 import cn.youmi.framework.http.parsers.GsonParser;
 
-import static com.umiwi.ui.main.YoumiConfiguration.context;
-
 /**
- * Created by Administrator on 2017/3/6.
+ * Created by Administrator on 2017/3/12.
  */
 
-public class AskHearAdapter extends BaseAdapter{
-
-    private  FragmentActivity activity;
-    private  ArrayList mList;
-    private ArrayList<AlreadyAskBean.RAlreadyAnser.Question> askInfos;
-    public AskHearAdapter(FragmentActivity activity) {
+public class HearAdapter extends BaseAdapter {
+    private FragmentActivity activity;
+    private ArrayList<AlreadyAskBean.RAlreadyAnser.Question> hearInfos;
+    public HearAdapter(FragmentActivity activity) {
         this.activity = activity;
 
     }
 
     @Override
     public int getCount() {
-        return askInfos.size();
+        return hearInfos.size();
     }
 
     @Override
@@ -52,24 +49,24 @@ public class AskHearAdapter extends BaseAdapter{
     }
 
     @Override
-    public View getView(final int position, View convertView, final ViewGroup parent) {
-
-        ViewHolder viewHolder;
-        if (convertView == null){
+    public View getView(final int i, View view, ViewGroup viewGroup) {
+        final ViewHolder viewHolder;
+        if (view == null){
             viewHolder = new ViewHolder();
-            convertView = View.inflate(activity,R.layout.ask_hear,null);
-            viewHolder.title = (TextView) convertView.findViewById(R.id.title);
-            viewHolder.buttontag = (TextView) convertView.findViewById(R.id.buttontag);
-            viewHolder.tavatar = (ImageView) convertView.findViewById(R.id.tavatar);
-            viewHolder.listennum = (TextView) convertView.findViewById(R.id.listennum);
-            viewHolder.goodnum = (TextView) convertView.findViewById(R.id.goodnum);
-            viewHolder.playtime = (TextView) convertView.findViewById(R.id.playtime);
-            viewHolder.answertime = (TextView) convertView.findViewById(R.id.answertime);
-            convertView.setTag(viewHolder);
+            view = View.inflate(activity, R.layout.ask_hear,null);
+            viewHolder.title = (TextView) view.findViewById(R.id.title);
+            viewHolder.buttontag = (TextView) view.findViewById(R.id.buttontag);
+            viewHolder.tavatar = (ImageView) view.findViewById(R.id.tavatar);
+            viewHolder.listennum = (TextView) view.findViewById(R.id.listennum);
+            viewHolder.goodnum = (TextView) view.findViewById(R.id.goodnum);
+            viewHolder.playtime = (TextView) view.findViewById(R.id.playtime);
+            viewHolder.answertime = (TextView) view.findViewById(R.id.answertime);
+
+            view.setTag(viewHolder);
         }else{
-            viewHolder = (ViewHolder) convertView.getTag();
+            viewHolder = (ViewHolder) view.getTag();
         }
-        final AlreadyAskBean.RAlreadyAnser.Question question = askInfos.get(position);
+        final AlreadyAskBean.RAlreadyAnser.Question question = hearInfos.get(i);
 
         viewHolder.title.setText(question.getTitle());
         viewHolder.buttontag.setText(question.getButtontag());
@@ -81,13 +78,12 @@ public class AskHearAdapter extends BaseAdapter{
         viewHolder.buttontag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String playsource = askInfos.get(position).getPlaysource();
-                String id = askInfos.get(position).getId();
-                Log.e("bbb",playsource+id);
-                getsorceInfos(playsource+id);
+                String playsource = hearInfos.get(i).getPlaysource();
+                Log.e("aaa",playsource);
+                getsorceInfos(playsource);
             }
         });
-        return convertView;
+        return view;
     }
 
     private void getsorceInfos(String playsource) {
@@ -117,10 +113,10 @@ public class AskHearAdapter extends BaseAdapter{
 
         }
     };
-    public void setData(ArrayList<AlreadyAskBean.RAlreadyAnser.Question> askInfos) {
-        this.askInfos = askInfos;
-        notifyDataSetChanged();
 
+    public void setData(ArrayList<AlreadyAskBean.RAlreadyAnser.Question> hearInfos) {
+        this.hearInfos = hearInfos;
+        notifyDataSetChanged();
     }
 
     public class ViewHolder{

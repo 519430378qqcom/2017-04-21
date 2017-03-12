@@ -64,7 +64,9 @@ public class AudioManager {
             String fileName = getVoiceFileName();
             File file = new File(dir, fileName);
             mCurrentFilePath = file.getAbsolutePath();
-            mediaRecorder = new MediaRecorder();
+            if (mediaRecorder == null){
+                mediaRecorder = new MediaRecorder();
+            }
             //设置输出文件的路径
             mediaRecorder.setOutputFile(file.getAbsolutePath());
             Log.e("getAbsolutePath",file.getAbsolutePath());
@@ -98,7 +100,7 @@ public class AudioManager {
      * @return
      */
     private String getVoiceFileName() {
-        return UUID.randomUUID().toString() + ".amr";
+        return UUID.randomUUID().toString() + ".mp3";
     }
 
     public int getVoiceLevel(int maxLevel) {

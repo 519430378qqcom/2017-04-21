@@ -10,7 +10,7 @@ import java.io.IOException;
  */
 public class MediaManager {
 
-    private static MediaPlayer mediaPlayer;
+    public static MediaPlayer mediaPlayer;
     public static boolean isPause;
 
     public static void playSound(String filePath, MediaPlayer.OnCompletionListener onCompletionListener) {

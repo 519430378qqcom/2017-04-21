@@ -63,25 +63,25 @@ android {
 
     productFlavors {  //./gradlew assembleRelease
         // itest {}
-        portalv {}//官网
-        baiduvt {}
-        smvpay {}//神马
-        googleplayv {}
-        huaweiv {}
-        lenovov {}
-        m91v {}
-        m360vt {}
-        meizuv {}
-        qqv {}
-        qqvpay {} //付费包
-        sogou {}
-        taobaovt {}
-        wandoujiav {}
+//        portalv {}//官网
+//        baiduvt {}
+//        smvpay {}//神马
+//        googleplayv {}
+//        huaweiv {}
+//        lenovov {}
+//        m91v {}
+//        m360vt {}
+//        meizuv {}
+//        qqv {}
+//        qqvpay {} //付费包
+//        sogou {}
+//        taobaovt {}
+//        wandoujiav {}
         xiaomivt {}
-        anzhiv {}//安智
-        domob {}//多盟
-        youmiad1 {}//有米
-        adsage {}//艾德思奇
+//        anzhiv {}//安智
+//        domob {}//多盟
+//        youmiad1 {}//有米
+//        adsage {}//艾德思奇
         //  all32 {}
         // all64 { minSdkVersion 21 }
     }
@@ -125,10 +125,10 @@ android {
             buildConfigField "boolean", "LOG_DEBUG", "false"
 
             debuggable false
-            minifyEnabled true
+            minifyEnabled false
             zipAlignEnabled true
             // 移除无用的resource文件
-            shrinkResources true
+            shrinkResources false
             // 混淆 拆分处理
             //More info: https://github.com/krschultz/android-proguard-snippets
             proguardFile '../settings/proguard/proguard-support-v7-appcompat.pro'

@@ -5,9 +5,9 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:background="@color/color_divider"
+        android:background="@color/line"
         android:layout_width="match_parent"
-        android:layout_height="10dp" />
+        android:layout_height="6dp" />
 
     <LinearLayout
         android:orientation="horizontal"
@@ -23,7 +23,7 @@
 
             <!--android:background="@drawable/tv_back_corner"-->
             <TextView
-                android:id="@+id/tv_hear"
+                android:id="@+id/tv_ask"
                 android:background="@drawable/tv_back_corner_selector"
                 android:text="我问"
                 android:textColor="@color/text_white_enabled"
@@ -41,7 +41,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/tv_ask"
+                android:id="@+id/tv_hear"
                 android:background="@drawable/tv_back_corner_selector"
                 android:text="我听"
                 android:textColor="@color/text_white_enabled"
@@ -52,16 +52,10 @@
 
         </LinearLayout>
     </LinearLayout>
+     <FrameLayout
+         android:id="@+id/content"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent">
 
-    <TextView
-        android:background="@color/color_divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp" />
-
-    <ListView
-        android:id="@+id/listview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </ListView>
+     </FrameLayout>
 </LinearLayout>
