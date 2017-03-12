@@ -17,6 +17,7 @@ import com.umiwi.ui.adapter.DescriptionAdapter;
 import com.umiwi.ui.adapter.LastRecordAdapter;
 import com.umiwi.ui.beans.ExperDetailsAlbumbean;
 import com.umiwi.ui.beans.UmiwiBuyCreateOrderBeans;
+import com.umiwi.ui.fragment.home.alreadyshopping.LogicalThinkingFragment;
 import com.umiwi.ui.fragment.pay.PayingFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.CustomStringCallBack;
@@ -88,9 +89,10 @@ public class DetailsColumnFragment extends BaseConstantFragment {
             public void onSucess(String data) {
                 Log.e("data", "详情专栏请求数据成功 :" + data);
                 if (data != null) {
-                    ExperDetailsAlbumbean experDetailsAlbumbean = JsonUtil.json2Bean(data, ExperDetailsAlbumbean.class);
+                    final ExperDetailsAlbumbean experDetailsAlbumbean = JsonUtil.json2Bean(data, ExperDetailsAlbumbean.class);
                     if (experDetailsAlbumbean != null) {
                         fillData(experDetailsAlbumbean);
+
                         final String id = experDetailsAlbumbean.getId();
                         if (experDetailsAlbumbean.isIsbuy()){
                             ExperDetailsFragment.subscriber.setText("已订阅");
@@ -103,6 +105,16 @@ public class DetailsColumnFragment extends BaseConstantFragment {
                             @Override
                             public void onClick(View v) {
                                 getSubscriber(id);
+                            }
+                        });
+
+                        ExperDetailsFragment.free_read.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
+                                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, LogicalThinkingFragment.class);
+                                intent.putExtra("id",experDetailsAlbumbean.getId());
+                                startActivity(intent);
                             }
                         });
                     }

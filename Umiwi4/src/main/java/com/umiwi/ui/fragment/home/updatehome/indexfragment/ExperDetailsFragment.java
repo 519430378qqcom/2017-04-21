@@ -46,6 +46,7 @@ public class ExperDetailsFragment extends BaseConstantFragment {
     private TextView tv_content;
     private TextView tv_unfold;
     public static TextView subscriber;
+    public static TextView free_read;
     private boolean isUnfold = true;
     private boolean isFirstOnMeasure;
     private ArrayList<String> mTitleList = new ArrayList<String>();
@@ -196,6 +197,7 @@ public class ExperDetailsFragment extends BaseConstantFragment {
         tv_more = (LinearLayout) view.findViewById(R.id.more);
         question = (TextView) view.findViewById(R.id.question);
         subscriber = (TextView) view.findViewById(R.id.subscriber);
+        free_read = (TextView) view.findViewById(R.id.free_read);
         question.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

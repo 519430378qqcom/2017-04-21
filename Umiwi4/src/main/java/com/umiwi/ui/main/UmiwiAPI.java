@@ -430,6 +430,12 @@ public final class UmiwiAPI {
     public static final String CREATE_QUESTIN_ORDERID = "http://i.v.youmi.cn/orders/buyquestion?format=%s&qid=%s";
     //专栏购买生成订单
     public static final String CREATE_SUBSCRIBER_ORDERID = "http://i.v.youmi.cn/orders/buycolumn?format=%s&id=%s";
+    //热播榜
+    public static final String REBO_BANG = "http://i.v.youmi.cn/api8/hottop";
+    //热销榜
+    public static final String REXIAO_BANG = "http://i.v.youmi.cn/api8/saletop";
+    //热评榜
+    public static final String REPING_BANG = "http://i.v.youmi.cn/api8/threadtop";
 
     public static final String VODEI_URL = "http://i.v.youmi.cn/ClientApi/getAlbumDetail?id=";
 

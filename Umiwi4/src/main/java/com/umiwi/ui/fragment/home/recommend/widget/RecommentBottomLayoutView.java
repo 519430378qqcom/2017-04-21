@@ -2,16 +2,20 @@ package com.umiwi.ui.fragment.home.recommend.widget;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.umiwi.ui.R;
+import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.BottomLunboAdapter;
 import com.umiwi.ui.beans.updatebeans.RecommendBean;
+import com.umiwi.ui.fragment.home.updatehome.indexfragment.HotListFragment;
 import com.umiwi.ui.view.AutoViewPager;
 import com.umiwi.ui.view.CirclePageIndicator;
 
@@ -23,7 +27,8 @@ import cn.youmi.framework.util.DimensionUtil;
  * Created by jooper on 2017/3/1.
  */
 
-public class RecommentBottomLayoutView extends LinearLayout {
+public class RecommentBottomLayoutView extends LinearLayout implements BottomLunboAdapter
+        .BottomLunboItemClickListener {
 
     private RelativeLayout rl_botton_root;
     private Context mContext;
@@ -44,7 +49,8 @@ public class RecommentBottomLayoutView extends LinearLayout {
     private void init(Context context) {
 
         mContext = context;
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context
+                .LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.item_recomment_bottom, this);
 
         mAutoViewPager = (AutoViewPager) findViewById(R.id.vp_bottom);
@@ -67,11 +73,20 @@ public class RecommentBottomLayoutView extends LinearLayout {
 
         bottomLunboAdapter = new BottomLunboAdapter(mContext, bottomBeen);
         mAutoViewPager.setAdapter(bottomLunboAdapter);
+        bottomLunboAdapter.setOnBottomLunboItemClickListener(this);
         indicator_bottom.setViewPager(mAutoViewPager);
 
         mAutoViewPager.setInterval(5000);
         mAutoViewPager.setSlideBorderMode(AutoViewPager.SLIDE_BORDER_MODE_CYCLE);
         mAutoViewPager.setAnimation(new AlphaAnimation(1, (float) 0.2));
         mAutoViewPager.startAutoScroll(5000);
+    }
+
+    @Override
+    public void OnBottomLunboItemClick(View view, int position) {
+        Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
+        intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, HotListFragment.class);
+//        intent.putExtra("id",experDetailsAlbumbean.getId());
+        mContext.startActivity(intent);
     }
 }

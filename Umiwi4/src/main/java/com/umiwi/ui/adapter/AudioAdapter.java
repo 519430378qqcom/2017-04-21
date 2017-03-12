@@ -50,7 +50,7 @@ public class AudioAdapter extends BaseAdapter {
             viewHolder = new ViewHolder();
             convertView = View.inflate(context, R.layout.audio_item,null);
 
-            viewHolder.tv_audio_name = (TextView) convertView.findViewById(R.id.tv_audio_name);
+            viewHolder.tv_audio_name = (TextView) convertView.findViewById(R.id.tv_title);
             viewHolder.tv_prize = (TextView) convertView.findViewById(R.id.tv_prize);
             viewHolder.tv_time = (TextView) convertView.findViewById(R.id.tv_time);
             viewHolder.tv_watchnum = (TextView) convertView.findViewById(R.id.tv_watchnum);
