@@ -1,5 +1,6 @@
 package com.umiwi.ui.fragment.home.alreadyshopping;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -12,8 +13,10 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.umiwi.ui.R;
+import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.NewVideoAdapter;
 import com.umiwi.ui.beans.VideoBean;
+import com.umiwi.ui.fragment.course.CourseDetailPlayFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.CustomStringCallBack;
 import com.umiwi.ui.main.UmiwiAPI;
@@ -53,12 +56,6 @@ public class NewVideoFragment extends BaseConstantFragment {
     private void initView(View view) {
 
         listView = (ListView) view.findViewById(R.id.listView);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getActivity(), "1111", Toast.LENGTH_SHORT).show();
-            }
-        });
 
         mLoadingFooter = new LoadingFooter(getActivity());
         listView.addFooterView(mLoadingFooter.getView());
@@ -119,6 +116,16 @@ public class NewVideoFragment extends BaseConstantFragment {
                 }
                 videoAdapter = new NewVideoAdapter(getActivity(), mList);
                 listView.setAdapter(videoAdapter);
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
+                        intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, CourseDetailPlayFragment.class);
+                        intent.putExtra(CourseDetailPlayFragment.KEY_DETAIURL, mList.get(position).getId());
+
+                        getActivity().startActivity(intent);
+                    }
+                });
             }
         });
     }
