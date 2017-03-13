@@ -4,7 +4,7 @@ import com.umiwi.ui.dao.AudioDao;
 import com.umiwi.ui.http.parsers.AudioListParser;
 import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.model.AudioModel;
-import com.umiwi.ui.model.AudioModel.DownloadStatus;
+import com.umiwi.ui.model.AudioModel.DownloadStatus1;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -90,23 +90,23 @@ public class AudioManager extends ModelManager<String,AudioModel>{
 	}
 
 	public void setDownloadWaitByAudioId(String VideoId) {
-		setDownloadStatusByVideoId(VideoId, DownloadStatus.DOWNLOAD_WAIT.getValue());
+		setDownloadStatusByVideoId(VideoId, DownloadStatus1.DOWNLOAD_WAIT.getValue());
 	}
 
 	public void setDownloadPauseByVideoId(String VideoId) {
-		setDownloadStatusByVideoId(VideoId, DownloadStatus.DOWNLOAD_PAUSE.getValue());
+		setDownloadStatusByVideoId(VideoId, DownloadStatus1.DOWNLOAD_PAUSE.getValue());
 
 	}
 	public void setDownloadingByVideoId(String VideoId) {
-		setDownloadStatusByVideoId(VideoId, DownloadStatus.DOWNLOAD_IN.getValue());
+		setDownloadStatusByVideoId(VideoId, DownloadStatus1.DOWNLOAD_IN.getValue());
 	}
 
 	public void setDownloadCompleteByVideoId(String VideoId) {
-		setDownloadStatusByVideoId(VideoId, DownloadStatus.DOWNLOAD_COMPLETE.getValue());
+		setDownloadStatusByVideoId(VideoId, AudioModel.DownloadStatus1.DOWNLOAD_COMPLETE.getValue());
 	}
 
 	public void setDownloadErrorByVideoId(String VideoId) {
-		setDownloadStatusByVideoId(VideoId, DownloadStatus.DOWNLOAD_ERROR.getValue());
+		setDownloadStatusByVideoId(VideoId, DownloadStatus1.DOWNLOAD_ERROR.getValue());
 	}
 	
 	
@@ -151,8 +151,8 @@ public class AudioManager extends ModelManager<String,AudioModel>{
 	}
 	
 	
-	public void setStatusByVideoId(String VideoId, DownloadStatus downloadStatus) {
-		AudioDao.getInstance().setStatusByVideoId(VideoId, downloadStatus);
+	public void setStatusByVideoId(String VideoId, AudioModel.DownloadStatus1 downloadStatus1) {
+		AudioDao.getInstance().setStatusByVideoId(VideoId, downloadStatus1);
 	}
 	
 	public ArrayList<String> getAlbumIds() {

@@ -4,8 +4,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.umiwi.ui.main.UmiwiApplication;
+import com.umiwi.ui.model.AudioModel;
 import com.umiwi.ui.model.VideoModel;
 import com.umiwi.ui.model.VideoModel.DownloadStatus;
 import com.umiwi.ui.util.CommonHelper;
@@ -38,10 +40,11 @@ public class DBHelper extends SQLiteOpenHelper {
 
 	// 数据库版本 4.0版定为20 4.1.0为22 4.2为24 4.3=43, 4.3.6=44, 4.5.1=50, 4.8.0=80
 	//4.6.1=61 加入游戏        4.6.5=70 加入搜索历史 4.8.2=82
-	private static final int VERSION = 82;
+	private static final int VERSION = 83;
 
 	public DBHelper(Context context) {
 		super(context, DB_NAME, null, VERSION);
+
 		context.getPackageManager();
 	}
 
@@ -126,7 +129,7 @@ public class DBHelper extends SQLiteOpenHelper {
 		String strSource = "strSource";
 		String loaded = "loaded";
 		checkColumnExist(db, loaded, strSource);
-
+		Log.e("TAG", "oldVersion==" + oldVersion);
 		if (oldVersion <= 10) {// 针对3.4.01以前是10;
 			if (!checkColumnExist(db, loaded, strSource)) {
 
@@ -168,9 +171,10 @@ public class DBHelper extends SQLiteOpenHelper {
 
 		if (oldVersion <= 24) {
 			createVideoTable(db);
-			createAudioTable(db);
+//			createAudioTable(db);
 			SettingDao.getInstance().createTable(db);
 			transferNewLoadedToVideoTable(db);
+//			transferNewLoadedToAudioTable(db);
 		}
 		
 		if(oldVersion <=44) {
@@ -180,11 +184,11 @@ public class DBHelper extends SQLiteOpenHelper {
 			}
 			c.close();
 
-			Cursor c1 = db.rawQuery("SELECT * FROM [audio_table] limit 1", null);
-			if(c1.getColumnIndex("watched") == -1){
-				db.execSQL("alter table [video_table] add column watched int");
-			}
-			c1.close();
+//			Cursor c1 = db.rawQuery("SELECT * FROM [audio_table] limit 1", null);
+//			if(c1.getColumnIndex("watched") == -1){
+//				db.execSQL("alter table [audio_table] add column watched int");
+//			}
+//			c1.close();
 		}
 
 		// 销毁热词
@@ -225,6 +229,16 @@ public class DBHelper extends SQLiteOpenHelper {
 		}
 		
 		createSearchHistoryTable(db);
+		if(oldVersion <= 83) {
+		    createAudioTable(db);
+			transferNewLoadedToAudioTable(db);
+			Cursor c1 = db.rawQuery("SELECT * FROM [audio_table] limit 1", null);
+			if(c1.getColumnIndex("watched") == -1){
+				db.execSQL("alter table [audio_table] add column watched int");
+			}
+			c1.close();
+		}
+
 	}
 	private void createAudioTable(SQLiteDatabase db) {
 		// 4.3 创建音频表
@@ -232,11 +246,13 @@ public class DBHelper extends SQLiteOpenHelper {
 				+ "[videoID] TEXT NOT NULL ON CONFLICT REPLACE, "
 				+ "[albumID] TEXT, "
 				+ "[albumTitle] TEXT, "
+//				+ "[albumImageurl] TEXT, "
 				+ "[videoUrl] TEXT, "
 				+ "[filePath] TEXT, "
 				+ "[fileName] TEXT, "
 				+ "[fileSize] TEXT, "
 				+ "[extention] TEXT, "
+				+ "[imageURL] TEXT, "
 				+ "[title] TEXT, "
 				+ "[expireTime] TEXT, "
 				+ "[uid] TEXT, "
@@ -329,6 +345,54 @@ public class DBHelper extends SQLiteOpenHelper {
 		}
 		cw.close();
 		db.execSQL("DROP TABLE [newloaded]");
+	}
+	private void transferNewLoadedToAudioTable(SQLiteDatabase db) {
+		// newloaded
+		Cursor cursor = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='newloaded1';", null);
+		boolean newLoadedTableExist = cursor.moveToNext();
+		cursor.close();
+		if(!newLoadedTableExist){
+			return;
+		}
+
+		Cursor c = db.rawQuery("SELECT * FROM [newloaded1]", null);
+		CursorWrapper cw = new CursorWrapper(c);
+
+		HashMap<String, AudioModel.DownloadStatus1> downloadStatusMap = new HashMap<String, AudioModel.DownloadStatus1>();
+		downloadStatusMap.put("complete", AudioModel.DownloadStatus1.DOWNLOAD_COMPLETE);
+		downloadStatusMap.put("pause", AudioModel.DownloadStatus1.DOWNLOAD_PAUSE);
+
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",Locale.ENGLISH);// 设置日期格式
+		while (c.moveToNext()) {
+			AudioModel vm = new AudioModel();
+			vm.setAlbumId(cw.getString("albumId"));
+			vm.setVideoId(cw.getString("videoVid"));
+			vm.setImageURL(cw.getString("image"));
+
+			// TODO path
+			String path = cw.getString("path");
+			String url = cw.getString("videoUrl");
+			if (url.length() == 32) {
+				// md5 encoded;
+			} else {
+				vm.setVideoUrl(url);
+				url = CommonHelper.encodeMD5(url);
+			}
+
+			String state = cw.getString("state");
+			vm.setDownloadStatus1(downloadStatusMap.get(state));
+			path = path + url + cw.getString("ext");
+
+			long time = System.currentTimeMillis() + 1000L * 60 * 60 * 24 * 30;
+			String timeStr = df.format(new Date(time));
+			vm.setExpiretime(timeStr);
+
+			vm.setFilePath(path);
+			vm.setTitle(cw.getString("title"));
+			AudioDao.getInstance().save(vm, db);
+		}
+		cw.close();
+		db.execSQL("DROP TABLE [newloaded1]");
 	}
 
 	/**

@@ -11,19 +11,19 @@ import android.widget.TextView;
 import com.umiwi.ui.R;
 import com.umiwi.ui.main.UmiwiApplication;
 import com.umiwi.ui.managers.AudioDownloadManager;
-import com.umiwi.ui.managers.AudioDownloadManager.DownloadStatusListener;
+import com.umiwi.ui.managers.AudioDownloadManager.DownloadStatusListener1;
 import com.umiwi.ui.model.AudioModel;
-import com.umiwi.ui.model.AudioModel.DownloadStatus;
+import com.umiwi.ui.model.AudioModel.DownloadStatus1;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DownloadAudioListDialogAdapter extends BaseAdapter implements
-		DownloadStatusListener {
+public class DownloadAudioListDialogAdapter1 extends BaseAdapter implements
+		DownloadStatusListener1 {
 
 	private List<AudioModel> audios = new ArrayList<AudioModel>();
 
-	public DownloadAudioListDialogAdapter() {
+	public DownloadAudioListDialogAdapter1() {
 		AudioDownloadManager.getInstance().registerDownloadStatusListener(this);
 	}
 
@@ -50,9 +50,9 @@ public class DownloadAudioListDialogAdapter extends BaseAdapter implements
 	@Override
 	public boolean isEnabled(int position) {
 		AudioModel audio = getItem(position);
-		return audio.getDownloadStatus() == DownloadStatus.DOWNLOAD_PAUSE
-				|| audio.getDownloadStatus() == DownloadStatus.DOWNLOAD_ERROR
-				|| audio.getDownloadStatus() == DownloadStatus.NOTIN;
+		return audio.getDownloadStatus() == DownloadStatus1.DOWNLOAD_PAUSE
+				|| audio.getDownloadStatus() == DownloadStatus1.DOWNLOAD_ERROR
+				|| audio.getDownloadStatus() == DownloadStatus1.NOTIN;
 	}
 
 	@Override
@@ -78,12 +78,12 @@ public class DownloadAudioListDialogAdapter extends BaseAdapter implements
  		} else {
 			title = audio.getTitle();
 
- 			if ( audio.getDownloadStatus() == DownloadStatus.NOTIN) {
+ 			if ( audio.getDownloadStatus() == DownloadStatus1.NOTIN) {
 				visibility = View.VISIBLE;
  				holder.downtitleTextview.setVisibility(View.GONE);
   				holder.titleTextView.setTextColor(Color.BLACK);
 
- 			} else if(audio.getDownloadStatus() == DownloadStatus.DOWNLOAD_COMPLETE) {
+ 			} else if(audio.getDownloadStatus() == AudioModel.DownloadStatus1.DOWNLOAD_COMPLETE) {
   				holder.titleTextView.setTextColor(Color.GRAY);
 
  				holder.downtitleTextview.setText("已下载");
@@ -120,21 +120,23 @@ public class DownloadAudioListDialogAdapter extends BaseAdapter implements
 	}
 
 	@Override
-	public void onDownloadStatusChange(AudioModel audio, DownloadStatus ds, String msg) {
+	public void onDownloadStatusChange(AudioModel audio, DownloadStatus1 ds, String msg) {
 		int index = audios.indexOf(audio);
 		if (index >= 0) {
 
 			audios.set(index, audio);
 			AudioModel v = audios.get(index);
-			v.setDownloadStatus(ds);
+			v.setDownloadStatus1(ds);
 			this.notifyDataSetChanged();
 		}
 	}
 
 	@Override
-	public void onProgressChange(AudioModel audio, int current, int total, int speed) {
+	public void onAudioProgressChange(AudioModel audio, int current, int total, int speed) {
 
 	}
+
+
 
 	 
 }

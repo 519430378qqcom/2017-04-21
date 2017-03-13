@@ -13,23 +13,23 @@ import com.orhanobut.dialogplus.OnClickListener;
 import com.orhanobut.dialogplus.OnDismissListener;
 import com.orhanobut.dialogplus.OnItemClickListener;
 import com.umiwi.ui.R;
-import com.umiwi.ui.adapter.DownloadAudioListDialogAdapter;
+import com.umiwi.ui.adapter.DownloadAudioListDialogAdapter1;
 import com.umiwi.ui.managers.AudioDownloadManager;
-import com.umiwi.ui.managers.AudioDownloadManager.DownloadStatusListener;
+import com.umiwi.ui.managers.AudioDownloadManager.DownloadStatusListener1;
 import com.umiwi.ui.model.AudioModel;
-import com.umiwi.ui.model.AudioModel.DownloadStatus;
+import com.umiwi.ui.model.AudioModel.DownloadStatus1;
 
 import java.util.ArrayList;
 
 import cn.youmi.framework.util.SingletonFactory;
 
-public class DownloadAudioListDialog implements DownloadStatusListener {
+public class DownloadAudioListDialog1 implements DownloadStatusListener1 {
 
-    private DownloadAudioListDialogAdapter mDownloadListDialogAdapter;
+    private DownloadAudioListDialogAdapter1 mDownloadListDialogAdapter;
     private ArrayList<AudioModel> videoList = null;
 
-    public static DownloadAudioListDialog getInstance() {
-        return SingletonFactory.getInstance(DownloadAudioListDialog.class);
+    public static DownloadAudioListDialog1 getInstance() {
+        return SingletonFactory.getInstance(DownloadAudioListDialog1.class);
     }
 
     private void setVideos(ArrayList<AudioModel> audios) {
@@ -50,7 +50,7 @@ public class DownloadAudioListDialog implements DownloadStatusListener {
         setVideos(audios);
 
         ListHolder holder = new ListHolder();
-        mDownloadListDialogAdapter = new DownloadAudioListDialogAdapter();
+        mDownloadListDialogAdapter = new DownloadAudioListDialogAdapter1();
         mDownloadListDialogAdapter.setVideos(audios);
 
         DialogPlus dialogPlus = new DialogPlus.Builder(mContext)
@@ -73,7 +73,7 @@ public class DownloadAudioListDialog implements DownloadStatusListener {
                         }
                         if (videoList.size() > 0) {
                             AudioModel video = mDownloadListDialogAdapter.getItem(position - 1);
-                            if (DownloadStatus.NOTIN == video.getDownloadStatus()) {
+                            if (DownloadStatus1.NOTIN == video.getDownloadStatus()) {
                                 AudioDownloadManager.getInstance().addDownload(video);
                             }
                             Log.e("TAG", "点击下载时的video=" + video.getTitle());
@@ -90,7 +90,7 @@ public class DownloadAudioListDialog implements DownloadStatusListener {
                                     for (int i = 0; i < videoList.size(); i++) {
                                         AudioModel video = videoList.get(i);
                                         if (video != null) {
-                                            if (DownloadStatus.NOTIN == video.getDownloadStatus()) {
+                                            if (DownloadStatus1.NOTIN == video.getDownloadStatus()) {
                                                 AudioDownloadManager.getInstance().addDownload(video);
                                             }
                                         }
@@ -121,14 +121,13 @@ public class DownloadAudioListDialog implements DownloadStatusListener {
 
 
     @Override
-    public void onDownloadStatusChange(AudioModel video, DownloadStatus ds, String msg) {
+    public void onDownloadStatusChange(AudioModel video, AudioModel.DownloadStatus1 ds, String msg) {
 
     }
 
     @Override
-    public void onProgressChange(AudioModel video, int current, int total, int speed) {
+    public void onAudioProgressChange(AudioModel audio, int current, int total, int speed) {
 
     }
-
 
 }

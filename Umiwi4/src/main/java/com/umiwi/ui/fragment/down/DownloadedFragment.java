@@ -48,6 +48,7 @@ public class DownloadedFragment extends BaseFragment {
     private ListView mListView;
     private DownloadedAdapter mAdapter;
     private ArrayList<VideoModel> videos = new ArrayList<VideoModel>();
+//    private ArrayList<AudioModel> audios = new ArrayList<AudioModel>();
     private String albumId;
     private String albumTitle;
 
@@ -194,20 +195,30 @@ public class DownloadedFragment extends BaseFragment {
     private void update() {
 
         videos = VideoManager.getInstance().getDownloadedListByAlbumId(albumId);// 已经下载
-
+//        audios = AudioManager.getInstance().getDownloadedListByAlbumId(albumId);
         for (VideoModel video : videos) {
 
             if (!video.isWatched()) {
                 VideoManager.getInstance().setWatchedByVideoId(video.getVideoId());
             }
         }
-
+//        for (AudioModel audio: audios){
+//            if(!audio.isWatched()) {
+//                AudioManager.getInstance().setWatchedByVideoId(audio.getVideoId());
+//            }
+//        }
+//        ArrayList<AudioModel> albumAudios = AudioManager.getInstance().getVideosByAlbumId(albumId);
         ArrayList<VideoModel> albumVideos = VideoManager.getInstance().getVideosByAlbumId(albumId);
         if (albumVideos.size() > videos.size()) {
             VideoModel videoFake = new VideoModel();
             videoFake.setAlbumId(albumId);
             videos.add(videoFake);
         }
+//        if(albumAudios.size() > audios.size()) {
+//            AudioModel audioFake = new AudioModel();
+//            audioFake.setAlbumId(albumId);
+//            audios.add(audioFake);
+//        }
 
         mAdapter.setVideos(videos);
 
@@ -223,8 +234,10 @@ public class DownloadedFragment extends BaseFragment {
                 if (video.getVideoId() == null) {
                     return;
                 }
+
                 CheckBox videoCheckBox = (CheckBox) view.findViewById(R.id.video_checkbox);
                 videoCheckBox.performClick();
+
             } else {
                 VideoModel video = (VideoModel) mAdapter.getItem(position);
                 if (video.getVideoId() == null) {
@@ -234,6 +247,7 @@ public class DownloadedFragment extends BaseFragment {
                     } else {
                         LoginUtil.getInstance().showLoginView(getActivity());
                     }
+                    Log.e("TAG", "video的id==" + video.getVideoId());
                     return;
                 }
 
@@ -254,6 +268,7 @@ public class DownloadedFragment extends BaseFragment {
                 } else {
                     Toast.makeText(getActivity(), "文件不存在！", Toast.LENGTH_SHORT).show();//TODO
                 }
+
                 return;
             }
         }

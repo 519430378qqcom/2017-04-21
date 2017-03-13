@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
@@ -30,11 +31,14 @@ import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.DownloadedListAdapter;
 import com.umiwi.ui.adapter.DownloadedListAdapter.HolderFirst;
 import com.umiwi.ui.fragment.course.CourseSequenceListFragment;
+import com.umiwi.ui.managers.AudioDownloadManager;
+import com.umiwi.ui.managers.AudioManager;
 import com.umiwi.ui.managers.VideoDownloadManager;
 import com.umiwi.ui.managers.VideoDownloadManager.DownloadStatusListener;
 import com.umiwi.ui.managers.VideoManager;
 import com.umiwi.ui.managers.YoumiRoomUserManager;
 import com.umiwi.ui.model.AlbumModel;
+import com.umiwi.ui.model.AudioModel;
 import com.umiwi.ui.model.VideoModel;
 import com.umiwi.ui.model.VideoModel.DownloadStatus;
 import com.umiwi.ui.util.SDCardManager;
@@ -47,9 +51,11 @@ import java.util.Map;
 import cn.youmi.framework.fragment.BaseFragment;
 import cn.youmi.framework.util.NetworkManager;
 
-public class DownloadedListFragment extends BaseFragment implements DownloadStatusListener {
+public class DownloadedListFragment extends BaseFragment implements DownloadStatusListener,AudioDownloadManager.DownloadStatusListener1 {
     private ArrayList<VideoModel> DownloadedList;
     private ArrayList<VideoModel> DownloadingList;
+    private ArrayList<AudioModel> downLoadingAudioList;
+    private ArrayList<AudioModel> downLoadedAudioList;
     private ArrayList<AlbumModel> albums = new ArrayList<AlbumModel>();
     private DownloadedListAdapter mAdapter;
 
@@ -143,9 +149,19 @@ public class DownloadedListFragment extends BaseFragment implements DownloadStat
                     Intent i_downloaded = new Intent(getActivity(), UmiwiContainerActivity.class);
 
                     if (album.getAlbumId() != null) {
-                        i_downloaded.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, DownloadedFragment.class);
-                        i_downloaded.putExtra(DownloadedFragment.KEY_ALBUM_TITLE, album.getTitle());
-                        i_downloaded.putExtra(DownloadedFragment.KEY_ALBUM_ID, album.getAlbumId());
+                        if (album.getUrl().contains("mp3")) {
+                            i_downloaded.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, DownloadedAudioFragment.class);
+                            i_downloaded.putExtra(DownloadedAudioFragment.KEY_ALBUM_TITLE, album.getTitle());
+                            i_downloaded.putExtra(DownloadedAudioFragment.KEY_ALBUM_ID, album.getAlbumId());
+                        } else {
+
+                            i_downloaded.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, DownloadedFragment.class);
+                            i_downloaded.putExtra(DownloadedFragment.KEY_ALBUM_TITLE, album.getTitle());
+                            i_downloaded.putExtra(DownloadedFragment.KEY_ALBUM_ID, album.getAlbumId());
+                            Log.e("TAG", "album.getTitle() + album.getAlbumId() = " +album.getTitle() );
+                            Log.e("TAG", " album.getAlbumId() = " +album.getAlbumId() );
+                            Log.e("TAG", "album的URL=" + album.getUrl());
+                        }
 
                     } else {
                         i_downloaded.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, DownloadingFragment.class);
@@ -169,6 +185,26 @@ public class DownloadedListFragment extends BaseFragment implements DownloadStat
         });
 
         VideoDownloadManager.getInstance().registerDownloadStatusListener(this);
+        AudioDownloadManager.getInstance().registerDownloadStatusListener(this);
+    }
+
+    @Override
+    public void onDownloadStatusChange(AudioModel audio, AudioModel.DownloadStatus1 ds, String msg) {
+        switch (ds) {
+            case DOWNLOAD_COMPLETE:
+                update();
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void onAudioProgressChange(AudioModel audio, int current, int total, int speed) {
+        audio.setDownloadedSize(current);
+        audio.setFileSize(total);
+        audio.setSpeed(speed);
+        updateDownloading();
     }
 
 
@@ -196,6 +232,7 @@ public class DownloadedListFragment extends BaseFragment implements DownloadStat
                         int albumId = checkedAlbumids.keyAt(i);
                         if (checkedAlbumids.get(albumId)) {
                             VideoDownloadManager.getInstance().deleteDownloadedByAlbumId("" + albumId);
+                            AudioDownloadManager.getInstance().deleteDownloadedByAlbumId("" + albumId);
                         }
                     }
 
@@ -227,6 +264,12 @@ public class DownloadedListFragment extends BaseFragment implements DownloadStat
                 }
 //				ToastU.showLong(getActivity(), "连接到WIFI,开始下载未完全视频");
             }
+            ArrayList<AudioModel> audios = AudioDownloadManager.getInstance().getDownloadingList();
+            if(!audios.isEmpty()) {
+                for (AudioModel audio: audios){
+                    AudioDownloadManager.getInstance().addDownload(audio);
+                }
+            }
         }
     }
 
@@ -247,12 +290,18 @@ public class DownloadedListFragment extends BaseFragment implements DownloadStat
     private void update() {
 
         DownloadedList = VideoManager.getInstance().getDownloadedList();//已经下载
+        downLoadedAudioList = AudioManager.getInstance().getDownloadedList();
         DownloadingList = VideoDownloadManager.getInstance().getDownloadingList();//正在下载
+        downLoadingAudioList = AudioDownloadManager.getInstance().getDownloadingList() ;
+
 
         long size = 0;
         for (VideoModel video : DownloadedList) {
             //	System.out.println("TMD===="+video.getFilePath()+" name "+video.getFileName()+"  size"+video.getFileSize());
             size = size + video.getFileSize();
+        }
+        for (AudioModel audio : downLoadedAudioList) {
+            size = size + audio.getFileSize();
         }
 
         DownloadedSize = SDCardManager.convertStorage(size);
@@ -271,22 +320,30 @@ public class DownloadedListFragment extends BaseFragment implements DownloadStat
             albums.clear();
         }
 
-        if (DownloadedList == null && DownloadingList == null) {
+        if (DownloadedList == null && DownloadingList == null &&
+                downLoadedAudioList == null && downLoadingAudioList == null) {
             downloadedListView.setVisibility(View.GONE);
             nodownloadedView.setVisibility(View.VISIBLE);
+
             return;
         }
 
 
         albums = new ArrayList<AlbumModel>();
 
-        if (DownloadingList != null && DownloadingList.size() > 0) {
-            AlbumModel albumFake = new AlbumModel();
+        AlbumModel albumFake = new AlbumModel();
+        if (DownloadingList != null && DownloadingList.size() > 0 ) {
             albumFake.setTitle("正在下载");
             albumFake.setDownloadFilesize(12);
             albumFake.setDownloadVideoCount(1);
             albums.add(albumFake);
             //System.out.println("TMD====添加后看文件个数："+albums.size() );
+        }
+        if(downLoadingAudioList != null && downLoadingAudioList.size() > 0) {
+            albumFake.setTitle("正在下载");
+            albumFake.setDownloadFilesize(12);
+            albumFake.setDownLoadAudioCount(1);
+            albums.add(albumFake);
         }
 
         Map<String, Boolean> watcheds = new HashMap<String, Boolean>();
@@ -331,6 +388,58 @@ public class DownloadedListFragment extends BaseFragment implements DownloadStat
                     album.setDownloadFilesize(video.getFileSize());
                     album.setDownloadVideoCount(1);
                     album.setWatched(watcheds.get(albumid));
+                    album.setUrl(video.getVideoUrl());
+                    albums.add(album);
+                    //System.out.println("TMD====SIZE"+albums.size());
+                } else {
+
+                }
+
+
+            }
+        }
+        if (downLoadedAudioList != null && downLoadedAudioList.size() > 0) {
+            for (int i = 0; i < downLoadedAudioList.size(); i++) {
+                AudioModel audio = downLoadedAudioList.get(i);
+                String albumid = audio.getAlbumId();
+
+                //	System.out.println("TMD====ALBUMID "+albumid);
+                if (albumid == null) {
+                    albumid = "";
+                }
+
+                if (watcheds.get(albumid) == null) {
+                    watcheds.put(albumid, true);
+                }
+
+                if (!audio.isWatched()) {
+                    watcheds.put(albumid, false);
+                }
+
+                Boolean hasin = false;
+                for (AlbumModel mAlbum : albums) {
+                    if (mAlbum.getAlbumId() != null && mAlbum.getAlbumId().equals(audio.getAlbumId())) {
+                        //System.out.println("TMD=="+mAlbum.getDownloadFilesize()+"   "+video.getFileSize());
+
+                        mAlbum.setDownloadFilesize(mAlbum.getDownloadFilesize() + audio.getFileSize());
+                        mAlbum.setDownloadVideoCount(mAlbum.getDownLoadAudioCount() + 1);
+                        //	System.out.println("TMD====SIZE  "+mAlbum.getDownloadVideoCount());
+                        hasin = true;
+                    }
+                }
+
+                if (hasin == false) {
+                    AlbumModel album = new AlbumModel();
+                    album.setAlbumId(audio.getAlbumId());
+                    album.setImageURL(audio.getImageURL());
+                    if (audio.getImageURL() == null) {
+                        album.setImageURL(audio.getVideoUrl());
+                    }
+                    album.setTitle(audio.getAlbumTitle());
+                    album.setDownloadFilesize(audio.getFileSize());
+                    album.setDownLoadAudioCount(1);
+                    album.setWatched(watcheds.get(albumid));
+                    album.setUrl(audio.getVideoUrl());
                     albums.add(album);
                     //System.out.println("TMD====SIZE"+albums.size());
                 } else {
@@ -352,9 +461,10 @@ public class DownloadedListFragment extends BaseFragment implements DownloadStat
 
     public void updateDownloading() {
 
-        if (DownloadingList == null) {
+        if (DownloadingList == null && downLoadingAudioList == null) {
             return;
         }
+
 
         float speed = 0;
         boolean pauseAll = true;
@@ -363,11 +473,21 @@ public class DownloadedListFragment extends BaseFragment implements DownloadStat
             if (video.getDownloadStatus() != DownloadStatus.DOWNLOAD_PAUSE) {
                 pauseAll = false;
             }
-//            if (video.getDownloadStatus() == DownloadStatus.DOWNLOAD_IN) {
+//            if (video.getDownloadStatus() == DownloadStatus1.DOWNLOAD_IN) {
 //                speed = speed + video.getSpeed();
 //            }
         }
+        for (AudioModel audio : downLoadingAudioList) {
+            if(audio.getDownloadStatus() != AudioModel.DownloadStatus1.DOWNLOAD_PAUSE) {
+                pauseAll = false;
+            }
+        }
 
+        for (AudioModel audio : downLoadingAudioList) {
+            if(audio.getDownloadStatus() == AudioModel.DownloadStatus1.DOWNLOAD_IN) {
+                speed = speed + audio.getSpeed();
+            }
+        }
         for (VideoModel video : DownloadingList) {
             if (video.getDownloadStatus() == DownloadStatus.DOWNLOAD_IN) {
                 speed = speed + video.getSpeed();
@@ -375,7 +495,7 @@ public class DownloadedListFragment extends BaseFragment implements DownloadStat
         }
 
         mAdapter.setPauseAll(pauseAll);
-        int downloadNum = DownloadingList.size();
+        int downloadNum = DownloadingList.size() + downLoadingAudioList.size();
         mAdapter.setSpeed(speed);
         mAdapter.setDownloadNum(downloadNum);
         View convertView = downloadedListView.getChildAt(0);
@@ -420,6 +540,8 @@ public class DownloadedListFragment extends BaseFragment implements DownloadStat
         video.setSpeed(speed);
         updateDownloading();
     }
+
+
 
     public void trashClick() {
         mAdapter.toggleTrashStatus();

@@ -1041,11 +1041,11 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
             VideoModel video = VideoManager.getInstance().getVideoById(
                     c.getVid() + "");
             videos.add(video);
-            Log.e("TAG", "video =" + video.getFileName());
-            Log.e("TAG", "video =" + video.getTitle());
-            Log.e("TAG", "video =" + video.getVideoUrl());
-            Log.e("TAG", "video =" + video.getVideoId());
-            Log.e("TAG", "video =" + video.getAlbumTitle());
+//            Log.e("TAG", "video =" + video.getFileName());
+//            Log.e("TAG", "video =" + video.getTitle());
+//            Log.e("TAG", "video =" + video.getVideoUrl());
+//            Log.e("TAG", "video =" + video.getVideoId());
+//            Log.e("TAG", "video =" + video.getAlbumTitle());
         }
         return videos;
     }

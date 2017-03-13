@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Base64;
 
 import com.umiwi.ui.model.AudioModel;
-import com.umiwi.ui.model.AudioModel.DownloadStatus;
+import com.umiwi.ui.model.AudioModel.DownloadStatus1;
 
 import java.util.ArrayList;
 
@@ -99,11 +99,11 @@ public class AudioDao extends BaseDao {
 	 * @return
 	 */
 	public ArrayList<AudioModel> getByDownloadStatus(
-			DownloadStatus downloadStatus) {
+			AudioModel.DownloadStatus1 downloadStatus1) {
 		ArrayList<AudioModel> audios = new ArrayList<AudioModel>();
 		CursorWrapper cursor = query(
 				"SELECT DISTINCT * FROM [audio_table] WHERE [downloadStatus] = ?;",
-				new String[] { String.valueOf(downloadStatus.getValue()) });
+				new String[] { String.valueOf(downloadStatus1.getValue()) });
 		while (cursor.moveToNext()) {
 			AudioModel audio = cursorToVideoModel(cursor);
 			audios.add(audio);
@@ -127,7 +127,7 @@ public class AudioDao extends BaseDao {
 		ArrayList<AudioModel> audios = new ArrayList<AudioModel>();
 		CursorWrapper cursor = query(
 				"SELECT * FROM [audio_table] WHERE [albumId]=? and  [downloadStatus] != ? and  [downloadStatus] != ? ",
-				new String[] { albumId, String.valueOf(DownloadStatus.DOWNLOAD_COMPLETE.getValue()), String.valueOf(DownloadStatus.NOTIN.getValue())  });
+				new String[] { albumId, String.valueOf(DownloadStatus1.DOWNLOAD_COMPLETE.getValue()), String.valueOf(DownloadStatus1.NOTIN.getValue())  });
 		while (cursor.moveToNext()) {
 			AudioModel audio = cursorToVideoModel(cursor);
 			audios.add(audio);
@@ -160,11 +160,11 @@ public class AudioDao extends BaseDao {
 	 * 获取已经下载的列表
 	 */
 	public ArrayList<AudioModel> getDownloadedList() {
-		return  getByDownloadStatus(DownloadStatus.DOWNLOAD_COMPLETE);
+		return  getByDownloadStatus(AudioModel.DownloadStatus1.DOWNLOAD_COMPLETE);
 	}
 
 	public ArrayList<AudioModel> getDownloadedListByAlbumId(String albumId) {
-//		return getListByAlbumIdDownloadStatus(albumId, DownloadStatus.DOWNLOAD_COMPLETE);
+//		return getListByAlbumIdDownloadStatus(albumId, DownloadStatus1.DOWNLOAD_COMPLETE);
 		if (null == albumId) {
 			return new ArrayList<AudioModel>();
 		}
@@ -247,10 +247,10 @@ public class AudioDao extends BaseDao {
 	}
 
 
-	public void setStatusByVideoId(String videoId, DownloadStatus downloadStatus) {
+	public void setStatusByVideoId(String videoId, AudioModel.DownloadStatus1 downloadStatus1) {
 		ContentValues values = new ContentValues();
 		values.put("downloadStatus",
-				downloadStatus.getStringValue());
+				downloadStatus1.getStringValue());
 		getDb().update("audio_table", values, " videoID=" + videoId, null);
 	}
 
@@ -261,7 +261,7 @@ public class AudioDao extends BaseDao {
 	public void setPause(String videoId) {
 		ContentValues values = new ContentValues();
 		values.put("pause",
-				DownloadStatus.DOWNLOAD_PAUSE.getStringValue());
+				AudioModel.DownloadStatus1.DOWNLOAD_PAUSE.getStringValue());
 		getDb().update("audio_table", values, " videoID=" + videoId, null);
 	}
 	
@@ -301,19 +301,19 @@ public class AudioDao extends BaseDao {
 		audio.setFilePath(cursor.getString("filePath"));
 		audio.setFileName(cursor.getString("fileName"));
 		audio.setExt(cursor.getString("extention"));
-//		audio.setImageURL(cursor.getString("imageURL"));
+		audio.setImageURL(cursor.getString("imageURL"));
 		audio.setTitle(cursor.getString("title"));
 		audio.setExpiretime(cursor.getString("expireTime"));
 		audio.setUid(cursor.getString("uid"));
-		audio.setDownloadStatus(DownloadStatus.ValueOf(cursor.getInt("downloadStatus")));
+		audio.setDownloadStatus1(DownloadStatus1.ValueOf(cursor.getInt("downloadStatus")));
 		audio.setClasses(cursor.getString("classes"));
 //		audio.setLastwatchposition(cursor.getInt("lastPosition"));
 //		audio.setFileheader(cursor.getBlob("fileHeader"));
 		
 		if(cursor.getInt("watched")>0) {
-			audio.setListened(true);
+			audio.setWatched(true);
 		} else {
-			audio.setListened(false);
+			audio.setWatched(false);
 		}
 		
 		if(cursor.getInt("istry") == 1) {
@@ -361,9 +361,9 @@ public class AudioDao extends BaseDao {
 		if (audio.getExt() != null) {
 			values.put("extention", audio.getExt());
 		}
-//		if (audio.getImageURL() != null) {
-//			values.put("imageURL", audio.getImageURL());
-//		}
+		if (audio.getImageURL() != null) {
+			values.put("imageURL", audio.getImageURL());
+		}
 
 		if (audio.getTitle() != null) {
 			values.put("title", audio.getTitle());
@@ -400,7 +400,7 @@ public class AudioDao extends BaseDao {
 //		}
 		
 
-		if (audio.isListened()) {
+		if (audio.isWatched()) {
 			values.put("watched", 1);
 		} else {
 			values.put("watched", 0);
@@ -411,8 +411,8 @@ public class AudioDao extends BaseDao {
 
 	public ArrayList<AudioModel> getDownloadingAudios() {
 		ArrayList<AudioModel> audios = new ArrayList<AudioModel>();
-		String[] args = { String.valueOf(DownloadStatus.NOTIN.getValue()),
-				String.valueOf(DownloadStatus.DOWNLOAD_COMPLETE.getValue()), };
+		String[] args = { String.valueOf(DownloadStatus1.NOTIN.getValue()),
+				String.valueOf(DownloadStatus1.DOWNLOAD_COMPLETE.getValue()), };
 		String sql = "SELECT * FROM [audio_table] WHERE [downloadStatus] IN (?,?,?,?)";
 		sql = "SELECT * FROM [audio_table] WHERE ([downloadStatus] != ? AND [downloadStatus] != ?)";
 		CursorWrapper c = query(sql, args);

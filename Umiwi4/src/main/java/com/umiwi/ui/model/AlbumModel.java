@@ -3,15 +3,33 @@ package com.umiwi.ui.model;
 import cn.youmi.framework.model.BaseModel;
 
 public class AlbumModel extends BaseModel {
+	private String url;
 	private String albumId;
 	private String imageURL;
 	private String title;
 	private String expiretime;
 	private String uid;
 	private int downloadVideoCount;//已下载视频数量
+	private int downLoadAudioCount;
 	private int downloadFilesize;//已经下载文件大小
 	private boolean watched = false;
-	
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public int getDownLoadAudioCount() {
+		return downLoadAudioCount;
+	}
+
+	public void setDownLoadAudioCount(int downLoadAudioCount) {
+		this.downLoadAudioCount = downLoadAudioCount;
+	}
+
 	/**
 	 * @return the albumId
 	 */

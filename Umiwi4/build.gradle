@@ -50,6 +50,7 @@ android {
         targetSdkVersion 23
         versionCode Integer.parseInt(VERSION_CODE)
         versionName VERSION_NAME
+//        versionName 2.0
 
         ndkConfig.abiFilters "armeabi-v7a"
         ndkConfig.abiFilters "armeabi"

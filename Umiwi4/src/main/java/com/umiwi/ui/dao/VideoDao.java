@@ -163,7 +163,7 @@ public class VideoDao extends BaseDao {
 	}
 	
 	public ArrayList<VideoModel> getDownloadedListByAlbumId(String albumId) {
-//		return getListByAlbumIdDownloadStatus(albumId, DownloadStatus.DOWNLOAD_COMPLETE);
+//		return getListByAlbumIdDownloadStatus(albumId, DownloadStatus1.DOWNLOAD_COMPLETE);
 		if (null == albumId) {
 			return new ArrayList<VideoModel>();
 		}

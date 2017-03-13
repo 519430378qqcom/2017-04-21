@@ -235,11 +235,17 @@ public class VoiceDetailsAdapter extends BaseAdapter {
         tv_dir_totaltime.setText(bean.getAplaytime());
 
         view.setTag(bean);
+
+
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                Toast.makeText(mActivity, "点击播放试听", Toast.LENGTH_SHORT).show();
-                voiceDetailsFragment.bindVoiceSerive();
+                Log.e("TAG", "experDetailsVoiceBean.isIspay()=" + experDetailsVoiceBean.isIspay());
+//                voiceDetailsFragment.bindVoiceSerive();
+                if(experDetailsVoiceBean.isIspay()) {
+                    voiceDetailsFragment.bindVoiceSerive();
+                }
             }
         });
     }

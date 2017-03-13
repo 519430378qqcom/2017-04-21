@@ -1,8 +1,5 @@
 package com.umiwi.ui.adapter;
 
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.SparseBooleanArray;
@@ -15,12 +12,15 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.TextView;
-import cn.youmi.framework.main.ContextProvider;
-import cn.youmi.framework.util.ImageLoader;
 
 import com.umiwi.ui.R;
 import com.umiwi.ui.main.UmiwiApplication;
 import com.umiwi.ui.model.AlbumModel;
+
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+
+import cn.youmi.framework.util.ImageLoader;
 
 /**
  * @Author xiaobo
@@ -48,7 +48,7 @@ public class DownloadedListAdapter extends BaseAdapter {
 	}
 	
 
-	public Boolean getTrashStatus() {
+	public Boolean  getTrashStatus() {
 		return trashStatus;
 	}
 	
@@ -158,8 +158,13 @@ public class DownloadedListAdapter extends BaseAdapter {
 
 			holder.filesizeTextView.setText(df.format((album.getDownloadFilesize()/(1024*1024))) + "MB");
 		//	System.out.println("TMD===下载数量"+album.getDownloadVideoCount()+"");
-			holder.videocountTextView.setText(album.getDownloadVideoCount()+"");
-			
+			if (album.getUrl().contains("mp3")) {
+				holder.videocountTextView.setText(album.getDownLoadAudioCount() + "");
+
+			} else {
+				holder.videocountTextView.setText(album.getDownloadVideoCount() + "");
+			}
+
 			
 			
 			if(album.isWatched()) {

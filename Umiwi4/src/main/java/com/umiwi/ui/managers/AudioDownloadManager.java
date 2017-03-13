@@ -7,7 +7,7 @@ import com.umiwi.ui.dao.AudioDao;
 import com.umiwi.ui.download.AudioDownloadTask;
 import com.umiwi.ui.main.UmiwiApplication;
 import com.umiwi.ui.model.AudioModel;
-import com.umiwi.ui.model.AudioModel.DownloadStatus;
+import com.umiwi.ui.model.AudioModel.DownloadStatus1;
 import com.umiwi.ui.util.SDCardManager;
 
 import java.lang.ref.WeakReference;
@@ -26,24 +26,24 @@ public class AudioDownloadManager extends ModelManager<String, AudioModel> {
 
 	private static Handler _handler = new Handler(Looper.getMainLooper());
 
-	public interface DownloadStatusListener {
-		void onDownloadStatusChange(AudioModel audio, DownloadStatus ds, String msg);
-		void onProgressChange(AudioModel audio, int current, int total, int speed);
+	public interface DownloadStatusListener1 {
+		void onDownloadStatusChange(AudioModel audio, DownloadStatus1 ds, String msg);
+		void onAudioProgressChange(AudioModel audio, int current, int total, int speed);
  	}
 
  	private ArrayList<AudioDownloadTask> mExecutingQueue = new ArrayList<AudioDownloadTask>();
  	private ArrayList<AudioModel> DownloadingList= new ArrayList<AudioModel>();
 
-	private HashSet<WeakReference<DownloadStatusListener>> mDownloadProgressListeners = new HashSet<WeakReference<AudioDownloadManager.DownloadStatusListener>>();
+	private HashSet<WeakReference<DownloadStatusListener1>> mDownloadProgressListeners = new HashSet<WeakReference<DownloadStatusListener1>>();
 
-	synchronized public void registerDownloadStatusListener(DownloadStatusListener dl) {
-		for(WeakReference<DownloadStatusListener> ref:mDownloadProgressListeners){
+	synchronized public void registerDownloadStatusListener(DownloadStatusListener1 dl) {
+		for(WeakReference<DownloadStatusListener1> ref:mDownloadProgressListeners){
 			if(ref.get() == dl){
 				return;
 			}
 		}
 		mDownloadProgressListeners
-				.add(new WeakReference<AudioDownloadManager.DownloadStatusListener>(
+				.add(new WeakReference<DownloadStatusListener1>(
 						dl));
 	}
 
@@ -65,34 +65,34 @@ public class AudioDownloadManager extends ModelManager<String, AudioModel> {
 	}
 
 	public void delete(AudioModel v) {
-		v.setDownloadStatus(DownloadStatus.NOTIN);
+		v.setDownloadStatus1(DownloadStatus1.NOTIN);
 		AudioManager.getInstance().saveVideo(v);
 		DownloadingList.remove(v);
 		for(AudioModel audio:DownloadingList) {
 			if(audio.equals(v)) {
-				v.setDownloadStatus(DownloadStatus.NOTIN);
-				audio.setDownloadStatus(DownloadStatus.NOTIN);
-				notifyStatusChange(audio, DownloadStatus.NOTIN, "");
+				v.setDownloadStatus1(AudioModel.DownloadStatus1.NOTIN);
+				audio.setDownloadStatus1(DownloadStatus1.NOTIN);
+				notifyStatusChange(audio, DownloadStatus1.NOTIN, "");
 			}
 		}
 
 		for(AudioDownloadTask t:mExecutingQueue) {
 			AudioModel audio = t.getAudio();
 			if(audio.equals(v)) {
-				v.setDownloadStatus(DownloadStatus.NOTIN);
-				audio.setDownloadStatus(DownloadStatus.NOTIN);
-				notifyStatusChange(audio, DownloadStatus.NOTIN, "");
+				v.setDownloadStatus1(AudioModel.DownloadStatus1.NOTIN);
+				audio.setDownloadStatus1(DownloadStatus1.NOTIN);
+				notifyStatusChange(audio, DownloadStatus1.NOTIN, "");
 			}
 		}
 	}
 	public void pause(final AudioModel v){
-		v.setDownloadStatus(DownloadStatus.DOWNLOAD_PAUSE);
-		v.setDownloadStatus(DownloadStatus.DOWNLOAD_PAUSE);
-		notifyStatusChange(v, DownloadStatus.DOWNLOAD_PAUSE, "");
+		v.setDownloadStatus1(DownloadStatus1.DOWNLOAD_PAUSE);
+		v.setDownloadStatus1(DownloadStatus1.DOWNLOAD_PAUSE);
+		notifyStatusChange(v, DownloadStatus1.DOWNLOAD_PAUSE, "");
 
 		for(AudioDownloadTask t:mExecutingQueue){
 			if(t.getAudio().equals(v)){
-				t.getAudio().setDownloadStatus(DownloadStatus.DOWNLOAD_PAUSE);
+				t.getAudio().setDownloadStatus1(DownloadStatus1.DOWNLOAD_PAUSE);
 				break;
 			}
 		}
@@ -108,8 +108,8 @@ public class AudioDownloadManager extends ModelManager<String, AudioModel> {
 
 	public void pauseAll() {
 		for(AudioModel audio:DownloadingList) {
- 			audio.setDownloadStatus(DownloadStatus.DOWNLOAD_PAUSE);
-			notifyStatusChange(audio, DownloadStatus.DOWNLOAD_PAUSE, "");
+ 			audio.setDownloadStatus1(DownloadStatus1.DOWNLOAD_PAUSE);
+			notifyStatusChange(audio, DownloadStatus1.DOWNLOAD_PAUSE, "");
 		}
 	}
 
@@ -118,21 +118,21 @@ public class AudioDownloadManager extends ModelManager<String, AudioModel> {
 			int index = DownloadingList.indexOf(audio);
 
 			if(!SDCardManager.isStorageAvailable(SDCardManager.getDownloadPath())) {
-				audio.setDownloadStatus(DownloadStatus.DOWNLOAD_ERROR);
- 				notifyStatusChange(audio, DownloadStatus.DOWNLOAD_ERROR, "当前存储路径没有准备好或者无法读取，请检查后再试");
+				audio.setDownloadStatus1(DownloadStatus1.DOWNLOAD_ERROR);
+ 				notifyStatusChange(audio, DownloadStatus1.DOWNLOAD_ERROR, "当前存储路径没有准备好或者无法读取，请检查后再试");
 			} else if(!SDCardManager.isSotrageSpaceEnough()) {
-				audio.setDownloadStatus(DownloadStatus.DOWNLOAD_ERROR);
- 				notifyStatusChange(audio, DownloadStatus.DOWNLOAD_ERROR, "当前存储空间不足，请更换存储卡");
+				audio.setDownloadStatus1(AudioModel.DownloadStatus1.DOWNLOAD_ERROR);
+ 				notifyStatusChange(audio, DownloadStatus1.DOWNLOAD_ERROR, "当前存储空间不足，请更换存储卡");
 			} else {
 			}
 			if(index>=0) {
 				AudioModel v = DownloadingList.get(index);
-				v.setDownloadStatus(DownloadStatus.DOWNLOAD_WAIT);
- 				notifyStatusChange(v, DownloadStatus.DOWNLOAD_WAIT, "");
+				v.setDownloadStatus1(DownloadStatus1.DOWNLOAD_WAIT);
+ 				notifyStatusChange(v, DownloadStatus1.DOWNLOAD_WAIT, "");
 			} else {
-				audio.setDownloadStatus(DownloadStatus.DOWNLOAD_WAIT);
+				audio.setDownloadStatus1(DownloadStatus1.DOWNLOAD_WAIT);
 				DownloadingList.add(audio);
- 				notifyStatusChange(audio, DownloadStatus.DOWNLOAD_WAIT, "");
+ 				notifyStatusChange(audio, DownloadStatus1.DOWNLOAD_WAIT, "");
 			}
 
 			if (NetworkManager.getInstance().isWifi()) {
@@ -172,7 +172,7 @@ public class AudioDownloadManager extends ModelManager<String, AudioModel> {
 				int i = THREAD_POOL_SIZE - mExecutingQueue.size() ;
 
 				for(AudioModel audio : DownloadingList) {
-					if(audio.getDownloadStatus() == DownloadStatus.DOWNLOAD_WAIT) {
+					if(audio.getDownloadStatus() == DownloadStatus1.DOWNLOAD_WAIT) {
 
 						boolean hasVideoId =false;//是否有其他专辑的同一个视频在下载
 						for(AudioDownloadTask vdt: mExecutingQueue) {
@@ -200,7 +200,7 @@ public class AudioDownloadManager extends ModelManager<String, AudioModel> {
 	public void endDownload(AudioDownloadTask task) {
 		synchronized (mQueueLock) {
 			mExecutingQueue.remove(task);
-			if(task.getAudio().getDownloadStatus() == DownloadStatus.DOWNLOAD_COMPLETE) {
+			if(task.getAudio().getDownloadStatus() == DownloadStatus1.DOWNLOAD_COMPLETE) {
 				DownloadingList.remove(task.getAudio());
 			}
 		}
@@ -213,7 +213,7 @@ public class AudioDownloadManager extends ModelManager<String, AudioModel> {
 	}
 
 	synchronized public void notifyStatusChange(final AudioModel audio,
-			final DownloadStatus ds, final String msg) {
+												final DownloadStatus1 ds, final String msg) {
 
  			AudioManager.getInstance().saveVideo(audio);
 
@@ -221,15 +221,15 @@ public class AudioDownloadManager extends ModelManager<String, AudioModel> {
 				@Override
 				public void run() {
 					synchronized (AudioDownloadManager.this) {
-						HashSet<WeakReference<DownloadStatusListener>> tobeRemoved = null;
+						HashSet<WeakReference<DownloadStatusListener1>> tobeRemoved = null;
 
-						for (WeakReference<DownloadStatusListener> sf : mDownloadProgressListeners) {
-							DownloadStatusListener dl = sf.get();
+						for (WeakReference<DownloadStatusListener1> sf : mDownloadProgressListeners) {
+							DownloadStatusListener1 dl = sf.get();
 							if (dl != null) {
 								dl.onDownloadStatusChange(audio, ds, msg);
 							} else {
 								if(tobeRemoved == null){
-									tobeRemoved = new HashSet<WeakReference<DownloadStatusListener>>();
+									tobeRemoved = new HashSet<WeakReference<DownloadStatusListener1>>();
 								}
 								tobeRemoved.add(sf);
 							}
@@ -242,7 +242,7 @@ public class AudioDownloadManager extends ModelManager<String, AudioModel> {
 				}
 			});
 
-			if(ds == DownloadStatus.DOWNLOAD_COMPLETE || ds == DownloadStatus.DOWNLOAD_ERROR){
+			if(ds == DownloadStatus1.DOWNLOAD_COMPLETE || ds == DownloadStatus1.DOWNLOAD_ERROR){
 				updateCallbackCache.remove(audio);//we don't need it any more
 			}
 	}
@@ -275,14 +275,14 @@ public class AudioDownloadManager extends ModelManager<String, AudioModel> {
 		@Override
 		 public void run() {
 			synchronized(AudioDownloadManager.this) {
-				HashSet<WeakReference<DownloadStatusListener>> tobeRemoved = null;
-				for (WeakReference<DownloadStatusListener> sf : mDownloadProgressListeners) {
-					DownloadStatusListener dl = sf.get();
+				HashSet<WeakReference<DownloadStatusListener1>> tobeRemoved = null;
+				for (WeakReference<DownloadStatusListener1> sf : mDownloadProgressListeners) {
+					DownloadStatusListener1 dl = sf.get();
 					if (dl != null) {
-						dl.onProgressChange(audio, current, total, speed);
+						dl.onAudioProgressChange(audio, current, total, speed);
 					} else {
 						if(tobeRemoved == null){
-							tobeRemoved = new HashSet<WeakReference<DownloadStatusListener>>();
+							tobeRemoved = new HashSet<WeakReference<DownloadStatusListener1>>();
 						}
 						tobeRemoved.add(sf);
 					}
@@ -301,8 +301,8 @@ public class AudioDownloadManager extends ModelManager<String, AudioModel> {
 	public void setDownloadingList(ArrayList<AudioModel> DownloadingList) {
 		this.DownloadingList = DownloadingList;
 		for(AudioModel audio :DownloadingList) {
-			if(audio.getDownloadStatus() == DownloadStatus.DOWNLOAD_IN) {
-				audio.setDownloadStatus(DownloadStatus.DOWNLOAD_WAIT);
+			if(audio.getDownloadStatus() == DownloadStatus1.DOWNLOAD_IN) {
+				audio.setDownloadStatus1(DownloadStatus1.DOWNLOAD_WAIT);
 			}
  		}
 		if (NetworkManager.getInstance().isWifi()) {
@@ -316,7 +316,7 @@ public class AudioDownloadManager extends ModelManager<String, AudioModel> {
 	public Boolean hasDownloading() {
 		boolean result = false;
 		for(AudioModel audio : DownloadingList) {
- 			if(audio.getDownloadStatus() == DownloadStatus.DOWNLOAD_IN || audio.getDownloadStatus() == DownloadStatus.DOWNLOAD_ERROR) {
+ 			if(audio.getDownloadStatus() == DownloadStatus1.DOWNLOAD_IN || audio.getDownloadStatus() == AudioModel.DownloadStatus1.DOWNLOAD_ERROR) {
 				result = true;
 				break;
 			}
@@ -328,7 +328,7 @@ public class AudioDownloadManager extends ModelManager<String, AudioModel> {
 	public void deleteDownloadedByAlbumId(String albumId) {
 		ArrayList<AudioModel> audios = AudioManager.getInstance().getDownloadedListByAlbumId(albumId);
 		for(AudioModel audio :audios) {
-			AudioManager.getInstance().setStatusByVideoId(audio.getVideoId(), DownloadStatus.NOTIN);
+			AudioManager.getInstance().setStatusByVideoId(audio.getVideoId(), DownloadStatus1.NOTIN);
 			SDCardManager.deleteFile(audio.getFilePath());
 			AudioDao.getInstance().delete(audio);//删除数据库列
 		}
@@ -348,7 +348,7 @@ public class AudioDownloadManager extends ModelManager<String, AudioModel> {
 	public void deleteDownloadedByVideoId(String AudioId) {
 		
 		AudioModel audio = AudioManager.getInstance().getVideoById(AudioId);
-		AudioManager.getInstance().setStatusByVideoId(audio.getVideoId(), DownloadStatus.NOTIN);
+		AudioManager.getInstance().setStatusByVideoId(audio.getVideoId(), DownloadStatus1.NOTIN);
 		SDCardManager.deleteFile(audio.getFilePath());
 		AudioDao.getInstance().delete(audio);//删除数据库列
 	}

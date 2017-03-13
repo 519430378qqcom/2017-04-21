@@ -8,12 +8,14 @@ import cn.youmi.framework.model.BaseModel;
 public class AudioModel extends BaseModel implements Serializable{
 	private String albumId;
 	private String albumTitle;
- 	private String videoId;
-	private String videoUrl;// 音频下载地址
+//	private String albumImageurl;
+	private String videoId;
+	private String videoUrl;// 视频下载地址
 	private boolean isTry = false; //是否试看
-	private String filePath;// 音频保存路径
-	private String fileName;// 音频文件名
+	private String filePath;// 视频保存路径
+	private String fileName;// 视频文件名
 	private String ext;
+	private String imageURL;
 	private String title;
 	private String expiretime;// 用户对视频观看权限的过期时间
 	private String uid;// 当前用户
@@ -26,20 +28,20 @@ public class AudioModel extends BaseModel implements Serializable{
 //	private int lastwatchposition;// 上次观看位置 第多少秒
 	private boolean watched = false;
 
-	private DownloadStatus mDownloadStatus;
+	private DownloadStatus1 mDownloadStatus1;
 
-	public enum DownloadStatus {
+	public enum DownloadStatus1 {
 
 		NOTIN(0), DOWNLOAD_WAIT(1), DOWNLOAD_PAUSE(2), DOWNLOAD_IN(3), DOWNLOAD_COMPLETE(
 				4), DOWNLOAD_ERROR(5);
 
 		private final int Value;
 
-		DownloadStatus(int value) {
+		DownloadStatus1(int value) {
 			this.Value = value;
 		}
 
-		public static DownloadStatus ValueOf(int value) {
+		public static DownloadStatus1 ValueOf(int value) {
 			switch (value) {
 			case 0:
 				return NOTIN;
@@ -84,7 +86,7 @@ public class AudioModel extends BaseModel implements Serializable{
 	
 	public boolean isLocalFileValid() {
 		boolean valid = filePath != null
-				&& mDownloadStatus == DownloadStatus.DOWNLOAD_COMPLETE;
+				&& mDownloadStatus1 == DownloadStatus1.DOWNLOAD_COMPLETE;
 		if (valid) {
 			File f = new File(getFilePath());
 			valid = valid && f.exists();
@@ -131,13 +133,13 @@ public class AudioModel extends BaseModel implements Serializable{
 		this.videoId = videoId;
 	}
 
-//	public String getImageURL() {
-//		return imageURL;
-//	}
-//
-//	public void setImageURL(String imageURL) {
-//		this.imageURL = imageURL;
-//	}
+	public String getImageURL() {
+		return imageURL;
+	}
+
+	public void setImageURL(String imageURL) {
+		this.imageURL = imageURL;
+	}
 
 	public String getTitle() {
 		return title;
@@ -327,7 +329,7 @@ public class AudioModel extends BaseModel implements Serializable{
 //	public String getAlbumImageurl() {
 //		return albumImageurl;
 //	}
-
+//
 //	/**
 //	 * @param albumImageurl the albumImageurl to set
 //	 */
@@ -335,12 +337,12 @@ public class AudioModel extends BaseModel implements Serializable{
 //		this.albumImageurl = albumImageurl;
 //	}
 
-	public synchronized DownloadStatus getDownloadStatus() {
-		return mDownloadStatus;
+	public synchronized DownloadStatus1 getDownloadStatus() {
+		return mDownloadStatus1;
 	}
 
-	public synchronized void setDownloadStatus(DownloadStatus value) {
-		mDownloadStatus = value;
+	public synchronized void setDownloadStatus1(DownloadStatus1 value) {
+		mDownloadStatus1 = value;
 	}
 
 	@Override
@@ -372,14 +374,14 @@ public class AudioModel extends BaseModel implements Serializable{
 	/**
 	 * @return the watched
 	 */
-	public boolean isListened() {
+	public boolean isWatched() {
 		return watched;
 	}
 
 	/**
 	 * @param watched the watched to set
 	 */
-	public void setListened(boolean watched) {
+	public void setWatched(boolean watched) {
 		this.watched = watched;
 	}
 	

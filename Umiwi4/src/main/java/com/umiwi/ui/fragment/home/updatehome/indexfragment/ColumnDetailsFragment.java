@@ -185,6 +185,7 @@ public class ColumnDetailsFragment extends BaseConstantFragment {
         public void onResult(AbstractRequest<UmiwiBuyCreateOrderBeans> request, UmiwiBuyCreateOrderBeans umiwiBuyCreateOrderBeans) {
             String payurl = umiwiBuyCreateOrderBeans.getR().getPayurl();
             subscriberBuyDialog(payurl);
+            Log.e("TAG", "payurl==" + payurl);
         }
 
         @Override

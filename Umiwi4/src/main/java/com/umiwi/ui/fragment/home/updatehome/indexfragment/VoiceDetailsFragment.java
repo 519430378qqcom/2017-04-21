@@ -35,6 +35,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RadioButton;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,11 +49,10 @@ import com.umiwi.ui.adapter.VoiceDetailsAdapter;
 import com.umiwi.ui.beans.AddFavBeans;
 import com.umiwi.ui.beans.AudioTmessageBeans;
 import com.umiwi.ui.beans.AudioTmessageListBeans;
-import com.umiwi.ui.beans.updatebeans.AlreadyShopVoiceBean;
 import com.umiwi.ui.beans.updatebeans.AudioResourceBean;
 import com.umiwi.ui.beans.updatebeans.ExperDetailsVoiceBean;
 import com.umiwi.ui.dao.CollectionDao;
-import com.umiwi.ui.dialog.DownloadAudioListDialog;
+import com.umiwi.ui.dialog.DownloadAudioListDialog1;
 import com.umiwi.ui.dialog.ShareDialog;
 import com.umiwi.ui.http.parsers.AudioDetailParser;
 import com.umiwi.ui.main.BaseConstantFragment;
@@ -85,6 +85,8 @@ import cn.youmi.framework.http.parsers.GsonParser;
 import cn.youmi.framework.util.DimensionUtil;
 import cn.youmi.framework.util.ImageLoader;
 import cn.youmi.framework.util.ListViewQuickReturnScrollLoader;
+import cn.youmi.framework.util.NetworkManager;
+import cn.youmi.framework.util.SharePreferenceUtil;
 import cn.youmi.framework.util.ToastU;
 import cn.youmi.framework.view.LoadingFooter;
 
@@ -186,7 +188,9 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
     private String herfurl;
     private VoiceDetailsAdapter mAdapter;
     private String albumID;
-
+    private LinearLayout ll_voice_needpay;
+    private TextView tv_needpay;
+    private RelativeLayout rl_voice_ispay;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -194,6 +198,9 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
         mContext = getActivity();
         //获取的链接
         herfurl = getActivity().getIntent().getStringExtra(KEY_DETAILURL);
+//        herfurl = getActivity().getIntent().getStringExtra(KEY_DETAILURL);
+        herfurl = "http://i.v.youmi.cn/audioalbum/getApi?id=103";
+        Log.e("TAG", "herfurl=" + herfurl);
 
         //得到音频播放地址
         if (!TextUtils.isEmpty(herfurl)) {
@@ -240,6 +247,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
         rootView = inflater.inflate(R.layout.fragment_voice_details_layout, null);
         ButterKnife.inject(this, rootView);
         utils = new Utils();
+        mSpUtil = UmiwiApplication.getInstance().getSpUtil();
         imageLoader = new ImageLoader(getActivity());
         initRefreshLayout();
         initListener();
@@ -424,6 +432,11 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
         View mPlaceHolderView = getActivity().getLayoutInflater().inflate(
                 R.layout.view_header_placeholder, mListView, false);
         mListView.addHeaderView(mPlaceHolderView);
+        ll_voice_needpay = (LinearLayout) rootView.findViewById(R.id.ll_voice_needpay);
+        ll_voice_needpay.setVisibility(View.GONE);
+        rl_voice_ispay = (RelativeLayout) rootView.findViewById(R.id.rl_voice_ispay);
+        rl_voice_ispay.setVisibility(View.VISIBLE);
+        tv_needpay = (TextView) rootView.findViewById(R.id.tv_needpay);
 
         mLoadingFooter = new LoadingFooter(getActivity());// 加载更多的view
         int bottomHeight = getResources().getDimensionPixelSize(R.dimen.bottom_bar_height);
@@ -712,7 +725,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
             }
 
             //下载的dialog
-            DownloadAudioListDialog.getInstance().showDialog(getActivity(), getAudios());
+            DownloadAudioListDialog1.getInstance().showDialog(getActivity(), getAudios());
             MobclickAgent.onEvent(getActivity(), "详情页面V", "下载");
         }
 
@@ -723,7 +736,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
         switch (requestCode) {
             case REQUEST_PERMISSION_CODE_TAKE_STORAGE:
                 if (PermissionUtil.verifyPermissions(grantResults)) {
-                    DownloadAudioListDialog.getInstance().showDialog(getActivity(), getAudios());
+                    DownloadAudioListDialog1.getInstance().showDialog(getActivity(), getAudios());
                     MobclickAgent.onEvent(getActivity(), "详情页面V", "下载");
                 } else {
                     ToastU.showShort(getActivity(), "无法读取存储卡，请先授权");
@@ -792,6 +805,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                     albumID = experDetailsVoiceBean.getId();
                     imageLoader.loadImage(imageurl, ivHeader, R.drawable.icon_umiwi);
 
+
                     audioFileList = experDetailsVoiceBean.getAudiofile();
                     if (audioFileList != null && audioFileList.size() > 0) {
                         audiofileBean = audioFileList.get(0);
@@ -802,7 +816,28 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
 //                            UmiwiApplication.getInstance().getBinder().searchInfo(source);
 //                        }
                         if (url != null) {
-                            getData(url);
+                            //判断是否显示需要支付的view
+                            //如果是免费或是已经支付
+                            if(experDetailsVoiceBean.isIspay()) {
+                                ll_voice_needpay.setVisibility(View.GONE);
+                                rl_voice_ispay.setVisibility(View.VISIBLE);
+                                getData(url);
+                            }else {
+                                //没有支付
+                                startPlayer.setClickable(false);
+                                ll_voice_needpay.setVisibility(View.VISIBLE);
+                                rl_voice_ispay.setVisibility(View.GONE);
+                                seekbar.setVisibility(View.INVISIBLE);
+                                tv_needpay.setText("支付 ￥" + experDetailsVoiceBean.getPrice() + "元");
+                                tv_needpay.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Toast.makeText(getActivity(), "需要去支付", Toast.LENGTH_SHORT).show();
+                                        Log.e("TAG", "dddddd==" + experDetailsVoiceBean.getUid());
+                                    }
+                                });
+                            }
+
                         }
                         //请求音频数据，保存数据库中去
                         for (ExperDetailsVoiceBean.AudiofileBean db : experDetailsVoiceBean.getAudiofile()) {
@@ -823,7 +858,8 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                             vm.setAlbumTitle(albumTitle);
                             vm.setExpiretime(db.getAplaytime());
                             vm.setUid(YoumiRoomUserManager.getInstance().getUid());
-//				vm.setImageURL(res.getImage());
+                            vm.setImageURL(experDetailsVoiceBean.getTutorimage());
+//                            vm.setAlbumImageurl(experDetailsVoiceBean.getTutorimage());
                             vm.setTry(false);
 //				vm.setLastwatchposition((int) (db.getDuration() * db.getWatchProgress() / 100.0f * 1000));
 
@@ -831,6 +867,10 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                         }
 
                     }
+                    mAdapter = new VoiceDetailsAdapter(getActivity(), audioFileList, experDetailsVoiceBean, VoiceDetailsFragment.this);
+
+
+
                     mAdapter = new VoiceDetailsAdapter(getActivity(), audioFileList, experDetailsVoiceBean, VoiceDetailsFragment.this);
                     mListView.setAdapter(mAdapter);
                     Log.e("TAG", "11111audioFileList=" + audioFileList);
@@ -846,6 +886,9 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                     //下载
                     downLoadButton.setOnClickListener(downloadListClickListener);
                     showCommentList();
+
+
+
                 }
             }
         });
@@ -880,6 +923,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
 
 
     }
+
 
 
     @Override
@@ -1105,4 +1149,24 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
         });
 
     }
+    private SharePreferenceUtil mSpUtil;
+    private NetworkManager.OnNetworkChangeListener networkChangeListener = new NetworkManager.OnNetworkChangeListener() {
+        @Override
+        public void onNetworkChange() {
+            if (!NetworkManager.getInstance().isWifi()) {
+//                PlayerController.getInstance().pause();
+                if (mSpUtil.getPlayWith3G()) {
+                    ToastU.showShort(getActivity(), getActivity().getApplicationContext().getString(R.string.show_3g_toast));
+                } else {
+                    if (mSpUtil.getShow3GDialog()) {
+                        ToastU.showShort(getActivity(), "当前网络不可用");
+                        return;
+                    } else {
+//                        showNetorkDialog();
+                        return;
+                    }
+                }
+            }
+        }
+    };
 }

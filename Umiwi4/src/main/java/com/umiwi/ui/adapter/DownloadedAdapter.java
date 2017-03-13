@@ -1,8 +1,5 @@
 package com.umiwi.ui.adapter;
 
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.SparseBooleanArray;
@@ -18,20 +15,29 @@ import android.widget.TextView;
 
 import com.umiwi.ui.R;
 import com.umiwi.ui.main.UmiwiApplication;
+import com.umiwi.ui.model.AudioModel;
 import com.umiwi.ui.model.VideoModel;
+
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 public class DownloadedAdapter extends BaseAdapter {
     private ArrayList<VideoModel> videos;
+    private ArrayList<AudioModel> audios;
     private Boolean trashStatus = false;
     private SparseBooleanArray checkedVideoIds = new SparseBooleanArray();
 
     public void setVideos(ArrayList<VideoModel> videos) {
         this.videos = videos;
+//        this.audios = audios;
         this.notifyDataSetChanged();
     }
 
     public ArrayList<VideoModel> getVideos() {
         return this.videos;
+    }
+    public ArrayList<AudioModel> getAudios() {
+        return this.audios;
     }
 
     public Boolean getTrashStatus() {
@@ -76,6 +82,7 @@ public class DownloadedAdapter extends BaseAdapter {
                     .findViewById(R.id.video_checkbox);
             ImageView playImageView = (ImageView) v
                     .findViewById(R.id.play_imageview);
+
 
             videoCheckBox.setTag(videoid);
             if (getTrashStatus()) {
@@ -129,6 +136,12 @@ public class DownloadedAdapter extends BaseAdapter {
             for (int i = 0; i < videos.size(); i++) {
                 int albumId = Integer.parseInt((videos.get(i)).getAlbumId());
                 checkedVideoIds.put(albumId, false);
+            }
+        }
+        if(audios != null && audios.size() > 0) {
+            for (int i = 0;i <audios.size(); i ++){
+                int albumId = Integer.parseInt(audios.get(i).getAlbumId());
+                checkedVideoIds.put(albumId,false);
             }
         }
 

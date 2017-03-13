@@ -7,7 +7,7 @@ import com.umiwi.ui.main.UmiwiApplication;
 import com.umiwi.ui.managers.AudioDownloadManager;
 import com.umiwi.ui.managers.AudioManager;
 import com.umiwi.ui.model.AudioModel;
-import com.umiwi.ui.model.AudioModel.DownloadStatus;
+import com.umiwi.ui.model.AudioModel.DownloadStatus1;
 import com.umiwi.ui.util.CommonHelper;
 import com.umiwi.ui.util.EncryptTools;
 import com.umiwi.ui.util.SDCardManager;
@@ -43,8 +43,8 @@ public class AudioDownloadTask implements Runnable {
 	private final static int BUFFER_SIZE = 1024 * 8;
 	@Override
 	public void run() {
- 		mAudio.setDownloadStatus(DownloadStatus.DOWNLOAD_IN);
-		AudioDownloadManager.getInstance().notifyStatusChange(mAudio, DownloadStatus.DOWNLOAD_IN, "");
+ 		mAudio.setDownloadStatus1(DownloadStatus1.DOWNLOAD_IN);
+		AudioDownloadManager.getInstance().notifyStatusChange(mAudio, DownloadStatus1.DOWNLOAD_IN, "");
 		long range = 0;
  		try {
 			HttpURLConnection urlConnection = (HttpURLConnection) new URL(mAudio.getVideoUrl()).openConnection();
@@ -108,7 +108,7 @@ public class AudioDownloadTask implements Runnable {
 				long predownloadsize = downloadSize+0;
 				int speed = 0;
  				while ((len = is.read(buf)) >= 0) {
-					if (mAudio.getDownloadStatus() != DownloadStatus.DOWNLOAD_IN) {
+					if (mAudio.getDownloadStatus() != DownloadStatus1.DOWNLOAD_IN) {
 						AudioDownloadManager.getInstance().endDownload(this);
 						return;
 					}
@@ -133,9 +133,9 @@ public class AudioDownloadTask implements Runnable {
 					if(range<totalSize) {
 						EncryptTools.encriptAudioFile(mAudio, file);
 					}
-					mAudio.setDownloadStatus(DownloadStatus.DOWNLOAD_COMPLETE);
+					mAudio.setDownloadStatus1(AudioModel.DownloadStatus1.DOWNLOAD_COMPLETE);
 					AudioDownloadManager.getInstance().notifyStatusChange(
-							mAudio, DownloadStatus.DOWNLOAD_COMPLETE, "");
+							mAudio, DownloadStatus1.DOWNLOAD_COMPLETE, "");
 					AudioDownloadManager.getInstance().endDownload(this);
 				} else {
  					notifyError();
@@ -163,9 +163,9 @@ public class AudioDownloadTask implements Runnable {
 
 	private void notifyError() {
 		mAudio.setFileName(null);
-		mAudio.setDownloadStatus(DownloadStatus.DOWNLOAD_ERROR);
+		mAudio.setDownloadStatus1(AudioModel.DownloadStatus1.DOWNLOAD_ERROR);
 		AudioDownloadManager.getInstance().notifyStatusChange(mAudio,
-				DownloadStatus.DOWNLOAD_ERROR, "");
+				DownloadStatus1.DOWNLOAD_ERROR, "");
 		AudioDownloadManager.getInstance().endDownload(this);
 	}
 	

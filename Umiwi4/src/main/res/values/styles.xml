@@ -144,6 +144,10 @@
         <item name="android:adjustViewBounds">true</item>
         <item name="android:scaleType">fitXY</item>
     </style>
+    <style name="mypopuwindow_anim_style">
+        <item name="android:windowEnterAnimation">@anim/popshow_anim</item>
+        <item name="android:windowExitAnimation">@anim/popdismiss_anim</item>
+    </style>
     
      <declare-styleable name="TintableImageView">
         <attr name="tint" format="reference|color" />
