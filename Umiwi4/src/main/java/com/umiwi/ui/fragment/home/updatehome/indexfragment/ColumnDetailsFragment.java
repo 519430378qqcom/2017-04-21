@@ -9,22 +9,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
-import com.umiwi.ui.adapter.ColumnAdapter;
 import com.umiwi.ui.adapter.ColumnAttentionAdapter;
 import com.umiwi.ui.adapter.ColumnDetailsAdapter;
 import com.umiwi.ui.adapter.ColumnRecordAdapter;
 import com.umiwi.ui.beans.ColumnDetailsBean;
-import com.umiwi.ui.beans.updatebeans.HomeCoumnBean;
+import com.umiwi.ui.beans.UmiwiBuyCreateOrderBeans;
 import com.umiwi.ui.dialog.updatedialog.NewShareDialog;
 import com.umiwi.ui.fragment.home.alreadyshopping.LogicalThinkingFragment;
-import com.umiwi.ui.fragment.setting.FeedbackFragment;
+import com.umiwi.ui.fragment.pay.PayingFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.CustomStringCallBack;
 import com.umiwi.ui.main.UmiwiAPI;
@@ -34,13 +31,9 @@ import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.List;
 
-import cn.youmi.framework.view.LoadingFooter;
-
-import static android.view.View.inflate;
-import static com.umiwi.ui.R.id.listView;
-import static com.umiwi.ui.R.id.targetuser;
-import static com.umiwi.ui.main.UmiwiAPI.No_buy_column;
-import static u.aly.x.U;
+import cn.youmi.framework.http.AbstractRequest;
+import cn.youmi.framework.http.GetRequest;
+import cn.youmi.framework.http.parsers.GsonParser;
 
 /**
  * Created by Administrator on 2017/3/6.
@@ -155,10 +148,61 @@ public class ColumnDetailsFragment extends BaseConstantFragment {
                     Glide.with(getActivity()).load(columnDetailsBean.getImage()).into(iv_image);
                     tv_name.setText(columnDetailsBean.getTutor_name());
                     tv_title.setText(columnDetailsBean.getTutor_title());
-                    tv_prize.setText("订阅："+ columnDetailsBean.getPrice()+"元一年");
+//                    tv_prize.setText("订阅："+ columnDetailsBean.getPrice()+"元/年");
+                    if (columnDetailsBean.isIsbuy()){
+                        tv_prize.setText("已订阅");
+                        tv_prize.setEnabled(false);
+                    }else {
+                        tv_prize.setEnabled(true);
+                        tv_prize.setText(String.format("订阅:  %s元/年", columnDetailsBean.getPrice()));
+                    }
+                    tv_prize.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            getSubscriber(columnDetailsBean.getId());
+                        }
+                    });
                 }
             }
         });
+    }
 
+    /**
+     * 获取订阅payurl
+     */
+    private void getSubscriber(String id) {
+        String url = null;
+        url = String.format(UmiwiAPI.CREATE_SUBSCRIBER_ORDERID, "json", id);
+        GetRequest<UmiwiBuyCreateOrderBeans> request = new GetRequest<UmiwiBuyCreateOrderBeans>(
+                url, GsonParser.class,
+                UmiwiBuyCreateOrderBeans.class,
+                subscriberListener);
+        request.go();
+    }
+
+    private AbstractRequest.Listener<UmiwiBuyCreateOrderBeans> subscriberListener = new AbstractRequest.Listener<UmiwiBuyCreateOrderBeans>() {
+        @Override
+        public void onResult(AbstractRequest<UmiwiBuyCreateOrderBeans> request, UmiwiBuyCreateOrderBeans umiwiBuyCreateOrderBeans) {
+            String payurl = umiwiBuyCreateOrderBeans.getR().getPayurl();
+            subscriberBuyDialog(payurl);
+        }
+
+        @Override
+        public void onError(AbstractRequest<UmiwiBuyCreateOrderBeans> requet, int statusCode, String body) {
+
+        }
+    };
+
+    /**
+     * 跳转到购买界面
+     *
+     * @param payurl
+     */
+    public void subscriberBuyDialog(String payurl) {
+        Intent i = new Intent(getActivity(), UmiwiContainerActivity.class);
+        i.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, PayingFragment.class);
+        i.putExtra(PayingFragment.KEY_PAY_URL, payurl);
+        startActivity(i);
+        getActivity().finish();
     }
 }

@@ -1,5 +1,6 @@
 package com.umiwi.ui.fragment.home.updatehome.indexfragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -10,22 +11,28 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.umiwi.ui.R;
+import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.AttentionAdapter;
 import com.umiwi.ui.adapter.DescriptionAdapter;
 import com.umiwi.ui.adapter.LastRecordAdapter;
 import com.umiwi.ui.beans.ExperDetailsAlbumbean;
+import com.umiwi.ui.beans.UmiwiBuyCreateOrderBeans;
+import com.umiwi.ui.fragment.home.alreadyshopping.LogicalThinkingFragment;
+import com.umiwi.ui.fragment.pay.PayingFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.CustomStringCallBack;
+import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.util.JsonUtil;
-import com.umiwi.ui.view.MonitorScrollView;
 import com.umiwi.ui.view.NoScrollListview;
-import com.umiwi.ui.view.TopFloatScrollView;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import cn.youmi.framework.http.AbstractRequest;
+import cn.youmi.framework.http.GetRequest;
+import cn.youmi.framework.http.parsers.GsonParser;
 
 /**
  * 详情专栏
@@ -67,9 +74,9 @@ public class DetailsColumnFragment extends BaseConstantFragment {
 
             }
         });
+
         return view;
     }
-
 
     private void getInfos(String albumurl) {
         OkHttpUtils.get().url(albumurl).build().execute(new CustomStringCallBack() {
@@ -82,14 +89,79 @@ public class DetailsColumnFragment extends BaseConstantFragment {
             public void onSucess(String data) {
                 Log.e("data", "详情专栏请求数据成功 :" + data);
                 if (data != null) {
-                    ExperDetailsAlbumbean experDetailsAlbumbean = JsonUtil.json2Bean(data, ExperDetailsAlbumbean.class);
-                    if (experDetailsAlbumbean!=null){
+                    final ExperDetailsAlbumbean experDetailsAlbumbean = JsonUtil.json2Bean(data, ExperDetailsAlbumbean.class);
+                    if (experDetailsAlbumbean != null) {
                         fillData(experDetailsAlbumbean);
+
+                        final String id = experDetailsAlbumbean.getId();
+                        if (experDetailsAlbumbean.isIsbuy()){
+                            ExperDetailsFragment.subscriber.setText("已订阅");
+                            ExperDetailsFragment.subscriber.setEnabled(false);
+                        }else {
+                            ExperDetailsFragment.subscriber.setEnabled(true);
+                            ExperDetailsFragment.subscriber.setText(String.format("订阅:  %s元/年", experDetailsAlbumbean.getPrice()));
+                        }
+                        ExperDetailsFragment.subscriber.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                getSubscriber(id);
+                            }
+                        });
+
+                        ExperDetailsFragment.free_read.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
+                                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, LogicalThinkingFragment.class);
+                                intent.putExtra("id",experDetailsAlbumbean.getId());
+                                startActivity(intent);
+                            }
+                        });
                     }
                 }
             }
         });
     }
+
+    /**
+     * 获取订阅payurl
+     */
+    private void getSubscriber(String id) {
+        String url = null;
+        url = String.format(UmiwiAPI.CREATE_SUBSCRIBER_ORDERID, "json", id);
+        GetRequest<UmiwiBuyCreateOrderBeans> request = new GetRequest<UmiwiBuyCreateOrderBeans>(
+                url, GsonParser.class,
+                UmiwiBuyCreateOrderBeans.class,
+                subscriberListener);
+        request.go();
+    }
+
+    private AbstractRequest.Listener<UmiwiBuyCreateOrderBeans> subscriberListener = new AbstractRequest.Listener<UmiwiBuyCreateOrderBeans>() {
+        @Override
+        public void onResult(AbstractRequest<UmiwiBuyCreateOrderBeans> request, UmiwiBuyCreateOrderBeans umiwiBuyCreateOrderBeans) {
+            String payurl = umiwiBuyCreateOrderBeans.getR().getPayurl();
+            subscriberBuyDialog(payurl);
+        }
+
+        @Override
+        public void onError(AbstractRequest<UmiwiBuyCreateOrderBeans> requet, int statusCode, String body) {
+
+        }
+    };
+
+    /**
+     * 跳转到购买界面
+     *
+     * @param payurl
+     */
+    public void subscriberBuyDialog(String payurl) {
+        Intent i = new Intent(getActivity(), UmiwiContainerActivity.class);
+        i.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, PayingFragment.class);
+        i.putExtra(PayingFragment.KEY_PAY_URL, payurl);
+        startActivity(i);
+        getActivity().finish();
+    }
+
 
     private void fillData(ExperDetailsAlbumbean experDetailsAlbumbean) {
         String title = experDetailsAlbumbean.getTitle();
@@ -101,27 +173,27 @@ public class DetailsColumnFragment extends BaseConstantFragment {
         List<ExperDetailsAlbumbean.LastRecordBean> last_record = experDetailsAlbumbean.getLast_record();
         String targetuser = experDetailsAlbumbean.getTargetuser();
         priceinfo.setText(experDetailsAlbumbean.getPriceinfo());
-        if (title!=null){
+        if (title != null) {
             tv_title.setText(title);
         }
-        if (shortcontent!=null){
+        if (shortcontent != null) {
             tv_shortcontent.setText(shortcontent);
         }
-        if (content!=null&&content.size()>0){
-            description.setAdapter(new DescriptionAdapter(getActivity(),content));
+        if (content != null && content.size() > 0) {
+            description.setAdapter(new DescriptionAdapter(getActivity(), content));
         }
-        if (targetuser!=null){
+        if (targetuser != null) {
             tv_targetuser.setText(targetuser);
         }
-        if (salenum!=null){
+        if (salenum != null) {
             tv_salenum.setText(salenum);
         }
-        if (attention!=null&&attention.size()>0){
-            attentionListview.setAdapter(new AttentionAdapter(getActivity(),attention));
+        if (attention != null && attention.size() > 0) {
+            attentionListview.setAdapter(new AttentionAdapter(getActivity(), attention));
         }
 
-        if (last_record!=null&&last_record.size()>0){
-            lastRecord.setAdapter(new LastRecordAdapter(getActivity(),last_record));
+        if (last_record != null && last_record.size() > 0) {
+            lastRecord.setAdapter(new LastRecordAdapter(getActivity(), last_record));
         }
 
     }

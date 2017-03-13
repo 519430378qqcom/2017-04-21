@@ -100,9 +100,9 @@ public class FreeLayoutView extends LinearLayout {
                     //TODO
 //                    Toast.makeText(mContext, "敬请期待", Toast.LENGTH_SHORT).show();
                     Log.e("TAG", "freeBean.get(po)=" + mList.get(position).getUrl());
-                    Intent intent = new Intent (mContext,UmiwiContainerActivity.class);
+                    Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
                     intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
-                    intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL,mList.get(position).getUrl());
+                    intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL, mList.get(position).getUrl());
                     mContext.startActivity(intent);
 //                    Toast.makeText(mContext, "敬请期待", Toast.LENGTH_SHORT).show();
 
@@ -118,14 +118,13 @@ public class FreeLayoutView extends LinearLayout {
     }
 
     private void getData() {
-        if (currentpage <= totalpage) {
+        if (currentpage >= totalpage) {
             currentpage = 1;
         } else {
             currentpage = currentpage + 1;
         }
         GetRequest<FreeRecordBean> request = new GetRequest<>(
-                mHuanUrl, GsonParser.class, FreeRecordBean.class, huanListener);
-        request.addParam("p", currentpage + "");
+                String.format(mHuanUrl + "?p=%s", currentpage), GsonParser.class, FreeRecordBean.class, huanListener);
         request.go();
     }
 
@@ -134,7 +133,7 @@ public class FreeLayoutView extends LinearLayout {
         @Override
         public void onResult(AbstractRequest<FreeRecordBean> request, FreeRecordBean t) {
             if (null != t && null != t.getR()) {
-                currentpage = t.getR().getPage().getCurrentpage();
+//                currentpage = t.getR().getPage().getCurrentpage();
                 totalpage = t.getR().getPage().getTotalpage();
                 mList.clear();
                 mList.addAll(t.getR().getRecord());

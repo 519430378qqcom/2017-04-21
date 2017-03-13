@@ -119,7 +119,7 @@ public class NewMineFragment extends BaseConstantFragment implements ActivityCom
                         intent.putExtra(WebFragment.WEB_URL, UmiwiAPI.WEEK_REPORT);
                         break;
                     case 10://我答
-//                        intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, MyAnswerFragment.class);
+                        intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, MyAnswerFragment.class);
                         break;
                     case 11://下载
                         intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, DownloadedListFragment.class);

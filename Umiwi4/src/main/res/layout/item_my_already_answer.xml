@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:orientation="horizontal"
+         >
+         <com.umiwi.ui.view.CircleImageView
+             android:id="@+id/head"
+             android:layout_width="50dp"
+             android:layout_height="50dp"
+             android:layout_marginTop="10dp"
+             android:layout_marginLeft="10dp"
+             android:src="@drawable/icon_umiwi"
+             />
+
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="vertical"
+             >
+          <RelativeLayout
+              android:layout_marginLeft="5dp"
+              android:layout_marginTop="10dp"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+              <TextView
+                  android:textColor="@color/black_alpf"
+                  android:id="@+id/name"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="name"
+                  android:layout_alignParentTop="true"
+                  android:layout_alignParentLeft="true"
+                  android:layout_alignParentStart="true" />
+
+              <TextView
+                  android:id="@+id/times"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="times"
+                  android:layout_alignParentTop="true"
+                  android:layout_alignParentRight="true"
+                  android:layout_alignParentEnd="true" />
+          </RelativeLayout>
+             <TextView
+
+                 android:id="@+id/miaoshu"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="提高效率"
+                 android:layout_marginLeft="5dp"
+                  android:layout_marginTop="5dp"
+                 android:textSize="12sp"
+                 />
+             <LinearLayout
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:orientation="horizontal"
+                 android:layout_gravity="center_vertical"
+                 android:layout_marginTop="15dp"
+                 android:paddingBottom="10dp"
+                 >
+             <TextView
+                 android:clickable="true"
+                 android:id="@+id/paly_voice"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_marginLeft="5dp"
+                 android:background="@drawable/time_limit_hear"
+                 android:drawableLeft="@drawable/voice"
+                 android:gravity="center"
+                 android:paddingLeft="20dp"
+                 android:text="播放"
+                 android:textColor="@color/white"
+                 android:textSize="16sp" />
+                 <TextView
+                     android:id="@+id/paly_times"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:text="7”"
+                     android:layout_marginLeft="2dp"
+                     />
+             </LinearLayout>
+         </LinearLayout>
+     </LinearLayout>
+</LinearLayout>

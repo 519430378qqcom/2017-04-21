@@ -156,6 +156,31 @@ public class UmiwiPayDoingBeans extends BaseGsonBeans {
 			return payment;
 		}
 
+		@Override
+		public String toString() {
+			return "PayDoingBeansRequestData{" +
+					"doing_e='" + doing_e + '\'' +
+					", doing_m='" + doing_m + '\'' +
+					", doing_r=" + doing_r +
+					", payment=" + payment +
+					'}';
+		}
 	}
 
+	@Override
+	public String toString() {
+		return "UmiwiPayDoingBeans{" +
+				"payurl='" + payurl + '\'' +
+				", balance='" + balance + '\'' +
+				", payment_id='" + payment_id + '\'' +
+				", order_id='" + order_id + '\'' +
+				", order_amt='" + order_amt + '\'' +
+				", amount='" + amount + '\'' +
+				", uid='" + uid + '\'' +
+				", confirmurl='" + confirmurl + '\'' +
+				", isenough=" + isenough +
+				", pay_sdk=" + pay_sdk +
+				", pay_bank=" + pay_bank +
+				'}';
+	}
 }

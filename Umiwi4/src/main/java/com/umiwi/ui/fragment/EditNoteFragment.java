@@ -178,7 +178,7 @@ public class EditNoteFragment {
 		/*String userid = UserManager.getInstance().getUid();
 		params.put("uid", userid);
 		params.put("categoryid", video.getAlbumId());
-		params.put("videoid", video.getVideoId());
+		params.put("videoid", video.getAudioId());
 		params.put("content", strNote);
 		params.put("title", video.getAlbumTitle());
 		//params.put("tutorid", );

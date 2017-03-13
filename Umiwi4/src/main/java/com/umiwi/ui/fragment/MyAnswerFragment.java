@@ -71,7 +71,7 @@ public class MyAnswerFragment extends BaseFragment {
 
         line_width = getActivity().getWindowManager().getDefaultDisplay().getWidth()
                 / fragments.size();
-        line.getLayoutParams().width = line_width-300;
+        line.getLayoutParams().width = line_width-600;
         line.requestLayout();
 
         viewPager.setOffscreenPageLimit(2);

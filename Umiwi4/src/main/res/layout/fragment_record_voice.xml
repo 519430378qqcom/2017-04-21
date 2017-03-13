@@ -3,6 +3,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        >
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/black_back"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="立即回答"
+            android:textColor="@color/black_alpf"
+            android:textSize="18sp"
+            android:layout_centerInParent="true"
+            />
+
+    </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -13,8 +35,8 @@
         >
         <com.umiwi.ui.view.CircleImageView
             android:id="@+id/header"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:src="@drawable/icon_umiwi"
             android:layout_marginLeft="10dp"
             />

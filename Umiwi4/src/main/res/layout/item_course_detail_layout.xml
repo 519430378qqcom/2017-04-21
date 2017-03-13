@@ -15,6 +15,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/umiwi_gray_3"
         android:textSize="18sp"
+        android:text="还在等着房价下降吗？"
         android:textStyle="bold" />
 
     <TextView
@@ -24,6 +25,7 @@
         android:layout_marginBottom="15dip"
         android:layout_marginLeft="15dip"
         android:layout_marginTop="7dip"
+        android:text="播放次数"
         android:gravity="center_vertical"
         android:textColor="@color/umiwi_gray_9" />
 

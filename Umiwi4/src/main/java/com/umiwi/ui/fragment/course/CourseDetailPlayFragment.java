@@ -57,6 +57,7 @@ import com.umiwi.ui.beans.CommentResultBean;
 import com.umiwi.ui.beans.UmiwiListBeans;
 import com.umiwi.ui.beans.UmiwiListDetailBeans;
 import com.umiwi.ui.beans.UmiwiListDetailBeans.ListDetailRequestData;
+import com.umiwi.ui.beans.UmiwiMyCardBeans;
 import com.umiwi.ui.dao.CollectionDao;
 import com.umiwi.ui.dialog.DownloadListDialog;
 import com.umiwi.ui.dialog.ShareDialog;
@@ -414,6 +415,7 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
         GetRequest<ListDetailRequestData> req = new GetRequest<ListDetailRequestData>(
                 detaiURL, CourseDetailParser.class, detailListener);
         HttpDispatcher.getInstance().go(req);
+
     }
 
     @Override
@@ -730,6 +732,8 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
                 loadingVideo = false;
 
                 albumID = String.valueOf(t.getId());
+                Log.e("TAG", "t.getId()=" + t.getId());
+                Log.e("TAG", "albumID=" + albumID);
                 mList.clear();
                 mScrollLoader.onLoadFirstPage();
                 loadRelatedVideos(t.getId() + "");
@@ -780,9 +784,7 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
                 } else {
                     mAdapter.notifyDataSetChanged();
                 }
-
             }
-
         }
 
         @Override
@@ -1033,11 +1035,17 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
         }
         ArrayList<VideoModel> videos = new ArrayList<VideoModel>(mRequestData
                 .getCourse().size());
+
         for (int i = 0; i < mRequestData.getCourse().size(); i++) {
             UmiwiListDetailBeans c = mRequestData.getCourse().get(i);
             VideoModel video = VideoManager.getInstance().getVideoById(
                     c.getVid() + "");
             videos.add(video);
+            Log.e("TAG", "video =" + video.getFileName());
+            Log.e("TAG", "video =" + video.getTitle());
+            Log.e("TAG", "video =" + video.getVideoUrl());
+            Log.e("TAG", "video =" + video.getVideoId());
+            Log.e("TAG", "video =" + video.getAlbumTitle());
         }
         return videos;
     }

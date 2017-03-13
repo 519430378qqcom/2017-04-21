@@ -13,6 +13,7 @@ import android.preference.PreferenceManager;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.analytics.MobclickAgent;
 import com.umiwi.ui.R;
+import com.umiwi.ui.activity.HomeMainActivity;
 import com.umiwi.ui.managers.YoumiRoomUserManager;
 import com.umiwi.ui.util.ManifestUtils;
 import com.umiwi.video.application.Settings;
@@ -35,7 +36,7 @@ public class UmiwiApplication extends BaseApplication implements ServiceConnecti
 
     private static Context sContext;
 //    private static VoiceService.VoiceBinder mBinder;
-
+    public static HomeMainActivity mainActivity;
     private Activity activity = null;
 
     private static UmiwiApplication umiwiApplication = null;

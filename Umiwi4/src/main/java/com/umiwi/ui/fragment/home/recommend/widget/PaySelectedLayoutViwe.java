@@ -12,12 +12,18 @@ import android.widget.TextView;
 
 import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
+import com.umiwi.ui.beans.updatebeans.ChargeBean;
+import com.umiwi.ui.beans.updatebeans.FreeRecordBean;
 import com.umiwi.ui.beans.updatebeans.RecommendBean;
 import com.umiwi.ui.fragment.course.CourseDetailPlayFragment;
+import com.umiwi.ui.fragment.home.updatehome.indexfragment.VoiceDetailsFragment;
 import com.umiwi.ui.main.UmiwiApplication;
 
 import java.util.ArrayList;
 
+import cn.youmi.framework.http.AbstractRequest;
+import cn.youmi.framework.http.GetRequest;
+import cn.youmi.framework.http.parsers.GsonParser;
 import cn.youmi.framework.util.ImageLoader;
 
 /**
@@ -33,6 +39,12 @@ public class PaySelectedLayoutViwe extends LinearLayout {
     private View v_pay_selected_interval;
     private ImageView iv_pay_video, iv_pay_video_1;
     private ImageLoader mImageLoader;
+    private int currentpage = 1;
+    private int totalpage = 1;
+    private String mHuanUrl;
+    private String mChargeTitle;
+    private String mChargehuan;
+    private String mChargehuanUrl;
 
     public PaySelectedLayoutViwe(Context context) {
         super(context);
@@ -66,22 +78,62 @@ public class PaySelectedLayoutViwe extends LinearLayout {
         iv_pay_video_1 = (ImageView) findViewById(R.id.iv_pay_video_1);
 
 
-
         ll_pay_selected_root.setVisibility(GONE);
 
         mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
     }
 
-    public void setData(ArrayList<RecommendBean.RBean.ChargeBean.RecordBeanX> recordBeanXes, String chargeTitle, String chargehuan) {
+    public void setData(ArrayList<RecommendBean.RBean.ChargeBean.RecordBeanX> recordBeanXes, String chargeTitle, String chargehuan, String chargehuanUrl) {
 
         if (null == recordBeanXes || recordBeanXes.size() == 0)
             return;
+        mHuanUrl = chargehuanUrl;
+        mChargehuan = chargehuan;
+        mChargeTitle = chargeTitle;
+        mChargehuanUrl = chargehuanUrl;
+
         tv_title_type.setText(chargeTitle);
         tv_title_tag.setText(chargehuan);
+        tv_title_tag.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getData();
+            }
+        });
         ll_pay_selected_root.setVisibility(VISIBLE);
         initView(recordBeanXes);
 
     }
+
+    private void getData() {
+        if (currentpage >= totalpage) {
+            currentpage = 1;
+        } else {
+            currentpage = currentpage + 1;
+        }
+        GetRequest<ChargeBean> request = new GetRequest<>(
+                String.format(mHuanUrl + "?p=%s", currentpage), GsonParser.class, ChargeBean.class, huanListener);
+        request.go();
+    }
+
+    private AbstractRequest.Listener<ChargeBean> huanListener = new AbstractRequest.Listener<ChargeBean>() {
+
+        @Override
+        public void onResult(AbstractRequest<ChargeBean> request, ChargeBean t) {
+            if (null != t && null != t.getR()) {
+                totalpage = t.getR().getPage().getTotalpage();
+                setData(t.getR().getRecord(), mChargeTitle, mChargehuan, mChargehuanUrl);
+            }
+
+        }
+
+        @Override
+        public void onError(AbstractRequest<ChargeBean> requet, int statusCode, String body) {
+
+        }
+
+    };
+
 
     /**
      * 初始化音频，视频布局
@@ -170,12 +222,15 @@ public class PaySelectedLayoutViwe extends LinearLayout {
                 v_pay_selected_interval.setVisibility(VISIBLE);
             }
             final int finalI = i;
+            final RecommendBean.RBean.ChargeBean.RecordBeanX finalRecordBeanX1 = recordBeanX;
             view.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-
                     Log.e("TAG", "付费音频=" + datas.get(finalI));
+                    Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
+                    intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
+                    intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL, finalRecordBeanX1.getUrl());
+                    mContext.startActivity(intent);
                 }
             });
 

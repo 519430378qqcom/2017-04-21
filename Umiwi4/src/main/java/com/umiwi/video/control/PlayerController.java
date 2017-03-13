@@ -364,7 +364,6 @@ public class PlayerController {
         registerHomeWatcherListener();
         registerPhoneListener();
         registerLockScreenListener();
-
     }
 
     public void unregisterAllListener() {

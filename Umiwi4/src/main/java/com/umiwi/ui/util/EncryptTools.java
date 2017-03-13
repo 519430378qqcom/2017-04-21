@@ -1,13 +1,14 @@
 package com.umiwi.ui.util;
 
+import com.umiwi.ui.model.AudioModel;
+import com.umiwi.ui.model.VideoModel;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.channels.FileLock;
-
-import com.umiwi.ui.model.VideoModel;
 
 public class EncryptTools {
 
@@ -18,7 +19,13 @@ public class EncryptTools {
 		File f = new File(video.getFilePath());
 		encriptVideoFile(video, f);
 	}
-
+	public static void encriptAudioFile(AudioModel video) {
+		if (video == null || video.getFilePath() == null) {
+			return;
+		}
+		File f = new File(video.getFilePath());
+		encriptAudioFile(video, f);
+	}
 	public static void encriptVideoFile(VideoModel video, File srcFile) {
 		try {
 			byte[] buffer = new byte[34];
@@ -43,7 +50,30 @@ public class EncryptTools {
 			e.printStackTrace();
 		}
 	}
+	public static void encriptAudioFile(AudioModel audio, File srcFile) {
+		try {
+			byte[] buffer = new byte[34];
+			byte[] outBuffer = new byte[34];
+			FileInputStream fis = new FileInputStream(srcFile);
+			int readen = fis.read(buffer, 0, 34);
+			if (readen == 34) {
+				for (int i = 0; i < buffer.length; i++) {
+					outBuffer[i] = buffer[buffer.length - 1 - i];
+				}
+			}
+			fis.close();
 
+			RandomAccessFile raf = new RandomAccessFile(srcFile, "rws");
+			raf.seek(0);
+			raf.write(outBuffer);
+			raf.close();
+			srcFile.setReadable(true);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	public static void decodeVideoFile(VideoModel video) {
 		File f = new File(video.getFilePath());
 		try {

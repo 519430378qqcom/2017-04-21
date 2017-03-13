@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+
+        <ImageView
+            android:id="@+id/iv_author"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/action_bar_logo_new"
+            android:scaleType="fitXY" />
+
+        <TextView
+            android:id="@+id/tv_video_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/tv_corner_right"
+            android:paddingBottom="2dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="2dp"
+            android:text="创业案例"
+            android:textColor="#ffffff"
+            android:textSize="10sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@drawable/video_pause"
+            android:scaleType="fitXY" />
+
+        <TextView
+            android:id="@+id/tv_dalao_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="15dp"
+            android:text="商业知识秘书"
+            android:textColor="#ffffff"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_video_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/tv_corner2"
+            android:paddingBottom="2dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="2dp"
+            android:text="00:00"
+            android:textColor="#ffffff"
+            android:textSize="10sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="15dp"
+        android:paddingTop="15dp">
+
+        <com.umiwi.ui.view.CircleImageView
+            android:id="@+id/iv_big_shot_image"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:src="@drawable/text_text" />
+
+        <TextView
+            android:id="@+id/tv_big_shot_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/iv_big_shot_image"
+            android:text="张近东"
+            android:textColor="#000000"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/tv_big_shot_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/tv_big_shot_name"
+            android:text="苏宁董事长"
+            android:textColor="#70000000"
+            android:textSize="13sp" />
+
+
+        <ImageView
+            android:id="@+id/iv_share"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/share_black" />
+
+        <TextView
+            android:id="@+id/tv_comments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="15dp"
+            android:layout_toLeftOf="@+id/iv_share"
+            android:text="500"
+            android:textColor="#70000000"
+            android:textSize="13sp" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/tv_comments"
+            android:background="@drawable/share_black" />
+    </RelativeLayout>
+</LinearLayout>

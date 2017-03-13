@@ -138,7 +138,7 @@ public final class UmiwiAPI {
      * 轮播 添加专题&version=2
      */
     public static final String VIDEO_LUNBO = "http://i.v.youmi.cn/lunbo/list?android";
-    public static final String VIDEO_LUNBO_NEW= "http://i.v.youmi.cn/lunbo/list";
+    public static final String VIDEO_LUNBO_NEW = "http://i.v.youmi.cn/lunbo/list";
 //	public static final String VIDEO_LUNBO = "http://i.v.youmi.cn/ClientApi/list?type=lunbo&version=2";//old api
     /**
      * 首页推荐
@@ -244,13 +244,17 @@ public final class UmiwiAPI {
      * 积分
      */
     public static final String INTEGRAL = "http://v.youmi.cn/mobile/cdetail/";
-    /**积分商城*/
+    /**
+     * 积分商城
+     */
     public static final String INTEGRAL_SHOP = "http://v.youmi.cn/mobile/cdetail/?type=shop";
     /**
      * 周报
      */
     public static final String WEEK_REPORT = "http://v.youmi.cn/weekreport/";
-    /**我的私信*/
+    /**
+     * 我的私信
+     */
     public static final String MINE_MESSAGE = "http://api.v.youmi.cn/ClientApi/mymessage?pagenum=8";
     // ===============================================================================//
 
@@ -398,14 +402,10 @@ public final class UmiwiAPI {
 
     public static final String TUTORCOLUMN = "http://i.v.youmi.cn/tutorcolumn/listApi/?p=";
 
-    //首页音频页面数据
-    public static final String Login_Audio = "http://i.v.youmi.cn/api8/audiolist";
-
-    //首页视频页面数据
-    public static final String Login_Video = "http://i.v.youmi.cn/api8/videoindex";
-
     //我的—回答（已回答，待回答）
-    public static final String Mine_Answer = "http://i.v.youmi.cn/api8/myquestion";
+    public static final String Mine_Answer = "http://i.v.youmi.cn/api8/myquestion?p=%s&answerstate=%s";
+     //提交音频
+    public static final String COMMIT_VOICE = "http://i.v.youmi.cn/document/showdoclist1#questioncontroller6";
 
     //未购专栏详情页
     public static final String No_buy_column = "http://i.v.youmi.cn/api8//tutorcolumn/detailApi";
@@ -413,14 +413,36 @@ public final class UmiwiAPI {
     //已购买
     public static final String Ask_Hear = "http://i.v.youmi.cn/api8/buyquestion";
 
+    public static final String ALREADY_VOICE = "http://i.v.youmi.cn/audioalbum/buylist";
+
+    public static final String Hear_url = "http://i.v.youmi.cn/api8/questionlisten";
+
     //试读页面
     public static final String Logincal_thinking = "http://i.v.youmi.cn/api8/tutorcolumn/detailpurchasedApi";
 
-    public static final String audio_head = "http://i.v.youmi.cn/api8/tagTreeApi/?from=audio";
-    public static final String video_head = "http://i.v.youmi.cn/api8/tagTreeApi/?from=video";
+
     public static final String QUESTION_LIST = "http://i.v.youmi.cn/api8/questionlist";
     public static final String NAMED_QUESTIONA = "http://i.v.youmi.cn/question/namedquestionApi";
-
+    //新增问题
+    public static final String ADD_QUESTIONA = "http://i.v.youmi.cn/question/addApi?tutoruid=%s&title=%s";
+    //体温问题生成订单
+    public static final String CREATE_QUESTIN_ORDERID = "http://i.v.youmi.cn/orders/buyquestion?format=%s&qid=%s";
+    //专栏购买生成订单
+    public static final String CREATE_SUBSCRIBER_ORDERID = "http://i.v.youmi.cn/orders/buycolumn?format=%s&id=%s";
+    //热播榜
+    public static final String REBO_BANG = "http://i.v.youmi.cn/api8/hottop";
+    //热销榜
+    public static final String REXIAO_BANG = "http://i.v.youmi.cn/api8/saletop";
+    //热评榜
+    public static final String REPING_BANG = "http://i.v.youmi.cn/api8/threadtop";
+    //首页音频页面数据
+    public static final String Login_Audio = "http://i.v.youmi.cn/api8/audiolist?p=%s&catid=%s&price=%s&orderby=%s";
+    //首页视频页面数据
+    public static final String Login_Video = "http://i.v.youmi.cn/api8/videoindex";
+    //首页音频分类
+    public static final String audio_head = "http://i.v.youmi.cn/api8/tagTreeApi/?from=audio";
+    //首页视频分类
+    public static final String video_head = "http://i.v.youmi.cn/api8/tagTreeApi/?from=video";
     public static final String VODEI_URL = "http://i.v.youmi.cn/ClientApi/getAlbumDetail?id=";
 
 

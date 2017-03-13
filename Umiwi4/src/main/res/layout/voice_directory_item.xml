@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:src="@drawable/play_vocie" />
+
+    <TextView
+        android:id="@+id/tv_dir_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:text="怎样看待出国留学的价值"
+        android:textColor="@color/umiwi_orange"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/white_color_listern_bg"
+        android:text="试听"
+        android:textColor="@color/umiwi_orange"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tv_dir_totaltime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="5dp"
+        android:text="3:30"
+        android:textColor="@color/umiwi_orange"
+        android:textSize="16sp" />
+
+</LinearLayout>

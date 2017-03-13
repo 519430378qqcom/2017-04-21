@@ -44,6 +44,7 @@
         </LinearLayout>
 
         <TextView
+            android:text="想说什么就说点什么"
             android:id="@+id/content_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
