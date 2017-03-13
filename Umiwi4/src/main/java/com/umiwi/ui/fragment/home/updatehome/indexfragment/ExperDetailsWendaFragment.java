@@ -8,24 +8,22 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.umiwi.ui.R;
 import com.umiwi.ui.adapter.ExperDetailsWendaAdapter;
-import com.umiwi.ui.beans.VoiceBean;
-import com.umiwi.ui.beans.updatebeans.VideoBean;
-import com.umiwi.ui.beans.updatebeans.WenDaBean;
+import com.umiwi.ui.beans.updatebeans.HomeAskBean;
 import com.umiwi.ui.main.BaseConstantFragment;
-import com.umiwi.ui.main.CustomStringCallBack;
-import com.umiwi.ui.util.JsonUtil;
 import com.umiwi.ui.view.NoScrollListview;
-import com.umiwi.ui.view.TopFloatScrollView;
-import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import cn.youmi.framework.http.AbstractRequest;
+import cn.youmi.framework.http.GetRequest;
+import cn.youmi.framework.http.parsers.GsonParser;
 
 /**
  * 行家详情问答
@@ -36,13 +34,16 @@ public class ExperDetailsWendaFragment extends BaseConstantFragment {
 
     @InjectView(R.id.noscroll_listview)
     NoScrollListview noscrollListview;
+    @InjectView(R.id.no_data)
+    TextView noData;
     private int page;
     private int totalpage;
     private boolean isBottom = false;
-    private List<WenDaBean.RecordBean> wendaInfos = new ArrayList<>();
+    private List<HomeAskBean.RAlHomeAnser.Record> wendaInfos = new ArrayList<>();
     private ExperDetailsWendaAdapter experDetailsWendaAdapter;
     private Handler handler;
     private Runnable runnable;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -56,7 +57,7 @@ public class ExperDetailsWendaFragment extends BaseConstantFragment {
             public void IswendaBottom() {
                 page++;
                 isBottom = true;
-                if (page<=totalpage){
+                if (page <= totalpage) {
                     ExperDetailsFragment.tv_more.setVisibility(View.VISIBLE);
                     getInfos();
                 }
@@ -69,51 +70,67 @@ public class ExperDetailsWendaFragment extends BaseConstantFragment {
 
     private void getInfos() {
         String questionurl = ExperDetailsFragment.questionurl;
-        if (!TextUtils.isEmpty(questionurl)){
-            String url = questionurl+"/?p="+page;
+        if (!TextUtils.isEmpty(questionurl)) {
+            String url = questionurl + "/?p=" + page;
+            GetRequest<HomeAskBean> request = new GetRequest<HomeAskBean>(
+                    url, GsonParser.class,
+                    HomeAskBean.class,
+                    new AbstractRequest.Listener<HomeAskBean>() {
+                        @Override
+                        public void onResult(AbstractRequest<HomeAskBean> request, final HomeAskBean homeAskBean) {
+                            if (isBottom == true) {
+                                if (runnable == null) {
+                                    runnable = new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            getActivity().runOnUiThread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    ExperDetailsFragment.tv_more.setVisibility(View.GONE);
+                                                    HomeAskBean.RAlHomeAnser r = homeAskBean.getR();
+                                                    totalpage = r.getPage().getTotalpage();
+                                                    ArrayList<HomeAskBean.RAlHomeAnser.Record> record = r.getRecord();
+                                                    if (record!=null&&record.size()>0){
+                                                        noData.setVisibility(View.GONE);
+                                                    }else{
+                                                        noData.setVisibility(View.VISIBLE);
+                                                    }
+                                                    wendaInfos.addAll(record);
+                                                    experDetailsWendaAdapter.setData(wendaInfos);
 
-            OkHttpUtils.get().url(url).build().execute(new CustomStringCallBack() {
-                @Override
-                public void onFaild() {
-                    Log.e("data","名人详情问答数据请求失败");
 
-                }
+                                                }
+                                            });
+                                        }
+                                    };
+                                }
+                                handler.postDelayed(runnable, 1000);
 
-                @Override
-                public void onSucess(final String data) {
-                    Log.e("data","名人详情问答数据请求成功"+data);
-                    if (!TextUtils.isEmpty(data)){
-                        if (isBottom == true){
-                            if (runnable==null){
-                                runnable = new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        getActivity().runOnUiThread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                ExperDetailsFragment.tv_more.setVisibility(View.GONE);
-                                                WenDaBean wenDaBean = JsonUtil.json2Bean(data, WenDaBean.class);
-                                                totalpage = wenDaBean.getPage().getTotalpage();
-                                                List<WenDaBean.RecordBean> record = wenDaBean.getRecord();
-                                                wendaInfos.addAll(record);
-                                                experDetailsWendaAdapter.setData(wendaInfos);
-                                            }
-                                        });
-                                    }
-                                };
+                            } else {
+                                HomeAskBean.RAlHomeAnser r = homeAskBean.getR();
+                                totalpage = r.getPage().getTotalpage();
+                                ArrayList<HomeAskBean.RAlHomeAnser.Record> record = r.getRecord();
+                                if (record!=null&&record.size()>0){
+                                    noData.setVisibility(View.GONE);
+                                }else{
+                                    noData.setVisibility(View.VISIBLE);
+                                }
+                                wendaInfos.addAll(record);
+                                experDetailsWendaAdapter.setData(wendaInfos);
+
                             }
-                            handler.postDelayed(runnable,1000);
-                        }else{
-                            WenDaBean wenDaBean = JsonUtil.json2Bean(data, WenDaBean.class);
-                            totalpage = wenDaBean.getPage().getTotalpage();
-                            List<WenDaBean.RecordBean> record = wenDaBean.getRecord();
-                            wendaInfos.addAll(record);
-                            experDetailsWendaAdapter.setData(wendaInfos);
-                        }
-                    }
+                            Log.e("questions", "成功");
 
-                }
-            });
+                        }
+
+                        @Override
+                        public void onError(AbstractRequest<HomeAskBean> requet, int statusCode, String body) {
+                            Log.e("questions", "失败");
+
+                        }
+                    });
+            request.go();
+
         }
 
     }

@@ -76,7 +76,7 @@ public class BottomLunboAdapter extends PagerAdapter {
         mImageLoader.loadImage(listBeans.getImage(), imageView, R.drawable.image_loader_big);
 
 
-        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         imageView.setLayoutParams(para);
 
         imageView.setOnClickListener(new OnClickListener() {

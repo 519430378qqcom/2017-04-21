@@ -915,6 +915,26 @@ public class RecommendBean extends BaseGsonBeans {
             private String playsource;
             @SerializedName("playtime")
             private String playtime;
+            @SerializedName("answertime")
+            private String answertime;
+            @SerializedName("goodnum")
+            private String goodnum;
+
+            public String getAnswertime() {
+                return answertime;
+            }
+
+            public void setAnswertime(String answertime) {
+                this.answertime = answertime;
+            }
+
+            public String getGoodnum() {
+                return goodnum;
+            }
+
+            public void setGoodnum(String goodnum) {
+                this.goodnum = goodnum;
+            }
 
             public String getId() {
                 return id;

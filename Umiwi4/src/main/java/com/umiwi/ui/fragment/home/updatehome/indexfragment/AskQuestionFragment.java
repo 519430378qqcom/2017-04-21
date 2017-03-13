@@ -15,12 +15,15 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.updateadapter.AskQuestionAdapter;
 import com.umiwi.ui.beans.UmiwiAddQuestionBeans;
 import com.umiwi.ui.beans.UmiwiBuyCreateOrderBeans;
+import com.umiwi.ui.beans.updatebeans.AlreadyAskBean;
+import com.umiwi.ui.beans.updatebeans.HomeAskBean;
 import com.umiwi.ui.beans.updatebeans.NamedQuestionBean;
 import com.umiwi.ui.beans.updatebeans.QuestionListBean;
 import com.umiwi.ui.fragment.pay.PayingFragment;
@@ -86,7 +89,7 @@ public class AskQuestionFragment extends BaseConstantFragment implements View.On
     MonitorScrollView monScrollview;
     private int page = 1;
     private String uid;
-    private ArrayList<QuestionListBean.RecordBean> questionList = new ArrayList<>();
+    private ArrayList<HomeAskBean.RAlHomeAnser.Record> questionList = new ArrayList<>();
     private int currentpage;
     private int totalpage;
     private AskQuestionAdapter askQuestionAdapter;
@@ -131,49 +134,57 @@ public class AskQuestionFragment extends BaseConstantFragment implements View.On
     }
 
     private void getQuestionlist() {
-        OkHttpUtils.get().url(UmiwiAPI.QUESTION_LIST).addParams("p", page + "").addParams("tuid", uid).build().execute(new CustomStringCallBack() {
-            @Override
-            public void onFaild() {
 
-            }
-
-            @Override
-            public void onSucess(final String data) {
-                if (!TextUtils.isEmpty(data)) {
-                    if (isBottom == true) {
-                        if (runnable == null) {
-                            runnable = new Runnable() {
-                                @Override
-                                public void run() {
-                                    getActivity().runOnUiThread(new Runnable() {
+        String url = String.format(UmiwiAPI.QUESTION_LIST,page,uid);
+//        String url = "http://i.v.youmi.cn/api8/questionlist?tuid="+uid;
+        GetRequest<HomeAskBean> request = new GetRequest<HomeAskBean>(
+                url, GsonParser.class,
+                HomeAskBean.class,
+                new Listener<HomeAskBean>() {
+                    @Override
+                    public void onResult(AbstractRequest<HomeAskBean> request, final HomeAskBean homeAskBean) {
+                            if (isBottom == true){
+                                if (runnable == null){
+                                    runnable = new Runnable() {
                                         @Override
                                         public void run() {
-                                            Log.e("data", "行家音频列表请求成功了" + data);
-                                            more.setVisibility(View.GONE);
-                                            QuestionListBean questionListBean = JsonUtil.json2Bean(data, QuestionListBean.class);
-                                            currentpage = questionListBean.getPage().getCurrentpage();
-                                            totalpage = questionListBean.getPage().getTotalpage();
-                                            List<QuestionListBean.RecordBean> record = questionListBean.getRecord();
-                                            questionList.addAll(record);
-                                            askQuestionAdapter.setData(questionList);
+                                            getActivity().runOnUiThread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    more.setVisibility(View.GONE);
+                                                    HomeAskBean.RAlHomeAnser r = homeAskBean.getR();
+                                                     totalpage = r.getPage().getTotalpage();
+                                                     currentpage = r.getPage().getCurrentpage();
+                                                     ArrayList<HomeAskBean.RAlHomeAnser.Record> record = r.getRecord();
+                                                     questionList.addAll(record);
+                                                     askQuestionAdapter.setData(questionList);
+
+//
+                                                }
+                                            });
                                         }
-                                    });
+                                    };
                                 }
-                            };
-                        }
-                    } else {
-                        Log.e("data", "行家音频列表请求成功了" + data);
-                        QuestionListBean questionListBean = JsonUtil.json2Bean(data, QuestionListBean.class);
-                        currentpage = questionListBean.getPage().getCurrentpage();
-                        totalpage = questionListBean.getPage().getTotalpage();
-                        List<QuestionListBean.RecordBean> record = questionListBean.getRecord();
-                        questionList.addAll(record);
-                        askQuestionAdapter.setData(questionList);
+                            }else{
+                                HomeAskBean.RAlHomeAnser r = homeAskBean.getR();
+                                totalpage = r.getPage().getTotalpage();
+                                currentpage = r.getPage().getCurrentpage();
+                                ArrayList<HomeAskBean.RAlHomeAnser.Record> record = r.getRecord();
+                                questionList.addAll(record);
+                                askQuestionAdapter.setData(questionList);
+
+                            }
+                        Log.e("questions","成功");
+
                     }
 
-                }
-            }
-        });
+                    @Override
+                    public void onError(AbstractRequest<HomeAskBean> requet, int statusCode, String body) {
+                        Log.e("questions","失败");
+
+                    }
+                });
+        request.go();
 
     }
 

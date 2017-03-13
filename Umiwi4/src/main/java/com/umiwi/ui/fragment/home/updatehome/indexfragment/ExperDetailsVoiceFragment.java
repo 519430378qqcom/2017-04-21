@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.TextView;
 
 import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
@@ -35,6 +36,8 @@ import butterknife.InjectView;
 public class ExperDetailsVoiceFragment extends BaseConstantFragment {
     @InjectView(R.id.noscroll_listview)
     NoScrollListview noscrollListview;
+    @InjectView(R.id.no_data)
+    TextView noData;
     private List<VoiceBean.RecordBean> voiceList = new ArrayList<>();
     private ExperDetailsVoiceAdapter experDetailsVoiceAdapter;
     private int page = 1;
@@ -43,6 +46,7 @@ public class ExperDetailsVoiceFragment extends BaseConstantFragment {
     private boolean isBottom = false;
     private Handler handler;
     private Runnable runnable;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -58,7 +62,7 @@ public class ExperDetailsVoiceFragment extends BaseConstantFragment {
                 String hrefurl = recordBean.getHrefurl();
                 Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
                 intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
-                intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL,hrefurl);
+                intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL, hrefurl);
                 startActivity(intent);
             }
         });
@@ -67,7 +71,7 @@ public class ExperDetailsVoiceFragment extends BaseConstantFragment {
             public void IsvoiceBottom() {
                 page++;
                 isBottom = true;
-                if (page<=totalpage){
+                if (page <= totalpage) {
                     ExperDetailsFragment.tv_more.setVisibility(View.VISIBLE);
                     getInfos();
                 }
@@ -79,25 +83,25 @@ public class ExperDetailsVoiceFragment extends BaseConstantFragment {
     }
 
     private void getInfos() {
-        Log.d("data","名人详情音频列表请求了。。。");
+        Log.d("data", "名人详情音频列表请求了。。。");
 
         String audioalbumurl = ExperDetailsFragment.audioalbumurl;
 
-        if (!TextUtils.isEmpty(audioalbumurl)){
-            url = audioalbumurl+"/?p="+page;
-            if (url!=null||url!=""){
-                Log.e("data","名人详情音频列表请求了。。");
+        if (!TextUtils.isEmpty(audioalbumurl)) {
+            url = audioalbumurl + "/?p=" + page;
+            if (url != null || url != "") {
+                Log.e("data", "名人详情音频列表请求了。。");
 
                 OkHttpUtils.get().url(url).build().execute(new CustomStringCallBack() {
                     @Override
                     public void onFaild() {
-                        Log.e("data","名人详情音频列表请求失败");
+                        Log.e("data", "名人详情音频列表请求失败");
                     }
 
                     @Override
                     public void onSucess(final String data) {
-                        if (isBottom == true){
-                            if (runnable==null){
+                        if (isBottom == true) {
+                            if (runnable == null) {
                                 runnable = new Runnable() {
                                     @Override
                                     public void run() {
@@ -107,23 +111,33 @@ public class ExperDetailsVoiceFragment extends BaseConstantFragment {
                                                 ExperDetailsFragment.tv_more.setVisibility(View.GONE);
                                                 VoiceBean voiceBean = JsonUtil.json2Bean(data, VoiceBean.class);
                                                 totalpage = voiceBean.getPage().getTotalpage();
-                                                Log.e("totalpage", totalpage +"");
+                                                Log.e("totalpage", totalpage + "");
                                                 List<VoiceBean.RecordBean> records = voiceBean.getRecord();
                                                 voiceList.addAll(records);
+                                                if (records.size()>0&&records!=null){
+                                                    noData.setVisibility(View.GONE);
+                                                }else{
+                                                    noData.setVisibility(View.VISIBLE);
+                                                }
                                                 experDetailsVoiceAdapter.setData(voiceList);
                                             }
                                         });
                                     }
                                 };
                             }
-                            handler.postDelayed(runnable,1000);
-                        }else{
-                            Log.e("data","名人详情音频列表请求成功"+data);
-                            if (data!=null){
+                            handler.postDelayed(runnable, 1000);
+                        } else {
+                            Log.e("data", "名人详情音频列表请求成功" + data);
+                            if (data != null) {
                                 VoiceBean voiceBean = JsonUtil.json2Bean(data, VoiceBean.class);
                                 totalpage = voiceBean.getPage().getTotalpage();
-                                Log.e("totalpage", totalpage +"");
+                                Log.e("totalpage", totalpage + "");
                                 List<VoiceBean.RecordBean> records = voiceBean.getRecord();
+                                if (records.size()>0&&records!=null){
+                                    noData.setVisibility(View.GONE);
+                                }else{
+                                    noData.setVisibility(View.VISIBLE);
+                                }
                                 voiceList.addAll(records);
                                 experDetailsVoiceAdapter.setData(voiceList);
                             }

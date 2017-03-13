@@ -417,8 +417,14 @@ public final class UmiwiAPI {
     public static final String ALREADY_VOICE = "http://i.v.youmi.cn/audioalbum/buylist";
 
     public static final String Hear_url = "http://i.v.youmi.cn/api8/questionlisten";
+//
+//    public static final String QUESTION_LIST = "http://i.v.youmi.cn/api8/questionlist";
+//    //试读页面
+//    public static final String Logincal_thinking = "http://i.v.youmi.cn/api8/tutorcolumn/detailpurchasedApi";
 
-    public static final String QUESTION_LIST = "http://i.v.youmi.cn/api8/questionlist";
+
+    public static final String QUESTION_LIST = "http://i.v.youmi.cn/api8/questionlist?p=%s&tuid=%s";
+
     public static final String NAMED_QUESTIONA = "http://i.v.youmi.cn/question/namedquestionApi";
     //新增问题
     public static final String ADD_QUESTIONA = "http://i.v.youmi.cn/question/addApi?tutoruid=%s&title=%s";
@@ -449,6 +455,9 @@ public final class UmiwiAPI {
 
     public static final String VODEI_URL = "http://i.v.youmi.cn/ClientApi/getAlbumDetail?id=";
 
+    public static final String QUESTION_DES = "http://i.v.youmi.cn/question/getapi";
+
+    public static final String ZAN = "http://i.v.youmi.cn/good/goodapi?qid=%s&status=%s";
 
     /////////////========================================优雅的分割线 历史接口=================================================////////////
 //    /** 我的课程未登录默认九宫 */

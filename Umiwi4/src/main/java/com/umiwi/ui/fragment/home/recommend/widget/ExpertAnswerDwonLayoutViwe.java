@@ -1,19 +1,25 @@
 package com.umiwi.ui.fragment.home.recommend.widget;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.umiwi.ui.R;
+import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.updateadapter.ExpertAnswerDowndapter;
 import com.umiwi.ui.beans.updatebeans.RecommendBean;
+import com.umiwi.ui.fragment.home.alreadyshopping.AnswerDetailsFragment;
+import com.umiwi.ui.managers.YoumiRoomUserManager;
 
 import java.util.ArrayList;
 
@@ -23,7 +29,7 @@ import java.util.ArrayList;
  */
 public class ExpertAnswerDwonLayoutViwe extends LinearLayout {
 
-    private Context mContext;
+    private Activity mContext;
     private LinearLayout expert_answer_dwon_root;
     private ListView lv_expert_dwon_answer;
     private TextView tv_expert_answer_fask_ask;
@@ -41,11 +47,38 @@ public class ExpertAnswerDwonLayoutViwe extends LinearLayout {
     }
 
     private void init(Context context) {
-        mContext = context;
+        mContext = (Activity) context;
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.home_expert_answer_dwon_layout, this);
         expert_answer_dwon_root = (LinearLayout) findViewById(R.id.expert_answer_dwon_root);
         lv_expert_dwon_answer = (ListView) findViewById(R.id.lv_expert_dwon_answer);
+        lv_expert_dwon_answer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                RecommendBean.RBean.QuestionBean question = mList.get(i);
+                String title = question.getTitle();
+                String buttontag = question.getButtontag();
+                String tavatar = question.getTavatar();
+                String playtime = question.getPlaytime();
+                String answertime = question.getAnswertime();
+                String listennum = question.getListennum();
+                String goodnum = question.getGoodnum();
+                String id = question.getId();
+                String tuid = question.getTuid();
+                Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
+                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, AnswerDetailsFragment.class);
+                intent.putExtra("title",title);
+                intent.putExtra("buttontag",buttontag);
+                intent.putExtra("tavatar",tavatar);
+                intent.putExtra("playtime",playtime);
+                intent.putExtra("answertime",answertime);
+                intent.putExtra("listennum",listennum);
+                intent.putExtra("goodnum",goodnum);
+                intent.putExtra("id",id);
+                intent.putExtra("uid",tuid);
+                mContext.startActivity(intent);
+            }
+        });
         tv_expert_answer_fask_ask = (TextView) findViewById(R.id.tv_expert_answer_fask_ask);
         expert_answer_dwon_root.setVisibility(GONE);
     }

@@ -11,11 +11,11 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal" />
 
-    <com.umiwi.ui.view.CirclePageIndicator
-        android:id="@+id/indicator_bottom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/vp_bottom"
-        android:layout_centerHorizontal="true"
-        android:padding="8dp" />
+    <!--<com.umiwi.ui.view.CirclePageIndicator-->
+        <!--android:id="@+id/indicator_bottom"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignBottom="@+id/vp_bottom"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:padding="8dp" />-->
 </RelativeLayout>

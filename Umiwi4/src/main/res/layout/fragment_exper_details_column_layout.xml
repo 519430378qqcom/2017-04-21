@@ -3,6 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
+     <RelativeLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content">
 
      <LinearLayout
          android:id="@+id/ll_addview"
@@ -181,5 +184,14 @@
               </RelativeLayout>
           </LinearLayout>
      </LinearLayout>
-
+         <TextView
+             android:id="@+id/no_data"
+             android:visibility="gone"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="暂无数据..."
+             android:textColor="@color/main_color"
+             android:layout_centerInParent="true"
+             />
+     </RelativeLayout>
 </com.umiwi.ui.view.ScrollViewExtend>

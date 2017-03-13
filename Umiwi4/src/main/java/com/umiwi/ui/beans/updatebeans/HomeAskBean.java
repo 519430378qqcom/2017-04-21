@@ -6,16 +6,25 @@ import com.umiwi.ui.beans.BaseGsonBeans;
 import java.util.ArrayList;
 
 /**
- * Created by Administrator on 2017/3/12.
+ * Created by Administrator on 2017/3/13.
  */
 
-public class AlreadyAskBean extends BaseGsonBeans {
+public class HomeAskBean extends BaseGsonBeans {
+    @Override
+    public String toString() {
+        return "HomeAskBean{" +
+                "e='" + e + '\'' +
+                ", m='" + m + '\'' +
+                ", r=" + r +
+                '}';
+}
+
     @SerializedName("e")
     private String e;
     @SerializedName("m")
     private String m;
     @SerializedName("r")
-    private RAlreadyAnser r;
+    private RAlHomeAnser r;
 
     public String getE() {
         return e;
@@ -33,19 +42,27 @@ public class AlreadyAskBean extends BaseGsonBeans {
         this.m = m;
     }
 
-    public RAlreadyAnser getR() {
+    public RAlHomeAnser getR() {
         return r;
     }
 
-    public void setR(RAlreadyAnser r) {
+    public void setR(RAlHomeAnser r) {
         this.r = r;
     }
 
-    public static class RAlreadyAnser{
+    public static class RAlHomeAnser{
+        @Override
+        public String toString() {
+            return "RAlHomeAnser{" +
+                    "page=" + page +
+                    ", record=" + record +
+                    '}';
+        }
+
         @SerializedName("page")
         private PageBean page;
-        @SerializedName("question")
-        private ArrayList<Question> question;
+        @SerializedName("record")
+        private ArrayList<Record> record;
 
         public PageBean getPage() {
             return page;
@@ -55,12 +72,12 @@ public class AlreadyAskBean extends BaseGsonBeans {
             this.page = page;
         }
 
-        public ArrayList<Question> getQuestions() {
-            return question;
+        public ArrayList<Record> getRecord() {
+            return record;
         }
 
-        public void setQuestions(ArrayList<Question> question) {
-            this.question = question;
+        public void setRecord(ArrayList<Record> record) {
+            this.record = record;
         }
 
         public static class PageBean {
@@ -100,19 +117,29 @@ public class AlreadyAskBean extends BaseGsonBeans {
             public void setTotalpage(int totalpage) {
                 this.totalpage = totalpage;
             }
+
+            @Override
+            public String toString() {
+                return "PageBean{" +
+                        "currentpage=" + currentpage +
+                        ", rows='" + rows + '\'' +
+                        ", totalpage=" + totalpage +
+                        '}';
+            }
         }
 
-        public static class Question {
+        public static class Record {
             @SerializedName("id")
             private String id;
-            @SerializedName("tuid")
-            private String tuid;
             @SerializedName("title")
             private String title;
             @SerializedName("tavatar")
             private String tavatar;
+
             @SerializedName("answertime")
             private String answertime;
+            @SerializedName("listentype")
+            private String listentype;
             @SerializedName("buttontag")
             private String buttontag;
             @SerializedName("listennum")
@@ -125,15 +152,13 @@ public class AlreadyAskBean extends BaseGsonBeans {
             private String goodnum;
             @SerializedName("goodstate")
             private boolean goodstate;
-            @SerializedName("listentype")
-            private String listentype;
 
-            public String getListentype() {
-                return listentype;
+            public String getButtontag() {
+                return buttontag;
             }
 
-            public void setListentype(String listentype) {
-                this.listentype = listentype;
+            public void setButtontag(String buttontag) {
+                this.buttontag = buttontag;
             }
 
             public String getId() {
@@ -142,14 +167,6 @@ public class AlreadyAskBean extends BaseGsonBeans {
 
             public void setId(String id) {
                 this.id = id;
-            }
-
-            public String getTuid() {
-                return tuid;
-            }
-
-            public void setTuid(String tuid) {
-                this.tuid = tuid;
             }
 
             public String getTitle() {
@@ -176,12 +193,12 @@ public class AlreadyAskBean extends BaseGsonBeans {
                 this.answertime = answertime;
             }
 
-            public String getButtontag() {
-                return buttontag;
+            public String getListentype() {
+                return listentype;
             }
 
-            public void setButtontag(String buttontag) {
-                this.buttontag = buttontag;
+            public void setListentype(String listentype) {
+                this.listentype = listentype;
             }
 
             public String getListennum() {
@@ -223,7 +240,23 @@ public class AlreadyAskBean extends BaseGsonBeans {
             public void setGoodstate(boolean goodstate) {
                 this.goodstate = goodstate;
             }
+
+            @Override
+            public String toString() {
+                return "Record{" +
+                        "id='" + id + '\'' +
+                        ", title='" + title + '\'' +
+                        ", tavatar='" + tavatar + '\'' +
+                        ", answertime='" + answertime + '\'' +
+                        ", listentype='" + listentype + '\'' +
+                        ", buttontag='" + buttontag + '\'' +
+                        ", listennum='" + listennum + '\'' +
+                        ", playsource='" + playsource + '\'' +
+                        ", playtime='" + playtime + '\'' +
+                        ", goodnum='" + goodnum + '\'' +
+                        ", goodstate=" + goodstate +
+                        '}';
+            }
         }
     }
-
 }

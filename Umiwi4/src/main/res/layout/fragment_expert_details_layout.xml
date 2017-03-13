@@ -101,7 +101,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="20dp"
                         android:layout_marginTop="20dp"
-                        android:src="@drawable/share_img" />
+                        android:src="@drawable/share_black" />
                 </RelativeLayout>
                 <TextView
                     android:id="@+id/question"

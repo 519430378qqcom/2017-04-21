@@ -122,6 +122,16 @@ public class AnswerBean extends BaseGsonBeans {
             private String playtime;
             @SerializedName("price")
             private String price;
+            @SerializedName("palyname")
+            private String palyname;
+
+            public String getPalyname() {
+                return palyname;
+            }
+
+            public void setPalyname(String palyname) {
+                this.palyname = palyname;
+            }
 
             public String getId() {
                 return id;

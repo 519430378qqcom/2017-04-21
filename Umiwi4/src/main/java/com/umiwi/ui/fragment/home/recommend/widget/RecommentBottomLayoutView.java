@@ -34,7 +34,7 @@ public class RecommentBottomLayoutView extends LinearLayout implements BottomLun
     private Context mContext;
     private BottomLunboAdapter bottomLunboAdapter;
     private AutoViewPager mAutoViewPager;
-    private CirclePageIndicator indicator_bottom;
+//    private CirclePageIndicator indicator_bottom;
 
     public RecommentBottomLayoutView(Context context) {
         super(context);
@@ -54,14 +54,13 @@ public class RecommentBottomLayoutView extends LinearLayout implements BottomLun
         inflater.inflate(R.layout.item_recomment_bottom, this);
 
         mAutoViewPager = (AutoViewPager) findViewById(R.id.vp_bottom);
-        indicator_bottom = (CirclePageIndicator) findViewById(R.id.indicator_bottom);
+//        indicator_bottom = (CirclePageIndicator) findViewById(R.id.indicator_bottom);
         rl_botton_root = (RelativeLayout) findViewById(R.id.rl_botton_root);
 
     }
 
     public void setData(Activity activity, ArrayList<RecommendBean.RBean.BottomBean> bottomBeen) {
 
-        bottomBeen.add(bottomBeen.get(0));
         if (null == bottomBeen || bottomBeen.size() <= 0)
             return;
 
@@ -74,7 +73,7 @@ public class RecommentBottomLayoutView extends LinearLayout implements BottomLun
         bottomLunboAdapter = new BottomLunboAdapter(mContext, bottomBeen);
         mAutoViewPager.setAdapter(bottomLunboAdapter);
         bottomLunboAdapter.setOnBottomLunboItemClickListener(this);
-        indicator_bottom.setViewPager(mAutoViewPager);
+//        indicator_bottom.setViewPager(mAutoViewPager);
 
         mAutoViewPager.setInterval(5000);
         mAutoViewPager.setSlideBorderMode(AutoViewPager.SLIDE_BORDER_MODE_CYCLE);

@@ -57,6 +57,8 @@ public class DetailsColumnFragment extends BaseConstantFragment {
     NoScrollListview attentionListview;
     @InjectView(R.id.last_record)
     NoScrollListview lastRecord;
+    @InjectView(R.id.no_data)
+    TextView noData;
 
     @Nullable
     @Override
@@ -89,15 +91,17 @@ public class DetailsColumnFragment extends BaseConstantFragment {
             public void onSucess(String data) {
                 Log.e("data", "详情专栏请求数据成功 :" + data);
                 if (data != null) {
+                    noData.setVisibility(View.GONE);
+
                     final ExperDetailsAlbumbean experDetailsAlbumbean = JsonUtil.json2Bean(data, ExperDetailsAlbumbean.class);
                     if (experDetailsAlbumbean != null) {
                         fillData(experDetailsAlbumbean);
 
                         final String id = experDetailsAlbumbean.getId();
-                        if (experDetailsAlbumbean.isIsbuy()){
+                        if (experDetailsAlbumbean.isIsbuy()) {
                             ExperDetailsFragment.subscriber.setText("已订阅");
                             ExperDetailsFragment.subscriber.setEnabled(false);
-                        }else {
+                        } else {
                             ExperDetailsFragment.subscriber.setEnabled(true);
                             ExperDetailsFragment.subscriber.setText(String.format("订阅:  %s元/年", experDetailsAlbumbean.getPrice()));
                         }
@@ -113,11 +117,13 @@ public class DetailsColumnFragment extends BaseConstantFragment {
                             public void onClick(View v) {
                                 Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
                                 intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, LogicalThinkingFragment.class);
-                                intent.putExtra("id",experDetailsAlbumbean.getId());
+                                intent.putExtra("id", experDetailsAlbumbean.getId());
                                 startActivity(intent);
                             }
                         });
                     }
+                }else {
+                    noData.setVisibility(View.VISIBLE);
                 }
             }
         });

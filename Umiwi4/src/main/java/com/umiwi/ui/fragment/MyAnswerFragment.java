@@ -10,21 +10,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.nineoldandroids.view.ViewPropertyAnimator;
 import com.umiwi.ui.R;
-import com.umiwi.ui.fragment.home.alreadyshopping.ColumnFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.AnsweredFragment;
-import com.umiwi.ui.fragment.home.updatehome.indexfragment.AudioFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.DelayAnswerFragment;
-import com.umiwi.ui.fragment.home.updatehome.indexfragment.ExpertFragment;
-import com.umiwi.ui.fragment.home.updatehome.indexfragment.OldYoumiFragment;
-import com.umiwi.ui.fragment.home.updatehome.indexfragment.RecommendFragment;
-import com.umiwi.ui.fragment.home.updatehome.indexfragment.VideoFragment;
-import com.umiwi.ui.main.CustomStringCallBack;
-import com.umiwi.ui.main.UmiwiAPI;
-import com.zhy.http.okhttp.OkHttpUtils;
-
 import java.util.ArrayList;
 import cn.youmi.framework.fragment.BaseFragment;
 
@@ -42,6 +33,7 @@ public class MyAnswerFragment extends BaseFragment {
 
     private ArrayList<Fragment> fragments;
     private int line_width;
+    private ImageView back;
 
     @Nullable
     @Override
@@ -59,7 +51,7 @@ public class MyAnswerFragment extends BaseFragment {
         tab_answered = (TextView) view.findViewById(R.id.tab_answered);
         line = (View) view.findViewById(R.id.line);
         viewPager = (ViewPager) view.findViewById(R.id.viewPager);
-
+        back = (ImageView) view.findViewById(R.id.back);
         tab_delay_answer.setTextColor(getResources().getColor(R.color.main_color));
         tab_answered.setTextColor(getResources().getColor(R.color.black));
         ViewPropertyAnimator.animate(tab_delay_answer).scaleX(1.1f).setDuration(0);
@@ -71,9 +63,14 @@ public class MyAnswerFragment extends BaseFragment {
 
         line_width = getActivity().getWindowManager().getDefaultDisplay().getWidth()
                 / fragments.size();
-        line.getLayoutParams().width = line_width-600;
+        line.getLayoutParams().width = line_width-360;
         line.requestLayout();
-
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().finish();
+            }
+        });
         viewPager.setOffscreenPageLimit(2);
         viewPager.setAdapter(new FragmentStatePagerAdapter(
                 getChildFragmentManager()) {

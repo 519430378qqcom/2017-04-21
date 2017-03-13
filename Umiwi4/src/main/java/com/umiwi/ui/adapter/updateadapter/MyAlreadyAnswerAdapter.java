@@ -9,14 +9,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.android.volley.toolbox.ImageLoader;
 import com.umiwi.ui.R;
 import com.umiwi.ui.beans.updatebeans.AnswerBean;
 import com.umiwi.ui.beans.updatebeans.DelayAnswerVoiceBean;
-import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.view.CircleImageView;
 import com.umiwi.video.recorder.MediaManager;
-import com.zhy.http.okhttp.request.GetRequest;
 
 import java.util.ArrayList;
 
@@ -31,6 +28,8 @@ public class MyAlreadyAnswerAdapter extends BaseAdapter {
     private ArrayList<AnswerBean.RAnser.Question> questionsInfos;
     FragmentActivity activity;
     private int currentpos = -1;
+    private ArrayList<View> viewlist = new ArrayList();
+
     public MyAlreadyAnswerAdapter(FragmentActivity activity) {
         this.activity = activity;
     }
@@ -54,7 +53,7 @@ public class MyAlreadyAnswerAdapter extends BaseAdapter {
     public View getView(final int postion, View view, final ViewGroup viewGroup) {
         final ViewHoder hoder;
 
-        if (view == null){
+        if (postion+1>viewlist.size()){
             hoder = new ViewHoder();
             view = View.inflate(activity, R.layout.item_my_already_answer,null);
             hoder.header = (CircleImageView) view.findViewById(R.id.head);
@@ -64,7 +63,9 @@ public class MyAlreadyAnswerAdapter extends BaseAdapter {
             hoder.paly_voice = (TextView) view.findViewById(R.id.paly_voice);
             hoder.paly_times = (TextView) view.findViewById(R.id.paly_times);
             view.setTag(hoder);
+            viewlist.add(view);
         } else{
+            view=viewlist.get(postion);
             hoder = (ViewHoder) view.getTag();
         }
         final AnswerBean.RAnser.Question question = questionsInfos.get(postion);
@@ -75,21 +76,40 @@ public class MyAlreadyAnswerAdapter extends BaseAdapter {
         hoder.paly_times.setText(question.getPlaytime());
         cn.youmi.framework.util.ImageLoader imageLoader = new cn.youmi.framework.util.ImageLoader(activity);
         imageLoader.loadImage(question.getTavatar(),hoder.header);
-        hoder.paly_voice.setTag("tag");
+        if (!TextUtils.isEmpty(question.getPalyname())){
+            hoder.paly_voice.setText(question.getPalyname());
+        }
         hoder.paly_voice.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
+
                if (currentpos!=-1){
-                   View childAt = viewGroup.getChildAt(currentpos);
-                   TextView textView = (TextView) childAt.findViewById(R.id.paly_voice);
-                   textView.setText("播放");
+//                   mCurrentVoiceListener.getCurrentView(currentpos);
+                   questionsInfos.get(currentpos).setPalyname("播放");
+                   notifyDataSetChanged();
                    if (currentpos == postion){
                      if (MediaManager.mediaPlayer.isPlaying()){
                          MediaManager.pause();
+                         hoder.paly_voice.setText("播放");
+                         Log.e("ISPALY","PAUSE");
                      }else{
                          MediaManager.resume();
+                         Log.e("ISPALY","resume");
+                         questionsInfos.get(postion).setPalyname("正在播放");
+                         notifyDataSetChanged();
+
                      }
-                   }
+                        MediaManager.mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                            @Override
+                            public void onCompletion(MediaPlayer mediaPlayer) {
+                                hoder.paly_voice.setText("播放");
+
+                            }
+                        });
+
+                       return;
+                }
+
                }
 
                currentpos = postion;
@@ -118,20 +138,13 @@ public class MyAlreadyAnswerAdapter extends BaseAdapter {
                         MediaManager.playSound(source, new MediaPlayer.OnCompletionListener() {
                             @Override
                             public void onCompletion(MediaPlayer mediaPlayer) {
-                                if (paly_voice.getTag()!=null&&paly_voice.getTag() == "tag"){
                                     paly_voice.setText("播放");
-
-                                }
 
                             }
                         });
                         if (MediaManager.mediaPlayer.isPlaying()){
-                            if (paly_voice.getTag()!=null&&paly_voice.getTag() == "tag"){
                                 paly_voice.setText("正在播放");
 
-                            }else {
-                                paly_voice.setText("播放");
-                            }
                         }
                     }
 
@@ -155,5 +168,14 @@ public class MyAlreadyAnswerAdapter extends BaseAdapter {
         TextView miaoshu;
         TextView paly_voice;
         TextView paly_times;
+    }
+
+    public interface CurrentVoiceListener{
+        void getCurrentView(int currentpos);
+    }
+
+    public CurrentVoiceListener mCurrentVoiceListener;
+    public void setCurrentVoiceListener(CurrentVoiceListener currentVoiceListener){
+        mCurrentVoiceListener = currentVoiceListener;
     }
 }

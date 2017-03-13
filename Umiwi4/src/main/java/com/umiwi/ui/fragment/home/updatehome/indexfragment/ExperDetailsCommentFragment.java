@@ -8,17 +8,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.umiwi.ui.R;
 import com.umiwi.ui.adapter.ExperDetailsCommentAdapter;
 import com.umiwi.ui.beans.updatebeans.CommentBean;
-import com.umiwi.ui.beans.updatebeans.VideoBean;
-import com.umiwi.ui.beans.updatebeans.WenDaBean;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.CustomStringCallBack;
 import com.umiwi.ui.util.JsonUtil;
 import com.umiwi.ui.view.NoScrollListview;
-import com.umiwi.ui.view.TopFloatScrollView;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.ArrayList;
@@ -35,6 +33,8 @@ import butterknife.InjectView;
 public class ExperDetailsCommentFragment extends BaseConstantFragment {
     @InjectView(R.id.noscroll_listview)
     NoScrollListview noscrollListview;
+    @InjectView(R.id.no_data)
+    TextView noData;
     private int page;
     private int totalpage;
     private boolean isBottom = false;
@@ -42,6 +42,7 @@ public class ExperDetailsCommentFragment extends BaseConstantFragment {
     private List<CommentBean.RecordBean> commentInfos = new ArrayList<>();
     private Handler handler;
     private Runnable runnable;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -55,7 +56,7 @@ public class ExperDetailsCommentFragment extends BaseConstantFragment {
             public void IsCommentBottom() {
                 page++;
                 isBottom = true;
-                if (page<=totalpage){
+                if (page <= totalpage) {
                     ExperDetailsFragment.tv_more.setVisibility(View.VISIBLE);
                     getInfos();
                 }
@@ -68,20 +69,20 @@ public class ExperDetailsCommentFragment extends BaseConstantFragment {
 
     private void getInfos() {
         String threadurl = ExperDetailsFragment.threadurl;
-        if (!TextUtils.isEmpty(threadurl)){
-            String url = threadurl+"/?p="+page;
+        if (!TextUtils.isEmpty(threadurl)) {
+            String url = threadurl + "/?p=" + page;
             OkHttpUtils.get().url(url).build().execute(new CustomStringCallBack() {
                 @Override
                 public void onFaild() {
-                    Log.e("data","名人评论数据请求失败");
+                    Log.e("data", "名人评论数据请求失败");
                 }
 
                 @Override
                 public void onSucess(final String data) {
-                    Log.e("data","名人评论数据请求成功"+data);
-                    if (!TextUtils.isEmpty(data)){
-                        if (isBottom == true){
-                            if (runnable==null){
+                    Log.e("data", "名人评论数据请求成功" + data);
+                    if (!TextUtils.isEmpty(data)) {
+                        if (isBottom == true) {
+                            if (runnable == null) {
                                 runnable = new Runnable() {
                                     @Override
                                     public void run() {
@@ -93,6 +94,12 @@ public class ExperDetailsCommentFragment extends BaseConstantFragment {
                                                 CommentBean commentBean = JsonUtil.json2Bean(data, CommentBean.class);
                                                 totalpage = commentBean.getPage().getTotalpage();
                                                 List<CommentBean.RecordBean> record = commentBean.getRecord();
+                                                if (record!=null&&record.size()>0){
+                                                    noData.setVisibility(View.GONE);
+                                                }else{
+                                                    noData.setVisibility(View.VISIBLE);
+
+                                                }
                                                 commentInfos.addAll(record);
                                                 experDetailsCommentAdapter.setData(commentInfos);
                                             }
@@ -100,12 +107,18 @@ public class ExperDetailsCommentFragment extends BaseConstantFragment {
                                     }
                                 };
                             }
-                            handler.postDelayed(runnable,1000);
-                        }else{
+                            handler.postDelayed(runnable, 1000);
+                        } else {
                             ExperDetailsFragment.tv_more.setVisibility(View.GONE);
                             CommentBean commentBean = JsonUtil.json2Bean(data, CommentBean.class);
                             totalpage = commentBean.getPage().getTotalpage();
                             List<CommentBean.RecordBean> record = commentBean.getRecord();
+                            if (record!=null&&record.size()>0){
+                                noData.setVisibility(View.GONE);
+                            }else{
+                                noData.setVisibility(View.VISIBLE);
+
+                            }
                             commentInfos.addAll(record);
                             experDetailsCommentAdapter.setData(commentInfos);
                         }

@@ -8,11 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.umiwi.ui.R;
 import com.umiwi.ui.adapter.updateadapter.MyAlreadyAnswerAdapter;
-import com.umiwi.ui.adapter.updateadapter.MyAnswerAdapter;
 import com.umiwi.ui.beans.updatebeans.AnswerBean;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.UmiwiAPI;

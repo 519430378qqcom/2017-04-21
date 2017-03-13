@@ -63,6 +63,7 @@ public class AskFragment extends BaseConstantFragment {
                 String answertime = question.getAnswertime();
                 String listennum = question.getListennum();
                 String goodnum = question.getGoodnum();
+                String id = question.getId();
                 String tuid = question.getTuid();
                 Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
                 intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, AnswerDetailsFragment.class);
@@ -74,11 +75,13 @@ public class AskFragment extends BaseConstantFragment {
                 intent.putExtra("listennum",listennum);
                 intent.putExtra("goodnum",goodnum);
                 intent.putExtra("uid",tuid);
+                intent.putExtra("id",id);
                 startActivity(intent);
 
             }
         });
         getAskInfos();
+
         return inflate;
     }
 
