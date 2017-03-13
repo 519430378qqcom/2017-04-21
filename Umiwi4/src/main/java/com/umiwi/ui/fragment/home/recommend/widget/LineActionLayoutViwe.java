@@ -1,13 +1,18 @@
 package com.umiwi.ui.fragment.home.recommend.widget;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.umiwi.ui.R;
+import com.umiwi.ui.activity.MyWebView;
 import com.umiwi.ui.adapter.updateadapter.LineActionadapter;
 import com.umiwi.ui.beans.updatebeans.RecommendBean;
 
@@ -38,12 +43,20 @@ public class LineActionLayoutViwe extends LinearLayout {
 
     private void init(Context context) {
         mContext = context;
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.line_action_item_layout, this);
         line_action_root = (LinearLayout) findViewById(R.id.line_action_root);
         title_type_textview = (TextView) findViewById(R.id.title_type_textview);
 //        title_tag = (TextView) findViewById(R.id.title_tag);
         lv_home_action = (ListView) findViewById(R.id.lv_home_action);
+        lv_home_action.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(mContext, MyWebView.class);
+                intent.putExtra("lineurl", mList.get(position).getUrl());
+                mContext.startActivity(intent);
+            }
+        });
         line_action_root.setVisibility(GONE);
     }
 
