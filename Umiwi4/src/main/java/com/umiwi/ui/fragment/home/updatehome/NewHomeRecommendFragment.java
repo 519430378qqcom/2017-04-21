@@ -17,6 +17,8 @@ import com.umiwi.ui.R;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.AudioFragment;
 import com.umiwi.ui.fragment.home.alreadyshopping.ColumnFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.ExpertFragment;
+import com.umiwi.ui.fragment.home.updatehome.indexfragment.HomeAudioFragment;
+import com.umiwi.ui.fragment.home.updatehome.indexfragment.HomeVideoFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.OldYoumiFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.RecommendFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.VideoFragment;
@@ -92,8 +94,8 @@ public class NewHomeRecommendFragment extends BaseConstantFragment {
         fragments.add(new ExpertFragment());
 //        fragments.add(new LecturerListFragment());
         fragments.add(new ColumnFragment());
-        fragments.add(new AudioFragment());
-        fragments.add(new VideoFragment());
+        fragments.add(new HomeAudioFragment());
+        fragments.add(new HomeVideoFragment());
         fragments.add(new OldYoumiFragment());
 
 

@@ -402,12 +402,6 @@ public final class UmiwiAPI {
 
     public static final String TUTORCOLUMN = "http://i.v.youmi.cn/tutorcolumn/listApi/?p=";
 
-    //首页音频页面数据
-    public static final String Login_Audio = "http://i.v.youmi.cn/api8/audiolist";
-
-    //首页视频页面数据
-    public static final String Login_Video = "http://i.v.youmi.cn/api8/videoindex";
-
     //我的—回答（已回答，待回答）
     public static final String Mine_Answer = "http://i.v.youmi.cn/api8/myquestion?p=%s&answerstate=%s";
      //提交音频
@@ -426,8 +420,7 @@ public final class UmiwiAPI {
     //试读页面
     public static final String Logincal_thinking = "http://i.v.youmi.cn/api8/tutorcolumn/detailpurchasedApi";
 
-    public static final String audio_head = "http://i.v.youmi.cn/api8/tagTreeApi/?from=audio";
-    public static final String video_head = "http://i.v.youmi.cn/api8/tagTreeApi/?from=video";
+
     public static final String QUESTION_LIST = "http://i.v.youmi.cn/api8/questionlist";
     public static final String NAMED_QUESTIONA = "http://i.v.youmi.cn/question/namedquestionApi";
     //新增问题
@@ -442,7 +435,14 @@ public final class UmiwiAPI {
     public static final String REXIAO_BANG = "http://i.v.youmi.cn/api8/saletop";
     //热评榜
     public static final String REPING_BANG = "http://i.v.youmi.cn/api8/threadtop";
-
+    //首页音频页面数据
+    public static final String Login_Audio = "http://i.v.youmi.cn/api8/audiolist?p=%s&catid=%s&price=%s&orderby=%s";
+    //首页视频页面数据
+    public static final String Login_Video = "http://i.v.youmi.cn/api8/videoindex";
+    //首页音频分类
+    public static final String audio_head = "http://i.v.youmi.cn/api8/tagTreeApi/?from=audio";
+    //首页视频分类
+    public static final String video_head = "http://i.v.youmi.cn/api8/tagTreeApi/?from=video";
     public static final String VODEI_URL = "http://i.v.youmi.cn/ClientApi/getAlbumDetail?id=";
 
 

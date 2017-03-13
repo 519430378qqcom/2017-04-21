@@ -16,6 +16,7 @@ import com.umiwi.ui.beans.updatebeans.ChargeBean;
 import com.umiwi.ui.beans.updatebeans.FreeRecordBean;
 import com.umiwi.ui.beans.updatebeans.RecommendBean;
 import com.umiwi.ui.fragment.course.CourseDetailPlayFragment;
+import com.umiwi.ui.fragment.home.updatehome.indexfragment.VoiceDetailsFragment;
 import com.umiwi.ui.main.UmiwiApplication;
 
 import java.util.ArrayList;
@@ -120,7 +121,6 @@ public class PaySelectedLayoutViwe extends LinearLayout {
         @Override
         public void onResult(AbstractRequest<ChargeBean> request, ChargeBean t) {
             if (null != t && null != t.getR()) {
-//                currentpage = t.getR().getPage().getCurrentpage();
                 totalpage = t.getR().getPage().getTotalpage();
                 setData(t.getR().getRecord(), mChargeTitle, mChargehuan, mChargehuanUrl);
             }
@@ -222,10 +222,15 @@ public class PaySelectedLayoutViwe extends LinearLayout {
                 v_pay_selected_interval.setVisibility(VISIBLE);
             }
             final int finalI = i;
+            final RecommendBean.RBean.ChargeBean.RecordBeanX finalRecordBeanX1 = recordBeanX;
             view.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Log.e("TAG", "付费音频=" + datas.get(finalI));
+                    Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
+                    intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
+                    intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL, finalRecordBeanX1.getUrl());
+                    mContext.startActivity(intent);
                 }
             });
 
