@@ -199,7 +199,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
         //获取的链接
         herfurl = getActivity().getIntent().getStringExtra(KEY_DETAILURL);
 //        herfurl = getActivity().getIntent().getStringExtra(KEY_DETAILURL);
-        herfurl = "http://i.v.youmi.cn/audioalbum/getApi?id=103";
+//        herfurl = "http://i.v.youmi.cn/audioalbum/getApi?id=103";
         Log.e("TAG", "herfurl=" + herfurl);
 
         //得到音频播放地址
@@ -276,11 +276,11 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
 
             if (mListView.getFirstVisiblePosition() == 0) {
                 scrollDetail.setChecked(true);
-            } else if (mListView.getFirstVisiblePosition() >= 1 && mListView.getFirstVisiblePosition() < 3) {
+            } else if (mListView.getFirstVisiblePosition() >= 1 && mListView.getFirstVisiblePosition() < 2) {
                 scrollRelate.setChecked(true);
-            } else if (mListView.getFirstVisiblePosition() >= 3 && mListView.getFirstVisiblePosition() < (3 + audioFileList.size())) {
+            } else if (mListView.getFirstVisiblePosition() >= 2 && mListView.getFirstVisiblePosition() < (2 + audioFileList.size())) {
                 scrollTeacher.setChecked(true);
-            } else if (mListView.getFirstVisiblePosition() >= (3 + audioFileList.size())) {
+            } else if (mListView.getFirstVisiblePosition() >= (2 + audioFileList.size())) {
                 scrollComment.setChecked(true);
             }
 
@@ -376,6 +376,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                 if (mEditMenuWindow.isShowing()) {
                     mEditMenuWindow.dismiss();
                 }
+                isRefresh = true;
                 showCommentList();
             }
         }
@@ -411,7 +412,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                 refreshLayout.setLoading(false);
             }
             recordList.addAll(tmessageBeans.getR().getRecord());
-
+            mAdapter.notifyDataSetChanged();
         }
 
         @Override
@@ -867,11 +868,10 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                         }
 
                     }
-                    mAdapter = new VoiceDetailsAdapter(getActivity(), audioFileList, experDetailsVoiceBean, VoiceDetailsFragment.this);
 
 
 
-                    mAdapter = new VoiceDetailsAdapter(getActivity(), audioFileList, experDetailsVoiceBean, VoiceDetailsFragment.this);
+                    mAdapter = new VoiceDetailsAdapter(getActivity(), audioFileList, experDetailsVoiceBean,recordList, VoiceDetailsFragment.this);
                     mListView.setAdapter(mAdapter);
                     Log.e("TAG", "11111audioFileList=" + audioFileList);
                     Log.e("TAG", "1111111mAdapter=" + mAdapter);

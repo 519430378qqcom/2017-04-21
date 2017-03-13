@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
+import com.umiwi.ui.beans.AudioTmessageListBeans;
 import com.umiwi.ui.beans.updatebeans.ExperDetailsVoiceBean;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.ExperDetailsFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.VoiceDetailsFragment;
@@ -46,13 +47,16 @@ public class VoiceDetailsAdapter extends BaseAdapter {
     private ExperDetailsVoiceBean experDetailsVoiceBean;
 
     private VoiceDetailsFragment voiceDetailsFragment;
+    private List<AudioTmessageListBeans.RecordX.Record> recordList;
 
 
-    public VoiceDetailsAdapter(Context context, List<ExperDetailsVoiceBean.AudiofileBean> audioFileList, ExperDetailsVoiceBean experDetailsVoiceBean) {
+    public VoiceDetailsAdapter(Context context, List<ExperDetailsVoiceBean.AudiofileBean> audioFileList, ExperDetailsVoiceBean experDetailsVoiceBean, List<AudioTmessageListBeans.RecordX.Record> recordList, VoiceDetailsFragment voiceDetailsFragment) {
         this.mActivity = (FragmentActivity) context;
         this.mContext = context;
         this.audioFileList = audioFileList;
         this.experDetailsVoiceBean = experDetailsVoiceBean;
+        this.voiceDetailsFragment = voiceDetailsFragment;
+        this.recordList = recordList;
     }
 
     public VoiceDetailsAdapter(Context context, List<ExperDetailsVoiceBean.AudiofileBean> audioFileList, ExperDetailsVoiceBean experDetailsVoiceBean, VoiceDetailsFragment voiceDetailsFragment) {
@@ -69,11 +73,13 @@ public class VoiceDetailsAdapter extends BaseAdapter {
         if (audioFileList == null) {
             return 4;
         }
-
+        if(recordList == null) {
+            return 4;
+        }
         if (experDetailsVoiceBean == null) {
             return 0;
         }
-        return 4 + audioFileList.size();
+        return 4 + audioFileList.size() + recordList.size();
 
     }
 
@@ -151,7 +157,7 @@ public class VoiceDetailsAdapter extends BaseAdapter {
 
     //评论列表
     private void configureCommentItme(View view, int position) {
-        int index = position - (2 + audioFileList.size());
+        int index = position - (3 + audioFileList.size());
         if (index < 0) {
             return;
         }
@@ -160,12 +166,17 @@ public class VoiceDetailsAdapter extends BaseAdapter {
             return;
         }
 
-        ImageView iconImageView = (ImageView) view.findViewById(R.id.userhead_imageview);
+        CircleImageView iconImageView = (CircleImageView) view.findViewById(R.id.userhead_imageview);
 
         TextView nameTextView = (TextView) view.findViewById(R.id.username_textview);
         TextView timeTextView = (TextView) view.findViewById(R.id.time_textview);
         TextView contentTextView = (TextView) view.findViewById(R.id.content_textview);
-
+        AudioTmessageListBeans.RecordX.Record record = recordList.get(index);
+        ImageLoader mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
+        mImageLoader.loadImage(record.getAvatar(), iconImageView);
+        nameTextView.setText(record.getName());
+        timeTextView.setText(record.getTime());
+        contentTextView.setText(record.getContent());
 
 
     }
