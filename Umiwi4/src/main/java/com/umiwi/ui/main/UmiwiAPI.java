@@ -459,6 +459,10 @@ public final class UmiwiAPI {
 
     public static final String ZAN = "http://i.v.youmi.cn/good/goodapi?qid=%s&status=%s";
 
+    //一元听获取orderid
+    public static final String yiyuan_listener = "http://i.v.youmi.cn/orders/buylisten?qid=%s&format=%s";
+
+
     /////////////========================================优雅的分割线 历史接口=================================================////////////
 //    /** 我的课程未登录默认九宫 */
 //	public static final String VIDEO_DEFAULT_IN_HOME = "http://api.v.youmi.cn/ClientApi/memberindex";

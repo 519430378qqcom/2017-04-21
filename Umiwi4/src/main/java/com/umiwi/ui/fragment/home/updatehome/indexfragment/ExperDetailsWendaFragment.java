@@ -64,8 +64,14 @@ public class ExperDetailsWendaFragment extends BaseConstantFragment {
             }
         });
         handler = new Handler();
-        getInfos();
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        getInfos();
+
+        super.onResume();
     }
 
     private void getInfos() {

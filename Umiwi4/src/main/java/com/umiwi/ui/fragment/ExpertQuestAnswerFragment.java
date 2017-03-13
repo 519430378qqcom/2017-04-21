@@ -63,7 +63,7 @@ public class ExpertQuestAnswerFragment extends BaseConstantFragment {
         int color = getResources().getColor(R.color.umiwi_orange);
         refreshLayout.setColorSchemeColors(color, color, Color.YELLOW, Color.WHITE);
 
-        initData();
+//        initData();
 
         iv_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,12 +76,17 @@ public class ExpertQuestAnswerFragment extends BaseConstantFragment {
 
     }
 
+    @Override
+    public void onResume() {
+        initData();
+        super.onResume();
+    }
 
     /**
      * 显示视图
      */
     private void initView() {
-        if(questionBeen != null) {
+        if (questionBeen != null) {
             mExpertADAdapter = new ExpertAnswerDowndapter(mContext, questionBeen);
             listView.setAdapter(mExpertADAdapter);
         }
@@ -98,11 +103,12 @@ public class ExpertQuestAnswerFragment extends BaseConstantFragment {
         request.go();
 
     }
+
     private AbstractRequest.Listener<RecommendBean> indexActionListener = new AbstractRequest.Listener<RecommendBean>() {
         @Override
         public void onResult(AbstractRequest<RecommendBean> request, RecommendBean recommendBean) {
-            if(recommendBean != null) {
-                 questionBeen = recommendBean.getR().getQuestion();
+            if (recommendBean != null) {
+                questionBeen = recommendBean.getR().getQuestion();
                 Log.e("TAG", "questionBean=" + questionBeen.toString());
                 initView();
             }

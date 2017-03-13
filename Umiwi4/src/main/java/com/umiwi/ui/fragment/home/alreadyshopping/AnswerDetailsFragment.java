@@ -11,15 +11,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
+import com.umiwi.ui.beans.UmiwiBuyCreateOrderBeans;
 import com.umiwi.ui.beans.updatebeans.AlreadyAskBean;
 import com.umiwi.ui.beans.updatebeans.DelayAnswerVoiceBean;
 import com.umiwi.ui.beans.updatebeans.QuestionBean;
 import com.umiwi.ui.beans.updatebeans.ZanBean;
 import com.umiwi.ui.dialog.updatedialog.NewShareDialog;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.AskQuestionFragment;
+import com.umiwi.ui.fragment.pay.PayingFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.managers.YoumiRoomUserManager;
@@ -74,6 +77,8 @@ public class AnswerDetailsFragment extends BaseConstantFragment implements View.
     private String playsource;
     private boolean goodstate;
     private String url;
+    private String listentype;
+    private String oid;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -82,7 +87,6 @@ public class AnswerDetailsFragment extends BaseConstantFragment implements View.
         ButterKnife.inject(this, inflate);
         getIntentInfos();
         initOnClickLintenrs();
-        getInfos();
         return inflate;
     }
 
@@ -98,7 +102,7 @@ public class AnswerDetailsFragment extends BaseConstantFragment implements View.
                         QuestionBean.RQuestionr r = questionBean.getR();
                         shareContent = r.getShare();
                         playsource = r.getPlaysource();
-                        String listentype = questionBean.getR().getListentype();
+                         listentype = questionBean.getR().getListentype();
                         if (listentype.equals("1")) {
                             buttontag.setText(r.getButtontag());
                             buttontag.setBackgroundResource(R.drawable.changer);
@@ -106,6 +110,7 @@ public class AnswerDetailsFragment extends BaseConstantFragment implements View.
                             buttontag.setText(r.getButtontag());
                             buttontag.setBackgroundResource(R.drawable.time_limit_hear);
                         }
+                        oid = r.getId();
                         goodnum.setText(r.getGoodnum());
                         answertime.setText(r.getAnswertime());
                         listennum.setText(r.getListennum());
@@ -172,6 +177,12 @@ public class AnswerDetailsFragment extends BaseConstantFragment implements View.
         });
     }
 
+    @Override
+    public void onResume() {
+        getInfos();
+        super.onResume();
+    }
+
     private void getIntentInfos() {
         String titleinfo = getActivity().getIntent().getStringExtra("title");
         String buttontaginfo = getActivity().getIntent().getStringExtra("buttontag");
@@ -217,7 +228,12 @@ public class AnswerDetailsFragment extends BaseConstantFragment implements View.
 
                 break;
             case R.id.buttontag:
-                getsorceInfos();
+                if (listentype.equals("1")){
+                    getOrderId(oid);
+                }else{
+                    getsorceInfos();
+
+                }
                 break;
         }
     }
@@ -229,6 +245,8 @@ public class AnswerDetailsFragment extends BaseConstantFragment implements View.
                 new AbstractRequest.Listener<DelayAnswerVoiceBean>() {
                     @Override
                     public void onResult(AbstractRequest<DelayAnswerVoiceBean> request, DelayAnswerVoiceBean delayAnswerVoiceBean) {
+
+
                         String source = delayAnswerVoiceBean.getrDelayAnserBeans().getSource();
                         MediaManager.relese();
                         MediaManager.playSound(source, new MediaPlayer.OnCompletionListener() {
@@ -250,6 +268,49 @@ public class AnswerDetailsFragment extends BaseConstantFragment implements View.
                     }
                 });
         request.go();
+    }
+
+
+
+    /**
+     * 获取提问的payurl
+     *
+     * @param questionId 问题id
+     */
+    private void getOrderId(String questionId) {
+        String url = null;
+        url = String.format(UmiwiAPI.yiyuan_listener, questionId, "json");
+        GetRequest<UmiwiBuyCreateOrderBeans> request = new GetRequest<UmiwiBuyCreateOrderBeans>(
+                url, GsonParser.class,
+                UmiwiBuyCreateOrderBeans.class,
+                addQuestionOrderListener);
+        request.go();
+    }
+
+    private AbstractRequest.Listener<UmiwiBuyCreateOrderBeans> addQuestionOrderListener = new AbstractRequest.Listener<UmiwiBuyCreateOrderBeans>() {
+        @Override
+        public void onResult(AbstractRequest<UmiwiBuyCreateOrderBeans> request, UmiwiBuyCreateOrderBeans umiwiBuyCreateOrderBeans) {
+            String payurl = umiwiBuyCreateOrderBeans.getR().getPayurl();
+            questionBuyDialog(payurl);
+        }
+
+        @Override
+        public void onError(AbstractRequest<UmiwiBuyCreateOrderBeans> requet, int statusCode, String body) {
+
+        }
+    };
+
+
+    /**
+     * 跳转到购买界面
+     *
+     * @param payurl
+     */
+    public void questionBuyDialog(String payurl) {
+        Intent i = new Intent(getActivity(), UmiwiContainerActivity.class);
+        i.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, PayingFragment.class);
+        i.putExtra(PayingFragment.KEY_PAY_URL, payurl);
+        getActivity().startActivity(i);
     }
 
 }

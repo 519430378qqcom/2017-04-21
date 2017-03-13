@@ -112,7 +112,6 @@ public class AskQuestionFragment extends BaseConstantFragment implements View.On
             getInfos(uid);
         }
 
-        getQuestionlist();
         monScrollview.setOnScrollListener(new MonitorScrollView.OnScrollListener() {
             @Override
             public void onScroll(int y) {
@@ -131,6 +130,13 @@ public class AskQuestionFragment extends BaseConstantFragment implements View.On
         });
         back.setOnClickListener(this);
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        getQuestionlist();
+
+        super.onResume();
     }
 
     private void getQuestionlist() {
@@ -242,6 +248,7 @@ public class AskQuestionFragment extends BaseConstantFragment implements View.On
      */
     private void addQuestion() {
         String url = null;
+
         url = String.format(UmiwiAPI.ADD_QUESTIONA, uid, etQuestion.getText().toString().trim());
         GetRequest<UmiwiAddQuestionBeans> request = new GetRequest<UmiwiAddQuestionBeans>(
                 url, GsonParser.class,
@@ -255,12 +262,15 @@ public class AskQuestionFragment extends BaseConstantFragment implements View.On
         @Override
         public void onResult(AbstractRequest<UmiwiAddQuestionBeans> request, UmiwiAddQuestionBeans umiwiAddQuestionBeans) {
             String questionId = umiwiAddQuestionBeans.getR().getQid();
-            getOrderId(questionId);
+
+                getOrderId(questionId);
+
+
         }
 
         @Override
         public void onError(AbstractRequest<UmiwiAddQuestionBeans> requet, int statusCode, String body) {
-
+           ToastU.showShort(getActivity(),"行家不存在");
         }
     };
 

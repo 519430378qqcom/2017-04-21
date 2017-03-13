@@ -82,6 +82,11 @@ public class ExperDetailsVoiceFragment extends BaseConstantFragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
     private void getInfos() {
         Log.d("data", "名人详情音频列表请求了。。。");
 

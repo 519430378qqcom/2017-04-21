@@ -37,7 +37,6 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_marginRight="30dp"
-                    android:textStyle="bold"
                     android:layout_toLeftOf="@+id/pricetag"
                     android:singleLine="true"
                     android:text="破解时代"
@@ -50,7 +49,8 @@
                     android:layout_marginRight="20dp"
                     android:layout_toLeftOf="@+id/tv_playtime"
                     android:background="@drawable/tv_hot_list01"
-                    android:padding="5dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
                     android:text="创业"
                     android:textColor="@color/hot_list01"
                     android:textSize="11sp"/>
