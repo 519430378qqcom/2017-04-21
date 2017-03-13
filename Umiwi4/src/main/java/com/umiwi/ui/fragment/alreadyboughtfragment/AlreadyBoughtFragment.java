@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.nineoldandroids.view.ViewPropertyAnimator;
 import com.umiwi.ui.R;
+import com.umiwi.ui.fragment.home.alreadyshopping.BuyCoumnFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.AudioFragment;
 import com.umiwi.ui.fragment.home.alreadyshopping.ColumnFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.VideoFragment;
@@ -66,7 +67,8 @@ public class AlreadyBoughtFragment extends BaseConstantFragment {
         ViewPropertyAnimator.animate(abAskHear).scaleX(1.3f).setDuration(0);
 
         fragments = new ArrayList<Fragment>();
-        fragments.add(new ColumnFragment());
+//        fragments.add(new ColumnFragment());
+        fragments.add(new BuyCoumnFragment());
         fragments.add(new AudioFragment());
         fragments.add(new VideoFragment());
         fragments.add(new AskHearFragment());
