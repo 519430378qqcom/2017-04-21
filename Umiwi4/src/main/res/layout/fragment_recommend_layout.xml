@@ -57,13 +57,13 @@
 
                 <include layout="@layout/include_view" />
 
-                <com.umiwi.ui.fragment.home.recommend.widget.BigShotLayoutView
+   <!--             <com.umiwi.ui.fragment.home.recommend.widget.BigShotLayoutView
                     android:id="@+id/bslv_big_shot"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp" />
 
-                <include layout="@layout/include_view" />
+                <include layout="@layout/include_view" />-->
 
                 <com.umiwi.ui.fragment.home.recommend.widget.LineActionLayoutViwe
                     android:id="@+id/lalv_action_line"
