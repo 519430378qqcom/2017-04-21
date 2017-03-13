@@ -15,7 +15,7 @@
         android:layout_height="0.05dp"
         android:background="@color/umiwi_gray_d" />
 
-    <com.ogaclejapan.smarttablayout.SmartTabLayout
+    <com.umiwi.ui.view.SmartTabLayout
         android:id="@+id/viewpagertab"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"

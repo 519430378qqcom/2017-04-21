@@ -4,8 +4,6 @@
     <solid android:color="@color/black_alpf" />
     <!--<stroke android:width="0.5dip" android:color="@color/color_primary"/>-->
     <corners
-        android:bottomLeftRadius="10dp"
         android:bottomRightRadius="10dp"
-        android:topLeftRadius="10dp"
         android:topRightRadius="10dp" />
 </shape>

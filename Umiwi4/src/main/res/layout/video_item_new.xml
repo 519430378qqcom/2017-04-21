@@ -113,7 +113,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
-            android:background="@drawable/share_img" />
+            android:background="@drawable/share_black" />
 
         <TextView
             android:id="@+id/tv_comments"
@@ -132,6 +132,6 @@
             android:layout_height="20dp"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/tv_comments"
-            android:background="@drawable/share_img" />
+            android:background="@drawable/share_black" />
     </RelativeLayout>
 </LinearLayout>
