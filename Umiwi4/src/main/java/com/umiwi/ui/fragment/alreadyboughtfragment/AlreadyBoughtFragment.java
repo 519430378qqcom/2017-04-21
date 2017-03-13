@@ -12,9 +12,9 @@ import android.widget.TextView;
 
 import com.nineoldandroids.view.ViewPropertyAnimator;
 import com.umiwi.ui.R;
+import com.umiwi.ui.fragment.home.alreadyshopping.NewVideoFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.AudioFragment;
 import com.umiwi.ui.fragment.home.alreadyshopping.ColumnFragment;
-import com.umiwi.ui.fragment.home.updatehome.indexfragment.VideoFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 
 import java.util.ArrayList;
@@ -68,7 +68,7 @@ public class AlreadyBoughtFragment extends BaseConstantFragment {
         fragments = new ArrayList<Fragment>();
         fragments.add(new ColumnFragment());
         fragments.add(new AudioFragment());
-        fragments.add(new VideoFragment());
+        fragments.add(new NewVideoFragment());
         fragments.add(new AskHearFragment());
 
         line_width = getActivity().getWindowManager().getDefaultDisplay().getWidth()/fragments.size();
