@@ -412,7 +412,8 @@ public final class UmiwiAPI {
 
     //已购买
     public static final String Ask_Hear = "http://i.v.youmi.cn/api8/buyquestion";
-
+    //已购-视频
+    public static final String ALREADY_VIDEO = "http://i.v.youmi.cn/api8/buyvideolist";
     public static final String ALREADY_VOICE = "http://i.v.youmi.cn/audioalbum/buylist";
 
     public static final String Hear_url = "http://i.v.youmi.cn/api8/questionlisten";

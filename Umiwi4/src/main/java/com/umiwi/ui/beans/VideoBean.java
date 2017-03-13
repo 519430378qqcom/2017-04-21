@@ -90,6 +90,7 @@ public class VideoBean {
         private String name;
         private String tutortitle;
         private String time;
+        private String price;
         private String playtime;
 
         public String getId() {
@@ -154,6 +155,14 @@ public class VideoBean {
 
         public void setPlaytime(String playtime) {
             this.playtime = playtime;
+        }
+
+        public String getPrice() {
+            return price;
+        }
+
+        public void setPrice(String price) {
+            this.price = price;
         }
     }
 }

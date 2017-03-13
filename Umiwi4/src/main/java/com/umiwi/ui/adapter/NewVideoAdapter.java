@@ -65,8 +65,8 @@ public class NewVideoAdapter extends BaseAdapter {
         Glide.with(context).load(mList.get(position).getLimage()).into(viewHolder.iv_author);
         Glide.with(context).load(mList.get(position).getLimage()).into(viewHolder.iv_big_shot_image);
         viewHolder.tv_video_time.setText(mList.get(position).getPlaytime());
-        viewHolder.tv_video_type.setText(mList.get(position).getPlaytime());
-        viewHolder.tv_dalao_type.setText(mList.get(position).getPlaytime());
+        viewHolder.tv_video_type.setText(mList.get(position).getShortX());
+        viewHolder.tv_dalao_type.setText(mList.get(position).getTutortitle());
         viewHolder.tv_big_shot_name.setText(mList.get(position).getName());
         viewHolder.tv_big_shot_type.setText(mList.get(position).getTutortitle());
         viewHolder.tv_comments.setText(mList.get(position).getWatchnum());
