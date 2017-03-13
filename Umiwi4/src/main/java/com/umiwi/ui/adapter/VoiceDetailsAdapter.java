@@ -69,6 +69,7 @@ public class VoiceDetailsAdapter extends BaseAdapter {
         if (audioFileList == null) {
             return 4;
         }
+
         if (experDetailsVoiceBean == null) {
             return 0;
         }
@@ -164,6 +165,9 @@ public class VoiceDetailsAdapter extends BaseAdapter {
         TextView nameTextView = (TextView) view.findViewById(R.id.username_textview);
         TextView timeTextView = (TextView) view.findViewById(R.id.time_textview);
         TextView contentTextView = (TextView) view.findViewById(R.id.content_textview);
+
+
+
     }
 
     View.OnClickListener writeCommentViewOnClickListener = null;

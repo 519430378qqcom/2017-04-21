@@ -3,12 +3,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/frame_bg">
 
-        <include layout="@layout/include_listview" />
+        <com.umiwi.ui.view.RefreshLayout
+            android:id="@+id/refreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include layout="@layout/include_listview" />
+
+        </com.umiwi.ui.view.RefreshLayout>
+
 
         <LinearLayout
             android:id="@+id/tab_layout"
@@ -31,6 +40,7 @@
                     android:id="@+id/scroll_detail"
                     style="@style/bottombuttonstyle"
                     android:text="详情"></RadioButton>
+
                 <RadioButton
                     android:id="@+id/scroll_relate"
                     style="@style/bottombuttonstyle"

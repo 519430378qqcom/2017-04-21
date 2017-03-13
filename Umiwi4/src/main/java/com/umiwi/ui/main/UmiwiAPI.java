@@ -404,7 +404,7 @@ public final class UmiwiAPI {
 
     //我的—回答（已回答，待回答）
     public static final String Mine_Answer = "http://i.v.youmi.cn/api8/myquestion?p=%s&answerstate=%s";
-     //提交音频
+    //提交音频
     public static final String COMMIT_VOICE = "http://i.v.youmi.cn/document/showdoclist1#questioncontroller6";
 
     //未购专栏详情页
@@ -418,15 +418,11 @@ public final class UmiwiAPI {
 
     public static final String Hear_url = "http://i.v.youmi.cn/api8/questionlisten";
 
-    //试读页面
-    public static final String Logincal_thinking = "http://i.v.youmi.cn/api8/tutorcolumn/detailpurchasedApi";
-
-
     public static final String QUESTION_LIST = "http://i.v.youmi.cn/api8/questionlist";
     public static final String NAMED_QUESTIONA = "http://i.v.youmi.cn/question/namedquestionApi";
     //新增问题
     public static final String ADD_QUESTIONA = "http://i.v.youmi.cn/question/addApi?tutoruid=%s&title=%s";
-    //体温问题生成订单
+    //提问问题生成订单
     public static final String CREATE_QUESTIN_ORDERID = "http://i.v.youmi.cn/orders/buyquestion?format=%s&qid=%s";
     //专栏购买生成订单
     public static final String CREATE_SUBSCRIBER_ORDERID = "http://i.v.youmi.cn/orders/buycolumn?format=%s&id=%s";
@@ -444,9 +440,14 @@ public final class UmiwiAPI {
     public static final String audio_head = "http://i.v.youmi.cn/api8/tagTreeApi/?from=audio";
     //首页视频分类
     public static final String video_head = "http://i.v.youmi.cn/api8/tagTreeApi/?from=video";
+    //试读页面
+    public static final String Logincal_thinking = "http://i.v.youmi.cn/tutorcolumn/detailpurchasedApi?id=%s&orderby=%s";
+    //音频评论
+    public static final String audio_tmessage = "http://i.v.youmi.cn/api8/commentadd?from=audioalbum&albumid=%s&question=%s";
+    //音频评论列表
+    public static final String audio_tmessage_list = "http://i.v.youmi.cn/api8/commentlist?p=%s&tuid=%s&from=%s&albumid=%s";
+
     public static final String VODEI_URL = "http://i.v.youmi.cn/ClientApi/getAlbumDetail?id=";
-
-
 
 
     /////////////========================================优雅的分割线 历史接口=================================================////////////

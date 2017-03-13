@@ -18,6 +18,7 @@ import android.os.RemoteException;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -42,8 +43,12 @@ import com.etiennelawlor.quickreturn.library.enums.QuickReturnViewType;
 import com.umeng.analytics.MobclickAgent;
 import com.umiwi.ui.IVoiceService;
 import com.umiwi.ui.R;
+import com.umiwi.ui.adapter.AudioTmessageAdapter;
 import com.umiwi.ui.adapter.VoiceDetailsAdapter;
 import com.umiwi.ui.beans.AddFavBeans;
+import com.umiwi.ui.beans.AudioTmessageBeans;
+import com.umiwi.ui.beans.AudioTmessageListBeans;
+import com.umiwi.ui.beans.updatebeans.AlreadyShopVoiceBean;
 import com.umiwi.ui.beans.updatebeans.AudioResourceBean;
 import com.umiwi.ui.beans.updatebeans.ExperDetailsVoiceBean;
 import com.umiwi.ui.dao.CollectionDao;
@@ -61,6 +66,7 @@ import com.umiwi.ui.util.JsonUtil;
 import com.umiwi.ui.util.LoginUtil;
 import com.umiwi.ui.util.PermissionUtil;
 import com.umiwi.ui.util.Utils;
+import com.umiwi.ui.view.RefreshLayout;
 import com.umiwi.ui.view.ResizeRelativeLayout;
 import com.umiwi.video.control.PlayerController;
 import com.umiwi.video.services.VoiceService;
@@ -86,7 +92,7 @@ import cn.youmi.framework.view.LoadingFooter;
  * Created by Administrator on 2017/3/7.
  */
 
-public class VoiceDetailsFragment extends BaseConstantFragment implements View.OnClickListener,ActivityCompat.OnRequestPermissionsResultCallback, ListViewQuickReturnScrollLoader.QuickReturnOnScrollLoader, PopupWindow.OnDismissListener {
+public class VoiceDetailsFragment extends BaseConstantFragment implements View.OnClickListener, ActivityCompat.OnRequestPermissionsResultCallback, ListViewQuickReturnScrollLoader.QuickReturnOnScrollLoader, PopupWindow.OnDismissListener {
 
     public static final String KEY_DETAILURL = "key.detaiurl";
     /**
@@ -94,6 +100,8 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
      */
     private static final int PROGRESS = 1;
     private static final int QUEST_SUCCESS = 2;
+    @InjectView(R.id.refreshLayout)
+    RefreshLayout refreshLayout;
     @InjectView(R.id.iv_header)
     ImageView ivHeader;
     @InjectView(R.id.iv_back)
@@ -112,41 +120,17 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
     TextView changeTimes;
     @InjectView(R.id.total_time)
     TextView totalTime;
-    private String CurrentvoiceId;
-    //    private Handler handler = new Handler();
-//    public Runnable runnable = new Runnable() {
-//        @Override
-//        public void run() {
-//            seekbar.setProgress(mBinder.getCurrentDuration());
-//            changeTimes.setText(DateUtils.formatmmss(mBinder.getCurrentDuration()));
-//
-//            seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-//                @Override
-//                public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-//                    if (b) {
-//                        mBinder.getMediaplayer().seekTo(seekBar.getProgress());
-//                        changeTimes.setText(DateUtils.formatmmss(seekBar.getProgress()));
-//
-//                    }
-//                }
-//
-//                @Override
-//                public void onStartTrackingTouch(SeekBar seekBar) {
-//
-//                }
-//
-//                @Override
-//                public void onStopTrackingTouch(SeekBar seekBar) {
-//
-//                }
-//            });
-//            handler.postDelayed(runnable, (int) ((float) mBinder.getCurrentDuration() / (float) mBinder.getDuration() * 100));
-//        }
-//    };
     private String source;
     private String voices;
     //播放音频的链接地址
     private String url;
+
+    private int page = 1;
+    private int totalpage = 1;
+    private Context mContext;
+    private boolean isRefresh = true;
+    private AudioTmessageAdapter tmessageAdapter;
+    private List<AudioTmessageListBeans.RecordX.Record> recordList = new ArrayList<>();
 
     /**
      * VoiceService的代理类
@@ -163,7 +147,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case PROGRESS:
-                    if(UmiwiApplication.mainActivity.service != null) {
+                    if (UmiwiApplication.mainActivity.service != null) {
                         try {
                             seekbar.setMax(UmiwiApplication.mainActivity.service.getDuration());
                             int currentPosition = UmiwiApplication.mainActivity.service.getCurrentPosition();
@@ -204,14 +188,12 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
     private String albumID;
 
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.e("TAG", "onCreate()");
+        mContext = getActivity();
         //获取的链接
         herfurl = getActivity().getIntent().getStringExtra(KEY_DETAILURL);
-        Log.e("TAG", "herfurl=" + herfurl);
 
         //得到音频播放地址
         if (!TextUtils.isEmpty(herfurl)) {
@@ -231,6 +213,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                 herfurl, AudioDetailParser.class, detailListener);
         HttpDispatcher.getInstance().go(req);
     }
+
     private AbstractRequest.Listener<ExperDetailsVoiceBean.AudiofileBean> detailListener = new AbstractRequest.Listener<ExperDetailsVoiceBean.AudiofileBean>() {
         @Override
         public void onResult(AbstractRequest<ExperDetailsVoiceBean.AudiofileBean> request,
@@ -249,6 +232,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
 
         }
     };
+
     @SuppressLint("InflateParams")
     @Nullable
     @Override
@@ -257,7 +241,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
         ButterKnife.inject(this, rootView);
         utils = new Utils();
         imageLoader = new ImageLoader(getActivity());
-
+        initRefreshLayout();
         initListener();
         //注册广播
         myReceiver = new MyReceiver();
@@ -295,6 +279,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
         }
 
     }
+
 
     /**
      * 评论控制面板
@@ -361,9 +346,76 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                     }
                 });
     }
-    private void showComment() {
 
+    /**
+     * 提交评论
+     */
+    private void showComment() {
+        String url = String.format(UmiwiAPI.audio_tmessage, experDetailsVoiceBean.getId(), mEt_menu.getText().toString().trim());
+        GetRequest<AudioTmessageBeans> request = new GetRequest<AudioTmessageBeans>(
+                url, GsonParser.class,
+                AudioTmessageBeans.class,
+                AudioListener);
+        request.go();
     }
+
+    private AbstractRequest.Listener<AudioTmessageBeans> AudioListener = new AbstractRequest.Listener<AudioTmessageBeans>() {
+
+        @Override
+        public void onResult(AbstractRequest<AudioTmessageBeans> request, AudioTmessageBeans tmessageBeans) {
+            if (tmessageBeans.getE().equals("9999")) {
+                ToastU.showShort(getActivity(), "评论提交成功!");
+                if (mEditMenuWindow.isShowing()) {
+                    mEditMenuWindow.dismiss();
+                }
+                showCommentList();
+            }
+        }
+
+        @Override
+        public void onError(AbstractRequest<AudioTmessageBeans> requet, int statusCode, String body) {
+        }
+    };
+
+    /**
+     * 获取评论列表
+     */
+    private void showCommentList() {
+        String url = String.format(UmiwiAPI.audio_tmessage_list, page, experDetailsVoiceBean.getUid(), "audioalbum", experDetailsVoiceBean.getId());
+        GetRequest<AudioTmessageListBeans> request = new GetRequest<AudioTmessageListBeans>(
+                url, GsonParser.class,
+                AudioTmessageListBeans.class,
+                AudioListenerList);
+        request.go();
+    }
+
+    private AbstractRequest.Listener<AudioTmessageListBeans> AudioListenerList = new AbstractRequest.Listener<AudioTmessageListBeans>() {
+
+        @Override
+        public void onResult(AbstractRequest<AudioTmessageListBeans> request, AudioTmessageListBeans tmessageBeans) {
+            AudioTmessageListBeans.RecordX.PageBean page = tmessageBeans.getR().getPage();
+            Log.e("评论列表",tmessageBeans.getR().getRecord().toString());
+            totalpage = page.getTotalpage();
+            if (isRefresh) {
+                refreshLayout.setRefreshing(false);
+                recordList.clear();
+            } else {
+                refreshLayout.setLoading(false);
+            }
+            recordList.addAll(tmessageBeans.getR().getRecord());
+
+        }
+
+        @Override
+        public void onError(AbstractRequest<AudioTmessageListBeans> requet, int statusCode, String body) {
+            if (isRefresh) {
+                refreshLayout.setRefreshing(false);
+            } else {
+                refreshLayout.setLoading(false);
+            }
+        }
+    };
+
 
     //初始化播放器底下视图
     private void initViews() {
@@ -377,11 +429,9 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
         int bottomHeight = getResources().getDimensionPixelSize(R.dimen.bottom_bar_height);
 
 
-
-
         tab_layout = (LinearLayout) rootView.findViewById(R.id.tab_layout);
         bottomBarLayout = (LinearLayout) rootView.findViewById(R.id.bottom_bar_container);
-        mScrollLoader = new ListViewQuickReturnScrollLoader(QuickReturnViewType.FOOTER, null, 0, bottomBarLayout, bottomHeight,this, mLoadingFooter);
+        mScrollLoader = new ListViewQuickReturnScrollLoader(QuickReturnViewType.FOOTER, null, 0, bottomBarLayout, bottomHeight, this, mLoadingFooter);
 
         scrollDetail = (RadioButton) rootView.findViewById(R.id.scroll_detail);
         scrollTeacher = (RadioButton) rootView.findViewById(R.id.scroll_teacher);
@@ -411,20 +461,19 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
         mListView.setOnScrollListener(mScrollLoader);
 
 
-
-
     }
+
     //点击标题
     private View.OnClickListener scrollListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
                 //详情
-                case R.id.scroll_detail :
+                case R.id.scroll_detail:
                     mListView.setSelection(0);
                     break;
                 //目录
-                case R.id.scroll_relate :
+                case R.id.scroll_relate:
 //                    if (audioFileList != null && audioFileList.size() > 1) {
 //                        mListView.setSelection(2);
 //                    } else {
@@ -433,11 +482,11 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                     mListView.smoothScrollToPositionFromTop(1, DimensionUtil.dip2px(-90));
                     break;
                 //讲师
-                case R.id.scroll_teacher :
+                case R.id.scroll_teacher:
                     mListView.smoothScrollToPositionFromTop(2, DimensionUtil.dip2px(-90));
-                break;
+                    break;
                 //评论
-                case R.id.scroll_comment :
+                case R.id.scroll_comment:
                     if (mAdapter.isEmpty()) {
                         return;
                     }
@@ -490,6 +539,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                 AddFavBeans.AddFavBeansRequestData.class, favListener);
         HttpDispatcher.getInstance().go(req);
     }
+
     //移除收藏
     private void removeFav() {
         albumID = String.valueOf(experDetailsVoiceBean.getId());
@@ -507,6 +557,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                 AddFavBeans.AddFavBeansRequestData.class, removeListener);
         HttpDispatcher.getInstance().go(req);
     }
+
     private AbstractRequest.Listener<AddFavBeans.AddFavBeansRequestData> removeListener = new AbstractRequest.Listener<AddFavBeans.AddFavBeansRequestData>() {
 
         @Override
@@ -542,6 +593,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
             changeSaveButton();
         }
     };
+
     //改变收藏按钮状态
     private void changeSaveButton() {
         if (collectionDao.isSaved(albumID)) {
@@ -550,9 +602,11 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
             saveButton.setChecked(false);
         }
     }
+
     private void showLogin() {
         LoginUtil.getInstance().showLoginView(getActivity());
     }
+
     //评论
     private View.OnClickListener writeCommentListener = new View.OnClickListener() {
         @Override
@@ -599,6 +653,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
             mEditMenuWindow.showAtLocation(rootView, Gravity.CENTER, 0, 0);
         }
     }
+
     // 窗口显示前显示输入法软键盘
     private void showKeyBoard() {
         InputMethodManager inputMgr = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -608,6 +663,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                         | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         mEditMenuWindow.setInputMethodMode(PopupWindow.INPUT_METHOD_NEEDED); // 在显示popupwindow之后调用，否则输入法会在窗口底层
     }
+
     // 隐藏输入法软键盘
     private void hideKeyBoard() {
         InputMethodManager inputMgr = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -661,6 +717,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
         }
 
     };
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
@@ -674,6 +731,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                 break;
         }
     }
+
     public ArrayList<AudioModel> getAudios() {
         if (experDetailsVoiceBean == null) {
             return null;
@@ -732,7 +790,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                     String imageurl = experDetailsVoiceBean.getImage();
                     Log.e("TAG", "imageurl=" + imageurl);
                     albumID = experDetailsVoiceBean.getId();
-                    imageLoader.loadImage(imageurl,ivHeader,R.drawable.icon_umiwi);
+                    imageLoader.loadImage(imageurl, ivHeader, R.drawable.icon_umiwi);
 
                     audioFileList = experDetailsVoiceBean.getAudiofile();
                     if (audioFileList != null && audioFileList.size() > 0) {
@@ -747,14 +805,14 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                             getData(url);
                         }
                         //请求音频数据，保存数据库中去
-                        for(ExperDetailsVoiceBean.AudiofileBean db :experDetailsVoiceBean.getAudiofile()){
-                            AudioModel vm = AudioManager.getInstance().getVideoById(db.getAid()+"");
-                            if(vm == null){
+                        for (ExperDetailsVoiceBean.AudiofileBean db : experDetailsVoiceBean.getAudiofile()) {
+                            AudioModel vm = AudioManager.getInstance().getVideoById(db.getAid() + "");
+                            if (vm == null) {
                                 vm = new AudioModel();
                             }
 
                             String albumTitle = experDetailsVoiceBean.getTitle();
-                            if(albumTitle == null) {
+                            if (albumTitle == null) {
                                 albumTitle = experDetailsVoiceBean.getTitle();
                             }
 
@@ -773,7 +831,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                         }
 
                     }
-                    mAdapter = new VoiceDetailsAdapter(getActivity(),audioFileList,experDetailsVoiceBean,VoiceDetailsFragment.this);
+                    mAdapter = new VoiceDetailsAdapter(getActivity(), audioFileList, experDetailsVoiceBean, VoiceDetailsFragment.this);
                     mListView.setAdapter(mAdapter);
                     Log.e("TAG", "11111audioFileList=" + audioFileList);
                     Log.e("TAG", "1111111mAdapter=" + mAdapter);
@@ -787,7 +845,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                     }
                     //下载
                     downLoadButton.setOnClickListener(downloadListClickListener);
-
+                    showCommentList();
                 }
             }
         });
@@ -804,7 +862,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
             public void onSucess(String data) {
                 AudioResourceBean audioResourceBean = JsonUtil.json2Bean(data, AudioResourceBean.class);
                 source = audioResourceBean.getSource();
-                if (source != null ) {
+                if (source != null) {
                     bindVoiceSerive();
                 }
                 ArrayList<AudioModel> audios = getAudios();
@@ -822,7 +880,6 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
 
 
     }
-
 
 
     @Override
@@ -871,17 +928,19 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
 
         }
     }
+
     private ServiceConnection conn = null;
+
     /**
      * 绑定服务
      */
     public void bindVoiceSerive() {
         //发消息，更新进度
         handler.sendEmptyMessage(PROGRESS);
-        if(source.equals(UmiwiApplication.mainActivity.musicUrl)) {
+        if (source.equals(UmiwiApplication.mainActivity.musicUrl)) {
             //如果再次进来当前音乐暂停，就继续播放
             try {
-                if(!UmiwiApplication.mainActivity.service.isPlaying()) {
+                if (!UmiwiApplication.mainActivity.service.isPlaying()) {
                     UmiwiApplication.mainActivity.service.play();
                 }
             } catch (RemoteException e) {
@@ -1011,5 +1070,39 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
 //        }
 
         super.onDestroy();
+    }
+
+    private void initRefreshLayout() {
+        refreshLayout.setColorSchemeColors(getResources().getColor(R.color.main_color));
+        refreshLayout.setOnLoadListener(new RefreshLayout.OnLoadListener() {
+            @Override
+            public void onLoad() {
+                page++;
+                isRefresh = false;
+                if (page <= totalpage) {
+                    refreshLayout.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            showCommentList();
+                        }
+                    }, 1000);
+
+                } else {
+                    ToastU.showLong(mContext, "没有更多了!");
+                    refreshLayout.setLoading(false);
+
+                }
+            }
+        });
+
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                isRefresh = true;
+                page = 1;
+                showCommentList();
+            }
+        });
+
     }
 }

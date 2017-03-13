@@ -221,12 +221,11 @@ public class PaySelectedLayoutViwe extends LinearLayout {
             } else {
                 v_pay_selected_interval.setVisibility(VISIBLE);
             }
-            final int finalI = i;
             final RecommendBean.RBean.ChargeBean.RecordBeanX finalRecordBeanX1 = recordBeanX;
             view.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.e("TAG", "付费音频=" + datas.get(finalI));
+                    Log.e("付费音频url=", finalRecordBeanX1.getUrl());
                     Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
                     intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
                     intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL, finalRecordBeanX1.getUrl());

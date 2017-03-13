@@ -1,5 +1,6 @@
 package com.umiwi.ui.fragment.home.updatehome;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 import com.nineoldandroids.view.ViewPropertyAnimator;
 import com.umiwi.ui.R;
+import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.AudioFragment;
 import com.umiwi.ui.fragment.home.alreadyshopping.ColumnFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.ExpertFragment;
@@ -22,6 +24,7 @@ import com.umiwi.ui.fragment.home.updatehome.indexfragment.HomeVideoFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.OldYoumiFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.RecommendFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.VideoFragment;
+import com.umiwi.ui.fragment.search.SearchFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 
 import java.util.ArrayList;
@@ -75,6 +78,14 @@ public class NewHomeRecommendFragment extends BaseConstantFragment {
 
         ButterKnife.inject(this, view);
 
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), UmiwiContainerActivity.class);
+                i.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, SearchFragment.class);
+                startActivity(i);
+            }
+        });
         rootviewPager = viewPager;
         initMenuTab();
         return view;

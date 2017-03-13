@@ -1,6 +1,7 @@
 package com.umiwi.ui.fragment.home.updatehome.indexfragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -13,9 +14,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.umiwi.ui.R;
-import com.umiwi.ui.adapter.VideoAdapter;
+import com.umiwi.ui.activity.UmiwiContainerActivity;
+import com.umiwi.ui.adapter.HomeVideoAdapter;
 import com.umiwi.ui.beans.VideoBean;
 import com.umiwi.ui.beans.VideoHeadBean;
+import com.umiwi.ui.fragment.course.CourseDetailPlayFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.CustomStringCallBack;
 import com.umiwi.ui.main.UmiwiAPI;
@@ -27,9 +30,6 @@ import com.zhy.http.okhttp.OkHttpUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.youmi.framework.http.AbstractRequest;
-import cn.youmi.framework.http.GetRequest;
-import cn.youmi.framework.http.parsers.GsonParser;
 import cn.youmi.framework.util.ToastU;
 
 
@@ -55,8 +55,7 @@ public class HomeVideoFragment extends BaseConstantFragment {
 
     private int page;
     private int totalpage;
-    private ArrayList<VideoBean.RecordBean> recordList = new ArrayList<>();
-    private VideoAdapter videoAdapter;
+    private HomeVideoAdapter videoAdapter;
     private Context mContext;
     private boolean isRefresh = true;
 
@@ -84,17 +83,16 @@ public class HomeVideoFragment extends BaseConstantFragment {
         mContext = getActivity();
         initView();
         initRefreshLayout();
-        videoAdapter = new VideoAdapter(mContext, recordBeanList);
+        videoAdapter = new HomeVideoAdapter(mContext, recordBeanList);
         listview.setAdapter(videoAdapter);
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                String hrefurl = recordList.get(i).getu;
-//                Log.e("hrefurl", hrefurl);
-//                Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
-//                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
-//                intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL, hrefurl);
-//                startActivity(intent);
+                String hrefurl = UmiwiAPI.VODEI_URL + recordBeanList.get(i).getId();
+                Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
+                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, CourseDetailPlayFragment.class);
+                intent.putExtra(CourseDetailPlayFragment.KEY_DETAIURL, hrefurl);
+                startActivity(intent);
 
             }
         });
@@ -141,7 +139,7 @@ public class HomeVideoFragment extends BaseConstantFragment {
      * 得到一级分类和二级分类的数据
      */
     private void getCatidData() {
-        String URL = UmiwiAPI.audio_head;
+        String URL = UmiwiAPI.video_head;
         OkHttpUtils.get().url(URL).build().execute(new CustomStringCallBack() {
             @Override
             public void onFaild() {
@@ -368,42 +366,33 @@ public class HomeVideoFragment extends BaseConstantFragment {
         });
     }
 
-    /**
-     * 请求数据
-     */
-    private void getinfos() {
-        String url = UmiwiAPI.Login_Audio + "?p=" + page + "&catid=" + catid + "&price=" + price + "&orderby=" + orderby;
-        GetRequest<VideoBean> request = new GetRequest<VideoBean>(
-                url, GsonParser.class,
-                VideoBean.class,
-                homeVideoListener);
-        request.go();
+    public void getinfos() {
+        String url = UmiwiAPI.Login_Video + "?p=" + page + "&catid=" + catid + "&price=" + price + "&orderby=" + orderby;
+        OkHttpUtils.get().url(url).build().execute(new CustomStringCallBack() {
+            @Override
+            public void onFaild() {
+                if (isRefresh) {
+                    refreshLayout.setRefreshing(false);
+                } else {
+                    refreshLayout.setLoading(false);
+                }
+            }
+
+            @Override
+            public void onSucess(String data) {
+                VideoBean videoBean = JsonUtil.json2Bean(data, VideoBean.class);
+                totalpage = videoBean.getPage().getTotalpage();
+                if (isRefresh) {
+                    refreshLayout.setRefreshing(false);
+                    recordBeanList.clear();
+                } else {
+                    refreshLayout.setLoading(false);
+                }
+                recordBeanList.addAll(videoBean.getRecord());
+                videoAdapter.notifyDataSetChanged();
+            }
+        });
     }
-
-    private AbstractRequest.Listener<VideoBean> homeVideoListener = new AbstractRequest.Listener<VideoBean>() {
-
-        @Override
-        public void onResult(AbstractRequest<VideoBean> request, VideoBean videoBean) {
-            totalpage = videoBean.getPage().getTotalpage();
-            if (isRefresh) {
-                refreshLayout.setRefreshing(false);
-                recordList.clear();
-            } else {
-                refreshLayout.setLoading(false);
-            }
-            recordList.addAll(videoBean.getRecord());
-            videoAdapter.notifyDataSetChanged();
-        }
-
-        @Override
-        public void onError(AbstractRequest<VideoBean> requet, int statusCode, String body) {
-            if (isRefresh) {
-                refreshLayout.setRefreshing(false);
-            } else {
-                refreshLayout.setLoading(false);
-            }
-        }
-    };
 
     private void initRefreshLayout() {
         refreshLayout.setColorSchemeColors(getResources().getColor(R.color.main_color));

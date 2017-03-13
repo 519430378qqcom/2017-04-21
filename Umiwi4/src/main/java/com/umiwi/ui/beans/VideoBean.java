@@ -68,6 +68,15 @@ public class VideoBean {
         public void setTotalpage(int totalpage) {
             this.totalpage = totalpage;
         }
+
+        @Override
+        public String toString() {
+            return "PageBean{" +
+                    "currentpage=" + currentpage +
+                    ", rows='" + rows + '\'' +
+                    ", totalpage=" + totalpage +
+                    '}';
+        }
     }
 
     public static class RecordBean {
@@ -164,5 +173,27 @@ public class VideoBean {
         public void setPrice(String price) {
             this.price = price;
         }
+
+        @Override
+        public String toString() {
+            return "RecordBean{" +
+                    "id='" + id + '\'' +
+                    ", shortX='" + shortX + '\'' +
+                    ", limage='" + limage + '\'' +
+                    ", watchnum='" + watchnum + '\'' +
+                    ", name='" + name + '\'' +
+                    ", tutortitle='" + tutortitle + '\'' +
+                    ", time='" + time + '\'' +
+                    ", playtime='" + playtime + '\'' +
+                    '}';
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "VideoBean{" +
+                "page=" + page +
+                ", record=" + record +
+                '}';
     }
 }
