@@ -19,13 +19,14 @@ import java.util.ArrayList;
 public class AlreadyVoiceAdapter extends BaseAdapter {
     private FragmentActivity activity;
     private ArrayList<AlreadyShopVoiceBean.RAlreadyVoice.Record> infos;
+
     public AlreadyVoiceAdapter(FragmentActivity activity) {
         this.activity = activity;
     }
 
     @Override
     public int getCount() {
-        return infos.size();
+        return (infos == null ? 0 : infos.size());
     }
 
     @Override
@@ -41,9 +42,9 @@ public class AlreadyVoiceAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         VoiceHoder hoder;
-        if (view == null){
+        if (view == null) {
             hoder = new VoiceHoder();
-            view = View.inflate(activity, R.layout.item_already_voice,null);
+            view = View.inflate(activity, R.layout.item_already_voice, null);
             hoder.cat = (TextView) view.findViewById(R.id.cat);
             hoder.title = (TextView) view.findViewById(R.id.title);
             hoder.price = (TextView) view.findViewById(R.id.price);
@@ -51,15 +52,15 @@ public class AlreadyVoiceAdapter extends BaseAdapter {
             hoder.watchnum = (TextView) view.findViewById(R.id.watchnum);
             hoder.process = (TextView) view.findViewById(R.id.process);
             view.setTag(hoder);
-        }else {
-              hoder = (VoiceHoder) view.getTag();
+        } else {
+            hoder = (VoiceHoder) view.getTag();
         }
         AlreadyShopVoiceBean.RAlreadyVoice.Record record = infos.get(i);
         String cat = record.getCat();
-        if (!TextUtils.isEmpty(cat)){
+        if (!TextUtils.isEmpty(cat)) {
             hoder.cat.setText(cat);
             hoder.cat.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             hoder.cat.setVisibility(View.GONE);
         }
         hoder.title.setText(record.getTitle());
@@ -75,7 +76,7 @@ public class AlreadyVoiceAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-    private class VoiceHoder{
+    private class VoiceHoder {
 
         TextView title;
         TextView cat;

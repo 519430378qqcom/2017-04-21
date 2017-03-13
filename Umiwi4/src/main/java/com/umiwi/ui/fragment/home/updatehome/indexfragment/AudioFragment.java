@@ -1,10 +1,8 @@
 package com.umiwi.ui.fragment.home.updatehome.indexfragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +10,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.umiwi.ui.R;
-import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.updateadapter.AlreadyVoiceAdapter;
-import com.umiwi.ui.beans.updatebeans.AlreadyAskBean;
 import com.umiwi.ui.beans.updatebeans.AlreadyShopVoiceBean;
-import com.umiwi.ui.fragment.home.alreadyshopping.AnswerDetailsFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.view.RefreshLayout;
