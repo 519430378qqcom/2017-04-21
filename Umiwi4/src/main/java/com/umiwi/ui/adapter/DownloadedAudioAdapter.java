@@ -60,7 +60,6 @@ public class DownloadedAudioAdapter extends BaseAdapter {
                 .getInstance());
         if (audiovideoid == null) {
             v = layoutInflater.inflate(R.layout.image_layout, null);
-            v = layoutInflater.inflate(R.layout.image_layout, null);
             ImageView iv = (ImageView) v.findViewById(R.id.image_sc);
             iv.setImageResource(R.drawable.add_continue1);
             iv.setVisibility(View.VISIBLE);

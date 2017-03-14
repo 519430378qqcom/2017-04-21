@@ -195,7 +195,7 @@ public class VoiceDetailsAdapter extends BaseAdapter {
         TextView writeComment = (TextView) view.findViewById(R.id.write_button);
 
 
-        commentNum.setText("评论 (" + "0" + ")");
+        commentNum.setText("评论 (" + (recordList.size() + 1) + ")");
         ImageLoader mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
         mImageLoader.loadImage(YoumiRoomUserManager.getInstance().getUser().getAvatar(), header, R.drawable.fragment_mine_photo);
         writeComment.setOnClickListener(writeCommentViewOnClickListener);
