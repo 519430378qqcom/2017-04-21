@@ -365,6 +365,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                 AudioTmessageBeans.class,
                 AudioListener);
         request.go();
+        closeButtomSend();
     }
 
     private AbstractRequest.Listener<AudioTmessageBeans> AudioListener = new AbstractRequest.Listener<AudioTmessageBeans>() {
@@ -652,6 +653,10 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
     private EditText mEt_menu;
     private boolean mIsKeyboardOpened;// 软键盘是否显示
     private int mMenuOpenedHeight;// 编辑菜单打开时的高度
+    // 点击底部发送按钮，关闭编辑窗口
+    private void closeButtomSend() {
+        mEditMenuWindow.dismiss();
+    }
 
     // 点击顶部发送按钮,打开/关闭编辑窗口
     private void clickTopSend() {
