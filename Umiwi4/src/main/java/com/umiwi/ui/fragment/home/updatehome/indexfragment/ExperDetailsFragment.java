@@ -144,6 +144,7 @@ public class ExperDetailsFragment extends BaseConstantFragment {
             @Override
             public void onSucess(String data) {
                 Log.e("data", "名人详情请求数据成功" + data);
+                Log.e("TAG", "UmiwiAPI.CELEBRTYY_DETAILS + uid=" + UmiwiAPI.CELEBRTYY_DETAILS + uid);
                 ExperDetailsBean experDetailsBean = JsonUtil.json2Bean(data, ExperDetailsBean.class);
                 String id = experDetailsBean.getResult().getTcolumnurl();
                 experName = experDetailsBean.getName();
@@ -167,14 +168,20 @@ public class ExperDetailsFragment extends BaseConstantFragment {
                 if (resultUrl != null) {
                     //专栏
                     albumurl = resultUrl.getAlbumurl();
+                    Log.e("TAG", "albumurl=" + albumurl);
                     //音频
                     audioalbumurl = resultUrl.getAudioalbumurl();
+                    Log.e("TAG", "albumurl=" + audioalbumurl);
                     //问答数据
                     questionurl = resultUrl.getQuestionurl();
+                    Log.e("TAG", "albumurl=" + questionurl);
                     //视频
                     tcolumnurl = resultUrl.getTcolumnurl();
+                    Log.e("TAG", "albumurl=" + tcolumnurl);
                     //评论
                     threadurl = resultUrl.getThreadurl();
+                    Log.e("TAG", "albumurl=" + threadurl);
+
                     cutTheme(0);
 
                 }
@@ -257,11 +264,21 @@ public class ExperDetailsFragment extends BaseConstantFragment {
 
     //初始化 TabLayout
     private void initTabLayout() {
-        mTitleList.add("专栏");
-        mTitleList.add("音频");
-        mTitleList.add("视频");
-        mTitleList.add("问答");
-        mTitleList.add("评论");
+//        if(albumurl != null) {
+//        }
+//        if(audioalbumurl != null) {
+//        }
+//        if(tcolumnurl != null) {
+//        }
+//        if(questionurl != null) {
+//        }
+//        if(threadurl != null) {
+//        }
+            mTitleList.add("专栏");
+            mTitleList.add("音频");
+            mTitleList.add("视频");
+            mTitleList.add("问答");
+            mTitleList.add("评论");
         //设置tab模式，当前为系统默认模式
         tabsOrder.setTabMode(TabLayout.MODE_SCROLLABLE);
         //添加tab选项卡
