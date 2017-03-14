@@ -3,37 +3,45 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-     <RelativeLayout
-         android:layout_width="match_parent"
-         android:layout_height="50dp">
-         <ImageView
-             android:id="@+id/back"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:src="@drawable/black_back"
-              android:layout_marginLeft="10dp"
-             android:layout_marginTop="10dp"
-             android:background="@color/white"
-             />
-           <TextView
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:text="指定行家"
-               android:textSize="18sp"
-               android:layout_centerInParent="true"
-               android:textColor="@color/black"
-               />
 
-     </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:layout_centerVertical="true"
+            android:src="@drawable/black_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="指定行家"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
         android:layout_gravity="center_vertical"
-       >
+        android:layout_marginLeft="10dp">
 
         <TextView
-            android:id="@+id/tv_all_catid1"
+            android:id="@+id/tv_all_catid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -42,17 +50,23 @@
             android:textSize="16sp" />
 
         <com.umiwi.ui.view.FlowLayout
-            android:id="@+id/flow_catid1"
+            android:id="@+id/flow_catid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp" />
 
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="#dfdfdf"/>
+
     <ListView
-           android:layout_marginTop="10dp"
-           android:id="@+id/listview"
-           android:layout_width="match_parent"
-           android:layout_height="match_parent"/>
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:divider="@null" />
 
 </LinearLayout>

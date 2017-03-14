@@ -414,6 +414,7 @@ public final class UmiwiAPI {
     public static final String Ask_Hear = "http://i.v.youmi.cn/api8/buyquestion";
     //已购-视频
     public static final String ALREADY_VIDEO = "http://i.v.youmi.cn/api8/buyvideolist";
+
     public static final String ALREADY_VOICE = "http://i.v.youmi.cn/audioalbum/buylist";
 
     public static final String Hear_url = "http://i.v.youmi.cn/api8/questionlisten";
@@ -461,6 +462,11 @@ public final class UmiwiAPI {
 
     //一元听获取orderid
     public static final String yiyuan_listener = "http://i.v.youmi.cn/orders/buylisten?qid=%s&format=%s";
+    //快速问答
+    public static final String FAST_QUIZ = "http://i.v.youmi.cn/tutor/askListApi?tagname=%s&p=%s";
+
+    //免费阅读拼接
+    public static final String MIANFEI_YUEDU = "http://i.v.youmi.cn/audioalbum/getApi?id=%S";
 
 
     /////////////========================================优雅的分割线 历史接口=================================================////////////

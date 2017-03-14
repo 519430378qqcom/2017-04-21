@@ -73,9 +73,9 @@
                             android:paddingLeft="5dp"
                             android:paddingRight="5dp"
                             android:paddingTop="3dp"
+                            android:textSize="10sp"
                             android:text="人际关系"
                             android:textColor="@color/main_color"
-                            android:textSize="10sp"
                             android:visibility="visible" />
 
                     </RelativeLayout>
