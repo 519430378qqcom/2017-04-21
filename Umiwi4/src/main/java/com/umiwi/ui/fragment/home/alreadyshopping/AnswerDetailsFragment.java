@@ -5,32 +5,33 @@ import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
+import com.umiwi.ui.beans.ShareInfoBean;
 import com.umiwi.ui.beans.UmiwiBuyCreateOrderBeans;
-import com.umiwi.ui.beans.updatebeans.AlreadyAskBean;
 import com.umiwi.ui.beans.updatebeans.DelayAnswerVoiceBean;
 import com.umiwi.ui.beans.updatebeans.QuestionBean;
 import com.umiwi.ui.beans.updatebeans.ZanBean;
-import com.umiwi.ui.dialog.updatedialog.NewShareDialog;
+import com.umiwi.ui.dialog.ShareDialog;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.AskQuestionFragment;
 import com.umiwi.ui.fragment.pay.PayingFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
+import com.umiwi.ui.main.CustomStringCallBack;
 import com.umiwi.ui.main.UmiwiAPI;
-import com.umiwi.ui.managers.YoumiRoomUserManager;
+import com.umiwi.ui.util.JsonUtil;
 import com.umiwi.video.recorder.MediaManager;
+import com.zhy.http.okhttp.OkHttpUtils;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import cn.youmi.account.model.UserModel;
 import cn.youmi.framework.http.AbstractRequest;
 import cn.youmi.framework.http.GetRequest;
 import cn.youmi.framework.http.parsers.GsonParser;
@@ -45,8 +46,8 @@ public class AnswerDetailsFragment extends BaseConstantFragment implements View.
 
     @InjectView(R.id.back)
     ImageView back;
-//    @InjectView(R.id.share)
-//    ImageView share;
+    @InjectView(R.id.share)
+    ImageView share;
     @InjectView(R.id.title)
     TextView title;
     @InjectView(R.id.tavatar)
@@ -79,6 +80,8 @@ public class AnswerDetailsFragment extends BaseConstantFragment implements View.
     private String url;
     private String listentype;
     private String oid;
+    private ShareInfoBean shareInfoBean;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -100,7 +103,7 @@ public class AnswerDetailsFragment extends BaseConstantFragment implements View.
                     @Override
                     public void onResult(AbstractRequest<QuestionBean> request, QuestionBean questionBean) {
                         QuestionBean.RQuestionr r = questionBean.getR();
-                        shareContent = r.getShare();
+//                        shareContent = r.getShare();
                         playsource = r.getPlaysource();
                          listentype = questionBean.getR().getListentype();
                         if (listentype.equals("1")) {
@@ -143,7 +146,7 @@ public class AnswerDetailsFragment extends BaseConstantFragment implements View.
 
     private void initOnClickLintenrs() {
         back.setOnClickListener(this);
-//        share.setOnClickListener(this);
+        share.setOnClickListener(this);
         allQA.setOnClickListener(this);
         buttontag.setOnClickListener(this);
         goodnum.setOnClickListener(new View.OnClickListener() {
@@ -180,7 +183,27 @@ public class AnswerDetailsFragment extends BaseConstantFragment implements View.
     @Override
     public void onResume() {
         getInfos();
+        getShareInfos();
         super.onResume();
+    }
+
+    //获取分享的数据
+    private void getShareInfos() {
+        String url = UmiwiAPI.QUESTION_DES + "?id=" + id;
+        OkHttpUtils.post().url(url).build().execute(new CustomStringCallBack() {
+            @Override
+            public void onFaild() {
+
+            }
+
+            @Override
+            public void onSucess(String data) {
+                Log.e("TAG", "data="+ data);
+                if(!TextUtils.isEmpty(data)) {
+                    shareInfoBean = JsonUtil.json2Bean(data, ShareInfoBean.class);
+                }
+            }
+        });
     }
 
     private void getIntentInfos() {
@@ -215,10 +238,13 @@ public class AnswerDetailsFragment extends BaseConstantFragment implements View.
                 getActivity().finish();
                 break;
             case R.id.share:
-//                if (shareContent.getSharecontent() != null && shareContent.getShareimg() != null && shareContent.getSharetitle() != null && shareContent.getShareurl() != null) {
-//                    NewShareDialog.getInstance().showDialog(getActivity(), shareContent.getSharetitle(),
-//                            shareContent.getSharecontent(), shareContent.getShareurl(), shareContent.getShareimg());
-//                }
+                if (shareInfoBean.getSharecontent() != null && shareInfoBean.getShareimg() != null && shareInfoBean.getSharetitle() != null && shareInfoBean.getShareurl() != null) {
+//                    NewShareDialog.getInstance().showDialog(getActivity(), shareInfoBean.getSharetitle(),
+//                            shareInfoBean.getSharecontent(), shareInfoBean.getShareurl(), shareInfoBean.getShareimg());
+                    ShareDialog.getInstance().showDialog(getActivity(),
+                            shareInfoBean.getSharetitle(), shareInfoBean.getSharecontent(),
+                            shareInfoBean.getShareurl(), shareInfoBean.getShareimg());
+                }
                 break;
             case R.id.all_q_a:
                 Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);

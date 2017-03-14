@@ -37,16 +37,17 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="20dp"
                         android:padding="8dp"
-                        android:src="@drawable/black" />
+                        android:src="@drawable/black_back" />
 
                     <ImageView
+                        android:padding="5dp"
                         android:id="@+id/iv_shared"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="20dp"
                         android:layout_marginTop="20dp"
-                        android:src="@drawable/share_img" />
+                        android:src="@drawable/share_black" />
 
                     <LinearLayout
                         android:layout_width="match_parent"

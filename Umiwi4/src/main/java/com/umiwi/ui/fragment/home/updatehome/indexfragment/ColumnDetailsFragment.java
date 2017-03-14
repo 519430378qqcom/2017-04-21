@@ -19,7 +19,7 @@ import com.umiwi.ui.adapter.ColumnDetailsAdapter;
 import com.umiwi.ui.adapter.ColumnRecordAdapter;
 import com.umiwi.ui.beans.ColumnDetailsBean;
 import com.umiwi.ui.beans.UmiwiBuyCreateOrderBeans;
-import com.umiwi.ui.dialog.updatedialog.NewShareDialog;
+import com.umiwi.ui.dialog.ShareDialog;
 import com.umiwi.ui.fragment.home.alreadyshopping.LogicalThinkingFragment;
 import com.umiwi.ui.fragment.pay.PayingFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
@@ -110,7 +110,7 @@ public class ColumnDetailsFragment extends BaseConstantFragment {
         iv_shared.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NewShareDialog.getInstance().showDialog(getActivity(), columnDetailsBean.getSharetitle(),
+                ShareDialog.getInstance().showDialog(getActivity(), columnDetailsBean.getSharetitle(),
                         columnDetailsBean.getSharecontent(),columnDetailsBean.getShareurl(), columnDetailsBean.getShareimg());
             }
         });

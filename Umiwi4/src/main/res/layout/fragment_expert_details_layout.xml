@@ -52,6 +52,7 @@
                         android:src="@drawable/black_back" />
 
                     <ImageView
+                        android:padding="5dp"
                         android:id="@+id/iv_shared"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

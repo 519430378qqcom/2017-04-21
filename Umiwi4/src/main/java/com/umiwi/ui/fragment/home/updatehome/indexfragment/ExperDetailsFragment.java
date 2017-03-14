@@ -20,7 +20,7 @@ import android.widget.TextView;
 import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.beans.ExperDetailsBean;
-import com.umiwi.ui.dialog.updatedialog.NewShareDialog;
+import com.umiwi.ui.dialog.ShareDialog;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.CustomStringCallBack;
 import com.umiwi.ui.main.UmiwiAPI;
@@ -218,8 +218,9 @@ public class ExperDetailsFragment extends BaseConstantFragment {
             @Override
             public void onClick(View view) {
                 if (share.getSharecontent() != null && share.getShareimg() != null && share.getSharetitle() != null && share.getShareurl() != null) {
-                    NewShareDialog.getInstance().showDialog(getActivity(), share.getSharetitle(),
+                    ShareDialog.getInstance().showDialog(getActivity(), share.getSharetitle(),
                             share.getSharecontent(), share.getShareurl(), share.getShareimg());
+
                 }
 
             }
