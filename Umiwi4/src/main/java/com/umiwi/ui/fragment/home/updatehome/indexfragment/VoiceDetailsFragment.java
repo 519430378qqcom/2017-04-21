@@ -361,13 +361,13 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
      * 提交评论
      */
     private void showComment() {
-        String url = String.format(UmiwiAPI.audio_tmessage, experDetailsVoiceBean.getId(), mEt_menu.getText().toString().trim());
+        String url = String.format(UmiwiAPI.audio_tmessage, infos.getId(), mEt_menu.getText().toString().trim());
         GetRequest<AudioTmessageBeans> request = new GetRequest<AudioTmessageBeans>(
                 url, GsonParser.class,
                 AudioTmessageBeans.class,
                 AudioListener);
         request.go();
-//        closeButtomSend();
+        closeButtomSend();
     }
 
     private AbstractRequest.Listener<AudioTmessageBeans> AudioListener = new AbstractRequest.Listener<AudioTmessageBeans>() {
@@ -393,7 +393,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
      * 获取评论列表
      */
     private void showCommentList() {
-        String url = String.format(UmiwiAPI.audio_tmessage_list, page, experDetailsVoiceBean.getUid(), "audioalbum", experDetailsVoiceBean.getId());
+        String url = String.format(UmiwiAPI.audio_tmessage_list, page, infos.getUid(), "audioalbum", infos.getId());
         GetRequest<AudioTmessageListBeans> request = new GetRequest<AudioTmessageListBeans>(
                 url, GsonParser.class,
                 AudioTmessageListBeans.class,
@@ -635,7 +635,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                 return;
             }
 
-            if (null == experDetailsVoiceBean) {
+            if (null == infos) {
                 return;
             }
 
