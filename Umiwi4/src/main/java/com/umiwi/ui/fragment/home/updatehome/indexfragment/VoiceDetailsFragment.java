@@ -60,16 +60,11 @@ import com.umiwi.ui.dialog.ShareDialog;
 import com.umiwi.ui.fragment.pay.PayingFragment;
 import com.umiwi.ui.http.parsers.AudioDetailParser;
 import com.umiwi.ui.main.BaseConstantFragment;
-import com.umiwi.ui.main.CustomStringCallBack;
 import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.main.UmiwiApplication;
 import com.umiwi.ui.managers.AudioManager;
 import com.umiwi.ui.managers.YoumiRoomUserManager;
 import com.umiwi.ui.model.AudioModel;
-import com.umiwi.ui.model.CourseListModel;
-import com.umiwi.ui.parsers.UmiwiListParser;
-import com.umiwi.ui.parsers.UmiwiListResult;
-import com.umiwi.ui.util.JsonUtil;
 import com.umiwi.ui.util.LoginUtil;
 import com.umiwi.ui.util.PermissionUtil;
 import com.umiwi.ui.util.Utils;
@@ -77,7 +72,6 @@ import com.umiwi.ui.view.RefreshLayout;
 import com.umiwi.ui.view.ResizeRelativeLayout;
 import com.umiwi.video.control.PlayerController;
 import com.umiwi.video.services.VoiceService;
-import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -373,7 +367,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                 AudioTmessageBeans.class,
                 AudioListener);
         request.go();
-        closeButtomSend();
+//        closeButtomSend();
     }
 
     private AbstractRequest.Listener<AudioTmessageBeans> AudioListener = new AbstractRequest.Listener<AudioTmessageBeans>() {

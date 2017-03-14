@@ -30,8 +30,8 @@ public class SplashNewHorizontalFragment extends BaseFragment {
 	private ViewPager mViewPager;
 	private GuideAdapter mAdapter;
 	private ArrayList<View> views;
-	private static final int[] images = { R.drawable.guide_splash_01,
-			R.drawable.guide_splash_02, R.drawable.guide_splash_03 };
+	private static final int[] images = { R.drawable.newguide_splash_01,
+			R.drawable.newguide_splash_02, R.drawable.newguide_splash_03,R.drawable.newguide_splash_04};
 
 	@SuppressLint("InflateParams")
 	@Override
