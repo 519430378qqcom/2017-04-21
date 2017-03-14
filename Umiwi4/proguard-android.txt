@@ -105,3 +105,17 @@
 
 -keep class com.umiwi.ui.event.WebToNativeEvent
 -keepclassmembers class com.umiwi.ui.fragment.WebFragment$JSIntefaceWebToNative{ *; }
+
+#okhttputils
+-dontwarn com.zhy.http.**
+-keep class com.zhy.http.**{*;}
+
+
+#okhttp
+-dontwarn okhttp3.**
+-keep class okhttp3.**{*;}
+
+
+#okio
+-dontwarn okio.**
+-keep class okio.**{*;}

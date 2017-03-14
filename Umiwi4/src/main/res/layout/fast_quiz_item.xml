@@ -84,7 +84,7 @@
             android:paddingRight="5dp"
             android:paddingTop="3dp"
             android:textSize="12sp"
-            android:text="向他提问"
+            android:text="向TA提问"
             android:layout_centerVertical="true"
             android:textColor="@color/main_color" />
     </RelativeLayout>

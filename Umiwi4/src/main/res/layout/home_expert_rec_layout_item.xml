@@ -118,10 +118,10 @@
                         android:text="飞在互联网的猪"
                         android:textColor="@color/black_a8"
                         android:textSize="14sp" />
-<!--<<<<<<< HEA-->
-<!--=======-->
-<!--&gt;>>>>>> e0248dcc27e196c3b4a861385b482e937cc39a7d-->
+                    <!--<<<<<<< HEAD-->
 
+                    <!--=======-->
+                    <!--&gt;>>>>>> e0248dcc27e196c3b4a861385b482e937cc39a7d-->
                 </LinearLayout>
 
             </RelativeLayout>

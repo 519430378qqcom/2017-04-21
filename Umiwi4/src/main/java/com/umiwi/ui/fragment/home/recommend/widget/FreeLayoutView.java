@@ -77,7 +77,7 @@ public class FreeLayoutView extends LinearLayout {
 
     public void setData(final RecommendBean.RBean.FreeBean freeBean, String titleFree, String titleHuan, String huanUrl) {
         totalpage = freeBean.getPage().getTotalpage();
-        title_type_textview.setText(titleFree);
+//        title_type_textview.setText(titleFree);
         title_huan.setText(titleHuan);
         mList = freeBean.getRecord();
         mHuanUrl = huanUrl;

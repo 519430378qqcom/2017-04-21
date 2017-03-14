@@ -1,6 +1,7 @@
 package com.umiwi.ui.fragment.home.updatehome.indexfragment;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -8,10 +9,13 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.text.Layout;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -162,6 +166,29 @@ public class ExperDetailsFragment extends BaseConstantFragment {
                 tv_name.setText(experName);
                 tv_describe.setText(tutortitle);
                 tv_content.setText(description);
+
+                if (description.length()>50){
+                    tv_unfold.setVisibility(View.VISIBLE);
+                }else {
+                    tv_unfold.setVisibility(View.GONE);
+                }
+//                tv_content.post(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        Layout l = tv_content.getLayout();
+//                        if (l != null) {
+//                            int lines = l.getLineCount();
+//                            if (lines > 0) {
+//                                if (l.getEllipsisCount(lines - 1) > 0) {
+//                                    Log.e("111111111", "省略");
+//                                }
+//                            }
+//                        } else {
+//                            Log.e("111111111",  "省略no");
+//                        }
+//                    }
+//                });
+
                 ImageLoader mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
                 mImageLoader.loadImage(tutorimage, head);
                 ExperDetailsBean.ResultBean resultUrl = experDetailsBean.getResult();
@@ -228,9 +255,11 @@ public class ExperDetailsFragment extends BaseConstantFragment {
 
         yuedu = (LinearLayout) view.findViewById(R.id.yuedu);
         scroll_view = (TopFloatScrollView) view.findViewById(R.id.scroll_view);
+
+        tv_content.setEllipsize(TextUtils.TruncateAt.END);
+
         tv_unfold.setOnClickListener(new UnfoldOnClickListener());
         iv_back.setOnClickListener(new BackOnClickListener());
-
         scroll_view.setFocusable(true);
         scroll_view.setFocusableInTouchMode(true);
         scroll_view.requestFocus();
@@ -413,9 +442,17 @@ public class ExperDetailsFragment extends BaseConstantFragment {
             if (isUnfold) { //开
                 isUnfold = false;
                 tv_content.setMaxLines(Integer.MAX_VALUE);
+                Drawable drawable = getResources().getDrawable(R.drawable.fold);
+                drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+                tv_unfold.setCompoundDrawables(null, null, drawable, null);
+                tv_unfold.setText("收起");
             } else {  //关
                 isUnfold = true;
                 tv_content.setMaxLines(3);
+                Drawable drawable = getResources().getDrawable(R.drawable.unfold);
+                drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+                tv_unfold.setCompoundDrawables(null, null, drawable, null);
+                tv_unfold.setText("展开");
             }
         }
     }

@@ -66,7 +66,7 @@ public class ExpertRecAdapter extends BaseAdapter {
         RecommendBean.RBean.TutorBean tutorBean = mList.get(position);
 
         mImageLoader.loadImage(tutorBean.getImage(),viewHolder.expert_header_imageview,R.drawable.ic_launcher);
-        viewHolder.expert_name_textView_1.setText(tutorBean.getName() + "·" + tutorBean.getTitle());
+        viewHolder.expert_name_textView_1.setText(tutorBean.getTitle());
         viewHolder.expert_context_1.setText(tutorBean.getTutortitle());
         viewHolder.expter_time_textView.setText(tutorBean.getUpdatetime());
         viewHolder.expter_detail_textView.setText(tutorBean.getUpdateaudio());
