@@ -36,6 +36,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="20dp"
+                        android:padding="8dp"
                         android:src="@drawable/black" />
 
                     <ImageView
@@ -74,24 +75,10 @@
 
                 </RelativeLayout>
 
-                <LinearLayout
-                    android:orientation="horizontal"
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp">
-
-                    <TextView
-                        android:layout_weight="1"
-                        android:id="@+id/title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="10dp"
-                        android:ellipsize="end"
-                        android:lines="1"
-                        android:text="关系攻略：残酷社会生存法则"
-                        android:textColor="@color/black"
-                        android:textSize="20sp" />
 
                     <TextView
                         android:id="@+id/priceinfo"
@@ -100,10 +87,21 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="10dp"
-                        android:text="￥165/年"
                         android:textColor="@color/main_color" />
 
-                </LinearLayout>
+                    <TextView
+                        android:id="@+id/title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_toLeftOf="@id/priceinfo"
+                        android:textColor="@color/black"
+                        android:textSize="20sp" />
+
+
+                </RelativeLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -115,16 +113,14 @@
                         android:id="@+id/shortcontent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:text="每周更新一期" />
+                        android:layout_marginLeft="10dp" />
 
                     <TextView
                         android:id="@+id/salenum"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:paddingBottom="10dp"
-                        android:text="订阅666人" />
+                        android:paddingBottom="10dp" />
                 </LinearLayout>
 
                 <View

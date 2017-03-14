@@ -6,26 +6,25 @@
 
 
     <LinearLayout
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="140dp"
             android:padding="15dp">
 
             <ImageView
                 android:id="@+id/expert_header_imageview"
-                android:layout_width="110dp"
-                android:layout_height="150dp"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
                 android:scaleType="centerCrop" />
 
             <RelativeLayout
                 android:id="@+id/expert_right_layout_1"
                 android:layout_width="wrap_content"
-                android:layout_height="150dp"
+                android:layout_height="140dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
@@ -47,26 +46,25 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_marginLeft="7dp"
-                    android:text="已订阅205" />
+                    android:text="已订阅205"
+                    android:textColor="@color/gray_a" />
             </RelativeLayout>
 
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="140dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_toLeftOf="@id/expert_right_layout_1"
                 android:layout_toRightOf="@id/expert_header_imageview"
-                android:orientation="vertical"
                 android:paddingBottom="1dp"
                 android:paddingTop="1dp">
 
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical">
 
                     <TextView
@@ -84,18 +82,18 @@
                         android:id="@+id/expert_context_1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="5dp"
                         android:ellipsize="end"
                         android:singleLine="true"
                         android:text="帮你和全球精英大脑同步"
-                        android:textSize="15sp" />
+                        android:textSize="14sp" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
                     android:orientation="vertical">
 
                     <TextView
@@ -114,31 +112,25 @@
                         android:id="@+id/expter_detail_textView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="5dp"
                         android:ellipsize="end"
                         android:singleLine="true"
                         android:text="飞在互联网的猪"
-                        android:textColor="@color/black"
-                        android:textSize="15sp" />
+                        android:textColor="@color/black_a8"
+                        android:textSize="14sp" />
 
                 </LinearLayout>
 
-            </LinearLayout>
+            </RelativeLayout>
 
         </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:background="#adadad" />
-
-        <!--<View-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="1px"-->
-            <!--android:background="#adadad" />-->
-
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="#adadad" />
 
 </LinearLayout>

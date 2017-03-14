@@ -51,7 +51,6 @@
         android:background="#adadad" />
 
     <com.umiwi.ui.fragment.home.recommend.widget.ListViewInScroll
-        android:divider="@null"
         android:id="@+id/lv_home_action"
         android:divider="@null"
         android:layout_width="match_parent"

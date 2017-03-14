@@ -35,6 +35,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="15dp"
+                android:padding="5dp"
                 android:text="换一批"
                 android:textColor="#adadad"
                 android:textSize="14sp" />

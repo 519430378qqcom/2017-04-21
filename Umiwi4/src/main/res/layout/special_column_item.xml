@@ -7,17 +7,15 @@
     <!--第一个行家-->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="140dp"
+        android:background="@color/white"
         android:padding="15dp">
 
         <RelativeLayout
             android:id="@+id/special_right_layout_1"
             android:layout_width="wrap_content"
-            android:layout_height="150dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:paddingBottom="6dp">
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true">
 
             <TextView
                 android:id="@+id/special_price_1"
@@ -33,25 +31,26 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_marginLeft="7dp"
-                android:text="已订阅205" />
+                android:text="已订阅205"
+                android:textColor="@color/color_divider"
+                android:textSize="14sp" />
         </RelativeLayout>
 
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@id/special_right_layout_1"
             android:layout_toRightOf="@id/special_header_imageview_1"
-            android:orientation="vertical"
             android:paddingBottom="1dp"
             android:paddingTop="1dp">
 
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:orientation="vertical">
 
@@ -62,32 +61,31 @@
                     android:ellipsize="end"
                     android:singleLine="true"
                     android:text="雷军.精英日课"
-                    android:textColor="@color/black"
+                    android:textColor="@color/black_a8"
                     android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/special_context_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="5dp"
                     android:ellipsize="end"
                     android:singleLine="true"
                     android:text="帮你和全球精英大脑同步"
-                    android:textSize="15sp" />
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/expter_time_textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
                     android:background="@drawable/textview_fillet_bg"
                     android:ellipsize="end"
                     android:padding="2dp"
@@ -99,25 +97,21 @@
                     android:id="@+id/expter_detail_textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="5dp"
                     android:ellipsize="end"
                     android:singleLine="true"
                     android:text="飞在互联网的猪"
-                    android:textColor="@color/black"
-                    android:textSize="15sp" />
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
-        </LinearLayout>
+        </RelativeLayout>
 
         <ImageView
             android:id="@+id/special_header_imageview_1"
-            android:layout_width="110dp"
-            android:layout_height="150dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:scaleType="fitXY" />
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
 
 
     </RelativeLayout>

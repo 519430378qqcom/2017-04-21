@@ -127,10 +127,10 @@ public class HomeAudioFragment extends BaseConstantFragment {
 
         priceList.add("免费");
         priceList.add("收费");
-        priceList.add("钻石专享");
+       // priceList.add("钻石专享");
         priceListId.add("free");
         priceListId.add("charge");
-        priceListId.add("diamond");
+        //priceListId.add("diamond");
 
         orderbyList.add("最热");
         orderbyList.add("好评");

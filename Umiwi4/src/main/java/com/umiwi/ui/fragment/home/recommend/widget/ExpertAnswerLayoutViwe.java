@@ -50,13 +50,13 @@ public class ExpertAnswerLayoutViwe extends LinearLayout {
         tv_experttitle_tag = (TextView) findViewById(R.id.tv_experttitle_tag);
         lv_expert_answer = (ListView) findViewById(R.id.lv_expert_answer);
         expert_answer_root.setVisibility(GONE);
+
     }
 
     public void setData(ArrayList<RecommendBean.RBean.AsktutorBean> asktutorBeen, String answerTitle, final String experttitleTag) {
 
         tv_expert_answer_title.setText(answerTitle);
         tv_experttitle_tag.setText(experttitleTag);
-//        Log.e("TAG", "experttitleTag=" + experttitleTag);
         mList = asktutorBeen;
         if (null == mList || mList.size() == 0)
             return;

@@ -72,8 +72,8 @@ public class ColumnAdapter extends BaseAdapter {
         viewholder.special_price_1.setText(mList.get(position).getPrice());
         viewholder.special_subscribe_number_1.setText("已订阅"+mList.get(position).getSalenum());
         viewholder.special_name_textView_1.setText(mList.get(position).getName()+" . "+mList.get(position).getTitle());
-        viewholder.special_context_1.setText(mList.get(position).getUpdateaudio());
-        viewholder.expter_detail_textView.setText("飞在互联网风口浪尖的猪");
+        viewholder.special_context_1.setText(mList.get(position).getTutortitle());//mList.get(position).getUpdateaudio()
+        viewholder.expter_detail_textView.setText(mList.get(position).getUpdateaudio());
         if(!TextUtils.isEmpty(mList.get(position).getUpdatetime())){
             viewholder.expter_time_textView.setText(mList.get(position).getUpdatetime()+"小时前更新");
         }else{
