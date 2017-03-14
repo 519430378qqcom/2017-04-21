@@ -65,8 +65,14 @@ public class ExperDetailsWendaFragment extends BaseConstantFragment {
         });
         noscrollListview.setFocusable(false);
         handler = new Handler();
-        getInfos();
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        getInfos();
+
+        super.onResume();
     }
 
     private void getInfos() {

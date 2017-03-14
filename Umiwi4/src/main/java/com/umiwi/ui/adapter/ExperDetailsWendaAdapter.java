@@ -1,5 +1,6 @@
 package com.umiwi.ui.adapter;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.support.v4.app.FragmentActivity;
@@ -11,10 +12,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.umiwi.ui.R;
+import com.umiwi.ui.activity.UmiwiContainerActivity;
+import com.umiwi.ui.beans.UmiwiBuyCreateOrderBeans;
 import com.umiwi.ui.beans.updatebeans.DelayAnswerVoiceBean;
 import com.umiwi.ui.beans.updatebeans.HomeAskBean;
 import com.umiwi.ui.beans.updatebeans.WenDaBean;
 import com.umiwi.ui.beans.updatebeans.ZanBean;
+import com.umiwi.ui.fragment.pay.PayingFragment;
 import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.main.UmiwiApplication;
 import com.umiwi.video.recorder.MediaManager;
@@ -22,6 +26,7 @@ import com.umiwi.video.recorder.MediaManager;
 import java.util.List;
 
 import cn.youmi.framework.http.AbstractRequest;
+import cn.youmi.framework.http.GetRequest;
 import cn.youmi.framework.http.parsers.GsonParser;
 import cn.youmi.framework.util.ImageLoader;
 import cn.youmi.framework.view.CircleImageView;
@@ -155,8 +160,9 @@ public class ExperDetailsWendaAdapter extends BaseAdapter {
         viewHolder.buttontag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String id = wendaInfos.get(position).getId();
                 if (listentype.equals("1")){
-                    Toast.makeText(activity, "一元偷偷听", Toast.LENGTH_SHORT).show();
+                   getOrderId(id);
                 }else{
 
                     if (currentpos!=-1){
@@ -240,6 +246,49 @@ public class ExperDetailsWendaAdapter extends BaseAdapter {
         TextView playtime,awtimes,listennum;
         TextView goodnum;
         TextView title;
+    }
+
+
+
+    /**
+     * 获取提问的payurl
+     *
+     * @param questionId 问题id
+     */
+    private void getOrderId(String questionId) {
+        String url = null;
+        url = String.format(UmiwiAPI.yiyuan_listener, questionId, "json");
+        GetRequest<UmiwiBuyCreateOrderBeans> request = new GetRequest<UmiwiBuyCreateOrderBeans>(
+                url, GsonParser.class,
+                UmiwiBuyCreateOrderBeans.class,
+                addQuestionOrderListener);
+        request.go();
+    }
+
+    private AbstractRequest.Listener<UmiwiBuyCreateOrderBeans> addQuestionOrderListener = new AbstractRequest.Listener<UmiwiBuyCreateOrderBeans>() {
+        @Override
+        public void onResult(AbstractRequest<UmiwiBuyCreateOrderBeans> request, UmiwiBuyCreateOrderBeans umiwiBuyCreateOrderBeans) {
+            String payurl = umiwiBuyCreateOrderBeans.getR().getPayurl();
+            questionBuyDialog(payurl);
+        }
+
+        @Override
+        public void onError(AbstractRequest<UmiwiBuyCreateOrderBeans> requet, int statusCode, String body) {
+
+        }
+    };
+
+
+    /**
+     * 跳转到购买界面
+     *
+     * @param payurl
+     */
+    public void questionBuyDialog(String payurl) {
+        Intent i = new Intent(activity, UmiwiContainerActivity.class);
+        i.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, PayingFragment.class);
+        i.putExtra(PayingFragment.KEY_PAY_URL, payurl);
+        activity.startActivity(i);
     }
 
 }

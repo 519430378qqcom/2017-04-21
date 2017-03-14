@@ -15,9 +15,13 @@ import android.widget.Toast;
 
 import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
+import com.umiwi.ui.beans.UmiwiAddQuestionBeans;
+import com.umiwi.ui.beans.UmiwiBuyCreateOrderBeans;
 import com.umiwi.ui.beans.updatebeans.DelayAnswerVoiceBean;
 import com.umiwi.ui.beans.updatebeans.RecommendBean;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.AskQuestionFragment;
+import com.umiwi.ui.fragment.pay.PayingFragment;
+import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.main.UmiwiApplication;
 import com.umiwi.ui.view.CircleImageView;
 import com.umiwi.video.recorder.MediaManager;
@@ -25,6 +29,7 @@ import com.umiwi.video.recorder.MediaManager;
 import java.util.ArrayList;
 
 import cn.youmi.framework.http.AbstractRequest;
+import cn.youmi.framework.http.GetRequest;
 import cn.youmi.framework.http.parsers.GsonParser;
 import cn.youmi.framework.util.ImageLoader;
 
@@ -41,7 +46,8 @@ public class ExpertAnswerDowndapter extends BaseAdapter {
     private ArrayList<RecommendBean.RBean.QuestionBean> mList;
     private ImageLoader mImageLoader;
     private Activity mActivity;
-    public ExpertAnswerDowndapter(Context context, ArrayList<RecommendBean.RBean.QuestionBean> mList){
+
+    public ExpertAnswerDowndapter(Context context, ArrayList<RecommendBean.RBean.QuestionBean> mList) {
         mLayoutInflater = LayoutInflater.from(context);
         this.mActivity = (Activity) context;
         this.mList = mList;
@@ -67,48 +73,48 @@ public class ExpertAnswerDowndapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         final ViewHolder mViewHolder;
-        if (convertView == null){
-            convertView = mLayoutInflater.inflate(R.layout.home_expert_answer_down_item,null);
+        if (convertView == null) {
+            convertView = mLayoutInflater.inflate(R.layout.home_expert_answer_down_item, null);
             mViewHolder = new ViewHolder(convertView);
             convertView.setTag(mViewHolder);
-        }else{
+        } else {
             mViewHolder = (ViewHolder) convertView.getTag();
         }
         final RecommendBean.RBean.QuestionBean questionBean = mList.get(position);
 
-        mImageLoader.loadImage(questionBean.getTavatar(),mViewHolder.iv_expert_header,R.drawable.ic_launcher);
+        mImageLoader.loadImage(questionBean.getTavatar(), mViewHolder.iv_expert_header, R.drawable.ic_launcher);
         final String listentype = questionBean.getListentype();
-        if (listentype.equals("1")){
+        if (listentype.equals("1")) {
             mViewHolder.tv_time_limit_hear.setText(questionBean.getButtontag());
             mViewHolder.tv_time_limit_hear.setBackgroundResource(R.drawable.changer);
-        }else{
+        } else {
             mViewHolder.tv_time_limit_hear.setText(questionBean.getButtontag());
             mViewHolder.tv_time_limit_hear.setBackgroundResource(R.drawable.time_limit_hear);
         }
 
         mViewHolder.tv_expert_question.setText(questionBean.getTitle());
         mViewHolder.tv_head_time.setText(questionBean.getPlaytime());
-        mViewHolder.tv_time_limit_number.setText("听过 "+questionBean.getListennum()+"人");
+        mViewHolder.tv_time_limit_number.setText("听过 " + questionBean.getListennum() + "人");
         mViewHolder.tv_expert_question_name.setText(questionBean.getTname());
         mViewHolder.tv_expert_question_job.setText(questionBean.getTtitle());
         mViewHolder.tv_time_limit_hear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (listentype.equals("1")){
-                    Toast.makeText(mActivity, "一元偷偷听", Toast.LENGTH_SHORT).show();
-                }else{
-                    if (currentpos!=-1){
+                if (listentype.equals("1")) {
+                    getOrderId(questionBean.getId());
+                } else {
+                    if (currentpos != -1) {
 //                   mCurrentVoiceListener.getCurrentView(currentpos);
                         mList.get(currentpos).setButtontag(questionBean.getButtontag());
                         notifyDataSetChanged();
-                        if (currentpos == position){
-                            if (MediaManager.mediaPlayer.isPlaying()){
+                        if (currentpos == position) {
+                            if (MediaManager.mediaPlayer.isPlaying()) {
                                 MediaManager.pause();
                                 mViewHolder.tv_time_limit_hear.setText(questionBean.getButtontag());
-                                Log.e("ISPALY","PAUSE");
-                            }else{
+                                Log.e("ISPALY", "PAUSE");
+                            } else {
                                 MediaManager.resume();
-                                Log.e("ISPALY","resume");
+                                Log.e("ISPALY", "resume");
                                 mList.get(position).setButtontag("正在播放");
                                 notifyDataSetChanged();
 
@@ -129,7 +135,7 @@ public class ExpertAnswerDowndapter extends BaseAdapter {
                     currentpos = position;
                     String playsource = mList.get(position).getPlaysource();
                     String buttontag = mList.get(position).getButtontag();
-                    getsorceInfos(playsource,mViewHolder.tv_time_limit_hear,buttontag);
+                    getsorceInfos(playsource, mViewHolder.tv_time_limit_hear, buttontag);
                 }
 
 
@@ -168,7 +174,7 @@ public class ExpertAnswerDowndapter extends BaseAdapter {
 
                             }
                         });
-                        if (MediaManager.mediaPlayer.isPlaying()){
+                        if (MediaManager.mediaPlayer.isPlaying()) {
                             tv_time_limit_hear.setText("正在播放");
 
                         }
@@ -182,12 +188,11 @@ public class ExpertAnswerDowndapter extends BaseAdapter {
         request.go();
     }
 
-    public class ViewHolder{
+    public class ViewHolder {
         public View rootView;
         public ImageView iv_expert_header;
         //微信小程序可以直播么？- 限时免费听 - 58″ - 听过55555人 - 姓名 - 职位
-        public TextView tv_expert_question, tv_time_limit_hear, tv_head_time
-                ,tv_time_limit_number,tv_expert_question_name,tv_expert_question_job;
+        public TextView tv_expert_question, tv_time_limit_hear, tv_head_time, tv_time_limit_number, tv_expert_question_name, tv_expert_question_job;
         //id:2
         public String id;
         //tuid:7106276
@@ -208,5 +213,47 @@ public class ExpertAnswerDowndapter extends BaseAdapter {
             tv_expert_question_job = (TextView) rootView.findViewById(R.id.expert_question_job_textview_1);
 
         }
+    }
+
+
+    /**
+     * 获取提问的payurl
+     *
+     * @param questionId 问题id
+     */
+    private void getOrderId(String questionId) {
+        String url = null;
+        url = String.format(UmiwiAPI.yiyuan_listener, questionId, "json");
+        GetRequest<UmiwiBuyCreateOrderBeans> request = new GetRequest<UmiwiBuyCreateOrderBeans>(
+                url, GsonParser.class,
+                UmiwiBuyCreateOrderBeans.class,
+                addQuestionOrderListener);
+        request.go();
+    }
+
+    private AbstractRequest.Listener<UmiwiBuyCreateOrderBeans> addQuestionOrderListener = new AbstractRequest.Listener<UmiwiBuyCreateOrderBeans>() {
+        @Override
+        public void onResult(AbstractRequest<UmiwiBuyCreateOrderBeans> request, UmiwiBuyCreateOrderBeans umiwiBuyCreateOrderBeans) {
+            String payurl = umiwiBuyCreateOrderBeans.getR().getPayurl();
+            questionBuyDialog(payurl);
+        }
+
+        @Override
+        public void onError(AbstractRequest<UmiwiBuyCreateOrderBeans> requet, int statusCode, String body) {
+
+        }
+    };
+
+
+    /**
+     * 跳转到购买界面
+     *
+     * @param payurl
+     */
+    public void questionBuyDialog(String payurl) {
+        Intent i = new Intent(mActivity, UmiwiContainerActivity.class);
+        i.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, PayingFragment.class);
+        i.putExtra(PayingFragment.KEY_PAY_URL, payurl);
+        mActivity.startActivity(i);
     }
 }
