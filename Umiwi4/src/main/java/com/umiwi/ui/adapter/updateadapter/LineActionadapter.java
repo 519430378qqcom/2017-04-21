@@ -2,8 +2,6 @@ package com.umiwi.ui.adapter.updateadapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,7 +74,7 @@ public class LineActionadapter extends BaseAdapter {
             mViewHolder.line_action_static_1.setBackgroundResource(R.drawable.textview_fillet_question_bg);
             mViewHolder.line_action_static_1.setTextColor(mActivity.getResources().getColorStateList(R.color.main_color));
         }if(mViewHolder.status.equals("3")){
-            mViewHolder.line_action_static_1.setText("以结束");
+            mViewHolder.line_action_static_1.setText("已结束");
             mViewHolder.line_action_static_1.setBackgroundResource(R.drawable.textview_line_action_end_bg);
             mViewHolder.line_action_static_1.setTextColor(mActivity.getResources().getColorStateList(R.color.umiwi_gray_b));
         }

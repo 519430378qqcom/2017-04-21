@@ -9,7 +9,6 @@
     <com.umiwi.ui.fragment.home.recommend.widget.ListViewInScroll
         android:divider="@null"
         android:id="@+id/lv_expert_dwon_answer"
-        android:divider="@null"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
