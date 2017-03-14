@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.RemoteException;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -57,7 +58,6 @@ import com.umiwi.ui.beans.CommentResultBean;
 import com.umiwi.ui.beans.UmiwiListBeans;
 import com.umiwi.ui.beans.UmiwiListDetailBeans;
 import com.umiwi.ui.beans.UmiwiListDetailBeans.ListDetailRequestData;
-import com.umiwi.ui.beans.UmiwiMyCardBeans;
 import com.umiwi.ui.dao.CollectionDao;
 import com.umiwi.ui.dialog.DownloadListDialog;
 import com.umiwi.ui.dialog.ShareDialog;
@@ -561,6 +561,14 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
 
     private void dismissLoading() {
         mProgressBar.setVisibility(View.GONE);
+        try {
+            //让正在播放的音频暂停
+            if(UmiwiApplication.mainActivity.service.isPlaying()) {
+                UmiwiApplication.mainActivity.service.pause();
+            }
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
     private void setPlayList() {

@@ -14,10 +14,14 @@
         android:src="@drawable/play_vocie" />
 
     <TextView
+        android:layout_weight="1"
         android:id="@+id/tv_dir_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/white"
+        android:ellipsize="end"
+
+        android:lines="1"
         android:text="怎样看待出国留学的价值"
         android:textColor="@color/umiwi_orange"
         android:textSize="16sp" />
@@ -32,12 +36,14 @@
         android:textSize="12sp" />
 
     <TextView
+
         android:id="@+id/tv_dir_totaltime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginRight="15dp"
         android:text="3:30"
+        android:lines="1"
         android:textColor="@color/umiwi_orange"
         android:textSize="16sp" />
 

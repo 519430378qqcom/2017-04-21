@@ -30,6 +30,8 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
+import static com.umiwi.video.services.VoiceService.url;
+
 
 /**
  * Created by Administrator on 2017/2/24.
@@ -73,7 +75,7 @@ public class LogicalThinkingFragment extends BaseConstantFragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
                 intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
-                intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL, "url");
+                intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL, url);
                 getActivity().startActivity(intent);
             }
         });

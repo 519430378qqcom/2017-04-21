@@ -10,17 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 
-import com.sina.weibo.sdk.call.Position;
 import com.umeng.analytics.MobclickAgent;
 import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.ColumnAdapter;
-import com.umiwi.ui.beans.ActivityItemBean;
 import com.umiwi.ui.beans.updatebeans.HomeCoumnBean;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.ColumnDetailsFragment;
-import com.umiwi.ui.fragment.home.updatehome.indexfragment.DetailsColumnFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.CustomStringCallBack;
 import com.umiwi.ui.main.UmiwiAPI;
@@ -32,8 +28,6 @@ import java.util.List;
 
 import cn.youmi.framework.util.ListViewScrollLoader;
 import cn.youmi.framework.view.LoadingFooter;
-
-import static com.umiwi.ui.R.id.targetuser;
 
 /**
  * Created by LvDabing on 2017/2/16.
@@ -70,7 +64,7 @@ public class ColumnFragment extends BaseConstantFragment {
                 Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
                 intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, ColumnDetailsFragment.class);//详情页
                 intent.putExtra("columnurl", mList.get(i).getColumnurl());
-
+                Log.e("TAG", "mList.get(i).getColumnurl()=" + mList.get(i).getColumnurl());
                 startActivity(intent);
             }
         });

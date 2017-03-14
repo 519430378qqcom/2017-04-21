@@ -1,12 +1,15 @@
 package com.umiwi.ui.fragment.home.updatehome;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.os.RemoteException;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,16 +19,16 @@ import android.widget.TextView;
 import com.nineoldandroids.view.ViewPropertyAnimator;
 import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
-import com.umiwi.ui.fragment.home.updatehome.indexfragment.AudioFragment;
 import com.umiwi.ui.fragment.home.alreadyshopping.ColumnFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.ExpertFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.HomeAudioFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.HomeVideoFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.OldYoumiFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.RecommendFragment;
-import com.umiwi.ui.fragment.home.updatehome.indexfragment.VideoFragment;
+import com.umiwi.ui.fragment.home.updatehome.indexfragment.VoiceDetailsFragment;
 import com.umiwi.ui.fragment.search.SearchFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
+import com.umiwi.ui.main.UmiwiApplication;
 
 import java.util.ArrayList;
 
@@ -67,6 +70,8 @@ public class NewHomeRecommendFragment extends BaseConstantFragment {
     private int line_width;
 
     private static ViewPager rootviewPager;
+    private AnimationDrawable background;
+
     public static ViewPager getRootViewpager(){
         return rootviewPager;
     }
@@ -88,7 +93,54 @@ public class NewHomeRecommendFragment extends BaseConstantFragment {
         });
         rootviewPager = viewPager;
         initMenuTab();
+        initRecord();
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        Log.e("TAG", "首页里的onResume()");
+        super.onResume();
+        if(UmiwiApplication.mainActivity.service != null) {
+            background = (AnimationDrawable) record.getBackground();
+            try {
+                if (UmiwiApplication.mainActivity.service.isPlaying()) {
+                    background.start();
+                } else {
+                    background.stop();
+                }
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    /**
+     * 音频播放按钮
+     */
+    private void initRecord() {
+
+        record.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(UmiwiApplication.mainActivity.service != null ) {
+                    try {
+                        if(UmiwiApplication.mainActivity.service.isPlaying()) {
+                            if(UmiwiApplication.mainActivity.herfUrl != null) {
+                                Log.e("TAG", "UmiwiApplication.mainActivity.herfUrl=" + UmiwiApplication.mainActivity.herfUrl);
+                                Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
+                                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
+                                intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL, UmiwiApplication.mainActivity.herfUrl);
+                                getActivity().startActivity(intent);
+                            }
+                        }
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 
     /**初始化导航菜单了**/

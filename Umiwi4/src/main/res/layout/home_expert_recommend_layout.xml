@@ -39,6 +39,7 @@
     <com.umiwi.ui.fragment.home.recommend.widget.ListViewInScroll
         android:id="@+id/lv_home_expert_rec"
         android:layout_width="match_parent"
+        android:divider="@null"
         android:layout_height="wrap_content" />
 
 

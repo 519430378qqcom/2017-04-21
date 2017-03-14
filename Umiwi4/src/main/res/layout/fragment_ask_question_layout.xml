@@ -81,7 +81,7 @@
            android:layout_marginTop="5dp"
            android:layout_width="match_parent"
            android:layout_height="10dp"
-            android:background="@color/line"
+            android:background="@color/color_divider_two"
            />
        <RelativeLayout
            android:layout_width="match_parent"
@@ -162,7 +162,7 @@
            android:layout_marginTop="10dp"
            android:layout_width="match_parent"
            android:layout_height="10dp"
-           android:background="@color/line"
+           android:background="@color/color_divider_two"
            />
        <LinearLayout
            android:layout_width="wrap_content"

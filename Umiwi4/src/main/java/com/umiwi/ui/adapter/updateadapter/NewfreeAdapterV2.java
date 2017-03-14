@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.umiwi.ui.R;
-import com.umiwi.ui.beans.updatebeans.NewFree;
 import com.umiwi.ui.beans.updatebeans.RecommendBean;
 import com.umiwi.ui.main.UmiwiApplication;
 
@@ -72,6 +71,7 @@ public class NewfreeAdapterV2 extends BaseAdapter {
 
         viewHolder.free_context_textview_1.setText(newFree.getTitle());
         viewHolder.free_time_textview_1.setText(newFree.getPlaytime());
+
         if (newFree.getType().equals("video")) {
             viewHolder.iv_audio.setImageResource(R.drawable.video_small);
         } else {
@@ -86,12 +86,13 @@ public class NewfreeAdapterV2 extends BaseAdapter {
 
         public TextView free_time_textview_1, free_context_textview_1;
         public ImageView iv_audio;
-
+        public View view_bottom_no;
         public ViewHolderV2(View rootView) {
             this.rootView = rootView;
             iv_audio = (ImageView) rootView.findViewById(R.id.iv_audio);
             free_time_textview_1 = (TextView) rootView.findViewById(R.id.free_time_textview_1);
             free_context_textview_1 = (TextView) rootView.findViewById(R.id.free_context_textview_1);
+            view_bottom_no = rootView.findViewById(R.id.view_bottom_no);
         }
     }
 }

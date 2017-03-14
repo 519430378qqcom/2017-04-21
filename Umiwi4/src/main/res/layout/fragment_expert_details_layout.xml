@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
-    <!--android:focusableInTouchMode="true"-->
-    <!--android:focusable="true"-->
+
     <LinearLayout
         android:id="@+id/yuedu"
         android:layout_width="match_parent"
@@ -172,7 +171,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="10dp"
-                    android:background="@color/Index_backg" />
+                    android:background="@color/color_divider_two" />
             </LinearLayout>
 
             <!--===================粘性头部布局==================-->

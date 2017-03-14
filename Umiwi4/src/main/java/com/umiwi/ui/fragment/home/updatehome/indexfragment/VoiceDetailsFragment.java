@@ -201,7 +201,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
 //        herfurl = getActivity().getIntent().getStringExtra(KEY_DETAILURL);
 //        herfurl = "http://i.v.youmi.cn/audioalbum/getApi?id=103";
         Log.e("TAG", "herfurl=" + herfurl);
-
+        UmiwiApplication.mainActivity.herfUrl = herfurl;
         //得到音频播放地址
         if (!TextUtils.isEmpty(herfurl)) {
             getInfos(herfurl);
@@ -430,6 +430,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
     private void initViews() {
         mListView = (ListView) rootView.findViewById(R.id.listView);
         mListView.setSelector(R.color.transparent);
+
         View mPlaceHolderView = getActivity().getLayoutInflater().inflate(
                 R.layout.view_header_placeholder, mListView, false);
         mListView.addHeaderView(mPlaceHolderView);
@@ -664,7 +665,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
             // 窗口显示前显示输入法软键盘
             showKeyBoard();
             // 显示输入窗口
-            mEditMenuWindow.showAtLocation(rootView, Gravity.CENTER, 0, 0);
+            mEditMenuWindow.showAtLocation(rootView, Gravity.CENTER,0 ,0 );
         }
     }
 

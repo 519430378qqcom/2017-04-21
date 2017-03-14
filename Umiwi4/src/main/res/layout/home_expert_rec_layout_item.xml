@@ -134,10 +134,10 @@
             android:layout_marginRight="15dp"
             android:background="#adadad" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="#adadad" />
+        <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1px"-->
+            <!--android:background="#adadad" />-->
 
     </LinearLayout>
 

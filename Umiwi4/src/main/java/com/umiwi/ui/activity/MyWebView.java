@@ -1,17 +1,13 @@
 package com.umiwi.ui.activity;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.umiwi.ui.R;
-
-import java.io.File;
 
 /**
  * 类描述： webview
@@ -66,6 +62,7 @@ public class MyWebView extends Activity {
         WebSettings webSettings = wvFolk.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setSupportZoom(true);
+        webSettings.setBuiltInZoomControls(false);
         webSettings.setBlockNetworkImage(false);
         webSettings.setLoadsImagesAutomatically(true);
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
@@ -73,6 +70,8 @@ public class MyWebView extends Activity {
         webSettings.setAllowContentAccess(true);
         webSettings.setDomStorageEnabled(true);
         webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);
+        webSettings.setUseWideViewPort(true);
+        webSettings.setLoadWithOverviewMode(true);
 
         webSettings.setDatabaseEnabled(true);
         webSettings.setDefaultTextEncodingName("utf-8");
