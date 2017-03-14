@@ -27,11 +27,13 @@ import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.CustomStringCallBack;
 import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.util.JsonUtil;
+import com.umiwi.ui.util.LoginUtil;
 import com.umiwi.video.recorder.MediaManager;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import cn.youmi.account.manager.UserManager;
 import cn.youmi.framework.http.AbstractRequest;
 import cn.youmi.framework.http.GetRequest;
 import cn.youmi.framework.http.parsers.GsonParser;
@@ -255,7 +257,12 @@ public class AnswerDetailsFragment extends BaseConstantFragment implements View.
                 break;
             case R.id.buttontag:
                 if (listentype.equals("1")){
-                    getOrderId(oid);
+                    //判断是否登录
+                    if (!UserManager.getInstance().isLogin()) {
+                        LoginUtil.getInstance().showLoginView(getActivity());
+                    } else {
+                        getOrderId(oid);
+                    }
                 }else{
                     getsorceInfos();
 

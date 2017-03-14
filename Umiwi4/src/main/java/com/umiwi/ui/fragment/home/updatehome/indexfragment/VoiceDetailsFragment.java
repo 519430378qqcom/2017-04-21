@@ -655,6 +655,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
     private EditText mEt_menu;
     private boolean mIsKeyboardOpened;// 软键盘是否显示
     private int mMenuOpenedHeight;// 编辑菜单打开时的高度
+
     // 点击底部发送按钮，关闭编辑窗口
     private void closeButtomSend() {
         mEditMenuWindow.dismiss();
@@ -672,7 +673,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
             // 窗口显示前显示输入法软键盘
             showKeyBoard();
             // 显示输入窗口
-            mEditMenuWindow.showAtLocation(rootView, Gravity.CENTER,0 ,0 );
+            mEditMenuWindow.showAtLocation(rootView, Gravity.CENTER, 0, 0);
         }
     }
 
@@ -803,8 +804,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                 VoicePlayBean.class, new AbstractRequest.Listener<VoicePlayBean>() {
             @Override
             public void onResult(AbstractRequest<VoicePlayBean> request, VoicePlayBean voicePlayBean) {
-                Log.e("ssb", "onResult: "+voicePlayBean.getR().getImage() );
-
+                Log.e("ssb", "onResult: " + voicePlayBean.getR().getImage());
 
 
                 infos = voicePlayBean.getR();
@@ -824,7 +824,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                             if (infos.getIspay()) {
                                 ll_voice_needpay.setVisibility(View.GONE);
                                 rl_voice_ispay.setVisibility(View.VISIBLE);
-                                Log.e("aaa",url);
+                                Log.e("aaa", url);
 
                                 getData(url);
                             } else {
@@ -837,7 +837,12 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                                 tv_needpay.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        getOrderId(infos.getId());
+                                        //判断是否登录
+                                        if (!YoumiRoomUserManager.getInstance().isLogin()) {
+                                            showLogin();
+                                        } else {
+                                            getOrderId(infos.getId());
+                                        }
 
                                     }
                                 });
@@ -874,7 +879,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                     }
                 }
 
-                mAdapter = new VoiceDetailsAdapter(getActivity(), audioFileList, infos,recordList, VoiceDetailsFragment.this);
+                mAdapter = new VoiceDetailsAdapter(getActivity(), audioFileList, infos, recordList, VoiceDetailsFragment.this);
                 mListView.setAdapter(mAdapter);
                 Log.e("TAG", "11111audioFileList=" + audioFileList);
                 Log.e("TAG", "1111111mAdapter=" + mAdapter);
@@ -1013,8 +1018,8 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
             public void onResult(AbstractRequest<AudioResourceBean> request, AudioResourceBean audioResourceBean) {
 
                 AudioResourceBean.RAudioRes r = audioResourceBean.getR();
-                 source = r.getSource();
-                if (source!=null){
+                source = r.getSource();
+                if (source != null) {
                     bindVoiceSerive();
                 }
 

@@ -11,18 +11,17 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
-import com.umiwi.ui.beans.UmiwiAddQuestionBeans;
 import com.umiwi.ui.beans.UmiwiBuyCreateOrderBeans;
 import com.umiwi.ui.beans.updatebeans.DelayAnswerVoiceBean;
 import com.umiwi.ui.beans.updatebeans.RecommendBean;
-import com.umiwi.ui.fragment.home.updatehome.indexfragment.AskQuestionFragment;
 import com.umiwi.ui.fragment.pay.PayingFragment;
 import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.main.UmiwiApplication;
+import com.umiwi.ui.managers.YoumiRoomUserManager;
+import com.umiwi.ui.util.LoginUtil;
 import com.umiwi.ui.view.CircleImageView;
 import com.umiwi.video.recorder.MediaManager;
 
@@ -101,7 +100,12 @@ public class ExpertAnswerDowndapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 if (listentype.equals("1")) {
-                    getOrderId(questionBean.getId());
+                    //添加登录判断
+                    if (!YoumiRoomUserManager.getInstance().isLogin()) {
+                        LoginUtil.getInstance().showLoginView(mActivity);
+                    } else {
+                        getOrderId(questionBean.getId());
+                    }
                 } else {
                     if (currentpos != -1) {
 //                   mCurrentVoiceListener.getCurrentView(currentpos);
