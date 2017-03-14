@@ -22,6 +22,10 @@ import com.umiwi.ui.main.CustomStringCallBack;
 import com.umiwi.ui.main.UmiwiAPI;
 import com.zhy.http.okhttp.OkHttpUtils;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -93,7 +97,7 @@ public class NewVideoFragment extends BaseConstantFragment {
             public void onSucess(String data) {
                 Log.e("MZX", "数据进行请求成功了--x-" + data);
 
-                VideoBean audioBean = new Gson().fromJson(data, VideoBean.class);
+                VideoBean audioBean =jsonData(data);
                 VideoBean.PageBean pagebean = audioBean.getPage();
 
                 if (audioBean.getPage().getCurrentpage() >= audioBean.getPage().getTotalpage()) {
@@ -128,5 +132,40 @@ public class NewVideoFragment extends BaseConstantFragment {
                 });
             }
         });
+    }
+
+    public VideoBean jsonData(String string) {
+        VideoBean v = new VideoBean();
+        List<VideoBean.RecordBean> listR = new ArrayList<>();
+        try {
+            JSONObject jsonObject = new JSONObject(string);
+            JSONArray jsonArray = jsonObject.getJSONArray("record");
+            for (int i = 0; i < jsonArray.length(); i++) {
+                VideoBean.RecordBean r = new VideoBean.RecordBean();
+                JSONObject object = jsonArray.getJSONObject(i);
+                r.setId(object.optString("id"));
+                r.setShortX(object.optString("short"));
+                r.setLimage(object.optString("limage"));
+                r.setWatchnum(object.optString("watchnum"));
+                r.setName(object.optString("name"));
+                r.setTutortitle(object.optString("tutortitle"));
+                r.setTime(object.optString("time"));
+                r.setPlaytime(object.optString("playtime"));
+                listR.add(r);
+            }
+            v.setRecord(listR);
+            Log.i("ldb", "__" + jsonArray.length());
+            JSONObject jsonObjectPage = jsonObject.getJSONObject("page");
+            VideoBean.PageBean page = new VideoBean.PageBean();
+
+            page.setCurrentpage(jsonObjectPage.optInt("currentpage"));
+            page.setRows(jsonObjectPage.optString("rows"));
+            page.setTotalpage(jsonObjectPage.optInt("totalpage"));
+            v.setPage(page);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return v;
     }
 }

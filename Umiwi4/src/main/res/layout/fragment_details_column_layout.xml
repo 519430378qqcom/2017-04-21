@@ -58,17 +58,17 @@
 
                         <TextView
                             android:id="@+id/tv_name"
-                            android:textColor="@color/white"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/white"
                             android:textSize="20sp" />
 
                         <TextView
                             android:id="@+id/tv_title"
-                            android:textColor="@color/white"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
+                            android:textColor="@color/white"
                             android:textSize="12sp" />
                     </LinearLayout>
 
@@ -80,16 +80,6 @@
                     android:layout_marginTop="20dp">
 
                     <TextView
-                        android:id="@+id/title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="10dp"
-                        android:text="关系攻略：残酷社会生存法则"
-                        android:textColor="@color/black"
-                        android:textSize="20sp" />
-
-                    <TextView
                         android:id="@+id/priceinfo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -98,6 +88,19 @@
                         android:layout_marginRight="10dp"
                         android:text="￥165/年"
                         android:textColor="@color/main_color" />
+
+                    <TextView
+                        android:id="@+id/title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_toLeftOf="@id/priceinfo"
+                        android:text="关系攻略：残酷社会生存法则残酷社会生存法则"
+                        android:textColor="@color/black"
+                        android:textSize="20sp" />
+
 
                 </RelativeLayout>
 

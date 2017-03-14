@@ -60,7 +60,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:text="大师傅大师傅大师傅大师傅大师傅大师傅大"
-                            android:textColor="@color/black_alpf" />
+                            android:textColor="@color/umiwi_black" />
 
                         <TextView
                             android:layout_toRightOf="@id/title"

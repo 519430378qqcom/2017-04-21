@@ -61,7 +61,7 @@
                 android:ellipsize="end"
                 android:singleLine="true"
                 android:text="破解时代破解时代破解时代asd"
-                android:textColor="@color/black_a8"
+                android:textColor="@color/umiwi_black"
                 android:textSize="16sp" />
 
             <TextView

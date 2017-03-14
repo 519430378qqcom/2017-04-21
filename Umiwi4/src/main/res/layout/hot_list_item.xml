@@ -49,17 +49,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="20dp"
                     android:layout_toLeftOf="@+id/tv_playtime"
-<<<<<<< HEAD
                     android:background="@drawable/tv_hot_list02"
                    android:paddingLeft="5dp"
                     android:paddingRight="5dp"
                     android:paddingBottom="2dp"
                     android:paddingTop="2dp"
-=======
-                    android:background="@drawable/tv_hot_list01"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
->>>>>>> d24fb10ce419f4a523d29ae00c29461d1470992d
                     android:text="创业"
                     android:textColor="@color/hot_list01"
                     android:textSize="11sp" />
@@ -113,15 +107,9 @@
 
     <View
         android:layout_width="match_parent"
-<<<<<<< HEAD
         android:layout_height="1px"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:background="#adadad" />
-=======
-        android:layout_height="0.5px"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@color/line"/>
->>>>>>> d24fb10ce419f4a523d29ae00c29461d1470992d
+
 </LinearLayout>
