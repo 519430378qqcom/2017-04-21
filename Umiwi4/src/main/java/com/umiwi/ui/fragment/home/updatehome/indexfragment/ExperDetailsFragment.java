@@ -2,6 +2,7 @@ package com.umiwi.ui.fragment.home.updatehome.indexfragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -128,7 +129,6 @@ public class ExperDetailsFragment extends BaseConstantFragment {
         View view = inflater.inflate(R.layout.fragment_expert_details_layout, null);
         uid = getActivity().getIntent().getStringExtra(ExperDetailsFragment.this.KEY_DEFAULT_TUTORUID);
         getInfo();
-
         initView(view);
         return view;
     }
@@ -222,6 +222,11 @@ public class ExperDetailsFragment extends BaseConstantFragment {
         scroll_view = (TopFloatScrollView) view.findViewById(R.id.scroll_view);
         tv_unfold.setOnClickListener(new UnfoldOnClickListener());
         iv_back.setOnClickListener(new BackOnClickListener());
+
+        scroll_view.setFocusable(true);
+        scroll_view.setFocusableInTouchMode(true);
+        scroll_view.requestFocus();
+
         scroll_view.registerOnScrollViewScrollToBottom(new TopFloatScrollView.OnScrollBottomListener() {
             @Override
             public void onLoading() {
@@ -241,11 +246,11 @@ public class ExperDetailsFragment extends BaseConstantFragment {
                     mListenerWenda.IswendaBottom();
                 } else if (position == 4) {
                     Log.e("onload", "评论");
-
                     mListenerComment.IsCommentBottom();
                 }
             }
         });
+
         initTabLayout();
 
     }
@@ -358,7 +363,16 @@ public class ExperDetailsFragment extends BaseConstantFragment {
         }
         transaction.commitAllowingStateLoss();
 
+        Handler handler = new Handler();
+        handler.postDelayed(runnable, 200);
     }
+
+    private Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            scroll_view.scrollTo(0, scroll_view.getScrollY());// 改变滚动条的位置
+        }
+    };
 
     public void hideFragments(FragmentTransaction ft) {
         if (detailsColumnFragment != null)
@@ -389,7 +403,6 @@ public class ExperDetailsFragment extends BaseConstantFragment {
     }
 
     class BackOnClickListener implements View.OnClickListener {
-
         @Override
         public void onClick(View view) {
             getActivity().finish();

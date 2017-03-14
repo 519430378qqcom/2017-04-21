@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="5dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="15dp">
 
         <ImageView
             android:id="@+id/iv_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:padding="12dp"
-            android:src="@drawable/video_item_play_bg"/>
+            android:src="@drawable/video_item_play_bg" />
 
 
         <LinearLayout
@@ -29,6 +28,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:gravity="center_vertical">
 
                 <TextView
@@ -37,11 +37,11 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_marginRight="30dp"
-                    android:textStyle="bold"
                     android:layout_toLeftOf="@+id/pricetag"
                     android:singleLine="true"
                     android:text="破解时代"
-                    android:textSize="16sp"/>
+                    android:textColor="@color/black_a8"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/pricetag"
@@ -49,11 +49,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="20dp"
                     android:layout_toLeftOf="@+id/tv_playtime"
-                    android:background="@drawable/tv_hot_list01"
-                    android:padding="5dp"
+                    android:background="@drawable/tv_hot_list02"
+                   android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingBottom="2dp"
+                    android:paddingTop="2dp"
                     android:text="创业"
                     android:textColor="@color/hot_list01"
-                    android:textSize="11sp"/>
+                    android:textSize="11sp" />
 
                 <TextView
                     android:id="@+id/tv_playtime"
@@ -62,7 +65,7 @@
                     android:layout_toLeftOf="@+id/tv_watchnum"
                     android:padding="5dp"
                     android:text="00:00:00"
-                    android:textSize="11sp"/>
+                    android:textSize="11sp" />
 
                 <TextView
                     android:id="@+id/tv_watchnum"
@@ -71,13 +74,14 @@
                     android:layout_alignParentRight="true"
                     android:padding="5dp"
                     android:text="播放1469"
-                    android:textSize="11sp"/>
+                    android:textSize="11sp" />
             </RelativeLayout>
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -85,7 +89,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="优米"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/tv_tutortitle"
@@ -94,7 +98,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="100dp"
                     android:singleLine="true"
-                    android:text="优米音频工作室"/>
+                    android:text="优米音频工作室" />
             </LinearLayout>
 
         </LinearLayout>
@@ -104,5 +108,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/line"/>
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="#adadad" />
 </LinearLayout>

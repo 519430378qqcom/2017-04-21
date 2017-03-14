@@ -7,7 +7,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/line" />
+        android:background="@color/Index_backg" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,9 +18,19 @@
             android:id="@+id/tv_all_catid1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
             android:text="全部"
             android:textColor="@color/main_color"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:text="|"
+            android:textColor="@color/Index_backg"
             android:textSize="16sp" />
 
         <com.umiwi.ui.view.FlowLayout
@@ -34,7 +44,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/line" />
+        android:background="@color/Index_backg" />
 
     <LinearLayout
         android:id="@+id/ll_catid2"
@@ -44,12 +54,21 @@
         android:visibility="gone">
 
         <TextView
+            android:layout_marginLeft="10dp"
             android:id="@+id/tv_all_catid2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="全部"
             android:textColor="@color/main_color"
+            android:textSize="16sp" />
+        <TextView
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="|"
+            android:textColor="@color/Index_backg"
             android:textSize="16sp" />
 
         <com.umiwi.ui.view.FlowLayout
@@ -63,7 +82,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/line" />
+        android:background="@color/Index_backg" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -74,11 +93,19 @@
             android:id="@+id/tv_all_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
             android:text="全部"
             android:textColor="@color/main_color"
             android:textSize="16sp" />
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:text="|"
+            android:textColor="@color/Index_backg"
+            android:textSize="16sp" />
         <com.umiwi.ui.view.FlowLayout
             android:id="@+id/flow_price"
             android:layout_width="match_parent"
@@ -89,8 +116,8 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:background="@color/line" />
+        android:layout_height="3dp"
+        android:background="@color/Index_backg" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -101,11 +128,19 @@
             android:id="@+id/tv_all_orderby"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
             android:text="最新"
             android:textColor="@color/main_color"
             android:textSize="16sp" />
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:text="|"
+            android:textColor="@color/Index_backg"
+            android:textSize="16sp" />
         <com.umiwi.ui.view.FlowLayout
             android:id="@+id/flow_orderby"
             android:layout_width="match_parent"
@@ -117,7 +152,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/line" />
+        android:background="@color/Index_backg" />
 
     <com.umiwi.ui.view.RefreshLayout
         android:id="@+id/refreshLayout"
@@ -125,6 +160,7 @@
         android:layout_height="match_parent">
 
         <ListView
+            android:divider="@null"
             android:id="@+id/listview"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

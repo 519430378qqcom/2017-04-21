@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,10 @@ import com.umiwi.ui.util.JsonUtil;
 import com.umiwi.ui.view.FlowLayout;
 import com.umiwi.ui.view.RefreshLayout;
 import com.zhy.http.okhttp.OkHttpUtils;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -380,7 +385,10 @@ public class HomeVideoFragment extends BaseConstantFragment {
 
             @Override
             public void onSucess(String data) {
-                VideoBean videoBean = JsonUtil.json2Bean(data, VideoBean.class);
+                Log.i("ldb", data);
+                VideoBean videoBean = jsonData(data);
+
+              //  VideoBean videoBean = JsonUtil.json2Bean(data, VideoBean.class);
                 totalpage = videoBean.getPage().getTotalpage();
                 if (isRefresh) {
                     refreshLayout.setRefreshing(false);
@@ -430,5 +438,41 @@ public class HomeVideoFragment extends BaseConstantFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+    }
+
+
+    public VideoBean jsonData(String string) {
+        VideoBean v = new VideoBean();
+        List<VideoBean.RecordBean> listR = new ArrayList<>();
+        try {
+            JSONObject jsonObject = new JSONObject(string);
+            JSONArray jsonArray = jsonObject.getJSONArray("record");
+            for (int i = 0; i < jsonArray.length(); i++) {
+                VideoBean.RecordBean r = new VideoBean.RecordBean();
+                JSONObject object = jsonArray.getJSONObject(i);
+                r.setId(object.optString("id"));
+                r.setShortX(object.optString("short"));
+                r.setLimage(object.optString("limage"));
+                r.setWatchnum(object.optString("watchnum"));
+                r.setName(object.optString("name"));
+                r.setTutortitle(object.optString("tutortitle"));
+                r.setTime(object.optString("time"));
+                r.setPlaytime(object.optString("playtime"));
+                listR.add(r);
+            }
+            v.setRecord(listR);
+            Log.i("ldb", "__" + jsonArray.length());
+            JSONObject jsonObjectPage = jsonObject.getJSONObject("page");
+            VideoBean.PageBean page = new VideoBean.PageBean();
+
+            page.setCurrentpage(jsonObjectPage.optInt("currentpage"));
+            page.setRows(jsonObjectPage.optString("rows"));
+            page.setTotalpage(jsonObjectPage.optInt("totalpage"));
+            v.setPage(page);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return v;
     }
 }

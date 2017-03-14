@@ -7,101 +7,129 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
-        <ImageView
-            android:id="@+id/voice_img"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_width="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/login_icon_default"
-            />
-           <LinearLayout
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:orientation="vertical"
-               >
-           <RelativeLayout
-               android:layout_marginTop="10dp"
-               android:layout_marginLeft="5dp"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content">
-               <TextView
+            android:orientation="horizontal">
 
-                   android:id="@+id/title"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:text="音频"
-                   android:layout_centerVertical="true"
-                   android:textColor="@color/black_alpf"
-                   />
-               <TextView
-                   android:visibility="gone"
-                   android:id="@+id/cat"
-                   android:layout_marginLeft="10dp"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:text="人际关系"
-                   android:textColor="@color/main_color"
-                   android:textSize="10sp"
-                   android:padding="2dp"
-                   android:background="@drawable/tv_corner"
-                   android:layout_centerVertical="true"
-                   android:layout_toRightOf="@id/title"
-                   />
-               <TextView
-                   android:id="@+id/price"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:text="29"
-                   android:textColor="@color/main_color"
-                   android:layout_alignParentRight="true"
-                   android:layout_centerVertical="true"
-                   android:layout_marginRight="10dp"
+            <ImageView
+                android:id="@+id/voice_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/default_voice" />
 
-                   />
-           </RelativeLayout>
-               <RelativeLayout
-                   android:paddingBottom="5dp"
-                   android:layout_marginLeft="10dp"
-                   android:layout_marginTop="10dp"
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content">
-                   <TextView
-                       android:id="@+id/playtime"
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:text="6"
-                       />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:id="@+id/price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:text="29"
+                        android:textColor="@color/main_color"
+
+                        />
+
+                    <RelativeLayout
+                        android:layout_marginRight="8dp"
+                        android:layout_toLeftOf="@id/price"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:maxWidth="200dp"
+                            android:layout_marginRight="10dp"
+                            android:ellipsize="end"
+                            android:singleLine="true"
+                            android:id="@+id/title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="大师傅大师傅大师傅大师傅大师傅大师傅大"
+                            android:textColor="@color/black_alpf" />
+
+                        <TextView
+                            android:layout_toRightOf="@id/title"
+                            android:id="@+id/cat"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/tv_corner"
+                            android:paddingBottom="3dp"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:paddingTop="3dp"
+                            android:text="人际关系"
+                            android:textColor="@color/main_color"
+                            android:textSize="10sp"
+                            android:visibility="visible" />
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:paddingBottom="5dp">
+
+                    <TextView
+                        android:id="@+id/playtime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="6" />
+
                     <TextView
                         android:id="@+id/dian"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="."
                         android:layout_toRightOf="@id/playtime"
+                        android:text="."
 
                         />
-                   <TextView
-                       android:id="@+id/watchnum"
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:text="6次"
-                       android:layout_toRightOf="@id/dian"
-                       />
+
+                    <TextView
+                        android:id="@+id/watchnum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/dian"
+                        android:text="6次" />
+
                     <TextView
                         android:id="@+id/process"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="已播放"
                         android:layout_alignParentRight="true"
-                        android:layout_marginRight="10dp"
-                        />
-               </RelativeLayout>
-           </LinearLayout>
+                        android:text="已播放" />
+                </RelativeLayout>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
 
     </LinearLayout>
 
-
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@color/bg_gray" />
 </LinearLayout>

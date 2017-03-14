@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Toast;
+
 import cn.youmi.account.event.UserEvent;
 import cn.youmi.framework.activity.FragmentContainerActivity;
 import cn.youmi.framework.dialog.MsgDialog;

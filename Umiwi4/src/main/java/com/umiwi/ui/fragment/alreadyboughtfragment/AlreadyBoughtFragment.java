@@ -61,10 +61,10 @@ public class AlreadyBoughtFragment extends BaseConstantFragment {
      */
     void initMenuTab(){
         // ViewPropertyAnimator.animate(tabRecommend).scaleX(1.1f).setDuration(0);
-        ViewPropertyAnimator.animate(abColumn).scaleX(1.3f).setDuration(0);
-        ViewPropertyAnimator.animate(abAudio).scaleX(1.3f).setDuration(0);
-        ViewPropertyAnimator.animate(abVideo).scaleX(1.3f).setDuration(0);
-        ViewPropertyAnimator.animate(abAskHear).scaleX(1.3f).setDuration(0);
+        ViewPropertyAnimator.animate(abColumn).scaleX(1.0f).setDuration(0);
+        ViewPropertyAnimator.animate(abAudio).scaleX(1.0f).setDuration(0);
+        ViewPropertyAnimator.animate(abVideo).scaleX(1.0f).setDuration(0);
+        ViewPropertyAnimator.animate(abAskHear).scaleX(1.0f).setDuration(0);
 
         fragments = new ArrayList<Fragment>();
 //        fragments.add(new ColumnFragment());
@@ -74,7 +74,7 @@ public class AlreadyBoughtFragment extends BaseConstantFragment {
         fragments.add(new AskHearFragment());
 
         line_width = getActivity().getWindowManager().getDefaultDisplay().getWidth()/fragments.size();
-        ab_line.getLayoutParams().width = line_width-10;
+        ab_line.getLayoutParams().width = line_width-80;
         ab_line.requestLayout();
         viewPager.setOffscreenPageLimit(3);
         viewPager.setAdapter(new FragmentStatePagerAdapter(getChildFragmentManager()) {
@@ -94,7 +94,7 @@ public class AlreadyBoughtFragment extends BaseConstantFragment {
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
                 float tagerX = position * line_width + positionOffsetPixels / fragments.size();
-                ViewPropertyAnimator.animate(ab_line).translationX(tagerX+4).setDuration(0);
+                ViewPropertyAnimator.animate(ab_line).translationX(tagerX+40).setDuration(0);
             }
 
             @Override

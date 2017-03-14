@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
-
+    <!--android:focusableInTouchMode="true"-->
+    <!--android:focusable="true"-->
     <LinearLayout
         android:id="@+id/yuedu"
         android:layout_width="match_parent"
@@ -87,12 +88,13 @@
                         android:src="@drawable/icon_umiwi" />
 
                     <ImageView
+                        android:padding="5dp"
                         android:id="@+id/iv_back"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="20dp"
-                        android:src="@drawable/black" />
+                        android:src="@drawable/black_back" />
 
                     <ImageView
                         android:id="@+id/iv_shared"
@@ -170,7 +172,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="10dp"
-                    android:background="@color/line" />
+                    android:background="@color/Index_backg" />
             </LinearLayout>
 
             <!--===================粘性头部布局==================-->

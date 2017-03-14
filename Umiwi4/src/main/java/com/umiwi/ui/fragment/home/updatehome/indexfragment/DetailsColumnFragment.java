@@ -76,7 +76,7 @@ public class DetailsColumnFragment extends BaseConstantFragment {
 
             }
         });
-
+        attentionListview.setFocusable(false);
         return view;
     }
 

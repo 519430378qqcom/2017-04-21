@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
- <RelativeLayout
-     android:layout_width="match_parent"
-     android:layout_height="match_parent">
- <com.umiwi.ui.view.NoScrollListview
-     android:id="@+id/noscroll_listview"
-     android:layout_height="match_parent"
-     android:layout_width="match_parent"
-     ></com.umiwi.ui.view.NoScrollListview>
- <TextView
-     android:id="@+id/no_data"
-     android:visibility="gone"
-     android:layout_width="wrap_content"
-     android:layout_height="wrap_content"
-     android:text="暂无数据..."
-     android:textColor="@color/main_color"
-     android:layout_centerInParent="true"
-     />
- </RelativeLayout>
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.umiwi.ui.view.NoScrollListview
+            android:id="@+id/noscroll_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></com.umiwi.ui.view.NoScrollListview>
+
+        <TextView
+            android:id="@+id/no_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="暂无数据..."
+            android:textColor="@color/main_color"
+            android:visibility="gone" />
+    </RelativeLayout>
 </LinearLayout>

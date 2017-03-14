@@ -4,11 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="15dp">
-
-    <com.umiwi.ui.view.AutoViewPager
+<!--com.umiwi.ui.view.AutoViewPager-->
+    <ImageView
+        android:scaleType="centerCrop"
         android:id="@+id/vp_bottom"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="150dp"
         android:gravity="center_horizontal" />
 
     <!--<com.umiwi.ui.view.CirclePageIndicator-->

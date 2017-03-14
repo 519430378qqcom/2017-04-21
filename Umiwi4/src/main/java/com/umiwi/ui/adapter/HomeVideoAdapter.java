@@ -63,8 +63,9 @@ public class HomeVideoAdapter extends BaseAdapter {
         Glide.with(context).load(mList.get(position).getLimage()).into(viewHolder.iv_author);
         viewHolder.tv_video_time.setText(mList.get(position).getPlaytime());
         viewHolder.tv_video_name.setText(mList.get(position).getShortX());
+        Log.i("ldb","--"+mList.get(position).getShortX());
         viewHolder.tv_video_detail.setText(mList.get(position).getTutortitle());
-        viewHolder.tv_playnum.setText("播放"+mList.get(position).getWatchnum());
+        viewHolder.tv_playnum.setText("播放 "+mList.get(position).getWatchnum());
         viewHolder.tv_playname.setText(mList.get(position).getTime());
 
         return convertView;

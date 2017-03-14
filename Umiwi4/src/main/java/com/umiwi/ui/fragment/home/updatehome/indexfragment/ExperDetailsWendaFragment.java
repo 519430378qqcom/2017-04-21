@@ -63,6 +63,7 @@ public class ExperDetailsWendaFragment extends BaseConstantFragment {
                 }
             }
         });
+        noscrollListview.setFocusable(false);
         handler = new Handler();
         getInfos();
         return view;
@@ -90,9 +91,9 @@ public class ExperDetailsWendaFragment extends BaseConstantFragment {
                                                     HomeAskBean.RAlHomeAnser r = homeAskBean.getR();
                                                     totalpage = r.getPage().getTotalpage();
                                                     ArrayList<HomeAskBean.RAlHomeAnser.Record> record = r.getRecord();
-                                                    if (record!=null&&record.size()>0){
+                                                    if (record != null && record.size() > 0) {
                                                         noData.setVisibility(View.GONE);
-                                                    }else{
+                                                    } else {
                                                         noData.setVisibility(View.VISIBLE);
                                                     }
                                                     wendaInfos.addAll(record);
@@ -105,14 +106,13 @@ public class ExperDetailsWendaFragment extends BaseConstantFragment {
                                     };
                                 }
                                 handler.postDelayed(runnable, 1000);
-
                             } else {
                                 HomeAskBean.RAlHomeAnser r = homeAskBean.getR();
                                 totalpage = r.getPage().getTotalpage();
                                 ArrayList<HomeAskBean.RAlHomeAnser.Record> record = r.getRecord();
-                                if (record!=null&&record.size()>0){
+                                if (record != null && record.size() > 0) {
                                     noData.setVisibility(View.GONE);
-                                }else{
+                                } else {
                                     noData.setVisibility(View.VISIBLE);
                                 }
                                 wendaInfos.addAll(record);

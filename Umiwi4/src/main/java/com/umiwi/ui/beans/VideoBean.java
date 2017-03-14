@@ -92,7 +92,6 @@ public class VideoBean {
          */
 
         private String id;
-        @SerializedName("short")
         private String shortX;
         private String limage;
         private String watchnum;

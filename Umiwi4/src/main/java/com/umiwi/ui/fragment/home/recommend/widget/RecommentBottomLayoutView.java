@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
@@ -16,12 +17,14 @@ import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.BottomLunboAdapter;
 import com.umiwi.ui.beans.updatebeans.RecommendBean;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.HotListFragment;
+import com.umiwi.ui.main.UmiwiApplication;
 import com.umiwi.ui.view.AutoViewPager;
 import com.umiwi.ui.view.CirclePageIndicator;
 
 import java.util.ArrayList;
 
 import cn.youmi.framework.util.DimensionUtil;
+import cn.youmi.framework.util.ImageLoader;
 
 /**
  * Created by jooper on 2017/3/1.
@@ -33,7 +36,7 @@ public class RecommentBottomLayoutView extends LinearLayout implements BottomLun
     private RelativeLayout rl_botton_root;
     private Context mContext;
     private BottomLunboAdapter bottomLunboAdapter;
-    private AutoViewPager mAutoViewPager;
+    private ImageView mAutoViewPager;
 //    private CirclePageIndicator indicator_bottom;
 
     public RecommentBottomLayoutView(Context context) {
@@ -53,7 +56,7 @@ public class RecommentBottomLayoutView extends LinearLayout implements BottomLun
                 .LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.item_recomment_bottom, this);
 
-        mAutoViewPager = (AutoViewPager) findViewById(R.id.vp_bottom);
+        mAutoViewPager = (ImageView) findViewById(R.id.vp_bottom);
 //        indicator_bottom = (CirclePageIndicator) findViewById(R.id.indicator_bottom);
         rl_botton_root = (RelativeLayout) findViewById(R.id.rl_botton_root);
 
@@ -64,21 +67,36 @@ public class RecommentBottomLayoutView extends LinearLayout implements BottomLun
         if (null == bottomBeen || bottomBeen.size() <= 0)
             return;
 
-        ViewGroup.LayoutParams para = mAutoViewPager.getLayoutParams();
-        para.width = DimensionUtil.getScreenWidth(activity);
-        para.height = (para.width * 300) / 640;
-        mAutoViewPager.setLayoutParams(para);
-        mAutoViewPager.setStopScrollWhenTouch(false);
+        ImageLoader mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
+        for (int i = 0; i < bottomBeen.size(); i++) {
+            mImageLoader.loadImage(bottomBeen.get(i).getImage(), mAutoViewPager, R.drawable.image_loader_big);
+        }
 
-        bottomLunboAdapter = new BottomLunboAdapter(mContext, bottomBeen);
-        mAutoViewPager.setAdapter(bottomLunboAdapter);
-        bottomLunboAdapter.setOnBottomLunboItemClickListener(this);
-//        indicator_bottom.setViewPager(mAutoViewPager);
+//        ViewGroup.LayoutParams para = mAutoViewPager.getLayoutParams();
+//        para.width = DimensionUtil.getScreenWidth(activity);
+//        para.height = (para.width * 300) / 640;
+//        mAutoViewPager.setLayoutParams(para);
+//        mAutoViewPager.setStopScrollWhenTouch(false);
+//
+//        bottomLunboAdapter = new BottomLunboAdapter(mContext, bottomBeen);
+//        mAutoViewPager.setAdapter(bottomLunboAdapter);
+//        bottomLunboAdapter.setOnBottomLunboItemClickListener(this);
+////        indicator_bottom.setViewPager(mAutoViewPager);
+//
+//        mAutoViewPager.setInterval(5000);
+//        mAutoViewPager.setSlideBorderMode(AutoViewPager.SLIDE_BORDER_MODE_CYCLE);
+//        mAutoViewPager.setAnimation(new AlphaAnimation(1, (float) 0.2));
+//        mAutoViewPager.startAutoScroll(5000);
 
-        mAutoViewPager.setInterval(5000);
-        mAutoViewPager.setSlideBorderMode(AutoViewPager.SLIDE_BORDER_MODE_CYCLE);
-        mAutoViewPager.setAnimation(new AlphaAnimation(1, (float) 0.2));
-        mAutoViewPager.startAutoScroll(5000);
+        mAutoViewPager.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
+                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, HotListFragment.class);
+//        intent.putExtra("id",experDetailsAlbumbean.getId());
+                mContext.startActivity(intent);
+            }
+        });
     }
 
     @Override
