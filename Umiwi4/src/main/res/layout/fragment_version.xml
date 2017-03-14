@@ -27,7 +27,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:text="@string/version_umiwi_introduce"
                 android:textColor="@color/umiwi_gray_6"
                 android:textSize="15sp"
@@ -67,7 +67,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20dp"
                 android:adjustViewBounds="true"
                 android:background="@drawable/quick_response_code_background" />
         </LinearLayout>

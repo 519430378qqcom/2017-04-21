@@ -193,16 +193,17 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
     private TextView tv_needpay;
     private RelativeLayout rl_voice_ispay;
     private VoicePlayBean.RAnserVoicePlay infos;
-
+    public static boolean isTry = true;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = getActivity();
         //获取的链接
         herfurl = getActivity().getIntent().getStringExtra(KEY_DETAILURL);
+        isTry = getActivity().getIntent().getBooleanExtra("isTry",false);
 //        herfurl = getActivity().getIntent().getStringExtra(KEY_DETAILURL);
 //        herfurl = "http://i.v.youmi.cn/audioalbum/getApi?id=103";
-        Log.e("TAG", "herfurl=" + herfurl);
+        Log.e("shang", "herfurl=" + herfurl+"------isTry="+isTry);
         UmiwiApplication.mainActivity.herfUrl = herfurl;
         //得到音频播放地址
         if (!TextUtils.isEmpty(herfurl)) {

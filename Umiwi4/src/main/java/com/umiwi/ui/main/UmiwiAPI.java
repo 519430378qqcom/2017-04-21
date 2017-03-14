@@ -392,8 +392,6 @@ public final class UmiwiAPI {
 
     // =================================已购相关=================================================//
 
-    public static final String COlUMN_LIST = "http://i.v.youmi.cn/tutorcolumn/buylist";
-
 
     // =================================新优米首页相关=================================================//
     public static final String CELEBRTYY_LIST = "http://i.v.youmi.cn/apireader/tutorList";
@@ -408,7 +406,7 @@ public final class UmiwiAPI {
     public static final String COMMIT_VOICE = "http://i.v.youmi.cn/question/answerApi";
 
     //未购专栏详情页
-    public static final String No_buy_column = "http://i.v.youmi.cn/api8//tutorcolumn/detailApi";
+        public static final String No_buy_column = "http://i.v.youmi.cn/api8//tutorcolumn/detailApi";
 
     //已购买
     public static final String Ask_Hear = "http://i.v.youmi.cn/api8/buyquestion";
@@ -469,6 +467,9 @@ public final class UmiwiAPI {
 
     //免费阅读拼接
     public static final String MIANFEI_YUEDU = "http://i.v.youmi.cn/audioalbum/getApi?id=%S";
+
+    //已购专栏
+    public static final String COlUMN_LIST = "http://i.v.youmi.cn/tutorcolumn/buylist?=p=%s&uid=%s";
 
 
     /////////////========================================优雅的分割线 历史接口=================================================////////////

@@ -20,13 +20,13 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:ellipsize="end"
-
         android:lines="1"
         android:text="怎样看待出国留学的价值"
         android:textColor="@color/umiwi_orange"
         android:textSize="16sp" />
 
     <TextView
+        android:id="@+id/try_play"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
@@ -36,7 +36,6 @@
         android:textSize="12sp" />
 
     <TextView
-
         android:id="@+id/tv_dir_totaltime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

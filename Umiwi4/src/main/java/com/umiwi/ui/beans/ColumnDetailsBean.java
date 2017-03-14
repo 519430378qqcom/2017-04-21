@@ -25,7 +25,8 @@ public class ColumnDetailsBean {
      * isbuy : false
      * priceinfo : ￥9.99/年
      * price : 9.99
-     * sharetitle : 优米专栏：韩小红·健康生活
+     * sharetitle :
+     * ：韩小红·健康生活
      * shareurl : http://i.v.youmi.cn/tutorcolumn/columndetails?id=3
      * sharecontent : 健康生活 共享你我他
      * shareimg : http://i1.umivi.net/v/image/tutorcolumn/20170224/0_54e15d2beb7e495e.jpg

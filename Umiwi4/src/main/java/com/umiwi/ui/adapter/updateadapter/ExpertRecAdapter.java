@@ -57,7 +57,7 @@ public class ExpertRecAdapter extends BaseAdapter {
 
         ViewHolder viewHolder;
         if (convertView == null) {
-            convertView = mLayoutInflater.inflate(R.layout.home_expert_rec_layout_item, null);
+            convertView = mLayoutInflater.inflate(R.layout.special_column_item, null);
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
         } else {
@@ -90,13 +90,13 @@ public class ExpertRecAdapter extends BaseAdapter {
 
         public ViewHolder(View convertView) {
             this.rootView = convertView;
-            expert_price = (TextView) rootView.findViewById(R.id.expert_price);
-            expert_header_imageview = (ImageView) rootView.findViewById(R.id.expert_header_imageview);
-            expert_name_textView_1 = (TextView) rootView.findViewById(R.id.expert_name_textView_1);
-            expert_context_1 = (TextView) rootView.findViewById(R.id.expert_context_1);
+            expert_price = (TextView) rootView.findViewById(R.id.special_price_1);
+            expert_header_imageview = (ImageView) rootView.findViewById(R.id.special_header_imageview_1);
+            expert_name_textView_1 = (TextView) rootView.findViewById(R.id.special_name_textView_1);
+            expert_context_1 = (TextView) rootView.findViewById(R.id.special_context_1);
             expter_time_textView = (TextView) rootView.findViewById(R.id.expter_time_textView);
             expter_detail_textView = (TextView) rootView.findViewById(R.id.expter_detail_textView);
-            expert_subscribe_number = (TextView) rootView.findViewById(R.id.expert_subscribe_number);
+            expert_subscribe_number = (TextView) rootView.findViewById(R.id.special_subscribe_number_1);
             isBuy = false;
             uid = "";
         }

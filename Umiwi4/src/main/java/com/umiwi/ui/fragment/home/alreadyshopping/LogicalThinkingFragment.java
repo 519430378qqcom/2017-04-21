@@ -76,6 +76,7 @@ public class LogicalThinkingFragment extends BaseConstantFragment {
                 Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
                 intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
                 intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL, String.format(UmiwiAPI.MIANFEI_YUEDU, thinkingBeanList.get(position).getId()));
+                intent.putExtra("isTry", true);
                 getActivity().startActivity(intent);
             }
         });

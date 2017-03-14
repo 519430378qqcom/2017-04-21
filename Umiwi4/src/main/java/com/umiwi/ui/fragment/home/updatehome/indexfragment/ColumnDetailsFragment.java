@@ -25,7 +25,9 @@ import com.umiwi.ui.fragment.pay.PayingFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.CustomStringCallBack;
 import com.umiwi.ui.main.UmiwiAPI;
+import com.umiwi.ui.managers.YoumiRoomUserManager;
 import com.umiwi.ui.util.JsonUtil;
+import com.umiwi.ui.util.LoginUtil;
 import com.umiwi.ui.view.NoScrollListview;
 import com.zhy.http.okhttp.OkHttpUtils;
 
@@ -159,6 +161,10 @@ public class ColumnDetailsFragment extends BaseConstantFragment {
                     tv_prize.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            if (!YoumiRoomUserManager.getInstance().isLogin()) {
+                                LoginUtil.getInstance().showLoginView(getActivity());
+                                return;
+                            }
                             getSubscriber(columnDetailsBean.getId());
                         }
                     });

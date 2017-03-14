@@ -1,6 +1,7 @@
 package com.umiwi.ui.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,12 +10,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.umiwi.ui.R;
+import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.updateadapter.ExpertAnswerDowndapter;
+import com.umiwi.ui.beans.updatebeans.AlreadyAskBean;
 import com.umiwi.ui.beans.updatebeans.RecommendBean;
+import com.umiwi.ui.fragment.home.alreadyshopping.AnswerDetailsFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.UmiwiAPI;
 
@@ -89,6 +94,33 @@ public class ExpertQuestAnswerFragment extends BaseConstantFragment {
         if (questionBeen != null) {
             mExpertADAdapter = new ExpertAnswerDowndapter(mContext, questionBeen);
             listView.setAdapter(mExpertADAdapter);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    RecommendBean.RBean.QuestionBean question = questionBeen.get(i);
+                    String title = question.getTitle();
+                    String buttontag = question.getButtontag();
+                    String tavatar = question.getTavatar();
+                    String playtime = question.getPlaytime();
+                    String answertime = question.getAnswertime();
+                    String listennum = question.getListennum();
+                    String goodnum = question.getGoodnum();
+                    String id = question.getId();
+                    String tuid = question.getTuid();
+                    Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
+                    intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, AnswerDetailsFragment.class);
+                    intent.putExtra("title",title);
+                    intent.putExtra("buttontag",buttontag);
+                    intent.putExtra("tavatar",tavatar);
+                    intent.putExtra("playtime",playtime);
+                    intent.putExtra("answertime",answertime);
+                    intent.putExtra("listennum",listennum);
+                    intent.putExtra("goodnum",goodnum);
+                    intent.putExtra("uid",tuid);
+                    intent.putExtra("id",id);
+                    startActivity(intent);
+                }
+            });
         }
     }
 

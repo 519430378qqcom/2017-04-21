@@ -9,13 +9,11 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.text.Layout;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -193,22 +191,39 @@ public class ExperDetailsFragment extends BaseConstantFragment {
                 mImageLoader.loadImage(tutorimage, head);
                 ExperDetailsBean.ResultBean resultUrl = experDetailsBean.getResult();
                 if (resultUrl != null) {
+//            mTitleList.add("视频");
+//            mTitleList.add("问答");
+//            mTitleList.add("评论");
                     //专栏
                     albumurl = resultUrl.getAlbumurl();
                     Log.e("TAG", "albumurl=" + albumurl);
                     //音频
                     audioalbumurl = resultUrl.getAudioalbumurl();
                     Log.e("TAG", "albumurl=" + audioalbumurl);
-                    //问答数据
-                    questionurl = resultUrl.getQuestionurl();
-                    Log.e("TAG", "albumurl=" + questionurl);
                     //视频
                     tcolumnurl = resultUrl.getTcolumnurl();
                     Log.e("TAG", "albumurl=" + tcolumnurl);
+                    //问答数据
+                    questionurl = resultUrl.getQuestionurl();
+                    Log.e("TAG", "albumurl=" + questionurl);
                     //评论
                     threadurl = resultUrl.getThreadurl();
                     Log.e("TAG", "albumurl=" + threadurl);
-
+//                    if (!TextUtils.isEmpty(albumurl)){
+//                        mTitleList.add("专栏");
+//                    }
+//                    if (!TextUtils.isEmpty(audioalbumurl)){
+//                        mTitleList.add("音频");
+//                    }
+//                    if (!TextUtils.isEmpty(tcolumnurl)){
+//                        mTitleList.add("视频");
+//                    }
+//                    if (!TextUtils.isEmpty(questionurl)){
+//                        mTitleList.add("问答");
+//                    }
+//                    if (!TextUtils.isEmpty(tcolumnurl)){
+//                        mTitleList.add("评论");
+//                    }
                     cutTheme(0);
 
                 }
@@ -312,6 +327,29 @@ public class ExperDetailsFragment extends BaseConstantFragment {
         //设置tab模式，当前为系统默认模式
         tabsOrder.setTabMode(TabLayout.MODE_SCROLLABLE);
         //添加tab选项卡
+//        if (mTitleList.size() == 5){
+//            tabsOrder.addTab(tabsOrder.newTab().setText(mTitleList.get(0)));
+//            tabsOrder.addTab(tabsOrder.newTab().setText(mTitleList.get(1)));
+//            tabsOrder.addTab(tabsOrder.newTab().setText(mTitleList.get(2)));
+//            tabsOrder.addTab(tabsOrder.newTab().setText(mTitleList.get(3)));
+//            tabsOrder.addTab(tabsOrder.newTab().setText(mTitleList.get(4)));
+//        }else if(mTitleList.size() == 4){
+//            tabsOrder.addTab(tabsOrder.newTab().setText(mTitleList.get(0)));
+//            tabsOrder.addTab(tabsOrder.newTab().setText(mTitleList.get(1)));
+//            tabsOrder.addTab(tabsOrder.newTab().setText(mTitleList.get(2)));
+//            tabsOrder.addTab(tabsOrder.newTab().setText(mTitleList.get(3)));
+//        }else if(mTitleList.size() == 3){
+//            tabsOrder.addTab(tabsOrder.newTab().setText(mTitleList.get(0)));
+//            tabsOrder.addTab(tabsOrder.newTab().setText(mTitleList.get(1)));
+//            tabsOrder.addTab(tabsOrder.newTab().setText(mTitleList.get(2)));
+//        }else if(mTitleList.size() == 2){
+//            tabsOrder.addTab(tabsOrder.newTab().setText(mTitleList.get(0)));
+//            tabsOrder.addTab(tabsOrder.newTab().setText(mTitleList.get(1)));
+//        }else if(mTitleList.size() == 1){
+//            tabsOrder.addTab(tabsOrder.newTab().setText(mTitleList.get(0)));
+//        }
+
+
         tabsOrder.addTab(tabsOrder.newTab().setText(mTitleList.get(0)));
         tabsOrder.addTab(tabsOrder.newTab().setText(mTitleList.get(1)));
         tabsOrder.addTab(tabsOrder.newTab().setText(mTitleList.get(2)));
@@ -321,6 +359,17 @@ public class ExperDetailsFragment extends BaseConstantFragment {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 int position = tab.getPosition();
+//                    if(mTitleList.get(position).equals("专栏")){
+//                        cutTheme(0);
+//                    }else if (mTitleList.get(position).equals("音频")){
+//                        cutTheme(1);
+//                    }else if (mTitleList.get(position).equals("视频")){
+//                        cutTheme(2);
+//                    }else if (mTitleList.get(position).equals("问答")){
+//                        cutTheme(3);
+//                    }else if (mTitleList.get(position).equals("评论")){
+//                        cutTheme(4);
+//                    }
                 cutTheme(position);
             }
 

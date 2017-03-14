@@ -42,6 +42,8 @@ public class BuyCoumnFragment extends BaseConstantFragment {
     private ListViewScrollLoader mScrollLoader;
     private BuyColumnAdapter buyColumnAdapter;
 
+//    private int page = 1;
+//    private int totalpage = 1;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -88,6 +90,7 @@ public class BuyCoumnFragment extends BaseConstantFragment {
     @Override
     public void onLoadData(int page) {
         String url = UmiwiAPI.TUTORCOLUMN+page;
+//        String url = String.format(UmiwiAPI.COlUMN_LIST,page, "uid");
 
         Log.e("TAG",url);
         OkHttpUtils.get().url(url).build().execute(new CustomStringCallBack() {

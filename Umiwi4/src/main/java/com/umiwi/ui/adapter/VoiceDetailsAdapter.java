@@ -243,6 +243,12 @@ public class VoiceDetailsAdapter extends BaseAdapter {
         VoicePlayBean.RAnserVoicePlay.RDudiao bean = audioFileList.get(index);
         TextView tv_dir_title = (TextView) view.findViewById(R.id.tv_dir_title);
         TextView tv_dir_totaltime = (TextView) view.findViewById(R.id.tv_dir_totaltime);
+        TextView try_play = (TextView) view.findViewById(R.id.try_play);
+        if (VoiceDetailsFragment.isTry){
+            try_play.setVisibility(View.VISIBLE);
+        }else {
+            try_play.setVisibility(View.INVISIBLE);
+        }
         tv_dir_title.setText(bean.getAtitle());
         tv_dir_totaltime.setText(bean.getAplaytime());
 

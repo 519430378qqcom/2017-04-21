@@ -22,7 +22,9 @@ import com.umiwi.ui.fragment.pay.PayingFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.CustomStringCallBack;
 import com.umiwi.ui.main.UmiwiAPI;
+import com.umiwi.ui.managers.YoumiRoomUserManager;
 import com.umiwi.ui.util.JsonUtil;
+import com.umiwi.ui.util.LoginUtil;
 import com.umiwi.ui.view.NoScrollListview;
 import com.zhy.http.okhttp.OkHttpUtils;
 
@@ -33,6 +35,7 @@ import butterknife.InjectView;
 import cn.youmi.framework.http.AbstractRequest;
 import cn.youmi.framework.http.GetRequest;
 import cn.youmi.framework.http.parsers.GsonParser;
+import cn.youmi.framework.util.ToastU;
 
 /**
  * 详情专栏
@@ -105,9 +108,20 @@ public class DetailsColumnFragment extends BaseConstantFragment {
                             ExperDetailsFragment.subscriber.setEnabled(true);
                             ExperDetailsFragment.subscriber.setText(String.format("订阅:  %s元/年", experDetailsAlbumbean.getPrice()));
                         }
+
+
+
                         ExperDetailsFragment.subscriber.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
+                                if (TextUtils.isEmpty(experDetailsAlbumbean.getId())){
+                                    ToastU.showShort(getActivity(),"行家Id不存在");
+                                    return;
+                                }
+                                if (!YoumiRoomUserManager.getInstance().isLogin()) {
+                                    LoginUtil.getInstance().showLoginView(getActivity());
+                                    return;
+                                }
                                 getSubscriber(id);
                             }
                         });
@@ -115,6 +129,10 @@ public class DetailsColumnFragment extends BaseConstantFragment {
                         ExperDetailsFragment.free_read.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
+                                if (TextUtils.isEmpty(experDetailsAlbumbean.getId())){
+                                    ToastU.showShort(getActivity(),"行家Id不存在");
+                                    return;
+                                }
                                 Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
                                 intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, LogicalThinkingFragment.class);
                                 intent.putExtra("id", experDetailsAlbumbean.getId());
