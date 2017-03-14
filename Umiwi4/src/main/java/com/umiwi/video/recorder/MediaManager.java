@@ -10,20 +10,25 @@ import java.io.IOException;
  */
 public class MediaManager {
 
-    public static MediaPlayer mediaPlayer;
+    public static MediaPlayer mediaPlayer   = new MediaPlayer();
     public static boolean isPause;
 
     public static void playSound(String filePath, MediaPlayer.OnCompletionListener onCompletionListener) {
 
         if (mediaPlayer == null) {
-            mediaPlayer = new MediaPlayer();
-            mediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
-                @Override
-                public boolean onError(MediaPlayer mediaPlayer, int i, int i1) {
-                    mediaPlayer.reset();
-                    return false;
+            synchronized (MediaManager.class){
+                if (mediaPlayer == null){
+                    mediaPlayer = new MediaPlayer();
+                    mediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+                        @Override
+                        public boolean onError(MediaPlayer mediaPlayer, int i, int i1) {
+                            mediaPlayer.reset();
+                            return false;
+                        }
+                    });
                 }
-            });
+            }
+
         } else {
             mediaPlayer.reset();
         }

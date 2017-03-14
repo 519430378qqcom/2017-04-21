@@ -19,6 +19,8 @@ import com.umiwi.ui.util.ManifestUtils;
 import com.umiwi.video.application.Settings;
 import com.umiwi.video.services.VoiceService;
 
+import org.xutils.x;
+
 import cn.youmi.account.manager.UserManager;
 import cn.youmi.framework.main.BaseApplication;
 import cn.youmi.framework.main.ConstantProvider;
@@ -79,7 +81,7 @@ public class UmiwiApplication extends BaseApplication implements ServiceConnecti
         super.onCreate();
         umiwiApplication = this;
         ConstantProvider.setInstance(YoumiConstantProvider.getInstance());
-
+        x.Ext.init(this);
         sContext = getApplicationContext();
 //        bindservice();
 

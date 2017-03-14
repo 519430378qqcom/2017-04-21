@@ -405,7 +405,7 @@ public final class UmiwiAPI {
     //我的—回答（已回答，待回答）
     public static final String Mine_Answer = "http://i.v.youmi.cn/api8/myquestion?p=%s&answerstate=%s";
     //提交音频
-    public static final String COMMIT_VOICE = "http://i.v.youmi.cn/document/showdoclist1#questioncontroller6";
+    public static final String COMMIT_VOICE = "http://i.v.youmi.cn/question/answerApi";
 
     //未购专栏详情页
     public static final String No_buy_column = "http://i.v.youmi.cn/api8//tutorcolumn/detailApi";
@@ -431,6 +431,8 @@ public final class UmiwiAPI {
     public static final String ADD_QUESTIONA = "http://i.v.youmi.cn/question/addApi?tutoruid=%s&title=%s";
     //提问问题生成订单
     public static final String CREATE_QUESTIN_ORDERID = "http://i.v.youmi.cn/orders/buyquestion?format=%s&qid=%s";
+    //付费音频生成订单
+    public static final String CREATE_BUYAUDIO = "http://i.v.youmi.cn/orders/buyaudio?format=%s&id=%s&spm=%s";
     //专栏购买生成订单
     public static final String CREATE_SUBSCRIBER_ORDERID = "http://i.v.youmi.cn/orders/buycolumn?format=%s&id=%s";
     //热播榜
