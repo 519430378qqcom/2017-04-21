@@ -72,7 +72,8 @@
         android:background="#adadad" />
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="50dp"
+        android:background="@color/white">
 
         <LinearLayout
             android:background="@color/white"

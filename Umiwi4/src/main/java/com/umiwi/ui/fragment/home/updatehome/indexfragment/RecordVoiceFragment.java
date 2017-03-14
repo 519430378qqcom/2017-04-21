@@ -18,9 +18,15 @@ import com.umiwi.ui.beans.updatebeans.CommitVoiceBean;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.main.UmiwiApplication;
+import com.umiwi.ui.managers.YoumiRoomUserManager;
 import com.umiwi.ui.view.CircleImageView;
 import com.umiwi.video.recorder.AudioManager;
 import com.umiwi.video.recorder.MediaManager;
+
+import org.xutils.common.Callback;
+import org.xutils.ex.HttpException;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -30,6 +36,7 @@ import java.util.TimerTask;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import cn.youmi.framework.http.AbstractRequest;
+import cn.youmi.framework.http.CookieDao;
 import cn.youmi.framework.http.PostRequest;
 import cn.youmi.framework.http.parsers.GsonParser;
 import cn.youmi.framework.util.ImageLoader;
@@ -166,7 +173,6 @@ public class RecordVoiceFragment extends BaseConstantFragment implements View.On
                 if (isRecord == true) { //录音完成
                     timer.cancel();
                     timer.purge();
-                    timer = null;
                     anew.setVisibility(View.VISIBLE);
                     commit.setVisibility(View.VISIBLE);
                     palyPuase.setImageResource(R.drawable.pause_player);
@@ -190,7 +196,7 @@ public class RecordVoiceFragment extends BaseConstantFragment implements View.On
                     }
                     MediaManager.playSound(audioManager.getCurrentFilePath(), new MediaPlayer.OnCompletionListener() {
                         @Override
-                        public void onCompletion(MediaPlayer mediaPlayer) {
+                            public void onCompletion(MediaPlayer mediaPlayer) {
 
                         }
                     });
@@ -223,12 +229,55 @@ public class RecordVoiceFragment extends BaseConstantFragment implements View.On
             String path = encodeBase64File(audioManager.getCurrentFilePath());
             PostRequest<CommitVoiceBean> prequest = new PostRequest<CommitVoiceBean>(UmiwiAPI.COMMIT_VOICE, GsonParser.class, CommitVoiceBean.class, pushListener);
             prequest.addParam("qid", id);
-            prequest.addParam("content", path);
+            //prequest.addParam("content",new File(audioManager.getCurrentFilePath()));
+          //  Log.i("ldb","---"+ CookieDao.getInstance(getActivity()).getUid());
             prequest.addParam("playtime", recLen + "");
+            prequest.addFile("content",audioManager.getCurrentFilePath());
             prequest.go();
+
+            //uploadFile(UmiwiAPI.COMMIT_VOICE, CookieDao.getInstance(getActivity()).getUid(), new File(audioManager.getCurrentFilePath()), recLen);
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+    }
+
+    void uploadFile(String url,String id,File  file,int recLen){
+
+        RequestParams params = new RequestParams(url);
+        params.addBodyParameter("qid", id);
+        params.addBodyParameter("content",file);
+        params.addBodyParameter("playtime", recLen + "");
+
+
+
+        x.http().post(params,
+                new Callback.CommonCallback<String>() {
+
+
+                    @Override
+                    public void onSuccess(String result) {
+                        Toast.makeText(getActivity(), "........"+result, Toast.LENGTH_SHORT).show();
+                        Log.i("ldb",".."+result);
+                    }
+
+                    @Override
+                    public void onError(Throwable ex, boolean isOnCallback) {
+                        Toast.makeText(getActivity(), ".......fail.", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onCancelled(CancelledException cex) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
 
     }
 
@@ -243,6 +292,7 @@ public class RecordVoiceFragment extends BaseConstantFragment implements View.On
         public void onError(AbstractRequest<CommitVoiceBean> requet, int statusCode, String body) {
             Log.e("request", requet.toString());
             Log.e("request", body);
+            Toast.makeText(getActivity(), ".......fail.", Toast.LENGTH_SHORT).show();
 
 
         }

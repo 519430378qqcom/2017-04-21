@@ -110,19 +110,19 @@ public class ExpertAnswerDowndapter extends BaseAdapter {
                         if (currentpos == position) {
                             if (MediaManager.mediaPlayer.isPlaying()) {
                                 MediaManager.pause();
-                                mViewHolder.tv_time_limit_hear.setText(questionBean.getButtontag());
+                                mViewHolder.tv_time_limit_hear.setText("立即听");
                                 Log.e("ISPALY", "PAUSE");
                             } else {
                                 MediaManager.resume();
                                 Log.e("ISPALY", "resume");
                                 mList.get(position).setButtontag("正在播放");
                                 notifyDataSetChanged();
-
                             }
+
                             MediaManager.mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                                 @Override
                                 public void onCompletion(MediaPlayer mediaPlayer) {
-                                    mViewHolder.tv_time_limit_hear.setText(questionBean.getButtontag());
+                                    mViewHolder.tv_time_limit_hear.setText("立即听");
 
                                 }
                             });
@@ -158,7 +158,7 @@ public class ExpertAnswerDowndapter extends BaseAdapter {
     }
 
     private void getsorceInfos(String playsource, final TextView tv_time_limit_hear, final String buttontag) {
-        cn.youmi.framework.http.GetRequest<DelayAnswerVoiceBean> request = new cn.youmi.framework.http.GetRequest<DelayAnswerVoiceBean>(
+        GetRequest<DelayAnswerVoiceBean> request = new GetRequest<DelayAnswerVoiceBean>(
                 playsource, GsonParser.class,
                 DelayAnswerVoiceBean.class,
                 new AbstractRequest.Listener<DelayAnswerVoiceBean>() {
@@ -170,7 +170,7 @@ public class ExpertAnswerDowndapter extends BaseAdapter {
                         MediaManager.playSound(source, new MediaPlayer.OnCompletionListener() {
                             @Override
                             public void onCompletion(MediaPlayer mediaPlayer) {
-                                tv_time_limit_hear.setText(buttontag);
+                                tv_time_limit_hear.setText("立即听");
 
                             }
                         });
@@ -179,6 +179,7 @@ public class ExpertAnswerDowndapter extends BaseAdapter {
 
                         }
                     }
+
 
                     @Override
                     public void onError(AbstractRequest<DelayAnswerVoiceBean> requet, int statusCode, String body) {

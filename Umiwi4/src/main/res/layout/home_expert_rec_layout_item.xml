@@ -112,7 +112,11 @@
                         android:id="@+id/expter_detail_textView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+<<<<<<< HEAD
                         android:layout_marginTop="5dp"
+=======
+                        android:layout_marginTop="9dp"
+>>>>>>> e0248dcc27e196c3b4a861385b482e937cc39a7d
                         android:ellipsize="end"
                         android:singleLine="true"
                         android:text="飞在互联网的猪"

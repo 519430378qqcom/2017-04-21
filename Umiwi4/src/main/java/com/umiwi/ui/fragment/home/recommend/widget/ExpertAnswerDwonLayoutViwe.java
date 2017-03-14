@@ -19,9 +19,11 @@ import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.updateadapter.ExpertAnswerDowndapter;
 import com.umiwi.ui.beans.updatebeans.RecommendBean;
 import com.umiwi.ui.fragment.home.alreadyshopping.AnswerDetailsFragment;
-import com.umiwi.ui.managers.YoumiRoomUserManager;
+import com.umiwi.ui.fragment.home.updatehome.indexfragment.FastQuizFragment;
 
 import java.util.ArrayList;
+
+import cn.youmi.framework.util.ToastU;
 
 /**
  * 首页-推荐-行家回答
@@ -67,15 +69,15 @@ public class ExpertAnswerDwonLayoutViwe extends LinearLayout {
                 String tuid = question.getTuid();
                 Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
                 intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, AnswerDetailsFragment.class);
-                intent.putExtra("title",title);
-                intent.putExtra("buttontag",buttontag);
-                intent.putExtra("tavatar",tavatar);
-                intent.putExtra("playtime",playtime);
-                intent.putExtra("answertime",answertime);
-                intent.putExtra("listennum",listennum);
-                intent.putExtra("goodnum",goodnum);
-                intent.putExtra("id",id);
-                intent.putExtra("uid",tuid);
+                intent.putExtra("title", title);
+                intent.putExtra("buttontag", buttontag);
+                intent.putExtra("tavatar", tavatar);
+                intent.putExtra("playtime", playtime);
+                intent.putExtra("answertime", answertime);
+                intent.putExtra("listennum", listennum);
+                intent.putExtra("goodnum", goodnum);
+                intent.putExtra("id", id);
+                intent.putExtra("uid", tuid);
                 mContext.startActivity(intent);
             }
         });
@@ -99,7 +101,9 @@ public class ExpertAnswerDwonLayoutViwe extends LinearLayout {
         tv_expert_answer_fask_ask.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
+                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, FastQuizFragment.class);
+                mContext.startActivity(intent);
             }
         });
     }

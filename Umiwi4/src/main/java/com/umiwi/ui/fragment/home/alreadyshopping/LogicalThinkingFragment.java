@@ -75,7 +75,7 @@ public class LogicalThinkingFragment extends BaseConstantFragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
                 intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
-                intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL, url);
+                intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL, String.format(UmiwiAPI.MIANFEI_YUEDU, thinkingBeanList.get(position).getId()));
                 getActivity().startActivity(intent);
             }
         });
@@ -108,7 +108,6 @@ public class LogicalThinkingFragment extends BaseConstantFragment {
 
             @Override
             public void onSucess(String data) {
-                Log.e("免费阅读返回数据", data);
                 thinkingBeanList.clear();
                 LogincalThinkingBean thinkingBean = JsonUtil.json2Bean(data, LogincalThinkingBean.class);
                 update_count.setText(String.format("已更新%s条", thinkingBean.getRecord().size()));

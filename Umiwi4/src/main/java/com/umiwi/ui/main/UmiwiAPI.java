@@ -405,7 +405,7 @@ public final class UmiwiAPI {
     //我的—回答（已回答，待回答）
     public static final String Mine_Answer = "http://i.v.youmi.cn/api8/myquestion?p=%s&answerstate=%s";
     //提交音频
-    public static final String COMMIT_VOICE = "http://i.v.youmi.cn/document/showdoclist1#questioncontroller6";
+    public static final String COMMIT_VOICE = "http://i.v.youmi.cn/question/answerApi";
 
     //未购专栏详情页
     public static final String No_buy_column = "http://i.v.youmi.cn/api8//tutorcolumn/detailApi";
@@ -414,6 +414,7 @@ public final class UmiwiAPI {
     public static final String Ask_Hear = "http://i.v.youmi.cn/api8/buyquestion";
     //已购-视频
     public static final String ALREADY_VIDEO = "http://i.v.youmi.cn/api8/buyvideolist";
+
     public static final String ALREADY_VOICE = "http://i.v.youmi.cn/audioalbum/buylist";
 
     public static final String Hear_url = "http://i.v.youmi.cn/api8/questionlisten";
@@ -430,6 +431,8 @@ public final class UmiwiAPI {
     public static final String ADD_QUESTIONA = "http://i.v.youmi.cn/question/addApi?tutoruid=%s&title=%s";
     //提问问题生成订单
     public static final String CREATE_QUESTIN_ORDERID = "http://i.v.youmi.cn/orders/buyquestion?format=%s&qid=%s";
+    //付费音频生成订单
+    public static final String CREATE_BUYAUDIO = "http://i.v.youmi.cn/orders/buyaudio?format=%s&id=%s&spm=%s";
     //专栏购买生成订单
     public static final String CREATE_SUBSCRIBER_ORDERID = "http://i.v.youmi.cn/orders/buycolumn?format=%s&id=%s";
     //热播榜
@@ -461,6 +464,11 @@ public final class UmiwiAPI {
 
     //一元听获取orderid
     public static final String yiyuan_listener = "http://i.v.youmi.cn/orders/buylisten?qid=%s&format=%s";
+    //快速问答
+    public static final String FAST_QUIZ = "http://i.v.youmi.cn/tutor/askListApi?tagname=%s&p=%s";
+
+    //免费阅读拼接
+    public static final String MIANFEI_YUEDU = "http://i.v.youmi.cn/audioalbum/getApi?id=%S";
 
 
     /////////////========================================优雅的分割线 历史接口=================================================////////////

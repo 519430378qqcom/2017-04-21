@@ -1,5 +1,6 @@
 package com.umiwi.ui.fragment.home.updatehome.indexfragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -10,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.umiwi.ui.R;
+import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.updateadapter.AlreadyVoiceAdapter;
 import com.umiwi.ui.beans.updatebeans.AlreadyShopVoiceBean;
 import com.umiwi.ui.main.BaseConstantFragment;
@@ -51,13 +53,12 @@ public class AudioFragment extends BaseConstantFragment {
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                AlreadyShopVoiceBean.RAlreadyVoice.Record record = infos.get(i);
-//                String hrefurl = record.getHrefurl();
-//                Log.e("hrefurl",hrefurl);
-//                Intent intent = new Intent (getActivity(),UmiwiContainerActivity.class);
-//                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
-//                intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL,hrefurl);
-//                startActivity(intent);
+                AlreadyShopVoiceBean.RAlreadyVoice.Record record = infos.get(i);
+                String hrefurl = record.getHrefurl();
+                Intent intent = new Intent(getActivity(),UmiwiContainerActivity.class);
+                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
+                intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL,hrefurl);
+                startActivity(intent);
 
             }
         });

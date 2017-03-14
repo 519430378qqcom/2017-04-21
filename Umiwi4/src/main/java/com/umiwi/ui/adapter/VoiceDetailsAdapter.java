@@ -19,6 +19,7 @@ import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.beans.AudioTmessageListBeans;
 import com.umiwi.ui.beans.updatebeans.ExperDetailsVoiceBean;
+import com.umiwi.ui.beans.updatebeans.VoicePlayBean;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.ExperDetailsFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.VoiceDetailsFragment;
 import com.umiwi.ui.main.UmiwiApplication;
@@ -41,16 +42,16 @@ public class VoiceDetailsAdapter extends BaseAdapter {
     public static final int ITEM_TYPE_COMMENT_WRITE = 3;
     public static final int ITEM_TYPE_COMMENT = 4;
 
-    private List<ExperDetailsVoiceBean.AudiofileBean> audioFileList = null;
+    private List<VoicePlayBean.RAnserVoicePlay.RDudiao> audioFileList = null;
     private FragmentActivity mActivity;
     private Context mContext;
-    private ExperDetailsVoiceBean experDetailsVoiceBean;
+    private VoicePlayBean.RAnserVoicePlay experDetailsVoiceBean;
 
     private VoiceDetailsFragment voiceDetailsFragment;
     private List<AudioTmessageListBeans.RecordX.Record> recordList;
 
 
-    public VoiceDetailsAdapter(Context context, List<ExperDetailsVoiceBean.AudiofileBean> audioFileList, ExperDetailsVoiceBean experDetailsVoiceBean, List<AudioTmessageListBeans.RecordX.Record> recordList, VoiceDetailsFragment voiceDetailsFragment) {
+    public VoiceDetailsAdapter(Context context, List<VoicePlayBean.RAnserVoicePlay.RDudiao> audioFileList, VoicePlayBean.RAnserVoicePlay experDetailsVoiceBean, List<AudioTmessageListBeans.RecordX.Record> recordList, VoiceDetailsFragment voiceDetailsFragment) {
         this.mActivity = (FragmentActivity) context;
         this.mContext = context;
         this.audioFileList = audioFileList;
@@ -59,13 +60,13 @@ public class VoiceDetailsAdapter extends BaseAdapter {
         this.recordList = recordList;
     }
 
-    public VoiceDetailsAdapter(Context context, List<ExperDetailsVoiceBean.AudiofileBean> audioFileList, ExperDetailsVoiceBean experDetailsVoiceBean, VoiceDetailsFragment voiceDetailsFragment) {
-        this.mActivity = (FragmentActivity) context;
-        this.mContext = context;
-        this.audioFileList = audioFileList;
-        this.experDetailsVoiceBean = experDetailsVoiceBean;
-        this.voiceDetailsFragment = voiceDetailsFragment;
-    }
+//    public VoiceDetailsAdapter(Context context, List<ExperDetailsVoiceBean.AudiofileBean> audioFileList, ExperDetailsVoiceBean experDetailsVoiceBean, VoiceDetailsFragment voiceDetailsFragment) {
+//        this.mActivity = (FragmentActivity) context;
+//        this.mContext = context;
+//        this.audioFileList = audioFileList;
+//        this.experDetailsVoiceBean = experDetailsVoiceBean;
+//        this.voiceDetailsFragment = voiceDetailsFragment;
+//    }
 
 
     @Override
@@ -195,7 +196,7 @@ public class VoiceDetailsAdapter extends BaseAdapter {
         TextView writeComment = (TextView) view.findViewById(R.id.write_button);
 
 
-        commentNum.setText("评论 (" + "0" + ")");
+        commentNum.setText("评论 (" + recordList.size() + ")");
         ImageLoader mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
         mImageLoader.loadImage(YoumiRoomUserManager.getInstance().getUser().getAvatar(), header, R.drawable.fragment_mine_photo);
         writeComment.setOnClickListener(writeCommentViewOnClickListener);
@@ -239,7 +240,7 @@ public class VoiceDetailsAdapter extends BaseAdapter {
         if (index < 0) {
             return;
         }
-        ExperDetailsVoiceBean.AudiofileBean bean = audioFileList.get(index);
+        VoicePlayBean.RAnserVoicePlay.RDudiao bean = audioFileList.get(index);
         TextView tv_dir_title = (TextView) view.findViewById(R.id.tv_dir_title);
         TextView tv_dir_totaltime = (TextView) view.findViewById(R.id.tv_dir_totaltime);
         tv_dir_title.setText(bean.getAtitle());
@@ -252,9 +253,9 @@ public class VoiceDetailsAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
 //                Toast.makeText(mActivity, "点击播放试听", Toast.LENGTH_SHORT).show();
-                Log.e("TAG", "experDetailsVoiceBean.isIspay()=" + experDetailsVoiceBean.isIspay());
+                Log.e("TAG", "experDetailsVoiceBean.isIspay()=" + experDetailsVoiceBean.getIspay());
 //                voiceDetailsFragment.bindVoiceSerive();
-                if(experDetailsVoiceBean.isIspay()) {
+                if(experDetailsVoiceBean.getIspay()) {
                     voiceDetailsFragment.bindVoiceSerive();
                 }
             }

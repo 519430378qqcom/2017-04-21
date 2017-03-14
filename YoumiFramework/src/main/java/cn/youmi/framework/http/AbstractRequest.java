@@ -1,7 +1,9 @@
 package cn.youmi.framework.http;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import android.os.Bundle;
@@ -63,6 +65,8 @@ public abstract class AbstractRequest<T> {
 		params.put(key, value);
 //		params.put("Content-Type","application/x-www-form-urlencoded");
 	}
+
+
 	
 	public void addParams(Map<String, String> param) {
 		for (String key : param.keySet()) {
