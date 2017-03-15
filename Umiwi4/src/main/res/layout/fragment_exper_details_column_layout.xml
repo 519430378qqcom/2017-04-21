@@ -107,7 +107,7 @@
              <TextView
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
-                 android:text="适宜人群"
+                 android:text="目标人群"
                  android:textSize="19sp"
                  android:textColor="@color/black_alpf"
                   android:layout_marginTop="20dp"
@@ -137,7 +137,7 @@
              <TextView
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
-                 android:text="订阅须知"
+                 android:text="订阅提醒"
                  android:textSize="19sp"
                  android:textColor="@color/black_alpf"
                  android:layout_marginTop="20dp"
