@@ -193,9 +193,10 @@
              android:visibility="gone"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
-             android:text="暂无数据..."
+             android:text="暂无开通专栏"
              android:textColor="@color/main_color"
              android:layout_centerInParent="true"
+             android:textSize="20sp"
              />
      </RelativeLayout>
 </com.umiwi.ui.view.ScrollViewExtend>

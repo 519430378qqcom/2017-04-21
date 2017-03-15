@@ -114,7 +114,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="@color/line" />
-
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="vertical"
+               >
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="100dp">
@@ -154,23 +158,25 @@
 
                 </LinearLayout>
             </RelativeLayout>
+               <RelativeLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_marginTop="10dp">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
+                   <TextView
+                       android:id="@+id/question1"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_alignParentRight="true"
+                       android:layout_marginRight="10dp"
+                       android:background="@drawable/button_red_rectangle"
+                       android:text="￥1提问"
+                       android:textColor="@color/white" />
 
-                <TextView
-                    android:id="@+id/question1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="10dp"
-                    android:background="@drawable/button_red_rectangle"
-                    android:text="￥1提问"
-                    android:textColor="@color/white" />
+               </RelativeLayout>
+           </LinearLayout>
 
-            </RelativeLayout>
+
 
             <View
                 android:layout_width="match_parent"

@@ -3,7 +3,6 @@ package com.umiwi.ui.fragment.home.alreadyshopping;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,14 +22,11 @@ import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.util.JsonUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-
-import static com.umiwi.video.services.VoiceService.url;
 
 
 /**
@@ -46,6 +42,8 @@ public class LogicalThinkingFragment extends BaseConstantFragment {
     ListView listView;
     @InjectView(R.id.iv_back)
     ImageView iv_back;
+    @InjectView(R.id.title)
+    TextView title;
 
     private String id;
     private LogicalThinkingAdapter logicalThinkingAdapter;
@@ -59,6 +57,8 @@ public class LogicalThinkingFragment extends BaseConstantFragment {
         View view = inflater.inflate(R.layout.fragment_logical_thinking, null);
         ButterKnife.inject(this, view);
         id = getActivity().getIntent().getStringExtra("id");
+        String intentTitile = getActivity().getIntent().getStringExtra("title");
+        title.setText(intentTitile);
         logicalThinkingAdapter = new LogicalThinkingAdapter(getActivity(), thinkingBeanList);
         listView.setAdapter(logicalThinkingAdapter);
         iv_back.setOnClickListener(new View.OnClickListener() {
@@ -105,6 +105,7 @@ public class LogicalThinkingFragment extends BaseConstantFragment {
         OkHttpUtils.get().url(url).build().execute(new CustomStringCallBack() {
             @Override
             public void onFaild() {
+
             }
 
             @Override

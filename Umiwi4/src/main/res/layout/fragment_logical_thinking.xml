@@ -18,20 +18,15 @@
             android:src="@drawable/black_back" />
 
         <TextView
+            android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="逻辑思维"
             android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:textSize="19sp" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:src="@drawable/voice_button" />
+
     </RelativeLayout>
 
     <LinearLayout

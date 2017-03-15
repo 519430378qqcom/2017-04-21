@@ -3,6 +3,7 @@ package com.umiwi.ui.fragment.home.alreadyshopping;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,18 +16,24 @@ import com.umeng.analytics.MobclickAgent;
 import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.BuyColumnAdapter;
+import com.umiwi.ui.beans.updatebeans.AlreadShopColumnBean;
 import com.umiwi.ui.beans.updatebeans.BuyCoumnBean;
-import com.umiwi.ui.fragment.home.updatehome.indexfragment.ColumnDetailsFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.CustomStringCallBack;
 import com.umiwi.ui.main.UmiwiAPI;
+import com.umiwi.ui.managers.YoumiRoomUserManager;
 import com.umiwi.ui.util.JsonUtil;
+import com.umiwi.ui.view.RefreshLayout;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.youmi.framework.util.ListViewScrollLoader;
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import cn.youmi.framework.http.AbstractRequest;
+import cn.youmi.framework.http.GetRequest;
+import cn.youmi.framework.http.parsers.GsonParser;
 import cn.youmi.framework.view.LoadingFooter;
 
 /**
@@ -36,30 +43,30 @@ import cn.youmi.framework.view.LoadingFooter;
 
 public class BuyCoumnFragment extends BaseConstantFragment {
 
-    private ListView listView;
-    private List<BuyCoumnBean.RecordBean> mList;
-    private LoadingFooter loadingFooter;
-    private ListViewScrollLoader mScrollLoader;
+    @InjectView(R.id.listview)
+    ListView listview;
+    @InjectView(R.id.refreshLayout)
+    RefreshLayout refreshLayout;
+    private List<AlreadShopColumnBean.RalreadyColumn.RecordColumn> mList;
     private BuyColumnAdapter buyColumnAdapter;
+    private int page = 1;
+    private int totalpage;
+    private boolean isla = false;
+    private boolean isload = false;
 
-//    private int page = 1;
-//    private int totalpage = 1;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view =inflater.inflate(R.layout.fragment_column_layout,null);
-        listView = (ListView) view.findViewById(R.id.listView);
-
+        View view = inflater.inflate(R.layout.fragment_alread_column_layout, null);
         mList = new ArrayList<>();
 
-        loadingFooter = new LoadingFooter(getActivity());
-        listView.addFooterView(loadingFooter.getView());
 
-        mScrollLoader = new ListViewScrollLoader(this, loadingFooter);
-        listView.setOnScrollListener(mScrollLoader);
 
-        mScrollLoader.onLoadFirstPage();
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        ButterKnife.inject(this, view);
+        buyColumnAdapter = new BuyColumnAdapter(getActivity());
+        buyColumnAdapter.setData(mList);
+        listview.setAdapter(buyColumnAdapter);
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 //                Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
@@ -68,12 +75,77 @@ public class BuyCoumnFragment extends BaseConstantFragment {
 //                startActivity(intent);
                 Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
                 intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, LogicalThinkingFragment.class);
-                intent.putExtra("id",mList.get(i).getId());
+                intent.putExtra("id", mList.get(i).getId());
+                intent.putExtra("title",mList.get(i).getTitle());
                 startActivity(intent);
             }
         });
+        initrefreshLayout();
+        getInfos();
         return view;
     }
+
+    private void initrefreshLayout() {
+        refreshLayout.setColorSchemeColors(getResources().getColor(R.color.main_color));
+        refreshLayout.setOnLoadListener(new RefreshLayout.OnLoadListener() {
+            @Override
+            public void onLoad() {
+                isload = true;
+                page++;
+                if (page <= totalpage) {
+                    refreshLayout.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            getInfos();
+                        }
+                    }, 1000);
+                } else {
+                    refreshLayout.setLoading(false);
+                }
+            }
+        });
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                isla = true;
+                page = 1;
+                mList.clear();
+                getInfos();
+            }
+        });
+    }
+
+    private void getInfos() {
+        String uid = YoumiRoomUserManager.getInstance().getUid();
+        String url = String.format(UmiwiAPI.ALREADY_COLUMN, page, uid);
+        GetRequest<AlreadShopColumnBean> req = new GetRequest<AlreadShopColumnBean>(url, GsonParser.class, AlreadShopColumnBean.class, new AbstractRequest.Listener<AlreadShopColumnBean>() {
+            @Override
+            public void onResult(AbstractRequest<AlreadShopColumnBean> request, AlreadShopColumnBean alreadyVideoBean) {
+                AlreadShopColumnBean.RalreadyColumn infos = alreadyVideoBean.getR();
+                AlreadShopColumnBean.RalreadyColumn.PageBean page = infos.getPage();
+                totalpage = page.getTotalpage();
+                ArrayList<AlreadShopColumnBean.RalreadyColumn.RecordColumn> record = infos.getRecord();
+                mList.addAll(record);
+                buyColumnAdapter.setData(mList);
+                if (isla) {
+                    refreshLayout.setRefreshing(false);
+                     isla = false;
+                } else if (isload) {
+                    refreshLayout.setLoading(false);
+                    isload = false;
+                }
+
+            }
+
+            @Override
+            public void onError(AbstractRequest<AlreadShopColumnBean> requet, int statusCode, String body) {
+
+            }
+        });
+
+        req.go();
+    }
+
 
     @Override
     public void onResume() {
@@ -88,51 +160,8 @@ public class BuyCoumnFragment extends BaseConstantFragment {
     }
 
     @Override
-    public void onLoadData(int page) {
-        String url = UmiwiAPI.TUTORCOLUMN+page;
-//        String url = String.format(UmiwiAPI.COlUMN_LIST,page, "uid");
-
-        Log.e("TAG",url);
-        OkHttpUtils.get().url(url).build().execute(new CustomStringCallBack() {
-            @Override
-            public void onFaild() {
-                Log.e("data","首页专栏列表请求数据失败");
-            }
-
-            @Override
-            public void onSucess(String data) {
-                Log.e("data","首页专栏列表请求数据成功"+data);
-                if (!TextUtils.isEmpty(data)){
-                    BuyCoumnBean buyCoumnBean = JsonUtil.json2Bean(data, BuyCoumnBean.class);
-//                    BuyCoumnBean.PageBean pageBean = buyCoumnBean.getPage();
-                    BuyCoumnBean.PageBean pageBean = buyCoumnBean.getPage();
-
-                    if(buyCoumnBean.getPage().getCurrentpage() >= buyCoumnBean.getPage().getTotalpage()){
-                        mScrollLoader.setEnd(true);
-                        loadingFooter.setState(LoadingFooter.State.NoMore);
-                        return;
-                    }
-
-                    if(pageBean.getCurrentpage() == 1){
-                        mList.clear();
-                    }
-
-                    mScrollLoader.setPage(pageBean.getCurrentpage());
-                    mScrollLoader.setloading(false);
-
-                    if (mList == null) {
-                        mList = buyCoumnBean.getRecord();
-                    } else {
-//                        if(homeCoumnBean.getPage().getCurrentpage() == 1){
-//                            mList.clear();
-//                        }
-                        mList.addAll(buyCoumnBean.getRecord());
-                    }
-
-                    buyColumnAdapter = new BuyColumnAdapter(getActivity(), mList);
-                    listView.setAdapter(buyColumnAdapter);
-                }
-            }
-        });
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.reset(this);
     }
 }

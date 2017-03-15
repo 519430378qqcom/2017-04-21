@@ -138,7 +138,7 @@ public final class UmiwiAPI {
      * 轮播 添加专题&version=2
      */
     public static final String VIDEO_LUNBO = "http://i.v.youmi.cn/lunbo/list?android";
-    public static final String VIDEO_LUNBO_NEW = "http://i.v.youmi.cn/lunbo/list";
+    public static final String VIDEO_LUNBO_NEW = "http://i.v.youmi.cn/lunbo/list?imgsizetype=2";
 //	public static final String VIDEO_LUNBO = "http://i.v.youmi.cn/ClientApi/list?type=lunbo&version=2";//old api
     /**
      * 首页推荐
@@ -399,6 +399,8 @@ public final class UmiwiAPI {
     public static final String CELEBRTYY_DETAILS = "http://i.v.youmi.cn/api8/gettutor/?uid=";
 
     public static final String TUTORCOLUMN = "http://i.v.youmi.cn/tutorcolumn/listApi/?p=";
+    //已购专栏
+    public static final String ALREADY_COLUMN = "http://i.v.youmi.cn/tutorcolumn/buylist?p=%s&uid=%s";
 
     //我的—回答（已回答，待回答）
     public static final String Mine_Answer = "http://i.v.youmi.cn/api8/myquestion?p=%s&answerstate=%s";

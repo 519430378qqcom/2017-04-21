@@ -70,7 +70,12 @@ public class ExperDetailsWendaFragment extends BaseConstantFragment {
 
     @Override
     public void onResume() {
-        getInfos();
+        if (!TextUtils.isEmpty(ExperDetailsFragment.questionurl)){
+            getInfos();
+
+        }else {
+            noData.setVisibility(View.VISIBLE);
+        }
 
         super.onResume();
     }
@@ -97,11 +102,7 @@ public class ExperDetailsWendaFragment extends BaseConstantFragment {
                                                     HomeAskBean.RAlHomeAnser r = homeAskBean.getR();
                                                     totalpage = r.getPage().getTotalpage();
                                                     ArrayList<HomeAskBean.RAlHomeAnser.Record> record = r.getRecord();
-                                                    if (record != null && record.size() > 0) {
-                                                        noData.setVisibility(View.GONE);
-                                                    } else {
-                                                        noData.setVisibility(View.VISIBLE);
-                                                    }
+
                                                     wendaInfos.addAll(record);
                                                     experDetailsWendaAdapter.setData(wendaInfos);
 
@@ -116,11 +117,7 @@ public class ExperDetailsWendaFragment extends BaseConstantFragment {
                                 HomeAskBean.RAlHomeAnser r = homeAskBean.getR();
                                 totalpage = r.getPage().getTotalpage();
                                 ArrayList<HomeAskBean.RAlHomeAnser.Record> record = r.getRecord();
-                                if (record != null && record.size() > 0) {
-                                    noData.setVisibility(View.GONE);
-                                } else {
-                                    noData.setVisibility(View.VISIBLE);
-                                }
+
                                 wendaInfos.addAll(record);
                                 experDetailsWendaAdapter.setData(wendaInfos);
 

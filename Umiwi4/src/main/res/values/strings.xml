@@ -80,7 +80,8 @@
 
     <string name="competence_play_content">重新播放此课程</string>
 
-    <string name="version_umiwi_introduce">关于优米：\n \t\t\t\t优米公司成立于2010年3月17日，由著名制片人王利芬女士创办的，是一个面向广大学习者的综合性服务平台。“优米”是公司旗下官方产品，致力于做“精品知识服务平台”，提供创业、情感、心理、职场、财经、留学、资讯、投资理财等多个领域的精品知识，以音频、视频、问答、专栏、直播等方式传递给用户，打造以“知识IP”为核心的生态系统。</string>
+    <string name="version_umiwi_introduce">关于优米：\n \t\t\t\t优米致力做“精品知识服务平台”，提供创业、情感、心理、职场、财经、留学、资讯、投资理财等多个领域的精品知识，以音频、视频、问答、专栏、直播等方式传递给用户，打造以“知识IP”为核心的生态系统，为用户提供有用的知识。
+</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

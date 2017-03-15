@@ -71,6 +71,8 @@ public class DetailsColumnFragment extends BaseConstantFragment {
         ExperDetailsFragment.tv_more.setVisibility(View.GONE);
         if (!TextUtils.isEmpty(albumurl)) {
             getInfos(albumurl);
+        }else {
+            noData.setVisibility(View.VISIBLE);
         }
         ButterKnife.inject(this, view);
         ExperDetailsFragment.setOnScrollListener(new ExperDetailsFragment.OnScrollListener() {
@@ -94,7 +96,6 @@ public class DetailsColumnFragment extends BaseConstantFragment {
             public void onSucess(String data) {
                 Log.e("data", "详情专栏请求数据成功 :" + data);
                 if (data != null) {
-                    noData.setVisibility(View.GONE);
 
                     final ExperDetailsAlbumbean experDetailsAlbumbean = JsonUtil.json2Bean(data, ExperDetailsAlbumbean.class);
                     if (experDetailsAlbumbean != null) {
@@ -136,12 +137,12 @@ public class DetailsColumnFragment extends BaseConstantFragment {
                                 Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
                                 intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, LogicalThinkingFragment.class);
                                 intent.putExtra("id", experDetailsAlbumbean.getId());
+                                intent.putExtra("title",experDetailsAlbumbean.getTitle());
                                 startActivity(intent);
                             }
                         });
                     }
                 }else {
-                    noData.setVisibility(View.VISIBLE);
                 }
             }
         });

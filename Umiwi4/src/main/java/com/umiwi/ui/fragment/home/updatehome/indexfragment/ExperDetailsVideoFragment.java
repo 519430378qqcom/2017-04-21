@@ -52,6 +52,8 @@ public class ExperDetailsVideoFragment extends BaseConstantFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_exper_details_video_layout, null);
+        ButterKnife.inject(this, view);
+
         listView = (NoScrollListview) view.findViewById(R.id.noscroll_listview);
         experDetailsVideoAdapter = new ExperDetailsVideoAdapter(getActivity());
         experDetailsVideoAdapter.setData(videoInfos);
@@ -68,7 +70,12 @@ public class ExperDetailsVideoFragment extends BaseConstantFragment {
                 }
             }
         });
-        getInfos();
+        if (!TextUtils.isEmpty(ExperDetailsFragment.albumurl)){
+            getInfos();
+
+        }else{
+            noData.setVisibility(View.VISIBLE);
+        }
         handler = new Handler();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -79,7 +86,6 @@ public class ExperDetailsVideoFragment extends BaseConstantFragment {
                 getActivity().startActivity(intent);
             }
         });
-        ButterKnife.inject(this, view);
         return view;
     }
 
@@ -127,11 +133,6 @@ public class ExperDetailsVideoFragment extends BaseConstantFragment {
                             VideoBean videoBean = JsonUtil.json2Bean(data, VideoBean.class);
                             totalpage = videoBean.getPage().getTotalpage();
                             List<VideoBean.RecordBean> record = videoBean.getRecord();
-                            if (record.size()>0&&record!=null){
-                                noData.setVisibility(View.GONE);
-                            }else{
-                                noData.setVisibility(View.VISIBLE);
-                            }
                             videoInfos.addAll(record);
                             experDetailsVideoAdapter.setData(videoInfos);
                         }

@@ -20,7 +20,7 @@
             android:layout_toLeftOf="@+id/tv_goodnum"
             android:text="人际关系里的鹰派守则"
             android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tv_goodnum"

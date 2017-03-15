@@ -57,6 +57,7 @@ import com.umiwi.ui.parsers.newparsers.NewFreeResult;
 import com.umiwi.ui.util.CommonHelper;
 import com.umiwi.ui.util.ManifestUtils;
 import com.umiwi.ui.view.MyViewpager;
+import com.umiwi.ui.view.VpSwipeRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,7 +89,7 @@ public class RecommendFragment extends BaseConstantFragment {
     @InjectView(R.id.listView)
     ListView mListView;
     @InjectView(R.id.pull_to_refresh_layout)
-    SwipeRefreshLayout refreshLayout;
+    VpSwipeRefreshLayout refreshLayout;
     @InjectView(R.id.sc_recomment_root)
     ScrollView sc_recomment_root;
 
@@ -124,7 +125,9 @@ public class RecommendFragment extends BaseConstantFragment {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            mAutoViewPager.setCurrentItem(mAutoViewPager.getCurrentItem()+1);
+            int currentItem = mAutoViewPager.getCurrentItem();
+            currentItem++;
+            mAutoViewPager.setCurrentItem(currentItem);
         }
     };
 
@@ -147,7 +150,7 @@ public class RecommendFragment extends BaseConstantFragment {
      * 付费精选：pay_selected_item_layout
      * 优米大咖：youmi_big_shot_item_layout
      * 线下活动：line_action_item_layout
-     */
+    */
 
     @Nullable
     @Override
@@ -236,7 +239,7 @@ public class RecommendFragment extends BaseConstantFragment {
 
         ViewGroup.LayoutParams para = mAutoViewPager.getLayoutParams();
         para.width = DimensionUtil.getScreenWidth(getActivity());
-        para.height = (para.width * 300) / 640;
+        para.height = (para.width * 200) / 640;
         mAutoViewPager.setLayoutParams(para);
 
 //        mIndicator = (CirclePageIndicator) header.findViewById(R.id.indicator);
@@ -301,6 +304,18 @@ public class RecommendFragment extends BaseConstantFragment {
                     ll_point.getChildAt(currentPosition).setEnabled(true);
                     preSelectPosition = currentPosition;
                 }
+
+                position = position % mLunboList.size();
+                for (int i = 0; i < ll_point.getChildCount(); i++) {
+                    ImageView image = (ImageView) ll_point.getChildAt(i);
+                    if (i == position) {
+                        image.setImageResource(R.drawable.point_pressed);
+                    } else {
+                        image.setImageResource(R.drawable.point_normal);
+                    }
+                }
+
+
             }
 
             @Override
@@ -539,11 +554,10 @@ public class RecommendFragment extends BaseConstantFragment {
                 ll_point.removeAllViews();
                 for (int i = 0; i <mLunboList.size(); i++) {
                     ImageView point = new ImageView(getActivity());
-                    point.setBackgroundResource(R.drawable.point_selector);
                     if(i == 0){
-                        point.setEnabled(true);
+                        point.setImageResource(R.drawable.point_pressed);
                     }else{
-                        point.setEnabled(false);
+                        point.setImageResource(R.drawable.point_normal);
                     }
 
                     LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,-2);
@@ -565,6 +579,8 @@ public class RecommendFragment extends BaseConstantFragment {
 //                mAutoViewPager.startAutoScroll(5000);
                 isLunboShow = true;
                 refreshLayout.setRefreshing(false);
+                handler.sendEmptyMessageDelayed(0, 5000);
+
             }
         }
 

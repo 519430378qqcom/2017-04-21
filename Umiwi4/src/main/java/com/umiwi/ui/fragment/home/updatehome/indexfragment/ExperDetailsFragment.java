@@ -309,16 +309,7 @@ public class ExperDetailsFragment extends BaseConstantFragment {
 
     //初始化 TabLayout
     private void initTabLayout() {
-//        if(albumurl != null) {
-//        }
-//        if(audioalbumurl != null) {
-//        }
-//        if(tcolumnurl != null) {
-//        }
-//        if(questionurl != null) {
-//        }
-//        if(threadurl != null) {
-//        }
+//
             mTitleList.add("专栏");
             mTitleList.add("音频");
             mTitleList.add("视频");
@@ -326,30 +317,6 @@ public class ExperDetailsFragment extends BaseConstantFragment {
             mTitleList.add("评论");
         //设置tab模式，当前为系统默认模式
         tabsOrder.setTabMode(TabLayout.MODE_SCROLLABLE);
-        //添加tab选项卡
-//        if (mTitleList.size() == 5){
-//            tabsOrder.addTab(tabsOrder.newTab().setText(mTitleList.get(0)));
-//            tabsOrder.addTab(tabsOrder.newTab().setText(mTitleList.get(1)));
-//            tabsOrder.addTab(tabsOrder.newTab().setText(mTitleList.get(2)));
-//            tabsOrder.addTab(tabsOrder.newTab().setText(mTitleList.get(3)));
-//            tabsOrder.addTab(tabsOrder.newTab().setText(mTitleList.get(4)));
-//        }else if(mTitleList.size() == 4){
-//            tabsOrder.addTab(tabsOrder.newTab().setText(mTitleList.get(0)));
-//            tabsOrder.addTab(tabsOrder.newTab().setText(mTitleList.get(1)));
-//            tabsOrder.addTab(tabsOrder.newTab().setText(mTitleList.get(2)));
-//            tabsOrder.addTab(tabsOrder.newTab().setText(mTitleList.get(3)));
-//        }else if(mTitleList.size() == 3){
-//            tabsOrder.addTab(tabsOrder.newTab().setText(mTitleList.get(0)));
-//            tabsOrder.addTab(tabsOrder.newTab().setText(mTitleList.get(1)));
-//            tabsOrder.addTab(tabsOrder.newTab().setText(mTitleList.get(2)));
-//        }else if(mTitleList.size() == 2){
-//            tabsOrder.addTab(tabsOrder.newTab().setText(mTitleList.get(0)));
-//            tabsOrder.addTab(tabsOrder.newTab().setText(mTitleList.get(1)));
-//        }else if(mTitleList.size() == 1){
-//            tabsOrder.addTab(tabsOrder.newTab().setText(mTitleList.get(0)));
-//        }
-
-
         tabsOrder.addTab(tabsOrder.newTab().setText(mTitleList.get(0)));
         tabsOrder.addTab(tabsOrder.newTab().setText(mTitleList.get(1)));
         tabsOrder.addTab(tabsOrder.newTab().setText(mTitleList.get(2)));
@@ -359,17 +326,7 @@ public class ExperDetailsFragment extends BaseConstantFragment {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 int position = tab.getPosition();
-//                    if(mTitleList.get(position).equals("专栏")){
-//                        cutTheme(0);
-//                    }else if (mTitleList.get(position).equals("音频")){
-//                        cutTheme(1);
-//                    }else if (mTitleList.get(position).equals("视频")){
-//                        cutTheme(2);
-//                    }else if (mTitleList.get(position).equals("问答")){
-//                        cutTheme(3);
-//                    }else if (mTitleList.get(position).equals("评论")){
-//                        cutTheme(4);
-//                    }
+
                 cutTheme(position);
             }
 

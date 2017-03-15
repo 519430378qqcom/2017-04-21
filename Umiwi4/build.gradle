@@ -66,7 +66,7 @@ android {
     productFlavors {  //./gradlew assembleRelease
         // itest {}
 //        portalv {}//官网
-//        baiduvt {}
+        baiduvt {}
 //        smvpay {}//神马
 //        googleplayv {}
 //        huaweiv {}
@@ -79,7 +79,7 @@ android {
 //        sogou {}
 //        taobaovt {}
 //        wandoujiav {}
-        xiaomivt {}
+//        xiaomivt {}
 //        anzhiv {}//安智
 //        domob {}//多盟
 //        youmiad1 {}//有米

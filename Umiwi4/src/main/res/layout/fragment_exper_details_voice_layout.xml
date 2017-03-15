@@ -14,12 +14,13 @@
     </com.umiwi.ui.view.NoScrollListview>
         <TextView
             android:id="@+id/no_data"
-            android:visibility="gone"
+            android:visibility="visible"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="暂无数据..."
+            android:text="暂无开通音频"
             android:textColor="@color/main_color"
             android:layout_centerInParent="true"
+            android:textSize="20sp"
             />
     </RelativeLayout>
 </LinearLayout>

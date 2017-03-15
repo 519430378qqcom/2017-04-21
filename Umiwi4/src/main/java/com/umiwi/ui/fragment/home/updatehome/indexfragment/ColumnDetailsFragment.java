@@ -95,6 +95,7 @@ public class ColumnDetailsFragment extends BaseConstantFragment {
                 Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
                 intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, LogicalThinkingFragment.class);
                 intent.putExtra("id",columnDetailsBean.getId());
+                intent.putExtra("title",columnDetailsBean.getTitle());
                 startActivity(intent);
             }
         });

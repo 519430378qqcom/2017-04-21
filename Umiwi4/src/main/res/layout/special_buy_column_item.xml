@@ -17,14 +17,7 @@
             android:layout_height="match_parent"
             android:layout_alignParentRight="true">
 
-            <TextView
-                android:id="@+id/special_price_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="¥299/年"
-                android:layout_marginLeft="5dp"
-                android:textColor="@color/main_color"
-                android:textSize="16sp" />
+
 
             <TextView
                 android:id="@+id/special_subscribe_number_1"

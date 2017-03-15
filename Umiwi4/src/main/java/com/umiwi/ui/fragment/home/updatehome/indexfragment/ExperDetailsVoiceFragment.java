@@ -77,7 +77,11 @@ public class ExperDetailsVoiceFragment extends BaseConstantFragment {
                 }
             }
         });
-        getInfos();
+        if (!TextUtils.isEmpty(ExperDetailsFragment.audioalbumurl)) {
+            getInfos();
+        } else {
+            noData.setVisibility(View.VISIBLE);
+        }
         handler = new Handler();
         return view;
     }
@@ -119,11 +123,7 @@ public class ExperDetailsVoiceFragment extends BaseConstantFragment {
                                                 Log.e("totalpage", totalpage + "");
                                                 List<VoiceBean.RecordBean> records = voiceBean.getRecord();
                                                 voiceList.addAll(records);
-                                                if (records.size()>0&&records!=null){
-                                                    noData.setVisibility(View.GONE);
-                                                }else{
-                                                    noData.setVisibility(View.VISIBLE);
-                                                }
+
                                                 experDetailsVoiceAdapter.setData(voiceList);
                                             }
                                         });
@@ -138,11 +138,6 @@ public class ExperDetailsVoiceFragment extends BaseConstantFragment {
                                 totalpage = voiceBean.getPage().getTotalpage();
                                 Log.e("totalpage", totalpage + "");
                                 List<VoiceBean.RecordBean> records = voiceBean.getRecord();
-                                if (records.size()>0&&records!=null){
-                                    noData.setVisibility(View.GONE);
-                                }else{
-                                    noData.setVisibility(View.VISIBLE);
-                                }
                                 voiceList.addAll(records);
                                 experDetailsVoiceAdapter.setData(voiceList);
                             }
