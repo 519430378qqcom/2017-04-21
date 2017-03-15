@@ -15,17 +15,15 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.updateadapter.AskQuestionAdapter;
 import com.umiwi.ui.beans.UmiwiAddQuestionBeans;
 import com.umiwi.ui.beans.UmiwiBuyCreateOrderBeans;
-import com.umiwi.ui.beans.updatebeans.AlreadyAskBean;
 import com.umiwi.ui.beans.updatebeans.HomeAskBean;
 import com.umiwi.ui.beans.updatebeans.NamedQuestionBean;
-import com.umiwi.ui.beans.updatebeans.QuestionListBean;
+import com.umiwi.ui.dialog.ShareDialog;
 import com.umiwi.ui.fragment.pay.PayingFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.CustomStringCallBack;
@@ -40,14 +38,12 @@ import com.umiwi.ui.view.NoScrollListview;
 import com.umiwi.video.control.PlayerController;
 import com.zhy.http.okhttp.OkHttpUtils;
 
-import cn.youmi.framework.http.AbstractRequest;
-import cn.youmi.framework.http.AbstractRequest.Listener;
-
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import cn.youmi.framework.http.AbstractRequest;
+import cn.youmi.framework.http.AbstractRequest.Listener;
 import cn.youmi.framework.http.GetRequest;
 import cn.youmi.framework.http.parsers.GsonParser;
 import cn.youmi.framework.util.ImageLoader;
@@ -61,6 +57,8 @@ public class AskQuestionFragment extends BaseConstantFragment implements View.On
 
     @InjectView(R.id.back)
     ImageView back;
+    @InjectView(R.id.share)
+    ImageView share;
     @InjectView(R.id.header)
     CircleImageView header;
     @InjectView(R.id.name)
@@ -129,6 +127,7 @@ public class AskQuestionFragment extends BaseConstantFragment implements View.On
             }
         });
         back.setOnClickListener(this);
+        share.setOnClickListener(this);
         return view;
     }
 
@@ -215,6 +214,7 @@ public class AskQuestionFragment extends BaseConstantFragment implements View.On
                     question1.setOnClickListener(askBuyButtonListener);
                     answerNum.setText(namedQuestionBean.getQuestion());
                     hearNum.setText(namedQuestionBean.getTotallistennum());
+
                 }
             }
         });
@@ -349,6 +349,12 @@ public class AskQuestionFragment extends BaseConstantFragment implements View.On
         switch (v.getId()) {
             case R.id.back:
                 getActivity().finish();
+            case R.id.share:
+                if (namedQuestionBean.getSharecontent() != null && namedQuestionBean.getShareimg() != null && namedQuestionBean.getSharetitle() != null && namedQuestionBean.getShareurl() != null) {
+                    ShareDialog.getInstance().showDialog(getActivity(),
+                            namedQuestionBean.getSharetitle(), namedQuestionBean.getSharecontent(),
+                            namedQuestionBean.getShareurl(), namedQuestionBean.getShareimg());
+                }
                 break;
         }
     }
