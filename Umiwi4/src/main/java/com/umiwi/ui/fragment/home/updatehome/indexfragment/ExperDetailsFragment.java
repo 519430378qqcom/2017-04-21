@@ -199,17 +199,16 @@ public class ExperDetailsFragment extends BaseConstantFragment {
                     Log.e("TAG", "albumurl=" + albumurl);
                     //音频
                     audioalbumurl = resultUrl.getAudioalbumurl();
-                    Log.e("TAG", "albumurl=" + audioalbumurl);
+                    Log.e("TAG", "audioalbumurl=" + audioalbumurl);
                     //视频
                     tcolumnurl = resultUrl.getTcolumnurl();
-
                     Log.e("TAG", "tcolumnurl=" + tcolumnurl);
                     //问答数据
                     questionurl = resultUrl.getQuestionurl();
-                    Log.e("TAG", "albumurl=" + questionurl);
+                    Log.e("TAG", "questionurl=" + questionurl);
                     //评论
                     threadurl = resultUrl.getThreadurl();
-                    Log.e("TAG", "albumurl=" + threadurl);
+                    Log.e("TAG", "threadurl=" + threadurl);
 //                    if (!TextUtils.isEmpty(albumurl)){
 //                        mTitleList.add("专栏");
 //                    }

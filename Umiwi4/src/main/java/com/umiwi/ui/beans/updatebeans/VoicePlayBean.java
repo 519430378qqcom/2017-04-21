@@ -247,7 +247,17 @@ public class VoicePlayBean extends BaseGsonBeans {
 
            @SerializedName("word")
            private String word;
-       }
+           @SerializedName("image")
+           private String image;
+
+            public String getImage() {
+                return image;
+            }
+
+            public void setImage(String image) {
+                this.image = image;
+            }
+        }
 
         public static class RDudiao{
             public String getAid() {

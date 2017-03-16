@@ -2,6 +2,7 @@ package com.umiwi.ui.adapter.updateadapter;
 
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -65,6 +66,7 @@ public class AlreadyVoiceAdapter extends BaseAdapter {
         }
         hoder.title.setText(record.getTitle());
         hoder.price.setText(record.getPrice());
+        Log.e("TAG", "record.getPrice()=" + record.getPrice());
         hoder.playtime.setText(record.getPlaytime());
         hoder.watchnum.setText("播放"+record.getWatchnum()+"次");
         hoder.process.setText("已播"+record.getProcess());
