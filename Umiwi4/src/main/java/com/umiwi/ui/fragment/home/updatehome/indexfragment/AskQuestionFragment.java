@@ -314,6 +314,7 @@ public class AskQuestionFragment extends BaseConstantFragment implements View.On
         i.putExtra(PayingFragment.KEY_PAY_URL, payurl);
         startActivity(i);
         getActivity().finish();
+
     }
 
 

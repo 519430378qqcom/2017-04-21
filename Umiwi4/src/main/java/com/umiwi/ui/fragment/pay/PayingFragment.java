@@ -1,8 +1,5 @@
 package com.umiwi.ui.fragment.pay;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -19,6 +16,23 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.umeng.analytics.MobclickAgent;
+import com.umiwi.ui.R;
+import com.umiwi.ui.activity.UmiwiContainerActivity;
+import com.umiwi.ui.activity.YMPayActivity;
+import com.umiwi.ui.adapter.PaymentBankAdapter;
+import com.umiwi.ui.adapter.PaymentSdkAdapter;
+import com.umiwi.ui.beans.UmiwiPayDoingBeans;
+import com.umiwi.ui.beans.UmiwiPayDoingBeans.PayDoingBeansRequestData;
+import com.umiwi.ui.beans.UmiwiPayDoingPaymentBeans;
+import com.umiwi.ui.managers.YoumiRoomUserManager;
+import com.umiwi.ui.view.MyListView;
+import com.umiwi.ui.view.PayGridView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import cn.youmi.account.event.UserEvent;
 import cn.youmi.account.model.UserModel;
@@ -30,19 +44,6 @@ import cn.youmi.framework.http.HttpDispatcher;
 import cn.youmi.framework.http.parsers.GsonParser;
 import cn.youmi.framework.manager.ModelManager.ModelStatusListener;
 import cn.youmi.framework.util.ToastU;
-
-import com.umeng.analytics.MobclickAgent;
-import com.umiwi.ui.R;
-import com.umiwi.ui.activity.UmiwiContainerActivity;
-import com.umiwi.ui.adapter.PaymentBankAdapter;
-import com.umiwi.ui.adapter.PaymentSdkAdapter;
-import com.umiwi.ui.beans.UmiwiPayDoingBeans;
-import com.umiwi.ui.beans.UmiwiPayDoingBeans.PayDoingBeansRequestData;
-import com.umiwi.ui.beans.UmiwiPayDoingPaymentBeans;
-import com.umiwi.ui.managers.YoumiRoomUserManager;
-import com.umiwi.ui.activity.YMPayActivity;
-import com.umiwi.ui.view.MyListView;
-import com.umiwi.ui.view.PayGridView;
 
 /**
  * @author tangxiyong
@@ -385,6 +386,7 @@ public class PayingFragment extends BaseFragment {
                 if ("9999".equals(t.getDoing_e())) {//支付成功
 //					paySuccRefresh();
                     YoumiRoomUserManager.getInstance().getUserInfoSave(UserEvent.PAY_SUCC);
+                    Toast.makeText(getActivity(), "支付成功", Toast.LENGTH_SHORT).show();
                 } else {
                     progressDissmiss();
                     ToastU.showShort(getActivity(), t.getDoing_m());
