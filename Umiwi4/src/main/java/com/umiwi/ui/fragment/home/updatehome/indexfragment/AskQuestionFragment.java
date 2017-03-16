@@ -67,8 +67,8 @@ public class AskQuestionFragment extends BaseConstantFragment implements View.On
     TextView describe;
     @InjectView(R.id.obligation)
     TextView obligation;
-    @InjectView(R.id.notice)
-    TextView notice;
+//    @InjectView(R.id.notice)
+//    TextView notice;
     @InjectView(R.id.et_question)
     EditText etQuestion;
     @InjectView(R.id.tv_number)
@@ -202,6 +202,7 @@ public class AskQuestionFragment extends BaseConstantFragment implements View.On
 
             @Override
             public void onSucess(String data) {
+                Log.e("TAG", "data=" + data.toString());
                 if (!TextUtils.isEmpty(data)) {
                     namedQuestionBean = JsonUtil.json2Bean(data, NamedQuestionBean.class);
                     name.setText(namedQuestionBean.getName());
