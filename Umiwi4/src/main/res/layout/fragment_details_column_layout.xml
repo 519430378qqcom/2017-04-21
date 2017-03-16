@@ -97,6 +97,8 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="5dp"
+                        android:layout_alignParentLeft="true"
+                        android:singleLine="true"
                         android:layout_toLeftOf="@id/priceinfo"
                         android:textColor="@color/black"
                         android:textSize="20sp" />

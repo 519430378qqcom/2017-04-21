@@ -83,7 +83,7 @@
                         android:id="@+id/tv_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="王丽芬"
+                        android:text=" "
                         android:textColor="@color/black"
                         android:textSize="20sp" />
 
@@ -92,7 +92,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:text="优米创始人" />
+                        android:text=" " />
 
                 </LinearLayout>
 

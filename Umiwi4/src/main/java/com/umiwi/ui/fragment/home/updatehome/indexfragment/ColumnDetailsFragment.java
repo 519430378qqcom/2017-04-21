@@ -143,7 +143,7 @@ public class ColumnDetailsFragment extends BaseConstantFragment {
                     attention_listview.setAdapter(new ColumnAttentionAdapter(getActivity(), columnDetailsBean.getAttention()));
                     last_record.setAdapter(new ColumnRecordAdapter(getActivity(), columnDetailsBean.getLast_record()));
 
-                    title.setText(columnDetailsBean.getSharetitle());
+                    title.setText(columnDetailsBean.getTitle());
                     priceinfo.setText(columnDetailsBean.getPriceinfo());
                     shortcontent.setText(columnDetailsBean.getSharecontent());
                     salenum.setText(columnDetailsBean.getSalenum());

@@ -11,31 +11,37 @@
         android:background="@color/white"
         android:padding="15dp">
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/special_right_layout_1"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_alignParentRight="true">
+            android:layout_alignParentRight="true"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/special_price_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="right"
                 android:text="¥299/年"
-                android:layout_marginLeft="5dp"
                 android:textColor="@color/main_color"
                 android:textSize="16sp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
             <TextView
                 android:id="@+id/special_subscribe_number_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
+                android:layout_gravity="right"
                 android:layout_marginLeft="7dp"
                 android:text="已订阅205"
                 android:textColor="@color/color_divider"
                 android:textSize="14sp" />
-        </RelativeLayout>
+        </LinearLayout>
 
 
         <RelativeLayout
