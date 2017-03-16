@@ -149,12 +149,14 @@ public class DownloadedListFragment extends BaseFragment implements DownloadStat
                     Intent i_downloaded = new Intent(getActivity(), UmiwiContainerActivity.class);
 
                     if (album.getAlbumId() != null) {
-                        if (album.getUrl().contains("mp3")) {
+                        if (album.getUrl().contains("audio")) {
                             i_downloaded.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, DownloadedAudioFragment.class);
                             i_downloaded.putExtra(DownloadedAudioFragment.KEY_ALBUM_TITLE, album.getTitle());
                             i_downloaded.putExtra(DownloadedAudioFragment.KEY_ALBUM_ID, album.getAlbumId());
+                            Log.e("TAG", "audio里的album.getTitle() " +album.getTitle() );
+                            Log.e("TAG", " audio里的album.getAlbumId() = " +album.getAlbumId() );
+                            Log.e("TAG", "audio里的album的URL=" + album.getUrl());
                         } else {
-
                             i_downloaded.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, DownloadedFragment.class);
                             i_downloaded.putExtra(DownloadedFragment.KEY_ALBUM_TITLE, album.getTitle());
                             i_downloaded.putExtra(DownloadedFragment.KEY_ALBUM_ID, album.getAlbumId());
@@ -422,7 +424,7 @@ public class DownloadedListFragment extends BaseFragment implements DownloadStat
                         //System.out.println("TMD=="+mAlbum.getDownloadFilesize()+"   "+video.getFileSize());
 
                         mAlbum.setDownloadFilesize(mAlbum.getDownloadFilesize() + audio.getFileSize());
-                        mAlbum.setDownloadVideoCount(mAlbum.getDownLoadAudioCount() + 1);
+                        mAlbum.setDownLoadAudioCount(mAlbum.getDownLoadAudioCount() + 1);
                         //	System.out.println("TMD====SIZE  "+mAlbum.getDownloadVideoCount());
                         hasin = true;
                     }

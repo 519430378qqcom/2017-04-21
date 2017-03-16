@@ -3,6 +3,7 @@ package com.umiwi.ui.fragment.down;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.RemoteException;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -27,6 +28,7 @@ import com.umiwi.ui.activity.PlayerActivity;
 import com.umiwi.ui.adapter.DownloadedAdapter;
 import com.umiwi.ui.dialog.DownloadListDialog;
 import com.umiwi.ui.fragment.PlayerFragment;
+import com.umiwi.ui.main.UmiwiApplication;
 import com.umiwi.ui.managers.VideoDownloadManager;
 import com.umiwi.ui.managers.VideoManager;
 import com.umiwi.ui.managers.YoumiRoomUserManager;
@@ -252,7 +254,13 @@ public class DownloadedFragment extends BaseFragment {
                 }
 
                 if (video.isLocalFileValid()) {
-
+                    try {
+                        if(UmiwiApplication.mainActivity.service.isPlaying()) {
+                            UmiwiApplication.mainActivity.service.pause();
+                        }
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
                     ArrayList<VideoModel> videos = mAdapter.getVideos();
                     ArrayList<VideoModel> playVideos = new ArrayList<VideoModel>();
 

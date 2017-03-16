@@ -6,6 +6,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.RemoteException;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -32,14 +33,18 @@ import android.widget.Toast;
 import com.umeng.analytics.MobclickAgent;
 import com.umiwi.ui.R;
 import com.umiwi.ui.adapter.DownloadedAudioAdapter;
+import com.umiwi.ui.beans.DownLoadVoiceBean;
 import com.umiwi.ui.dialog.DownloadAudioListDialog1;
+import com.umiwi.ui.main.CustomStringCallBack;
 import com.umiwi.ui.main.UmiwiApplication;
 import com.umiwi.ui.managers.AudioDownloadManager;
 import com.umiwi.ui.managers.AudioManager;
 import com.umiwi.ui.managers.YoumiRoomUserManager;
 import com.umiwi.ui.model.AudioModel;
+import com.umiwi.ui.util.JsonUtil;
 import com.umiwi.ui.util.LoginUtil;
 import com.umiwi.ui.util.Utils;
+import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -72,9 +77,6 @@ public class DownloadedAudioFragment extends BaseFragment {
                         change_times.setText(utils.stringForTime(mediaPlayer.getCurrentPosition()));
                         seekbar.setProgress(mediaPlayer.getCurrentPosition());
                     }
-                    Log.e("TAG", "progress==" + mediaPlayer.getCurrentPosition());
-                    Log.e("TAG", "mediaPlayer.getCurrentPosition()=" + mediaPlayer.getCurrentPosition());
-                    Log.e("TAG", "mediaPlayer.getDuration()=" + mediaPlayer.getDuration());
                     removeMessages(PROGRESS);
                     sendEmptyMessageDelayed(PROGRESS, 1000);
                     break;
@@ -90,6 +92,8 @@ public class DownloadedAudioFragment extends BaseFragment {
     private SeekBar seekbar;
     private PopupWindow pop;
     private Utils utils;
+    private AudioModel audio;
+
     public static DownloadedAudioFragment newInstance(String albumId, String albumTitle) {
         DownloadedAudioFragment f = new DownloadedAudioFragment();
         f.setAlbumId(albumId);
@@ -265,7 +269,7 @@ public class DownloadedAudioFragment extends BaseFragment {
     }
 
     //初始化音乐播放器
-    private MediaPlayer mediaPlayer;
+    private MediaPlayer mediaPlayer ;
     private View.OnClickListener mOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -274,7 +278,8 @@ public class DownloadedAudioFragment extends BaseFragment {
 
                     break;
                 case R.id.iv_music_pauseplay :
-                    if (mediaPlayer.isPlaying()) {
+                    if (mediaPlayer!=null && mediaPlayer.isPlaying()) {
+
                         pause();
                         iv_music_pauseplay.setImageResource(R.drawable.music_pause);
                     } else {
@@ -323,7 +328,8 @@ public class DownloadedAudioFragment extends BaseFragment {
                 videoCheckBox.performClick();
 
             } else {
-                AudioModel audio = (AudioModel) mAdapter.getItem(position);
+                audio = (AudioModel) mAdapter.getItem(position);
+                Log.e("TAG", "audio");
                 if (audio.getVideoId() == null) {
                     if (YoumiRoomUserManager.getInstance().isLogin()) {
                         ArrayList<AudioModel> videos = AudioManager.getInstance().getVideosByAlbumId(audio.getAlbumId());
@@ -360,20 +366,75 @@ public class DownloadedAudioFragment extends BaseFragment {
                     pop.update();
                     pop.showAtLocation(view, Gravity.CENTER,0,0);
                     pop.setOnDismissListener(mOnDismissListener);
-                    handler.sendEmptyMessage(PROGRESS);
-                    if(audio.getVideoUrl().equals(UmiwiApplication.mainActivity.musicUrl)) {
+//                    handler.sendEmptyMessage(PROGRESS);
+//                    if(audio.getVideoUrl().equals(UmiwiApplication.mainActivity.musicUrl)) {
+//                        if (mediaPlayer == null) {
+//                            openAudio(audio.getVideoUrl());
+//                            Log.e("TAG", "audio.getVideoUrl==" + audio.getVideoUrl());
+//                        } else {
+//                            if(!mediaPlayer.isPlaying()) {
+//                                play();
+//                            }
+//                        }
+//                        return;
+//                    }
+
+
+
+                    Log.e("TAG", "audio.getVideoUrl1==" + audio.getVideoUrl());
+                    if (audio.getVideoUrl().contains("mp3")) {
+//                        if(audio.getVideoUrl().equals(UmiwiApplication.mainActivity.musicUrl)) {
+//                            if (mediaPlayer == null) {
+//                                openAudio(audio.getVideoUrl());
+//                            } else {
+//                                if(!mediaPlayer.isPlaying()) {
+//                                    play();
+//                                }
+//                            }
+//                            return;
+//                        }
                         if (mediaPlayer == null) {
-                            openAudio(audio.getVideoUrl());
+                            try {
+                                if(UmiwiApplication.mainActivity.service.isPlaying()) {
+                                    UmiwiApplication.mainActivity.service.pause();
+                                }
+                                openAudio(audio.getVideoUrl());
+                            } catch (RemoteException e) {
+                                e.printStackTrace();
+                            }
+
                         } else {
                             if(!mediaPlayer.isPlaying()) {
                                 play();
                             }
                         }
-                        return;
-                    }
-                    UmiwiApplication.mainActivity.musicUrl = audio.getVideoUrl();
-                    openAudio(audio.getVideoUrl());
+                        UmiwiApplication.mainActivity.musicUrl = audio.getVideoUrl();
+                    } else {
+                        OkHttpUtils.get().url(audio.getVideoUrl()).build().execute(new CustomStringCallBack() {
+                            @Override
+                            public void onFaild() {
 
+                            }
+
+                            @Override
+                            public void onSucess(String data) {
+                                DownLoadVoiceBean downLoadVoiceBean = JsonUtil.json2Bean(data, DownLoadVoiceBean.class);
+                                String source = downLoadVoiceBean.getSource();
+                                try {
+                                    if(UmiwiApplication.mainActivity.service.isPlaying()) {
+                                        UmiwiApplication.mainActivity.service.pause();
+                                    }
+                                    if(mediaPlayer == null) {
+                                        openAudio(source);
+                                    }
+                                } catch (RemoteException e) {
+                                    e.printStackTrace();
+                                }
+
+                                UmiwiApplication.mainActivity.musicUrl = source;
+                            }
+                        });
+                    }
                 } else {
                     Toast.makeText(getActivity(), "文件不存在！", Toast.LENGTH_SHORT).show();//TODO
                 }
@@ -384,6 +445,7 @@ public class DownloadedAudioFragment extends BaseFragment {
 
     //开始播放音乐
     private void openAudio(String url) {
+        handler.sendEmptyMessage(PROGRESS);
         if (mediaPlayer != null) {
             //把上一个音频资源释放
             mediaPlayer.reset();
@@ -437,12 +499,24 @@ public class DownloadedAudioFragment extends BaseFragment {
         mAdapter.notifyDataSetChanged();
     }
     private void play() {
-        mediaPlayer.start();
+
+//        try {
+//            mediaPlayer.setDataSource(audio.getVideoUrl());
+//            mediaPlayer.prepare();
+//            mediaPlayer.start();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        if(mediaPlayer != null) {
+            mediaPlayer.start();
+        }
     }
 
 
     private void pause() {
-        mediaPlayer.pause();
+        if(mediaPlayer != null) {
+            mediaPlayer.pause();
+        }
 
     }
     private int getDuration() {
