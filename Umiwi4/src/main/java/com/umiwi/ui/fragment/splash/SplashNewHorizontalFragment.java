@@ -30,8 +30,8 @@ public class SplashNewHorizontalFragment extends BaseFragment {
 	private ViewPager mViewPager;
 	private GuideAdapter mAdapter;
 	private ArrayList<View> views;
-	private static final int[] images = { R.drawable.guide_splash_01,
-			R.drawable.guide_splash_02, R.drawable.guide_splash_03 };
+	private static final int[] images = { R.drawable.newguide_splash_01,
+			R.drawable.newguide_splash_02, R.drawable.newguide_splash_03,R.drawable.newguide_splash_04};
 
 	@SuppressLint("InflateParams")
 	@Override
@@ -56,38 +56,57 @@ public class SplashNewHorizontalFragment extends BaseFragment {
 		}
 
 		view.findViewById(R.id.login).setOnClickListener(
-				mLoginAcitivityListener);
+				new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						Intent intent = new Intent(getActivity(), HomeMainActivity.class);
+						intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+						startActivity(intent);
+
+						LoginUtil.getInstance().showLoginView(getActivity());
+						PreferenceUtils.setPrefBoolean(getActivity(), "isCanShowGift", false);
+
+						getActivity().finish();
+					}
+				});
 		view.findViewById(R.id.gohome).setOnClickListener(
-				mGoHomeAcitivityListener);
+				new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						PreferenceUtils
+								.setPrefBoolean(getActivity(), "isCanShowGift", true);
+						startActivity(new Intent(getActivity(), HomeMainActivity.class));
+						getActivity().finish();
+					}
+				});
 		mViewPager.setAdapter(mAdapter);
 		mIndicator.setViewPager(mViewPager);
 		return view;
 	}
 
-	OnClickListener mGoHomeAcitivityListener = new View.OnClickListener() {
-
-		@Override
-		public void onClick(View v) {
-			PreferenceUtils
-					.setPrefBoolean(getActivity(), "isCanShowGift", true);
-			startActivity(new Intent(getActivity(), HomeMainActivity.class));
-			getActivity().finish();
-		}
-	};
-	OnClickListener mLoginAcitivityListener = new View.OnClickListener() {
-
-		@Override
-		public void onClick(View v) {
-			Intent intent = new Intent(getActivity(), HomeMainActivity.class);
-			intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-			startActivity(intent);
-
-			LoginUtil.getInstance().showLoginView(getActivity());
-			PreferenceUtils.setPrefBoolean(getActivity(), "isCanShowGift", false);
-
-			getActivity().finish();
-		}
-	};
+//	OnClickListener mGoHomeAcitivityListener = new View.OnClickListener() {
+//		@Override
+//		public void onClick(View v) {
+//			PreferenceUtils
+//					.setPrefBoolean(getActivity(), "isCanShowGift", true);
+//			startActivity(new Intent(getActivity(), HomeMainActivity.class));
+//			getActivity().finish();
+//		}
+//	};
+//	OnClickListener mLoginAcitivityListener = new View.OnClickListener() {
+//
+//		@Override
+//		public void onClick(View v) {
+//			Intent intent = new Intent(getActivity(), HomeMainActivity.class);
+//			intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+//			startActivity(intent);
+//
+//			LoginUtil.getInstance().showLoginView(getActivity());
+//			PreferenceUtils.setPrefBoolean(getActivity(), "isCanShowGift", false);
+//
+//			getActivity().finish();
+//		}
+//	};
 
 	public class GuideAdapter extends PagerAdapter {
 		private ArrayList<View> views;

@@ -13,10 +13,12 @@
     <TextView
         android:id="@+id/no_data"
         android:visibility="gone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="暂无数据..."
+        android:gravity="center"
+        android:layout_width="100dp"
+        android:layout_height="240dp"
+        android:text="暂无开通视频"
         android:textColor="@color/main_color"
+        android:textSize="16sp"
         android:layout_centerInParent="true"
         />
   </RelativeLayout>

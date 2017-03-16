@@ -10,11 +10,13 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nineoldandroids.view.ViewPropertyAnimator;
 import com.umiwi.ui.R;
@@ -124,10 +126,11 @@ public class NewHomeRecommendFragment extends BaseConstantFragment {
         record.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(UmiwiApplication.mainActivity.service != null ) {
+                if (UmiwiApplication.mainActivity.service != null) {
                     try {
-                        if(UmiwiApplication.mainActivity.service.isPlaying()) {
-                            if(UmiwiApplication.mainActivity.herfUrl != null) {
+
+                        if (UmiwiApplication.mainActivity.service.isPlaying() || UmiwiApplication.mainActivity.isPause) {
+                            if (UmiwiApplication.mainActivity.herfUrl != null) {
                                 Log.e("TAG", "UmiwiApplication.mainActivity.herfUrl=" + UmiwiApplication.mainActivity.herfUrl);
                                 Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
                                 intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
@@ -138,6 +141,10 @@ public class NewHomeRecommendFragment extends BaseConstantFragment {
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     }
+                } else {
+                    Toast toast = Toast.makeText(getActivity(), "没有正在播放的音频", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER,0,0);
+                    toast.show();
                 }
             }
         });

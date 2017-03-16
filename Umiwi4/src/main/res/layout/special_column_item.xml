@@ -7,34 +7,41 @@
     <!--第一个行家-->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="140dp"
+        android:layout_height="130dp"
         android:background="@color/white"
         android:padding="15dp">
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/special_right_layout_1"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_alignParentRight="true">
+            android:layout_alignParentRight="true"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/special_price_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="right"
                 android:text="¥299/年"
                 android:textColor="@color/main_color"
-                android:textSize="19sp" />
+                android:textSize="16sp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
             <TextView
                 android:id="@+id/special_subscribe_number_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
+                android:layout_gravity="right"
                 android:layout_marginLeft="7dp"
                 android:text="已订阅205"
                 android:textColor="@color/color_divider"
                 android:textSize="14sp" />
-        </RelativeLayout>
+        </LinearLayout>
 
 
         <RelativeLayout
@@ -62,7 +69,7 @@
                     android:singleLine="true"
                     android:text="雷军.精英日课"
                     android:textColor="@color/black_a8"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/special_context_1"
@@ -91,7 +98,7 @@
                     android:padding="2dp"
                     android:singleLine="true"
                     android:text="17小时前更新"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/expter_detail_textView"
@@ -100,7 +107,6 @@
                     android:layout_marginTop="5dp"
                     android:ellipsize="end"
                     android:singleLine="true"
-                    android:text="飞在互联网的猪"
                     android:textSize="14sp" />
 
             </LinearLayout>
@@ -109,9 +115,9 @@
 
         <ImageView
             android:id="@+id/special_header_imageview_1"
-            android:layout_width="100dp"
+            android:layout_width="80dp"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop" />
+            android:scaleType="fitXY" />
 
 
     </RelativeLayout>

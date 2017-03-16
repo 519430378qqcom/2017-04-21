@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.os.RemoteException;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,18 +12,17 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
-import com.umiwi.ui.beans.UmiwiAddQuestionBeans;
 import com.umiwi.ui.beans.UmiwiBuyCreateOrderBeans;
 import com.umiwi.ui.beans.updatebeans.DelayAnswerVoiceBean;
 import com.umiwi.ui.beans.updatebeans.RecommendBean;
-import com.umiwi.ui.fragment.home.updatehome.indexfragment.AskQuestionFragment;
 import com.umiwi.ui.fragment.pay.PayingFragment;
 import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.main.UmiwiApplication;
+import com.umiwi.ui.managers.YoumiRoomUserManager;
+import com.umiwi.ui.util.LoginUtil;
 import com.umiwi.ui.view.CircleImageView;
 import com.umiwi.video.recorder.MediaManager;
 
@@ -100,17 +100,32 @@ public class ExpertAnswerDowndapter extends BaseAdapter {
         mViewHolder.tv_time_limit_hear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                try {
+                    if (UmiwiApplication.mainActivity.service != null && UmiwiApplication.mainActivity.service.isPlaying()) {
+                        UmiwiApplication.mainActivity.service.pause();
+                    }
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+
                 if (listentype.equals("1")) {
-                    getOrderId(questionBean.getId());
+                    //添加登录判断
+                    if (!YoumiRoomUserManager.getInstance().isLogin()) {
+                        LoginUtil.getInstance().showLoginView(mActivity);
+                    } else {
+                        getOrderId(questionBean.getId());
+                    }
                 } else {
                     if (currentpos != -1) {
 //                   mCurrentVoiceListener.getCurrentView(currentpos);
                         mList.get(currentpos).setButtontag(questionBean.getButtontag());
                         notifyDataSetChanged();
                         if (currentpos == position) {
-                            if (MediaManager.mediaPlayer.isPlaying()) {
+                            if (MediaManager.mediaPlayer.isPlaying() && MediaManager.mediaPlayer != null) {
                                 MediaManager.pause();
-                                mViewHolder.tv_time_limit_hear.setText("立即听");
+                                mList.get(position).setButtontag("立即听");
+                                notifyDataSetChanged();
+
                                 Log.e("ISPALY", "PAUSE");
                             } else {
                                 MediaManager.resume();
@@ -137,7 +152,6 @@ public class ExpertAnswerDowndapter extends BaseAdapter {
                     String buttontag = mList.get(position).getButtontag();
                     getsorceInfos(playsource, mViewHolder.tv_time_limit_hear, buttontag);
                 }
-
 
             }
         });

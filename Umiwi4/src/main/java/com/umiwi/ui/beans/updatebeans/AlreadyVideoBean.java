@@ -66,96 +66,96 @@ public class AlreadyVideoBean extends BaseGsonBeans {
         private ArrayList<RecordInfo> record;
 
        public static class RecordInfo{
-           public PageBean getId() {
+           public String getId() {
                return id;
            }
 
-           public void setId(PageBean id) {
+           public void setId(String id) {
                this.id = id;
            }
 
-           public PageBean getLimage() {
+           public String getLimage() {
                return limage;
            }
 
-           public void setLimage(PageBean limage) {
+           public void setLimage(String limage) {
                this.limage = limage;
            }
 
-           public PageBean getShortx() {
+           public String getShortx() {
                return shortx;
            }
 
-           public void setShortx(PageBean shortx) {
+           public void setShortx(String shortx) {
                this.shortx = shortx;
            }
 
-           public PageBean getPrice() {
+           public String getPrice() {
                return price;
            }
 
-           public void setPrice(PageBean price) {
+           public void setPrice(String price) {
                this.price = price;
            }
 
-           public PageBean getName() {
+           public String getName() {
                return name;
            }
 
-           public void setName(PageBean name) {
+           public void setName(String name) {
                this.name = name;
            }
 
-           public PageBean getTutortitle() {
+           public String getTutortitle() {
                return tutortitle;
            }
 
-           public void setTutortitle(PageBean tutortitle) {
+           public void setTutortitle(String tutortitle) {
                this.tutortitle = tutortitle;
            }
 
-           public PageBean getWatchnum() {
+           public String getWatchnum() {
                return watchnum;
            }
 
-           public void setWatchnum(PageBean watchnum) {
+           public void setWatchnum(String watchnum) {
                this.watchnum = watchnum;
            }
 
-           public PageBean getTime() {
+           public String getTime() {
                return time;
            }
 
-           public void setTime(PageBean time) {
+           public void setTime(String time) {
                this.time = time;
            }
 
-           public PageBean getPlaytime() {
+           public String getPlaytime() {
                return playtime;
            }
 
-           public void setPlaytime(PageBean playtime) {
+           public void setPlaytime(String playtime) {
                this.playtime = playtime;
            }
 
            @SerializedName("id")
-           private PageBean id;
+           private String id;
            @SerializedName("limage")
-           private PageBean limage;
+           private String limage;
            @SerializedName("short")
-           private PageBean shortx;
+           private String shortx;
            @SerializedName("price")
-           private PageBean price;
+           private String price;
            @SerializedName("name")
-           private PageBean name;
+           private String name;
            @SerializedName("tutortitle")
-           private PageBean tutortitle;
+           private String tutortitle;
            @SerializedName("watchnum")
-           private PageBean watchnum;
+           private String watchnum;
            @SerializedName("time")
-           private PageBean time;
+           private String time;
            @SerializedName("playtime")
-           private PageBean playtime;
+           private String playtime;
 
        }
 

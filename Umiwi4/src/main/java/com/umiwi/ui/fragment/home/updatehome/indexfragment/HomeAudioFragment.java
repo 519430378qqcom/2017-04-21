@@ -65,8 +65,8 @@ public class HomeAudioFragment extends BaseConstantFragment {
     @InjectView(R.id.flow_orderby)
     FlowLayout flow_orderby;
 
-    private int page;
-    private int totalpage;
+    private int page = 1;
+    private int totalpage = 1;
     private ArrayList<AlreadyShopVoiceBean.RAlreadyVoice.Record> recordList = new ArrayList<>();
     private AlreadyVoiceAdapter alreadyVoiceAdapter;
     private Context mContext;
@@ -127,7 +127,7 @@ public class HomeAudioFragment extends BaseConstantFragment {
 
         priceList.add("免费");
         priceList.add("收费");
-       // priceList.add("钻石专享");
+        // priceList.add("钻石专享");
         priceListId.add("free");
         priceListId.add("charge");
         //priceListId.add("diamond");

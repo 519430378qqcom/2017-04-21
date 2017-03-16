@@ -27,8 +27,6 @@
                     android:id="@+id/expert_question_textView_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:singleLine="true"
                     android:text="微信小程序可以直播吗"
                     android:textColor="@color/black"
                     android:textSize="16sp" />

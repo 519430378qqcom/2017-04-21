@@ -84,6 +84,7 @@ public class AudioFragment extends BaseConstantFragment {
             infos.addAll(record);
             alreadyVoiceAdapter.setData(infos);
             refreshLayout.setRefreshing(false);
+            listview.setEnabled(true);
         }
 
         @Override
@@ -121,7 +122,7 @@ public class AudioFragment extends BaseConstantFragment {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-
+                listview.setEnabled(false);
                 page = 1;
                 infos.clear();
                 getinfos();

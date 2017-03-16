@@ -66,22 +66,22 @@ public class DelayAnswerFragment extends BaseFragment {
         lvAnswerAnswered.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                AnswerBean.RAnser.Question question = questionsInfos.get(i);
-//                String price = question.getPrice();
-//                String tname = question.getTname();
-//                String tavatar = question.getTavatar();
-//                String title = question.getTitle();
-//                String answertime = question.getAnswertime();
-//                String id = question.getId();
-//                Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
-//                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, RecordVoiceFragment.class);
-//                intent.putExtra("price",price);
-//                intent.putExtra("tname",tname);
-//                intent.putExtra("tavatar",tavatar);
-//                intent.putExtra("title",title);
-//                intent.putExtra("answertime",answertime);
-//                intent.putExtra("id",id);
-//                startActivity(intent);
+                AnswerBean.RAnser.Question question = questionsInfos.get(i);
+                String price = question.getPrice();
+                String tname = question.getTname();
+                String tavatar = question.getTavatar();
+                String title = question.getTitle();
+                String answertime = question.getAnswertime();
+                String id = question.getId();
+                Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
+                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, RecordVoiceFragment.class);
+                intent.putExtra("price",price);
+                intent.putExtra("tname",tname);
+                intent.putExtra("tavatar",tavatar);
+                intent.putExtra("title",title);
+                intent.putExtra("answertime",answertime);
+                intent.putExtra("id",id);
+                startActivity(intent);
             }
         });
         initrefreshLayout();

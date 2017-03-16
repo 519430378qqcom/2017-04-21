@@ -16,6 +16,7 @@ dependencies {
     compile "com.squareup.okhttp:okhttp:${OK_HTTP_VERSION}"
 
     compile "com.jakewharton:disklrucache:${DISKLRUCACHE_VERSION}"
+    compile 'com.android.support:multidex:1.0.1'
 }
 
 

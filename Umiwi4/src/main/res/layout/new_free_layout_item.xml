@@ -22,6 +22,7 @@
             <!--android:paddingTop="5dp">-->
 
             <ImageView
+                android:scaleType="centerCrop"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:id="@+id/iv_audio"

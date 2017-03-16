@@ -19,6 +19,9 @@ import com.umiwi.ui.fragment.ShareArticleFragment;
 import com.umiwi.ui.fragment.WebFragment;
 import com.umiwi.ui.fragment.course.CourseDetailPlayFragment;
 import com.umiwi.ui.fragment.course.JPZTDetailFragment;
+import com.umiwi.ui.fragment.home.updatehome.indexfragment.ColumnDetailsFragment;
+import com.umiwi.ui.fragment.home.updatehome.indexfragment.ExpertFragment;
+import com.umiwi.ui.fragment.home.updatehome.indexfragment.VoiceDetailsFragment;
 import com.umiwi.ui.main.UmiwiApplication;
 import com.umiwi.ui.managers.StatisticsManager;
 
@@ -61,14 +64,14 @@ public class LunboAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, final int position) {
     	LayoutParams para = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
     	ImageView imageView = new ImageView(mContext);
+		imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
         final UmiwiListBeans listBeans = (UmiwiListBeans) getItem(position % data.size());
 
         ImageLoader mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
-		mImageLoader.loadImage(listBeans.getImage(), imageView, R.drawable.image_loader_big);
+		mImageLoader.loadImage(listBeans.getImage(), imageView);//, R.drawable.image_loader_big
 
 
-        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
     	imageView.setLayoutParams(para);
 
         imageView.setOnClickListener(new OnClickListener() {
@@ -97,13 +100,28 @@ public class LunboAdapter extends PagerAdapter {
 					intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, ShareArticleFragment.class);
 					intent.putExtra(ShareArticleFragment.KEY_URL, listBeans.getDetailurl());
 					mContext.startActivity(intent);
-				} else if ("tutor".equals(listBeans.getTypes())) {
+				} else if ("tutor1".equals(listBeans.getTypes())) {
 					Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
-					intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, LecturerDetailFragment.class);
+					intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, ExpertFragment.class);
 					intent.putExtra(LecturerDetailFragment.KEY_DEFAULT_DETAILURL, listBeans.getDetailurl());
 					mContext.startActivity(intent);
 
-				} else {
+				}else if ("column".equals(listBeans.getTypes())){
+					Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
+					intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, ColumnDetailsFragment.class);
+					intent.putExtra(LecturerDetailFragment.KEY_DEFAULT_DETAILURL, listBeans.getDetailurl());
+					mContext.startActivity(intent);
+				}else if ("audio".equals(listBeans.getTypes())){
+					Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
+					intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
+					intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL, listBeans.getUrl());
+					mContext.startActivity(intent);
+				}else if ("asker".equals(listBeans.getTypes())){
+					Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
+					intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
+					intent.putExtra("uid", listBeans.getId());
+					mContext.startActivity(intent);
+				}else {
 					ToastU.showLong(mContext, "版本不支持，请更新版本");
 				}
 				MobclickAgent.onEvent(mContext, "首页VI", "轮播");

@@ -2,6 +2,7 @@ package com.umiwi.ui.adapter;
 
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
+import android.os.RemoteException;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -10,24 +11,21 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.umiwi.ui.R;
-import com.umiwi.ui.beans.ChartsListBean;
 import com.umiwi.ui.beans.updatebeans.AlreadyAskBean;
 import com.umiwi.ui.beans.updatebeans.DelayAnswerVoiceBean;
 import com.umiwi.ui.beans.updatebeans.ZanBean;
 import com.umiwi.ui.main.UmiwiAPI;
+import com.umiwi.ui.main.UmiwiApplication;
 import com.umiwi.video.recorder.MediaManager;
-import com.zhy.http.okhttp.request.GetRequest;
 
 import java.util.ArrayList;
 
 import cn.youmi.framework.http.AbstractRequest;
-import cn.youmi.framework.http.HttpDispatcher;
 import cn.youmi.framework.http.parsers.GsonParser;
-
-import static com.umiwi.ui.main.YoumiConfiguration.context;
 
 /**
  * Created by Administrator on 2017/3/6.
@@ -99,7 +97,11 @@ public class AskHearAdapter extends BaseAdapter {
         viewHolder.title.setText(question.getTitle());
         viewHolder.buttontag.setText(question.getButtontag());
         viewHolder.listennum.setText(question.getListennum());
-        viewHolder.goodnum.setText(question.getGoodnum());
+        if (question.getGoodnum().equals("")){
+            viewHolder.goodnum.setText("0");
+        }else {
+            viewHolder.goodnum.setText(question.getGoodnum());
+        }
         viewHolder.playtime.setText(question.getPlaytime());
         viewHolder.answertime.setText(question.getAnswertime());
         Glide.with(activity).load(question.getTavatar()).into(viewHolder.tavatar);
@@ -108,8 +110,13 @@ public class AskHearAdapter extends BaseAdapter {
         }
 
         viewHolder.goodnum.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
+                String goodnum = askInfos.get(position).getGoodnum();
+                if (goodnum.equals("")){
+                    return;
+                }
                 final boolean state = askInfos.get(position).getGoodstate();
                 String id = askInfos.get(position).getId();
 
@@ -151,8 +158,19 @@ public class AskHearAdapter extends BaseAdapter {
         viewHolder.buttontag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                try {
+                    if (UmiwiApplication.mainActivity.service != null && UmiwiApplication.mainActivity.service.isPlaying()) {
+                        UmiwiApplication.mainActivity.service.pause();
+                    }
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
 
-
+                String buttontag = askInfos.get(position).getButtontag();
+                if (buttontag.equals("暂无回答")){
+                    Toast.makeText(activity, "行家没有回答请耐心等待", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if (currentpos != -1) {
 //                   mCurrentVoiceListener.getCurrentView(currentpos);
                     askInfos.get(currentpos).setButtontag("立即听");

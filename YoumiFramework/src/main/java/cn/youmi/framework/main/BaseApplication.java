@@ -2,11 +2,12 @@ package cn.youmi.framework.main;
 
 import android.app.Application;
 import android.content.Context;
+import android.support.multidex.MultiDexApplication;
 
 /**
  * Created by tangixyong on 16/1/21.
  */
-public class BaseApplication extends Application{
+public class BaseApplication extends MultiDexApplication {
     private static Context sContext;
 
     private static BaseApplication baseApplication = null;

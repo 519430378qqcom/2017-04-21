@@ -19,6 +19,8 @@ import cn.youmi.framework.util.ToastU;
 public class BaseFragment extends AbstractFragment implements ActivityEventListener {
 
 	protected Handler mHandler = new Handler();
+
+
 	
 	protected Toolbar mActionBarToolbar;
 	

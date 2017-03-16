@@ -3,20 +3,19 @@ package com.umiwi.ui.adapter;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
+import android.os.RemoteException;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.beans.UmiwiBuyCreateOrderBeans;
 import com.umiwi.ui.beans.updatebeans.DelayAnswerVoiceBean;
 import com.umiwi.ui.beans.updatebeans.HomeAskBean;
-import com.umiwi.ui.beans.updatebeans.WenDaBean;
 import com.umiwi.ui.beans.updatebeans.ZanBean;
 import com.umiwi.ui.fragment.pay.PayingFragment;
 import com.umiwi.ui.main.UmiwiAPI;
@@ -160,6 +159,15 @@ public class ExperDetailsWendaAdapter extends BaseAdapter {
         viewHolder.buttontag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                try {
+                    if (UmiwiApplication.mainActivity.service != null && UmiwiApplication.mainActivity.service.isPlaying()) {
+                        UmiwiApplication.mainActivity.service.pause();
+                    }
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+
                 String id = wendaInfos.get(position).getId();
                 if (listentype.equals("1")){
                    getOrderId(id);

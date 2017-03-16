@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.v4.widget.SwipeRefreshLayout
+    <com.umiwi.ui.view.VpSwipeRefreshLayout
         android:id="@+id/pull_to_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -97,6 +97,6 @@
                     android:visibility="visible" />
             </LinearLayout>
         </ScrollView>
-    </android.support.v4.widget.SwipeRefreshLayout>
+    </com.umiwi.ui.view.VpSwipeRefreshLayout>
 
 </LinearLayout>

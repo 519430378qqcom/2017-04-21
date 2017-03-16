@@ -2,6 +2,7 @@ package com.umiwi.ui.adapter.updateadapter;
 
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
+import android.os.RemoteException;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -13,11 +14,11 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.umiwi.ui.R;
-import com.umiwi.ui.adapter.AskHearAdapter;
 import com.umiwi.ui.beans.updatebeans.AlreadyAskBean;
 import com.umiwi.ui.beans.updatebeans.DelayAnswerVoiceBean;
 import com.umiwi.ui.beans.updatebeans.ZanBean;
 import com.umiwi.ui.main.UmiwiAPI;
+import com.umiwi.ui.main.UmiwiApplication;
 import com.umiwi.video.recorder.MediaManager;
 
 import java.util.ArrayList;
@@ -144,7 +145,13 @@ public class HearAdapter extends BaseAdapter {
         viewHolder.buttontag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                try {
+                    if (UmiwiApplication.mainActivity.service != null && UmiwiApplication.mainActivity.service.isPlaying()) {
+                        UmiwiApplication.mainActivity.service.pause();
+                    }
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
                 if (currentpos!=-1){
 //                   mCurrentVoiceListener.getCurrentView(currentpos);
                     hearInfos.get(currentpos).setButtontag("立即听");

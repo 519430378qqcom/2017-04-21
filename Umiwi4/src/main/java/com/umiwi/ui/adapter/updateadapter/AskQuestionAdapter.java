@@ -1,6 +1,5 @@
 package com.umiwi.ui.adapter.updateadapter;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
@@ -10,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
@@ -21,10 +19,12 @@ import com.umiwi.ui.beans.updatebeans.ZanBean;
 import com.umiwi.ui.fragment.pay.PayingFragment;
 import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.main.UmiwiApplication;
+import com.umiwi.ui.util.LoginUtil;
 import com.umiwi.video.recorder.MediaManager;
 
 import java.util.ArrayList;
 
+import cn.youmi.account.manager.UserManager;
 import cn.youmi.framework.http.AbstractRequest;
 import cn.youmi.framework.http.GetRequest;
 import cn.youmi.framework.http.parsers.GsonParser;
@@ -152,7 +152,12 @@ public class AskQuestionAdapter extends BaseAdapter {
             public void onClick(View view) {
                 String id = questionList.get(position).getId();
                 if (listentype.equals("1")){
-                       getOrderId(id);
+                    //登录状态判断
+                    if (!UserManager.getInstance().isLogin()) {
+                        LoginUtil.getInstance().showLoginView(activity);
+                    } else {
+                        getOrderId(id);
+                    }
                    } else {
                        if (currentpos!=-1){
                            questionList.get(currentpos).setButtontag("立即听");

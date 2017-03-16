@@ -3,12 +3,15 @@ package com.umiwi.ui.fragment.home.alreadyshopping;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -23,14 +26,11 @@ import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.util.JsonUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-
-import static com.umiwi.video.services.VoiceService.url;
 
 
 /**
@@ -46,6 +46,12 @@ public class LogicalThinkingFragment extends BaseConstantFragment {
     ListView listView;
     @InjectView(R.id.iv_back)
     ImageView iv_back;
+    @InjectView(R.id.title)
+    TextView title;
+    @InjectView(R.id.ll_orderby)
+    LinearLayout ll_orderby;
+    @InjectView(R.id.iv_sort)
+    ImageView iv_sort;
 
     private String id;
     private LogicalThinkingAdapter logicalThinkingAdapter;
@@ -59,6 +65,8 @@ public class LogicalThinkingFragment extends BaseConstantFragment {
         View view = inflater.inflate(R.layout.fragment_logical_thinking, null);
         ButterKnife.inject(this, view);
         id = getActivity().getIntent().getStringExtra("id");
+        String intentTitile = getActivity().getIntent().getStringExtra("title");
+        title.setText(intentTitile);
         logicalThinkingAdapter = new LogicalThinkingAdapter(getActivity(), thinkingBeanList);
         listView.setAdapter(logicalThinkingAdapter);
         iv_back.setOnClickListener(new View.OnClickListener() {
@@ -76,6 +84,7 @@ public class LogicalThinkingFragment extends BaseConstantFragment {
                 Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
                 intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
                 intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL, String.format(UmiwiAPI.MIANFEI_YUEDU, thinkingBeanList.get(position).getId()));
+                intent.putExtra("isTry", true);
                 getActivity().startActivity(intent);
             }
         });
@@ -83,20 +92,28 @@ public class LogicalThinkingFragment extends BaseConstantFragment {
     }
 
     private void changeOrder() {
-        orderby.setOnClickListener(new View.OnClickListener() {
+        ll_orderby.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (orderby.getText().toString().equals("正序")) {
                     orderby.setText("倒序");
                     orderbyId = "old";
                     getdataInfo();
+                    rotateImpl();
                 } else {
                     orderby.setText("正序");
                     orderbyId = "new";
                     getdataInfo();
+                    rotateImpl();
                 }
             }
         });
+    }
+
+    public void rotateImpl() {
+        Animation animation = AnimationUtils.loadAnimation(getActivity(),
+                R.anim.sort_anim);
+        iv_sort.startAnimation(animation);
     }
 
     private void getdataInfo() {
@@ -104,6 +121,7 @@ public class LogicalThinkingFragment extends BaseConstantFragment {
         OkHttpUtils.get().url(url).build().execute(new CustomStringCallBack() {
             @Override
             public void onFaild() {
+
             }
 
             @Override

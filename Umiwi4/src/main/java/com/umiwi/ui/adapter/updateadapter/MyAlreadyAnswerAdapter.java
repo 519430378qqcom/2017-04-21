@@ -1,6 +1,7 @@
 package com.umiwi.ui.adapter.updateadapter;
 
 import android.media.MediaPlayer;
+import android.os.RemoteException;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import com.umiwi.ui.R;
 import com.umiwi.ui.beans.updatebeans.AnswerBean;
 import com.umiwi.ui.beans.updatebeans.DelayAnswerVoiceBean;
+import com.umiwi.ui.main.UmiwiApplication;
 import com.umiwi.ui.view.CircleImageView;
 import com.umiwi.video.recorder.MediaManager;
 
@@ -82,7 +84,13 @@ public class MyAlreadyAnswerAdapter extends BaseAdapter {
         hoder.paly_voice.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
-
+               try {
+                   if (UmiwiApplication.mainActivity.service != null && UmiwiApplication.mainActivity.service.isPlaying()) {
+                       UmiwiApplication.mainActivity.service.pause();
+                   }
+               } catch (RemoteException e) {
+                   e.printStackTrace();
+               }
                if (currentpos!=-1){
 //                   mCurrentVoiceListener.getCurrentView(currentpos);
                    questionsInfos.get(currentpos).setPalyname("播放");

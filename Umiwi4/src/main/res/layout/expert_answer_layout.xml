@@ -115,7 +115,7 @@
                     android:paddingLeft="15dp"
                     android:paddingRight="15dp"
                     android:paddingTop="8dp"
-                    android:text="向他提问"
+                    android:text="向Ta提问"
                     android:textColor="@color/main_color"
                     android:textSize="15sp" />
 
@@ -193,7 +193,7 @@
                     android:paddingLeft="15dp"
                     android:paddingRight="15dp"
                     android:paddingTop="8dp"
-                    android:text="向他提问"
+                    android:text="向Ta提问"
                     android:textColor="@color/main_color"
                     android:textSize="15sp" />
 

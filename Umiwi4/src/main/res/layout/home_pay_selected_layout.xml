@@ -114,6 +114,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="130dp">
 
+                    <ImageView
+                        android:id="@+id/iv_pay_video_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/umiwi_blue"
+                        android:scaleType="fitXY" />
+
                     <TextView
                         android:id="@+id/tv_pay_video_tag_left_1"
                         android:layout_width="wrap_content"
@@ -138,12 +145,6 @@
                         android:textColor="@color/white"
                         android:textSize="10sp" />
 
-                    <ImageView
-                        android:id="@+id/iv_pay_video_1"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/umiwi_blue"
-                        android:scaleType="fitXY" />
                 </FrameLayout>
             </LinearLayout>
 

@@ -101,6 +101,7 @@ public class HearFragment extends BaseConstantFragment {
             hearInfos.addAll(questions);
             hearAdapter.setData(hearInfos);
             refreshLayout.setRefreshing(false);
+            listview.setEnabled(true);
         }
 
         @Override
@@ -136,6 +137,7 @@ public class HearFragment extends BaseConstantFragment {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                listview.setEnabled(false);
                 hearPage = 1;
                 hearInfos.clear();
                 getHearInfos();

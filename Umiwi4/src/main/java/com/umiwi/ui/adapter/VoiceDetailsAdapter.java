@@ -18,18 +18,21 @@ import android.widget.TextView;
 import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.beans.AudioTmessageListBeans;
-import com.umiwi.ui.beans.updatebeans.ExperDetailsVoiceBean;
 import com.umiwi.ui.beans.updatebeans.VoicePlayBean;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.ExperDetailsFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.VoiceDetailsFragment;
 import com.umiwi.ui.main.UmiwiApplication;
 import com.umiwi.ui.managers.YoumiRoomUserManager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.youmi.framework.util.AndroidSDK;
 import cn.youmi.framework.util.ImageLoader;
 import cn.youmi.framework.view.CircleImageView;
+
+
+
 
 /**
  * Created by ${Gpsi} on 2017/3/11.
@@ -208,13 +211,13 @@ public class VoiceDetailsAdapter extends BaseAdapter {
         authorNameTextView.setText(experDetailsVoiceBean.getName());
         Log.e("TAG", "experDetailsVoiceBean.getName()=" + experDetailsVoiceBean.getName());
         TextView authorTitle = (TextView) view.findViewById(R.id.author_short_description_text_view);
-        if (!TextUtils.isEmpty(experDetailsVoiceBean.getTutortitle())) {
-            if (experDetailsVoiceBean.getTutortitle().length() >= 16) {
-                authorTitle.setText(experDetailsVoiceBean.getTutortitle().subSequence(0, 14) + "...");
-            } else {
+//        if (!TextUtils.isEmpty(experDetailsVoiceBean.getTutortitle())) {
+//            if (experDetailsVoiceBean.getTutortitle().length() >= 16) {
+//                authorTitle.setText(experDetailsVoiceBean.getTutortitle().subSequence(0, 14) + "...");
+//            } else {
+//            }
+//        }
                 authorTitle.setText(experDetailsVoiceBean.getTutortitle());
-            }
-        }
         CircleImageView autorAvatarImageView = (CircleImageView) view.findViewById(R.id.author_avatar_image_view);
         ImageLoader mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
         mImageLoader.loadImage(experDetailsVoiceBean.getTutorimage(), autorAvatarImageView);
@@ -240,9 +243,15 @@ public class VoiceDetailsAdapter extends BaseAdapter {
         if (index < 0) {
             return;
         }
-        VoicePlayBean.RAnserVoicePlay.RDudiao bean = audioFileList.get(index);
+        final VoicePlayBean.RAnserVoicePlay.RDudiao bean = audioFileList.get(index);
         TextView tv_dir_title = (TextView) view.findViewById(R.id.tv_dir_title);
         TextView tv_dir_totaltime = (TextView) view.findViewById(R.id.tv_dir_totaltime);
+        TextView try_play = (TextView) view.findViewById(R.id.try_play);
+        if (bean.isTry1()){
+            try_play.setVisibility(View.VISIBLE);
+        }else {
+            try_play.setVisibility(View.INVISIBLE);
+        }
         tv_dir_title.setText(bean.getAtitle());
         tv_dir_totaltime.setText(bean.getAplaytime());
 
@@ -257,6 +266,11 @@ public class VoiceDetailsAdapter extends BaseAdapter {
 //                voiceDetailsFragment.bindVoiceSerive();
                 if(experDetailsVoiceBean.getIspay()) {
                     voiceDetailsFragment.bindVoiceSerive();
+                }
+                if(bean.isTry1()) {
+                    voiceDetailsFragment.startPlayer.setClickable(true);
+                    voiceDetailsFragment.sb_seekbar.setVisibility(View.VISIBLE);
+                    voiceDetailsFragment.getData(bean.getSource());
                 }
             }
         });
@@ -276,14 +290,57 @@ public class VoiceDetailsAdapter extends BaseAdapter {
         }
 
         final TextView courseDescription = (TextView) view.findViewById(R.id.course_description);
-        String description = "";
+        TextView course_description1 = (TextView) view.findViewById(R.id.course_description1);
+        ImageView iv_voice_detail1 = (ImageView) view.findViewById(R.id.iv_voice_detail1);
+        ImageView iv_voice_detail2 = (ImageView) view.findViewById(R.id.iv_voice_detail2);
+        TextView course_description2 = (TextView) view.findViewById(R.id.course_description2);
+
+
+
         if (experDetailsVoiceBean.getContent() == null
                 || experDetailsVoiceBean.getContent().size() == 0) {
-            description = "课程简介";
+            course_description1.setVisibility(View.GONE);
+            iv_voice_detail1.setVisibility(View.GONE);
+            iv_voice_detail2.setVisibility(View.GONE);
+            course_description2.setVisibility(View.GONE);
         } else {
-            description = "课程简介";
+            //显示简介数据
+            ArrayList<VoicePlayBean.RAnserVoicePlay.Rcontent> content =
+                    experDetailsVoiceBean.getContent();
+            if(content.size()==1) {
+                course_description1.setVisibility(View.VISIBLE);
+                course_description1.setText(content.get(0).getWord());
+            }
+            if(content.size()==2) {
+                course_description1.setVisibility(View.VISIBLE);
+                course_description1.setText(content.get(0).getWord());
+                iv_voice_detail1.setVisibility(View.VISIBLE);
+                ImageLoader mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
+                mImageLoader.loadImage(content.get(1).getImage(), iv_voice_detail1);
+            }
+            if(content.size() == 3) {
+                course_description1.setVisibility(View.VISIBLE);
+                course_description1.setText(content.get(0).getWord());
+                iv_voice_detail1.setVisibility(View.VISIBLE);
+                ImageLoader mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
+                mImageLoader.loadImage(content.get(1).getImage(), iv_voice_detail1);
+                course_description2.setVisibility(View.VISIBLE);
+                course_description2.setText(content.get(2).getWord());
+            }
+            if(content.size() == 4) {
+                course_description1.setVisibility(View.VISIBLE);
+                course_description1.setText(content.get(0).getWord());
+                iv_voice_detail1.setVisibility(View.VISIBLE);
+                ImageLoader mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
+                mImageLoader.loadImage(content.get(1).getImage(), iv_voice_detail1);
+                course_description2.setVisibility(View.VISIBLE);
+                course_description2.setText(content.get(2).getWord());
+                iv_voice_detail2.setVisibility(View.VISIBLE);
+                mImageLoader.loadImage(content.get(3).getImage(), iv_voice_detail2);
+            }
+
         }
-        courseDescription.setText(description);
+
 
         final ImageView moreBar = (ImageView) view.findViewById(R.id.more_detail_imageview);
 

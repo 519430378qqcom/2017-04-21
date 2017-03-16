@@ -19,13 +19,15 @@ import com.umiwi.ui.adapter.ColumnDetailsAdapter;
 import com.umiwi.ui.adapter.ColumnRecordAdapter;
 import com.umiwi.ui.beans.ColumnDetailsBean;
 import com.umiwi.ui.beans.UmiwiBuyCreateOrderBeans;
-import com.umiwi.ui.dialog.updatedialog.NewShareDialog;
+import com.umiwi.ui.dialog.ShareDialog;
 import com.umiwi.ui.fragment.home.alreadyshopping.LogicalThinkingFragment;
 import com.umiwi.ui.fragment.pay.PayingFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.CustomStringCallBack;
 import com.umiwi.ui.main.UmiwiAPI;
+import com.umiwi.ui.managers.YoumiRoomUserManager;
 import com.umiwi.ui.util.JsonUtil;
+import com.umiwi.ui.util.LoginUtil;
 import com.umiwi.ui.view.NoScrollListview;
 import com.zhy.http.okhttp.OkHttpUtils;
 
@@ -93,6 +95,7 @@ public class ColumnDetailsFragment extends BaseConstantFragment {
                 Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
                 intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, LogicalThinkingFragment.class);
                 intent.putExtra("id",columnDetailsBean.getId());
+                intent.putExtra("title",columnDetailsBean.getTitle());
                 startActivity(intent);
             }
         });
@@ -110,7 +113,7 @@ public class ColumnDetailsFragment extends BaseConstantFragment {
         iv_shared.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NewShareDialog.getInstance().showDialog(getActivity(), columnDetailsBean.getSharetitle(),
+                ShareDialog.getInstance().showDialog(getActivity(), columnDetailsBean.getSharetitle(),
                         columnDetailsBean.getSharecontent(),columnDetailsBean.getShareurl(), columnDetailsBean.getShareimg());
             }
         });
@@ -140,7 +143,7 @@ public class ColumnDetailsFragment extends BaseConstantFragment {
                     attention_listview.setAdapter(new ColumnAttentionAdapter(getActivity(), columnDetailsBean.getAttention()));
                     last_record.setAdapter(new ColumnRecordAdapter(getActivity(), columnDetailsBean.getLast_record()));
 
-                    title.setText(columnDetailsBean.getSharetitle());
+                    title.setText(columnDetailsBean.getTitle());
                     priceinfo.setText(columnDetailsBean.getPriceinfo());
                     shortcontent.setText(columnDetailsBean.getSharecontent());
                     salenum.setText(columnDetailsBean.getSalenum());
@@ -159,6 +162,10 @@ public class ColumnDetailsFragment extends BaseConstantFragment {
                     tv_prize.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            if (!YoumiRoomUserManager.getInstance().isLogin()) {
+                                LoginUtil.getInstance().showLoginView(getActivity());
+                                return;
+                            }
                             getSubscriber(columnDetailsBean.getId());
                         }
                     });

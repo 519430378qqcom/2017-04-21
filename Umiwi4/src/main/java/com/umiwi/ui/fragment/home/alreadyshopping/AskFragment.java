@@ -106,7 +106,7 @@ public class AskFragment extends BaseConstantFragment {
             askInfos.addAll(questions);
             askHearAdapter.setData(askInfos);
             refreshLayout.setRefreshing(false);
-
+            listview.setEnabled(true);
         }
 
         @Override
@@ -145,7 +145,7 @@ public class AskFragment extends BaseConstantFragment {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-
+                listview.setEnabled(false);
                 askPage = 1;
                 askInfos.clear();
                 getAskInfos();

@@ -66,6 +66,7 @@
             android:layout_below="@+id/author_name_text_view"
             android:clickable="true"
             android:ellipsize="end"
+            android:lines="1"
             android:singleLine="true" />
 
         <ImageView

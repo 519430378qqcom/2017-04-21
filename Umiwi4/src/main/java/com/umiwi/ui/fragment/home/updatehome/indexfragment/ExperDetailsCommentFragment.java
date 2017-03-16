@@ -63,7 +63,11 @@ public class ExperDetailsCommentFragment extends BaseConstantFragment {
             }
         });
         handler = new Handler();
-        getInfos();
+        if (!TextUtils.isEmpty(ExperDetailsFragment.threadurl)){
+            getInfos();
+        }else {
+            noData.setVisibility(View.VISIBLE);
+        }
         return view;
     }
 
@@ -113,12 +117,7 @@ public class ExperDetailsCommentFragment extends BaseConstantFragment {
                             CommentBean commentBean = JsonUtil.json2Bean(data, CommentBean.class);
                             totalpage = commentBean.getPage().getTotalpage();
                             List<CommentBean.RecordBean> record = commentBean.getRecord();
-                            if (record!=null&&record.size()>0){
-                                noData.setVisibility(View.GONE);
-                            }else{
-                                noData.setVisibility(View.VISIBLE);
 
-                            }
                             commentInfos.addAll(record);
                             experDetailsCommentAdapter.setData(commentInfos);
                         }
