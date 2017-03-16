@@ -29,7 +29,6 @@ import com.umeng.analytics.MobclickAgent;
 import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.CourseListAdapter;
-import com.umiwi.ui.beans.AddFavBeans;
 import com.umiwi.ui.beans.AddFavBeans.AddFavBeansRequestData;
 import com.umiwi.ui.dao.CollectionDao;
 import com.umiwi.ui.fragment.course.CourseDetailPlayFragment;
@@ -155,8 +154,8 @@ public class MyFavListFragment extends BaseConstantFragment {
 			String saveStrings = sb.toString();
 			String favStr = String.format(UmiwiAPI.UMIWI_FAV_ADD_VIDEO_ALBUMID,
 					saveStrings);
-			GetRequest<AddFavBeans.AddFavBeansRequestData> req = new GetRequest<AddFavBeans.AddFavBeansRequestData>(
-					favStr, GsonParser.class,AddFavBeans.AddFavBeansRequestData.class, saveListener);
+			GetRequest<AddFavBeansRequestData> req = new GetRequest<AddFavBeansRequestData>(
+					favStr, GsonParser.class,AddFavBeansRequestData.class, saveListener);
 			req.setTag(saveStrings);
 			HttpDispatcher.getInstance().go(req);
 		}
@@ -228,7 +227,7 @@ public class MyFavListFragment extends BaseConstantFragment {
 		}
 	};
 
-	private Listener<AddFavBeans.AddFavBeansRequestData> saveListener = new Listener<AddFavBeans.AddFavBeansRequestData>() {
+	private Listener<AddFavBeansRequestData> saveListener = new Listener<AddFavBeansRequestData>() {
 		@Override
 		public void onResult(AbstractRequest<AddFavBeansRequestData> request,
 				AddFavBeansRequestData t) {

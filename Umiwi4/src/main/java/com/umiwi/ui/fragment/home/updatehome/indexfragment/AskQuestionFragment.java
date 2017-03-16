@@ -403,8 +403,7 @@ private int mHeight;
         i.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, PayingFragment.class);
         i.putExtra(PayingFragment.KEY_PAY_URL, payurl);
         startActivity(i);
-        getActivity().finish();
-
+//        getActivity().finish();
     }
 
 

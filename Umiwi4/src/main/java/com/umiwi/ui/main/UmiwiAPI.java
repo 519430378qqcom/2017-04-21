@@ -472,6 +472,8 @@ public final class UmiwiAPI {
 
     //已购专栏
     public static final String COlUMN_LIST = "http://i.v.youmi.cn/tutorcolumn/buylist?=p=%s&uid=%s";
+    //收藏音频
+    public static final String SHOUCANG_AUDIO = "http://i.v.youmi.cn//api8/favaudiolist?p=%s";
 
 
     /////////////========================================优雅的分割线 历史接口=================================================////////////

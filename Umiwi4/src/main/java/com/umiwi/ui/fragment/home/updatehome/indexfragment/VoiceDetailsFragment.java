@@ -112,11 +112,11 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
     ImageView ivBack;
     @InjectView(R.id.last_voice)
     ImageView lastVoice;
-//    @InjectView(R.id.start_player)
+    //    @InjectView(R.id.start_player)
 //    ImageView startPlayer;
     @InjectView(R.id.next_voice)
     ImageView nextVoice;
-//    @InjectView(R.id.seekbar)
+    //    @InjectView(R.id.seekbar)
 //    SeekBar seekbar;
     //    VoiceService.VoiceBinder mBinder;
 //    public static SeekBar seekbar;
@@ -204,10 +204,10 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
         mContext = getActivity();
         //获取的链接
         herfurl = getActivity().getIntent().getStringExtra(KEY_DETAILURL);
-        isTry = getActivity().getIntent().getBooleanExtra("isTry",false);
+        isTry = getActivity().getIntent().getBooleanExtra("isTry", false);
 //        herfurl = getActivity().getIntent().getStringExtra(KEY_DETAILURL);
 //        herfurl = "http://i.v.youmi.cn/audioalbum/getApi?id=103";
-        Log.e("TAG", "herfurl=" + herfurl+"------isTry="+isTry);
+        Log.e("TAG", "herfurl=" + herfurl + "------isTry=" + isTry);
         //保存播放地址
         UmiwiApplication.mainActivity.herfUrl = herfurl;
         //得到音频播放地址
@@ -559,7 +559,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
 
         collectionDao.saveCollection(albumID);
 
-        String favStr = String.format(UmiwiAPI.UMIWI_FAV_ADD_VIDEO_ALBUMID, albumID);
+        String favStr = "http://i.v.youmi.cn/api8/fav?id=" + albumID;
 
         GetRequest<AddFavBeans.AddFavBeansRequestData> req = new GetRequest<AddFavBeans.AddFavBeansRequestData>(
                 favStr, GsonParser.class,
@@ -833,8 +833,8 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                             //判断是否显示需要支付的view
                             //如果是免费或是已经支付
                             if (infos.getIspay()) {
-                                if(MediaManager.mediaPlayer!=null&&MediaManager.mediaPlayer.isPlaying()) {
-                                      MediaManager.pause();
+                                if (MediaManager.mediaPlayer != null && MediaManager.mediaPlayer.isPlaying()) {
+                                    MediaManager.pause();
                                 }
                                 ll_voice_needpay.setVisibility(View.GONE);
                                 rl_voice_ispay.setVisibility(View.VISIBLE);
@@ -844,7 +844,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
 
                             } else {
 
-                                if(MediaManager.mediaPlayer!=null&&MediaManager.mediaPlayer.isPlaying()) {
+                                if (MediaManager.mediaPlayer != null && MediaManager.mediaPlayer.isPlaying()) {
                                     MediaManager.pause();
                                 }
                                 //没有支付
@@ -1086,7 +1086,6 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
         nextVoice.setOnClickListener(this);
 
 
-
     }
 
 
@@ -1211,7 +1210,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                 break;
             case R.id.last_voice:
                 Toast.makeText(getActivity(), "已是最前", Toast.LENGTH_SHORT)
-                         .show();
+                        .show();
 //                UmiwiApplication.mainActivity.service.getAudioPath()
                 break;
             case R.id.start_player:

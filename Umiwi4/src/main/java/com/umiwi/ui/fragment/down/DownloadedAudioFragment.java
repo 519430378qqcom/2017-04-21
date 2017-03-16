@@ -1,6 +1,7 @@
 package com.umiwi.ui.fragment.down;
 
 import android.annotation.SuppressLint;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -351,9 +352,10 @@ public class DownloadedAudioFragment extends BaseFragment {
 
 
                     pop = new PopupWindow(view1, ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT,true);
-                    pop.setTouchable(true);
                     pop.setFocusable(true);
-                    pop.setOutsideTouchable(false);
+                    pop.setBackgroundDrawable(new BitmapDrawable());
+                    pop.setOutsideTouchable(true);
+
 //                    pop.setAnimationStyle(R.style.mypopuwindow_anim_style);
                     pop.update();
                     pop.showAtLocation(view, Gravity.CENTER,0,0);

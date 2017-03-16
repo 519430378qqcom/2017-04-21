@@ -6,7 +6,7 @@
     android:background="#f7f7f7"
     android:descendantFocusability="blocksDescendants"
     android:orientation="vertical"
-    android:padding="8dp" >
+    android:padding="8dp">
 
     <CheckBox
         android:id="@+id/album_checkbox"

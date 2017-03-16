@@ -27,7 +27,11 @@ public class MsgDialog extends BaseDialog {
 		String msg = BaseApplication.getContext().getResources().getString(resid);
 		setMessage(msg);
 	}
-	
+
+	public void setMsgTv(String msg){
+		setMessage(msg);
+	}
+
 	@Override
 	protected void onPostInflaterView(LayoutInflater inflater,View rootView,FrameLayout container) {
 		super.onPostInflaterView(inflater,rootView,container);

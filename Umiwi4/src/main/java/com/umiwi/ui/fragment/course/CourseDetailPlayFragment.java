@@ -563,7 +563,7 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
         mProgressBar.setVisibility(View.GONE);
         try {
             //让正在播放的音频暂停
-            if(UmiwiApplication.mainActivity.service.isPlaying()) {
+            if (UmiwiApplication.mainActivity.service != null && UmiwiApplication.mainActivity.service.isPlaying()) {
                 UmiwiApplication.mainActivity.service.pause();
             }
         } catch (RemoteException e) {

@@ -5,31 +5,8 @@
     android:background="#f7f7f7"
     android:orientation="vertical" >
 
-    <include layout="@layout/toolbar_actionbar" />
-
-    <LinearLayout
-        android:id="@+id/videos_linearlayout"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@+id/toolbar_actionbar"
-        android:layout_marginBottom="40dp"
-        android:background="#f7f7f7"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp" >
-
-        <include
-            layout="@layout/include_listview"
-            android:visibility="gone" />
-
-        <ImageView
-            android:id="@+id/nodownloaded"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/nodownloaded"
-            android:visibility="gone" />
-    </LinearLayout>
+    <include layout="@layout/toolbar_actionbar"
+        android:id="@+id/include" />
 
     <TextView
         android:id="@+id/diskinfo_textview"
@@ -42,5 +19,30 @@
         android:paddingTop="5dp"
         android:text="已下载1M  可用空间12M"
         android:textSize="14sp" />
+
+    <LinearLayout
+        android:id="@+id/videos_linearlayout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#f7f7f7"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:paddingRight="10dp"
+        android:layout_below="@+id/include"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <include
+            layout="@layout/include_listview"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/nodownloaded"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/nodownloaded"
+            android:visibility="gone" />
+    </LinearLayout>
 
 </RelativeLayout>
