@@ -18,7 +18,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
@@ -115,6 +114,8 @@ private int mHeight;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         View view = inflater.inflate(R.layout.fragment_ask_question_layout, null);
         ButterKnife.inject(this, view);
         etQuestion.addTextChangedListener(textWatcher);
@@ -123,6 +124,7 @@ private int mHeight;
         askQuestionAdapter = new AskQuestionAdapter(getActivity());
         askQuestionAdapter.setData(questionList);
         noscrollListview.setAdapter(askQuestionAdapter);
+
         if (!TextUtils.isEmpty(uid)) {
             getInfos(uid);
         }
