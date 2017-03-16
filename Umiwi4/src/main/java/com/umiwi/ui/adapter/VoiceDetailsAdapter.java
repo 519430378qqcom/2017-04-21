@@ -18,7 +18,6 @@ import android.widget.TextView;
 import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.beans.AudioTmessageListBeans;
-import com.umiwi.ui.beans.updatebeans.ExperDetailsVoiceBean;
 import com.umiwi.ui.beans.updatebeans.VoicePlayBean;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.ExperDetailsFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.VoiceDetailsFragment;
@@ -240,11 +239,11 @@ public class VoiceDetailsAdapter extends BaseAdapter {
         if (index < 0) {
             return;
         }
-        VoicePlayBean.RAnserVoicePlay.RDudiao bean = audioFileList.get(index);
+        final VoicePlayBean.RAnserVoicePlay.RDudiao bean = audioFileList.get(index);
         TextView tv_dir_title = (TextView) view.findViewById(R.id.tv_dir_title);
         TextView tv_dir_totaltime = (TextView) view.findViewById(R.id.tv_dir_totaltime);
         TextView try_play = (TextView) view.findViewById(R.id.try_play);
-        if (VoiceDetailsFragment.isTry){
+        if (bean.isTry1()){
             try_play.setVisibility(View.VISIBLE);
         }else {
             try_play.setVisibility(View.INVISIBLE);
@@ -263,6 +262,11 @@ public class VoiceDetailsAdapter extends BaseAdapter {
 //                voiceDetailsFragment.bindVoiceSerive();
                 if(experDetailsVoiceBean.getIspay()) {
                     voiceDetailsFragment.bindVoiceSerive();
+                }
+                if(bean.isTry1()) {
+                    voiceDetailsFragment.startPlayer.setClickable(true);
+                    voiceDetailsFragment.sb_seekbar.setVisibility(View.VISIBLE);
+                    voiceDetailsFragment.getData(bean.getSource());
                 }
             }
         });

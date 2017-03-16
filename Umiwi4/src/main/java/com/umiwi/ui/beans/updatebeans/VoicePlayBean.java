@@ -282,11 +282,24 @@ public class VoicePlayBean extends BaseGsonBeans {
                 this.source = source;
             }
 
-            public String getTry1() {
+//            public String getTry1() {
+//                return try1;
+//            }
+//            public boolean isTry(){
+//                return isTry;
+//            };
+//            public void setIsTry(boolean isTry) {
+//                this.isTry = isTry;
+//            }
+//            public void setTry1(String try1) {
+//                this.try1 = try1;
+//            }
+
+            public boolean isTry1() {
                 return try1;
             }
 
-            public void setTry1(String try1) {
+            public void setTry1(boolean try1) {
                 this.try1 = try1;
             }
 
@@ -299,7 +312,8 @@ public class VoicePlayBean extends BaseGsonBeans {
             @SerializedName("source")
             private String source;
             @SerializedName("try")
-            private String try1;
+            private boolean try1;
+
         }
         @SerializedName("share")
         private Share share;

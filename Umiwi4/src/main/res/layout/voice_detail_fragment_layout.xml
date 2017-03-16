@@ -31,7 +31,7 @@
             <RadioGroup
                 android:id="@+id/rg_voice_bottom"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="@dimen/header_height"
                 android:background="@color/umiwi_white"
                 android:checkedButton="@+id/scroll_detail"
                 android:gravity="center_horizontal"

@@ -111,12 +111,12 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
     ImageView ivBack;
     @InjectView(R.id.last_voice)
     ImageView lastVoice;
-    @InjectView(R.id.start_player)
-    ImageView startPlayer;
+//    @InjectView(R.id.start_player)
+//    ImageView startPlayer;
     @InjectView(R.id.next_voice)
     ImageView nextVoice;
-    @InjectView(R.id.seekbar)
-    SeekBar seekbar;
+//    @InjectView(R.id.seekbar)
+//    SeekBar seekbar;
     //    VoiceService.VoiceBinder mBinder;
 //    public static SeekBar seekbar;
     @InjectView(R.id.change_times)
@@ -152,13 +152,13 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                 case PROGRESS:
                     if (UmiwiApplication.mainActivity.service != null) {
                         try {
-                            seekbar.setMax(UmiwiApplication.mainActivity.service.getDuration());
+                            sb_seekbar.setMax(UmiwiApplication.mainActivity.service.getDuration());
                             int currentPosition = UmiwiApplication.mainActivity.service.getCurrentPosition();
                             changeTimes.setText(utils.stringForTime(currentPosition));
                             totalTime.setText(utils.stringForTime(UmiwiApplication.mainActivity.service.getDuration()));
 //                        Log.e("TAG", "service.getDuration()=" + service.getDuration());
 //                        Log.e("TAG", "service.getCurrentPosition()=" + service.getCurrentPosition());
-                            seekbar.setProgress(currentPosition);
+                            sb_seekbar.setProgress(currentPosition);
                         } catch (RemoteException e) {
                             e.printStackTrace();
                         }
@@ -194,6 +194,9 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
     private RelativeLayout rl_voice_ispay;
     private VoicePlayBean.RAnserVoicePlay infos;
     public static boolean isTry = true;
+    public SeekBar sb_seekbar;
+    public ImageView startPlayer;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -203,7 +206,8 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
         isTry = getActivity().getIntent().getBooleanExtra("isTry",false);
 //        herfurl = getActivity().getIntent().getStringExtra(KEY_DETAILURL);
 //        herfurl = "http://i.v.youmi.cn/audioalbum/getApi?id=103";
-        Log.e("shang", "herfurl=" + herfurl+"------isTry="+isTry);
+        Log.e("TAG", "herfurl=" + herfurl+"------isTry="+isTry);
+        //保存播放地址
         UmiwiApplication.mainActivity.herfUrl = herfurl;
         //得到音频播放地址
         if (!TextUtils.isEmpty(herfurl)) {
@@ -233,7 +237,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
 //            } else {
 //                saveButton.setChecked(false);
 //            }
-            Log.e("TAG", "数据请求成功");
+//            Log.e("TAG", "数据请求成功");
         }
 
         @Override
@@ -434,7 +438,10 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
     private void initViews() {
         mListView = (ListView) rootView.findViewById(R.id.listView);
         mListView.setSelector(R.color.transparent);
-
+        sb_seekbar = (SeekBar) rootView.findViewById(R.id.sb_seekbar);
+        sb_seekbar.setOnSeekBarChangeListener(new MyOnSeekBarChangeListener());
+        startPlayer = (ImageView) rootView.findViewById(R.id.start_player);
+        startPlayer.setOnClickListener(this);
         View mPlaceHolderView = getActivity().getLayoutInflater().inflate(
                 R.layout.view_header_placeholder, mListView, false);
         mListView.addHeaderView(mPlaceHolderView);
@@ -818,6 +825,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                         audiofileBean = audioFileList.get(0);
 //                        source = audiofileBean.getSource();
                         url = audiofileBean.getSource();
+//                        audiofileBean.getTry1();
                         Log.e("url", "url =" + url);
                         if (url != null) {
                             //判断是否显示需要支付的view
@@ -830,10 +838,22 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                                 getData(url);
                             } else {
                                 //没有支付
-                                startPlayer.setClickable(false);
+                                try {
+                                    if (UmiwiApplication.mainActivity.service != null && UmiwiApplication.mainActivity.service.isPlaying()) {
+                                        startPlayer.setClickable(true);
+                                        sb_seekbar.setVisibility(View.VISIBLE);
+                                        handler.sendEmptyMessage(PROGRESS);
+                                    } else {
+                                        startPlayer.setClickable(false);
+                                        sb_seekbar.setVisibility(View.INVISIBLE);
+                                    }
+                                } catch (RemoteException e) {
+                                    e.printStackTrace();
+                                }
+
                                 ll_voice_needpay.setVisibility(View.VISIBLE);
                                 rl_voice_ispay.setVisibility(View.GONE);
-                                seekbar.setVisibility(View.INVISIBLE);
+
                                 tv_needpay.setText("支付 ￥" + infos.getPrice() + "元");
                                 tv_needpay.setOnClickListener(new View.OnClickListener() {
                                     @Override
@@ -1011,7 +1031,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
 //        });
     }
 
-    private void getData(String url) {
+    public void getData(String url) {
         GetRequest<AudioResourceBean> request = new GetRequest<AudioResourceBean>(
                 url, GsonParser.class,
                 AudioResourceBean.class, new AbstractRequest.Listener<AudioResourceBean>() {
@@ -1036,11 +1056,11 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
     }
 
     private void initListener() {
-        startPlayer.setOnClickListener(this);
-        lastVoice.setOnClickListener(this);
+
+//        lastVoice.setOnClickListener(this);
         ivBack.setOnClickListener(this);
         nextVoice.setOnClickListener(this);
-        seekbar.setOnSeekBarChangeListener(new MyOnSeekBarChangeListener());
+
 
 
     }
@@ -1060,7 +1080,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
         @Override
         public void onReceive(Context context, Intent intent) {
             try {
-                seekbar.setMax(UmiwiApplication.mainActivity.service.getDuration());
+                sb_seekbar.setMax(UmiwiApplication.mainActivity.service.getDuration());
                 //发消息更新音频播放的进度
                 handler.sendEmptyMessage(PROGRESS);
             } catch (RemoteException e) {
@@ -1167,10 +1187,11 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                 break;
             case R.id.last_voice:
                 Toast.makeText(getActivity(), "已是最前", Toast.LENGTH_SHORT)
-                        .show();
-
+                         .show();
+//                UmiwiApplication.mainActivity.service.getAudioPath()
                 break;
             case R.id.start_player:
+                Log.e("TAG", "点我干什么？");
                 try {
                     if (UmiwiApplication.mainActivity.service.isPlaying()) {
                         //暂停
