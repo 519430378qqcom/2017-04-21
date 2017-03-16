@@ -271,6 +271,8 @@ public class VoiceDetailsAdapter extends BaseAdapter {
                     voiceDetailsFragment.sb_seekbar.setVisibility(View.VISIBLE);
                     voiceDetailsFragment.getData(bean.getSource());
 //                    UmiwiApplication.mainActivity.url = bean.getSource();
+                } else {
+                    voiceDetailsFragment.startPlayer.setClickable(false);
                 }
             }
         });
