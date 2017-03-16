@@ -70,7 +70,7 @@ public class ExperDetailsFragment extends BaseConstantFragment {
     public static String threadurl;
     public static LinearLayout tv_more;
     public static OnScrollListener mListener;
-    private LinearLayout yuedu;
+    public static LinearLayout yuedu;
     private TextView question;
     private String uid1;
     private ExperDetailsBean.ShareBean share;
@@ -202,7 +202,8 @@ public class ExperDetailsFragment extends BaseConstantFragment {
                     Log.e("TAG", "albumurl=" + audioalbumurl);
                     //视频
                     tcolumnurl = resultUrl.getTcolumnurl();
-                    Log.e("TAG", "albumurl=" + tcolumnurl);
+
+                    Log.e("TAG", "tcolumnurl=" + tcolumnurl);
                     //问答数据
                     questionurl = resultUrl.getQuestionurl();
                     Log.e("TAG", "albumurl=" + questionurl);
@@ -352,7 +353,11 @@ public class ExperDetailsFragment extends BaseConstantFragment {
             case 0:
                 CurrentPosition = 0;
                 scroll_view.setTag(0);
-                yuedu.setVisibility(View.VISIBLE);
+                if (tcolumnurl.equals("")){
+                    yuedu.setVisibility(View.GONE);
+                }else{
+                    yuedu.setVisibility(View.VISIBLE);
+                }
                 if (detailsColumnFragment == null) {
                     detailsColumnFragment = new DetailsColumnFragment();
                     transaction.add(R.id.fl_content, detailsColumnFragment);

@@ -92,6 +92,12 @@ public class DetailsColumnFragment extends BaseConstantFragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+
+        super.onResume();
+    }
+
     private void getInfos(String albumurl) {
         OkHttpUtils.get().url(albumurl).build().execute(new CustomStringCallBack() {
             @Override

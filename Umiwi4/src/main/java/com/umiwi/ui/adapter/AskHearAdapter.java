@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.umiwi.ui.R;
@@ -99,7 +100,11 @@ public class AskHearAdapter extends BaseAdapter {
         viewHolder.title.setText(question.getTitle());
         viewHolder.buttontag.setText(question.getButtontag());
         viewHolder.listennum.setText(question.getListennum());
-        viewHolder.goodnum.setText(question.getGoodnum());
+        if (question.getGoodnum().equals("")){
+            viewHolder.goodnum.setText("0");
+        }else {
+            viewHolder.goodnum.setText(question.getGoodnum());
+        }
         viewHolder.playtime.setText(question.getPlaytime());
         viewHolder.answertime.setText(question.getAnswertime());
         Glide.with(activity).load(question.getTavatar()).into(viewHolder.tavatar);
@@ -108,8 +113,13 @@ public class AskHearAdapter extends BaseAdapter {
         }
 
         viewHolder.goodnum.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
+                String goodnum = askInfos.get(position).getGoodnum();
+                if (goodnum.equals("")){
+                    return;
+                }
                 final boolean state = askInfos.get(position).getGoodstate();
                 String id = askInfos.get(position).getId();
 
@@ -151,8 +161,11 @@ public class AskHearAdapter extends BaseAdapter {
         viewHolder.buttontag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
+                String buttontag = askInfos.get(position).getButtontag();
+                if (buttontag.equals("暂无回答")){
+                    Toast.makeText(activity, "行家没有回答请耐心等待", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if (currentpos != -1) {
 //                   mCurrentVoiceListener.getCurrentView(currentpos);
                     askInfos.get(currentpos).setButtontag("立即听");

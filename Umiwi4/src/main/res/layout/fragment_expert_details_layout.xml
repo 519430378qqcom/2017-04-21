@@ -192,6 +192,7 @@
     </com.umiwi.ui.view.TopFloatScrollView>
 
     <LinearLayout
+        android:visibility="gone"
         android:id="@+id/yuedu"
         android:background="@color/white"
         android:layout_alignParentBottom="true"

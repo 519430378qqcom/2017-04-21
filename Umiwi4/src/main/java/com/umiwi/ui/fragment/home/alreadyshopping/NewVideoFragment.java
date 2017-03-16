@@ -78,6 +78,7 @@ public class NewVideoFragment extends BaseConstantFragment {
         refreshLayout.setOnLoadListener(new RefreshLayout.OnLoadListener() {
             @Override
             public void onLoad() {
+                listview.setEnabled(false);
                 isLoad = true;
                 page++;
                 if (page<=totalpage){
@@ -110,6 +111,7 @@ public class NewVideoFragment extends BaseConstantFragment {
                 buyVideoInfos.addAll(record);
                 buyVideoAdapter.setData(buyVideoInfos);
                 if (isla){
+                    listview.setEnabled(true);
                     refreshLayout.setRefreshing(false);
                     isla = false;
                 }else if (isLoad){

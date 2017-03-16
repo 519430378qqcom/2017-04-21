@@ -107,6 +107,7 @@ public class BuyCoumnFragment extends BaseConstantFragment {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                listview.setEnabled(false);
                 isla = true;
                 page = 1;
                 mList.clear();
@@ -128,6 +129,7 @@ public class BuyCoumnFragment extends BaseConstantFragment {
                 mList.addAll(record);
                 buyColumnAdapter.setData(mList);
                 if (isla) {
+                    listview.setEnabled(true);
                     refreshLayout.setRefreshing(false);
                      isla = false;
                 } else if (isload) {
