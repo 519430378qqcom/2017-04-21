@@ -128,7 +128,8 @@ public class NewHomeRecommendFragment extends BaseConstantFragment {
             public void onClick(View v) {
                 if (UmiwiApplication.mainActivity.service != null) {
                     try {
-                        if (UmiwiApplication.mainActivity.service.isPlaying()) {
+
+                        if (UmiwiApplication.mainActivity.service.isPlaying() || UmiwiApplication.mainActivity.isPause) {
                             if (UmiwiApplication.mainActivity.herfUrl != null) {
                                 Log.e("TAG", "UmiwiApplication.mainActivity.herfUrl=" + UmiwiApplication.mainActivity.herfUrl);
                                 Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
@@ -144,7 +145,6 @@ public class NewHomeRecommendFragment extends BaseConstantFragment {
                     Toast toast = Toast.makeText(getActivity(), "没有正在播放的音频", Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.CENTER,0,0);
                     toast.show();
-
                 }
             }
         });

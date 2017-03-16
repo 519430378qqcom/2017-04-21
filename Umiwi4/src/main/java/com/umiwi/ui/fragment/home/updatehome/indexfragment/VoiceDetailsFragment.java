@@ -71,6 +71,7 @@ import com.umiwi.ui.util.Utils;
 import com.umiwi.ui.view.RefreshLayout;
 import com.umiwi.ui.view.ResizeRelativeLayout;
 import com.umiwi.video.control.PlayerController;
+import com.umiwi.video.recorder.MediaManager;
 import com.umiwi.video.services.VoiceService;
 
 import java.util.ArrayList;
@@ -831,14 +832,22 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                             //判断是否显示需要支付的view
                             //如果是免费或是已经支付
                             if (infos.getIspay()) {
+                                if(MediaManager.mediaPlayer!=null&&MediaManager.mediaPlayer.isPlaying()) {
+                                      MediaManager.pause();
+                                }
                                 ll_voice_needpay.setVisibility(View.GONE);
                                 rl_voice_ispay.setVisibility(View.VISIBLE);
                                 Log.e("aaa", url);
 
                                 getData(url);
                             } else {
+
+                                if(MediaManager.mediaPlayer!=null&&MediaManager.mediaPlayer.isPlaying()) {
+                                    MediaManager.pause();
+                                }
                                 //没有支付
                                 try {
+
                                     if (UmiwiApplication.mainActivity.service != null && UmiwiApplication.mainActivity.service.isPlaying()) {
                                         startPlayer.setClickable(true);
                                         sb_seekbar.setVisibility(View.VISIBLE);
@@ -1196,6 +1205,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                     if (UmiwiApplication.mainActivity.service.isPlaying()) {
                         //暂停
                         UmiwiApplication.mainActivity.service.pause();
+                        UmiwiApplication.mainActivity.isPause = true;
                         startPlayer.setBackgroundResource(R.drawable.pause_player);
                     } else {
                         UmiwiApplication.mainActivity.service.play();

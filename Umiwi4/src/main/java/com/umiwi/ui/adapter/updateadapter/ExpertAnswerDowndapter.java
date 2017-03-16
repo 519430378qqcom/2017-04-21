@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.os.RemoteException;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -99,6 +100,14 @@ public class ExpertAnswerDowndapter extends BaseAdapter {
         mViewHolder.tv_time_limit_hear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                try {
+                    if (UmiwiApplication.mainActivity.service != null && UmiwiApplication.mainActivity.service.isPlaying()) {
+                        UmiwiApplication.mainActivity.service.pause();
+                    }
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+
                 if (listentype.equals("1")) {
                     //添加登录判断
                     if (!YoumiRoomUserManager.getInstance().isLogin()) {
@@ -112,9 +121,11 @@ public class ExpertAnswerDowndapter extends BaseAdapter {
                         mList.get(currentpos).setButtontag(questionBean.getButtontag());
                         notifyDataSetChanged();
                         if (currentpos == position) {
-                            if (MediaManager.mediaPlayer.isPlaying()) {
+                            if (MediaManager.mediaPlayer.isPlaying() && MediaManager.mediaPlayer != null) {
                                 MediaManager.pause();
-                                mViewHolder.tv_time_limit_hear.setText("立即听");
+                                mList.get(position).setButtontag("立即听");
+                                notifyDataSetChanged();
+
                                 Log.e("ISPALY", "PAUSE");
                             } else {
                                 MediaManager.resume();
@@ -141,7 +152,6 @@ public class ExpertAnswerDowndapter extends BaseAdapter {
                     String buttontag = mList.get(position).getButtontag();
                     getsorceInfos(playsource, mViewHolder.tv_time_limit_hear, buttontag);
                 }
-
 
             }
         });

@@ -154,7 +154,6 @@ public class VoiceService extends Service {
      */
     private void pause() {
         mediaPlayer.pause();
-
     }
 
 
