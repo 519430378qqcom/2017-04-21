@@ -17,21 +17,10 @@
             android:layout_marginLeft="10dp"
             android:layout_alignParentLeft="true"
             android:singleLine="true"
-            android:layout_toLeftOf="@+id/tv_goodnum"
             android:text="人际关系里的鹰派守则"
             android:textColor="@color/black"
             android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/tv_goodnum"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
-            android:text="6"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
     </RelativeLayout>
 
     <LinearLayout

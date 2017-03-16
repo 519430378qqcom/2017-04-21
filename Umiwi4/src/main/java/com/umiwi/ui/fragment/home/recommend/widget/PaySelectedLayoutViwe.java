@@ -83,7 +83,7 @@ public class PaySelectedLayoutViwe extends LinearLayout {
         mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
     }
 
-    public void setData(ArrayList<RecommendBean.RBean.ChargeBean.RecordBeanX> recordBeanXes, String chargeTitle, String chargehuan, String chargehuanUrl) {
+    public void setData(ArrayList<RecommendBean.RBean.ChargeBean.RecordBeanX> recordBeanXes, String chargeTitle, String chargehuan, String chargehuanUrl ,int totalPage) {
 
         if (null == recordBeanXes || recordBeanXes.size() == 0)
             return;
@@ -91,6 +91,7 @@ public class PaySelectedLayoutViwe extends LinearLayout {
         mChargehuan = chargehuan;
         mChargeTitle = chargeTitle;
         mChargehuanUrl = chargehuanUrl;
+        totalpage = totalPage;
 
         tv_title_type.setText(chargeTitle);
         tv_title_tag.setText(chargehuan);
@@ -122,7 +123,7 @@ public class PaySelectedLayoutViwe extends LinearLayout {
         public void onResult(AbstractRequest<ChargeBean> request, ChargeBean t) {
             if (null != t && null != t.getR()) {
                 totalpage = t.getR().getPage().getTotalpage();
-                setData(t.getR().getRecord(), mChargeTitle, mChargehuan, mChargehuanUrl);
+                setData(t.getR().getRecord(), mChargeTitle, mChargehuan, mChargehuanUrl,totalpage);
             }
 
         }

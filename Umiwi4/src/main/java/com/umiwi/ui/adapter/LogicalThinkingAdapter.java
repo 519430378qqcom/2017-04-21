@@ -52,7 +52,6 @@ public class LogicalThinkingAdapter extends BaseAdapter {
             viewHolder = new ViewHolder();
             convertView = View.inflate(activity, R.layout.logical_thinking_item, null);
             viewHolder.tv_title = (TextView) convertView.findViewById(R.id.tv_title);
-            viewHolder.tv_goodnum = (TextView) convertView.findViewById(R.id.tv_goodnum);
             viewHolder.tv_time = (TextView) convertView.findViewById(R.id.tv_time);
             viewHolder.tv_watchnum = (TextView) convertView.findViewById(R.id.tv_watchnum);
             viewHolder.tv_imageview = (ImageView) convertView.findViewById(R.id.tv_imageview);
@@ -64,7 +63,6 @@ public class LogicalThinkingAdapter extends BaseAdapter {
         }
 
         viewHolder.tv_title.setText(mList.get(position).getTitle());
-        viewHolder.tv_goodnum.setText(mList.get(position).getGoodnum());
         viewHolder.tv_time.setText(mList.get(position).getOnlinetime());
         viewHolder.tv_watchnum.setText(mList.get(position).getWatchnum() + "人读过");
         viewHolder.tv_description.setText(mList.get(position).getDescription());
@@ -73,7 +71,7 @@ public class LogicalThinkingAdapter extends BaseAdapter {
     }
 
     class ViewHolder {
-        private TextView tv_title, tv_goodnum, tv_time, tv_watchnum, tv_description;
+        private TextView tv_title, tv_time, tv_watchnum, tv_description;
         private ImageView tv_imageview;
     }
 }

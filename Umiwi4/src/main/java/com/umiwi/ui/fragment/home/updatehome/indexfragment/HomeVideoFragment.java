@@ -58,8 +58,8 @@ public class HomeVideoFragment extends BaseConstantFragment {
     private FlowLayout flow_price;
     private FlowLayout flow_orderby;
 
-    private int page;
-    private int totalpage;
+    private int page = 1;
+    private int totalpage = 1;
     private HomeVideoAdapter videoAdapter;
     private Context mContext;
     private boolean isRefresh = true;

@@ -3,6 +3,7 @@ package com.umiwi.ui.fragment.home.updatehome.indexfragment;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -12,11 +13,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
@@ -34,6 +35,7 @@ import com.umiwi.ui.main.UmiwiApplication;
 import com.umiwi.ui.managers.YoumiRoomUserManager;
 import com.umiwi.ui.util.JsonUtil;
 import com.umiwi.ui.util.LoginUtil;
+import com.umiwi.ui.util.SoftKeyBoardListener;
 import com.umiwi.ui.view.CircleImageView;
 import com.umiwi.ui.view.MonitorScrollView;
 import com.umiwi.ui.view.NoScrollListview;
@@ -69,12 +71,14 @@ public class AskQuestionFragment extends BaseConstantFragment implements View.On
     TextView describe;
     @InjectView(R.id.obligation)
     TextView obligation;
-//    @InjectView(R.id.notice)
+    //    @InjectView(R.id.notice)
 //    TextView notice;
     @InjectView(R.id.et_question)
     EditText etQuestion;
     @InjectView(R.id.tv_number)
     TextView tvNumber;
+    @InjectView(R.id.price)
+    TextView price;
     @InjectView(R.id.question1)
     TextView question1;
     @InjectView(R.id.answer_num)
@@ -89,6 +93,8 @@ public class AskQuestionFragment extends BaseConstantFragment implements View.On
     LinearLayout more;
     @InjectView(R.id.mon_scrollview)
     MonitorScrollView monScrollview;
+    @InjectView(R.id.scrollView)
+    View scrollView;
     private int page = 1;
     private String uid;
     private ArrayList<HomeAskBean.RAlHomeAnser.Record> questionList = new ArrayList<>();
@@ -99,7 +105,8 @@ public class AskQuestionFragment extends BaseConstantFragment implements View.On
     private Runnable runnable;
     private NamedQuestionBean namedQuestionBean;
     private boolean isUnfold = true;
-
+    private Handler handler = new Handler();
+private int mHeight;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -134,8 +141,39 @@ public class AskQuestionFragment extends BaseConstantFragment implements View.On
         back.setOnClickListener(this);
         share.setOnClickListener(this);
         tv_unfold.setOnClickListener(new UnfoldOnClickListener());
+
+        SoftKeyBoardListener.setListener(getActivity(),
+                new SoftKeyBoardListener.OnSoftKeyBoardChangeListener() {
+                    @Override
+                    public void keyBoardShow(int height) {
+                        mHeight = height;
+//                        ViewGroup.LayoutParams layoutParams = scrollView.getLayoutParams();
+//                        layoutParams.height =height;
+//                        scrollView.setLayoutParams(layoutParams);
+//
+//                        scrollView.setVisibility(View.VISIBLE);
+//                        handler.postDelayed(runnable1,200);
+//                                monScrollview.scrollTo(0, 0);
+//                        monScrollview.smoothScrollTo(0, height);
+                    }
+
+                    @Override
+                    public void keyBoardHide(int height) {
+                        scrollView.setVisibility(View.GONE);
+                        monScrollview.scrollTo(0, 0);
+                        monScrollview.smoothScrollTo(0, 0);
+                    }
+                });
         return view;
     }
+
+    private Runnable runnable1 = new Runnable() {
+        @Override
+        public void run() {
+            monScrollview.scrollTo(0, 0);
+            monScrollview.smoothScrollTo(0, mHeight);
+        }
+    };
 
     @Override
     public void onResume() {
@@ -146,7 +184,7 @@ public class AskQuestionFragment extends BaseConstantFragment implements View.On
 
     private void getQuestionlist() {
 
-        String url = String.format(UmiwiAPI.QUESTION_LIST,page,uid);
+        String url = String.format(UmiwiAPI.QUESTION_LIST, page, uid);
 //        String url = "http://i.v.youmi.cn/api8/questionlist?tuid="+uid;
         GetRequest<HomeAskBean> request = new GetRequest<HomeAskBean>(
                 url, GsonParser.class,
@@ -154,44 +192,44 @@ public class AskQuestionFragment extends BaseConstantFragment implements View.On
                 new Listener<HomeAskBean>() {
                     @Override
                     public void onResult(AbstractRequest<HomeAskBean> request, final HomeAskBean homeAskBean) {
-                            if (isBottom == true){
-                                if (runnable == null){
-                                    runnable = new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            getActivity().runOnUiThread(new Runnable() {
-                                                @Override
-                                                public void run() {
-                                                    more.setVisibility(View.GONE);
-                                                    HomeAskBean.RAlHomeAnser r = homeAskBean.getR();
-                                                     totalpage = r.getPage().getTotalpage();
-                                                     currentpage = r.getPage().getCurrentpage();
-                                                     ArrayList<HomeAskBean.RAlHomeAnser.Record> record = r.getRecord();
-                                                     questionList.addAll(record);
-                                                     askQuestionAdapter.setData(questionList);
+                        if (isBottom == true) {
+                            if (runnable == null) {
+                                runnable = new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        getActivity().runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                more.setVisibility(View.GONE);
+                                                HomeAskBean.RAlHomeAnser r = homeAskBean.getR();
+                                                totalpage = r.getPage().getTotalpage();
+                                                currentpage = r.getPage().getCurrentpage();
+                                                ArrayList<HomeAskBean.RAlHomeAnser.Record> record = r.getRecord();
+                                                questionList.addAll(record);
+                                                askQuestionAdapter.setData(questionList);
 
 //
-                                                }
-                                            });
-                                        }
-                                    };
-                                }
-                            }else{
-                                HomeAskBean.RAlHomeAnser r = homeAskBean.getR();
-                                totalpage = r.getPage().getTotalpage();
-                                currentpage = r.getPage().getCurrentpage();
-                                ArrayList<HomeAskBean.RAlHomeAnser.Record> record = r.getRecord();
-                                questionList.addAll(record);
-                                askQuestionAdapter.setData(questionList);
-
+                                            }
+                                        });
+                                    }
+                                };
                             }
-                        Log.e("questions","成功");
+                        } else {
+                            HomeAskBean.RAlHomeAnser r = homeAskBean.getR();
+                            totalpage = r.getPage().getTotalpage();
+                            currentpage = r.getPage().getCurrentpage();
+                            ArrayList<HomeAskBean.RAlHomeAnser.Record> record = r.getRecord();
+                            questionList.addAll(record);
+                            askQuestionAdapter.setData(questionList);
+
+                        }
+                        Log.e("questions", "成功");
 
                     }
 
                     @Override
                     public void onError(AbstractRequest<HomeAskBean> requet, int statusCode, String body) {
-                        Log.e("questions","失败");
+                        Log.e("questions", "失败");
 
                     }
                 });
@@ -214,9 +252,9 @@ public class AskQuestionFragment extends BaseConstantFragment implements View.On
                     name.setText(namedQuestionBean.getName());
                     describe.setText(namedQuestionBean.getDescription());
                     describe.setEllipsize(TextUtils.TruncateAt.END);
-                    if (namedQuestionBean.getDescription().length()>50){
+                    if (namedQuestionBean.getDescription().length() > 50) {
                         tv_unfold.setVisibility(View.VISIBLE);
-                    }else {
+                    } else {
                         tv_unfold.setVisibility(View.GONE);
                     }
 
@@ -224,7 +262,7 @@ public class AskQuestionFragment extends BaseConstantFragment implements View.On
                     mImageLoader.loadImage(namedQuestionBean.getImage(), header);
                     obligation.setText(namedQuestionBean.getTutor_ask_desc());
                     etQuestion.setHint(namedQuestionBean.getAsk_desc());
-                    question1.setText(namedQuestionBean.getAskpriceinfo());
+                    price.setText(namedQuestionBean.getAskpriceinfo());
                     question1.setOnClickListener(askBuyButtonListener);
                     answerNum.setText(namedQuestionBean.getQuestion());
                     hearNum.setText(namedQuestionBean.getTotallistennum());
@@ -277,14 +315,14 @@ public class AskQuestionFragment extends BaseConstantFragment implements View.On
         public void onResult(AbstractRequest<UmiwiAddQuestionBeans> request, UmiwiAddQuestionBeans umiwiAddQuestionBeans) {
             String questionId = umiwiAddQuestionBeans.getR().getQid();
 
-                getOrderId(questionId);
+            getOrderId(questionId);
 
 
         }
 
         @Override
         public void onError(AbstractRequest<UmiwiAddQuestionBeans> requet, int statusCode, String body) {
-           ToastU.showShort(getActivity(),"行家不存在");
+            ToastU.showShort(getActivity(), "行家不存在");
         }
     };
 

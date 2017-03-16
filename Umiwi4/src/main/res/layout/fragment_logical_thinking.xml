@@ -62,7 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            android:text="已更新2条" />
+            android:text="已更新0条" />
     </LinearLayout>
 
     <ListView

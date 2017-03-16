@@ -214,7 +214,7 @@ public class RecommendFragment extends BaseConstantFragment {
                 ealv_expert_answer.setData(t.getR().getAsktutor(), t.getR().getSec_ask_title(), t.getR().getSec_ask_more());
 //                bslv_big_shot.setData(NewHomeRecommendFragment.getRootViewpager(), sc_recomment_root, t.getR().getDalao(), t.getR().getSec_dalao_title());
                 eadlv_expert_answer.setData(t.getR().getQuestion(), t.getR().getSec_ask_quick());
-                pslv_pay_selected.setData(t.getR().getCharge().getRecord(), t.getR().getSec_charge_title(), t.getR().getSec_charge_huan(),t.getR().getSec_charge_huanurl());
+                pslv_pay_selected.setData(t.getR().getCharge().getRecord(), t.getR().getSec_charge_title(), t.getR().getSec_charge_huan(),t.getR().getSec_charge_huanurl(),t.getR().getCharge().getPage().getTotalpage());
                 rblv_bottom.setData(getActivity(), t.getR().getBottom());
             }
 

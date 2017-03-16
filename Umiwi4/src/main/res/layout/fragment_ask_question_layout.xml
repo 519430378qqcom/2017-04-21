@@ -37,6 +37,7 @@
                     android:text="所有问答"
                     android:textColor="@color/black"
                     android:textSize="20sp" />
+
                 <ImageView
                     android:id="@+id/share"
                     android:layout_width="wrap_content"
@@ -80,7 +81,7 @@
                     android:id="@+id/describe"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:maxLines="3"/>
+                    android:maxLines="3" />
 
                 <TextView
                     android:id="@+id/tv_unfold"
@@ -93,8 +94,9 @@
                     android:drawableRight="@drawable/unfold"
                     android:gravity="center_vertical"
                     android:text="展开"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
             </LinearLayout>
+
             <TextView
 
                 android:id="@+id/obligation"
@@ -113,87 +115,101 @@
                 android:background="@color/color_divider_two" />
 
             <!--<RelativeLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="50dp">-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="50dp">-->
 
-                <!--<TextView-->
-                    <!--android:id="@+id/notice"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_alignParentRight="true"-->
-                    <!--android:layout_centerVertical="true"-->
-                    <!--android:layout_marginRight="10dp"-->
-                    <!--android:drawableLeft="@drawable/notice_img"-->
-                    <!--android:drawablePadding="2dp"-->
-                    <!--android:text="提问须知" />-->
+            <!--<TextView-->
+            <!--android:id="@+id/notice"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:drawableLeft="@drawable/notice_img"-->
+            <!--android:drawablePadding="2dp"-->
+            <!--android:text="提问须知" />-->
             <!--</RelativeLayout>-->
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="@color/line" />
-           <LinearLayout
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:orientation="vertical"
-               >
-            <RelativeLayout
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="100dp">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-                <EditText
-                    android:id="@+id/et_question"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="20px"
-                    android:layout_marginRight="20px"
-                    android:layout_marginTop="10px"
-                    android:background="@drawable/edittext_shape_rectangle"
-                    android:hint="@string/ask_question"
-                    android:maxLines="80"
-                    android:paddingBottom="60dp"
-                    android:paddingLeft="5dp"
-                    android:textSize="15sp" />
+                    android:layout_height="100dp">
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
+                    <EditText
+                        android:id="@+id/et_question"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20px"
+                        android:layout_marginRight="20px"
+                        android:layout_marginTop="10px"
+                        android:background="@drawable/edittext_shape_rectangle"
+                        android:hint="@string/ask_question"
+                        android:maxLines="80"
+                        android:paddingBottom="60dp"
+                        android:paddingLeft="5dp"
+                        android:textSize="15sp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_number"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="/80" />
+
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="10dp"
-                    android:orientation="horizontal">
+                    android:layout_marginTop="10dp">
 
                     <TextView
-                        android:id="@+id/tv_number"
+                        android:id="@+id/price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0" />
+                        android:layout_centerVertical="true"
+                        android:textColor="@color/white"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="10dp"
+                        android:background="@drawable/button_red_rectangle"
+                        android:layout_marginLeft="10dp"
+                        android:text="￥1"/>
 
                     <TextView
+                        android:id="@+id/question1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="/80" />
+                        android:layout_centerHorizontal="true"
+                        android:background="@drawable/button_red_rectangle"
+                        android:text="提交"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:textColor="@color/white" />
 
-                </LinearLayout>
-            </RelativeLayout>
-               <RelativeLayout
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:layout_marginTop="10dp">
-
-                   <TextView
-                       android:id="@+id/question1"
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:layout_alignParentRight="true"
-                       android:layout_marginRight="30dp"
-                       android:background="@drawable/button_red_rectangle"
-                       android:text="￥1提问"
-                       android:textColor="@color/white" />
-
-               </RelativeLayout>
-           </LinearLayout>
-
+                </RelativeLayout>
+            </LinearLayout>
 
 
             <View
@@ -274,6 +290,11 @@
                     android:layout_marginLeft="5dp"
                     android:text="加载更多..." />
             </LinearLayout>
+            <View
+                android:id="@+id/scrollView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
         </LinearLayout>
 
     </com.umiwi.ui.view.MonitorScrollView>
