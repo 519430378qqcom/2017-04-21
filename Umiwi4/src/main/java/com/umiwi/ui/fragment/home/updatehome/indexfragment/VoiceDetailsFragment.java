@@ -851,16 +851,16 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                                 try {
 
                                     if (UmiwiApplication.mainActivity.service != null && UmiwiApplication.mainActivity.service.isPlaying()) {
-<<<<<<< HEAD
+
                                         startPlayer.setClickable(true);
-=======
+
 //                                        UmiwiApplication.mainActivity.service.pause();
                                         if (UmiwiApplication.mainActivity.url != null && UmiwiApplication.mainActivity.url.equals(url)) {
                                             startPlayer.setClickable(true);
                                         } else {
                                             startPlayer.setClickable(false);
                                         }
->>>>>>> 8e297545a6dff0c553010cfce7065d1a592b19fb
+
                                         sb_seekbar.setVisibility(View.VISIBLE);
                                         handler.sendEmptyMessage(PROGRESS);
                                     } else {
@@ -1051,11 +1051,11 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
 //        });
     }
 
-<<<<<<< HEAD
-    public void getData(String url) {
-=======
+
+
+
     public void getData(final String url) {
->>>>>>> 8e297545a6dff0c553010cfce7065d1a592b19fb
+
         GetRequest<AudioResourceBean> request = new GetRequest<AudioResourceBean>(
                 url, GsonParser.class,
                 AudioResourceBean.class, new AbstractRequest.Listener<AudioResourceBean>() {

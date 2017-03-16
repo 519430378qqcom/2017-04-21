@@ -39,7 +39,7 @@ public class AskHearAdapter extends BaseAdapter {
     private ArrayList<View> viewlist = new ArrayList();
     private int currentpos = -1;
     private String url;
-
+    private boolean isStop = false;
     public AskHearAdapter(FragmentActivity activity) {
         this.activity = activity;
 
@@ -158,6 +158,11 @@ public class AskHearAdapter extends BaseAdapter {
         viewHolder.buttontag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (isStop == true){
+                    String playsource = askInfos.get(position).getPlaysource();
+                    String id = askInfos.get(position).getId();
+                    getsorceInfos(playsource + id, viewHolder.buttontag);
+                }
                 try {
                     if (UmiwiApplication.mainActivity.service != null && UmiwiApplication.mainActivity.service.isPlaying()) {
                         UmiwiApplication.mainActivity.service.pause();
@@ -191,6 +196,7 @@ public class AskHearAdapter extends BaseAdapter {
                             @Override
                             public void onCompletion(MediaPlayer mediaPlayer) {
                                 viewHolder.buttontag.setText("立即听");
+                                isStop = true;
 
                             }
                         });
@@ -225,12 +231,13 @@ public class AskHearAdapter extends BaseAdapter {
                             @Override
                             public void onCompletion(MediaPlayer mediaPlayer) {
                                 buttontag.setText("立即听");
+                                isStop = true;
 
                             }
                         });
                         if (MediaManager.mediaPlayer.isPlaying()) {
                             buttontag.setText("正在播放");
-
+                            isStop = false;
                         }
                     }
 

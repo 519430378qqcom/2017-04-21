@@ -12,6 +12,7 @@ public class MediaManager {
 
     public static MediaPlayer mediaPlayer   = new MediaPlayer();
     public static boolean isPause;
+    public static boolean isStar;
 
     public static void playSound(String filePath, MediaPlayer.OnCompletionListener onCompletionListener) {
 
@@ -60,6 +61,7 @@ public class MediaManager {
             isPause = false;
         }
     }
+
 
     public static void relese() {
         if (mediaPlayer != null) {

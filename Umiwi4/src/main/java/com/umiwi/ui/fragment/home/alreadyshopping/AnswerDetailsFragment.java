@@ -83,7 +83,7 @@ public class AnswerDetailsFragment extends BaseConstantFragment implements View.
     private String listentype;
     private String oid;
     private ShareInfoBean shareInfoBean;
-
+    private boolean isPlay = false;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -265,7 +265,6 @@ public class AnswerDetailsFragment extends BaseConstantFragment implements View.
                     }
                 }else{
                     getsorceInfos();
-
                 }
                 break;
         }
@@ -281,18 +280,31 @@ public class AnswerDetailsFragment extends BaseConstantFragment implements View.
 
 
                         String source = delayAnswerVoiceBean.getrDelayAnserBeans().getSource();
-                        MediaManager.relese();
-                        MediaManager.playSound(source, new MediaPlayer.OnCompletionListener() {
-                            @Override
-                            public void onCompletion(MediaPlayer mediaPlayer) {
-                                buttontag.setText("立即听");
+                        if (isPlay == true){
+                             if (MediaManager.isPause == true){
+                                 Log.e("status","ispause");
+                                  MediaManager.resume();
+                                 buttontag.setText("正在播放");
+                             }else{
+                                 Log.e("status","no");
+                                 buttontag.setText("立即听");
+                                 MediaManager.pause();
+                             }
+                        }else {
+                            MediaManager.playSound(source, new MediaPlayer.OnCompletionListener() {
+                                @Override
+                                public void onCompletion(MediaPlayer mediaPlayer) {
+                                    buttontag.setText("立即听");
+                                    isPlay = false;
 
+                                }
+                            });
+                            if (MediaManager.mediaPlayer.isPlaying()) {
+                                buttontag.setText("正在播放");
+                                isPlay = true;
                             }
-                        });
-                        if (MediaManager.mediaPlayer.isPlaying()) {
-                            buttontag.setText("正在播放");
-
                         }
+
                     }
 
                     @Override

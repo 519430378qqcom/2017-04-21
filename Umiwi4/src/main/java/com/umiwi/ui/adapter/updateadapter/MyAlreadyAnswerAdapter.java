@@ -17,6 +17,7 @@ import com.umiwi.ui.main.UmiwiApplication;
 import com.umiwi.ui.view.CircleImageView;
 import com.umiwi.video.recorder.MediaManager;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import cn.youmi.framework.http.AbstractRequest;
@@ -30,6 +31,7 @@ public class MyAlreadyAnswerAdapter extends BaseAdapter {
     private ArrayList<AnswerBean.RAnser.Question> questionsInfos;
     FragmentActivity activity;
     private int currentpos = -1;
+    private boolean isStop = false;
     private ArrayList<View> viewlist = new ArrayList();
 
     public MyAlreadyAnswerAdapter(FragmentActivity activity) {
@@ -55,9 +57,9 @@ public class MyAlreadyAnswerAdapter extends BaseAdapter {
     public View getView(final int postion, View view, final ViewGroup viewGroup) {
         final ViewHoder hoder;
 
-        if (postion+1>viewlist.size()){
+        if (postion + 1 > viewlist.size()) {
             hoder = new ViewHoder();
-            view = View.inflate(activity, R.layout.item_my_already_answer,null);
+            view = View.inflate(activity, R.layout.item_my_already_answer, null);
             hoder.header = (CircleImageView) view.findViewById(R.id.head);
             hoder.miaoshu = (TextView) view.findViewById(R.id.miaoshu);
             hoder.name = (TextView) view.findViewById(R.id.name);
@@ -66,8 +68,8 @@ public class MyAlreadyAnswerAdapter extends BaseAdapter {
             hoder.paly_times = (TextView) view.findViewById(R.id.paly_times);
             view.setTag(hoder);
             viewlist.add(view);
-        } else{
-            view=viewlist.get(postion);
+        } else {
+            view = viewlist.get(postion);
             hoder = (ViewHoder) view.getTag();
         }
         final AnswerBean.RAnser.Question question = questionsInfos.get(postion);
@@ -77,60 +79,71 @@ public class MyAlreadyAnswerAdapter extends BaseAdapter {
         hoder.times.setText(question.getAnswertime());
         hoder.paly_times.setText(question.getPlaytime());
         cn.youmi.framework.util.ImageLoader imageLoader = new cn.youmi.framework.util.ImageLoader(activity);
-        imageLoader.loadImage(question.getTavatar(),hoder.header);
-        if (!TextUtils.isEmpty(question.getPalyname())){
+        imageLoader.loadImage(question.getTavatar(), hoder.header);
+        if (!TextUtils.isEmpty(question.getPalyname())) {
             hoder.paly_voice.setText(question.getPalyname());
         }
         hoder.paly_voice.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-               try {
-                   if (UmiwiApplication.mainActivity.service != null && UmiwiApplication.mainActivity.service.isPlaying()) {
-                       UmiwiApplication.mainActivity.service.pause();
-                   }
-               } catch (RemoteException e) {
-                   e.printStackTrace();
-               }
-               if (currentpos!=-1){
-//                   mCurrentVoiceListener.getCurrentView(currentpos);
-                   questionsInfos.get(currentpos).setPalyname("播放");
-                   notifyDataSetChanged();
-                   if (currentpos == postion){
-                     if (MediaManager.mediaPlayer.isPlaying()){
-                         MediaManager.pause();
-                         hoder.paly_voice.setText("播放");
-                         Log.e("ISPALY","PAUSE");
-                     }else{
-                         MediaManager.resume();
-                         Log.e("ISPALY","resume");
-                         questionsInfos.get(postion).setPalyname("正在播放");
-                         notifyDataSetChanged();
 
-                     }
+            @Override
+            public void onClick(View view) {
+                Log.e("postion", "postion :" + postion + "currentpos:" + currentpos);
+                if (isStop == true){
+                    AnswerBean.RAnser.Question infos = questionsInfos.get(postion);
+                    String playsource = infos.getPlaysource();
+                    Log.e("aaa", playsource);
+                    if (!TextUtils.isEmpty(playsource)) {
+                        getsorveInfos(playsource, hoder.paly_voice);
+                    }
+                }
+                try {
+                    if (UmiwiApplication.mainActivity.service != null && UmiwiApplication.mainActivity.service.isPlaying()) {
+                        UmiwiApplication.mainActivity.service.pause();
+                    }
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+                if (currentpos != -1) {
+//                   mCurrentVoiceListener.getCurrentView(currentpos);
+                    questionsInfos.get(currentpos).setPalyname("播放");
+                    notifyDataSetChanged();
+                    if (currentpos == postion) {
+                        if (MediaManager.mediaPlayer.isPlaying()) {
+                            MediaManager.pause();
+                            hoder.paly_voice.setText("播放");
+                            Log.e("ISPALY", "PAUSE");
+                        } else {
+                            MediaManager.resume();
+                            Log.e("ISPALY", "resume");
+                            questionsInfos.get(postion).setPalyname("正在播放");
+                            notifyDataSetChanged();
+
+                        }
                         MediaManager.mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                             @Override
                             public void onCompletion(MediaPlayer mediaPlayer) {
                                 hoder.paly_voice.setText("播放");
+                                isStop = true;
 
                             }
                         });
 
-                       return;
+                        return;
+                    }
+
                 }
 
-               }
+                currentpos = postion;
 
-               currentpos = postion;
+                AnswerBean.RAnser.Question infos = questionsInfos.get(postion);
+                String playsource = infos.getPlaysource();
+                Log.e("aaa", playsource);
+                if (!TextUtils.isEmpty(playsource)) {
+                    getsorveInfos(playsource, hoder.paly_voice);
+                }
 
-               AnswerBean.RAnser.Question infos = questionsInfos.get(postion);
-               String playsource = infos.getPlaysource();
-               Log.e("aaa",playsource);
-               if (!TextUtils.isEmpty(playsource)){
-                  getsorveInfos(playsource,hoder.paly_voice);
-               }
-
-           }
-       });
+            }
+        });
         return view;
     }
 
@@ -146,12 +159,13 @@ public class MyAlreadyAnswerAdapter extends BaseAdapter {
                         MediaManager.playSound(source, new MediaPlayer.OnCompletionListener() {
                             @Override
                             public void onCompletion(MediaPlayer mediaPlayer) {
-                                    paly_voice.setText("播放");
-
+                                paly_voice.setText("播放");
+                                isStop = true;
                             }
                         });
-                        if (MediaManager.mediaPlayer.isPlaying()){
-                                paly_voice.setText("正在播放");
+                        if (MediaManager.mediaPlayer.isPlaying()) {
+                            isStop = false;
+                            paly_voice.setText("正在播放");
 
                         }
                     }
@@ -169,8 +183,8 @@ public class MyAlreadyAnswerAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-    private class ViewHoder{
-        CircleImageView  header;
+    private class ViewHoder {
+        CircleImageView header;
         TextView name;
         TextView times;
         TextView miaoshu;
@@ -178,12 +192,13 @@ public class MyAlreadyAnswerAdapter extends BaseAdapter {
         TextView paly_times;
     }
 
-    public interface CurrentVoiceListener{
+    public interface CurrentVoiceListener {
         void getCurrentView(int currentpos);
     }
 
     public CurrentVoiceListener mCurrentVoiceListener;
-    public void setCurrentVoiceListener(CurrentVoiceListener currentVoiceListener){
+
+    public void setCurrentVoiceListener(CurrentVoiceListener currentVoiceListener) {
         mCurrentVoiceListener = currentVoiceListener;
     }
 }

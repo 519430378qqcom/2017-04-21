@@ -107,12 +107,11 @@ public class AskQuestionFragment extends BaseConstantFragment implements View.On
     private NamedQuestionBean namedQuestionBean;
     private boolean isUnfold = true;
     private Handler handler = new Handler();
-<<<<<<< HEAD
+
 private int mHeight;
-=======
+
     private int scrllHeigt;
 
->>>>>>> 8e297545a6dff0c553010cfce7065d1a592b19fb
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -148,7 +147,7 @@ private int mHeight;
         share.setOnClickListener(this);
         tv_unfold.setOnClickListener(new UnfoldOnClickListener());
 
-<<<<<<< HEAD
+
         SoftKeyBoardListener.setListener(getActivity(),
                 new SoftKeyBoardListener.OnSoftKeyBoardChangeListener() {
                     @Override
@@ -171,7 +170,7 @@ private int mHeight;
                         monScrollview.smoothScrollTo(0, 0);
                     }
                 });
-=======
+
 //        SoftKeyBoardListener.setListener(getActivity(),
 //                new SoftKeyBoardListener.OnSoftKeyBoardChangeListener() {
 //                    @Override
@@ -199,7 +198,7 @@ private int mHeight;
 //                        monScrollview.smoothScrollTo(0, 0);
 //                    }
 //                });
->>>>>>> 8e297545a6dff0c553010cfce7065d1a592b19fb
+
         return view;
     }
 
@@ -207,11 +206,11 @@ private int mHeight;
         @Override
         public void run() {
             monScrollview.scrollTo(0, 0);
-<<<<<<< HEAD
+
             monScrollview.smoothScrollTo(0, mHeight);
-=======
+
             monScrollview.smoothScrollTo(0, scrllHeigt);
->>>>>>> 8e297545a6dff0c553010cfce7065d1a592b19fb
+
         }
     };
 
@@ -356,11 +355,7 @@ private int mHeight;
             String questionId = umiwiAddQuestionBeans.getR().getQid();
 
             getOrderId(questionId);
-<<<<<<< HEAD
 
-
-=======
->>>>>>> 8e297545a6dff0c553010cfce7065d1a592b19fb
         }
 
         @Override

@@ -646,6 +646,8 @@ public class RecommendBean extends BaseGsonBeans {
 
             @SerializedName("uid")
             private String uid;
+            @SerializedName("id")
+            private String id;
             @SerializedName("image")
             private String image;
             @SerializedName("name")
@@ -666,6 +668,14 @@ public class RecommendBean extends BaseGsonBeans {
             private String url;
             @SerializedName("isbuy")
             private boolean isbuy;
+
+            public String getId() {
+                return id;
+            }
+
+            public void setId(String id) {
+                this.id = id;
+            }
 
             public boolean getIsbuy() {
                 return isbuy;

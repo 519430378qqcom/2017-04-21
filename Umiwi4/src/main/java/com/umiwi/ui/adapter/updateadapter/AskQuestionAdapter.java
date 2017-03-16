@@ -73,6 +73,7 @@ public class AskQuestionAdapter extends BaseAdapter {
             viewHoder.listennum = (TextView) view.findViewById(R.id.listennum);
             viewHoder.goodnum = (TextView) view.findViewById(R.id.goodnum);
             viewHoder.title = (TextView) view.findViewById(R.id.title);
+            viewHoder.awtimes = (TextView) view.findViewById(R.id.awtimes);
             view.setTag(viewHoder);
         }else{
             viewHoder = (ViewHoder) view.getTag();
@@ -98,7 +99,8 @@ public class AskQuestionAdapter extends BaseAdapter {
             viewHoder.goodnum.setCompoundDrawables(img,null,null,null);
         }
         viewHoder.goodnum.setText(recordBean.getGoodnum());
-        viewHoder.playtime.setText(recordBean.getAnswertime());
+        viewHoder.playtime.setText(recordBean.getPlaytime());
+        viewHoder.awtimes.setText(recordBean.getAnswertime());
         viewHoder.listennum.setText(recordBean.getListennum());
         ImageLoader mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
         mImageLoader.loadImage(recordBean.getTavatar(), viewHoder.tavatar);
@@ -241,6 +243,7 @@ public class AskQuestionAdapter extends BaseAdapter {
         TextView goodnum;
         TextView title;
         TextView listennum;
+        TextView awtimes;
     }
 
 

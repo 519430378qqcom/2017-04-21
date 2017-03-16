@@ -32,11 +32,6 @@ import cn.youmi.framework.util.ImageLoader;
 import cn.youmi.framework.view.CircleImageView;
 
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 8e297545a6dff0c553010cfce7065d1a592b19fb
 /**
  * Created by ${Gpsi} on 2017/3/11.
  */
@@ -64,9 +59,16 @@ public class VoiceDetailsAdapter extends BaseAdapter {
         this.experDetailsVoiceBean = experDetailsVoiceBean;
         this.voiceDetailsFragment = voiceDetailsFragment;
         this.recordList = recordList;
+        Log.e("recordList", "recordList=" + recordList.toString());
     }
 
-//    public VoiceDetailsAdapter(Context context, List<ExperDetailsVoiceBean.AudiofileBean> audioFileList, ExperDetailsVoiceBean experDetailsVoiceBean, VoiceDetailsFragment voiceDetailsFragment) {
+    public void setRecordList(List<AudioTmessageListBeans.RecordX.Record> recordList) {
+        //ToastU.showShort(mActivity,"刷新评论。。。");
+        this.recordList = recordList;
+        this.notifyDataSetChanged();
+    }
+
+    //    public VoiceDetailsAdapter(Context context, List<ExperDetailsVoiceBean.AudiofileBean> audioFileList, ExperDetailsVoiceBean experDetailsVoiceBean, VoiceDetailsFragment voiceDetailsFragment) {
 //        this.mActivity = (FragmentActivity) context;
 //        this.mContext = context;
 //        this.audioFileList = audioFileList;
@@ -270,12 +272,6 @@ public class VoiceDetailsAdapter extends BaseAdapter {
                 if(experDetailsVoiceBean.getIspay()) {
                     voiceDetailsFragment.bindVoiceSerive();
                 }
-<<<<<<< HEAD
-                if(bean.isTry1()) {
-                    voiceDetailsFragment.startPlayer.setClickable(true);
-                    voiceDetailsFragment.sb_seekbar.setVisibility(View.VISIBLE);
-                    voiceDetailsFragment.getData(bean.getSource());
-=======
                 if (bean.isTry1()) {
                     //试听
                     voiceDetailsFragment.startPlayer.setClickable(true);
@@ -284,7 +280,6 @@ public class VoiceDetailsAdapter extends BaseAdapter {
 //                    UmiwiApplication.mainActivity.url = bean.getSource();
                 } else {
                     voiceDetailsFragment.startPlayer.setClickable(false);
->>>>>>> 8e297545a6dff0c553010cfce7065d1a592b19fb
                 }
             }
         });

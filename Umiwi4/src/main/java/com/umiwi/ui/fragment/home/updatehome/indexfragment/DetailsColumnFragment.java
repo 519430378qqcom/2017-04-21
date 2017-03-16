@@ -18,17 +18,22 @@ import com.umiwi.ui.adapter.DescriptionAdapter;
 import com.umiwi.ui.adapter.LastRecordAdapter;
 import com.umiwi.ui.beans.ExperDetailsAlbumbean;
 import com.umiwi.ui.beans.UmiwiBuyCreateOrderBeans;
+import com.umiwi.ui.beans.updatebeans.DetailsCoumnBean;
 import com.umiwi.ui.fragment.home.alreadyshopping.LogicalThinkingFragment;
 import com.umiwi.ui.fragment.pay.PayingFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.CustomStringCallBack;
 import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.managers.YoumiRoomUserManager;
+import com.umiwi.ui.model.CourseListModel;
+import com.umiwi.ui.parsers.UmiwiListParser;
+import com.umiwi.ui.parsers.UmiwiListResult;
 import com.umiwi.ui.util.JsonUtil;
 import com.umiwi.ui.util.LoginUtil;
 import com.umiwi.ui.view.NoScrollListview;
 import com.zhy.http.okhttp.OkHttpUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -75,10 +80,12 @@ public class DetailsColumnFragment extends BaseConstantFragment {
         String albumurl = ExperDetailsFragment.tcolumnurl;
         ExperDetailsFragment.tv_more.setVisibility(View.GONE);
         if (!TextUtils.isEmpty(albumurl)) {
+            ExperDetailsFragment.yuedu.setVisibility(View.VISIBLE);
             llAddview.setVisibility(View.VISIBLE);
             noData.setVisibility(View.GONE);
             getInfos(albumurl);
         } else {
+            ExperDetailsFragment.yuedu.setVisibility(View.GONE);
             llAddview.setVisibility(View.GONE);
             noData.setVisibility(View.VISIBLE);
         }
@@ -94,70 +101,129 @@ public class DetailsColumnFragment extends BaseConstantFragment {
 
     @Override
     public void onResume() {
-
+        Log.e("onResume","onreseum");
         super.onResume();
     }
 
     private void getInfos(String albumurl) {
-        OkHttpUtils.get().url(albumurl).build().execute(new CustomStringCallBack() {
+        GetRequest<DetailsCoumnBean> request = new GetRequest<DetailsCoumnBean>(
+                albumurl, GsonParser.class,
+                DetailsCoumnBean.class, new AbstractRequest.Listener<DetailsCoumnBean>() {
             @Override
-            public void onFaild() {
-                Log.e("data", "详情专栏请求数据失败");
+            public void onResult(AbstractRequest<DetailsCoumnBean> request, DetailsCoumnBean detailsCoumnBean) {
+                final DetailsCoumnBean.RDetailsInfo r = detailsCoumnBean.getR();
+                if (r!=null){
+                    fillData(r);
+
+                    final String id = r.getId();
+                    if (r.getIsbuy()) {
+                        ExperDetailsFragment.subscriber.setText("已订阅");
+                        ExperDetailsFragment.subscriber.setEnabled(false);
+                    } else {
+                        ExperDetailsFragment.subscriber.setEnabled(true);
+                        ExperDetailsFragment.subscriber.setText(String.format("订阅:  %s元/年", r.getPrice()));
+                    }
+
+
+                    ExperDetailsFragment.subscriber.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (TextUtils.isEmpty(r.getId())) {
+                                ToastU.showShort(getActivity(), "行家Id不存在");
+                                return;
+                            }
+                            if (!YoumiRoomUserManager.getInstance().isLogin()) {
+                                LoginUtil.getInstance().showLoginView(getActivity());
+                                return;
+                            }
+                            getSubscriber(id);
+                        }
+                    });
+
+                    ExperDetailsFragment.free_read.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (TextUtils.isEmpty(r.getId())) {
+                                ToastU.showShort(getActivity(), "行家Id不存在");
+                                return;
+                            }
+                            Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
+                            intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, LogicalThinkingFragment.class);
+                            intent.putExtra("id", r.getId());
+                            intent.putExtra("title", r.getTitle());
+                            startActivity(intent);
+                        }
+                    });
+                }
+
             }
 
             @Override
-            public void onSucess(String data) {
-                Log.e("data", "详情专栏请求数据成功 :" + data);
-                if (data != null) {
+            public void onError(AbstractRequest<DetailsCoumnBean> requet, int statusCode, String body) {
+                Log.e("info","flase"+body);
 
-                    final ExperDetailsAlbumbean experDetailsAlbumbean = JsonUtil.json2Bean(data, ExperDetailsAlbumbean.class);
-                    if (experDetailsAlbumbean != null) {
-                        fillData(experDetailsAlbumbean);
-
-                        final String id = experDetailsAlbumbean.getId();
-                        if (experDetailsAlbumbean.isIsbuy()) {
-                            ExperDetailsFragment.subscriber.setText("已订阅");
-                            ExperDetailsFragment.subscriber.setEnabled(false);
-                        } else {
-                            ExperDetailsFragment.subscriber.setEnabled(true);
-                            ExperDetailsFragment.subscriber.setText(String.format("订阅:  %s元/年", experDetailsAlbumbean.getPrice()));
-                        }
-
-
-                        ExperDetailsFragment.subscriber.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                if (TextUtils.isEmpty(experDetailsAlbumbean.getId())) {
-                                    ToastU.showShort(getActivity(), "行家Id不存在");
-                                    return;
-                                }
-                                if (!YoumiRoomUserManager.getInstance().isLogin()) {
-                                    LoginUtil.getInstance().showLoginView(getActivity());
-                                    return;
-                                }
-                                getSubscriber(id);
-                            }
-                        });
-
-                        ExperDetailsFragment.free_read.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                if (TextUtils.isEmpty(experDetailsAlbumbean.getId())) {
-                                    ToastU.showShort(getActivity(), "行家Id不存在");
-                                    return;
-                                }
-                                Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
-                                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, LogicalThinkingFragment.class);
-                                intent.putExtra("id", experDetailsAlbumbean.getId());
-                                intent.putExtra("title", experDetailsAlbumbean.getTitle());
-                                startActivity(intent);
-                            }
-                        });
-                    }
-                } else {
-                }
             }
         });
+        request.go();
+//        OkHttpUtils.get().url(albumurl).build().execute(new CustomStringCallBack() {
+//            @Override
+//            public void onFaild() {
+//                Log.e("data", "详情专栏请求数据失败");
+//            }
+//
+//            @Override
+//            public void onSucess(String data) {
+//                Log.e("data", "详情专栏请求数据成功 :" + data);
+//                if (data != null) {
+//
+//                    final ExperDetailsAlbumbean experDetailsAlbumbean = JsonUtil.json2Bean(data, ExperDetailsAlbumbean.class);
+//                    if (experDetailsAlbumbean != null) {
+//                        fillData(experDetailsAlbumbean);
+//
+//                        final String id = experDetailsAlbumbean.getId();
+//                        if (experDetailsAlbumbean.isIsbuy()) {
+//                            ExperDetailsFragment.subscriber.setText("已订阅");
+//                            ExperDetailsFragment.subscriber.setEnabled(false);
+//                        } else {
+//                            ExperDetailsFragment.subscriber.setEnabled(true);
+//                            ExperDetailsFragment.subscriber.setText(String.format("订阅:  %s元/年", experDetailsAlbumbean.getPrice()));
+//                        }
+//
+//
+//                        ExperDetailsFragment.subscriber.setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//                                if (TextUtils.isEmpty(experDetailsAlbumbean.getId())) {
+//                                    ToastU.showShort(getActivity(), "行家Id不存在");
+//                                    return;
+//                                }
+//                                if (!YoumiRoomUserManager.getInstance().isLogin()) {
+//                                    LoginUtil.getInstance().showLoginView(getActivity());
+//                                    return;
+//                                }
+//                                getSubscriber(id);
+//                            }
+//                        });
+//
+//                        ExperDetailsFragment.free_read.setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//                                if (TextUtils.isEmpty(experDetailsAlbumbean.getId())) {
+//                                    ToastU.showShort(getActivity(), "行家Id不存在");
+//                                    return;
+//                                }
+//                                Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
+//                                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, LogicalThinkingFragment.class);
+//                                intent.putExtra("id", experDetailsAlbumbean.getId());
+//                                intent.putExtra("title", experDetailsAlbumbean.getTitle());
+//                                startActivity(intent);
+//                            }
+//                        });
+//                    }
+//                } else {
+//                }
+//            }
+//        });
     }
 
     /**
@@ -200,14 +266,14 @@ public class DetailsColumnFragment extends BaseConstantFragment {
     }
 
 
-    private void fillData(ExperDetailsAlbumbean experDetailsAlbumbean) {
+    private void fillData(DetailsCoumnBean.RDetailsInfo experDetailsAlbumbean) {
         String title = experDetailsAlbumbean.getTitle();
         String shortcontent = experDetailsAlbumbean.getShortcontent();
-        List<ExperDetailsAlbumbean.ContentBean> content = experDetailsAlbumbean.getContent();
-        List<ExperDetailsAlbumbean.AttentionBean> attention = experDetailsAlbumbean.getAttention();
+        ArrayList<DetailsCoumnBean.RDetailsInfo.ContentBean> content = experDetailsAlbumbean.getContent();
+        ArrayList<DetailsCoumnBean.RDetailsInfo.Attentioninfo> attention = experDetailsAlbumbean.getAttention();
         String updatedescription = experDetailsAlbumbean.getUpdatedescription();
         String salenum = experDetailsAlbumbean.getSalenum();
-        List<ExperDetailsAlbumbean.LastRecordBean> last_record = experDetailsAlbumbean.getLast_record();
+        ArrayList<DetailsCoumnBean.RDetailsInfo.LastBean> last_record = experDetailsAlbumbean.getLast_record();
         String targetuser = experDetailsAlbumbean.getTargetuser();
         priceinfo.setText(experDetailsAlbumbean.getPriceinfo());
         if (title != null) {

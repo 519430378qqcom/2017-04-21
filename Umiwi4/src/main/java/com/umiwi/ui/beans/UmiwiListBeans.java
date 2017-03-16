@@ -19,8 +19,27 @@ public class UmiwiListBeans extends BaseGsonBeans {
 	@SerializedName("id")
 	private long id;
 
+	@SerializedName("uid")
+	private long uid;
 	@SerializedName("image")
 	private String image;
+	private String tutoruid;
+
+	public String getTutoruid() {
+		return tutoruid;
+	}
+
+	public void setTutoruid(String tutoruid) {
+		this.tutoruid = tutoruid;
+	}
+
+	public long getUid() {
+		return uid;
+	}
+
+	public void setUid(long uid) {
+		this.uid = uid;
+	}
 
 	@SerializedName("grade")
 	private String grade;

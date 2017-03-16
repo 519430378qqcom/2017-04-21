@@ -74,6 +74,7 @@ public class ExperDetailsFragment extends BaseConstantFragment {
     private TextView question;
     private String uid1;
     private ExperDetailsBean.ShareBean share;
+    public static String isbuy;
 
     public static void setOnScrollListener(OnScrollListener listener) {
         mListener = listener;
@@ -129,9 +130,12 @@ public class ExperDetailsFragment extends BaseConstantFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_expert_details_layout, null);
-        uid = getActivity().getIntent().getStringExtra(ExperDetailsFragment.this.KEY_DEFAULT_TUTORUID);
-        getInfo();
         initView(view);
+
+        uid = getActivity().getIntent().getStringExtra(ExperDetailsFragment.this.KEY_DEFAULT_TUTORUID);
+        isbuy = getActivity().getIntent().getStringExtra("isbuy");
+
+        getInfo();
         return view;
     }
 

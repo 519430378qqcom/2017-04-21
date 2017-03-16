@@ -8,7 +8,9 @@ import android.widget.TextView;
 
 import com.umiwi.ui.R;
 import com.umiwi.ui.beans.ExperDetailsAlbumbean;
+import com.umiwi.ui.beans.updatebeans.DetailsCoumnBean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,8 +19,8 @@ import java.util.List;
 
 public class LastRecordAdapter extends BaseAdapter {
     private FragmentActivity activity;
-    private List<ExperDetailsAlbumbean.LastRecordBean> last_record;
-    public LastRecordAdapter(FragmentActivity activity, List<ExperDetailsAlbumbean.LastRecordBean> last_record) {
+    private ArrayList<DetailsCoumnBean.RDetailsInfo.LastBean> last_record;
+    public LastRecordAdapter(FragmentActivity activity, ArrayList<DetailsCoumnBean.RDetailsInfo.LastBean> last_record) {
         this.activity = activity;
         this.last_record = last_record;
     }

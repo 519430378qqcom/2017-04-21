@@ -3,6 +3,7 @@ package com.umiwi.ui.fragment.home.recommend.widget;
 import android.content.Context;
 import android.content.Intent;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,6 +16,7 @@ import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.updateadapter.ExpertRecAdapter;
 import com.umiwi.ui.beans.updatebeans.RecommendBean;
+import com.umiwi.ui.fragment.home.alreadyshopping.LogicalThinkingFragment;
 import com.umiwi.ui.fragment.home.updatehome.NewHomeRecommendFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.ExperDetailsFragment;
 
@@ -46,7 +48,7 @@ public class ExpertRecLayoutView extends LinearLayout {
         init(context);
     }
 
-    private void init(Context context) {
+    private void init(final Context context) {
         mContext = context;
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.home_expert_recommend_layout, this);
@@ -59,11 +61,19 @@ public class ExpertRecLayoutView extends LinearLayout {
         lv_home_expert_rec.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                boolean isbuy = mList.get(position).getIsbuy();
                 String tutoruid = mList.get(position).getUid();
                 Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
                 intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, ExperDetailsFragment.class);
-                intent.putExtra(ExperDetailsFragment.KEY_DEFAULT_TUTORUID,tutoruid);
+                intent.putExtra(ExperDetailsFragment.KEY_DEFAULT_TUTORUID, tutoruid);
+                if (isbuy == true){
+                    Log.e("isbuy","isbuy");
+                    intent.putExtra("isbuy","isbuy");
+                }
                 mContext.startActivity(intent);
+
+
             }
         });
         rl_tutor_all.setOnClickListener(new OnClickListener() {

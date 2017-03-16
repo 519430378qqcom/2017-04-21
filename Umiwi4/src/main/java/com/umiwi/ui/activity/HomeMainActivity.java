@@ -89,10 +89,7 @@ public class HomeMainActivity extends AppCompatActivity {
     public static final String mPicturePath = Environment.getExternalStorageDirectory().getPath() + "/Android/data/" + UmiwiApplication.getContext().getPackageName() + "/cache/adpicture.png";
     public String musicUrl;
     public String herfUrl;
-<<<<<<< HEAD
-=======
     public String url;
->>>>>>> 8e297545a6dff0c553010cfce7065d1a592b19fb
     public boolean isPause;
     /**
      * VoiceService的代理类
@@ -345,11 +342,11 @@ public class HomeMainActivity extends AppCompatActivity {
     };
 
     private void LoginQRCode(String url) {
-        GetRequest<UmiwiResultBeans.ResultBeansRequestData> request = new GetRequest<UmiwiResultBeans.ResultBeansRequestData>(url, ResponseParser.class, loginListener);
+        GetRequest<ResultBeansRequestData> request = new GetRequest<ResultBeansRequestData>(url, ResponseParser.class, loginListener);
         HttpDispatcher.getInstance().go(request);
     }
 
-    private Listener<ResultBeansRequestData> loginListener = new Listener<UmiwiResultBeans.ResultBeansRequestData>() {
+    private Listener<ResultBeansRequestData> loginListener = new Listener<ResultBeansRequestData>() {
         @Override
         public void onResult(AbstractRequest<ResultBeansRequestData> request, ResultBeansRequestData t) {
             if ("9999".equals(t.getE())) {
@@ -370,7 +367,7 @@ public class HomeMainActivity extends AppCompatActivity {
 
     private void createProgressBar() {
         FrameLayout rootFrameLayout = (FrameLayout) findViewById(android.R.id.content);
-        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        LayoutParams layoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         layoutParams.gravity = Gravity.CENTER;
         mProgressBar = new ProgressBar(HomeMainActivity.this);
         mProgressBar.setLayoutParams(layoutParams);

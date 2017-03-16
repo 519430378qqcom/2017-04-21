@@ -8,9 +8,11 @@ import android.widget.TextView;
 
 import com.umiwi.ui.R;
 import com.umiwi.ui.beans.ExperDetailsAlbumbean;
+import com.umiwi.ui.beans.updatebeans.DetailsCoumnBean;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,9 +21,9 @@ import java.util.List;
 
 public class DescriptionAdapter extends BaseAdapter {
     private FragmentActivity activity;
-    private List<ExperDetailsAlbumbean.ContentBean> content;
+    private ArrayList<DetailsCoumnBean.RDetailsInfo.ContentBean> content;
 
-    public DescriptionAdapter(FragmentActivity activity, List<ExperDetailsAlbumbean.ContentBean> content) {
+    public DescriptionAdapter(FragmentActivity activity, ArrayList<DetailsCoumnBean.RDetailsInfo.ContentBean> content) {
         this.activity = activity;
         this.content = content;
     }

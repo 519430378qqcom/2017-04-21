@@ -20,6 +20,7 @@ import com.umiwi.ui.fragment.WebFragment;
 import com.umiwi.ui.fragment.course.CourseDetailPlayFragment;
 import com.umiwi.ui.fragment.course.JPZTDetailFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.ColumnDetailsFragment;
+import com.umiwi.ui.fragment.home.updatehome.indexfragment.ExperDetailsFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.ExpertFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.VoiceDetailsFragment;
 import com.umiwi.ui.main.UmiwiApplication;
@@ -72,10 +73,8 @@ public class LunboAdapter extends PagerAdapter {
 		mImageLoader.loadImage(listBeans.getImage(), imageView);//, R.drawable.image_loader_big
 
 
-<<<<<<< HEAD
-=======
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
->>>>>>> 8e297545a6dff0c553010cfce7065d1a592b19fb
+
     	imageView.setLayoutParams(para);
 
         imageView.setOnClickListener(new OnClickListener() {
@@ -106,8 +105,8 @@ public class LunboAdapter extends PagerAdapter {
 					mContext.startActivity(intent);
 				} else if ("tutor1".equals(listBeans.getTypes())) {
 					Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
-					intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, ExpertFragment.class);
-					intent.putExtra(LecturerDetailFragment.KEY_DEFAULT_DETAILURL, listBeans.getDetailurl());
+					intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, ExperDetailsFragment.class);
+					intent.putExtra(ExperDetailsFragment.KEY_DEFAULT_TUTORUID, listBeans.getId());
 					mContext.startActivity(intent);
 
 				}else if ("column".equals(listBeans.getTypes())){

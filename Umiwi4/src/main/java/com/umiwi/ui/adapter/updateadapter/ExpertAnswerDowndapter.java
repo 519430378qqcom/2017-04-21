@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.RemoteException;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.beans.UmiwiBuyCreateOrderBeans;
+import com.umiwi.ui.beans.updatebeans.AnswerBean;
 import com.umiwi.ui.beans.updatebeans.DelayAnswerVoiceBean;
 import com.umiwi.ui.beans.updatebeans.RecommendBean;
 import com.umiwi.ui.fragment.pay.PayingFragment;
@@ -42,7 +44,7 @@ public class ExpertAnswerDowndapter extends BaseAdapter {
 
     private LayoutInflater mLayoutInflater;
     private int currentpos = -1;
-
+    private boolean isStop = false;
     private ArrayList<RecommendBean.RBean.QuestionBean> mList;
     private ImageLoader mImageLoader;
     private Activity mActivity;
@@ -100,6 +102,12 @@ public class ExpertAnswerDowndapter extends BaseAdapter {
         mViewHolder.tv_time_limit_hear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (isStop == true){
+                    String playsource = mList.get(position).getPlaysource();
+                    String buttontag = mList.get(position).getButtontag();
+                    getsorceInfos(playsource, mViewHolder.tv_time_limit_hear, buttontag);
+                }
+
                 try {
                     if (UmiwiApplication.mainActivity.service != null && UmiwiApplication.mainActivity.service.isPlaying()) {
                         UmiwiApplication.mainActivity.service.pause();
@@ -138,7 +146,7 @@ public class ExpertAnswerDowndapter extends BaseAdapter {
                                 @Override
                                 public void onCompletion(MediaPlayer mediaPlayer) {
                                     mViewHolder.tv_time_limit_hear.setText("立即听");
-
+                                    isStop = true;
                                 }
                             });
 
@@ -185,12 +193,13 @@ public class ExpertAnswerDowndapter extends BaseAdapter {
                             @Override
                             public void onCompletion(MediaPlayer mediaPlayer) {
                                 tv_time_limit_hear.setText("立即听");
+                                isStop = true;
 
                             }
                         });
                         if (MediaManager.mediaPlayer.isPlaying()) {
                             tv_time_limit_hear.setText("正在播放");
-
+                            isStop = false;
                         }
                     }
 

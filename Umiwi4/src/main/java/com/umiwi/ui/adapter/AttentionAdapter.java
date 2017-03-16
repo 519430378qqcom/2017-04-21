@@ -8,7 +8,9 @@ import android.widget.TextView;
 
 import com.umiwi.ui.R;
 import com.umiwi.ui.beans.ExperDetailsAlbumbean;
+import com.umiwi.ui.beans.updatebeans.DetailsCoumnBean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,9 +19,9 @@ import java.util.List;
 
 public class AttentionAdapter extends BaseAdapter {
     private FragmentActivity activity;
-    List<ExperDetailsAlbumbean.AttentionBean> attention;
+    ArrayList<DetailsCoumnBean.RDetailsInfo.Attentioninfo> attention;
 
-    public AttentionAdapter(FragmentActivity activity, List<ExperDetailsAlbumbean.AttentionBean> attention) {
+    public AttentionAdapter(FragmentActivity activity, ArrayList<DetailsCoumnBean.RDetailsInfo.Attentioninfo> attention) {
         this.activity = activity;
         this.attention = attention;
     }

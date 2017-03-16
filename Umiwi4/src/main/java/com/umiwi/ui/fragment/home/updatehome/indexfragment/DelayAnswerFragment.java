@@ -150,7 +150,6 @@ public class DelayAnswerFragment extends BaseFragment {
 
         @Override
         public void onError(AbstractRequest<AnswerBean> requet, int statusCode, String body) {
-            Toast.makeText(getActivity(), "失败", Toast.LENGTH_SHORT).show();
 
         }
     };

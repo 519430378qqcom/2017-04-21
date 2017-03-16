@@ -40,6 +40,7 @@ public class ExperDetailsWendaAdapter extends BaseAdapter {
     List<HomeAskBean.RAlHomeAnser.Record> wendaInfos;
     private int currentpos = -1;
     private String url;
+    private boolean isStop = false;
     public ExperDetailsWendaAdapter(FragmentActivity activity) {
         this.activity = activity;
 
@@ -79,7 +80,7 @@ public class ExperDetailsWendaAdapter extends BaseAdapter {
         }
         HomeAskBean.RAlHomeAnser.Record recordBean = wendaInfos.get(position);
         String buttontag = recordBean.getButtontag();
-        String tavatar = recordBean.getTavatar();
+        final String tavatar = recordBean.getTavatar();
         String playtime = recordBean.getPlaytime();
         final String listentype = recordBean.getListentype();
         String goodnum = recordBean.getGoodnum();
@@ -159,6 +160,10 @@ public class ExperDetailsWendaAdapter extends BaseAdapter {
         viewHolder.buttontag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (isStop == true){
+                    String playsource = wendaInfos.get(position).getPlaysource();
+                    getsorceInfos(playsource,viewHolder.buttontag);
+                }
 
                 try {
                     if (UmiwiApplication.mainActivity.service != null && UmiwiApplication.mainActivity.service.isPlaying()) {
@@ -193,6 +198,7 @@ public class ExperDetailsWendaAdapter extends BaseAdapter {
                                 @Override
                                 public void onCompletion(MediaPlayer mediaPlayer) {
                                     viewHolder.buttontag.setText("立即听");
+                                    isStop = true;
 
                                 }
                             });
@@ -225,12 +231,13 @@ public class ExperDetailsWendaAdapter extends BaseAdapter {
                             @Override
                             public void onCompletion(MediaPlayer mediaPlayer) {
                                 buttontag.setText("立即听");
+                                isStop = true;
 
                             }
                         });
                         if (MediaManager.mediaPlayer.isPlaying()){
                             buttontag.setText("正在播放");
-
+                            isStop = false;
                         }
                     }
 

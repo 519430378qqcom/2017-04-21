@@ -226,17 +226,12 @@ public class RecordVoiceFragment extends BaseConstantFragment implements View.On
 
     private void commitVoice() {
         try {
-//            String path = encodeBase64File(audioManager.getCurrentFilePath());
-//            PostRequest<CommitVoiceBean> prequest = new PostRequest<CommitVoiceBean>(UmiwiAPI.COMMIT_VOICE, GsonParser.class, CommitVoiceBean.class, pushListener);
-//            prequest.addParam("qid", id);
-//            //prequest.addParam("content",new File(audioManager.getCurrentFilePath()));
-//          //  Log.i("ldb","---"+ CookieDao.getInstance(getActivity()).getUid());
-//            prequest.addParam("playtime", recLen + "");
-//            prequest.addFile("content",audioManager.getCurrentFilePath());
-//            prequest.go();
-
-            uploadFile(UmiwiAPI.COMMIT_VOICE, CookieDao.getInstance(getActivity()).getUid(), new File(audioManager.getCurrentFilePath()), recLen);
-
+            String path = encodeBase64File(audioManager.getCurrentFilePath());
+            PostRequest<CommitVoiceBean> prequest = new PostRequest<CommitVoiceBean>(UmiwiAPI.COMMIT_VOICE, GsonParser.class, CommitVoiceBean.class, pushListener);
+            prequest.addParam("qid", id);
+            prequest.addParam("strcontent",path);
+            prequest.addParam("playtime", recLen + "");
+            prequest.go();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -244,54 +239,15 @@ public class RecordVoiceFragment extends BaseConstantFragment implements View.On
 
     }
 
-    void uploadFile(String url,String id,File  file,int recLen){
-
-        RequestParams params = new RequestParams(url);
-        params.addBodyParameter("qid", id);
-        params.addBodyParameter("content",file);
-        params.addBodyParameter("playtime", recLen + "");
-
-
-
-        x.http().post(params,
-                new Callback.CommonCallback<String>() {
-
-
-                    @Override
-                    public void onSuccess(String result) {Toast.makeText(getActivity(), "........"+result, Toast.LENGTH_SHORT).show();
-
-                    }
-
-                    @Override
-                    public void onError(Throwable ex, boolean isOnCallback) {
-
-                    }
-
-                    @Override
-                    public void onCancelled(CancelledException cex) {
-
-                    }
-
-                    @Override
-                    public void onFinished() {
-
-                    }
-                });
-
-    }
-
     private AbstractRequest.Listener<CommitVoiceBean> pushListener = new AbstractRequest.Listener<CommitVoiceBean>() {
 
         @Override
         public void onResult(AbstractRequest<CommitVoiceBean> request, CommitVoiceBean t) {
-            Toast.makeText(getActivity(), "........", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "回答成功", Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onError(AbstractRequest<CommitVoiceBean> requet, int statusCode, String body) {
-            Log.e("request", requet.toString());
-            Log.e("request", body);
-            Toast.makeText(getActivity(), ".......fail.", Toast.LENGTH_SHORT).show();
 
 
         }
