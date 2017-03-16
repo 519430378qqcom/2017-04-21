@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.umiwi.ui.R;
 import com.umiwi.ui.beans.ActivityItemBean;
+import com.umiwi.ui.beans.updatebeans.HomeColumnBean;
 import com.umiwi.ui.beans.updatebeans.HomeCoumnBean;
 
 import java.util.ArrayList;
@@ -26,11 +27,11 @@ import static com.umiwi.ui.main.YoumiConfiguration.context;
 
 public class ColumnAdapter extends BaseAdapter {
     private FragmentActivity activity;
-    private List<HomeCoumnBean.RecordBean> mList;
+    private List<HomeColumnBean.RhomeCoulum.HomeColumnInfo> mList;
 
-    public ColumnAdapter(FragmentActivity activity, List<HomeCoumnBean.RecordBean> mList) {
-        this.activity = activity;
-        this.mList = mList;
+    public ColumnAdapter(FragmentActivity activity) {
+         this.activity = activity;
+
     }
 
     @Override
@@ -69,7 +70,12 @@ public class ColumnAdapter extends BaseAdapter {
         }
 
         Glide.with(context).load(mList.get(position).getImage()).into(viewholder.special_header_imageview_1);
-        viewholder.special_price_1.setText(mList.get(position).getPrice());
+        boolean isbuy = mList.get(position).getIsbuy();
+        if (isbuy){
+            viewholder.special_price_1.setText("已订阅");
+        }else {
+            viewholder.special_price_1.setText(mList.get(position).getPrice());
+        }
         viewholder.special_subscribe_number_1.setText("已订阅"+mList.get(position).getSalenum());
         viewholder.special_name_textView_1.setText(mList.get(position).getTitle());
         viewholder.special_context_1.setText(mList.get(position).getTutortitle());//mList.get(position).getUpdateaudio()
@@ -81,6 +87,11 @@ public class ColumnAdapter extends BaseAdapter {
         }
 
         return convertView;
+    }
+
+    public void setData(List<HomeColumnBean.RhomeCoulum.HomeColumnInfo> mList) {
+        this.mList = mList;
+         notifyDataSetChanged();
     }
 
     private static class ViewHolder {
