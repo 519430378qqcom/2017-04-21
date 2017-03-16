@@ -32,8 +32,6 @@ import cn.youmi.framework.util.ImageLoader;
 import cn.youmi.framework.view.CircleImageView;
 
 
-
-
 /**
  * Created by ${Gpsi} on 2017/3/11.
  */
@@ -267,10 +265,12 @@ public class VoiceDetailsAdapter extends BaseAdapter {
                 if(experDetailsVoiceBean.getIspay()) {
                     voiceDetailsFragment.bindVoiceSerive();
                 }
-                if(bean.isTry1()) {
+                if (bean.isTry1()) {
+                    //试听
                     voiceDetailsFragment.startPlayer.setClickable(true);
                     voiceDetailsFragment.sb_seekbar.setVisibility(View.VISIBLE);
                     voiceDetailsFragment.getData(bean.getSource());
+//                    UmiwiApplication.mainActivity.url = bean.getSource();
                 }
             }
         });

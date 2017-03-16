@@ -806,7 +806,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
     };
     private ImageLoader imageLoader;
 
-    private void getInfos(String herfurl) {
+    private void getInfos(final String herfurl) {
 
         GetRequest<VoicePlayBean> request = new GetRequest<VoicePlayBean>(
                 herfurl, GsonParser.class,
@@ -828,6 +828,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                         url = audiofileBean.getSource();
 //                        audiofileBean.getTry1();
                         Log.e("url", "url =" + url);
+
                         if (url != null) {
                             //判断是否显示需要支付的view
                             //如果是免费或是已经支付
@@ -840,6 +841,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                                 Log.e("aaa", url);
 
                                 getData(url);
+
                             } else {
 
                                 if(MediaManager.mediaPlayer!=null&&MediaManager.mediaPlayer.isPlaying()) {
@@ -849,7 +851,10 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                                 try {
 
                                     if (UmiwiApplication.mainActivity.service != null && UmiwiApplication.mainActivity.service.isPlaying()) {
-                                        startPlayer.setClickable(true);
+//                                        UmiwiApplication.mainActivity.service.pause();
+                                        if (UmiwiApplication.mainActivity.url != null && UmiwiApplication.mainActivity.url.equals(url)) {
+                                            startPlayer.setClickable(true);
+                                        }
                                         sb_seekbar.setVisibility(View.VISIBLE);
                                         handler.sendEmptyMessage(PROGRESS);
                                     } else {
@@ -1040,7 +1045,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
 //        });
     }
 
-    public void getData(String url) {
+    public void getData(final String url) {
         GetRequest<AudioResourceBean> request = new GetRequest<AudioResourceBean>(
                 url, GsonParser.class,
                 AudioResourceBean.class, new AbstractRequest.Listener<AudioResourceBean>() {
@@ -1052,7 +1057,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                 if (source != null) {
                     bindVoiceSerive();
                 }
-
+                UmiwiApplication.mainActivity.url = url;
             }
 
             @Override
