@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -106,7 +107,12 @@ public class AskQuestionFragment extends BaseConstantFragment implements View.On
     private NamedQuestionBean namedQuestionBean;
     private boolean isUnfold = true;
     private Handler handler = new Handler();
+<<<<<<< HEAD
 private int mHeight;
+=======
+    private int scrllHeigt;
+
+>>>>>>> 8e297545a6dff0c553010cfce7065d1a592b19fb
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -142,6 +148,7 @@ private int mHeight;
         share.setOnClickListener(this);
         tv_unfold.setOnClickListener(new UnfoldOnClickListener());
 
+<<<<<<< HEAD
         SoftKeyBoardListener.setListener(getActivity(),
                 new SoftKeyBoardListener.OnSoftKeyBoardChangeListener() {
                     @Override
@@ -164,6 +171,35 @@ private int mHeight;
                         monScrollview.smoothScrollTo(0, 0);
                     }
                 });
+=======
+//        SoftKeyBoardListener.setListener(getActivity(),
+//                new SoftKeyBoardListener.OnSoftKeyBoardChangeListener() {
+//                    @Override
+//                    public void keyBoardShow(int height) {
+//
+//                        WindowManager wm = (WindowManager) getContext().getSystemService(getActivity().WINDOW_SERVICE);
+//                        int heightWindow = wm.getDefaultDisplay().getHeight();
+//                        int[] location = new int[2];
+//                        question1.getLocationOnScreen(location);
+//                        int y = location[1];
+//                        scrllHeigt = height - (heightWindow - y);
+//
+//                        scrollView.setVisibility(View.VISIBLE);
+//                        ViewGroup.LayoutParams layoutParams = scrollView.getLayoutParams();
+//                        layoutParams.height = scrllHeigt;
+//                        scrollView.setLayoutParams(layoutParams);
+//
+//                        handler.postDelayed(runnable1, 500);
+//                    }
+//
+//                    @Override
+//                    public void keyBoardHide(int height) {
+//                        scrollView.setVisibility(View.GONE);
+//                        monScrollview.scrollTo(0, 0);
+//                        monScrollview.smoothScrollTo(0, 0);
+//                    }
+//                });
+>>>>>>> 8e297545a6dff0c553010cfce7065d1a592b19fb
         return view;
     }
 
@@ -171,7 +207,11 @@ private int mHeight;
         @Override
         public void run() {
             monScrollview.scrollTo(0, 0);
+<<<<<<< HEAD
             monScrollview.smoothScrollTo(0, mHeight);
+=======
+            monScrollview.smoothScrollTo(0, scrllHeigt);
+>>>>>>> 8e297545a6dff0c553010cfce7065d1a592b19fb
         }
     };
 
@@ -316,8 +356,11 @@ private int mHeight;
             String questionId = umiwiAddQuestionBeans.getR().getQid();
 
             getOrderId(questionId);
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 8e297545a6dff0c553010cfce7065d1a592b19fb
         }
 
         @Override

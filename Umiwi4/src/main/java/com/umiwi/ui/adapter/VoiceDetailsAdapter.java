@@ -32,8 +32,11 @@ import cn.youmi.framework.util.ImageLoader;
 import cn.youmi.framework.view.CircleImageView;
 
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 8e297545a6dff0c553010cfce7065d1a592b19fb
 /**
  * Created by ${Gpsi} on 2017/3/11.
  */
@@ -267,10 +270,21 @@ public class VoiceDetailsAdapter extends BaseAdapter {
                 if(experDetailsVoiceBean.getIspay()) {
                     voiceDetailsFragment.bindVoiceSerive();
                 }
+<<<<<<< HEAD
                 if(bean.isTry1()) {
                     voiceDetailsFragment.startPlayer.setClickable(true);
                     voiceDetailsFragment.sb_seekbar.setVisibility(View.VISIBLE);
                     voiceDetailsFragment.getData(bean.getSource());
+=======
+                if (bean.isTry1()) {
+                    //试听
+                    voiceDetailsFragment.startPlayer.setClickable(true);
+                    voiceDetailsFragment.sb_seekbar.setVisibility(View.VISIBLE);
+                    voiceDetailsFragment.getData(bean.getSource());
+//                    UmiwiApplication.mainActivity.url = bean.getSource();
+                } else {
+                    voiceDetailsFragment.startPlayer.setClickable(false);
+>>>>>>> 8e297545a6dff0c553010cfce7065d1a592b19fb
                 }
             }
         });

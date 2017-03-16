@@ -1,5 +1,6 @@
 package com.umiwi.ui.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -53,7 +54,8 @@ public class UmiwiDetailActivity extends BaseActivity {
 	
 	/** 第三方接入 或百度推送，判断返回到首页 */
 	private boolean returnHome;
-	
+	public static Activity activity;
+
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
@@ -64,6 +66,7 @@ public class UmiwiDetailActivity extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		Intent i = this.getIntent();
+		activity = this;
 		classes = i.getIntExtra(KEY_FRAGMENT_CLASSES, 0);
 		defaultDetailUrl = i.getStringExtra(KEY_DETAIL_URL); // 直接传链接或百度推送
 		pushclasses = i.getIntExtra(KEY_PUSH_CLASSES, 0);

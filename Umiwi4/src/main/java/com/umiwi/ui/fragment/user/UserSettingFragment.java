@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.umeng.analytics.MobclickAgent;
 import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
+import com.umiwi.ui.activity.UmiwiDetailActivity;
 import com.umiwi.ui.camera.CameraActivity;
 import com.umiwi.ui.camera.CameraManager;
 import com.umiwi.ui.camera.CameraResultEvent;
@@ -143,6 +144,10 @@ public class UserSettingFragment extends BaseFragment implements ActivityCompat.
                             mProgressDialog.show();
                             YoumiRoomUserManager.getInstance().logout();
                             YoumiRoomUserManager.getInstance().getUserInfoSave(UserEvent.HOME_LOGIN_OUT);
+
+                            UmiwiDetailActivity.activity.finish();
+//                            UmiwiDetailActivity.this.finish();
+                            startActivity(new Intent(getActivity(), UmiwiDetailActivity.class));
                         }
                     });
                     dialog.show(getChildFragmentManager(), "dialog");

@@ -145,6 +145,10 @@ public class RecommendFragment extends BaseConstantFragment {
 
         @Override
         public void handleMessage(Message msg) {
+<<<<<<< HEAD
+=======
+            super.handleMessage(msg);
+>>>>>>> 8e297545a6dff0c553010cfce7065d1a592b19fb
             int currentItem = mAutoViewPager.getCurrentItem();
             currentItem++;
             mAutoViewPager.setCurrentItem(currentItem);

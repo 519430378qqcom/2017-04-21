@@ -72,6 +72,10 @@ public class LunboAdapter extends PagerAdapter {
 		mImageLoader.loadImage(listBeans.getImage(), imageView);//, R.drawable.image_loader_big
 
 
+<<<<<<< HEAD
+=======
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+>>>>>>> 8e297545a6dff0c553010cfce7065d1a592b19fb
     	imageView.setLayoutParams(para);
 
         imageView.setOnClickListener(new OnClickListener() {

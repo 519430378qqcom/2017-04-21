@@ -89,6 +89,10 @@ public class HomeMainActivity extends AppCompatActivity {
     public static final String mPicturePath = Environment.getExternalStorageDirectory().getPath() + "/Android/data/" + UmiwiApplication.getContext().getPackageName() + "/cache/adpicture.png";
     public String musicUrl;
     public String herfUrl;
+<<<<<<< HEAD
+=======
+    public String url;
+>>>>>>> 8e297545a6dff0c553010cfce7065d1a592b19fb
     public boolean isPause;
     /**
      * VoiceService的代理类
