@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.umiwi.ui.R;
@@ -62,19 +63,25 @@ public class DetailsColumnFragment extends BaseConstantFragment {
     NoScrollListview lastRecord;
     @InjectView(R.id.no_data)
     TextView noData;
+    @InjectView(R.id.ll_addview)
+    LinearLayout llAddview;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_exper_details_column_layout, null);
+        ButterKnife.inject(this, view);
+
         String albumurl = ExperDetailsFragment.tcolumnurl;
         ExperDetailsFragment.tv_more.setVisibility(View.GONE);
         if (!TextUtils.isEmpty(albumurl)) {
+            llAddview.setVisibility(View.VISIBLE);
+            noData.setVisibility(View.GONE);
             getInfos(albumurl);
-        }else {
+        } else {
+            llAddview.setVisibility(View.GONE);
             noData.setVisibility(View.VISIBLE);
         }
-        ButterKnife.inject(this, view);
         ExperDetailsFragment.setOnScrollListener(new ExperDetailsFragment.OnScrollListener() {
             @Override
             public void IsColumnbottom() {
@@ -111,12 +118,11 @@ public class DetailsColumnFragment extends BaseConstantFragment {
                         }
 
 
-
                         ExperDetailsFragment.subscriber.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                if (TextUtils.isEmpty(experDetailsAlbumbean.getId())){
-                                    ToastU.showShort(getActivity(),"行家Id不存在");
+                                if (TextUtils.isEmpty(experDetailsAlbumbean.getId())) {
+                                    ToastU.showShort(getActivity(), "行家Id不存在");
                                     return;
                                 }
                                 if (!YoumiRoomUserManager.getInstance().isLogin()) {
@@ -130,19 +136,19 @@ public class DetailsColumnFragment extends BaseConstantFragment {
                         ExperDetailsFragment.free_read.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                if (TextUtils.isEmpty(experDetailsAlbumbean.getId())){
-                                    ToastU.showShort(getActivity(),"行家Id不存在");
+                                if (TextUtils.isEmpty(experDetailsAlbumbean.getId())) {
+                                    ToastU.showShort(getActivity(), "行家Id不存在");
                                     return;
                                 }
                                 Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
                                 intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, LogicalThinkingFragment.class);
                                 intent.putExtra("id", experDetailsAlbumbean.getId());
-                                intent.putExtra("title",experDetailsAlbumbean.getTitle());
+                                intent.putExtra("title", experDetailsAlbumbean.getTitle());
                                 startActivity(intent);
                             }
                         });
                     }
-                }else {
+                } else {
                 }
             }
         });

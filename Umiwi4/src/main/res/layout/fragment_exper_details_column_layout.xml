@@ -8,6 +8,7 @@
          android:layout_height="wrap_content">
 
      <LinearLayout
+         android:visibility="visible"
          android:id="@+id/ll_addview"
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
@@ -189,14 +190,16 @@
           </LinearLayout>
      </LinearLayout>
          <TextView
+             android:layout_marginTop="10dp"
              android:id="@+id/no_data"
-             android:visibility="gone"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
+             android:visibility="visible"
+             android:layout_width="100dp"
+             android:layout_height="150dp"
+             android:gravity="center"
              android:text="暂无开通专栏"
              android:textColor="@color/main_color"
              android:layout_centerInParent="true"
-             android:textSize="20sp"
+             android:textSize="16sp"
              />
      </RelativeLayout>
 </com.umiwi.ui.view.ScrollViewExtend>
