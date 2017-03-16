@@ -207,13 +207,13 @@ public class VoiceDetailsAdapter extends BaseAdapter {
         authorNameTextView.setText(experDetailsVoiceBean.getName());
         Log.e("TAG", "experDetailsVoiceBean.getName()=" + experDetailsVoiceBean.getName());
         TextView authorTitle = (TextView) view.findViewById(R.id.author_short_description_text_view);
-        if (!TextUtils.isEmpty(experDetailsVoiceBean.getTutortitle())) {
-            if (experDetailsVoiceBean.getTutortitle().length() >= 16) {
-                authorTitle.setText(experDetailsVoiceBean.getTutortitle().subSequence(0, 14) + "...");
-            } else {
+//        if (!TextUtils.isEmpty(experDetailsVoiceBean.getTutortitle())) {
+//            if (experDetailsVoiceBean.getTutortitle().length() >= 16) {
+//                authorTitle.setText(experDetailsVoiceBean.getTutortitle().subSequence(0, 14) + "...");
+//            } else {
+//            }
+//        }
                 authorTitle.setText(experDetailsVoiceBean.getTutortitle());
-            }
-        }
         CircleImageView autorAvatarImageView = (CircleImageView) view.findViewById(R.id.author_avatar_image_view);
         ImageLoader mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
         mImageLoader.loadImage(experDetailsVoiceBean.getTutorimage(), autorAvatarImageView);
