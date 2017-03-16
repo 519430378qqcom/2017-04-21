@@ -1,6 +1,7 @@
 package com.umiwi.ui.fragment.home.updatehome.indexfragment;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
@@ -80,6 +81,8 @@ public class AskQuestionFragment extends BaseConstantFragment implements View.On
     TextView answerNum;
     @InjectView(R.id.hear_num)
     TextView hearNum;
+    @InjectView(R.id.tv_unfold)
+    TextView tv_unfold;
     @InjectView(R.id.noscroll_listview)
     NoScrollListview noscrollListview;
     @InjectView(R.id.more)
@@ -95,6 +98,7 @@ public class AskQuestionFragment extends BaseConstantFragment implements View.On
     private boolean isBottom = false;
     private Runnable runnable;
     private NamedQuestionBean namedQuestionBean;
+    private boolean isUnfold = true;
 
     @Nullable
     @Override
@@ -129,6 +133,7 @@ public class AskQuestionFragment extends BaseConstantFragment implements View.On
         });
         back.setOnClickListener(this);
         share.setOnClickListener(this);
+        tv_unfold.setOnClickListener(new UnfoldOnClickListener());
         return view;
     }
 
@@ -208,6 +213,13 @@ public class AskQuestionFragment extends BaseConstantFragment implements View.On
                     namedQuestionBean = JsonUtil.json2Bean(data, NamedQuestionBean.class);
                     name.setText(namedQuestionBean.getName());
                     describe.setText(namedQuestionBean.getDescription());
+                    describe.setEllipsize(TextUtils.TruncateAt.END);
+                    if (namedQuestionBean.getDescription().length()>50){
+                        tv_unfold.setVisibility(View.VISIBLE);
+                    }else {
+                        tv_unfold.setVisibility(View.GONE);
+                    }
+
                     ImageLoader mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
                     mImageLoader.loadImage(namedQuestionBean.getImage(), header);
                     obligation.setText(namedQuestionBean.getTutor_ask_desc());
@@ -359,6 +371,28 @@ public class AskQuestionFragment extends BaseConstantFragment implements View.On
                             namedQuestionBean.getShareurl(), namedQuestionBean.getShareimg());
                 }
                 break;
+        }
+    }
+
+    class UnfoldOnClickListener implements View.OnClickListener {
+
+        @Override
+        public void onClick(View view) {
+            if (isUnfold) { //开
+                isUnfold = false;
+                describe.setMaxLines(Integer.MAX_VALUE);
+                Drawable drawable = getResources().getDrawable(R.drawable.fold);
+                drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+                tv_unfold.setCompoundDrawables(null, null, drawable, null);
+                tv_unfold.setText("收起");
+            } else {  //关
+                isUnfold = true;
+                describe.setMaxLines(3);
+                Drawable drawable = getResources().getDrawable(R.drawable.unfold);
+                drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+                tv_unfold.setCompoundDrawables(null, null, drawable, null);
+                tv_unfold.setText("展开");
+            }
         }
     }
 }

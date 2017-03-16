@@ -81,7 +81,7 @@ public class ColumnAdapter extends BaseAdapter {
         viewholder.special_context_1.setText(mList.get(position).getTutortitle());//mList.get(position).getUpdateaudio()
         viewholder.expter_detail_textView.setText(mList.get(position).getUpdateaudio());
         if(!TextUtils.isEmpty(mList.get(position).getUpdatetime())){
-            viewholder.expter_time_textView.setText(mList.get(position).getUpdatetime()+"小时前更新");
+                viewholder.expter_time_textView.setText(mList.get(position).getUpdatetime()+"更新");
         }else{
             viewholder.expter_time_textView.setText("0小时前更新");
         }

@@ -74,6 +74,7 @@ public class FastQuizFragment extends BaseConstantFragment implements FastQuizAd
         catidList.add("互联网");
         catidList.add("媒体");
         catidList.add("教育培训");
+        catidList.add("财经金融");
     }
 
     /**

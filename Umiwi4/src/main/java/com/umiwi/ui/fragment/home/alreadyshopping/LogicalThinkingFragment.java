@@ -3,11 +3,15 @@ package com.umiwi.ui.fragment.home.alreadyshopping;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -44,6 +48,10 @@ public class LogicalThinkingFragment extends BaseConstantFragment {
     ImageView iv_back;
     @InjectView(R.id.title)
     TextView title;
+    @InjectView(R.id.ll_orderby)
+    LinearLayout ll_orderby;
+    @InjectView(R.id.iv_sort)
+    ImageView iv_sort;
 
     private String id;
     private LogicalThinkingAdapter logicalThinkingAdapter;
@@ -84,20 +92,28 @@ public class LogicalThinkingFragment extends BaseConstantFragment {
     }
 
     private void changeOrder() {
-        orderby.setOnClickListener(new View.OnClickListener() {
+        ll_orderby.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (orderby.getText().toString().equals("正序")) {
                     orderby.setText("倒序");
                     orderbyId = "old";
                     getdataInfo();
+                    rotateImpl();
                 } else {
                     orderby.setText("正序");
                     orderbyId = "new";
                     getdataInfo();
+                    rotateImpl();
                 }
             }
         });
+    }
+
+    public void rotateImpl() {
+        Animation animation = AnimationUtils.loadAnimation(getActivity(),
+                R.anim.sort_anim);
+        iv_sort.startAnimation(animation);
     }
 
     private void getdataInfo() {

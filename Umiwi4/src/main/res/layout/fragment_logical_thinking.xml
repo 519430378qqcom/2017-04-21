@@ -32,16 +32,30 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/color_divider_two"
-        android:padding="4dp"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="4dp">
 
-        <TextView
-            android:id="@+id/orderby"
+        <LinearLayout
+            android:id="@+id/ll_orderby"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="正序" />
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/iv_sort"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/daoxuanniu" />
+
+            <TextView
+                android:id="@+id/orderby"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="正序" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/update_count"
