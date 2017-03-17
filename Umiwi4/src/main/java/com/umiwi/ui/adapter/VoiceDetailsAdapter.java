@@ -46,8 +46,9 @@ public class VoiceDetailsAdapter extends BaseAdapter {
     private List<VoicePlayBean.RAnserVoicePlay.RDudiao> audioFileList = null;
     private FragmentActivity mActivity;
     private Context mContext;
+    private String totalnum = "0";
     private VoicePlayBean.RAnserVoicePlay experDetailsVoiceBean;
-
+    private VoicePlayBean.RAnserVoicePlay infos;
     private VoiceDetailsFragment voiceDetailsFragment;
     private List<AudioTmessageListBeans.RecordX.Record> recordList;
 
@@ -58,13 +59,25 @@ public class VoiceDetailsAdapter extends BaseAdapter {
         this.audioFileList = audioFileList;
         this.experDetailsVoiceBean = experDetailsVoiceBean;
         this.voiceDetailsFragment = voiceDetailsFragment;
-        this.recordList = recordList;
         Log.e("recordList", "recordList=" + recordList.toString());
+        notifyDataSetChanged();
     }
 
-    public void setRecordList(List<AudioTmessageListBeans.RecordX.Record> recordList) {
+//    public VoiceDetailsAdapter(Context context, List<AudioTmessageListBeans.RecordX.Record> recordList, VoicePlayBean.RAnserVoicePlay infos, VoiceDetailsFragment voiceDetailsFragment) {
+//        this.mActivity = (FragmentActivity) context;
+//        this.mContext = context;
+//        this.voiceDetailsFragment = voiceDetailsFragment;
+//        this.infos = infos;
+//    }
+    public void setData(VoicePlayBean.RAnserVoicePlay infos) {
+        this.infos = infos;
+        notifyDataSetChanged();
+    }
+
+    public void setRecordList(List<AudioTmessageListBeans.RecordX.Record> recordList, String totalnum) {
         //ToastU.showShort(mActivity,"刷新评论。。。");
         this.recordList = recordList;
+        this.totalnum = totalnum;
         this.notifyDataSetChanged();
     }
 
@@ -204,7 +217,7 @@ public class VoiceDetailsAdapter extends BaseAdapter {
         TextView writeComment = (TextView) view.findViewById(R.id.write_button);
 
 
-        commentNum.setText("评论 (" + recordList.size() + ")");
+        commentNum.setText("评论 (" + totalnum + ")");
         ImageLoader mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
         mImageLoader.loadImage(YoumiRoomUserManager.getInstance().getUser().getAvatar(), header, R.drawable.fragment_mine_photo);
         writeComment.setOnClickListener(writeCommentViewOnClickListener);
@@ -411,4 +424,6 @@ public class VoiceDetailsAdapter extends BaseAdapter {
                         });
 
     }
+
+
 }

@@ -17,14 +17,8 @@ import android.widget.TextView;
 import com.umeng.analytics.MobclickAgent;
 import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
-
 import com.umiwi.ui.adapter.updateadapter.ExpertListAdapter;
-import com.umiwi.ui.beans.LecturerBean;
-
 import com.umiwi.ui.beans.updatebeans.CelebrityBean;
-import com.umiwi.ui.fragment.LecturerDetailFragment;
-
-import com.umiwi.ui.fragment.LecturerListFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.CustomStringCallBack;
 import com.umiwi.ui.main.UmiwiAPI;
@@ -32,21 +26,12 @@ import com.umiwi.ui.util.JsonUtil;
 import com.umiwi.ui.view.MyCelebrityLetterListView;
 import com.umiwi.ui.view.MyLetterListView;
 import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.StringCallback;
-import com.zhy.http.okhttp.utils.L;
 
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
 import java.util.List;
 
-import cn.youmi.framework.http.AbstractRequest;
-import cn.youmi.framework.http.GetRequest;
-import cn.youmi.framework.http.HttpDispatcher;
-import cn.youmi.framework.http.parsers.GsonParser;
 import cn.youmi.framework.util.ListViewScrollLoader;
 import cn.youmi.framework.view.LoadingFooter;
-import okhttp3.Call;
-import okhttp3.OkHttpClient;
 import za.co.immedia.pinnedheaderlistview.PinnedHeaderListView;
 
 /**

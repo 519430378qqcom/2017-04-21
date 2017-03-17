@@ -440,7 +440,6 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
     @Override
     public void customScrollStateChanged(AbsListView view, int scrollState) {
         if (scrollState == OnScrollListener.SCROLL_STATE_IDLE) {//0,3,4,10
-
             if (mListView.getFirstVisiblePosition() == 0) {
                 scrollDetail.setChecked(true);
             } else if (mListView.getFirstVisiblePosition() >= 1 && mListView.getFirstVisiblePosition() < 3) {
@@ -1337,7 +1336,6 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
                                 && (mMenuOpenedHeight != 0)) {
                             mIsKeyboardOpened = true;
                         }
-
                     }
                 });
     }

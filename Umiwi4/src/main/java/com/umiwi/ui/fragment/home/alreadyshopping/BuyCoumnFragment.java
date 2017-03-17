@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,14 +16,10 @@ import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.BuyColumnAdapter;
 import com.umiwi.ui.beans.updatebeans.AlreadShopColumnBean;
-import com.umiwi.ui.beans.updatebeans.BuyCoumnBean;
 import com.umiwi.ui.main.BaseConstantFragment;
-import com.umiwi.ui.main.CustomStringCallBack;
 import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.managers.YoumiRoomUserManager;
-import com.umiwi.ui.util.JsonUtil;
 import com.umiwi.ui.view.RefreshLayout;
-import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +29,6 @@ import butterknife.InjectView;
 import cn.youmi.framework.http.AbstractRequest;
 import cn.youmi.framework.http.GetRequest;
 import cn.youmi.framework.http.parsers.GsonParser;
-import cn.youmi.framework.view.LoadingFooter;
 
 /**
  * 类描述：已购-专栏
@@ -119,6 +113,7 @@ public class BuyCoumnFragment extends BaseConstantFragment {
     private void getInfos() {
         String uid = YoumiRoomUserManager.getInstance().getUid();
         String url = String.format(UmiwiAPI.ALREADY_COLUMN, page, uid);
+        Log.e("已购", "url=" + url);
         GetRequest<AlreadShopColumnBean> req = new GetRequest<AlreadShopColumnBean>(url, GsonParser.class, AlreadShopColumnBean.class, new AbstractRequest.Listener<AlreadShopColumnBean>() {
             @Override
             public void onResult(AbstractRequest<AlreadShopColumnBean> request, AlreadShopColumnBean alreadyVideoBean) {

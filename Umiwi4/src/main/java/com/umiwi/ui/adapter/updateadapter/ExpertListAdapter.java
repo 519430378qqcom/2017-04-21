@@ -1,6 +1,7 @@
 package com.umiwi.ui.adapter.updateadapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -144,6 +145,7 @@ public class ExpertListAdapter extends SectionedBaseAdapter {
         holder.zhuanlan.setText(lecturerWappers.get(section).getContent().get(position).getTutorcolumn());
         holder.expert_album.setText(lecturerWappers.get(section).getContent().get(position).getAlbum());
         holder.expert_audio.setText(lecturerWappers.get(section).getContent().get(position).getAudio());
+        Log.e("TAG", "lecturerWappers.get(section).getContent().get(position).getAudio()=" + lecturerWappers.get(section).getContent().get(position).getAudio());
         holder.expert_question.setText(lecturerWappers.get(section).getContent().get(position).getQuestion());
         return convertView;
     }

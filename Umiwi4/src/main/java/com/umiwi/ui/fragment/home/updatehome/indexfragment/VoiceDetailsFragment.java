@@ -377,49 +377,6 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
         request.go();
         closeButtomSend();
     }
-//    private ArrayList<AudioTmessageListBeans> mlist = null;
-//    private AbstractRequest.Listener<AudioTmessageListBeans.RecordX> commentListener = new AbstractRequest.Listener<AudioTmessageListBeans.RecordX>() {
-//        @Override
-//        public void onResult(AbstractRequest<AudioTmessageListBeans.RecordX> request, AudioTmessageListBeans.RecordX recordX) {
-//            if(recordX != null) {
-//                ArrayList<AudioTmessageListBeans.RecordX.Record> recordArrayList = recordX.getRecord();
-//                mlist.add
-//            }
-//        }
-//
-//        @Override
-//        public void onError(AbstractRequest<AudioTmessageListBeans.RecordX> requet, int statusCode, String body) {
-//
-//        }
-//    };
-
-//    private void showComment() {
-//        String url = String.format(UmiwiAPI.audio_tmessage, infos.getId(), mEt_menu.getText().toString().trim());
-//        PostRequest<AudioTmessageBeans> request = new PostRequest<AudioTmessageBeans>(url, GsonParser.class, AudioTmessageBeans.class, new AbstractRequest.Listener<AudioTmessageBeans>() {
-//            @Override
-//            public void onResult(AbstractRequest<AudioTmessageBeans> request, AudioTmessageBeans audioTmessageBeans) {
-//                if (audioTmessageBeans.getE().equals("9999")) {
-//                    ToastU.showShort(getActivity(), "评论提交成功!");
-////                    if (mEditMenuWindow.isShowing()) {
-////                        mEditMenuWindow.dismiss();
-////                    }
-////                    isRefresh = true;
-//
-//                    showCommentList();
-//                }
-//            }
-//
-//            @Override
-//            public void onError(AbstractRequest<AudioTmessageBeans> requet, int statusCode, String body) {
-//
-//            }
-//        });
-//        request.addParam("albumid", albumID);
-//        request.addParam("question", mEt_menu.getText().toString().trim());
-//        request.go();
-//        closeButtomSend();
-//    }
-
 
     private AbstractRequest.Listener<AudioTmessageBeans> AudioListener = new AbstractRequest.Listener<AudioTmessageBeans>() {
 
@@ -430,6 +387,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                 if (mEditMenuWindow.isShowing()) {
                     mEditMenuWindow.dismiss();
                 }
+                mEt_menu.setText("");
                 isRefresh = true;
                 showCommentList();
             }
@@ -460,6 +418,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
             AudioTmessageListBeans.RecordX.PageBean page = tmessageBeans.getR().getPage();
             Log.e("tag", "评论数据=" + tmessageBeans.getR().getRecord().toString());
             totalpage = page.getTotalpage();
+            String totalnum = tmessageBeans.getR().getTotalnum();
             if (isRefresh) {
                 refreshLayout.setRefreshing(false);
 //                recordList.clear();
@@ -468,10 +427,9 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
             }
 
             Log.i("ldb", "获取评论最新数据...<>>" + tmessageBeans.getR().getRecord().size());
-            recordList.addAll(tmessageBeans.getR().getRecord());
-
+            recordList.addAll(0,tmessageBeans.getR().getRecord());
             Log.i("ldb", "SHUXIN...<>>" + recordList.size());
-            mAdapter.setRecordList(tmessageBeans.getR().getRecord());
+            mAdapter.setRecordList(recordList,totalnum);
         }
 
         @Override
@@ -968,7 +926,6 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                         }
                     }
                 }
-
                 mAdapter = new VoiceDetailsAdapter(getActivity(), audioFileList, infos, recordList, VoiceDetailsFragment.this);
                 mListView.setAdapter(mAdapter);
                 Log.e("TAG", "11111audioFileList=" + audioFileList);
@@ -995,112 +952,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
         });
         request.go();
 
-//
-//        OkHttpUtils.get().url(herfurl).build().execute(new CustomStringCallBack() {
-//            @Override
-//            public void onFaild() {
-//                Log.e("data", "音频url获取失败");
-//
-//            }
-//
-//            @Override
-//            public void onSucess(String data) {
-//                Log.e("TAG", "音频url获取成功=" + data);
-//                if (!TextUtils.isEmpty(data)) {
-//                    experDetailsVoiceBean = JsonUtil.json2Bean(data, ExperDetailsVoiceBean.class);
-//                    String imageurl = experDetailsVoiceBean.getImage();
-//                    Log.e("TAG", "imageurl=" + imageurl);
-//                    albumID = experDetailsVoiceBean.getId();
-//                    imageLoader.loadImage(imageurl, ivHeader, R.drawable.icon_umiwi);
-//
-//
-//                    audioFileList = experDetailsVoiceBean.getAudiofile();
-//                    if (audioFileList != null && audioFileList.size() > 0) {
-//                        audiofileBean = audioFileList.get(0);
-////                        source = audiofileBean.getSource();
-//                        url = audiofileBean.getSource();
-//                        Log.e("TAG", "url =" + url);
-////                        if (url!=null){
-//                            UmiwiApplication.getInstance().getBinder().searchInfo(source);
-////                        }
-//                        if (url != null) {
-//                            //判断是否显示需要支付的view
-//                            //如果是免费或是已经支付
-//                            if(experDetailsVoiceBean.isIspay()) {
-//                                ll_voice_needpay.setVisibility(View.GONE);
-//                                rl_voice_ispay.setVisibility(View.VISIBLE);
-//                                getData(url);
-//                            }else {
-//                                //没有支付
-//                                startPlayer.setClickable(false);
-//                                ll_voice_needpay.setVisibility(View.VISIBLE);
-//                                rl_voice_ispay.setVisibility(View.GONE);
-//                                seekbar.setVisibility(View.INVISIBLE);
-//                                tv_needpay.setText("支付 ￥" + experDetailsVoiceBean.getPrice() + "元");
-//                                tv_needpay.setOnClickListener(new View.OnClickListener() {
-//                                    @Override
-//                                    public void onClick(View v) {
-//                                        getOrderId(experDetailsVoiceBean.getId());
-//                                    }
-//                                });
-//                            }
-//
-//                        }
-//                        //请求音频数据，保存数据库中去
-//                        for (ExperDetailsVoiceBean.AudiofileBean db : experDetailsVoiceBean.getAudiofile()) {
-//                            AudioModel vm = AudioManager.getInstance().getVideoById(db.getAid() + "");
-//                            if (vm == null) {
-//                                vm = new AudioModel();
-//                            }
-//
-//                            String albumTitle = experDetailsVoiceBean.getTitle();
-//                            if (albumTitle == null) {
-//                                albumTitle = experDetailsVoiceBean.getTitle();
-//                            }
-//
-//                            vm.setTitle(db.getAtitle());
-//                            vm.setVideoUrl(db.getSource());
-//                            vm.setVideoId(db.getAid() + "");
-//                            vm.setAlbumId(experDetailsVoiceBean.getId() + "");
-//                            vm.setAlbumTitle(albumTitle);
-//                            vm.setExpiretime(db.getAplaytime());
-//                            vm.setUid(YoumiRoomUserManager.getInstance().getUid());
-//                            vm.setImageURL(experDetailsVoiceBean.getTutorimage());
-////                            vm.setAlbumImageurl(experDetailsVoiceBean.getTutorimage());
-//                            vm.setTry(false);
-////				vm.setLastwatchposition((int) (db.getDuration() * db.getWatchProgress() / 100.0f * 1000));
-//
-//                            AudioManager.getInstance().saveVideo(vm);
-//                        }
-//
-//                    }
-//
-//
-//
-//                    mAdapter = new VoiceDetailsAdapter(getActivity(), audioFileList, experDetailsVoiceBean,recordList, VoiceDetailsFragment.this);
-//                    mListView.setAdapter(mAdapter);
-//                    Log.e("TAG", "11111audioFileList=" + audioFileList);
-//                    Log.e("TAG", "1111111mAdapter=" + mAdapter);
-//
-//                    mAdapter.setWriteCommenntViewOnClickListener(writeCommentListener);
-////                    收藏按钮
-//                    if (UserManager.getInstance().isLogin() && collectionDao.isSaved(albumID)) {
-//                        saveButton.setChecked(true);
-//                    } else {
-//                        saveButton.setChecked(false);
-//                    }
-//                    //下载
-//                    downLoadButton.setOnClickListener(downloadListClickListener);
-//                    showCommentList();
-//
-//
-//
-//                }
-//            }
-//        });
     }
-
-
     public void getData(final String url) {
         GetRequest<AudioResourceBean> request = new GetRequest<AudioResourceBean>(
                 url, GsonParser.class,
@@ -1130,9 +982,6 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
 //        lastVoice.setOnClickListener(this);
         ivBack.setOnClickListener(this);
         nextVoice.setOnClickListener(this);
-
-
-
     }
 
 
@@ -1280,24 +1129,6 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                 Toast.makeText(getActivity(), "已是最后", Toast.LENGTH_SHORT)
                         .show();
                 break;
-
-        }
-    }
-
-
-    private class MyConn implements ServiceConnection {
-
-        @Override
-        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-//            mBinder = (VoiceService.VoiceBinder) iBinder;
-            Log.e("mbinder", "拿到代理人对象");
-         /*   mBinder.playVoice(voices);
-            seekbar.setMax(mBinder.getDuration());
-            handler.post(runnable);*/
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName componentName) {
 
         }
     }
