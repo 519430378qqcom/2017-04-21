@@ -1,5 +1,6 @@
 package com.umiwi.ui.fragment.home.updatehome.indexfragment;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Environment;
@@ -14,7 +15,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.umiwi.ui.R;
+import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.beans.updatebeans.CommitVoiceBean;
+import com.umiwi.ui.fragment.MyAnswerFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.main.UmiwiApplication;
@@ -243,7 +246,8 @@ public class RecordVoiceFragment extends BaseConstantFragment implements View.On
 
         @Override
         public void onResult(AbstractRequest<CommitVoiceBean> request, CommitVoiceBean t) {
-            Toast.makeText(getActivity(), "回答成功", Toast.LENGTH_SHORT).show();
+             MyAnswerFragment.viewPager.setCurrentItem(1);
+             getActivity().finish();
         }
 
         @Override

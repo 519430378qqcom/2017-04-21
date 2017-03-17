@@ -29,7 +29,7 @@ public class MyAnswerFragment extends BaseFragment {
     private TextView tab_delay_answer;
     private TextView tab_answered;
     private View line;
-    private ViewPager viewPager;
+    public static ViewPager viewPager;
 
     private ArrayList<Fragment> fragments;
     private int line_width;

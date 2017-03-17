@@ -16,7 +16,7 @@
          android:background="@color/white"
          >
          <LinearLayout
-             android:layout_marginTop="20dp"
+             android:layout_marginTop="10dp"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:orientation="horizontal">
@@ -25,7 +25,6 @@
                  android:id="@+id/title"
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
-                 android:text="关系攻略：残酷社会生存法则"
                  android:textColor="@color/black"
                  android:textSize="20sp"
                  android:ellipsize="end"
@@ -37,7 +36,6 @@
                   android:id="@+id/priceinfo"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:text="￥165/年"
                   android:textColor="@color/main_color"
                   android:layout_alignParentRight="true"
                   android:layout_centerVertical="true"
@@ -55,14 +53,14 @@
               android:id="@+id/shortcontent"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:text="每周更新一期"
               android:layout_marginLeft="10dp"
+              android:textColor="@color/black_alpf"
               />
               <TextView
                   android:id="@+id/salenum"
+                  android:textColor="@color/black_alpf"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:text="订阅666人"
                   android:layout_marginLeft="20dp"
                   android:paddingBottom="10dp"
                   />
@@ -80,10 +78,11 @@
               <TextView
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:text="专栏简介"
                   android:textSize="19sp"
                   android:layout_marginLeft="10dp"
-                  android:layout_marginTop="20dp"
+                  android:layout_marginTop="10dp"
+                  android:text="专栏简介"
+                  android:textColor="@color/black_alpf"
                   />
                   <com.umiwi.ui.view.NoScrollListview
                       android:id="@+id/description"
@@ -108,20 +107,22 @@
              <TextView
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
-                 android:text="目标人群"
                  android:textSize="19sp"
                  android:textColor="@color/black_alpf"
-                  android:layout_marginTop="20dp"
+                  android:layout_marginTop="10dp"
                  android:layout_marginLeft="10dp"
+                 android:text="目标人群"
                  />
                <TextView
                    android:id="@+id/targetuser"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:text="25-40周岁年龄段"
                    android:layout_marginLeft="10dp"
                    android:layout_marginTop="10dp"
                    android:paddingBottom="10dp"
+                   android:textSize="16sp"
+
+                   android:textColor="@color/black_alpf"
                    />
              <View
                  android:layout_width="match_parent"
@@ -136,12 +137,12 @@
              android:orientation="vertical"
              >
              <TextView
+                 android:text="订阅提醒"
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
-                 android:text="订阅提醒"
                  android:textSize="19sp"
                  android:textColor="@color/black_alpf"
-                 android:layout_marginTop="20dp"
+                 android:layout_marginTop="10dp"
                  android:layout_marginLeft="10dp"
                  />
              <com.umiwi.ui.view.NoScrollListview
@@ -166,12 +167,12 @@
               android:orientation="vertical"
               >
               <TextView
+                  android:text="最近更新"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:layout_marginLeft="10dp"
-                  android:text="最近更新"
-                  android:layout_marginTop="20dp"
-                  android:textSize="16sp"
+                  android:layout_marginTop="10dp"
+                  android:textSize="19sp"
                   android:textColor="@color/black_alpf"
 
                   />
@@ -189,8 +190,8 @@
               </RelativeLayout>
           </LinearLayout>
      </LinearLayout>
+
          <TextView
-             android:layout_marginTop="10dp"
              android:id="@+id/no_data"
              android:visibility="visible"
              android:layout_width="100dp"
@@ -198,8 +199,8 @@
              android:gravity="center"
              android:text="暂无开通专栏"
              android:textColor="@color/main_color"
-             android:layout_centerInParent="true"
              android:textSize="16sp"
-             />
+             android:layout_centerVertical="true"
+             android:layout_centerHorizontal="true" />
      </RelativeLayout>
 </com.umiwi.ui.view.ScrollViewExtend>

@@ -106,7 +106,7 @@ public class LunboAdapter extends PagerAdapter {
 				} else if ("tutor1".equals(listBeans.getTypes())) {
 					Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
 					intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, ExperDetailsFragment.class);
-					intent.putExtra(ExperDetailsFragment.KEY_DEFAULT_TUTORUID, listBeans.getId());
+					intent.putExtra(ExperDetailsFragment.KEY_DEFAULT_TUTORUID, listBeans.getAlbumid());
 					mContext.startActivity(intent);
 
 				}else if ("column".equals(listBeans.getTypes())){

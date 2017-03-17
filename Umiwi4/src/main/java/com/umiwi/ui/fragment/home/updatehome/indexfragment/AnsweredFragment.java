@@ -52,9 +52,14 @@ public class AnsweredFragment extends BaseConstantFragment {
         myAlreadyAnswerAdapter = new MyAlreadyAnswerAdapter(getActivity());
         myAlreadyAnswerAdapter.setData(questionsInfos);
         listview.setAdapter(myAlreadyAnswerAdapter);
-        getInfos();
         initrefreshLayout();
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        getInfos();
+        super.onResume();
     }
 
     private void getInfos() {
