@@ -78,7 +78,7 @@ android {
 //        googleplayv {}
 //        huaweiv {}
 //        lenovov {}
-//        yingyongbaov{} //应用宝
+        yingyongbaov{} //应用宝
 //        m91v {}
 //        m360vt {}  //360 手机助手
 //        anzhuov{} //安卓市场
@@ -98,7 +98,7 @@ android {
 //        nduov{} //n多
 //        itoosv{} //
 //        muzhiwanv{} //拇指玩
-          sougoushichangv{} //搜狗市场
+//          sougoushichangv{} //搜狗市场
 //        qqv {}
 //        qqvpay {} //付费包
 //        sogou {}
