@@ -156,7 +156,9 @@ public class ExperDetailsFragment extends BaseConstantFragment {
                 experName = experDetailsBean.getName();
                 tutorimage = experDetailsBean.getTutorimage();
                 description = experDetailsBean.getDescription();
+                Log.e("TAG","experDetailsBean.getDescription()" + experDetailsBean.getDescription());
                 tutortitle = experDetailsBean.getTutortitle();
+
                 share = experDetailsBean.getShare();
                 String isopenask = experDetailsBean.getIsopenask();
                 uid1 = experDetailsBean.getUid();

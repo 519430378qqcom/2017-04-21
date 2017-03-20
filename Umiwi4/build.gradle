@@ -73,20 +73,43 @@ android {
     productFlavors {  //./gradlew assembleRelease
         // itest {}
 //        portalv {}//官网
-        baiduvt {}
+//        baiduvt {}
 //        smvpay {}//神马
 //        googleplayv {}
 //        huaweiv {}
 //        lenovov {}
+//        yingyongbaov{} //应用宝
 //        m91v {}
-//        m360vt {}
+//        m360vt {}  //360 手机助手
+//        anzhuov{} //安卓市场
+//        oppov{}
 //        meizuv {}
+//        leshangdianv{} //乐商店
+//        yingyonghuiv{} //应用汇
+//        mumayiv{} //木蚂蚁
+//        youyiv{} //优亿市场
+//        ppzhushouv{} //PP助手
+//        baidukaifav{} //百度开放平台
+//        jiliv{} //金立
+//        yidingv{} //移动
+//        sanxingv{} //三星
+//        jifengv{} //机锋
+//        dianxinv{} //电信
+//        nduov{} //n多
+//        itoosv{} //
+//        muzhiwanv{} //拇指玩
+          sougoushichangv{} //搜狗市场
 //        qqv {}
 //        qqvpay {} //付费包
 //        sogou {}
+//        xiaowov// 小沃
+//        appcanv{} //appcanv
+//        moguv{} //蘑菇市场
+//        baopingwangv{} //宝瓶
+//        ucv{} //UC
 //        taobaovt {}
 //        wandoujiav {}
-//        xiaomivt {}
+////        xiaomivt {}
 //        anzhiv {}//安智
 //        domob {}//多盟
 //        youmiad1 {}//有米

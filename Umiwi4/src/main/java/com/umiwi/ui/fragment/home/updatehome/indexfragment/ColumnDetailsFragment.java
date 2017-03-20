@@ -144,8 +144,12 @@ public class ColumnDetailsFragment extends BaseConstantFragment {
                     last_record.setAdapter(new ColumnRecordAdapter(getActivity(), columnDetailsBean.getLast_record()));
 
                     title.setText(columnDetailsBean.getTitle());
+//
+
+
                     priceinfo.setText(columnDetailsBean.getPriceinfo());
-                    shortcontent.setText(columnDetailsBean.getSharecontent());
+                    shortcontent.setText(columnDetailsBean.getShortcontent());
+
                     salenum.setText(columnDetailsBean.getSalenum());
 
                     Glide.with(getActivity()).load(columnDetailsBean.getImage()).into(iv_image);
