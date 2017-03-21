@@ -463,7 +463,6 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
         mLoadingFooter = new LoadingFooter(getActivity());// 加载更多的view
         int bottomHeight = getResources().getDimensionPixelSize(R.dimen.bottom_bar_height);
 
-
         tab_layout = (LinearLayout) rootView.findViewById(R.id.tab_layout);
         bottomBarLayout = (LinearLayout) rootView.findViewById(R.id.bottom_bar_container);
         mScrollLoader = new ListViewQuickReturnScrollLoader(QuickReturnViewType.FOOTER, null, 0, bottomBarLayout, bottomHeight, this, mLoadingFooter);

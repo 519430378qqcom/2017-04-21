@@ -12,7 +12,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -145,7 +144,7 @@ public class UserSettingFragment extends BaseFragment implements ActivityCompat.
                             YoumiRoomUserManager.getInstance().logout();
                             YoumiRoomUserManager.getInstance().getUserInfoSave(UserEvent.HOME_LOGIN_OUT);
 
-                            UmiwiDetailActivity.activity.finish();
+//                            UmiwiDetailActivity.activity.finish();
 //                            UmiwiDetailActivity.this.finish();
                             startActivity(new Intent(getActivity(), UmiwiDetailActivity.class));
                         }
