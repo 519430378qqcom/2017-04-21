@@ -214,11 +214,11 @@
                 android:id="@+id/free_read"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="免费阅读"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true" />
+            <!--android:text="免费阅读"-->
         </RelativeLayout>
 
         <RelativeLayout

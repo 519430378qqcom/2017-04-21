@@ -11,7 +11,6 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
 
 import com.umeng.analytics.MobclickAgent;
-import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.beans.UmiwiListBeans;
 import com.umiwi.ui.fragment.LecturerDetailFragment;
@@ -21,14 +20,12 @@ import com.umiwi.ui.fragment.course.CourseDetailPlayFragment;
 import com.umiwi.ui.fragment.course.JPZTDetailFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.ColumnDetailsFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.ExperDetailsFragment;
-import com.umiwi.ui.fragment.home.updatehome.indexfragment.ExpertFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.VoiceDetailsFragment;
 import com.umiwi.ui.main.UmiwiApplication;
 import com.umiwi.ui.managers.StatisticsManager;
 
 import java.util.ArrayList;
 
-import cn.youmi.framework.main.ContextProvider;
 import cn.youmi.framework.util.ImageLoader;
 import cn.youmi.framework.util.ToastU;
 
@@ -80,6 +77,7 @@ public class LunboAdapter extends PagerAdapter {
         imageView.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				Log.e("Detailurl", "轮播Detailurl="+listBeans.getDetailurl() + ",轮播Url" + listBeans.getUrl());
 				if ("video".equals(listBeans.getTypes())) {
 					Log.i("youmilog","轮播图开始播放。。。。"+listBeans.getDetailurl());
 					Intent intent = new Intent(mContext, UmiwiContainerActivity.class);

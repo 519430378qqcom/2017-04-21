@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -602,6 +603,7 @@ public class CourseDetailsAdapter extends BaseAdapter {
                         db.getVid() + "");
                 playList.add(dm);
             }
+            Log.e("playList", "playList=" + playList.get(0).toString());
         } else {
             tryVideo = true;
             if (index >= -1) {

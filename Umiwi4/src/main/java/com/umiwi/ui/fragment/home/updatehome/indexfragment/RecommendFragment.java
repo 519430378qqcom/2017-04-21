@@ -1,6 +1,5 @@
 package com.umiwi.ui.fragment.home.updatehome.indexfragment;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -41,7 +40,6 @@ import com.umiwi.ui.beans.updatebeans.RecommendBean;
 import com.umiwi.ui.fragment.GiftFragment;
 import com.umiwi.ui.fragment.UserTestInfoFragment;
 import com.umiwi.ui.fragment.course.CourseDetailPlayFragment;
-import com.umiwi.ui.fragment.home.recommend.widget.BigShotLayoutView;
 import com.umiwi.ui.fragment.home.recommend.widget.ExpertAnswerDwonLayoutViwe;
 import com.umiwi.ui.fragment.home.recommend.widget.ExpertAnswerLayoutViwe;
 import com.umiwi.ui.fragment.home.recommend.widget.ExpertRecLayoutView;
@@ -49,7 +47,6 @@ import com.umiwi.ui.fragment.home.recommend.widget.FreeLayoutView;
 import com.umiwi.ui.fragment.home.recommend.widget.LineActionLayoutViwe;
 import com.umiwi.ui.fragment.home.recommend.widget.PaySelectedLayoutViwe;
 import com.umiwi.ui.fragment.home.recommend.widget.RecommentBottomLayoutView;
-import com.umiwi.ui.fragment.home.updatehome.NewHomeRecommendFragment;
 import com.umiwi.ui.http.parsers.ADParser;
 import com.umiwi.ui.http.parsers.CourseListParser;
 import com.umiwi.ui.main.BaseConstantFragment;
@@ -400,6 +397,8 @@ public class RecommendFragment extends BaseConstantFragment {
     @Override
     public void onResume() {
         super.onResume();
+        //刷新行家数据状态 登录购买与否
+        getIndexAction();
         if (mSharedPreferences.getBoolean("isCanShowGift", false) && !mSharedPreferences.getBoolean("isShowGiftOnceAndNoToShowAgain", false)) {
             getRegisterDevice();
         }

@@ -15,7 +15,6 @@ import com.umiwi.ui.R;
 import com.umiwi.ui.fragment.home.alreadyshopping.BuyCoumnFragment;
 import com.umiwi.ui.fragment.home.alreadyshopping.NewVideoFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.AudioFragment;
-import com.umiwi.ui.fragment.home.alreadyshopping.ColumnFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 
 import java.util.ArrayList;
@@ -54,6 +53,11 @@ public class AlreadyBoughtFragment extends BaseConstantFragment {
         ButterKnife.inject(this,view);
         initMenuTab();
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     /**
