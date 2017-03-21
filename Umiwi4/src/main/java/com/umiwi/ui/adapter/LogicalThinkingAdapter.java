@@ -1,7 +1,6 @@
 package com.umiwi.ui.adapter;
 
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,21 +10,18 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.umiwi.ui.R;
-import com.umiwi.ui.beans.LogincalThinkingBean;
+import com.umiwi.ui.beans.updatebeans.AttemptBean;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import static com.umiwi.ui.R.id.tv_title;
 
 /**
  * Created by Administrator on 2017/2/24.
  */
 public class LogicalThinkingAdapter extends BaseAdapter {
     private FragmentActivity activity;
-    private List<LogincalThinkingBean.RecordBean> mList;
-
-    public LogicalThinkingAdapter(FragmentActivity activity, List<LogincalThinkingBean.RecordBean> mList) {
+//    private List<LogincalThinkingBean.RecordBean> mList;
+    private List<AttemptBean.RAttenmpInfo.RecordsBean> mList;
+    public LogicalThinkingAdapter(FragmentActivity activity, List<AttemptBean.RAttenmpInfo.RecordsBean> mList) {
         this.activity = activity;
         this.mList = mList;
     }
@@ -52,6 +48,7 @@ public class LogicalThinkingAdapter extends BaseAdapter {
             viewHolder = new ViewHolder();
             convertView = View.inflate(activity, R.layout.logical_thinking_item, null);
             viewHolder.tv_title = (TextView) convertView.findViewById(R.id.tv_title);
+            viewHolder.tv_attempt = (TextView) convertView.findViewById(R.id.tv_attempt);
             viewHolder.tv_time = (TextView) convertView.findViewById(R.id.tv_time);
             viewHolder.tv_watchnum = (TextView) convertView.findViewById(R.id.tv_watchnum);
             viewHolder.tv_imageview = (ImageView) convertView.findViewById(R.id.tv_imageview);
@@ -61,7 +58,12 @@ public class LogicalThinkingAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-
+        Log.e("是否显示试读", "是否显示试读=" + mList.get(position).istry());
+        if (mList.get(position).istry()) {
+            viewHolder.tv_attempt.setVisibility(View.VISIBLE);
+        } else {
+            viewHolder.tv_attempt.setVisibility(View.GONE);
+        }
         viewHolder.tv_title.setText(mList.get(position).getTitle());
         viewHolder.tv_time.setText(mList.get(position).getOnlinetime());
         viewHolder.tv_watchnum.setText(mList.get(position).getWatchnum() + "人读过");
@@ -71,7 +73,7 @@ public class LogicalThinkingAdapter extends BaseAdapter {
     }
 
     class ViewHolder {
-        private TextView tv_title, tv_time, tv_watchnum, tv_description;
+        private TextView tv_title, tv_time, tv_watchnum, tv_description,tv_attempt;
         private ImageView tv_imageview;
     }
 }

@@ -397,7 +397,7 @@ public final class UmiwiAPI {
     public static final String CELEBRTYY_LIST = "http://i.v.youmi.cn/apireader/tutorList";
 
     public static final String CELEBRTYY_DETAILS = "http://i.v.youmi.cn/api8/gettutor/?uid=";
-
+    //专栏列表
     public static final String TUTORCOLUMN = "http://i.v.youmi.cn/tutorcolumn/listApi/?p=";
     //已购专栏
     public static final String ALREADY_COLUMN = "http://i.v.youmi.cn/tutorcolumn/buylist?p=%s&uid=%s";
@@ -408,7 +408,7 @@ public final class UmiwiAPI {
     public static final String COMMIT_VOICE = "http://i.v.youmi.cn/question/answerApi";
 
     //未购专栏详情页
-        public static final String No_buy_column = "http://i.v.youmi.cn/api8//tutorcolumn/detailApi";
+    public static final String No_buy_column = "http://i.v.youmi.cn/api8//tutorcolumn/detailApi";
 
     //已购买
     public static final String Ask_Hear = "http://i.v.youmi.cn/api8/buyquestion";

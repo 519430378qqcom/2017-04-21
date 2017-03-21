@@ -3,7 +3,7 @@ package com.umiwi.ui.fragment.home.alreadyshopping;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,18 +19,19 @@ import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.LogicalThinkingAdapter;
 import com.umiwi.ui.beans.LogincalThinkingBean;
+import com.umiwi.ui.beans.updatebeans.AttemptBean;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.VoiceDetailsFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
-import com.umiwi.ui.main.CustomStringCallBack;
 import com.umiwi.ui.main.UmiwiAPI;
-import com.umiwi.ui.util.JsonUtil;
-import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import cn.youmi.framework.http.AbstractRequest;
+import cn.youmi.framework.http.GetRequest;
+import cn.youmi.framework.http.parsers.GsonParser;
 
 
 /**
@@ -58,6 +59,7 @@ public class LogicalThinkingFragment extends BaseConstantFragment {
     private List<LogincalThinkingBean.RecordBean> thinkingBeanList = new ArrayList<>();
 
     private String orderbyId = "new";
+    private ArrayList<AttemptBean.RAttenmpInfo.RecordsBean> record = new ArrayList<>();
 
     @Nullable
     @Override
@@ -67,7 +69,7 @@ public class LogicalThinkingFragment extends BaseConstantFragment {
         id = getActivity().getIntent().getStringExtra("id");
         String intentTitile = getActivity().getIntent().getStringExtra("title");
         title.setText(intentTitile);
-        logicalThinkingAdapter = new LogicalThinkingAdapter(getActivity(), thinkingBeanList);
+        logicalThinkingAdapter = new LogicalThinkingAdapter(getActivity(), record);
         listView.setAdapter(logicalThinkingAdapter);
         iv_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,7 +85,7 @@ public class LogicalThinkingFragment extends BaseConstantFragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
                 intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
-                intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL, String.format(UmiwiAPI.MIANFEI_YUEDU, thinkingBeanList.get(position).getId()));
+                intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL, String.format(UmiwiAPI.MIANFEI_YUEDU, record.get(position).getId()));
                 intent.putExtra("isTry", true);
                 getActivity().startActivity(intent);
             }
@@ -118,21 +120,40 @@ public class LogicalThinkingFragment extends BaseConstantFragment {
 
     private void getdataInfo() {
         String url = String.format(UmiwiAPI.Logincal_thinking, id, orderbyId);
-        OkHttpUtils.get().url(url).build().execute(new CustomStringCallBack() {
+        Log.e("试读页面的url", "试读页面的url=" + url);
+        GetRequest<AttemptBean> request = new GetRequest<AttemptBean>(url, GsonParser.class, AttemptBean.class, new AbstractRequest.Listener<AttemptBean>() {
             @Override
-            public void onFaild() {
-
-            }
-
-            @Override
-            public void onSucess(String data) {
-                thinkingBeanList.clear();
-                LogincalThinkingBean thinkingBean = JsonUtil.json2Bean(data, LogincalThinkingBean.class);
-                update_count.setText(String.format("已更新%s条", thinkingBean.getRecord().size()));
-                thinkingBeanList.addAll(thinkingBean.getRecord());
+            public void onResult(AbstractRequest<AttemptBean> request, AttemptBean attemptBean) {
+                ArrayList<AttemptBean.RAttenmpInfo.RecordsBean> recordsBeen = attemptBean.getR().getRecord();
+                Log.e("TAG", "recordsBean=" + recordsBeen.toString());
+                record.clear();
+                update_count.setText(String.format("已更新%s条", recordsBeen.size()));
+                Log.e("TAG", "recordsBeen.size()=" + recordsBeen.size());
+                record.addAll(recordsBeen);
                 logicalThinkingAdapter.notifyDataSetChanged();
             }
+
+            @Override
+            public void onError(AbstractRequest<AttemptBean> requet, int statusCode, String body) {
+
+            }
         });
+        request.go();
+//        OkHttpUtils.get().url(url).build().execute(new CustomStringCallBack() {
+//            @Override
+//            public void onFaild() {
+//
+//            }
+//
+//            @Override
+//            public void onSucess(String data) {
+//                thinkingBeanList.clear();
+//                LogincalThinkingBean thinkingBean = JsonUtil.json2Bean(data, LogincalThinkingBean.class);
+//                update_count.setText(String.format("已更新%s条", thinkingBean.getRecord().size()));
+//                thinkingBeanList.addAll(thinkingBean.getRecord());
+//                logicalThinkingAdapter.notifyDataSetChanged();
+//            }
+//        });
     }
 
 
