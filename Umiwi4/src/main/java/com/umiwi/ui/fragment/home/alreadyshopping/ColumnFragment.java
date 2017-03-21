@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,27 +15,20 @@ import com.umeng.analytics.MobclickAgent;
 import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.ColumnAdapter;
-import com.umiwi.ui.beans.QRCodeBeans;
 import com.umiwi.ui.beans.updatebeans.HomeColumnBean;
-import com.umiwi.ui.beans.updatebeans.HomeCoumnBean;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.ColumnDetailsFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
-import com.umiwi.ui.main.CustomStringCallBack;
 import com.umiwi.ui.main.UmiwiAPI;
-import com.umiwi.ui.util.JsonUtil;
 import com.umiwi.ui.view.RefreshLayout;
-import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import cn.youmi.account.event.LoginEvent;
 import cn.youmi.framework.http.AbstractRequest;
 import cn.youmi.framework.http.GetRequest;
 import cn.youmi.framework.http.parsers.GsonParser;
-import cn.youmi.framework.view.LoadingFooter;
 
 /**
  * Created by LvDabing on 2017/2/16.
@@ -85,7 +77,6 @@ public class ColumnFragment extends BaseConstantFragment {
                     Log.e("TAG", "mList.get(i).getColumnurl()=" + mList.get(i).getColumnurl());
                     startActivity(intent);
                 }
-
             }
         });
         initrefreshLayout();
@@ -95,6 +86,7 @@ public class ColumnFragment extends BaseConstantFragment {
 
     private void getInfos() {
         String url = UmiwiAPI.TUTORCOLUMN + page;
+        Log.e("TAG", "homecoulmUrl=" + url);
         GetRequest<HomeColumnBean> request = new GetRequest<HomeColumnBean>(url, GsonParser.class, HomeColumnBean.class, new AbstractRequest.Listener<HomeColumnBean>() {
             @Override
             public void onResult(AbstractRequest<HomeColumnBean> request, HomeColumnBean homeColumnBean) {
@@ -153,6 +145,9 @@ public class ColumnFragment extends BaseConstantFragment {
     @Override
     public void onResume() {
         super.onResume();
+        page = 1;
+        mList.clear();
+        getInfos();
         MobclickAgent.onPageStart(fragmentName);
     }
 
