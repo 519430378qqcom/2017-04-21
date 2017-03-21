@@ -157,9 +157,11 @@ public class ColumnDetailsFragment extends BaseConstantFragment {
                     tv_title.setText(columnDetailsBean.getTutor_title());
 //                    tv_prize.setText("订阅："+ columnDetailsBean.getPrice()+"元/年");
                     if (columnDetailsBean.isIsbuy()){
+                        tv_free_read.setText("进入专栏");
                         tv_prize.setText("已订阅");
                         tv_prize.setEnabled(false);
                     }else {
+                        tv_free_read.setText("免费阅读");
                         tv_prize.setEnabled(true);
                         tv_prize.setText(String.format("订阅:  %s元/年", columnDetailsBean.getPrice()));
                     }

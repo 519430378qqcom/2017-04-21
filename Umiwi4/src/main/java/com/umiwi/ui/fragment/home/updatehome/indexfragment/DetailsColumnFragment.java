@@ -16,25 +16,17 @@ import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.AttentionAdapter;
 import com.umiwi.ui.adapter.DescriptionAdapter;
 import com.umiwi.ui.adapter.LastRecordAdapter;
-import com.umiwi.ui.beans.ExperDetailsAlbumbean;
 import com.umiwi.ui.beans.UmiwiBuyCreateOrderBeans;
 import com.umiwi.ui.beans.updatebeans.DetailsCoumnBean;
 import com.umiwi.ui.fragment.home.alreadyshopping.LogicalThinkingFragment;
 import com.umiwi.ui.fragment.pay.PayingFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
-import com.umiwi.ui.main.CustomStringCallBack;
 import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.managers.YoumiRoomUserManager;
-import com.umiwi.ui.model.CourseListModel;
-import com.umiwi.ui.parsers.UmiwiListParser;
-import com.umiwi.ui.parsers.UmiwiListResult;
-import com.umiwi.ui.util.JsonUtil;
 import com.umiwi.ui.util.LoginUtil;
 import com.umiwi.ui.view.NoScrollListview;
-import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -118,8 +110,10 @@ public class DetailsColumnFragment extends BaseConstantFragment {
                     final String id = r.getId();
                     if (r.getIsbuy()) {
                         ExperDetailsFragment.subscriber.setText("已订阅");
+                        ExperDetailsFragment.free_read.setText("进入专栏");
                         ExperDetailsFragment.subscriber.setEnabled(false);
                     } else {
+                        ExperDetailsFragment.free_read.setText("免费阅读");
                         ExperDetailsFragment.subscriber.setEnabled(true);
                         ExperDetailsFragment.subscriber.setText(String.format("订阅:  %s元/年", r.getPrice()));
                     }
