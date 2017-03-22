@@ -10,15 +10,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.umiwi.ui.R;
-import com.umiwi.ui.beans.ActivityItemBean;
 import com.umiwi.ui.beans.updatebeans.HomeColumnBean;
-import com.umiwi.ui.beans.updatebeans.HomeCoumnBean;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import static com.umiwi.ui.R.id.special_context_1;
-import static com.umiwi.ui.R.id.special_name_textView_1;
 import static com.umiwi.ui.main.YoumiConfiguration.context;
 
 /**

@@ -72,6 +72,7 @@ public class ColumnFragment extends BaseConstantFragment {
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
                 boolean isbuy = mList.get(i).getIsbuy();
                 if (isbuy) {
                     Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
@@ -102,6 +103,7 @@ public class ColumnFragment extends BaseConstantFragment {
                 HomeColumnBean.RhomeCoulum.PageBean page = homeColumnBean.getR().getPage();
                 totalpage = page.getTotalpage();
                 ArrayList<HomeColumnBean.RhomeCoulum.HomeColumnInfo> record = homeColumnBean.getR().getRecord();
+                mList.clear();
                 mList.addAll(record);
                 columnAdapter.setData(mList);
 
@@ -145,7 +147,8 @@ public class ColumnFragment extends BaseConstantFragment {
                 listview.setEnabled(false);
                 isla = true;
                 page = 1;
-                mList.clear();
+//                mList.clear();
+
                 getInfos();
             }
         });
