@@ -52,12 +52,18 @@ public class AlreadyVoiceAdapter extends BaseAdapter {
             hoder.playtime = (TextView) view.findViewById(R.id.playtime);
             hoder.watchnum = (TextView) view.findViewById(R.id.watchnum);
             hoder.process = (TextView) view.findViewById(R.id.process);
+            hoder.view_firstvisable = view.findViewById(R.id.view_firstvisable);
             view.setTag(hoder);
         } else {
             hoder = (VoiceHoder) view.getTag();
         }
         AlreadyShopVoiceBean.RAlreadyVoice.Record record = infos.get(i);
         String cat = record.getCat();
+        if (i == 0) {
+            hoder.view_firstvisable.setVisibility(View.GONE);
+        } else {
+            hoder.view_firstvisable.setVisibility(View.VISIBLE);
+        }
         if (!TextUtils.isEmpty(cat)) {
             hoder.cat.setText(cat);
             hoder.cat.setVisibility(View.VISIBLE);
@@ -86,5 +92,6 @@ public class AlreadyVoiceAdapter extends BaseAdapter {
         TextView playtime;
         TextView watchnum;
         TextView process;
+        View view_firstvisable;
     }
 }

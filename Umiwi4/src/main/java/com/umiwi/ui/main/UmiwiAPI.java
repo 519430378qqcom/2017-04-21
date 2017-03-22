@@ -190,8 +190,14 @@ public final class UmiwiAPI {
      * 播放记录
      */
     public static final String UMIWI_MY_RECORD = "http://i.v.youmi.cn/ClientApi/mywatchlog?p=%s&pagenum=10";
-
+    /**
+     * 视频浏览记录
+     */
     public static final String UMIWI_VIDEO_RECORD= "http://i.v.youmi.cn/ClientApi/videoLog";
+    /**
+     * 音频浏览记录
+     */
+    public static final String UMIWI_AUDIO_RECORD= "http://i.v.youmi.cn/audioalbumlog/audiolistApi";
     /**
      * 删除播放记录
      */
