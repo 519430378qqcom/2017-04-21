@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <com.umiwi.ui.view.RefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--<include layout="@layout/include_listview" />-->
+        <ListView
+            android:divider="@null"
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:cacheColorHint="@android:color/transparent"
+            android:choiceMode="singleChoice"
+            android:dividerHeight="1dip"
+            android:drawSelectorOnTop="true"
+            android:fadingEdge="none"
+            android:fadingEdgeLength="0dp"
+            android:footerDividersEnabled="true"
+            android:headerDividersEnabled="true"
+            android:overScrollMode="never"
+            android:paddingLeft="0dip"
+            android:paddingRight="0dip"
+            android:scrollbarStyle="outsideOverlay"
+            android:scrollbars="none"
+            android:scrollingCache="true"
+            android:smoothScrollbar="true" />
+    </com.umiwi.ui.view.RefreshLayout>
+</LinearLayout>

@@ -373,6 +373,7 @@ public class HomeVideoFragment extends BaseConstantFragment {
 
     public void getinfos() {
         String url = UmiwiAPI.Login_Video + "?p=" + page + "&catid=" + catid + "&price=" + price + "&orderby=" + orderby;
+        Log.e("TAG", "专栏视频url=" + url);
         OkHttpUtils.get().url(url).build().execute(new CustomStringCallBack() {
             @Override
             public void onFaild() {

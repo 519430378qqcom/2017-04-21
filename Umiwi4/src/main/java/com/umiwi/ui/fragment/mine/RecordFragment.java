@@ -1,10 +1,5 @@
 package com.umiwi.ui.fragment.mine;
 
-import java.util.ArrayList;
-
-import okhttp3.Call;
-import za.co.immedia.pinnedheaderlistview.PinnedHeaderListView;
-import za.co.immedia.pinnedheaderlistview.PinnedHeaderListView.OnItemClickListener;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -22,14 +17,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import cn.youmi.framework.dialog.MsgDialog;
-import cn.youmi.framework.http.AbstractRequest;
-import cn.youmi.framework.http.AbstractRequest.Listener;
-import cn.youmi.framework.http.GetRequest;
-import cn.youmi.framework.http.PostRequest;
-import cn.youmi.framework.http.parsers.GsonParser;
-import cn.youmi.framework.util.ListViewScrollLoader;
-import cn.youmi.framework.view.LoadingFooter;
 
 import com.umeng.analytics.MobclickAgent;
 import com.umiwi.ui.R;
@@ -43,8 +30,19 @@ import com.umiwi.ui.beans.UmiwiResultBeans.ResultBeansRequestData;
 import com.umiwi.ui.fragment.course.CourseDetailPlayFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.UmiwiAPI;
-import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.StringCallback;
+
+import java.util.ArrayList;
+
+import cn.youmi.framework.dialog.MsgDialog;
+import cn.youmi.framework.http.AbstractRequest;
+import cn.youmi.framework.http.AbstractRequest.Listener;
+import cn.youmi.framework.http.GetRequest;
+import cn.youmi.framework.http.PostRequest;
+import cn.youmi.framework.http.parsers.GsonParser;
+import cn.youmi.framework.util.ListViewScrollLoader;
+import cn.youmi.framework.view.LoadingFooter;
+import za.co.immedia.pinnedheaderlistview.PinnedHeaderListView;
+import za.co.immedia.pinnedheaderlistview.PinnedHeaderListView.OnItemClickListener;
 
 /**
  * 播放记录
@@ -101,9 +99,7 @@ public class RecordFragment extends BaseConstantFragment {
 			if(!mAdapter.isEmpty()){
 				mMode = mActionBarToolbar.startActionMode(new DeleteCallback());
 			}
-			
 			break;
-
 		default:
 			break;
 		}
@@ -155,8 +151,6 @@ public class RecordFragment extends BaseConstantFragment {
 						startActivity(intent);
 					}
 				}
-				
-				
 			}
 
 			@Override
@@ -253,8 +247,6 @@ public class RecordFragment extends BaseConstantFragment {
 		});
 		dialog.show(getChildFragmentManager(), "dialog");
 	}
-	
-
 
 	//清空
 	private Listener<ResultBeansRequestData> clearListener = new Listener<UmiwiResultBeans.ResultBeansRequestData>() {
@@ -324,6 +316,7 @@ public class RecordFragment extends BaseConstantFragment {
 
 	public void onLoadData(final int page) {
 		String url = String.format(UmiwiAPI.UMIWI_MY_RECORD, page);
+		Log.e("TAG", "播放记录url=" + url);
 		GetRequest<UmiwiMyRecordBeans.MyCouponListRequestData> request = new GetRequest<UmiwiMyRecordBeans.MyCouponListRequestData>(
 				url, GsonParser.class,
 				UmiwiMyRecordBeans.MyCouponListRequestData.class, listener);
@@ -414,8 +407,5 @@ public class RecordFragment extends BaseConstantFragment {
 		request.setTag(selected);
 		request.go();
 		
-	
 	}
-	
-	
 }

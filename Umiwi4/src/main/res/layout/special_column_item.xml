@@ -68,9 +68,9 @@
                     android:ellipsize="end"
                     android:singleLine="true"
                     android:text="雷军.精英日课"
-                    android:textColor="@color/black_a8"
+                    android:textColor="@color/black"
                     android:textSize="16sp" />
-
+                <!--android:textColor="@color/black_a8"-->
                 <TextView
                     android:id="@+id/special_context_1"
                     android:layout_width="wrap_content"
