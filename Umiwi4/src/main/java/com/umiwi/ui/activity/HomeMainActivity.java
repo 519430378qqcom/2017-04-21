@@ -25,7 +25,6 @@ import com.umiwi.ui.IVoiceService;
 import com.umiwi.ui.R;
 import com.umiwi.ui.beans.AddFavBeans;
 import com.umiwi.ui.beans.QRCodeBeans;
-import com.umiwi.ui.beans.UmiwiResultBeans;
 import com.umiwi.ui.beans.UmiwiResultBeans.ResultBeansRequestData;
 import com.umiwi.ui.dao.CollectionDao;
 import com.umiwi.ui.fragment.WebFragment;

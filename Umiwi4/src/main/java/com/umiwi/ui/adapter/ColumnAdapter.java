@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.umiwi.ui.R;
 import com.umiwi.ui.beans.updatebeans.HomeColumnBean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.umiwi.ui.main.YoumiConfiguration.context;
@@ -27,6 +28,11 @@ public class ColumnAdapter extends BaseAdapter {
     public ColumnAdapter(FragmentActivity activity) {
          this.activity = activity;
 
+    }
+
+    public ColumnAdapter(FragmentActivity activity, ArrayList<HomeColumnBean.RhomeCoulum.HomeColumnInfo> record) {
+        this.activity = activity;
+        this.mList = record;
     }
 
     @Override
