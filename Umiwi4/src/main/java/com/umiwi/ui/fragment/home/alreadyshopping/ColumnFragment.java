@@ -30,6 +30,8 @@ import cn.youmi.framework.http.AbstractRequest;
 import cn.youmi.framework.http.GetRequest;
 import cn.youmi.framework.http.parsers.GsonParser;
 
+
+
 /**
  * Created by LvDabing on 2017/2/16.
  * Email：lvdabing@lvshandian.com
@@ -49,6 +51,12 @@ public class ColumnFragment extends BaseConstantFragment {
     private boolean isload = false;
     private int totalpage;
 
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -57,6 +65,7 @@ public class ColumnFragment extends BaseConstantFragment {
 
 
         ButterKnife.inject(this, view);
+
         columnAdapter = new ColumnAdapter(getActivity());
         columnAdapter.setData(mList);
         listview.setAdapter(columnAdapter);
@@ -145,69 +154,38 @@ public class ColumnFragment extends BaseConstantFragment {
     @Override
     public void onResume() {
         super.onResume();
-        page = 1;
-        mList.clear();
-        getInfos();
+        String url = UmiwiAPI.TUTORCOLUMN + 1;
+
+        GetRequest<HomeColumnBean> request = new GetRequest<HomeColumnBean>(url,GsonParser.class,HomeColumnBean.class,onResumeListener);
+        request.go();
         MobclickAgent.onPageStart(fragmentName);
     }
+    private AbstractRequest.Listener<HomeColumnBean> onResumeListener = new AbstractRequest.Listener<HomeColumnBean>() {
+        @Override
+        public void onResult(AbstractRequest<HomeColumnBean> request, HomeColumnBean homeColumnBean) {
+            ArrayList<HomeColumnBean.RhomeCoulum.HomeColumnInfo> record = homeColumnBean.getR().getRecord();
+            mList.clear();
+            mList.addAll(record);
+            columnAdapter.setData(mList);
+        }
 
+        @Override
+        public void onError(AbstractRequest<HomeColumnBean> requet, int statusCode, String body) {
+
+        }
+    };
     @Override
     public void onPause() {
         super.onPause();
         MobclickAgent.onPageStart(fragmentName);
     }
 
-//    @Override
-//    public void onLoadData(int page) {
-//        String url = UmiwiAPI.TUTORCOLUMN + page;
-//
-//        Log.e("TAG", url);
-//        OkHttpUtils.get().url(url).build().execute(new CustomStringCallBack() {
-//            @Override
-//            public void onFaild() {
-//                Log.e("data", "首页专栏列表请求数据失败");
-//            }
-//
-//            @Override
-//            public void onSucess(String data) {
-//                Log.e("data", "首页专栏列表请求数据成功" + data);
-//                if (!TextUtils.isEmpty(data)) {
-//                    HomeCoumnBean homeCoumnBean = JsonUtil.json2Bean(data, HomeCoumnBean.class);
-//                    HomeCoumnBean.PageBean pageBean = homeCoumnBean.getPage();
-//
-//                    if (homeCoumnBean.getPage().getCurrentpage() >= homeCoumnBean.getPage().getTotalpage()) {
-//                        mScrollLoader.setEnd(true);
-//                        loadingFooter.setState(LoadingFooter.State.NoMore);
-//                        return;
-//                    }
-//
-//                    if (pageBean.getCurrentpage() == 1) {
-//                        mList.clear();
-//                    }
-//
-//                    mScrollLoader.setPage(pageBean.getCurrentpage());
-//                    mScrollLoader.setloading(false);
-//
-//                    if (mList == null) {
-//                        mList = homeCoumnBean.getRecord();
-//                    } else {
-////                        if(homeCoumnBean.getPage().getCurrentpage() == 1){
-////                            mList.clear();
-////                        }
-//                        mList.addAll(homeCoumnBean.getRecord());
-//                    }
-//
-//                    columnAdapter = new ColumnAdapter(getActivity(), mList);
-//                    listView.setAdapter(columnAdapter);
-//                }
-//            }
-//        });
-//    }
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.reset(this);
     }
+
+
 }
 

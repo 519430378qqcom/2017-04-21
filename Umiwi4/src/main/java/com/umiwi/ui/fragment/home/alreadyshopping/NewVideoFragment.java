@@ -4,9 +4,7 @@ package com.umiwi.ui.fragment.home.alreadyshopping;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +14,6 @@ import android.widget.ListView;
 import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.updateadapter.BuyVideoAdapter;
-import com.umiwi.ui.beans.ActivityBean;
 import com.umiwi.ui.beans.updatebeans.AlreadyVideoBean;
 import com.umiwi.ui.fragment.course.CourseDetailPlayFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
@@ -78,7 +75,7 @@ public class NewVideoFragment extends BaseConstantFragment {
         refreshLayout.setOnLoadListener(new RefreshLayout.OnLoadListener() {
             @Override
             public void onLoad() {
-                listview.setEnabled(false);
+//                listview.setEnabled(false);
                 isLoad = true;
                 page++;
                 if (page<=totalpage){
@@ -91,6 +88,7 @@ public class NewVideoFragment extends BaseConstantFragment {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                listview.setEnabled(false);
                 isla = true;
                 buyVideoInfos.clear();
                 page = 1;
@@ -129,4 +127,25 @@ public class NewVideoFragment extends BaseConstantFragment {
         req.go();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        String url = UmiwiAPI.ALREADY_VIDEO+"?p="+1;
+        GetRequest<AlreadyVideoBean> req = new GetRequest<AlreadyVideoBean>(url, GsonParser.class, AlreadyVideoBean.class, new AbstractRequest.Listener<AlreadyVideoBean>() {
+            @Override
+            public void onResult(AbstractRequest<AlreadyVideoBean> request, AlreadyVideoBean alreadyVideoBean) {
+                ArrayList<AlreadyVideoBean.RalreadyVideo.RecordInfo> record = alreadyVideoBean.getR().getRecord();
+                buyVideoInfos.clear();
+                buyVideoInfos.addAll(record);
+                buyVideoAdapter.setData(buyVideoInfos);
+
+            }
+
+            @Override
+            public void onError(AbstractRequest<AlreadyVideoBean> requet, int statusCode, String body) {
+
+            }
+        });
+        req.go();
+    }
 }

@@ -147,6 +147,23 @@ public class BuyCoumnFragment extends BaseConstantFragment {
     @Override
     public void onResume() {
         super.onResume();
+        String uid = YoumiRoomUserManager.getInstance().getUid();
+        String url = String.format(UmiwiAPI.ALREADY_COLUMN, 1, uid);
+        GetRequest<AlreadShopColumnBean> request = new GetRequest<AlreadShopColumnBean>(url, GsonParser.class, AlreadShopColumnBean.class, new AbstractRequest.Listener<AlreadShopColumnBean>() {
+            @Override
+            public void onResult(AbstractRequest<AlreadShopColumnBean> request, AlreadShopColumnBean alreadShopColumnBean) {
+                ArrayList<AlreadShopColumnBean.RalreadyColumn.RecordColumn> record = alreadShopColumnBean.getR().getRecord();
+                mList.clear();
+                mList.addAll(record);
+                buyColumnAdapter.setData(mList);
+            }
+
+            @Override
+            public void onError(AbstractRequest<AlreadShopColumnBean> requet, int statusCode, String body) {
+
+            }
+        });
+        request.go();
         MobclickAgent.onPageStart(fragmentName);
     }
 

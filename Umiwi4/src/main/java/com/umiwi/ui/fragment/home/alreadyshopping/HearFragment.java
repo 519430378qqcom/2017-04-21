@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
@@ -143,6 +142,30 @@ public class HearFragment extends BaseConstantFragment {
                 getHearInfos();
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        String url = UmiwiAPI.Hear_url + "?p=" + 1;
+        GetRequest<AlreadyAskBean> request = new GetRequest<AlreadyAskBean>(
+                url, GsonParser.class,
+                AlreadyAskBean.class,
+                new AbstractRequest.Listener<AlreadyAskBean>() {
+                    @Override
+                    public void onResult(AbstractRequest<AlreadyAskBean> request, AlreadyAskBean alreadyAskBean) {
+                        ArrayList<AlreadyAskBean.RAlreadyAnser.Question> questions = alreadyAskBean.getR().getQuestions();
+                        hearInfos.clear();
+                        hearInfos.addAll(questions);
+                        hearAdapter.setData(hearInfos);
+                    }
+
+                    @Override
+                    public void onError(AbstractRequest<AlreadyAskBean> requet, int statusCode, String body) {
+
+                    }
+                });
+        request.go();
     }
 
     @Override

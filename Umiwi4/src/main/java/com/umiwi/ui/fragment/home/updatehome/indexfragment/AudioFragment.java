@@ -94,6 +94,29 @@ public class AudioFragment extends BaseConstantFragment {
         }
     };
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        String url = UmiwiAPI.ALREADY_VOICE + "?p=" + 1;
+        GetRequest<AlreadyShopVoiceBean> request = new GetRequest<AlreadyShopVoiceBean>(
+                url, GsonParser.class,
+                AlreadyShopVoiceBean.class, new AbstractRequest.Listener<AlreadyShopVoiceBean>() {
+            @Override
+            public void onResult(AbstractRequest<AlreadyShopVoiceBean> request, AlreadyShopVoiceBean alreadyShopVoiceBean) {
+                ArrayList<AlreadyShopVoiceBean.RAlreadyVoice.Record> record = alreadyShopVoiceBean.getR().getRecord();
+                infos.clear();
+                infos.addAll(record);
+                alreadyVoiceAdapter.setData(infos);
+            }
+
+            @Override
+            public void onError(AbstractRequest<AlreadyShopVoiceBean> requet, int statusCode, String body) {
+
+            }
+        });
+        request.go();
+    }
+
     private void initRefreshLayout() {
         refreshLayout.setColorSchemeColors(getResources().getColor(R.color.main_color));
 //        refreshLayout.setOnLoadListener(new RefreshLayout.OnLoadListener() {

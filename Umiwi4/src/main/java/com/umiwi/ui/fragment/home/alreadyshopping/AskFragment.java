@@ -9,13 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.AskHearAdapter;
 import com.umiwi.ui.beans.updatebeans.AlreadyAskBean;
-import com.umiwi.ui.fragment.WebFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.view.RefreshLayout;
@@ -152,6 +150,30 @@ public class AskFragment extends BaseConstantFragment {
 
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        String url = UmiwiAPI.Ask_Hear + "?p=" + 1;
+        GetRequest<AlreadyAskBean> request = new GetRequest<AlreadyAskBean>(
+                url, GsonParser.class,
+                AlreadyAskBean.class,
+                new AbstractRequest.Listener<AlreadyAskBean>() {
+                    @Override
+                    public void onResult(AbstractRequest<AlreadyAskBean> request, AlreadyAskBean alreadyAskBean) {
+                        ArrayList<AlreadyAskBean.RAlreadyAnser.Question> questions = alreadyAskBean.getR().getQuestions();
+                        askInfos.clear();
+                        askInfos.addAll(questions);
+                        askHearAdapter.setData(askInfos);
+                    }
+
+                    @Override
+                    public void onError(AbstractRequest<AlreadyAskBean> requet, int statusCode, String body) {
+
+                    }
+                });
+        request.go();
     }
 
     @Override
