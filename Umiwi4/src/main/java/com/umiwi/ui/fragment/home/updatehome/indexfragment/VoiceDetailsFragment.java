@@ -809,6 +809,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
             ShareDialog.getInstance().showDialog(getActivity(),
                     infos.getShare().getSharetitle(), infos.getShare().getSharecontent(),
                     infos.getShare().getShareurl(), infos.getShare().getShareimg());
+
         }
     };
     private ImageLoader imageLoader;
@@ -821,8 +822,6 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
             @Override
             public void onResult(AbstractRequest<VoicePlayBean> request, VoicePlayBean voicePlayBean) {
                 Log.e("ssb", "onResult: " + voicePlayBean.getR().getImage());
-
-
                 infos = voicePlayBean.getR();
                 String image = infos.getImage();
                 albumID = infos.getId();

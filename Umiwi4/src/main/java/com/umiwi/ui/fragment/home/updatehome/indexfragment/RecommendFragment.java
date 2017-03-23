@@ -122,6 +122,8 @@ public class RecommendFragment extends BaseConstantFragment {
 
     private RelativeLayout topic_rl;
 
+
+
 //    private android.os.Handler handler = new android.os.Handler(){
 //        @Override
 //        public void handleMessage(Message msg) {
@@ -229,7 +231,6 @@ public class RecommendFragment extends BaseConstantFragment {
             if (null != t) {
 
                 flv_new_free.setData(t.getR().getFree(), t.getR().getSec_free_title(), t.getR().getSec_free_huan(),t.getR().getSec_free_huanurl());
-                Log.e("TAG", "t=" + t.getR().getSec_free_title().toString());
                 erl_expert_rec.setData(t.getR().getTutor(), t.getR().getSec_tutor_title(), t.getR().getSec_tutor_more());
                 lalv_action_line.setData(t.getR().getHuodong(), t.getR().getSec_huodong_title());
                 ealv_expert_answer.setData(t.getR().getAsktutor(), t.getR().getSec_ask_title(), t.getR().getSec_ask_more());

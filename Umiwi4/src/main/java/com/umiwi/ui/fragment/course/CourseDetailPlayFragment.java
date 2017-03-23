@@ -910,6 +910,7 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
 
     };
 
+    //分享
     private OnClickListener shareCourseClickListener = new OnClickListener() {
 
         @Override

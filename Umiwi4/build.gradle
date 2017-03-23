@@ -103,13 +103,13 @@ android {
 //        qqvpay {} //付费包
 //        sogou {}//搜狗
 //        xiaowov// 小沃
-        appcanv{} //appcanv
+//        appcanv{} //appcanv
 //        moguv{} //蘑菇市场
 //        baopingwangv{} //宝瓶
 //        ucv{} //UC
 //        taobaovt {}//淘宝
 //        wandoujiav {}//豌豆荚
-//        xiaomivt {}//小米
+        xiaomivt {}//小米
 //        anzhiv {}//安智
 //        domob {}//多盟
 //        youmiad1 {}//有米
