@@ -102,6 +102,15 @@ public class AlreadyShopVoiceBean extends BaseModel {
             public void setTotalpage(int totalpage) {
                 this.totalpage = totalpage;
             }
+
+            @Override
+            public String toString() {
+                return "PageBean{" +
+                        "currentpage=" + currentpage +
+                        ", rows='" + rows + '\'' +
+                        ", totalpage=" + totalpage +
+                        '}';
+            }
         }
 
         public static class Record {
@@ -184,6 +193,20 @@ public class AlreadyShopVoiceBean extends BaseModel {
 
             public void setHrefurl(String hrefurl) {
                 this.hrefurl = hrefurl;
+            }
+
+            @Override
+            public String toString() {
+                return "Record{" +
+                        "id='" + id + '\'' +
+                        ", title='" + title + '\'' +
+                        ", cat='" + cat + '\'' +
+                        ", price='" + price + '\'' +
+                        ", playtime='" + playtime + '\'' +
+                        ", watchnum='" + watchnum + '\'' +
+                        ", process='" + process + '\'' +
+                        ", hrefurl='" + hrefurl + '\'' +
+                        '}';
             }
         }
     }
