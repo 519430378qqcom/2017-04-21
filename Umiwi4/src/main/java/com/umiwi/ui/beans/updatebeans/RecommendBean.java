@@ -4,9 +4,7 @@ package com.umiwi.ui.beans.updatebeans;
 import com.google.gson.annotations.SerializedName;
 import com.umiwi.ui.beans.BaseGsonBeans;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * indexAction : 首页（6.6.0ok）
@@ -120,6 +118,8 @@ public class RecommendBean extends BaseGsonBeans {
         private FreeBean free;
         @SerializedName("charge")
         private ChargeBean charge;
+        @SerializedName("hotvideo")
+        private HotVideoBean hotvideo;
         @SerializedName("tutor")
         private ArrayList<TutorBean> tutor;
         @SerializedName("dalao")
@@ -132,6 +132,14 @@ public class RecommendBean extends BaseGsonBeans {
         private ArrayList<HuodongBean> huodong;
         @SerializedName("bottom")
         private ArrayList<BottomBean> bottom;
+
+        public HotVideoBean getHotvideo() {
+            return hotvideo;
+        }
+
+        public void setHotvideo(HotVideoBean hotvideo) {
+            this.hotvideo = hotvideo;
+        }
 
         public String getSec_free_title() {
             return sec_free_title;
@@ -468,7 +476,39 @@ public class RecommendBean extends BaseGsonBeans {
                 }
             }
         }
+        public static class HotVideoBean{
+            @SerializedName("page")
+            private HotVideoPageBean page;
+            @SerializedName("record")
+            private HotVideoRecordBean record;
 
+            public static class HotVideoPageBean{
+                @SerializedName("currentpage")
+                private int currentpage;
+                @SerializedName("rows")
+                private String rows;
+                @SerializedName("totalpage")
+                private int totalpage;
+            }
+            public static class HotVideoRecordBean{
+                @SerializedName("id")
+                private String id;
+//                @SerializedName("short")
+//                private String short;
+                @SerializedName("limage")
+                private String limage;
+                @SerializedName("watchnum")
+                private String watchnum;
+                @SerializedName("name")
+                private String name;
+                @SerializedName("tutortitle")
+                private String tutortitle;
+                @SerializedName("time")
+                private String time;
+                @SerializedName("playtime")
+                private String playtime;
+            }
+        }
         public static class ChargeBean {
             /**
              * record : [{"id":"595","image":"http://i1.umivi.net/v/album/2014-05/20140509145409.jpg",
