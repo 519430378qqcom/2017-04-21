@@ -219,6 +219,10 @@ public final class UmiwiAPI {
      */
     public static final String UMIWI_MY_FAV = "http://i.v.youmi.cn/ClientApi/myfavlist?pagenum=10&p=%s";
     /**
+     * 视频收藏列表
+     */
+    public static final String UMIWI_ENSH_VIDEO="http://i.v.youmi.cn/api8/favvideolist?p=%s";
+    /**
      * 点击收藏视频
      */
     public static final String UMIWI_FAV_ADD_VIDEO_ALBUMID = "http://i.v.youmi.cn/ClientApi/putfav?id=%s";

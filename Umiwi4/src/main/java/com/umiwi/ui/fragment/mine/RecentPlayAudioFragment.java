@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -101,6 +102,8 @@ public class RecentPlayAudioFragment extends BaseConstantFragment {
 
     //请求数据
     private void getInfos() {
+        String format = String.format(UmiwiAPI.UMIWI_ENSH_VIDEO, 1);
+        Log.e("TAG", "收藏列表视频format=" + format);
         String url = UmiwiAPI.UMIWI_AUDIO_RECORD;
         GetRequest<AlreadyShopVoiceBean> request = new GetRequest<AlreadyShopVoiceBean>(
                 url, GsonParser.class,

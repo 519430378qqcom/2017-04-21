@@ -24,9 +24,9 @@ import com.umiwi.ui.event.NoticeEvent;
 import com.umiwi.ui.fragment.MyAnswerFragment;
 import com.umiwi.ui.fragment.WebFragment;
 import com.umiwi.ui.fragment.down.DownloadedListFragment;
+import com.umiwi.ui.fragment.mine.EnshrineListFragment;
 import com.umiwi.ui.fragment.mine.MyCardFragment;
 import com.umiwi.ui.fragment.mine.MyCouponFragment;
-import com.umiwi.ui.fragment.mine.MyFavListFragment;
 import com.umiwi.ui.fragment.mine.MyMessageFragment;
 import com.umiwi.ui.fragment.mine.RecentPlayRecordFragment;
 import com.umiwi.ui.fragment.pay.PayRechargeFragment;
@@ -127,7 +127,8 @@ public class NewMineFragment extends BaseConstantFragment implements ActivityCom
 //                        intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, RecordFragment.class);
                         break;
                     case 13://我的收藏
-                        intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, MyFavListFragment.class);
+                        intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, EnshrineListFragment.class);
+//                        intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, MyFavListFragment.class);
                         break;
                     case 15://优惠券
                         intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, MyCouponFragment.class);

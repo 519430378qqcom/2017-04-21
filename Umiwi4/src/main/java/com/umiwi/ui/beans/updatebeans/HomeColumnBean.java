@@ -191,8 +191,6 @@ public class HomeColumnBean extends BaseGsonBeans {
         }
 
         public static class PageBean {
-
-
             /**
              * currentpage : 1
              * rows : 3

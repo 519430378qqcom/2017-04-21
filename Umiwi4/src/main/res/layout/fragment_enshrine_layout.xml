@@ -16,15 +16,15 @@
             android:layout_marginLeft="8dp"
             android:src="@drawable/ic_action_bar_return" />
         <!--<TextView-->
-            <!--android:layout_toRightOf="@+id/back"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_marginBottom="5dp"-->
-            <!--android:layout_marginTop="5dp"-->
-            <!--android:text="我的"-->
-            <!--android:gravity="center_vertical"-->
-            <!--android:textColor="@color/black"-->
-            <!--android:textSize="20sp" />-->
+        <!--android:layout_toRightOf="@+id/back"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_marginBottom="5dp"-->
+        <!--android:layout_marginTop="5dp"-->
+        <!--android:text="我的"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:textColor="@color/black"-->
+        <!--android:textSize="20sp" />-->
         <TextView
             android:id="@+id/tv_recentpaly"
             android:layout_width="match_parent"
@@ -32,7 +32,7 @@
             android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
             android:gravity="center"
-            android:text="浏览记录"
+            android:text="我的收藏"
             android:textColor="@color/white"
             android:textSize="20sp" />
     </RelativeLayout>
@@ -73,24 +73,24 @@
                 android:textSize="13sp" />
 
             <!--<TextView-->
-                <!--android:id="@+id/ab_tab_video"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_weight="1"-->
-                <!--android:gravity="center"-->
-                <!--android:text="视频"-->
-                <!--android:textColor="@color/black"-->
-                <!--android:textSize="13sp" />-->
+            <!--android:id="@+id/ab_tab_video"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"-->
+            <!--android:gravity="center"-->
+            <!--android:text="视频"-->
+            <!--android:textColor="@color/black"-->
+            <!--android:textSize="13sp" />-->
 
             <!--<TextView-->
-                <!--android:id="@+id/ab_tab_ask_hear"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_weight="1"-->
-                <!--android:gravity="center"-->
-                <!--android:text="问听"-->
-                <!--android:textColor="@color/black"-->
-                <!--android:textSize="13sp" />-->
+            <!--android:id="@+id/ab_tab_ask_hear"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"-->
+            <!--android:gravity="center"-->
+            <!--android:text="问听"-->
+            <!--android:textColor="@color/black"-->
+            <!--android:textSize="13sp" />-->
         </LinearLayout>
 
         <View

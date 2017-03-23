@@ -21,11 +21,10 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 /**
- * Created by Administrator on 2017/3/22.
+ * Created by Administrator on 2017/3/23.
  */
 
-public class RecentPlayRecordFragment extends BaseConstantFragment {
-
+public class EnshrineListFragment extends BaseConstantFragment {
     @InjectView(R.id.ab_tab_audio)
     TextView rpAudio;
     @InjectView(R.id.ab_tab_video)
@@ -41,7 +40,7 @@ public class RecentPlayRecordFragment extends BaseConstantFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_recentplay_layout, null);
+        View view = inflater.inflate(R.layout.fragment_enshrine_layout, null);
         ButterKnife.inject(this,view);
         initMenuTab();
         back.setOnClickListener(new View.OnClickListener() {
@@ -61,8 +60,8 @@ public class RecentPlayRecordFragment extends BaseConstantFragment {
         ViewPropertyAnimator.animate(rpVideo).scaleX(1.0f).setDuration(0);
 
         fragments = new ArrayList<Fragment>();
-        fragments.add(new RecentPlayAudioFragment());
-        fragments.add(new RecentPlayVideoFragment());
+        fragments.add(new EnshrineAudioFragment());
+        fragments.add(new EnshrineVideoFragment());
 
         line_width = getActivity().getWindowManager().getDefaultDisplay().getWidth()/fragments.size();
         ab_line.getLayoutParams().width = line_width-300;
