@@ -1104,7 +1104,7 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
         collectionDao.saveCollection(albumID);
 
         String favStr = String.format(UmiwiAPI.UMIWI_FAV_ADD_VIDEO_ALBUMID, albumID);
-
+        Log.e("TAG", "favStr=" + favStr);
         GetRequest<AddFavBeans.AddFavBeansRequestData> req = new GetRequest<AddFavBeans.AddFavBeansRequestData>(
                 favStr, GsonParser.class,
                 AddFavBeans.AddFavBeansRequestData.class, favListener);

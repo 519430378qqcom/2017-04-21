@@ -140,12 +140,24 @@ public class VoicePlayBean extends BaseGsonBeans {
             this.threadnum = threadnum;
         }
 
-        public String getFavalbum() {
+//        public String getFavalbum() {
+//            return favalbum;
+//        }
+//
+//        public void setFavalbum(String favalbum) {
+//            this.favalbum = favalbum;
+//        }
+
+        public boolean isFavalbum() {
             return favalbum;
         }
 
-        public void setFavalbum(String favalbum) {
+        public void setFavalbum(boolean favalbum) {
             this.favalbum = favalbum;
+        }
+
+        public boolean ispay() {
+            return ispay;
         }
 
         public boolean getIspay() {
@@ -221,7 +233,7 @@ public class VoicePlayBean extends BaseGsonBeans {
         @SerializedName("threadnum")
         private String threadnum;
         @SerializedName("favalbum")
-        private String favalbum;
+        private boolean favalbum;
         @SerializedName("ispay")
         private boolean ispay;
         @SerializedName("price")

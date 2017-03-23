@@ -47,12 +47,12 @@ import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.AudioTmessageAdapter;
 import com.umiwi.ui.adapter.VoiceDetailsAdapter;
-import com.umiwi.ui.beans.AddFavBeans;
 import com.umiwi.ui.beans.AudioTmessageBeans;
 import com.umiwi.ui.beans.AudioTmessageListBeans;
 import com.umiwi.ui.beans.UmiwiBuyCreateOrderBeans;
 import com.umiwi.ui.beans.updatebeans.AudioResourceBean;
 import com.umiwi.ui.beans.updatebeans.ExperDetailsVoiceBean;
+import com.umiwi.ui.beans.updatebeans.FavAudioBean;
 import com.umiwi.ui.beans.updatebeans.VoicePlayBean;
 import com.umiwi.ui.dao.CollectionDao;
 import com.umiwi.ui.dialog.DownloadAudioListDialog1;
@@ -566,12 +566,12 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
 
         collectionDao.saveCollection(albumID);
 
-        String favStr = String.format(UmiwiAPI.UMIWI_FAV_ADD_VIDEO_ALBUMID, albumID);
-
-        GetRequest<AddFavBeans.AddFavBeansRequestData> req = new GetRequest<AddFavBeans.AddFavBeansRequestData>(
+        String favStr = String.format(UmiwiAPI.UMIWI_FAV_ADD_AUDIO_ALBUMID, albumID);
+        Log.e("TAG", "favStr=" + favStr);
+        GetRequest<FavAudioBean> req = new GetRequest<FavAudioBean>(
                 favStr, GsonParser.class,
-                AddFavBeans.AddFavBeansRequestData.class, favListener);
-        HttpDispatcher.getInstance().go(req);
+                FavAudioBean.class, favListener);
+        req.go();
     }
 
     //移除收藏
@@ -584,44 +584,44 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
 
         collectionDao.deleteCollectionCompelete(albumID);
 
-        String favStr = String.format(UmiwiAPI.FAV_REMOVE_VIDEO_ALBUMID + "&isalbum=y", albumID);
-
-        GetRequest<AddFavBeans.AddFavBeansRequestData> req = new GetRequest<AddFavBeans.AddFavBeansRequestData>(
+        String favStr = String.format(UmiwiAPI.UMIWI_FAV_REMOVE_AUDIO_ALBUMID, albumID);
+        Log.e("TAG", "移除收藏UR=" + favStr);
+        GetRequest<FavAudioBean> req = new GetRequest<FavAudioBean>(
                 favStr, GsonParser.class,
-                AddFavBeans.AddFavBeansRequestData.class, removeListener);
-        HttpDispatcher.getInstance().go(req);
+                FavAudioBean.class, removeListener);
+        req.go();
     }
 
-    private AbstractRequest.Listener<AddFavBeans.AddFavBeansRequestData> removeListener = new AbstractRequest.Listener<AddFavBeans.AddFavBeansRequestData>() {
+    private AbstractRequest.Listener<FavAudioBean> removeListener = new AbstractRequest.Listener<FavAudioBean>() {
 
         @Override
-        public void onResult(AbstractRequest<AddFavBeans.AddFavBeansRequestData> request,
-                             AddFavBeans.AddFavBeansRequestData t) {
+        public void onResult(AbstractRequest<FavAudioBean> request,
+                             FavAudioBean t) {
             collectionDao.updateCollection(albumID);
             changeSaveButton();
             ToastU.showShort(getActivity(), "取消收藏");
         }
 
         @Override
-        public void onError(AbstractRequest<AddFavBeans.AddFavBeansRequestData> requet,
+        public void onError(AbstractRequest<FavAudioBean> requet,
                             int statusCode, String body) {
             ToastU.showShort(getActivity(), body);
             changeSaveButton();
         }
     };
 
-    private AbstractRequest.Listener<AddFavBeans.AddFavBeansRequestData> favListener = new AbstractRequest.Listener<AddFavBeans.AddFavBeansRequestData>() {
+    private AbstractRequest.Listener<FavAudioBean> favListener = new AbstractRequest.Listener<FavAudioBean>() {
 
         @Override
-        public void onResult(AbstractRequest<AddFavBeans.AddFavBeansRequestData> request,
-                             AddFavBeans.AddFavBeansRequestData t) {
+        public void onResult(AbstractRequest<FavAudioBean> request,
+                             FavAudioBean t) {
             collectionDao.updateCollection(albumID);
             changeSaveButton();
             ToastU.showShort(getActivity(), "收藏成功");
         }
 
         @Override
-        public void onError(AbstractRequest<AddFavBeans.AddFavBeansRequestData> requet,
+        public void onError(AbstractRequest<FavAudioBean> requet,
                             int statusCode, String body) {
             ToastU.showShort(getActivity(), body);
             changeSaveButton();

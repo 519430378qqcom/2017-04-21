@@ -231,6 +231,14 @@ public final class UmiwiAPI {
      */
     public static final String UMIWI_FAV_ADD_VIDEO_ALBUMID = "http://i.v.youmi.cn/ClientApi/putfav?id=%s";
     /**
+     * 点击收藏音频
+     */
+    public static final String UMIWI_FAV_ADD_AUDIO_ALBUMID = "http://i.v.youmi.cn/api8/fav?albumid=%s";
+    /**
+     * 取消收藏音频
+     */
+    public static final String UMIWI_FAV_REMOVE_AUDIO_ALBUMID = "http://i.v.youmi.cn/api8/unfav?albumid=%s";
+    /**
      * 删除收藏视频 http://i.v.youmi.cn/favalbum/remove/?id=xxx&isalbum=y
      * - id 收藏的ID，或者专辑的ID
      * - isalbum 当id为专辑的ID时 此处 isalbum=y
