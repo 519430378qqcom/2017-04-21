@@ -480,7 +480,23 @@ public class RecommendBean extends BaseGsonBeans {
             @SerializedName("page")
             private HotVideoPageBean page;
             @SerializedName("record")
-            private HotVideoRecordBean record;
+            private ArrayList<HotVideoRecordBean> record;
+
+            public HotVideoPageBean getPage() {
+                return page;
+            }
+
+            public void setPage(HotVideoPageBean page) {
+                this.page = page;
+            }
+
+            public ArrayList<HotVideoRecordBean> getRecord() {
+                return record;
+            }
+
+            public void setRecord(ArrayList<HotVideoRecordBean> record) {
+                this.record = record;
+            }
 
             public static class HotVideoPageBean{
                 @SerializedName("currentpage")
@@ -489,12 +505,36 @@ public class RecommendBean extends BaseGsonBeans {
                 private String rows;
                 @SerializedName("totalpage")
                 private int totalpage;
+
+                public int getCurrentpage() {
+                    return currentpage;
+                }
+
+                public void setCurrentpage(int currentpage) {
+                    this.currentpage = currentpage;
+                }
+
+                public String getRows() {
+                    return rows;
+                }
+
+                public void setRows(String rows) {
+                    this.rows = rows;
+                }
+
+                public int getTotalpage() {
+                    return totalpage;
+                }
+
+                public void setTotalpage(int totalpage) {
+                    this.totalpage = totalpage;
+                }
             }
             public static class HotVideoRecordBean{
                 @SerializedName("id")
                 private String id;
-//                @SerializedName("short")
-//                private String short;
+                @SerializedName("shorttitle")
+                private String shorttitle;
                 @SerializedName("limage")
                 private String limage;
                 @SerializedName("watchnum")
@@ -507,6 +547,95 @@ public class RecommendBean extends BaseGsonBeans {
                 private String time;
                 @SerializedName("playtime")
                 private String playtime;
+                @SerializedName("detailurl")
+                private String detailurl;
+
+                public String getId() {
+                    return id;
+                }
+
+                public void setId(String id) {
+                    this.id = id;
+                }
+
+                public String getShorttitle() {
+                    return shorttitle;
+                }
+
+                public void setShorttitle(String shorttitle) {
+                    this.shorttitle = shorttitle;
+                }
+
+                public String getLimage() {
+                    return limage;
+                }
+
+                public void setLimage(String limage) {
+                    this.limage = limage;
+                }
+
+                public String getWatchnum() {
+                    return watchnum;
+                }
+
+                public void setWatchnum(String watchnum) {
+                    this.watchnum = watchnum;
+                }
+
+                public String getName() {
+                    return name;
+                }
+
+                public void setName(String name) {
+                    this.name = name;
+                }
+
+                public String getTutortitle() {
+                    return tutortitle;
+                }
+
+                public void setTutortitle(String tutortitle) {
+                    this.tutortitle = tutortitle;
+                }
+
+                public String getTime() {
+                    return time;
+                }
+
+                public void setTime(String time) {
+                    this.time = time;
+                }
+
+                public String getPlaytime() {
+                    return playtime;
+                }
+
+                public void setPlaytime(String playtime) {
+                    this.playtime = playtime;
+                }
+
+                public String getDetailurl() {
+                    return detailurl;
+                }
+
+                public void setDetailurl(String detailurl) {
+                    this.detailurl = detailurl;
+                }
+
+                @Override
+                public String toString() {
+                    return "HotVideoRecordBean{" +
+                            "id='" + id + '\'' +
+                            ", shorttitle='" + shorttitle + '\'' +
+                            ", limage='" + limage + '\'' +
+                            ", watchnum='" + watchnum + '\'' +
+                            ", name='" + name + '\'' +
+                            ", tutortitle='" + tutortitle + '\'' +
+                            ", time='" + time + '\'' +
+                            ", playtime='" + playtime + '\'' +
+                            ", detailurl='" + detailurl + '\'' +
+                            '}';
+                }
             }
         }
         public static class ChargeBean {

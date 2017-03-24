@@ -44,6 +44,7 @@ import com.umiwi.ui.fragment.home.recommend.widget.ExpertAnswerDwonLayoutViwe;
 import com.umiwi.ui.fragment.home.recommend.widget.ExpertAnswerLayoutViwe;
 import com.umiwi.ui.fragment.home.recommend.widget.ExpertRecLayoutView;
 import com.umiwi.ui.fragment.home.recommend.widget.FreeLayoutView;
+import com.umiwi.ui.fragment.home.recommend.widget.HotVideoLayout;
 import com.umiwi.ui.fragment.home.recommend.widget.LineActionLayoutViwe;
 import com.umiwi.ui.fragment.home.recommend.widget.PaySelectedLayoutViwe;
 import com.umiwi.ui.fragment.home.recommend.widget.RecommentBottomLayoutView;
@@ -106,6 +107,7 @@ public class RecommendFragment extends BaseConstantFragment {
     private boolean isTopic;
     private ListViewScrollLoader mScrollLoader;
     private FreeLayoutView flv_new_free;
+    private HotVideoLayout hot_video_layout;
     private ExpertRecLayoutView erl_expert_rec;
     private LineActionLayoutViwe lalv_action_line;
     private ExpertAnswerLayoutViwe ealv_expert_answer;
@@ -134,6 +136,7 @@ public class RecommendFragment extends BaseConstantFragment {
 //        }
 //    };
     MyHandler handler=new  MyHandler(this);
+
 
     static  class  MyHandler extends Handler {
         WeakReference<Fragment> mActivityReference;
@@ -169,6 +172,7 @@ public class RecommendFragment extends BaseConstantFragment {
     /***
      * 行家推荐布局： expert_recommend_layout
      * listview  最新免费的布局：new_free_item_layout
+     * 热门视频
      * 行家回答： expert_answer_layout
      * 付费精选：pay_selected_item_layout
      * 优米大咖：youmi_big_shot_item_layout
@@ -196,6 +200,7 @@ public class RecommendFragment extends BaseConstantFragment {
      */
     private void initView(View v) {
         flv_new_free = (FreeLayoutView) v.findViewById(R.id.flv_new_free);
+        hot_video_layout = (HotVideoLayout) v.findViewById(R.id.hot_video_layout);
         erl_expert_rec = (ExpertRecLayoutView) v.findViewById(R.id.erl_expert_rec);
         lalv_action_line = (LineActionLayoutViwe) v.findViewById(R.id.lalv_action_line);
         ealv_expert_answer = (ExpertAnswerLayoutViwe) v.findViewById(R.id.eav_expert_answer);
@@ -231,6 +236,7 @@ public class RecommendFragment extends BaseConstantFragment {
             if (null != t) {
 
                 flv_new_free.setData(t.getR().getFree(), t.getR().getSec_free_title(), t.getR().getSec_free_huan(),t.getR().getSec_free_huanurl());
+                hot_video_layout.setData(t.getR().getHotvideo());
                 erl_expert_rec.setData(t.getR().getTutor(), t.getR().getSec_tutor_title(), t.getR().getSec_tutor_more());
                 lalv_action_line.setData(t.getR().getHuodong(), t.getR().getSec_huodong_title());
                 ealv_expert_answer.setData(t.getR().getAsktutor(), t.getR().getSec_ask_title(), t.getR().getSec_ask_more());

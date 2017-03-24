@@ -29,6 +29,13 @@
 
                 <include layout="@layout/include_view" />
 
+                <com.umiwi.ui.fragment.home.recommend.widget.HotVideoLayout
+                    android:id="@+id/hot_video_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+                <include layout="@layout/include_view" />
+
                 <com.umiwi.ui.fragment.home.recommend.widget.ExpertRecLayoutView
                     android:id="@+id/erl_expert_rec"
                     android:layout_width="match_parent"
