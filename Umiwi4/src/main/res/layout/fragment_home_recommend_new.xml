@@ -91,25 +91,25 @@
                 android:textColor="@color/main_color"
                 android:textSize="15sp" />
 
-            <TextView
-                android:id="@+id/tab_expert"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="行家"
-                android:textColor="@color/black"
-                android:textSize="15sp" />
+            <!--<TextView-->
+                <!--android:id="@+id/tab_expert"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:gravity="center"-->
+                <!--android:text="行家"-->
+                <!--android:textColor="@color/black"-->
+                <!--android:textSize="15sp" />-->
 
-            <TextView
-                android:id="@+id/tab_column"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="专栏"
-                android:textColor="@color/black"
-                android:textSize="15sp" />
+            <!--<TextView-->
+                <!--android:id="@+id/tab_column"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:gravity="center"-->
+                <!--android:text="专栏"-->
+                <!--android:textColor="@color/black"-->
+                <!--android:textSize="15sp" />-->
 
             <TextView
                 android:id="@+id/tab_audio"

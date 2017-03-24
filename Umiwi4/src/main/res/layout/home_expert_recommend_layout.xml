@@ -22,10 +22,25 @@
                 android:layout_marginLeft="15dp"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
-                android:text="行家推荐"
+                android:text="音频专题"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
+                <!--android:text="行家推荐"-->
+            <TextView
+                android:id="@+id/tv_audio_more"
+                android:padding="5dp"
+                android:drawableRight="@drawable/category_hot"
+                android:text="更多"
+                android:drawablePadding="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                />
         </RelativeLayout>
 
         <View
@@ -43,24 +58,24 @@
         android:layout_height="wrap_content" />
 
 
-    <RelativeLayout
-        android:id="@+id/rl_tutor_all"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/rl_tutor_all"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
 
-        <TextView
-            android:id="@+id/tv_tutor_all"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:text="查看全部"
-            android:textColor="@color/main_color"
-            android:textSize="18sp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
+        <!--<TextView-->
+            <!--android:id="@+id/tv_tutor_all"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:paddingBottom="10dp"-->
+            <!--android:paddingTop="10dp"-->
+            <!--android:text="查看全部"-->
+            <!--android:textColor="@color/main_color"-->
+            <!--android:textSize="18sp"-->
+            <!--android:layout_alignParentTop="true"-->
+            <!--android:layout_centerHorizontal="true" />-->
 
-    </RelativeLayout>
+    <!--</RelativeLayout>-->
 
 
 </LinearLayout>

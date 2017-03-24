@@ -16,8 +16,7 @@ import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.updateadapter.ExpertRecAdapter;
 import com.umiwi.ui.beans.updatebeans.RecommendBean;
-import com.umiwi.ui.fragment.home.alreadyshopping.LogicalThinkingFragment;
-import com.umiwi.ui.fragment.home.updatehome.NewHomeRecommendFragment;
+import com.umiwi.ui.fragment.AudioSpecialFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.ExperDetailsFragment;
 
 import java.util.ArrayList;
@@ -30,7 +29,7 @@ import java.util.ArrayList;
 public class ExpertRecLayoutView extends LinearLayout {
 
     private Context mContext;
-    private TextView tv_tutor_title, tv_tutor_all;
+    private TextView tv_tutor_title, tv_tutor_all,tv_audio_more;
     private ListView lv_home_expert_rec;
     private LinearLayout ll_expert_root;
     private ExpertRecAdapter mExpertRecAdapter;
@@ -54,9 +53,10 @@ public class ExpertRecLayoutView extends LinearLayout {
         inflater.inflate(R.layout.home_expert_recommend_layout, this);
         ll_expert_root = (LinearLayout) findViewById(R.id.ll_expert_root);
         tv_tutor_title = (TextView) findViewById(R.id.tv_tutor_title);
-        tv_tutor_all = (TextView) findViewById(R.id.tv_tutor_all);
-        rl_tutor_all = (RelativeLayout) findViewById(R.id.rl_tutor_all);
+//        tv_tutor_all = (TextView) findViewById(R.id.tv_tutor_all);
+//        rl_tutor_all = (RelativeLayout) findViewById(R.id.rl_tutor_all);
         lv_home_expert_rec = (ListView) findViewById(R.id.lv_home_expert_rec);
+        tv_audio_more = (TextView)findViewById(R.id.tv_audio_more);
         ll_expert_root.setVisibility(GONE);
         lv_home_expert_rec.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -76,18 +76,26 @@ public class ExpertRecLayoutView extends LinearLayout {
 
             }
         });
-        rl_tutor_all.setOnClickListener(new OnClickListener() {
+//        rl_tutor_all.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                NewHomeRecommendFragment.getRootViewpager().setCurrentItem(1);
+//            }
+//        });
+        tv_audio_more.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View v) {
-                NewHomeRecommendFragment.getRootViewpager().setCurrentItem(1);
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
+                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, AudioSpecialFragment.class);
+                mContext.startActivity(intent);
             }
         });
     }
 
     public void setData(ArrayList<RecommendBean.RBean.TutorBean> tutorBeen, String tutorTitle, String tutorAll) {
 
-        tv_tutor_title.setText(tutorTitle);
-        tv_tutor_all.setText(tutorAll);
+//        tv_tutor_title.setText(tutorTitle);
+//        tv_tutor_all.setText(tutorAll);
         mList = tutorBeen;
         if (null == mList || mList.size() == 0)
             return;

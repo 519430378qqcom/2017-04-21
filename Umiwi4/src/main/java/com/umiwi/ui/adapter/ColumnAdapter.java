@@ -26,7 +26,7 @@ public class ColumnAdapter extends BaseAdapter {
     private List<HomeColumnBean.RhomeCoulum.HomeColumnInfo> mList;
 
     public ColumnAdapter(FragmentActivity activity) {
-         this.activity = activity;
+        this.activity = activity;
 
     }
 
@@ -72,18 +72,18 @@ public class ColumnAdapter extends BaseAdapter {
 
         Glide.with(context).load(mList.get(position).getImage()).into(viewholder.special_header_imageview_1);
         boolean isbuy = mList.get(position).getIsbuy();
-        if (isbuy){
+        if (isbuy) {
             viewholder.special_price_1.setText("已订阅");
-        }else {
+        } else {
             viewholder.special_price_1.setText(mList.get(position).getPrice());
         }
-        viewholder.special_subscribe_number_1.setText("已订阅"+mList.get(position).getSalenum());
+        viewholder.special_subscribe_number_1.setText("已订阅" + mList.get(position).getSalenum());
         viewholder.special_name_textView_1.setText(mList.get(position).getTitle());
         viewholder.special_context_1.setText(mList.get(position).getTutortitle());//mList.get(position).getUpdateaudio()
         viewholder.expter_detail_textView.setText(mList.get(position).getUpdateaudio());
-        if(!TextUtils.isEmpty(mList.get(position).getUpdatetime())){
-                viewholder.expter_time_textView.setText(mList.get(position).getUpdatetime()+"更新");
-        }else{
+        if (!TextUtils.isEmpty(mList.get(position).getUpdatetime())) {
+            viewholder.expter_time_textView.setText(" " + mList.get(position).getUpdatetime() + "更新 ");
+        } else {
             viewholder.expter_time_textView.setText("0小时前更新");
         }
 
@@ -92,11 +92,11 @@ public class ColumnAdapter extends BaseAdapter {
 
     public void setData(List<HomeColumnBean.RhomeCoulum.HomeColumnInfo> mList) {
         this.mList = mList;
-         notifyDataSetChanged();
+        notifyDataSetChanged();
     }
 
     private static class ViewHolder {
         private ImageView special_header_imageview_1;
-        private TextView special_price_1,special_subscribe_number_1,special_name_textView_1,special_context_1,expter_time_textView,expter_detail_textView;
+        private TextView special_price_1, special_subscribe_number_1, special_name_textView_1, special_context_1, expter_time_textView, expter_detail_textView;
     }
 }

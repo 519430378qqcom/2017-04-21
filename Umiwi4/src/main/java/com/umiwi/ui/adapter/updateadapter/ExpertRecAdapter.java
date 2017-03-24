@@ -2,7 +2,6 @@ package com.umiwi.ui.adapter.updateadapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,7 +67,7 @@ public class ExpertRecAdapter extends BaseAdapter {
         mImageLoader.loadImage(tutorBean.getImage(),viewHolder.expert_header_imageview,R.drawable.ic_launcher);
         viewHolder.expert_name_textView_1.setText(tutorBean.getTitle());
         viewHolder.expert_context_1.setText(tutorBean.getTutortitle());
-        viewHolder.expter_time_textView.setText(tutorBean.getUpdatetime());
+        viewHolder.expter_time_textView.setText(" "+tutorBean.getUpdatetime() + "更新 ");
         viewHolder.expter_detail_textView.setText(tutorBean.getUpdateaudio());
         viewHolder.expert_subscribe_number.setText("已订阅"+tutorBean.getSalenum());
         viewHolder.expert_price.setText(tutorBean.getPrice());
