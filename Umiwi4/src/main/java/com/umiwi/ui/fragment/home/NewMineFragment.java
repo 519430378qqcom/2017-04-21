@@ -21,7 +21,6 @@ import com.umeng.analytics.MobclickAgent;
 import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.event.NoticeEvent;
-import com.umiwi.ui.fragment.MyAnswerFragment;
 import com.umiwi.ui.fragment.WebFragment;
 import com.umiwi.ui.fragment.down.DownloadedListFragment;
 import com.umiwi.ui.fragment.mine.EnshrineListFragment;
@@ -116,27 +115,27 @@ public class NewMineFragment extends BaseConstantFragment implements ActivityCom
                         intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, WebFragment.class);
                         intent.putExtra(WebFragment.WEB_URL, UmiwiAPI.WEEK_REPORT);
                         break;
-                    case 10://我答
-                        intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, MyAnswerFragment.class);
-                        break;
-                    case 11://下载
+//                    case 10://我答
+//                        intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, MyAnswerFragment.class);
+//                        break;
+                    case 10://下载
                         intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, DownloadedListFragment.class);
                         break;
-                    case 12://浏览记录
+                    case 11://浏览记录
                         intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, RecentPlayRecordFragment.class);
 //                        intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, RecordFragment.class);
                         break;
-                    case 13://我的收藏
+                    case 12://我的收藏
                         intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, EnshrineListFragment.class);
 //                        intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, MyFavListFragment.class);
                         break;
-                    case 15://优惠券
+                    case 14://优惠券
                         intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, MyCouponFragment.class);
                         break;
-                    case 16://开卡
+                    case 15://开卡
                         intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, MyCardFragment.class);
                         break;
-                    case 17://设置
+                    case 16://设置
                         intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, SettingFragment.class);
                         break;
                 }
@@ -321,7 +320,7 @@ public class NewMineFragment extends BaseConstantFragment implements ActivityCom
 //        }
         mlist.add(new NewMineFragment.MineItem(R.drawable.study, R.drawable.category_hot, "", "我的学习周报", ""));
         mlist.add(new NewMineFragment.MineItem(true));
-        mlist.add(new NewMineFragment.MineItem(R.drawable.answer, R.drawable.category_hot, "", "我答", ""));
+//        mlist.add(new NewMineFragment.MineItem(R.drawable.answer, R.drawable.category_hot, "", "我答", ""));
         mlist.add(new NewMineFragment.MineItem(R.drawable.download, R.drawable.category_hot, "", "下载", ""));
         mlist.add(new NewMineFragment.MineItem(R.drawable.history, R.drawable.category_hot, "", "浏览记录", ""));
         mlist.add(new NewMineFragment.MineItem(R.drawable.favorite, R.drawable.category_hot, "", "我的收藏", ""));
