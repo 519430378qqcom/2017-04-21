@@ -837,6 +837,16 @@ public class RecommendBean extends BaseGsonBeans {
             private String url;
             @SerializedName("isbuy")
             private boolean isbuy;
+            @SerializedName("columnid")
+            private String columnid;
+
+            public String getColumnid() {
+                return columnid;
+            }
+
+            public void setColumnid(String columnid) {
+                this.columnid = columnid;
+            }
 
             public String getId() {
                 return id;

@@ -199,6 +199,7 @@ public class RecommendFragment extends BaseConstantFragment {
     private void initView(View v) {
         flv_new_free = (FreeLayoutView) v.findViewById(R.id.flv_new_free);
         hot_video_layout = (HotVideoLayout) v.findViewById(R.id.hot_video_layout);
+        //现在改为音频专题
         erl_expert_rec = (ExpertRecLayoutView) v.findViewById(R.id.erl_expert_rec);
         lalv_action_line = (LineActionLayoutViwe) v.findViewById(R.id.lalv_action_line);
 //        ealv_expert_answer = (ExpertAnswerLayoutViwe) v.findViewById(R.id.eav_expert_answer);

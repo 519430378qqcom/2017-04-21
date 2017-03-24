@@ -434,7 +434,7 @@ public final class UmiwiAPI {
     public static final String COMMIT_VOICE = "http://i.v.youmi.cn/question/answerApi";
 
     //未购专栏详情页
-    public static final String No_buy_column = "http://i.v.youmi.cn/api8//tutorcolumn/detailApi";
+    public static final String No_buy_column = "http://i.v.youmi.cn/tutorcolumn/detailApi?id=";
 
     //已购买
     public static final String Ask_Hear = "http://i.v.youmi.cn/api8/buyquestion";

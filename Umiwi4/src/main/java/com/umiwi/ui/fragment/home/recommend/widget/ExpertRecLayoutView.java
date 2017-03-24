@@ -17,7 +17,9 @@ import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.updateadapter.ExpertRecAdapter;
 import com.umiwi.ui.beans.updatebeans.RecommendBean;
 import com.umiwi.ui.fragment.AudioSpecialFragment;
-import com.umiwi.ui.fragment.home.updatehome.indexfragment.ExperDetailsFragment;
+import com.umiwi.ui.fragment.home.alreadyshopping.LogicalThinkingFragment;
+import com.umiwi.ui.fragment.home.updatehome.indexfragment.ColumnDetailsFragment;
+import com.umiwi.ui.main.UmiwiAPI;
 
 import java.util.ArrayList;
 
@@ -64,16 +66,29 @@ public class ExpertRecLayoutView extends LinearLayout {
 
                 boolean isbuy = mList.get(position).getIsbuy();
                 String tutoruid = mList.get(position).getUid();
-                Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
-                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, ExperDetailsFragment.class);
-                intent.putExtra(ExperDetailsFragment.KEY_DEFAULT_TUTORUID, tutoruid);
-                if (isbuy == true){
-                    Log.e("isbuy","isbuy");
-                    intent.putExtra("isbuy","isbuy");
+                String columnid = mList.get(position).getColumnid();
+//                Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
+//                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, ExperDetailsFragment.class);
+//                intent.putExtra(ExperDetailsFragment.KEY_DEFAULT_TUTORUID, tutoruid);
+//                Log.e("TAG", "首页音频跳转url=" + mList.get(position).getUrl());
+//                if (isbuy == true){
+//                    Log.e("isbuy","isbuy");
+//                    intent.putExtra("isbuy","isbuy");
+//                }
+//                mContext.startActivity(intent);
+                Log.e("TAG", "id1=" + UmiwiAPI.No_buy_column + columnid);
+                if (isbuy) {
+                    Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
+                    intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, LogicalThinkingFragment.class);
+                    intent.putExtra("id", mList.get(position).getColumnid());
+                    intent.putExtra("title", mList.get(position).getTitle());
+                    mContext.startActivity(intent);
+                } else {
+                    Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
+                    intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, ColumnDetailsFragment.class);//详情页
+                    intent.putExtra("columnurl", UmiwiAPI.No_buy_column + columnid);
+                    mContext.startActivity(intent);
                 }
-                mContext.startActivity(intent);
-
-
             }
         });
 //        rl_tutor_all.setOnClickListener(new OnClickListener() {
