@@ -8,6 +8,7 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.support.annotation.Nullable;
@@ -137,6 +138,7 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
     private RelativeLayout bottomcompetencePanel;
     private TextView bottomCompetenceContent;
     private TextView bottomCoursePrice;
+    private TextView bottomCourseOldPrice;
     private TextView bottomCourseBuyButton;
     private TextView bottomCompetenceButton;
 
@@ -276,6 +278,7 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
         bottomcompetencePanel = (RelativeLayout) view.findViewById(R.id.competence_bottom_container);
         bottomCompetenceContent = (TextView) view.findViewById(R.id.bottom_competence_content);
         bottomCoursePrice = (TextView) view.findViewById(R.id.price);
+        bottomCourseOldPrice = (TextView) view.findViewById(R.id.oldprice);
         bottomCourseBuyButton = (TextView) view.findViewById(R.id.course_buy_button);
         bottomCompetenceButton = (TextView) view.findViewById(R.id.bottom_competence_button);
         tryCourseContent = (TextView) view.findViewById(R.id.try_course_content);
@@ -474,6 +477,7 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
         if (null != mRequestData && !mRequestData.isIsbuy()) {// new price
             bottomcompetencePanel.setVisibility(View.VISIBLE);
             bottomCoursePrice.setVisibility(View.GONE);
+            bottomCourseOldPrice.setVisibility(View.GONE);
             bottomCourseBuyButton.setVisibility(View.GONE);
             bottomCompetenceButton.setVisibility(View.GONE);
             bottomCompetenceContent.setVisibility(View.GONE);
@@ -482,6 +486,14 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
                 bottomCoursePrice.setText("￥" + mRequestData.getPrice());
                 bottomCompetenceButton.setText(getActivity().getString(R.string.competence_vip_button));
                 bottomCoursePrice.setVisibility(View.VISIBLE);
+                //原价
+                if (!mRequestData.getOldprice().equals(mRequestData.getPrice())) {
+                    bottomCourseOldPrice.setVisibility(View.VISIBLE);
+                } else {
+                    bottomCourseOldPrice.setVisibility(View.GONE);
+                }
+                bottomCourseOldPrice.setText("￥"+ mRequestData.getOldprice());
+                bottomCourseOldPrice.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG|Paint.ANTI_ALIAS_FLAG); // 设置中划线并加清晰
                 bottomCourseBuyButton.setVisibility(View.VISIBLE);
                 bottomCompetenceButton.setVisibility(View.VISIBLE);
                 bottomCourseBuyButton.setOnClickListener(courseBuyButtonListener);

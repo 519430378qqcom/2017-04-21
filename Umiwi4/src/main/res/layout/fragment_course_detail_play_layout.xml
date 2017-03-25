@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <FrameLayout
         android:id="@+id/video_panel"
         android:layout_width="match_parent"
@@ -11,8 +12,7 @@
         <FrameLayout
             android:id="@+id/player_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-        </FrameLayout>
+            android:layout_height="wrap_content"></FrameLayout>
 
         <TextView
             android:id="@+id/try_course_content"
@@ -28,6 +28,7 @@
             android:visibility="gone" />
 
     </FrameLayout>
+
     <RelativeLayout
         android:id="@+id/competence_bottom_container"
         android:layout_width="match_parent"
@@ -36,7 +37,9 @@
         android:background="@color/umiwi_gray_f7"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:visibility="gone">
+        android:visibility="gone"
+        >
+
         <TextView
             android:id="@+id/bottom_competence_content"
             android:layout_width="wrap_content"
@@ -50,7 +53,25 @@
             android:text="994444"
             android:textColor="@color/umiwi_gray_9"
             android:textSize="14sp"
-            android:visibility="gone" />
+            android:visibility="gone"
+             />
+
+        <TextView
+            android:id="@+id/oldprice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="8dip"
+            android:layout_toRightOf="@+id/course_buy_button"
+            android:gravity="center_vertical"
+            android:paddingBottom="4dp"
+            android:paddingTop="4dp"
+            android:text="原价"
+            android:textColor="@color/umiwi_gray_9"
+            android:textSize="20sp"
+            android:visibility="gone"
+            />
 
         <TextView
             android:id="@+id/price"
@@ -64,8 +85,9 @@
             android:paddingTop="4dp"
             android:text="99"
             android:textColor="@color/umiwi_orange"
-            android:textSize="24sp"
-            android:visibility="gone" />
+            android:textSize="20sp"
+            android:visibility="gone"
+            />
 
         <TextView
             android:id="@+id/course_buy_button"
@@ -81,7 +103,8 @@
             android:text="@string/course_buy_str"
             android:textColor="@color/umiwi_orange"
             android:textSize="14sp"
-            android:visibility="gone" />
+            android:visibility="gone"
+            />
 
 
         <TextView
@@ -101,6 +124,7 @@
             android:textSize="14sp"
             android:visibility="gone" />
     </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -188,9 +212,6 @@
                 android:drawableLeft="@drawable/selector_ic_share"></RadioButton>
         </LinearLayout>
     </RelativeLayout>
-
-
-
 
 
 </LinearLayout>

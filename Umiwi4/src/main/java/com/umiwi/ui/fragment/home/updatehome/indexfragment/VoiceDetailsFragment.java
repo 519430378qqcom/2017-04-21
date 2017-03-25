@@ -418,6 +418,8 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
             AudioTmessageListBeans.RecordX.PageBean page = tmessageBeans.getR().getPage();
             Log.e("tag", "评论数据=" + tmessageBeans.getR().getRecord().toString());
             totalpage = page.getTotalpage();
+            int currentpage = page.getCurrentpage();
+            Log.e("TAG", "音频评论页=" + currentpage);
             String totalnum = tmessageBeans.getR().getTotalnum();
             if (isRefresh) {
                 refreshLayout.setRefreshing(false);
@@ -427,6 +429,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
             }
 
             Log.i("ldb", "获取评论最新数据...<>>" + tmessageBeans.getR().getRecord().size());
+            recordList.clear();
             recordList.addAll(0,tmessageBeans.getR().getRecord());
             Log.i("ldb", "SHUXIN...<>>" + recordList.size());
             mAdapter.setRecordList(recordList,totalnum);

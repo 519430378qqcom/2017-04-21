@@ -78,7 +78,7 @@ public class VoiceDetailsAdapter extends BaseAdapter {
         //ToastU.showShort(mActivity,"刷新评论。。。");
         this.recordList = recordList;
         this.totalnum = totalnum;
-        this.notifyDataSetChanged();
+        notifyDataSetChanged();
     }
 
     //    public VoiceDetailsAdapter(Context context, List<ExperDetailsVoiceBean.AudiofileBean> audioFileList, ExperDetailsVoiceBean experDetailsVoiceBean, VoiceDetailsFragment voiceDetailsFragment) {

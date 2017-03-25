@@ -1,9 +1,9 @@
 package com.umiwi.ui.beans;
 
-import java.util.ArrayList;
-
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.ArrayList;
 
 /**
  * 二级详情页
@@ -166,6 +166,8 @@ public class UmiwiListDetailBeans extends BaseGsonBeans {
 
         @SerializedName("price")
         private String price;
+        @SerializedName("oldprice")
+        private String oldprice;
 
         @SerializedName("isbuy")
         private boolean isbuy;
@@ -188,7 +190,16 @@ public class UmiwiListDetailBeans extends BaseGsonBeans {
         @SerializedName("tutoruid")
         private String tutoruid;
 
+        public String getOldprice() {
+            return oldprice;
+        }
+
+        public void setOldprice(String oldprice) {
+            this.oldprice = oldprice;
+        }
+
         @SerializedName("uid")
+
         private String uid;
 
         public void setUid(String uid) {
