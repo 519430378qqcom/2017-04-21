@@ -163,6 +163,7 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
 
     private View rightPanelLayout;
     private ListView playListView;
+    private int totals;
 
 
     @Override
@@ -796,7 +797,8 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
                 // 数据加载
                 ArrayList<CommentListBeans> charts = t.getRecord();
                 mList.addAll(charts);
-                mAdapter.setCommentNum(t.getTotals() + "");
+                totals = t.getTotals();
+                mAdapter.setCommentNum(totals + "");
                 if (mAdapter == null) {
                     mAdapter = new CourseDetailsAdapter(getActivity(), mList, CourseDetailPlayFragment.this);
                     mListView.setAdapter(mAdapter);// 解析成功 播放列表
@@ -1373,6 +1375,8 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
                 mEt_menu.setText("");
                 if (mList != null) {
                     mList.add(0, t.getR());
+                    totals ++;
+                    mAdapter.setCommentNum(totals + "");
                     mAdapter.notifyDataSetChanged();
                 }
                 Toast.makeText(UmiwiApplication.getApplication(), "评论成功！", Toast.LENGTH_SHORT).show();
