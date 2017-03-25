@@ -1375,9 +1375,9 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
                 mEt_menu.setText("");
                 if (mList != null) {
                     mList.add(0, t.getR());
-                    totals ++;
+                    totals +=1;
                     mAdapter.setCommentNum(totals + "");
-                    mAdapter.notifyDataSetChanged();
+//                    mAdapter.notifyDataSetChanged();
                 }
                 Toast.makeText(UmiwiApplication.getApplication(), "评论成功！", Toast.LENGTH_SHORT).show();
             }
