@@ -389,7 +389,9 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                 }
                 mEt_menu.setText("");
                 isRefresh = true;
-                showCommentList();
+//                showCommentList();
+                showCommentList1();
+
             }
         }
 
@@ -397,7 +399,15 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
         public void onError(AbstractRequest<AudioTmessageBeans> requet, int statusCode, String body) {
         }
     };
-
+    private void showCommentList1(){
+        String url = String.format(UmiwiAPI.audio_tmessage_list, 1, infos.getUid(), "audioalbum", infos.getId());
+        GetRequest<AudioTmessageListBeans> request = new GetRequest<AudioTmessageListBeans>(
+                url, GsonParser.class,
+                AudioTmessageListBeans.class,
+                AudioListenerList);
+        Log.e("TAG", "评论URL=" + url);
+        request.go();
+    }
     /**
      * 获取评论列表
      */

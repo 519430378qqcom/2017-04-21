@@ -851,11 +851,11 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
 
                     break;
                 case R.id.scroll_teacher:
-                    if (mRequestData != null && mRequestData.getCourse() != null && mRequestData.getCourse().size() > 1) {
-                        mListView.setSelection(3);
-                    } else {
-                        mListView.setSelection(2);
-                    }
+//                    if (mRequestData != null && mRequestData.getCourse() != null && mRequestData.getCourse().size() > 1) {
+//                        mListView.setSelection(3);
+//                    } else {
+//                        mListView.setSelection(2);
+//                    }
                     //mListView.scrollBy(0, DimensionUtil.dip2px(-20));
 
                     break;
