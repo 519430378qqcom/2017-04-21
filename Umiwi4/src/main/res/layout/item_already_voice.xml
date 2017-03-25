@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <View
         android:id="@+id/view_firstvisable"
         android:layout_width="match_parent"
@@ -10,11 +11,12 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:background="#adadad" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:background="@color/white"
+        android:orientation="vertical"
         android:padding="8dp">
 
         <LinearLayout
@@ -52,37 +54,37 @@
                         />
 
                     <RelativeLayout
-                        android:layout_marginRight="8dp"
-                        android:layout_toLeftOf="@id/price"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="8dp"
+                        android:layout_toLeftOf="@id/price">
 
                         <TextView
-                            android:maxWidth="200dp"
-                            android:layout_marginRight="10dp"
-                            android:ellipsize="end"
-                            android:singleLine="true"
                             android:id="@+id/title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
+                            android:layout_marginRight="5dp"
+                            android:ellipsize="end"
+                            android:maxWidth="180dp"
+                            android:singleLine="true"
                             android:text="大师傅大师傅大师傅大师傅大师傅大师傅大"
                             android:textColor="@color/umiwi_black" />
 
                         <TextView
-                            android:layout_toRightOf="@id/title"
                             android:id="@+id/cat"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
+                            android:layout_toRightOf="@id/title"
                             android:background="@drawable/tv_corner"
                             android:paddingBottom="3dp"
                             android:paddingLeft="5dp"
                             android:paddingRight="5dp"
                             android:paddingTop="3dp"
-                            android:textSize="10sp"
                             android:text="人际关系"
                             android:textColor="@color/main_color"
+                            android:textSize="10sp"
                             android:visibility="visible" />
 
                     </RelativeLayout>
