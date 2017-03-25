@@ -132,7 +132,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
     private int page = 1;
     private int totalpage = 1;
     private Context mContext;
-    private boolean isRefresh = true;
+    private boolean isRefresh = false;
     private AudioTmessageAdapter tmessageAdapter;
     private List<AudioTmessageListBeans.RecordX.Record> recordList = new ArrayList<>();
 
@@ -198,6 +198,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
     public SeekBar sb_seekbar;
     public ImageView startPlayer;
     private ArrayList<AudioTmessageListBeans.RecordX.Record> record;
+    private boolean isLoad;
 
 
     @Override
@@ -404,7 +405,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
         GetRequest<AudioTmessageListBeans> request = new GetRequest<AudioTmessageListBeans>(
                 url, GsonParser.class,
                 AudioTmessageListBeans.class,
-                AudioListenerList);
+                AudioListenerList1);
         Log.e("TAG", "评论URL=" + url);
         request.go();
     }
@@ -420,7 +421,43 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
         Log.e("TAG", "评论URL=" + url);
         request.go();
     }
+    private AbstractRequest.Listener<AudioTmessageListBeans> AudioListenerList1 = new AbstractRequest.Listener<AudioTmessageListBeans>() {
 
+        @Override
+        public void onResult(AbstractRequest<AudioTmessageListBeans> request, AudioTmessageListBeans tmessageBeans) {
+            AudioTmessageListBeans.RecordX.PageBean page = tmessageBeans.getR().getPage();
+            Log.e("tag", "评论数据=" + tmessageBeans.getR().getRecord().toString());
+//            totalpage = page.getTotalpage();
+            int currentpage = page.getCurrentpage();
+            Log.e("TAG", "音频评论页=" + currentpage);
+            String totalnum = tmessageBeans.getR().getTotalnum();
+
+
+            Log.i("ldb", "获取评论最新数据...<>>" + tmessageBeans.getR().getRecord().size());
+//            recordList.clear();
+            recordList.add(0,tmessageBeans.getR().getRecord().get(0));
+            Log.i("ldb", "SHUXIN...<>>" + recordList.size());
+            mAdapter.setRecordList(recordList,totalnum);
+
+//            if (isRefresh) {
+//                refreshLayout.setRefreshing(false);
+//                isRefresh = false;
+////                recordList.clear();
+//            } else if(isLoad){
+//                isLoad = false;
+//                refreshLayout.setLoading(false);
+//            }
+        }
+
+        @Override
+        public void onError(AbstractRequest<AudioTmessageListBeans> requet, int statusCode, String body) {
+            if (isRefresh) {
+                refreshLayout.setRefreshing(false);
+            } else {
+                refreshLayout.setLoading(false);
+            }
+        }
+    };
     private AbstractRequest.Listener<AudioTmessageListBeans> AudioListenerList = new AbstractRequest.Listener<AudioTmessageListBeans>() {
 
         @Override
@@ -431,18 +468,22 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
             int currentpage = page.getCurrentpage();
             Log.e("TAG", "音频评论页=" + currentpage);
             String totalnum = tmessageBeans.getR().getTotalnum();
-            if (isRefresh) {
-                refreshLayout.setRefreshing(false);
-//                recordList.clear();
-            } else {
-                refreshLayout.setLoading(false);
-            }
+
 
             Log.i("ldb", "获取评论最新数据...<>>" + tmessageBeans.getR().getRecord().size());
-            recordList.clear();
+//            recordList.clear();
             recordList.addAll(0,tmessageBeans.getR().getRecord());
             Log.i("ldb", "SHUXIN...<>>" + recordList.size());
             mAdapter.setRecordList(recordList,totalnum);
+
+            if (isRefresh) {
+                refreshLayout.setRefreshing(false);
+                isRefresh = false;
+//                recordList.clear();
+            } else if(isLoad){
+                isLoad = false;
+                refreshLayout.setLoading(false);
+            }
         }
 
         @Override
@@ -1176,14 +1217,15 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
             @Override
             public void onLoad() {
                 page++;
-                isRefresh = false;
+                isLoad = true;
                 if (page <= totalpage) {
-                    refreshLayout.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            showCommentList();
-                        }
-                    }, 1000);
+                    showCommentList();
+//                    refreshLayout.postDelayed(new Runnable() {
+//                        @Override
+//                        public void run() {
+//
+//                        }
+//                    }, 1000);
 
                 } else {
                     ToastU.showLong(mContext, "没有更多了!");
@@ -1198,6 +1240,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
             public void onRefresh() {
                 isRefresh = true;
                 page = 1;
+//                recordList.clear();
                 showCommentList();
             }
         });
