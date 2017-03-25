@@ -2,7 +2,6 @@ package com.umiwi.ui.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -16,10 +15,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.umiwi.ui.R;
-import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.beans.AudioTmessageListBeans;
 import com.umiwi.ui.beans.updatebeans.VoicePlayBean;
-import com.umiwi.ui.fragment.home.updatehome.indexfragment.ExperDetailsFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.VoiceDetailsFragment;
 import com.umiwi.ui.main.UmiwiApplication;
 import com.umiwi.ui.managers.YoumiRoomUserManager;
@@ -241,17 +238,17 @@ public class VoiceDetailsAdapter extends BaseAdapter {
         mImageLoader.loadImage(experDetailsVoiceBean.getTutorimage(), autorAvatarImageView);
         RelativeLayout lectureContainer = (RelativeLayout) view.findViewById(R.id.lecture_container);
 
-        lectureContainer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Toast.makeText(mActivity, "点击进入详细页面", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
-                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, ExperDetailsFragment.class);
-                intent.putExtra(ExperDetailsFragment.KEY_DEFAULT_TUTORUID, experDetailsVoiceBean.getUid());
-                mActivity.startActivity(intent);
-
-            }
-        });
+//        lectureContainer.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                Toast.makeText(mActivity, "点击进入详细页面", Toast.LENGTH_SHORT).show();
+//                Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
+//                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, ExperDetailsFragment.class);
+//                intent.putExtra(ExperDetailsFragment.KEY_DEFAULT_TUTORUID, experDetailsVoiceBean.getUid());
+//                mActivity.startActivity(intent);
+//
+//            }
+//        });
     }
 
     //目录

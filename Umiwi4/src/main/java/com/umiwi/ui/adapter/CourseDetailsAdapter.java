@@ -367,7 +367,7 @@ public class CourseDetailsAdapter extends BaseAdapter {
         ImageLoader mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
         mImageLoader.loadImage(mRequestData.getAuthorAvatar(), autorAvatarImageView);
         RelativeLayout lectureContainer = (RelativeLayout) view.findViewById(R.id.lecture_container);
-        lectureContainer.setOnClickListener(mLectureOnClickListener);
+//        lectureContainer.setOnClickListener(mLectureOnClickListener);
 
     }
 
