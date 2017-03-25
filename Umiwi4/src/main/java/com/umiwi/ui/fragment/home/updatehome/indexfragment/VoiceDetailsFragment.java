@@ -918,7 +918,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                                         if (UmiwiApplication.mainActivity.url != null && UmiwiApplication.mainActivity.url.equals(url)) {
                                             startPlayer.setClickable(true);
                                         } else {
-                                            startPlayer.setClickable(false);
+                                            startPlayer.setClickable(true);
                                         }
                                         sb_seekbar.setVisibility(View.VISIBLE);
                                         handler.sendEmptyMessage(PROGRESS);
