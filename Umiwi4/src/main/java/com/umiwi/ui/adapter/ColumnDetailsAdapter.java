@@ -4,14 +4,12 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.umiwi.ui.R;
-import com.umiwi.ui.beans.ColumnDetailsBean;
+import com.umiwi.ui.beans.updatebeans.AudioSpecialDetailsBean;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import static com.umiwi.ui.main.YoumiConfiguration.context;
 
@@ -23,12 +21,15 @@ public class ColumnDetailsAdapter extends BaseAdapter {
 
 
     private final FragmentActivity activity;
-    private final List<ColumnDetailsBean.ContentBean> content;
+    private final ArrayList<AudioSpecialDetailsBean.RAudioSpecialDetails.ContentWord> content;
 
-    public ColumnDetailsAdapter(FragmentActivity activity, List<ColumnDetailsBean.ContentBean> content) {
+    public ColumnDetailsAdapter(FragmentActivity activity, ArrayList<AudioSpecialDetailsBean.RAudioSpecialDetails.ContentWord> content) {
         this.activity = activity;
         this.content = content;
     }
+
+
+
 
     @Override
     public int getCount() {

@@ -3,6 +3,7 @@ package com.umiwi.ui.fragment.setting;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -21,10 +22,10 @@ import com.baidu.android.pushservice.PushConstants;
 import com.baidu.android.pushservice.PushManager;
 import com.umeng.analytics.MobclickAgent;
 import com.umiwi.ui.R;
+import com.umiwi.ui.activity.ColumnDetailsSplashActivity;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.dialog.ChangeLogDialog;
 import com.umiwi.ui.dialog.ShareDialog;
-import com.umiwi.ui.fragment.down.SelectDownloadPathFragment;
 import com.umiwi.ui.main.UmiwiApplication;
 import com.umiwi.ui.push.Utils;
 import com.umiwi.ui.util.CommonHelper;
@@ -158,8 +159,10 @@ public class SettingFragment extends BaseFragment implements OnClickListener{
 			
 			break;
 		case R.id.right_bt_downpath:
-			SelectDownloadPathFragment downloadPathFragment = new SelectDownloadPathFragment();
-			ca.getNavigationController().pushFragment(downloadPathFragment);
+//			SelectDownloadPathFragment downloadPathFragment = new SelectDownloadPathFragment();
+//			ca.getNavigationController().pushFragment(downloadPathFragment);
+			Intent intent = new Intent(getActivity(), ColumnDetailsSplashActivity.class);
+			startActivity(intent);
 			break;
 		
 		default:

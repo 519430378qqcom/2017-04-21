@@ -9,5 +9,4 @@
         android:adjustViewBounds="true"
         android:scaleType="centerCrop" >
     </ImageView>
-
 </FrameLayout>

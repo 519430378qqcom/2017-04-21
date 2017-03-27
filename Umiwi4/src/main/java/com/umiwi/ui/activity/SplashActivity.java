@@ -1,7 +1,5 @@
 package com.umiwi.ui.activity;
 
-import java.io.File;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
@@ -10,9 +8,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
-import cn.youmi.account.event.UserEvent;
-import cn.youmi.framework.util.AndroidSDK;
-import cn.youmi.framework.util.PreferenceUtils;
 
 import com.umeng.analytics.MobclickAgent;
 import com.umiwi.ui.R;
@@ -21,12 +16,21 @@ import com.umiwi.ui.fragment.splash.SplashNewHorizontalFragment;
 import com.umiwi.ui.managers.YoumiRoomUserManager;
 import com.umiwi.ui.util.CommonHelper;
 
+import java.io.File;
+
+import cn.youmi.account.event.UserEvent;
+import cn.youmi.framework.util.AndroidSDK;
+import cn.youmi.framework.util.PreferenceUtils;
+
 /**
  * @author tangxiyong
  * @version 2014年6月23日 上午10:26:41
  */
 public class SplashActivity extends AppCompatActivity {
-	
+
+
+	 public static boolean isKeyBack = false;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -40,6 +44,10 @@ public class SplashActivity extends AppCompatActivity {
 		boolean isFirstStart = PreferenceUtils.getPrefBoolean(this, "isNewStart20150623", false);//注意两次的值
 		if (isFirstStart) {// 4.8.0 第二次启动
 			fragmentTransaction.replace(R.id.frame_layout, new SplashFragment(), SplashFragment.class.getName());
+
+//			Intent intent = new Intent(SplashActivity.this, ColumnDetailsSplashActivity.class);
+//			startActivity(intent);
+//			this.finish();
 		} else {// 4.8.0 新用户第一次启动
 			final File file = this.getDatabasePath("user.db");//迁移数据
 			file.delete();
@@ -113,9 +121,12 @@ public class SplashActivity extends AppCompatActivity {
 	        return true;
 	    }
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			isKeyBack = true;
 			PreferenceUtils.setPrefBoolean(this, "isCanShowGift", true);
 			startActivity(new Intent(SplashActivity.this, HomeMainActivity.class));
+//			startActivity(new Intent(SplashActivity.this, ColumnDetailsSplashActivity.class));
 			SplashActivity.this.finish();
+
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);

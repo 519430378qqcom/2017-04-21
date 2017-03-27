@@ -7,9 +7,9 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.umiwi.ui.R;
-import com.umiwi.ui.beans.ColumnDetailsBean;
+import com.umiwi.ui.beans.updatebeans.AudioSpecialDetailsBean;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import static com.umiwi.ui.main.YoumiConfiguration.context;
 
@@ -21,9 +21,9 @@ public class ColumnAttentionAdapter extends BaseAdapter {
 
 
     private final FragmentActivity activity;
-    private  List<ColumnDetailsBean.AttentionBean> attention;
+    private  ArrayList<AudioSpecialDetailsBean.RAudioSpecialDetails.AttentionWord> attention;
 
-    public ColumnAttentionAdapter(FragmentActivity activity, List<ColumnDetailsBean.AttentionBean> attention) {
+    public ColumnAttentionAdapter(FragmentActivity activity, ArrayList<AudioSpecialDetailsBean.RAudioSpecialDetails.AttentionWord> attention) {
         this.activity = activity;
         this.attention = attention;
     }

@@ -7,9 +7,9 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.umiwi.ui.R;
-import com.umiwi.ui.beans.ColumnDetailsBean;
+import com.umiwi.ui.beans.updatebeans.AudioSpecialDetailsBean;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import static com.umiwi.ui.main.YoumiConfiguration.context;
 
@@ -21,9 +21,9 @@ public class ColumnRecordAdapter extends BaseAdapter {
 
 
     private final FragmentActivity activity;
-    private final List<ColumnDetailsBean.LastRecordBean> last_record;
+    private final ArrayList<AudioSpecialDetailsBean.RAudioSpecialDetails.LastRecord> last_record;
 
-    public ColumnRecordAdapter(FragmentActivity activity, List<ColumnDetailsBean.LastRecordBean> last_record) {
+    public ColumnRecordAdapter(FragmentActivity activity, ArrayList<AudioSpecialDetailsBean.RAudioSpecialDetails.LastRecord> last_record) {
         this.activity = activity;
         this.last_record = last_record;
     }

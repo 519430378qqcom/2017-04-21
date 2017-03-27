@@ -30,6 +30,7 @@ public class LoginUtil {
         } else {
             intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, LoginMemoryFragment.class);
         }
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
 

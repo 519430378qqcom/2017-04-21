@@ -207,10 +207,10 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
         mContext = getActivity();
         //获取的链接
         herfurl = getActivity().getIntent().getStringExtra(KEY_DETAILURL);
-        isTry = getActivity().getIntent().getBooleanExtra("isTry", false);
+//        isTry = getActivity().getIntent().getBooleanExtra("isTry", false);
 //        herfurl = getActivity().getIntent().getStringExtra(KEY_DETAILURL);
 //        herfurl = "http://i.v.youmi.cn/audioalbum/getApi?id=103";
-        Log.e("TAG", "herfurl=" + herfurl + "------isTry=" + isTry);
+        Log.e("TAG", "herfurl=" + herfurl);
         //保存播放地址
         UmiwiApplication.mainActivity.herfUrl = herfurl;
         //得到音频播放地址

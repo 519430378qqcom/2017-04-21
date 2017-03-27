@@ -1,26 +1,16 @@
 package com.umiwi.ui.adapter;
 
 import android.content.Context;
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.umiwi.ui.R;
-import com.umiwi.ui.adapter.updateadapter.ExpertAnswerDowndapter;
-import com.umiwi.ui.beans.updatebeans.RecommendBean;
-import com.umiwi.ui.view.CircleImageView;
 
 import java.util.ArrayList;
-
-import static com.umiwi.ui.R.id.head_time_textview_1;
-import static com.umiwi.ui.R.id.time_limit_hear_textview_1;
-import static com.umiwi.ui.R.id.tv_time;
-import static u.aly.x.S;
 
 /**
  * Created by Administrator on 2017/3/4.

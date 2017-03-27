@@ -15,18 +15,17 @@ import com.bumptech.glide.Glide;
 import com.umeng.analytics.MobclickAgent;
 import com.umiwi.ui.R;
 import com.umiwi.ui.activity.HomeMainActivity;
+import com.umiwi.ui.activity.SplashActivity;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.fragment.WebFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.UmiwiApplication;
 import com.umiwi.ui.managers.YoumiRoomUserManager;
 import com.umiwi.ui.util.CommonHelper;
-import com.umiwi.ui.util.SDCardManager;
 
 import java.io.File;
 
 import cn.youmi.framework.dialog.MsgDialog;
-import cn.youmi.framework.main.ContextProvider;
 import cn.youmi.framework.util.ImageLoader;
 import cn.youmi.framework.util.PreferenceUtils;
 
@@ -144,30 +143,57 @@ public class SplashFragment extends BaseConstantFragment {
     Runnable loginRun = new Runnable() {
         @Override
         public void run() {
+            if(SplashActivity.isKeyBack) {
+                return;
+            }
             Intent i = null;
             if (getActivity() != null) {// 当用户按返回键时
+//                i = new Intent(getActivity(), HomeMainActivity.class);
                 i = new Intent(getActivity(), HomeMainActivity.class);
                 mSharedPreferences.edit().putBoolean("isCanShowGift", true).commit();
             }
             if (i != null) {
                 mSharedPreferences.edit().putBoolean("isCanShowGift", true).commit();
                 startActivity(i);
-                getActivity().finish();
+
             }
+//            Intent i2 = null;
+//            if (getActivity() != null) {
+//                mSharedPreferences.edit().putBoolean("isCanShowGift", true).commit();
+//                i2 = new Intent(getActivity(), ColumnDetailsSplashActivity.class);
+//
+//            }
+//            if (i2 != null) {
+//                mSharedPreferences.edit().putBoolean("isCanShowGift", true).commit();
+//                startActivity(i2);
+//            }
+            getActivity().finish();
         }
     };
 
     Runnable noLoginRun = new Runnable() {
         @Override
         public void run() {
+            if(SplashActivity.isKeyBack) {
+                return;
+            }
             Intent i = null;
             if (getActivity() != null) {// 当用户按返回键时
+//                i = new Intent(getActivity(), HomeMainActivity.class);
                 i = new Intent(getActivity(), HomeMainActivity.class);
             }
             if (i != null) {
                 startActivity(i);
-                getActivity().finish();
+
             }
+//            Intent i2 = null;
+//            if (getActivity() != null) {
+//                i2 = new Intent(getActivity(), ColumnDetailsSplashActivity.class);
+//            }
+//            if (i2 != null) {
+//                startActivity(i2);
+//            }
+            getActivity().finish();
         }
     };
 
