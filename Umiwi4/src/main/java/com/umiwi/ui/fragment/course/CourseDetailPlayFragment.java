@@ -164,6 +164,7 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
     private View rightPanelLayout;
     private ListView playListView;
     private int totals;
+    private int page = 1;
 
 
     @Override
@@ -424,14 +425,21 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
 
     @Override
     public void onLoadData() {
-
+//        GetRequest<CommentListBeans.CommentListRequestData> request = new GetRequest<CommentListBeans.CommentListRequestData>(
+//                String.format(UmiwiAPI.COMMENT_REPLY_LIST, albumID, page), GsonParser.class,
+//
+//                CommentListBeans.CommentListRequestData.class, commentListener);
+//        Log.e("TAG", "评论链接url=" + String.format(UmiwiAPI.COMMENT_REPLY_LIST, albumID, page));
+//        request.go();
     }
 
     @Override
     public void onLoadData(int page) {
         GetRequest<CommentListBeans.CommentListRequestData> request = new GetRequest<CommentListBeans.CommentListRequestData>(
                 String.format(UmiwiAPI.COMMENT_REPLY_LIST, albumID, page), GsonParser.class,
+
                 CommentListBeans.CommentListRequestData.class, commentListener);
+        Log.e("TAG", "评论链接url=" + String.format(UmiwiAPI.COMMENT_REPLY_LIST, albumID, page));
         request.go();
     }
 
@@ -792,18 +800,21 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
                 }
 
                 mScrollLoader.setPage(t.getCurr_page());// 用于分页请求
+
                 mScrollLoader.setloading(false);
 
                 // 数据加载
                 ArrayList<CommentListBeans> charts = t.getRecord();
-                mList.addAll(charts);
+                mList.addAll(0,charts);
                 totals = t.getTotals();
                 mAdapter.setCommentNum(totals + "");
+                Log.e("TAG", "totals=" + totals);
                 if (mAdapter == null) {
                     mAdapter = new CourseDetailsAdapter(getActivity(), mList, CourseDetailPlayFragment.this);
                     mListView.setAdapter(mAdapter);// 解析成功 播放列表
                 } else {
-                    mAdapter.notifyDataSetChanged();
+                    mAdapter.setCommentNum(totals + "");
+//                    mAdapter.notifyDataSetChanged();
                 }
             }
         }

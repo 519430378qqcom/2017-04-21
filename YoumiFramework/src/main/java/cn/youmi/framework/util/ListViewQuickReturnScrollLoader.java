@@ -90,7 +90,7 @@ public class ListViewQuickReturnScrollLoader implements AbsListView.OnScrollList
 			setloading(true);
 			if (mScrollListener != null) {
 				mScrollListener.onLoadData(page);
-				mScrollListener.onLoadData();
+//				mScrollListener.onLoadData();
 			}
 		}
 	}

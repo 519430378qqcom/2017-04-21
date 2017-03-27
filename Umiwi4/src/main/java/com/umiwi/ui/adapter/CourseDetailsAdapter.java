@@ -129,9 +129,9 @@ public class CourseDetailsAdapter extends BaseAdapter {
             return 0;
         }
         if (mList == null) {
-            return 10;
+            return 11;
         }
-        return 10 + mList.size();
+        return 11 + mList.size();
     }
 
     @Override
