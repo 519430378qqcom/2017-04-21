@@ -255,7 +255,8 @@ public class DownloadedFragment extends BaseFragment {
 
                 if (video.isLocalFileValid()) {
                     try {
-                        if(UmiwiApplication.mainActivity.service.isPlaying()) {
+                        if(UmiwiApplication.mainActivity.service != null &&
+                                UmiwiApplication.mainActivity.service.isPlaying()) {
                             UmiwiApplication.mainActivity.service.pause();
                         }
                     } catch (RemoteException e) {
