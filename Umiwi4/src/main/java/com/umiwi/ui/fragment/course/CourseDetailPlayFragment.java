@@ -163,8 +163,9 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
 
     private View rightPanelLayout;
     private ListView playListView;
-    private int totals;
+//    private int totals;
     private int page = 1;
+    private int totals;
 
 
     @Override
@@ -269,10 +270,31 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
         mAdapter.setmVideoItemClickListener(videoItemClickListener);
 
         onLoadDetailData();
-
+//        onLoadCommentNum();
         return rootView;
     }
 
+    private void onLoadCommentNum() {
+        GetRequest<CommentListBeans.CommentListRequestData> request = new GetRequest<CommentListBeans.CommentListRequestData>(
+                String.format(UmiwiAPI.COMMENT_REPLY_LIST, albumID, 1), GsonParser.class,
+
+                CommentListBeans.CommentListRequestData.class, commentNumber);
+        Log.e("TAG", "评论链接url1213123=" + String.format(UmiwiAPI.COMMENT_REPLY_LIST, albumID, page));
+        request.go();
+    }
+    private Listener<CommentListBeans.CommentListRequestData> commentNumber = new Listener<CommentListBeans.CommentListRequestData>() {
+        @Override
+        public void onResult(AbstractRequest<CommentListBeans.CommentListRequestData> request, CommentListBeans.CommentListRequestData commentListRequestData) {
+            totals = commentListRequestData.getTotals();
+            Log.e("TAG", "toatalsssss=" + totals);
+            mAdapter.setCommentNum(totals + "");
+        }
+
+        @Override
+        public void onError(AbstractRequest<CommentListBeans.CommentListRequestData> requet, int statusCode, String body) {
+
+        }
+    };
     /**
      * 底部登录与权限控制面板
      */
@@ -765,6 +787,7 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
                 mList.clear();
                 mScrollLoader.onLoadFirstPage();
                 loadRelatedVideos(t.getId() + "");
+                onLoadCommentNum();
 
                 if (UserManager.getInstance().isLogin() && collectionDao.isSaved(albumID)) {
                     saveButton.setChecked(true);
@@ -805,16 +828,16 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
 
                 // 数据加载
                 ArrayList<CommentListBeans> charts = t.getRecord();
-                mList.addAll(0,charts);
-                totals = t.getTotals();
-                mAdapter.setCommentNum(totals + "");
+                mList.addAll(charts);
+                int totals = t.getTotals();
+//                mAdapter.setCommentNum(totals + "");
                 Log.e("TAG", "totals=" + totals);
                 if (mAdapter == null) {
                     mAdapter = new CourseDetailsAdapter(getActivity(), mList, CourseDetailPlayFragment.this);
                     mListView.setAdapter(mAdapter);// 解析成功 播放列表
                 } else {
-                    mAdapter.setCommentNum(totals + "");
-//                    mAdapter.notifyDataSetChanged();
+//                    mAdapter.setCommentNum(totals + "");
+                    mAdapter.notifyDataSetChanged();
                 }
             }
         }
@@ -1385,6 +1408,7 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
             if (t.isSucc()) {
                 mEt_menu.setText("");
                 if (mList != null) {
+
                     mList.add(0, t.getR());
                     totals +=1;
                     mAdapter.setCommentNum(totals + "");
