@@ -81,7 +81,7 @@ android {
 //        yingyongbaov{} //应用宝
 //        m91v {}//91助手
 //        m360vt {}  //360 手机助手
-//        anzhuov{} //安卓市场
+        anzhuov{} //安卓市场
 //        oppov{}//oppo
 //        meizuv {}//魅族
 //        leshangdianv{} //乐商店
@@ -109,7 +109,7 @@ android {
 //        ucv{} //UC
 //        taobaovt {}//淘宝
 //        wandoujiav {}//豌豆荚
-        xiaomivt {}//小米
+//        xiaomivt {}//小米
 //        anzhiv {}//安智
 //        domob {}//多盟
 //        youmiad1 {}//有米
