@@ -63,7 +63,7 @@ public class HotListAdapter extends BaseAdapter {
         if ("audioalbum".equals(recordBean.getFrom())) {
             viewHolder.iv_icon.setImageResource(R.drawable.default_voice);
         } else {
-            viewHolder.iv_icon.setImageResource(R.drawable.video_item_play_bg);
+            viewHolder.iv_icon.setImageResource(R.drawable.video_small);
         }
         if (recordBean.getPricetag().equals("免费")){
             viewHolder.pricetag.setText(recordBean.getPricetag());
