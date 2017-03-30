@@ -137,6 +137,7 @@ public class HomeMainActivity extends AppCompatActivity {
         if (!mSpUtil.getDisturb()) {
             PushManager.startWork(getApplicationContext(), PushConstants.LOGIN_TYPE_API_KEY, Utils.getMetaValue(HomeMainActivity.this, "api_key"));
 //			PushManager.disableLbs(this);// 关闭精准lbs
+//            Log.e("TAG", "百度云推送的api_key=" + Utils.getMetaValue(HomeMainActivity.this, "api_key"));
         }
         YoumiRoomUserManager.getInstance().getUserInfoSave(UserEvent.START_COUNT);//统计
 

@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.umiwi.ui.R;
@@ -47,6 +48,7 @@ public class HotListAdapter extends BaseAdapter {
         if (view == null) {
             viewHolder = new ViewHolder();
             view = View.inflate(context, R.layout.hot_list_item, null);
+            viewHolder.iv_icon = (ImageView) view.findViewById(R.id.iv_icon);
             viewHolder.tv_title = (TextView) view.findViewById(R.id.tv_title);
             viewHolder.pricetag = (TextView) view.findViewById(R.id.pricetag);
             viewHolder.tv_playtime = (TextView) view.findViewById(R.id.tv_playtime);
@@ -58,6 +60,11 @@ public class HotListAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) view.getTag();
         }
         TheHotListBeans.RecordBean recordBean = recordBeanList.get(i);
+        if ("audioalbum".equals(recordBean.getFrom())) {
+            viewHolder.iv_icon.setImageResource(R.drawable.default_voice);
+        } else {
+            viewHolder.iv_icon.setImageResource(R.drawable.video_item_play_bg);
+        }
         if (recordBean.getPricetag().equals("免费")){
             viewHolder.pricetag.setText(recordBean.getPricetag());
             viewHolder.pricetag.setTextColor(context.getResources().getColor(R.color.hot_list02));
@@ -84,6 +91,7 @@ public class HotListAdapter extends BaseAdapter {
     }
 
     class ViewHolder {
+        ImageView iv_icon;
         TextView tv_title;
         TextView pricetag;
         TextView tv_playtime;

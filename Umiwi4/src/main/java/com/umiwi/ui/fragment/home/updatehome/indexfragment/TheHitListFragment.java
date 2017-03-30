@@ -54,10 +54,19 @@ public class TheHitListFragment extends BaseConstantFragment {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
-                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, CourseDetailPlayFragment.class);
-                intent.putExtra(CourseDetailPlayFragment.KEY_DETAIURL, recordBeanList.get(position).getHrefurl());
-                startActivity(intent);
+                TheHotListBeans.RecordBean recordBean = recordBeanList.get(position);
+                String from = recordBean.getFrom();
+                if ("audioalbum".equals(from)) {
+                    Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
+                    intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
+                    intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL, recordBeanList.get(position).getHrefurl());
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
+                    intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, CourseDetailPlayFragment.class);
+                    intent.putExtra(CourseDetailPlayFragment.KEY_DETAIURL, recordBeanList.get(position).getHrefurl());
+                    startActivity(intent);
+                }
             }
         });
     }

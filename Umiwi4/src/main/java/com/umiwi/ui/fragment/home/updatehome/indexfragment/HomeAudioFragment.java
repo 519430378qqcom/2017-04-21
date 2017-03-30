@@ -167,6 +167,7 @@ public class HomeAudioFragment extends BaseConstantFragment {
             catid1List.add(videoHeadBeanList.get(i).getInfo().getName());
             catid1ListId.add(videoHeadBeanList.get(i).getInfo().getId());
         }
+
         initCatid1Flow();
     }
 

@@ -26,6 +26,7 @@
                 android:src="@drawable/audio" />
 
             <TextView
+                android:layout_marginLeft="5dp"
                 android:id="@+id/tv_audio_pay_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -41,6 +42,7 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:layout_weight="5"
                     android:id="@+id/tv_audio_pay_context"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -64,6 +66,8 @@
                     android:paddingBottom="3dp"
                     android:paddingLeft="8dp"
                     android:paddingRight="8dp"
+                    android:singleLine="true"
+                    android:lines="1"
                     android:paddingTop="3dp"
                     android:text="¥ 0元"
                     android:textColor="@color/main_color" />

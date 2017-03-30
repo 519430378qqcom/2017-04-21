@@ -76,6 +76,7 @@ public class RecommendBean extends BaseGsonBeans {
          * question : [{"id":"2","title":"微信小程序能够进行直播吗","tuid":"7106276","tname":"柳传志","tavatar":"http://i2.umivi.net/avatar/76/7106276b.jpg","ttitle":"苏宁董事长","listentype":"2","buttontag":"1元偷偷听","listennum":"听过232人","playsource":"http://i.v.youmi.cn/question/playsourceapi?id=2","playtime":"58''"}]
          * huodong : [{"id":"415","image":"http://sss","title":"互联网大会","content":"互联网大会，旨在在全国范围内树立品牌地位","status":"1","url":"http://v.youmi.cn/huodong/hd20170317","type":"h5"}]
          * bottom : [{"image":"http://i1.umivi.net/v/lunbo/1c7f38ab9d5739fe190d8eb949c1181d.png","type":"bang","url":"http://i.v.youmi.cn/api5/bangdanApi?type=1&frm=lunbo_course&click=1450","albumid":"1"}]
+         *
          */
 
         @SerializedName("sec_free_title")
@@ -132,6 +133,89 @@ public class RecommendBean extends BaseGsonBeans {
         private ArrayList<HuodongBean> huodong;
         @SerializedName("bottom")
         private ArrayList<BottomBean> bottom;
+        @SerializedName("tags")
+        private ArrayList<TagsBean> tags;
+
+        public ArrayList<TagsBean> getTags() {
+            return tags;
+        }
+
+        public void setTags(ArrayList<TagsBean> tags) {
+            this.tags = tags;
+        }
+
+        public static class TagsBean{
+            @SerializedName("catid")
+            private String catid;
+            @SerializedName("catname")
+            private String catname;
+            @SerializedName("subtag")
+            private ArrayList<SubTagBean> subtag;
+
+            public ArrayList<SubTagBean> getSubtag() {
+                return subtag;
+            }
+
+            public void setSubtag(ArrayList<SubTagBean> subtag) {
+                this.subtag = subtag;
+            }
+
+            public String getCatname() {
+                return catname;
+            }
+
+            public void setCatname(String catname) {
+                this.catname = catname;
+            }
+
+            public String getCatid() {
+                return catid;
+            }
+
+            public void setCatid(String catid) {
+                this.catid = catid;
+            }
+
+            @Override
+            public String toString() {
+                return "TagsBean{" +
+                        "catid='" + catid + '\'' +
+                        ", catname='" + catname + '\'' +
+                        ", subtag=" + subtag +
+                        '}';
+            }
+
+            public static class SubTagBean{
+                @SerializedName("catid")
+                private String catid;
+                @SerializedName("catname")
+                private String catname;
+
+                public String getCatid() {
+                    return catid;
+                }
+
+                public void setCatid(String catid) {
+                    this.catid = catid;
+                }
+
+                public String getCatname() {
+                    return catname;
+                }
+
+                public void setCatname(String catname) {
+                    this.catname = catname;
+                }
+
+                @Override
+                public String toString() {
+                    return "SubTagBean{" +
+                            "catid='" + catid + '\'' +
+                            ", catname='" + catname + '\'' +
+                            '}';
+                }
+            }
+        }
 
         public HotVideoBean getHotvideo() {
             return hotvideo;

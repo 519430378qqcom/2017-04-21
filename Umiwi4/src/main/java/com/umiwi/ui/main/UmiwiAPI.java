@@ -143,8 +143,10 @@ public final class UmiwiAPI {
     /**
      * 首页推荐
      */
-    public static final String VIDEO_TUIJIAN = "http://v.youmi.cn/api8/index ";
-
+    public static final String VIDEO_TUIJIAN = "http://v.youmi.cn/api8/index";
+    /**
+     * 热门视频
+     */
     public static final String UMIWI_HOTVIDEO_HUAN = "http://api.v.youmi.cn/api8/hotvideo?p=%s";
 
     //================================抽屉模块===================================//

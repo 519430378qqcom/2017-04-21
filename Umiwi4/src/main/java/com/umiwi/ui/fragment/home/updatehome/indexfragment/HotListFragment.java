@@ -9,7 +9,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.umiwi.ui.R;
 import com.umiwi.ui.main.BaseConstantFragment;
@@ -24,8 +23,8 @@ import butterknife.InjectView;
  * Created by shangshuaibo on 2017/3/12 14:12
  */
 public class HotListFragment extends BaseConstantFragment {
-    @InjectView(R.id.iv_back)
-    ImageView iv_back;
+//    @InjectView(R.id.iv_back)
+//    ImageView iv_back;
     @InjectView(R.id.tabs_order)
     TabLayout tabsOrder;
 
@@ -40,7 +39,7 @@ public class HotListFragment extends BaseConstantFragment {
         ButterKnife.inject(this, view);
         initTabLayout();
         cutTheme(0);
-        iv_back.setOnClickListener(new BackOnClickListener());
+//        iv_back.setOnClickListener(new BackOnClickListener());
         return view;
     }
 
@@ -123,11 +122,11 @@ public class HotListFragment extends BaseConstantFragment {
             ft.hide(theForwardestListFragment);
     }
 
-    class BackOnClickListener implements View.OnClickListener {
-
-        @Override
-        public void onClick(View view) {
-            getActivity().finish();
-        }
-    }
+//    class BackOnClickListener implements View.OnClickListener {
+//
+//        @Override
+//        public void onClick(View view) {
+//            getActivity().finish();
+//        }
+//    }
 }

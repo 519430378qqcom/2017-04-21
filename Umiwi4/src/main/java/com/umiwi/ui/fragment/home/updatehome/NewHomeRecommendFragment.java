@@ -23,9 +23,13 @@ import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.HomeAudioFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.HomeVideoFragment;
+import com.umiwi.ui.fragment.home.updatehome.indexfragment.HotListFragment;
+import com.umiwi.ui.fragment.home.updatehome.indexfragment.NewTendencyFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.OldYoumiFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.RecommendFragment;
+import com.umiwi.ui.fragment.home.updatehome.indexfragment.StartBusinessFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.VoiceDetailsFragment;
+import com.umiwi.ui.fragment.home.updatehome.indexfragment.WorkPlaceFragment;
 import com.umiwi.ui.fragment.search.SearchFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.UmiwiApplication;
@@ -61,6 +65,14 @@ public class NewHomeRecommendFragment extends BaseConstantFragment {
     TextView tabVideo;
     @InjectView(R.id.tab_old_youmi)
     TextView tabOldYoumi;
+    @InjectView(R.id.tab_startbus)
+    TextView tab_startbus;
+    @InjectView(R.id.tab_workplace)
+    TextView tab_workplace;
+    @InjectView(R.id.tab_newtende)
+    TextView tab_newtende;
+    @InjectView(R.id.tab_rank)
+    TextView tab_rank;
     @InjectView(R.id.line)
     View line;
     @InjectView(R.id.viewPager)
@@ -156,6 +168,10 @@ public class NewHomeRecommendFragment extends BaseConstantFragment {
         ViewPropertyAnimator.animate(tabAudio).scaleY(1.1f).setDuration(0);
         ViewPropertyAnimator.animate(tabVideo).scaleX(1.1f).setDuration(0);
         ViewPropertyAnimator.animate(tabOldYoumi).scaleY(1.1f).setDuration(0);
+        ViewPropertyAnimator.animate(tab_startbus).scaleX(1.1f).setDuration(0);
+        ViewPropertyAnimator.animate(tab_workplace).scaleX(1.1f).setDuration(0);
+        ViewPropertyAnimator.animate(tab_newtende).scaleX(1.1f).setDuration(0);
+        ViewPropertyAnimator.animate(tab_rank).scaleX(1.1f).setDuration(0);
 
         fragments = new ArrayList<Fragment>();
         fragments.add(new RecommendFragment());
@@ -165,13 +181,16 @@ public class NewHomeRecommendFragment extends BaseConstantFragment {
         fragments.add(new HomeAudioFragment());
         fragments.add(new HomeVideoFragment());
         fragments.add(new OldYoumiFragment());
-
+        fragments.add(new StartBusinessFragment());
+        fragments.add(new WorkPlaceFragment());
+        fragments.add(new NewTendencyFragment());
+        fragments.add(new HotListFragment());
 
         line_width = getActivity().getWindowManager().getDefaultDisplay().getWidth()
                 / fragments.size();
         line.getLayoutParams().width = line_width-120;
         line.requestLayout();
-        viewPager.setOffscreenPageLimit(3);
+        viewPager.setOffscreenPageLimit(7);
         viewPager.setAdapter(new FragmentStatePagerAdapter(
                 getChildFragmentManager()) {
 
@@ -254,7 +273,30 @@ public class NewHomeRecommendFragment extends BaseConstantFragment {
 
             }
         });
-
+        tab_startbus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewPager.setCurrentItem(4);
+            }
+        });
+        tab_workplace.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewPager.setCurrentItem(5);
+            }
+        });
+        tab_newtende.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewPager.setCurrentItem(6);
+            }
+        });
+        tab_rank.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewPager.setCurrentItem(7);
+            }
+        });
     }
 
 
@@ -267,6 +309,11 @@ public class NewHomeRecommendFragment extends BaseConstantFragment {
             tabAudio.setTextColor(getResources().getColor(R.color.black));
             tabVideo.setTextColor(getResources().getColor(R.color.black));
             tabOldYoumi.setTextColor(getResources().getColor(R.color.black));
+
+            tab_startbus.setTextColor(getResources().getColor(R.color.black));
+            tab_workplace.setTextColor(getResources().getColor(R.color.black));
+            tab_newtende.setTextColor(getResources().getColor(R.color.black));
+            tab_rank.setTextColor(getResources().getColor(R.color.black));
 
 
             ViewPropertyAnimator.animate(tabRecommend).scaleX(1.1f).setDuration(200);
@@ -287,6 +334,16 @@ public class NewHomeRecommendFragment extends BaseConstantFragment {
             ViewPropertyAnimator.animate(tabOldYoumi).scaleX(1.0f).setDuration(200);
             ViewPropertyAnimator.animate(tabOldYoumi).scaleY(1.0f).setDuration(200);
 
+            ViewPropertyAnimator.animate(tab_startbus).scaleX(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_startbus).scaleY(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_workplace).scaleX(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_workplace).scaleY(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_newtende).scaleX(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_newtende).scaleY(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_rank).scaleX(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_rank).scaleY(1.0f).setDuration(200);
+
+
         } else if (position==1){
             tabRecommend.setTextColor(getResources().getColor(R.color.black));
 
@@ -296,6 +353,10 @@ public class NewHomeRecommendFragment extends BaseConstantFragment {
             tabVideo.setTextColor(getResources().getColor(R.color.black));
             tabOldYoumi.setTextColor(getResources().getColor(R.color.black));
 
+            tab_startbus.setTextColor(getResources().getColor(R.color.black));
+            tab_workplace.setTextColor(getResources().getColor(R.color.black));
+            tab_newtende.setTextColor(getResources().getColor(R.color.black));
+            tab_rank.setTextColor(getResources().getColor(R.color.black));
 
             ViewPropertyAnimator.animate(tabRecommend).scaleX(1.0f).setDuration(200);
             ViewPropertyAnimator.animate(tabRecommend).scaleY(1.0f).setDuration(200);
@@ -314,6 +375,15 @@ public class NewHomeRecommendFragment extends BaseConstantFragment {
 
             ViewPropertyAnimator.animate(tabOldYoumi).scaleX(1.0f).setDuration(200);
             ViewPropertyAnimator.animate(tabOldYoumi).scaleY(1.0f).setDuration(200);
+
+            ViewPropertyAnimator.animate(tab_startbus).scaleX(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_startbus).scaleY(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_workplace).scaleX(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_workplace).scaleY(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_newtende).scaleX(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_newtende).scaleY(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_rank).scaleX(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_rank).scaleY(1.0f).setDuration(200);
         }
         else if (position==2){
             tabRecommend.setTextColor(getResources().getColor(R.color.black));
@@ -324,6 +394,10 @@ public class NewHomeRecommendFragment extends BaseConstantFragment {
             tabVideo.setTextColor(getResources().getColor(R.color.main_color));
             tabOldYoumi.setTextColor(getResources().getColor(R.color.black));
 
+            tab_startbus.setTextColor(getResources().getColor(R.color.black));
+            tab_workplace.setTextColor(getResources().getColor(R.color.black));
+            tab_newtende.setTextColor(getResources().getColor(R.color.black));
+            tab_rank.setTextColor(getResources().getColor(R.color.black));
 
 
 
@@ -344,6 +418,15 @@ public class NewHomeRecommendFragment extends BaseConstantFragment {
 
             ViewPropertyAnimator.animate(tabOldYoumi).scaleX(1.0f).setDuration(200);
             ViewPropertyAnimator.animate(tabOldYoumi).scaleY(1.0f).setDuration(200);
+
+            ViewPropertyAnimator.animate(tab_startbus).scaleX(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_startbus).scaleY(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_workplace).scaleX(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_workplace).scaleY(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_newtende).scaleX(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_newtende).scaleY(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_rank).scaleX(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_rank).scaleY(1.0f).setDuration(200);
         }
         else if (position==3){
             tabRecommend.setTextColor(getResources().getColor(R.color.black));
@@ -354,6 +437,10 @@ public class NewHomeRecommendFragment extends BaseConstantFragment {
             tabVideo.setTextColor(getResources().getColor(R.color.black));
             tabOldYoumi.setTextColor(getResources().getColor(R.color.main_color));
 
+            tab_startbus.setTextColor(getResources().getColor(R.color.black));
+            tab_workplace.setTextColor(getResources().getColor(R.color.black));
+            tab_newtende.setTextColor(getResources().getColor(R.color.black));
+            tab_rank.setTextColor(getResources().getColor(R.color.black));
 
             ViewPropertyAnimator.animate(tabRecommend).scaleX(1.0f).setDuration(200);
             ViewPropertyAnimator.animate(tabRecommend).scaleY(1.0f).setDuration(200);
@@ -372,63 +459,178 @@ public class NewHomeRecommendFragment extends BaseConstantFragment {
 
             ViewPropertyAnimator.animate(tabOldYoumi).scaleX(1.1f).setDuration(200);
             ViewPropertyAnimator.animate(tabOldYoumi).scaleY(1.1f).setDuration(200);
+
+            ViewPropertyAnimator.animate(tab_startbus).scaleX(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_startbus).scaleY(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_workplace).scaleX(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_workplace).scaleY(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_newtende).scaleX(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_newtende).scaleY(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_rank).scaleX(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_rank).scaleY(1.0f).setDuration(200);
+        }else if (position==4){
+            tabRecommend.setTextColor(getResources().getColor(R.color.black));
+
+//            tabExpert.setTextColor(getResources().getColor(R.color.black));
+//            tabColumn.setTextColor(getResources().getColor(R.color.black));
+            tabAudio.setTextColor(getResources().getColor(R.color.black));
+            tabVideo.setTextColor(getResources().getColor(R.color.black));
+            tabOldYoumi.setTextColor(getResources().getColor(R.color.black));
+
+            tab_startbus.setTextColor(getResources().getColor(R.color.main_color));
+            tab_workplace.setTextColor(getResources().getColor(R.color.black));
+            tab_newtende.setTextColor(getResources().getColor(R.color.black));
+            tab_rank.setTextColor(getResources().getColor(R.color.black));
+
+            ViewPropertyAnimator.animate(tabRecommend).scaleX(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tabRecommend).scaleY(1.0f).setDuration(200);
+
+//            ViewPropertyAnimator.animate(tabExpert).scaleX(1.0f).setDuration(200);
+//            ViewPropertyAnimator.animate(tabExpert).scaleY(1.0f).setDuration(200);
+//
+//            ViewPropertyAnimator.animate(tabColumn).scaleX(1.0f).setDuration(200);
+//            ViewPropertyAnimator.animate(tabColumn).scaleY(1.0f).setDuration(200);
+
+            ViewPropertyAnimator.animate(tabAudio).scaleX(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tabAudio).scaleY(1.0f).setDuration(200);
+
+            ViewPropertyAnimator.animate(tabVideo).scaleX(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tabVideo).scaleY(1.0f).setDuration(200);
+
+            ViewPropertyAnimator.animate(tabOldYoumi).scaleX(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tabOldYoumi).scaleY(1.0f).setDuration(200);
+
+            ViewPropertyAnimator.animate(tab_startbus).scaleX(1.1f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_startbus).scaleY(1.1f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_workplace).scaleX(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_workplace).scaleY(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_newtende).scaleX(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_newtende).scaleY(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_rank).scaleX(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_rank).scaleY(1.0f).setDuration(200);
+
+        }else if (position==5){
+            tabRecommend.setTextColor(getResources().getColor(R.color.black));
+//
+//            tabExpert.setTextColor(getResources().getColor(R.color.black));
+//            tabColumn.setTextColor(getResources().getColor(R.color.black));
+            tabAudio.setTextColor(getResources().getColor(R.color.black));
+            tabVideo.setTextColor(getResources().getColor(R.color.black));
+            tabOldYoumi.setTextColor(getResources().getColor(R.color.black));
+
+            tab_startbus.setTextColor(getResources().getColor(R.color.black));
+            tab_workplace.setTextColor(getResources().getColor(R.color.main_color));
+            tab_newtende.setTextColor(getResources().getColor(R.color.black));
+            tab_rank.setTextColor(getResources().getColor(R.color.black));
+
+            ViewPropertyAnimator.animate(tabRecommend).scaleX(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tabRecommend).scaleY(1.0f).setDuration(200);
+
+//            ViewPropertyAnimator.animate(tabExpert).scaleX(1.0f).setDuration(200);
+//            ViewPropertyAnimator.animate(tabExpert).scaleY(1.0f).setDuration(200);
+//
+//            ViewPropertyAnimator.animate(tabColumn).scaleX(1.0f).setDuration(200);
+//            ViewPropertyAnimator.animate(tabColumn).scaleY(1.0f).setDuration(200);
+
+            ViewPropertyAnimator.animate(tabAudio).scaleX(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tabAudio).scaleY(1.0f).setDuration(200);
+
+            ViewPropertyAnimator.animate(tabVideo).scaleX(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tabVideo).scaleY(1.0f).setDuration(200);
+
+            ViewPropertyAnimator.animate(tabOldYoumi).scaleX(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tabOldYoumi).scaleY(1.0f).setDuration(200);
+
+            ViewPropertyAnimator.animate(tab_startbus).scaleX(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_startbus).scaleY(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_workplace).scaleX(1.1f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_workplace).scaleY(1.1f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_newtende).scaleX(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_newtende).scaleY(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_rank).scaleX(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_rank).scaleY(1.0f).setDuration(200);
+
+        }else if(position == 6) {
+            tabRecommend.setTextColor(getResources().getColor(R.color.black));
+//
+//            tabExpert.setTextColor(getResources().getColor(R.color.black));
+//            tabColumn.setTextColor(getResources().getColor(R.color.black));
+            tabAudio.setTextColor(getResources().getColor(R.color.black));
+            tabVideo.setTextColor(getResources().getColor(R.color.black));
+            tabOldYoumi.setTextColor(getResources().getColor(R.color.black));
+
+            tab_startbus.setTextColor(getResources().getColor(R.color.black));
+            tab_workplace.setTextColor(getResources().getColor(R.color.black));
+            tab_newtende.setTextColor(getResources().getColor(R.color.main_color));
+            tab_rank.setTextColor(getResources().getColor(R.color.black));
+
+            ViewPropertyAnimator.animate(tabRecommend).scaleX(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tabRecommend).scaleY(1.0f).setDuration(200);
+
+//            ViewPropertyAnimator.animate(tabExpert).scaleX(1.0f).setDuration(200);
+//            ViewPropertyAnimator.animate(tabExpert).scaleY(1.0f).setDuration(200);
+//
+//            ViewPropertyAnimator.animate(tabColumn).scaleX(1.0f).setDuration(200);
+//            ViewPropertyAnimator.animate(tabColumn).scaleY(1.0f).setDuration(200);
+
+            ViewPropertyAnimator.animate(tabAudio).scaleX(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tabAudio).scaleY(1.0f).setDuration(200);
+
+            ViewPropertyAnimator.animate(tabVideo).scaleX(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tabVideo).scaleY(1.0f).setDuration(200);
+
+            ViewPropertyAnimator.animate(tabOldYoumi).scaleX(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tabOldYoumi).scaleY(1.0f).setDuration(200);
+
+            ViewPropertyAnimator.animate(tab_startbus).scaleX(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_startbus).scaleY(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_workplace).scaleX(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_workplace).scaleY(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_newtende).scaleX(1.1f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_newtende).scaleY(1.1f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_rank).scaleX(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_rank).scaleY(1.0f).setDuration(200);
+        }else if(position == 7) {
+            tabRecommend.setTextColor(getResources().getColor(R.color.black));
+//
+//            tabExpert.setTextColor(getResources().getColor(R.color.black));
+//            tabColumn.setTextColor(getResources().getColor(R.color.black));
+            tabAudio.setTextColor(getResources().getColor(R.color.black));
+            tabVideo.setTextColor(getResources().getColor(R.color.black));
+            tabOldYoumi.setTextColor(getResources().getColor(R.color.black));
+
+            tab_startbus.setTextColor(getResources().getColor(R.color.black));
+            tab_workplace.setTextColor(getResources().getColor(R.color.black));
+            tab_newtende.setTextColor(getResources().getColor(R.color.black));
+            tab_rank.setTextColor(getResources().getColor(R.color.main_color));
+
+            ViewPropertyAnimator.animate(tabRecommend).scaleX(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tabRecommend).scaleY(1.0f).setDuration(200);
+
+//            ViewPropertyAnimator.animate(tabExpert).scaleX(1.0f).setDuration(200);
+//            ViewPropertyAnimator.animate(tabExpert).scaleY(1.0f).setDuration(200);
+//
+//            ViewPropertyAnimator.animate(tabColumn).scaleX(1.0f).setDuration(200);
+//            ViewPropertyAnimator.animate(tabColumn).scaleY(1.0f).setDuration(200);
+
+            ViewPropertyAnimator.animate(tabAudio).scaleX(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tabAudio).scaleY(1.0f).setDuration(200);
+
+            ViewPropertyAnimator.animate(tabVideo).scaleX(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tabVideo).scaleY(1.0f).setDuration(200);
+
+            ViewPropertyAnimator.animate(tabOldYoumi).scaleX(1.1f).setDuration(200);
+            ViewPropertyAnimator.animate(tabOldYoumi).scaleY(1.1f).setDuration(200);
+
+            ViewPropertyAnimator.animate(tab_startbus).scaleX(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_startbus).scaleY(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_workplace).scaleX(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_workplace).scaleY(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_newtende).scaleX(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_newtende).scaleY(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_rank).scaleX(1.1f).setDuration(200);
+            ViewPropertyAnimator.animate(tab_rank).scaleY(1.1f).setDuration(200);
         }
-//        else if (position==4){
-//            tabRecommend.setTextColor(getResources().getColor(R.color.black));
-//
-//            tabExpert.setTextColor(getResources().getColor(R.color.black));
-//            tabColumn.setTextColor(getResources().getColor(R.color.black));
-//            tabAudio.setTextColor(getResources().getColor(R.color.black));
-//            tabVideo.setTextColor(getResources().getColor(R.color.main_color));
-//            tabOldYoumi.setTextColor(getResources().getColor(R.color.black));
-//
-//
-//            ViewPropertyAnimator.animate(tabRecommend).scaleX(1.0f).setDuration(200);
-//            ViewPropertyAnimator.animate(tabRecommend).scaleY(1.0f).setDuration(200);
-//
-//            ViewPropertyAnimator.animate(tabExpert).scaleX(1.0f).setDuration(200);
-//            ViewPropertyAnimator.animate(tabExpert).scaleY(1.0f).setDuration(200);
-//
-//            ViewPropertyAnimator.animate(tabColumn).scaleX(1.0f).setDuration(200);
-//            ViewPropertyAnimator.animate(tabColumn).scaleY(1.0f).setDuration(200);
-//
-//            ViewPropertyAnimator.animate(tabAudio).scaleX(1.0f).setDuration(200);
-//            ViewPropertyAnimator.animate(tabAudio).scaleY(1.0f).setDuration(200);
-//
-//            ViewPropertyAnimator.animate(tabVideo).scaleX(1.1f).setDuration(200);
-//            ViewPropertyAnimator.animate(tabVideo).scaleY(1.1f).setDuration(200);
-//
-//            ViewPropertyAnimator.animate(tabOldYoumi).scaleX(1.0f).setDuration(200);
-//            ViewPropertyAnimator.animate(tabOldYoumi).scaleY(1.0f).setDuration(200);
-//        }else if (position==5){
-//            tabRecommend.setTextColor(getResources().getColor(R.color.black));
-//
-//            tabExpert.setTextColor(getResources().getColor(R.color.black));
-//            tabColumn.setTextColor(getResources().getColor(R.color.black));
-//            tabAudio.setTextColor(getResources().getColor(R.color.black));
-//            tabVideo.setTextColor(getResources().getColor(R.color.black));
-//            tabOldYoumi.setTextColor(getResources().getColor(R.color.main_color));
-//
-//
-//
-//            ViewPropertyAnimator.animate(tabRecommend).scaleX(1.0f).setDuration(200);
-//            ViewPropertyAnimator.animate(tabRecommend).scaleY(1.0f).setDuration(200);
-//
-//            ViewPropertyAnimator.animate(tabExpert).scaleX(1.0f).setDuration(200);
-//            ViewPropertyAnimator.animate(tabExpert).scaleY(1.0f).setDuration(200);
-//
-//            ViewPropertyAnimator.animate(tabColumn).scaleX(1.0f).setDuration(200);
-//            ViewPropertyAnimator.animate(tabColumn).scaleY(1.0f).setDuration(200);
-//
-//            ViewPropertyAnimator.animate(tabAudio).scaleX(1.0f).setDuration(200);
-//            ViewPropertyAnimator.animate(tabAudio).scaleY(1.0f).setDuration(200);
-//
-//            ViewPropertyAnimator.animate(tabVideo).scaleX(1.0f).setDuration(200);
-//            ViewPropertyAnimator.animate(tabVideo).scaleY(1.0f).setDuration(200);
-//
-//            ViewPropertyAnimator.animate(tabOldYoumi).scaleX(1.1f).setDuration(200);
-//            ViewPropertyAnimator.animate(tabOldYoumi).scaleY(1.1f).setDuration(200);
-//        }
     }
 
 

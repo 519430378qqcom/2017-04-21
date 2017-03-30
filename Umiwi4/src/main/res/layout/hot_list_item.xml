@@ -14,7 +14,9 @@
             android:id="@+id/iv_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:scaleType="centerCrop"
             android:src="@drawable/video_item_play_bg" />
 
 
@@ -47,34 +49,19 @@
                     android:id="@+id/pricetag"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="20dp"
-                    android:layout_toLeftOf="@+id/tv_playtime"
+                    android:layout_alignBaseline="@+id/tv_title"
+                    android:layout_alignBottom="@+id/tv_title"
+                    android:layout_alignParentRight="true"
                     android:background="@drawable/tv_hot_list02"
-                   android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
                     android:paddingBottom="2dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:layout_marginRight="5dp"
                     android:paddingTop="2dp"
                     android:text="创业"
                     android:textColor="@color/hot_list01"
                     android:textSize="11sp" />
 
-                <TextView
-                    android:id="@+id/tv_playtime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@+id/tv_watchnum"
-                    android:padding="5dp"
-                    android:text="00:00:00"
-                    android:textSize="11sp" />
-
-                <TextView
-                    android:id="@+id/tv_watchnum"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:padding="5dp"
-                    android:text="播放1469"
-                    android:textSize="11sp" />
             </RelativeLayout>
 
 
@@ -96,9 +83,28 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
-                    android:layout_marginRight="100dp"
+                    android:layout_weight="1"
                     android:singleLine="true"
                     android:text="优米音频工作室" />
+
+                <TextView
+                    android:id="@+id/tv_playtime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:singleLine="true"
+                    android:text="00:00:00"
+                    android:textSize="11sp" />
+
+                <TextView
+                    android:id="@+id/tv_watchnum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:padding="5dp"
+                    android:singleLine="true"
+                    android:text="播放1469"
+                    android:textSize="11sp" />
             </LinearLayout>
 
         </LinearLayout>

@@ -1,7 +1,5 @@
 package com.umiwi.ui.fragment.home;
 
-import java.util.List;
-
 import android.annotation.SuppressLint;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -11,11 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-
-import cn.youmi.account.event.UserEvent;
-import cn.youmi.account.model.UserModel;
-import cn.youmi.framework.fragment.BaseFragment;
-import cn.youmi.framework.manager.ModelManager.ModelStatusListener;
 
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItem;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
@@ -27,6 +20,13 @@ import com.umiwi.ui.fragment.home.updatehome.NewHomeRecommendFragment;
 import com.umiwi.ui.managers.YoumiRoomUserManager;
 import com.umiwi.ui.util.LoginUtil;
 import com.umiwi.ui.view.SmartTabLayout;
+
+import java.util.List;
+
+import cn.youmi.account.event.UserEvent;
+import cn.youmi.account.model.UserModel;
+import cn.youmi.framework.fragment.BaseFragment;
+import cn.youmi.framework.manager.ModelManager.ModelStatusListener;
 
 
 /**
@@ -84,6 +84,7 @@ public class ContainerFragment extends BaseFragment {
 //		pages.add(FragmentPagerItem.of("分类",StageSectionCategoryFragment.class));
         pages.add(FragmentPagerItem.of("已购", AlreadyBoughtFragment.class));
         pages.add(FragmentPagerItem.of("发现", DiscoveryFragment.class));
+//        pages.add(FragmentPagerItem.of("发现", OldYoumiFragment.class));
 //		pages.add(FragmentPagerItem.of("我的",MineFragment.class));
         pages.add(FragmentPagerItem.of("我的", NewMineFragment.class));
 
