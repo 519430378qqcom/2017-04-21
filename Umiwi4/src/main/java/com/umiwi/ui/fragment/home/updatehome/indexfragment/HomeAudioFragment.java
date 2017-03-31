@@ -1,5 +1,6 @@
 package com.umiwi.ui.fragment.home.updatehome.indexfragment;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -65,6 +66,9 @@ public class HomeAudioFragment extends BaseConstantFragment {
     @InjectView(R.id.flow_orderby)
     FlowLayout flow_orderby;
 
+    @InjectView(R.id.ll_visiable_or)
+    LinearLayout ll_visiable_or;
+
     private int page = 1;
     private int totalpage = 1;
     private ArrayList<AlreadyShopVoiceBean.RAlreadyVoice.Record> recordList = new ArrayList<>();
@@ -87,6 +91,11 @@ public class HomeAudioFragment extends BaseConstantFragment {
     private String orderby = "ctime";
 
     private List<VideoHeadBean> videoHeadBeanList = new ArrayList<>();
+    private int touchSlop;
+    private float mFirstY;
+    private float mCurrentY;
+    private int direction;
+    private ObjectAnimator animator;
 
     @Nullable
     @Override
@@ -116,9 +125,73 @@ public class HomeAudioFragment extends BaseConstantFragment {
         initFlowData();
         initFlowPrice();
         initFlowOrderby();
+//        initScrollView();
+
+
         return view;
     }
 
+//    private void initScrollView() {
+//        //最小滑动距离
+//        touchSlop = ViewConfiguration.get(mContext).getScaledTouchSlop();
+//
+//        int w = View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);
+//        int h = View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);
+//        ll_visiable_or.measure(w,h);
+//        int measuredHeight = ll_visiable_or.getMeasuredHeight();
+//        int measuredWidth = ll_visiable_or.getMeasuredWidth();
+//        Log.e("measuredHeight", "measuredHeight=" + measuredHeight);
+////        ll_visiable_or.setLayoutParams(new AbsListView.LayoutParams(measuredWidth,measuredHeight));
+//        listview.addHeaderView(ll_visiable_or);
+//
+////        listview.setOnTouchListener(mOnTouchListener);
+//    }
+//
+//    private boolean mShow = false;
+//    private View.OnTouchListener mOnTouchListener = new View.OnTouchListener() {
+//        @Override
+//        public boolean onTouch(View v, MotionEvent event) {
+//            switch (event.getAction()) {
+//                case MotionEvent.ACTION_DOWN :
+//                    mFirstY = event.getY();
+//
+//                    break;
+//                case MotionEvent.ACTION_MOVE:
+//                    mCurrentY = event.getY();
+//                    if(mCurrentY - mFirstY > touchSlop) {
+//                       direction = 0;//down
+//                    }else if(mFirstY - mCurrentY > touchSlop) {
+//                        direction = 1;//up
+//                    }
+//                    if(direction == 1) {
+//                        if(mShow) {
+//                            showAnim(1);
+//                            mShow = !mShow;
+//                        }
+//                    }else if(direction == 0) {
+//                        if(!mShow) {
+//                            showAnim(0);
+//                            mShow = !mShow;
+//                        }
+//                    }
+//                    break;
+//            }
+//            return false;
+//        }
+//    };
+//
+//    private void showAnim(int flag) {
+//        if(animator != null && animator.isRunning()) {
+//            animator.cancel();
+//        }
+//        if (flag == 0) {
+//            animator = ObjectAnimator.ofFloat(ll_visiable_or, "translationY", ll_visiable_or.getTranslationY(), 0);
+//        } else {
+//            animator = ObjectAnimator.ofFloat(ll_visiable_or,"translationY",ll_visiable_or.getTranslationY(),-ll_visiable_or.getHeight());
+//        }
+//        animator.setDuration(2000);
+//        animator.start();
+//    }
 
     /**
      * 初始price和orderby数据
@@ -375,6 +448,7 @@ public class HomeAudioFragment extends BaseConstantFragment {
      */
     private void getinfos() {
         String url = String.format(UmiwiAPI.Login_Audio, page, catid, price, orderby);
+        Log.e("TAGurl", "url="+ url);
         GetRequest<AlreadyShopVoiceBean> request = new GetRequest<AlreadyShopVoiceBean>(
                 url, GsonParser.class,
                 AlreadyShopVoiceBean.class,
