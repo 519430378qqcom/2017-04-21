@@ -5,5 +5,7 @@
         android:width="1px"
         android:color="@color/umiwi_gray_c" />
     <corners android:radius="2dp" />
-
+    <size
+        android:height="10dp"
+        android:width="30dp" />
 </shape>

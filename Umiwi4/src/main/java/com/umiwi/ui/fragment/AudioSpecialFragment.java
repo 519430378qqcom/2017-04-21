@@ -1,16 +1,20 @@
 package com.umiwi.ui.fragment;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.os.RemoteException;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.umeng.analytics.MobclickAgent;
 import com.umiwi.ui.R;
@@ -19,8 +23,10 @@ import com.umiwi.ui.adapter.ColumnAdapter;
 import com.umiwi.ui.beans.updatebeans.HomeColumnBean;
 import com.umiwi.ui.fragment.home.alreadyshopping.LogicalThinkingFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.ColumnDetailsFragment;
+import com.umiwi.ui.fragment.home.updatehome.indexfragment.VoiceDetailsFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.UmiwiAPI;
+import com.umiwi.ui.main.UmiwiApplication;
 import com.umiwi.ui.view.RefreshLayout;
 
 import java.util.ArrayList;
@@ -43,13 +49,15 @@ public class AudioSpecialFragment extends BaseConstantFragment implements View.O
     RefreshLayout refreshLayout;
     @InjectView(R.id.back)
     ImageView back;
+    @InjectView(R.id.record)
+    ImageView record;
     private List<HomeColumnBean.RhomeCoulum.HomeColumnInfo> mList;
     private ColumnAdapter columnAdapter;
     private int page = 1;
     private boolean isla = false;
     private boolean isload = false;
     private int totalpage;
-
+    private AnimationDrawable background;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,9 +96,41 @@ public class AudioSpecialFragment extends BaseConstantFragment implements View.O
         initrefreshLayout();
         getInfos();
         back.setOnClickListener(this);
-
+        initMediaPlay();
         return view;
     }
+
+    /**
+     * 播放按钮
+     */
+    private void initMediaPlay() {
+        record.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (UmiwiApplication.mainActivity.service != null) {
+                    try {
+
+                        if (UmiwiApplication.mainActivity.service.isPlaying() || UmiwiApplication.mainActivity.isPause) {
+                            if (UmiwiApplication.mainActivity.herfUrl != null) {
+                                Log.e("TAG", "UmiwiApplication.mainActivity.herfUrl=" + UmiwiApplication.mainActivity.herfUrl);
+                                Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
+                                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
+                                intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL, UmiwiApplication.mainActivity.herfUrl);
+                                getActivity().startActivity(intent);
+                            }
+                        }
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Toast toast = Toast.makeText(getActivity(), "没有正在播放的音频", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER,0,0);
+                    toast.show();
+                }
+            }
+        });
+    }
+
     private void getInfos() {
         String url = UmiwiAPI.TUTORCOLUMN + page;
         Log.e("TAG", "homecoulmUrl=" + url);
@@ -172,6 +212,24 @@ public class AudioSpecialFragment extends BaseConstantFragment implements View.O
 //
 //        }
 //    };
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(UmiwiApplication.mainActivity.service != null) {
+            background = (AnimationDrawable) record.getBackground();
+            try {
+                if (UmiwiApplication.mainActivity.service.isPlaying()) {
+                    background.start();
+                } else {
+                    background.stop();
+                }
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     @Override
     public void onPause() {
         super.onPause();

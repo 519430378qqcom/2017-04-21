@@ -21,20 +21,21 @@
                 android:visibility="visible">
 
                 <include layout="@layout/include_listview" />
-
+                <!--每日音频-->
                 <com.umiwi.ui.fragment.home.recommend.widget.FreeLayoutView
                     android:id="@+id/flv_new_free"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
                 <include layout="@layout/include_view" />
-
-                <com.umiwi.ui.fragment.home.recommend.widget.HotVideoLayout
-                    android:id="@+id/hot_video_layout"
+                <!--推荐专栏-->
+                <com.umiwi.ui.fragment.home.recommend.widget.ExpertRecLayoutView
+                    android:id="@+id/erl_expert_rec"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="wrap_content" />
 
                 <include layout="@layout/include_view" />
+
 
 
 
@@ -49,13 +50,20 @@
                     <!--android:layout_height="wrap_content" />-->
 
                 <!--<include layout="@layout/include_view" />-->
-
+                <!--付费精选-->
                 <com.umiwi.ui.fragment.home.recommend.widget.PaySelectedLayoutViwe
                     android:id="@+id/pslv_pay_selected"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     />
+                <include layout="@layout/include_view" />
+
+                <!--热门视频-->
+                <com.umiwi.ui.fragment.home.recommend.widget.HotVideoLayout
+                    android:id="@+id/hot_video_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
 
                 <include layout="@layout/include_view" />
 
@@ -66,22 +74,17 @@
                     android:layout_marginTop="10dp" />
 
                 <include layout="@layout/include_view" />-->
-                <com.umiwi.ui.fragment.home.recommend.widget.ExpertRecLayoutView
-                    android:id="@+id/erl_expert_rec"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
 
-                <include layout="@layout/include_view" />
-                <com.umiwi.ui.fragment.home.recommend.widget.LineActionLayoutViwe
-                    android:id="@+id/lalv_action_line"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                <!--<com.umiwi.ui.fragment.home.recommend.widget.LineActionLayoutViwe-->
+                    <!--android:id="@+id/lalv_action_line"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content" />-->
 
 
-                <com.umiwi.ui.fragment.home.recommend.widget.RecommentBottomLayoutView
-                    android:id="@+id/rblv_bottom"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                <!--<com.umiwi.ui.fragment.home.recommend.widget.RecommentBottomLayoutView-->
+                    <!--android:id="@+id/rblv_bottom"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content" />-->
 
                 <TextView
                     android:id="@+id/text_feedback1"

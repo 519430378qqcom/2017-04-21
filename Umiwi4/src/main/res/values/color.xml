@@ -12,7 +12,7 @@
     <color name="color_divider">#B6B6B6</color>
     <color name="color_divider_two">#f2f2f2</color>
 
-    
+
     <color name="frame_bg">#ffefeff4</color>
     <color name="transparent">#00000000</color>
 
@@ -30,7 +30,7 @@
     <color name="possible_result_points">#c0ffff00</color>
 
     <color name="hot_list01">#ff6600</color>
-    <color name="hot_list02">#28A2FF</color>
+    <color name="hot_list02">#1dcda7</color>
 
 
 </resources>

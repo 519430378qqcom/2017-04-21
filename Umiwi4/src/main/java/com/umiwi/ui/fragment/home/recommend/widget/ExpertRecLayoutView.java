@@ -55,10 +55,10 @@ public class ExpertRecLayoutView extends LinearLayout {
         inflater.inflate(R.layout.home_expert_recommend_layout, this);
         ll_expert_root = (LinearLayout) findViewById(R.id.ll_expert_root);
         tv_tutor_title = (TextView) findViewById(R.id.tv_tutor_title);
-//        tv_tutor_all = (TextView) findViewById(R.id.tv_tutor_all);
-//        rl_tutor_all = (RelativeLayout) findViewById(R.id.rl_tutor_all);
+        tv_tutor_all = (TextView) findViewById(R.id.tv_tutor_all);
+        rl_tutor_all = (RelativeLayout) findViewById(R.id.rl_tutor_all);
         lv_home_expert_rec = (ListView) findViewById(R.id.lv_home_expert_rec);
-        tv_audio_more = (TextView)findViewById(R.id.tv_audio_more);
+//        tv_audio_more = (TextView)findViewById(R.id.tv_audio_more);
         ll_expert_root.setVisibility(GONE);
         lv_home_expert_rec.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -91,20 +91,23 @@ public class ExpertRecLayoutView extends LinearLayout {
                 }
             }
         });
-//        rl_tutor_all.setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                NewHomeRecommendFragment.getRootViewpager().setCurrentItem(1);
-//            }
-//        });
-        tv_audio_more.setOnClickListener(new OnClickListener() {
+        rl_tutor_all.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
+//                NewHomeRecommendFragment.getRootViewpager().setCurrentItem(1);
                 Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
                 intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, AudioSpecialFragment.class);
                 mContext.startActivity(intent);
             }
         });
+//        tv_audio_more.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
+//                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, AudioSpecialFragment.class);
+//                mContext.startActivity(intent);
+//            }
+//        });
     }
 
     public void setData(ArrayList<RecommendBean.RBean.TutorBean> tutorBeen, String tutorTitle, String tutorAll) {

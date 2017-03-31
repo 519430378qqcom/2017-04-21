@@ -97,6 +97,7 @@
                     android:background="@drawable/textview_fillet_bg"
                     android:ellipsize="end"
                     android:padding="2dp"
+                    android:textColor="@color/umiwi_red"
                     android:singleLine="true"
                     android:text="17小时前更新"
                     android:textSize="12sp" />

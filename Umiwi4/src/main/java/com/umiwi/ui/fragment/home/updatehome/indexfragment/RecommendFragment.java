@@ -43,9 +43,7 @@ import com.umiwi.ui.fragment.course.CourseDetailPlayFragment;
 import com.umiwi.ui.fragment.home.recommend.widget.ExpertRecLayoutView;
 import com.umiwi.ui.fragment.home.recommend.widget.FreeLayoutView;
 import com.umiwi.ui.fragment.home.recommend.widget.HotVideoLayout;
-import com.umiwi.ui.fragment.home.recommend.widget.LineActionLayoutViwe;
 import com.umiwi.ui.fragment.home.recommend.widget.PaySelectedLayoutViwe;
-import com.umiwi.ui.fragment.home.recommend.widget.RecommentBottomLayoutView;
 import com.umiwi.ui.http.parsers.ADParser;
 import com.umiwi.ui.http.parsers.CourseListParser;
 import com.umiwi.ui.main.BaseConstantFragment;
@@ -107,12 +105,12 @@ public class RecommendFragment extends BaseConstantFragment {
     private FreeLayoutView flv_new_free;
     private HotVideoLayout hot_video_layout;
     private ExpertRecLayoutView erl_expert_rec;
-    private LineActionLayoutViwe lalv_action_line;
+//    private LineActionLayoutViwe lalv_action_line;
 //    private ExpertAnswerLayoutViwe ealv_expert_answer;
 //    private BigShotLayoutView bslv_big_shot;
 //    private ExpertAnswerDwonLayoutViwe eadlv_expert_answer;
     private PaySelectedLayoutViwe pslv_pay_selected;
-    private RecommentBottomLayoutView rblv_bottom;
+//    private RecommentBottomLayoutView rblv_bottom;
     private ArrayList<NewFree> mList;
     private LinearLayout ll_point;
 
@@ -189,7 +187,6 @@ public class RecommendFragment extends BaseConstantFragment {
         if (mLunboList.size() > 1) {
             mHandler.sendEmptyMessageDelayed(SHOW_NEXT, 5000);
         }
-
         return view;
     }
 
@@ -201,12 +198,12 @@ public class RecommendFragment extends BaseConstantFragment {
         hot_video_layout = (HotVideoLayout) v.findViewById(R.id.hot_video_layout);
         //现在改为音频专题
         erl_expert_rec = (ExpertRecLayoutView) v.findViewById(R.id.erl_expert_rec);
-        lalv_action_line = (LineActionLayoutViwe) v.findViewById(R.id.lalv_action_line);
+//        lalv_action_line = (LineActionLayoutViwe) v.findViewById(lalv_action_line);
 //        ealv_expert_answer = (ExpertAnswerLayoutViwe) v.findViewById(R.id.eav_expert_answer);
 //        bslv_big_shot = (BigShotLayoutView) v.findViewById(R.id.bslv_big_shot);
 //        eadlv_expert_answer = (ExpertAnswerDwonLayoutViwe) v.findViewById(eadlv_expert_answer);
         pslv_pay_selected = (PaySelectedLayoutViwe) v.findViewById(R.id.pslv_pay_selected);
-        rblv_bottom = (RecommentBottomLayoutView) v.findViewById(R.id.rblv_bottom);
+//        rblv_bottom = (RecommentBottomLayoutView) v.findViewById(R.id.rblv_bottom);
     }
 
     /**
@@ -237,12 +234,12 @@ public class RecommendFragment extends BaseConstantFragment {
                 flv_new_free.setData(t.getR().getFree(), t.getR().getSec_free_title(), t.getR().getSec_free_huan(),t.getR().getSec_free_huanurl());
                 hot_video_layout.setData(t.getR().getHotvideo());
                 erl_expert_rec.setData(t.getR().getTutor(), t.getR().getSec_tutor_title(), t.getR().getSec_tutor_more());
-                lalv_action_line.setData(t.getR().getHuodong(), t.getR().getSec_huodong_title());
+//                lalv_action_line.setData(t.getR().getHuodong(), t.getR().getSec_huodong_title());
 //                ealv_expert_answer.setData(t.getR().getAsktutor(), t.getR().getSec_ask_title(), t.getR().getSec_ask_more());
 //                bslv_big_shot.setData(NewHomeRecommendFragment.getRootViewpager(), sc_recomment_root, t.getR().getDalao(), t.getR().getSec_dalao_title());
 //                eadlv_expert_answer.setData(t.getR().getQuestion(), t.getR().getSec_ask_quick());
                 pslv_pay_selected.setData(t.getR().getCharge().getRecord(), t.getR().getSec_charge_title(), t.getR().getSec_charge_huan(),t.getR().getSec_charge_huanurl(),t.getR().getCharge().getPage().getTotalpage());
-                rblv_bottom.setData(getActivity(), t.getR().getBottom());
+//                rblv_bottom.setData(getActivity(), t.getR().getBottom());
             }
 
         }
