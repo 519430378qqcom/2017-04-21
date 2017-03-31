@@ -268,8 +268,10 @@ public class WorkPlaceFragment extends BaseConstantFragment {
         //priceListId.add("diamond");
 
         orderbyList.add("最热");
+        orderbyList.add("免费");
         orderbyList.add("价格");
         orderbyListId.add("watchnum");
+        orderbyListId.add("free");
         orderbyListId.add("price");
 
     }

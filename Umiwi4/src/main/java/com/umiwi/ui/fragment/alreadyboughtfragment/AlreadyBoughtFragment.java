@@ -15,6 +15,7 @@ import com.umiwi.ui.R;
 import com.umiwi.ui.fragment.home.alreadyshopping.BuyCoumnFragment;
 import com.umiwi.ui.fragment.home.alreadyshopping.NewVideoFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.AudioFragment;
+import com.umiwi.ui.fragment.home.updatehome.indexfragment.BuySpecialFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 
 import java.util.ArrayList;
@@ -35,6 +36,8 @@ public class AlreadyBoughtFragment extends BaseConstantFragment {
     TextView abVideo;
     @InjectView(R.id.ab_tab_column)
     TextView abColumn;
+    @InjectView(R.id.ab_tab_special)
+    TextView abspecial;
 //    @InjectView(R.id.ab_tab_ask_hear)
 //    TextView abAskHear;
     @InjectView(R.id.ab_line)
@@ -69,6 +72,7 @@ public class AlreadyBoughtFragment extends BaseConstantFragment {
         ViewPropertyAnimator.animate(abVideo).scaleX(1.0f).setDuration(0);
         ViewPropertyAnimator.animate(abColumn).scaleX(1.0f).setDuration(0);
 //        ViewPropertyAnimator.animate(abAskHear).scaleX(1.0f).setDuration(0);
+        ViewPropertyAnimator.animate(abspecial).scaleX(1.0f).setDuration(0);
 
         fragments = new ArrayList<Fragment>();
 //        fragments.add(new ColumnFragment());
@@ -76,11 +80,12 @@ public class AlreadyBoughtFragment extends BaseConstantFragment {
         fragments.add(new NewVideoFragment());
         fragments.add(new BuyCoumnFragment());
 //        fragments.add(new AskHearFragment());
+        fragments.add(new BuySpecialFragment());
 
         line_width = getActivity().getWindowManager().getDefaultDisplay().getWidth()/fragments.size();
-        ab_line.getLayoutParams().width = line_width-100;
+        ab_line.getLayoutParams().width = line_width-80;
         ab_line.requestLayout();
-        viewPager.setOffscreenPageLimit(2);
+        viewPager.setOffscreenPageLimit(3);
         viewPager.setCurrentItem(0);
         viewPager.setAdapter(new FragmentStatePagerAdapter(getChildFragmentManager()) {
             @Override
@@ -99,7 +104,7 @@ public class AlreadyBoughtFragment extends BaseConstantFragment {
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
                 float tagerX = position * line_width + positionOffsetPixels / fragments.size();
-                ViewPropertyAnimator.animate(ab_line).translationX(tagerX+50).setDuration(0);
+                ViewPropertyAnimator.animate(ab_line).translationX(tagerX+40).setDuration(0);
             }
 
             @Override
@@ -138,6 +143,12 @@ public class AlreadyBoughtFragment extends BaseConstantFragment {
 //                viewPager.setCurrentItem(3);
 //            }
 //        });
+        abspecial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewPager.setCurrentItem(3);
+            }
+        });
 
 
     }
@@ -148,6 +159,9 @@ public class AlreadyBoughtFragment extends BaseConstantFragment {
             abVideo.setTextColor(getResources().getColor(R.color.black));
             abColumn.setTextColor(getResources().getColor(R.color.black));
 //            abAskHear.setTextColor(getResources().getColor(R.color.black));
+            abspecial.setTextColor(getResources().getColor(R.color.black));
+            ViewPropertyAnimator.animate(abspecial).scaleX(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(abspecial).scaleY(1.0f).setDuration(200);
 
             ViewPropertyAnimator.animate(abAudio).scaleX(1.1f).setDuration(200);
             ViewPropertyAnimator.animate(abAudio).scaleY(1.1f).setDuration(200);
@@ -167,7 +181,10 @@ public class AlreadyBoughtFragment extends BaseConstantFragment {
             abVideo.setTextColor(getResources().getColor(R.color.main_color));
             abColumn.setTextColor(getResources().getColor(R.color.black));
 //            abAskHear.setTextColor(getResources().getColor(R.color.black));
+            abspecial.setTextColor(getResources().getColor(R.color.black));
 
+            ViewPropertyAnimator.animate(abspecial).scaleX(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(abspecial).scaleY(1.0f).setDuration(200);
 
 
             ViewPropertyAnimator.animate(abAudio).scaleX(1.0f).setDuration(200);
@@ -187,7 +204,10 @@ public class AlreadyBoughtFragment extends BaseConstantFragment {
             abVideo.setTextColor(getResources().getColor(R.color.black));
             abColumn.setTextColor(getResources().getColor(R.color.main_color));
 //            abAskHear.setTextColor(getResources().getColor(R.color.black));
+            abspecial.setTextColor(getResources().getColor(R.color.black));
 
+            ViewPropertyAnimator.animate(abspecial).scaleX(1.0f).setDuration(200);
+            ViewPropertyAnimator.animate(abspecial).scaleY(1.0f).setDuration(200);
 
 
 
@@ -209,7 +229,10 @@ public class AlreadyBoughtFragment extends BaseConstantFragment {
             abVideo.setTextColor(getResources().getColor(R.color.black));
             abColumn.setTextColor(getResources().getColor(R.color.black));
 //            abAskHear.setTextColor(getResources().getColor(R.color.main_color));
+            abspecial.setTextColor(getResources().getColor(R.color.main_color));
 
+            ViewPropertyAnimator.animate(abspecial).scaleX(1.1f).setDuration(200);
+            ViewPropertyAnimator.animate(abspecial).scaleY(1.1f).setDuration(200);
 
 
             ViewPropertyAnimator.animate(abAudio).scaleX(1.0f).setDuration(200);
