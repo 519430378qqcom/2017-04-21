@@ -49,6 +49,7 @@ import cn.youmi.framework.manager.ModelManager;
 import cn.youmi.framework.util.ImageLoader;
 import cn.youmi.framework.view.CircleImageView;
 
+
 /**
  * Created by Administrator on 2017/3/3.
  */
@@ -456,10 +457,18 @@ public class NewMineFragment extends BaseConstantFragment implements ActivityCom
                             itemContent.setTextColor(getActivity().getResources().getColor(R.color.umiwi_red));
                         }
                         if(position == 6){
-                            itemContent.setText("0.0");
-                            itemContent.setTextColor(getActivity().getResources().getColor(R.color.main_color));
-                            if(balance != null && balance != ""){
 
+                            itemContent.setTextColor(getActivity().getResources().getColor(R.color.main_color));
+                            if (YoumiRoomUserManager.getInstance().isLogin() && !TextUtils.isEmpty(YoumiRoomUserManager.getInstance().getUser().getBalance())) {
+                                //已登录
+                                balance = YoumiRoomUserManager.getInstance().getUser().getBalance();
+                                if(balance != null && balance != ""){
+                                    double v = Double.parseDouble(balance)/100;
+                                    itemContent.setText(v + "");
+                                }
+                            } else {
+                                //未登录
+                                itemContent.setText("0.0");
                             }
                         }
                     }
