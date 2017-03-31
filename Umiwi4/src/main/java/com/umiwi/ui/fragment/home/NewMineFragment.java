@@ -21,6 +21,7 @@ import com.umeng.analytics.MobclickAgent;
 import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.event.NoticeEvent;
+import com.umiwi.ui.fragment.OfflineActivityFragment;
 import com.umiwi.ui.fragment.WebFragment;
 import com.umiwi.ui.fragment.down.DownloadedListFragment;
 import com.umiwi.ui.fragment.mine.EnshrineListFragment;
@@ -47,8 +48,6 @@ import cn.youmi.account.model.UserModel;
 import cn.youmi.framework.manager.ModelManager;
 import cn.youmi.framework.util.ImageLoader;
 import cn.youmi.framework.view.CircleImageView;
-
-import static com.umiwi.ui.R.id.myinfo_tv_info;
 
 /**
  * Created by Administrator on 2017/3/3.
@@ -97,45 +96,51 @@ public class NewMineFragment extends BaseConstantFragment implements ActivityCom
                     case 0:
                         intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, UserSettingFragment.class);
                         break;
-                    case 2://意见
+                    case 2://签到
+                        intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, WebFragment.class);
+                        intent.putExtra(WebFragment.WEB_URL, UmiwiAPI.LOTTERY);
+                        break;
+                    case 3://意见
                         intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, FeedbackFragment.class);
                         break;
-                    case 4://积分
+                    case 5://积分
                         intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, WebFragment.class);
                         intent.putExtra(WebFragment.WEB_URL, UmiwiAPI.INTEGRAL);
                         isWebNotice = true;
                         break;
-                    case 5://余额
+                    case 6://余额
                         intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, PayRechargeFragment.class);
                         break;
-                    case 7://私信
-                        intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, MyMessageFragment.class);
+                    case 8://下载
+                        intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, DownloadedListFragment.class);
+
                         break;
-                    case 8://学习周报
-                        intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, WebFragment.class);
-                        intent.putExtra(WebFragment.WEB_URL, UmiwiAPI.WEEK_REPORT);
+                    case 9://浏览记录
+                        intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, RecentPlayRecordFragment.class);
+//                        intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, WebFragment.class);
+//                        intent.putExtra(WebFragment.WEB_URL, UmiwiAPI.WEEK_REPORT);
                         break;
 //                    case 10://我答
 //                        intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, MyAnswerFragment.class);
 //                        break;
-                    case 10://下载
-                        intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, DownloadedListFragment.class);
-                        break;
-                    case 11://浏览记录
-                        intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, RecentPlayRecordFragment.class);
-//                        intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, RecordFragment.class);
-                        break;
-                    case 12://我的收藏
+                    case 10://收藏
                         intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, EnshrineListFragment.class);
-//                        intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, MyFavListFragment.class);
                         break;
-                    case 14://优惠券
+
+                    case 12://私信
+//                        intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, MyFavListFragment.class);
+                        intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, MyMessageFragment.class);
+                        break;
+                    case 13://热门活动
+                        intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, OfflineActivityFragment.class);
+                        break;
+                    case 15://优惠券
                         intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, MyCouponFragment.class);
                         break;
-                    case 15://开卡
+                    case 16://开卡
                         intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, MyCardFragment.class);
                         break;
-                    case 16://设置
+                    case 17://设置
                         intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, SettingFragment.class);
                         break;
                 }
@@ -307,10 +312,17 @@ public class NewMineFragment extends BaseConstantFragment implements ActivityCom
 
         }
         mlist.add(new NewMineFragment.MineItem(true));
+        mlist.add(new NewMineFragment.MineItem(R.drawable.sing_in,R.drawable.category_hot,"","签到",""));
         mlist.add(new NewMineFragment.MineItem(R.drawable.feed_back, R.drawable.category_hot, "", "意见反馈", ""));
         mlist.add(new NewMineFragment.MineItem(true));
-        mlist.add(new NewMineFragment.MineItem(R.drawable.integral, R.drawable.category_hot, "", "积分", ""));
+        mlist.add(new NewMineFragment.MineItem(R.drawable.available_integral, R.drawable.category_hot, "", "积分", ""));
         mlist.add(new NewMineFragment.MineItem(R.drawable.balance, R.drawable.category_hot, "", "我的余额", "0.0"));
+        mlist.add(new NewMineFragment.MineItem(true));
+
+//        mlist.add(new NewMineFragment.MineItem(R.drawable.answer, R.drawable.category_hot, "", "我答", ""));
+        mlist.add(new NewMineFragment.MineItem(R.drawable.download, R.drawable.category_hot, "", "下载", ""));
+        mlist.add(new NewMineFragment.MineItem(R.drawable.history, R.drawable.category_hot, "", "浏览记录", ""));
+        mlist.add(new NewMineFragment.MineItem(R.drawable.favorite, R.drawable.category_hot, "", "我的收藏", ""));
         mlist.add(new NewMineFragment.MineItem(true));
         mlist.add(new NewMineFragment.MineItem(R.drawable.mine_message, R.drawable.category_hot, "", "我的私信", ""));
 //        if (Integer.valueOf(noticeModel.getMessage()) > 0) {
@@ -318,12 +330,8 @@ public class NewMineFragment extends BaseConstantFragment implements ActivityCom
 //        } else {
 //            mlist.add(new NewMineFragment.MineItem(R.drawable.mine_message, R.drawable.category_hot, "", "我的私信", ""));
 //        }
-        mlist.add(new NewMineFragment.MineItem(R.drawable.study, R.drawable.category_hot, "", "我的学习周报", ""));
-        mlist.add(new NewMineFragment.MineItem(true));
-//        mlist.add(new NewMineFragment.MineItem(R.drawable.answer, R.drawable.category_hot, "", "我答", ""));
-        mlist.add(new NewMineFragment.MineItem(R.drawable.download, R.drawable.category_hot, "", "下载", ""));
-        mlist.add(new NewMineFragment.MineItem(R.drawable.history, R.drawable.category_hot, "", "浏览记录", ""));
-        mlist.add(new NewMineFragment.MineItem(R.drawable.favorite, R.drawable.category_hot, "", "我的收藏", ""));
+//        mlist.add(new NewMineFragment.MineItem(R.drawable.study, R.drawable.category_hot, "", "我的学习周报", ""));
+        mlist.add(new NewMineFragment.MineItem(R.drawable.hot_events, R.drawable.category_hot, "", "热门活动", ""));
         mlist.add(new NewMineFragment.MineItem(true));
         mlist.add(new NewMineFragment.MineItem(R.drawable.mine_discount, R.drawable.category_hot, "", "我的优惠券", ""));
         mlist.add(new NewMineFragment.MineItem(R.drawable.mine_card, R.drawable.category_hot, "", "开卡/兑换课程", ""));
@@ -433,7 +441,7 @@ public class NewMineFragment extends BaseConstantFragment implements ActivityCom
                         ImageView icon = (ImageView) convertView.findViewById(R.id.icon_iv);
                         ImageView itemImage = (ImageView) convertView.findViewById(R.id.myinfo_iv_);
                         TextView itemTitle = (TextView) convertView.findViewById(R.id.myinfo_tv_title);
-                        TextView itemContent = (TextView) convertView.findViewById(myinfo_tv_info);
+                        TextView itemContent = (TextView) convertView.findViewById(R.id.myinfo_tv_info);
                         TextView itemMoney = (TextView) convertView.findViewById(R.id.myinfo_tv_money);
                         icon.setImageResource(categoryItem.iconId);
                         if (categoryItem.imageResourseId != 0) {
@@ -447,9 +455,11 @@ public class NewMineFragment extends BaseConstantFragment implements ActivityCom
                         if (position == 9) {
                             itemContent.setTextColor(getActivity().getResources().getColor(R.color.umiwi_red));
                         }
-                        if(position == 5){
+                        if(position == 6){
+                            itemContent.setText("0.0");
+                            itemContent.setTextColor(getActivity().getResources().getColor(R.color.main_color));
                             if(balance != null && balance != ""){
-                                itemContent.setText(balance);
+
                             }
                         }
                     }

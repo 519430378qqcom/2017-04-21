@@ -17,6 +17,7 @@ import com.umeng.analytics.MobclickAgent;
 import com.umiwi.ui.R;
 import com.umiwi.ui.fragment.alreadyboughtfragment.AlreadyBoughtFragment;
 import com.umiwi.ui.fragment.home.updatehome.NewHomeRecommendFragment;
+import com.umiwi.ui.fragment.home.updatehome.indexfragment.OldYoumiFragment;
 import com.umiwi.ui.managers.YoumiRoomUserManager;
 import com.umiwi.ui.util.LoginUtil;
 import com.umiwi.ui.view.SmartTabLayout;
@@ -83,8 +84,8 @@ public class ContainerFragment extends BaseFragment {
         pages.add(FragmentPagerItem.of("首页", NewHomeRecommendFragment.class));
 //		pages.add(FragmentPagerItem.of("分类",StageSectionCategoryFragment.class));
         pages.add(FragmentPagerItem.of("已购", AlreadyBoughtFragment.class));
-        pages.add(FragmentPagerItem.of("发现", DiscoveryFragment.class));
-//        pages.add(FragmentPagerItem.of("发现", OldYoumiFragment.class));
+//        pages.add(FragmentPagerItem.of("发现", DiscoveryFragment.class));
+        pages.add(FragmentPagerItem.of("发现", OldYoumiFragment.class));
 //		pages.add(FragmentPagerItem.of("我的",MineFragment.class));
         pages.add(FragmentPagerItem.of("我的", NewMineFragment.class));
 
