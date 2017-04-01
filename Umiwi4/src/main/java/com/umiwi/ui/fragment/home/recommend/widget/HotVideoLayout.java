@@ -99,7 +99,6 @@ public class HotVideoLayout extends LinearLayout {
                 mList.clear();
                 mList.addAll(hotVideoChangeBean.getR().getRecord());
                 hotVideoAdapter.notifyDataSetChanged();
-
             }
 
             @Override

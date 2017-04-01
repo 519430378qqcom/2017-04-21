@@ -5,6 +5,7 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:visibility="visible"
         android:id="@+id/ll_visiable_or"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -13,7 +14,6 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/Index_backg" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -164,7 +164,8 @@
     <com.umiwi.ui.view.RefreshLayout
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <ListView
             android:divider="@null"

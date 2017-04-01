@@ -241,7 +241,7 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
         View tabLayout = rootView.findViewById(R.id.tab_layout);
 
         mLoadingFooter = new LoadingFooter(getActivity());// 加载更多的view
-        mScrollLoader = new ListViewQuickReturnScrollLoader(QuickReturnViewType.FOOTER, null, 0, bottomBarLayout, bottomHeight, this, mLoadingFooter);
+        mScrollLoader = new ListViewQuickReturnScrollLoader(QuickReturnViewType.FOOTER, null, 0, bottomBarLayout, bottomHeight,this, mLoadingFooter);
 
         mListView.setAdapter(mAdapter);
         mListView.setOnScrollListener(mScrollLoader);

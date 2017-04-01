@@ -8,8 +8,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -36,13 +41,14 @@ import butterknife.InjectView;
 import cn.youmi.framework.http.AbstractRequest;
 import cn.youmi.framework.http.GetRequest;
 import cn.youmi.framework.http.parsers.GsonParser;
+import cn.youmi.framework.util.ListViewQuickReturnScrollLoader;
 import cn.youmi.framework.util.ToastU;
 
 /**
  * Created by shang on 2017/3/13.
  * Detail:音频
  */
-public class HomeAudioFragment extends BaseConstantFragment {
+public class HomeAudioFragment extends BaseConstantFragment implements ListViewQuickReturnScrollLoader.QuickReturnOnScrollLoader {
     @InjectView(R.id.listview)
     ListView listview;
     @InjectView(R.id.refreshLayout)
@@ -66,8 +72,8 @@ public class HomeAudioFragment extends BaseConstantFragment {
     @InjectView(R.id.flow_orderby)
     FlowLayout flow_orderby;
 
-    @InjectView(R.id.ll_visiable_or)
-    LinearLayout ll_visiable_or;
+//    @InjectView(R.id.ll_visiable_or)
+//    LinearLayout ll_visiable_or;
 
     private int page = 1;
     private int totalpage = 1;
@@ -96,16 +102,22 @@ public class HomeAudioFragment extends BaseConstantFragment {
     private float mCurrentY;
     private int direction;
     private ObjectAnimator animator;
+    private int height;
+    private int width;
+    private ListViewQuickReturnScrollLoader mScrollLoader;
+    private LinearLayout ll_visiable_or;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home_audio_layout, null);
         ButterKnife.inject(this, view);
+        ll_visiable_or = (LinearLayout) view.findViewById(R.id.ll_visiable_or);
         mContext = getActivity();
         initRefreshLayout();
         alreadyVoiceAdapter = new AlreadyVoiceAdapter(getActivity());
         alreadyVoiceAdapter.setData(recordList);
+
         listview.setAdapter(alreadyVoiceAdapter);
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -127,71 +139,112 @@ public class HomeAudioFragment extends BaseConstantFragment {
         initFlowOrderby();
 //        initScrollView();
 
-
         return view;
     }
 
-//    private void initScrollView() {
-//        //最小滑动距离
-//        touchSlop = ViewConfiguration.get(mContext).getScaledTouchSlop();
-//
-//        int w = View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);
-//        int h = View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);
-//        ll_visiable_or.measure(w,h);
-//        int measuredHeight = ll_visiable_or.getMeasuredHeight();
-//        int measuredWidth = ll_visiable_or.getMeasuredWidth();
-//        Log.e("measuredHeight", "measuredHeight=" + measuredHeight);
-////        ll_visiable_or.setLayoutParams(new AbsListView.LayoutParams(measuredWidth,measuredHeight));
-//        listview.addHeaderView(ll_visiable_or);
-//
-////        listview.setOnTouchListener(mOnTouchListener);
-//    }
-//
-//    private boolean mShow = false;
-//    private View.OnTouchListener mOnTouchListener = new View.OnTouchListener() {
-//        @Override
-//        public boolean onTouch(View v, MotionEvent event) {
-//            switch (event.getAction()) {
-//                case MotionEvent.ACTION_DOWN :
-//                    mFirstY = event.getY();
-//
-//                    break;
-//                case MotionEvent.ACTION_MOVE:
-//                    mCurrentY = event.getY();
-//                    if(mCurrentY - mFirstY > touchSlop) {
-//                       direction = 0;//down
-//                    }else if(mFirstY - mCurrentY > touchSlop) {
-//                        direction = 1;//up
-//                    }
-//                    if(direction == 1) {
-//                        if(mShow) {
-//                            showAnim(1);
-//                            mShow = !mShow;
-//                        }
-//                    }else if(direction == 0) {
-//                        if(!mShow) {
-//                            showAnim(0);
-//                            mShow = !mShow;
-//                        }
-//                    }
-//                    break;
-//            }
-//            return false;
-//        }
-//    };
-//
-//    private void showAnim(int flag) {
+    private void initScrollView() {
+        //最小滑动距离
+        touchSlop = ViewConfiguration.get(mContext).getScaledTouchSlop();
+        int w = View.MeasureSpec.makeMeasureSpec(0,
+                View.MeasureSpec.UNSPECIFIED);
+        int h = View.MeasureSpec.makeMeasureSpec(0,
+                View.MeasureSpec.UNSPECIFIED);
+        ll_visiable_or.measure(w, h);
+        int height = ll_visiable_or.getMeasuredHeight();
+        int width = ll_visiable_or.getMeasuredWidth();
+        Log.e("TAG", "height=" + height + ",width=" + width);
+
+        listview.setOnTouchListener(mOnTouchListener);
+    }
+
+    private boolean mShow = false;
+    private View.OnTouchListener mOnTouchListener = new View.OnTouchListener() {
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN :
+                    mFirstY = event.getY();
+
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    mCurrentY = event.getY();
+                    if(mCurrentY - mFirstY > touchSlop) {
+                       direction = 0;//down
+
+                    }else if(mFirstY - mCurrentY > touchSlop) {
+                        direction = 1;//up
+
+                    }
+                    if(direction == 1) {
+                        if(mShow) {
+                            showAnim(1);
+                            mShow = !mShow;
+                        }
+                    }else if(direction == 0) {
+                        if(!mShow) {
+                            showAnim(0);
+                            mShow = !mShow;
+                        }
+                    }
+                    break;
+            }
+            return false;
+        }
+    };
+    private void showAnim(int flag) {
 //        if(animator != null && animator.isRunning()) {
 //            animator.cancel();
 //        }
-//        if (flag == 0) {
+        if (flag == 0) {
 //            animator = ObjectAnimator.ofFloat(ll_visiable_or, "translationY", ll_visiable_or.getTranslationY(), 0);
-//        } else {
-//            animator = ObjectAnimator.ofFloat(ll_visiable_or,"translationY",ll_visiable_or.getTranslationY(),-ll_visiable_or.getHeight());
-//        }
-//        animator.setDuration(2000);
+            Animation animationOut = new TranslateAnimation(0,0,ll_visiable_or.getTranslationY(),0);
+            animationOut.setDuration(200);
+            animationOut.start();
+            animationOut.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    ll_visiable_or.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+
+        } else {
+            animator = ObjectAnimator.ofFloat(ll_visiable_or,"translationY",ll_visiable_or.getTranslationY(),-ll_visiable_or.getHeight());
+            Animation animationIn = new TranslateAnimation(0,0,ll_visiable_or.getTranslationY(),-ll_visiable_or.getHeight());
+            animationIn.setDuration(200);
+            animationIn.start();
+            animationIn.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    ll_visiable_or.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+
+        }
+//        animator.setDuration(200);
+//
 //        animator.start();
-//    }
+
+    }
 
     /**
      * 初始price和orderby数据
@@ -521,6 +574,11 @@ public class HomeAudioFragment extends BaseConstantFragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.reset(this);
+    }
+
+    @Override
+    public void customScrollStateChanged(AbsListView view, int scrollState) {
+
     }
 }
 
