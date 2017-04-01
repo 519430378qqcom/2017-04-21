@@ -36,6 +36,7 @@ public class ExpertRecAdapter extends BaseAdapter {
         mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
     }
 
+
     @Override
     public int getCount() {
         return mList == null ? 0 : mList.size();
