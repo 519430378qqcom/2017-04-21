@@ -1,5 +1,6 @@
 package com.umiwi.ui.fragment.home.updatehome.indexfragment;
 
+import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
@@ -12,8 +13,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
@@ -137,7 +136,7 @@ public class HomeAudioFragment extends BaseConstantFragment implements ListViewQ
         initFlowData();
         initFlowPrice();
         initFlowOrderby();
-//        initScrollView();
+        initScrollView();
 
         return view;
     }
@@ -145,15 +144,6 @@ public class HomeAudioFragment extends BaseConstantFragment implements ListViewQ
     private void initScrollView() {
         //最小滑动距离
         touchSlop = ViewConfiguration.get(mContext).getScaledTouchSlop();
-        int w = View.MeasureSpec.makeMeasureSpec(0,
-                View.MeasureSpec.UNSPECIFIED);
-        int h = View.MeasureSpec.makeMeasureSpec(0,
-                View.MeasureSpec.UNSPECIFIED);
-        ll_visiable_or.measure(w, h);
-        int height = ll_visiable_or.getMeasuredHeight();
-        int width = ll_visiable_or.getMeasuredWidth();
-        Log.e("TAG", "height=" + height + ",width=" + width);
-
         listview.setOnTouchListener(mOnTouchListener);
     }
 
@@ -192,58 +182,59 @@ public class HomeAudioFragment extends BaseConstantFragment implements ListViewQ
         }
     };
     private void showAnim(int flag) {
-//        if(animator != null && animator.isRunning()) {
-//            animator.cancel();
-//        }
+
+        if(animator != null && animator.isRunning()) {
+            animator.cancel();
+        }
         if (flag == 0) {
-//            animator = ObjectAnimator.ofFloat(ll_visiable_or, "translationY", ll_visiable_or.getTranslationY(), 0);
-            Animation animationOut = new TranslateAnimation(0,0,ll_visiable_or.getTranslationY(),0);
-            animationOut.setDuration(200);
-            animationOut.start();
-            animationOut.setAnimationListener(new Animation.AnimationListener() {
+            animator = ObjectAnimator.ofFloat(ll_visiable_or, "translationY", ll_visiable_or.getTranslationY(), 0);
+            animator.addListener(new Animator.AnimatorListener() {
                 @Override
-                public void onAnimationStart(Animation animation) {
+                public void onAnimationStart(Animator animation) {
 
                 }
 
                 @Override
-                public void onAnimationEnd(Animation animation) {
-                    ll_visiable_or.setVisibility(View.GONE);
-                }
-
-                @Override
-                public void onAnimationRepeat(Animation animation) {
-
-                }
-            });
-
-        } else {
-            animator = ObjectAnimator.ofFloat(ll_visiable_or,"translationY",ll_visiable_or.getTranslationY(),-ll_visiable_or.getHeight());
-            Animation animationIn = new TranslateAnimation(0,0,ll_visiable_or.getTranslationY(),-ll_visiable_or.getHeight());
-            animationIn.setDuration(200);
-            animationIn.start();
-            animationIn.setAnimationListener(new Animation.AnimationListener() {
-                @Override
-                public void onAnimationStart(Animation animation) {
-
-                }
-
-                @Override
-                public void onAnimationEnd(Animation animation) {
+                public void onAnimationEnd(Animator animation) {
                     ll_visiable_or.setVisibility(View.VISIBLE);
                 }
 
                 @Override
-                public void onAnimationRepeat(Animation animation) {
+                public void onAnimationCancel(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animation) {
 
                 }
             });
+        } else {
+            animator = ObjectAnimator.ofFloat(ll_visiable_or,"translationY",ll_visiable_or.getTranslationY(),-ll_visiable_or.getHeight());
+            animator.addListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animation) {
 
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    ll_visiable_or.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animation) {
+
+                }
+            });
         }
-//        animator.setDuration(200);
-//
-//        animator.start();
-
+        animator.setDuration(200);
+        animator.start();
     }
 
     /**
