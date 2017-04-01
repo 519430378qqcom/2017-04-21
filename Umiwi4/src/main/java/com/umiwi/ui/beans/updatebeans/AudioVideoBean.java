@@ -56,6 +56,16 @@ public class AudioVideoBean extends BaseGsonBeans {
         private String watchnum;
         @SerializedName("url")
         private String url;
+        @SerializedName("playtime")
+        private String playtime;
+
+        public String getPlaytime() {
+            return playtime;
+        }
+
+        public void setPlaytime(String playtime) {
+            this.playtime = playtime;
+        }
 
         public String getId() {
             return id;
@@ -123,6 +133,7 @@ public class AudioVideoBean extends BaseGsonBeans {
                     ", price='" + price + '\'' +
                     ", watchnum='" + watchnum + '\'' +
                     ", url='" + url + '\'' +
+                    ", playtime='" + playtime + '\'' +
                     '}';
         }
     }

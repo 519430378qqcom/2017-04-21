@@ -1,14 +1,18 @@
 package com.umiwi.ui.fragment.home.updatehome.indexfragment;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.os.RemoteException;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.umiwi.ui.R;
@@ -23,6 +27,7 @@ import com.umiwi.ui.fragment.home.alreadyshopping.LogicalThinkingFragment;
 import com.umiwi.ui.fragment.pay.PayingFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.UmiwiAPI;
+import com.umiwi.ui.main.UmiwiApplication;
 import com.umiwi.ui.managers.YoumiRoomUserManager;
 import com.umiwi.ui.util.LoginUtil;
 import com.umiwi.ui.view.NoScrollListview;
@@ -56,12 +61,13 @@ public class ColumnDetailsFragment extends BaseConstantFragment {
     private ImageView iv_image;
     private ImageView iv_back;
     private ImageView iv_shared;
-
+    private ImageView record;
     private NoScrollListview description;
     private NoScrollListview attention_listview;
     private NoScrollListview last_record;
 //    private ColumnDetailsBean columnDetailsBean;
     private AudioSpecialDetailsBean.RAudioSpecialDetails details;
+    private AnimationDrawable background;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -100,6 +106,7 @@ public class ColumnDetailsFragment extends BaseConstantFragment {
 
         iv_image = (ImageView) view.findViewById(R.id.iv_image);
         iv_back = (ImageView) view.findViewById(R.id.iv_back);
+        record = (ImageView) view.findViewById(R.id.record);
         iv_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -120,6 +127,55 @@ public class ColumnDetailsFragment extends BaseConstantFragment {
         description = (NoScrollListview) view. findViewById(R.id.description);
         attention_listview = (NoScrollListview) view. findViewById(R.id.attention_listview);
         last_record = (NoScrollListview) view. findViewById(R.id.last_record);
+        initMediaPlay();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(UmiwiApplication.mainActivity.service != null) {
+            background = (AnimationDrawable) record.getBackground();
+            try {
+                if (UmiwiApplication.mainActivity.service.isPlaying()) {
+                    background.start();
+                } else {
+                    background.stop();
+                }
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * 播放按钮
+     */
+    private void initMediaPlay() {
+        record.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (UmiwiApplication.mainActivity.service != null) {
+                    try {
+
+                        if (UmiwiApplication.mainActivity.service.isPlaying() || UmiwiApplication.mainActivity.isPause) {
+                            if (UmiwiApplication.mainActivity.herfUrl != null) {
+                                Log.e("TAG", "UmiwiApplication.mainActivity.herfUrl=" + UmiwiApplication.mainActivity.herfUrl);
+                                Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
+                                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
+                                intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL, UmiwiApplication.mainActivity.herfUrl);
+                                getActivity().startActivity(intent);
+                            }
+                        }
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Toast toast = Toast.makeText(getActivity(), "没有正在播放的音频", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER,0,0);
+                    toast.show();
+                }
+            }
+        });
     }
 
     private void getData() {

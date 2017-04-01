@@ -3,18 +3,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:orientation="horizontal">
 
         <ImageView
-            android:padding="5dp"
             android:id="@+id/back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="8dp"
+            android:padding="5dp"
             android:src="@drawable/back_audio_special" />
 
         <TextView
@@ -24,19 +25,20 @@
             android:text="所有专栏"
             android:textColor="@color/black"
             android:textSize="18sp" />
+
         <ImageView
             android:id="@+id/record"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="12dp"
-            android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12dp"
             android:adjustViewBounds="true"
             android:background="@drawable/anim_music"
-            android:clickable="true"
-             />
+            android:clickable="true" />
 
     </RelativeLayout>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="1px"
@@ -49,10 +51,10 @@
 
         <ListView
             android:id="@+id/listview"
-            android:divider="@null"
-            android:dividerHeight="0dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:divider="@null"
+            android:dividerHeight="0dp" />
 
     </com.umiwi.ui.view.RefreshLayout>
 </LinearLayout>

@@ -81,7 +81,7 @@ public class AudioVideoAdapter extends BaseAdapter {
             hoder.voice_img.setImageResource(R.drawable.default_voice);
         }
         Log.e("TAG", "record.getPrice()=" + raUdioVideo.getPrice());
-//        hoder.playtime.setText(raUdioVideo.getPlaytime());
+        hoder.playtime.setText(raUdioVideo.getPlaytime());
         hoder.watchnum.setText("播放"+raUdioVideo.getWatchnum()+"次");
 //        hoder.process.setText("已播"+record.getProcess());
         return view;

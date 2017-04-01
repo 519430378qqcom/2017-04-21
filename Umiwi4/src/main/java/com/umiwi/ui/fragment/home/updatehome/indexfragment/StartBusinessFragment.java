@@ -1,6 +1,7 @@
 package com.umiwi.ui.fragment.home.updatehome.indexfragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -8,13 +9,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.umiwi.ui.R;
+import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.updateadapter.AudioVideoAdapter;
 import com.umiwi.ui.beans.updatebeans.AudioVideoBean;
 import com.umiwi.ui.beans.updatebeans.RecommendBean;
+import com.umiwi.ui.fragment.course.CourseDetailPlayFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.view.FlowLayout;
@@ -83,6 +87,27 @@ public class StartBusinessFragment extends BaseConstantFragment {
         audioVideoAdapter = new AudioVideoAdapter(getActivity());
         audioVideoAdapter.setData(audioVideoList);
         listview.setAdapter(audioVideoAdapter);
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                AudioVideoBean.RAUdioVideo raUdioVideo = audioVideoList.get(position);
+                String type = raUdioVideo.getType();
+                if ("视频".equals(type)) {
+                    String hrefurl = raUdioVideo.getUrl();
+                    Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
+                    intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, CourseDetailPlayFragment.class);
+                    intent.putExtra(CourseDetailPlayFragment.KEY_DETAIURL, hrefurl);
+                    startActivity(intent);
+                } else {
+                    String hrefurl = raUdioVideo.getUrl();
+                    Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
+                    intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
+                    intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL, hrefurl);
+                    startActivity(intent);
+                }
+            }
+        });
+
         getCatidData();
 
         initFlowData();
