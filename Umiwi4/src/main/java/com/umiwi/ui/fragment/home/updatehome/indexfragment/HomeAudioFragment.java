@@ -14,7 +14,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -41,14 +40,13 @@ import butterknife.InjectView;
 import cn.youmi.framework.http.AbstractRequest;
 import cn.youmi.framework.http.GetRequest;
 import cn.youmi.framework.http.parsers.GsonParser;
-import cn.youmi.framework.util.ListViewQuickReturnScrollLoader;
 import cn.youmi.framework.util.ToastU;
 
 /**
  * Created by shang on 2017/3/13.
  * Detail:音频
  */
-public class HomeAudioFragment extends BaseConstantFragment implements ListViewQuickReturnScrollLoader.QuickReturnOnScrollLoader {
+public class HomeAudioFragment extends BaseConstantFragment {
     @InjectView(R.id.listview)
     ListView listview;
     @InjectView(R.id.refreshLayout)
@@ -104,7 +102,6 @@ public class HomeAudioFragment extends BaseConstantFragment implements ListViewQ
     private ObjectAnimator animator;
     private int height;
     private int width;
-    private ListViewQuickReturnScrollLoader mScrollLoader;
     private LinearLayout ll_visiable_or;
 
     @Nullable
@@ -538,11 +535,6 @@ public class HomeAudioFragment extends BaseConstantFragment implements ListViewQ
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.reset(this);
-    }
-
-    @Override
-    public void customScrollStateChanged(AbsListView view, int scrollState) {
-
     }
 }
 
