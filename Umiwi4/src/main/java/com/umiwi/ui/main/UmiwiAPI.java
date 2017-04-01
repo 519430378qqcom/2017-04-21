@@ -145,6 +145,10 @@ public final class UmiwiAPI {
      */
     public static final String VIDEO_TUIJIAN = "http://v.youmi.cn/api8/index";
     /**
+     * 精选专题
+     */
+    public static final String UMIWI_CHOICENESS = "http://v.youmi.cn/api8/Albumlist?p=%s";
+    /**
      * 热门视频
      */
     public static final String UMIWI_HOTVIDEO_HUAN = "http://api.v.youmi.cn/api8/hotvideo?p=%s";
@@ -471,6 +475,10 @@ public final class UmiwiAPI {
     public static final String REPING_BANG = "http://i.v.youmi.cn/api8/threadtop";
     //首页音频页面数据
     public static final String Login_Audio = "http://i.v.youmi.cn/api8/audiolist?p=%s&catid=%s&price=%s&orderby=%s";
+    /**
+     * 创业 职场 新趋势页面数据
+     */
+    public static final String UMIWI_BUS_WORK_TEND = "http://i.v.youmi.cn/api8/indexclass?p=%s&catid=%s&type=%s&price=%s&orderby=%s";
     //首页视频页面数据
     public static final String Login_Video = "http://i.v.youmi.cn/api8/videoindex";
     //首页音频分类

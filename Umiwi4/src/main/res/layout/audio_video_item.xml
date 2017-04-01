@@ -4,13 +4,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <View
-        android:id="@+id/view_firstvisable"
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="#adadad" />
+    <!--<View-->
+        <!--android:id="@+id/view_firstvisable"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1px"-->
+        <!--android:layout_marginLeft="10dp"-->
+        <!--android:layout_marginRight="10dp"-->
+        <!--android:background="@color/card_shadow" />-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -127,12 +127,12 @@
                         android:layout_toRightOf="@id/dian"
                         android:text="6次" />
 
-                    <TextView
-                        android:id="@+id/process"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:text="已播放" />
+                    <!--<TextView-->
+                    <!--android:id="@+id/process"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_alignParentRight="true"-->
+                    <!--android:text="已播放" />-->
                 </RelativeLayout>
             </LinearLayout>
 
@@ -147,5 +147,5 @@
         android:layout_height="1px"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:background="#adadad" />
+        android:background="@color/card_shadow" />
 </LinearLayout>
