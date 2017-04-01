@@ -43,6 +43,7 @@ import com.umiwi.ui.fragment.course.CourseDetailPlayFragment;
 import com.umiwi.ui.fragment.home.recommend.widget.ExpertRecLayoutView;
 import com.umiwi.ui.fragment.home.recommend.widget.FreeLayoutView;
 import com.umiwi.ui.fragment.home.recommend.widget.HotVideoLayout;
+import com.umiwi.ui.fragment.home.recommend.widget.LbumListLayoutview;
 import com.umiwi.ui.fragment.home.recommend.widget.PaySelectedLayoutViwe;
 import com.umiwi.ui.http.parsers.ADParser;
 import com.umiwi.ui.http.parsers.CourseListParser;
@@ -105,6 +106,7 @@ public class RecommendFragment extends BaseConstantFragment {
     private FreeLayoutView flv_new_free;
     private HotVideoLayout hot_video_layout;
     private ExpertRecLayoutView erl_expert_rec;
+    private LbumListLayoutview lbum_list_view;
 //    private LineActionLayoutViwe lalv_action_line;
 //    private ExpertAnswerLayoutViwe ealv_expert_answer;
 //    private BigShotLayoutView bslv_big_shot;
@@ -173,6 +175,7 @@ public class RecommendFragment extends BaseConstantFragment {
      * 付费精选：pay_selected_item_layout
      * 优米大咖：youmi_big_shot_item_layout
      * 线下活动：line_action_item_layout
+     * 精选专题：lbum_list_view
     */
 
     @Nullable
@@ -198,12 +201,14 @@ public class RecommendFragment extends BaseConstantFragment {
         hot_video_layout = (HotVideoLayout) v.findViewById(R.id.hot_video_layout);
         //现在改为音频专题
         erl_expert_rec = (ExpertRecLayoutView) v.findViewById(R.id.erl_expert_rec);
+
 //        lalv_action_line = (LineActionLayoutViwe) v.findViewById(lalv_action_line);
 //        ealv_expert_answer = (ExpertAnswerLayoutViwe) v.findViewById(R.id.eav_expert_answer);
 //        bslv_big_shot = (BigShotLayoutView) v.findViewById(R.id.bslv_big_shot);
 //        eadlv_expert_answer = (ExpertAnswerDwonLayoutViwe) v.findViewById(eadlv_expert_answer);
         pslv_pay_selected = (PaySelectedLayoutViwe) v.findViewById(R.id.pslv_pay_selected);
 //        rblv_bottom = (RecommentBottomLayoutView) v.findViewById(R.id.rblv_bottom);
+        lbum_list_view = (LbumListLayoutview) v.findViewById(R.id.lbum_list_view);
     }
 
     /**
@@ -214,7 +219,7 @@ public class RecommendFragment extends BaseConstantFragment {
     }
 
     /**
-     * indexAction : 首页（6.6.0ok）
+     * indexAction : 首页（6.8.0ok）
      */
     private void getIndexAction() {
         GetRequest<RecommendBean> request = new GetRequest<>(
@@ -240,6 +245,7 @@ public class RecommendFragment extends BaseConstantFragment {
 //                eadlv_expert_answer.setData(t.getR().getQuestion(), t.getR().getSec_ask_quick());
                 pslv_pay_selected.setData(t.getR().getCharge().getRecord(), t.getR().getSec_charge_title(), t.getR().getSec_charge_huan(),t.getR().getSec_charge_huanurl(),t.getR().getCharge().getPage().getTotalpage());
 //                rblv_bottom.setData(getActivity(), t.getR().getBottom());
+                lbum_list_view.setData(t.getR().getAlbumlist());
             }
 
         }

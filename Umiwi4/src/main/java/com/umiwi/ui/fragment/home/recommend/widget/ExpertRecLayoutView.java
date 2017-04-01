@@ -34,8 +34,8 @@ public class ExpertRecLayoutView extends LinearLayout {
     private TextView tv_tutor_title, tv_tutor_all,tv_audio_more;
     private ListView lv_home_expert_rec;
     private LinearLayout ll_expert_root;
-    private ExpertRecAdapter mExpertRecAdapter;
     private RelativeLayout rl_tutor_all;
+    private ExpertRecAdapter mExpertRecAdapter;
 
     private ArrayList<RecommendBean.RBean.TutorBean> mList;
 

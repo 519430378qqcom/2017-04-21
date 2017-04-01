@@ -135,7 +135,210 @@ public class RecommendBean extends BaseGsonBeans {
         private ArrayList<BottomBean> bottom;
         @SerializedName("tags")
         private ArrayList<TagsBean> tags;
+        @SerializedName("albumlist")
+        private AlbumListBean albumlist;
 
+        public AlbumListBean getAlbumlist() {
+            return albumlist;
+        }
+
+        public void setAlbumlist(AlbumListBean albumlist) {
+            this.albumlist = albumlist;
+        }
+
+        public static class AlbumListBean{
+            @SerializedName("page")
+            private AlbumListPage page;
+            @SerializedName("record")
+            private ArrayList<AlbumListRecord> record;
+
+            public AlbumListPage getPage() {
+                return page;
+            }
+
+            public void setPage(AlbumListPage page) {
+                this.page = page;
+            }
+
+            public ArrayList<AlbumListRecord> getRecord() {
+                return record;
+            }
+
+            public void setRecord(ArrayList<AlbumListRecord> record) {
+                this.record = record;
+            }
+
+            public static class AlbumListPage{
+                @SerializedName("currentpage")
+                private int currentpage;
+                @SerializedName("rows")
+                private String rows;
+                @SerializedName("totalpage")
+                private int totalpage;
+
+                public int getCurrentpage() {
+                    return currentpage;
+                }
+
+                public void setCurrentpage(int currentpage) {
+                    this.currentpage = currentpage;
+                }
+
+                public String getRows() {
+                    return rows;
+                }
+
+                public void setRows(String rows) {
+                    this.rows = rows;
+                }
+
+                public int getTotalpage() {
+                    return totalpage;
+                }
+
+                public void setTotalpage(int totalpage) {
+                    this.totalpage = totalpage;
+                }
+
+                @Override
+                public String toString() {
+                    return "AlbumListPage{" +
+                            "currentpage=" + currentpage +
+                            ", rows='" + rows + '\'' +
+                            ", totalpage=" + totalpage +
+                            '}';
+                }
+            }
+            public static class AlbumListRecord{
+                @SerializedName("id")
+                private String id;
+                @SerializedName("title")
+                private String title;
+                @SerializedName("shortcontent")
+                private String shortcontent;
+                @SerializedName("image")
+                private String image;
+                @SerializedName("watchnum")
+                private String watchnum;
+                @SerializedName("catname")
+                private String catname;
+                @SerializedName("onlinetime")
+                private String onlinetime;
+                @SerializedName("audiotitle")
+                private String audiotitle;
+                @SerializedName("price")
+                private String price;
+                @SerializedName("type")
+                private String type;
+                @SerializedName("isbuy")
+                private boolean isbuy;
+
+                public String getId() {
+                    return id;
+                }
+
+                public void setId(String id) {
+                    this.id = id;
+                }
+
+                public String getTitle() {
+                    return title;
+                }
+
+                public void setTitle(String title) {
+                    this.title = title;
+                }
+
+                public String getShortcontent() {
+                    return shortcontent;
+                }
+
+                public void setShortcontent(String shortcontent) {
+                    this.shortcontent = shortcontent;
+                }
+
+                public String getImage() {
+                    return image;
+                }
+
+                public void setImage(String image) {
+                    this.image = image;
+                }
+
+                public String getWatchnum() {
+                    return watchnum;
+                }
+
+                public void setWatchnum(String watchnum) {
+                    this.watchnum = watchnum;
+                }
+
+                public String getCatname() {
+                    return catname;
+                }
+
+                public void setCatname(String catname) {
+                    this.catname = catname;
+                }
+
+                public String getOnlinetime() {
+                    return onlinetime;
+                }
+
+                public void setOnlinetime(String onlinetime) {
+                    this.onlinetime = onlinetime;
+                }
+
+                public String getAudiotitle() {
+                    return audiotitle;
+                }
+
+                public void setAudiotitle(String audiotitle) {
+                    this.audiotitle = audiotitle;
+                }
+
+                public String getPrice() {
+                    return price;
+                }
+
+                public void setPrice(String price) {
+                    this.price = price;
+                }
+
+                public String getType() {
+                    return type;
+                }
+
+                public void setType(String type) {
+                    this.type = type;
+                }
+
+                public boolean isbuy() {
+                    return isbuy;
+                }
+
+                public void setIsbuy(boolean isbuy) {
+                    this.isbuy = isbuy;
+                }
+
+                @Override
+                public String toString() {
+                    return "AlbumListRecord{" +
+                            "id='" + id + '\'' +
+                            ", title='" + title + '\'' +
+                            ", shortcontent='" + shortcontent + '\'' +
+                            ", image='" + image + '\'' +
+                            ", watchnum='" + watchnum + '\'' +
+                            ", catname='" + catname + '\'' +
+                            ", onlinetime='" + onlinetime + '\'' +
+                            ", audiotitle='" + audiotitle + '\'' +
+                            ", price='" + price + '\'' +
+                            ", type='" + type + '\'' +
+                            ", isbuy=" + isbuy +
+                            '}';
+                }
+            }
+        }
         public ArrayList<TagsBean> getTags() {
             return tags;
         }

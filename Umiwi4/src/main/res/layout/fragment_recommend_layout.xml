@@ -35,9 +35,13 @@
                     android:layout_height="wrap_content" />
 
                 <include layout="@layout/include_view" />
+                <!--精选专题-->
+                <com.umiwi.ui.fragment.home.recommend.widget.LbumListLayoutview
+                    android:id="@+id/lbum_list_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
 
-
-
+                <include layout="@layout/include_view" />
 
                 <!--<com.umiwi.ui.fragment.home.recommend.widget.ExpertAnswerLayoutViwe-->
                     <!--android:id="@+id/eav_expert_answer"-->
