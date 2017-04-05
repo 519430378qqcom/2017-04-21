@@ -36,7 +36,7 @@
 
                 <include layout="@layout/include_view" />
                 <!--精选专题-->
-                <com.umiwi.ui.fragment.home.recommend.widget.LbumListLayoutview
+                <com.umiwi.ui.fragment.home.recommend.widget.lbumListLayoutview
                     android:id="@+id/lbum_list_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>

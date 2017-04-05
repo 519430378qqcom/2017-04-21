@@ -43,7 +43,7 @@ import com.umiwi.ui.fragment.course.CourseDetailPlayFragment;
 import com.umiwi.ui.fragment.home.recommend.widget.ExpertRecLayoutView;
 import com.umiwi.ui.fragment.home.recommend.widget.FreeLayoutView;
 import com.umiwi.ui.fragment.home.recommend.widget.HotVideoLayout;
-import com.umiwi.ui.fragment.home.recommend.widget.LbumListLayoutview;
+import com.umiwi.ui.fragment.home.recommend.widget.lbumListLayoutview;
 import com.umiwi.ui.fragment.home.recommend.widget.PaySelectedLayoutViwe;
 import com.umiwi.ui.http.parsers.ADParser;
 import com.umiwi.ui.http.parsers.CourseListParser;
@@ -106,7 +106,7 @@ public class RecommendFragment extends BaseConstantFragment {
     private FreeLayoutView flv_new_free;
     private HotVideoLayout hot_video_layout;
     private ExpertRecLayoutView erl_expert_rec;
-    private LbumListLayoutview lbum_list_view;
+    private lbumListLayoutview lbum_list_view;
 //    private LineActionLayoutViwe lalv_action_line;
 //    private ExpertAnswerLayoutViwe ealv_expert_answer;
 //    private BigShotLayoutView bslv_big_shot;
@@ -208,7 +208,7 @@ public class RecommendFragment extends BaseConstantFragment {
 //        eadlv_expert_answer = (ExpertAnswerDwonLayoutViwe) v.findViewById(eadlv_expert_answer);
         pslv_pay_selected = (PaySelectedLayoutViwe) v.findViewById(R.id.pslv_pay_selected);
 //        rblv_bottom = (RecommentBottomLayoutView) v.findViewById(R.id.rblv_bottom);
-        lbum_list_view = (LbumListLayoutview) v.findViewById(R.id.lbum_list_view);
+        lbum_list_view = (lbumListLayoutview) v.findViewById(R.id.lbum_list_view);
     }
 
     /**
