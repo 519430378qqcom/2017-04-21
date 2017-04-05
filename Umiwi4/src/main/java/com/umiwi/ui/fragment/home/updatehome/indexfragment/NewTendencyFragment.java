@@ -1,17 +1,24 @@
 package com.umiwi.ui.fragment.home.updatehome.indexfragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.umiwi.ui.R;
+import com.umiwi.ui.activity.UmiwiContainerActivity;
+import com.umiwi.ui.adapter.updateadapter.AudioVideoAdapter;
+import com.umiwi.ui.beans.updatebeans.AudioVideoBean;
 import com.umiwi.ui.beans.updatebeans.RecommendBean;
+import com.umiwi.ui.fragment.course.CourseDetailPlayFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.view.FlowLayout;
@@ -26,6 +33,8 @@ import cn.youmi.framework.http.AbstractRequest;
 import cn.youmi.framework.http.GetRequest;
 import cn.youmi.framework.http.parsers.GsonParser;
 import cn.youmi.framework.util.ToastU;
+
+import static com.umiwi.ui.R.id.price;
 
 /**
  * Created by Administrator on 2017/3/30 0030.
@@ -65,8 +74,8 @@ public class NewTendencyFragment extends BaseConstantFragment {
     private String type = "";
     private String orderby = "ctime";
     private ArrayList<RecommendBean.RBean.TagsBean.SubTagBean> mList = new ArrayList<>();
-
-
+    private ArrayList<AudioVideoBean.RAUdioVideo.AudioVideoList> audioVideoList = new ArrayList<>();
+    private AudioVideoAdapter audioVideoAdapter;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -74,15 +83,68 @@ public class NewTendencyFragment extends BaseConstantFragment {
         ButterKnife.inject(this,view);
         mContext = getActivity();
         initRefreshLayout();
-
-
+        audioVideoAdapter = new AudioVideoAdapter(getActivity());
+        audioVideoAdapter.setData(audioVideoList);
+        listview.setAdapter(audioVideoAdapter);
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                AudioVideoBean.RAUdioVideo.AudioVideoList audioVideoList = NewTendencyFragment.this.audioVideoList.get(position);
+                String type = audioVideoList.getType();
+                if ("视频".equals(type)) {
+                    String hrefurl = audioVideoList.getUrl();
+                    Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
+                    intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, CourseDetailPlayFragment.class);
+                    intent.putExtra(CourseDetailPlayFragment.KEY_DETAIURL, hrefurl);
+                    startActivity(intent);
+                } else {
+                    String hrefurl = audioVideoList.getUrl();
+                    Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
+                    intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
+                    intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL, hrefurl);
+                    startActivity(intent);
+                }
+            }
+        });
         getCatidData();
         initFlowData();
         initFlowPrice();
         initFlowOrderby();
-
+        getinfos();
         return view;
     }
+
+    //请求列表数据
+    private void getinfos() {
+        String url = String.format(UmiwiAPI.UMIWI_BUS_WORK_TEND, page, catid, type, price, orderby);
+        Log.e("TAG", "url12121=" + url);
+        GetRequest<AudioVideoBean> request = new GetRequest<AudioVideoBean>(url, GsonParser.class, AudioVideoBean.class, new AbstractRequest.Listener<AudioVideoBean>() {
+            @Override
+            public void onResult(AbstractRequest<AudioVideoBean> request, AudioVideoBean audioVideoBean) {
+                ArrayList<AudioVideoBean.RAUdioVideo.AudioVideoList> audioVideoLists = audioVideoBean.getR().getRecord();
+                if (isRefresh) {
+                    refreshLayout.setRefreshing(false);
+                    audioVideoList.clear();
+                } else {
+                    refreshLayout.setLoading(false);
+                }
+                audioVideoList.addAll(audioVideoLists);
+                audioVideoAdapter.setData(audioVideoList);
+                Log.e("TAG", "audioVideoBeanR=" + audioVideoLists.toString());
+            }
+
+            @Override
+            public void onError(AbstractRequest<AudioVideoBean> requet, int statusCode, String body) {
+                if (isRefresh) {
+                    refreshLayout.setRefreshing(false);
+                } else {
+                    refreshLayout.setLoading(false);
+                }
+            }
+        });
+        request.go();
+    }
+
 
     /**
      * 得到一级分类数据
@@ -138,7 +200,7 @@ public class NewTendencyFragment extends BaseConstantFragment {
                     catid1 = catid1ListId.get(finalI);
                     catid = catid1ListId.get(finalI);
                     isRefresh = true;
-//                    getinfos();
+                    getinfos();
                     for (int i = 0, j = catid1List.size(); i < j; i++) {
                         TextView tv = (TextView) flow_catid1.getChildAt(i);
                         tv.setTextColor(mContext.getResources().getColor(R.color.gray_a));
@@ -156,7 +218,7 @@ public class NewTendencyFragment extends BaseConstantFragment {
                 catid = "";
                 catid1 = "";
                 isRefresh = true;
-//                getinfos();
+                getinfos();
                 for (int i = 0, j = catid1List.size(); i < j; i++) {
                     TextView tv = (TextView) flow_catid1.getChildAt(i);
                     tv.setTextColor(mContext.getResources().getColor(R.color.gray_a));
@@ -184,7 +246,7 @@ public class NewTendencyFragment extends BaseConstantFragment {
                 public void onClick(View v) {
                     orderby = orderbyListId.get(finalI);
                     isRefresh = true;
-//                    getinfos();
+                    getinfos();
                     for (int i = 0, j = orderbyList.size(); i < j; i++) {
                         TextView tv = (TextView) flow_orderby.getChildAt(i);
                         tv.setTextColor(mContext.getResources().getColor(R.color.gray_a));
@@ -201,7 +263,7 @@ public class NewTendencyFragment extends BaseConstantFragment {
             public void onClick(View v) {
                 orderby = "ctime";
                 isRefresh = true;
-//                getinfos();
+                getinfos();
                 for (int i = 0, j = orderbyList.size(); i < j; i++) {
                     TextView tv = (TextView) flow_orderby.getChildAt(i);
                     tv.setTextColor(mContext.getResources().getColor(R.color.gray_a));
@@ -228,7 +290,7 @@ public class NewTendencyFragment extends BaseConstantFragment {
                 public void onClick(View v) {
                     type = priceListId.get(finalI);
                     isRefresh = true;
-//                    getinfos();
+                    getinfos();
                     for (int i = 0, j = priceList.size(); i < j; i++) {
                         TextView tv = (TextView) flow_price.getChildAt(i);
                         tv.setTextColor(mContext.getResources().getColor(R.color.gray_a));
@@ -245,7 +307,7 @@ public class NewTendencyFragment extends BaseConstantFragment {
             public void onClick(View v) {
                 type = "";
                 isRefresh = true;
-//                getinfos();
+                getinfos();
                 for (int i = 0, j = priceList.size(); i < j; i++) {
                     TextView tv = (TextView) flow_price.getChildAt(i);
                     tv.setTextColor(mContext.getResources().getColor(R.color.gray_a));
@@ -264,7 +326,7 @@ public class NewTendencyFragment extends BaseConstantFragment {
         priceList.add("视频");
         // priceList.add("钻石专享");
         priceListId.add("audio");
-        priceListId.add("video");
+        priceListId.add("album");
         //priceListId.add("diamond");
 
         orderbyList.add("最热");
@@ -272,7 +334,7 @@ public class NewTendencyFragment extends BaseConstantFragment {
         orderbyList.add("价格");
         orderbyListId.add("watchnum");
         orderbyListId.add("free");
-        orderbyListId.add("price");
+        orderbyListId.add("charge");
 
     }
     private void initRefreshLayout() {
@@ -286,7 +348,7 @@ public class NewTendencyFragment extends BaseConstantFragment {
                     refreshLayout.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-//                            getinfos();
+                            getinfos();
                         }
                     }, 1000);
 
@@ -303,7 +365,7 @@ public class NewTendencyFragment extends BaseConstantFragment {
             public void onRefresh() {
                 isRefresh = true;
                 page = 1;
-//                getinfos();
+                getinfos();
             }
         });
 

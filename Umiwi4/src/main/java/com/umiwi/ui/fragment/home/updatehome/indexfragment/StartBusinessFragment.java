@@ -74,7 +74,7 @@ public class StartBusinessFragment extends BaseConstantFragment {
     private String price = "";
     private String orderby = "ctime";
     private ArrayList<RecommendBean.RBean.TagsBean.SubTagBean> mList = new ArrayList<>();
-    ArrayList<AudioVideoBean.RAUdioVideo.AudioVideoList> audioVideoList = new ArrayList<>();
+    private ArrayList<AudioVideoBean.RAUdioVideo.AudioVideoList> audioVideoList = new ArrayList<>();
     private AudioVideoAdapter audioVideoAdapter;
 
     @Nullable
@@ -110,7 +110,7 @@ public class StartBusinessFragment extends BaseConstantFragment {
         });
 
         getCatidData();
-
+        getinfos();
         initFlowData();
         initFlowPrice();
         initFlowOrderby();
@@ -164,7 +164,6 @@ public class StartBusinessFragment extends BaseConstantFragment {
                         ArrayList<RecommendBean.RBean.TagsBean.SubTagBean> subtag = tagsBeen.get(i).getSubtag();
                         mList.addAll(subtag);
                         getCatid1Data();
-                        getinfos();
                     }
                 }
             }
@@ -340,7 +339,7 @@ public class StartBusinessFragment extends BaseConstantFragment {
         orderbyList.add("价格");
         orderbyListId.add("watchnum");
         orderbyListId.add("free");
-        orderbyListId.add("price");
+        orderbyListId.add("charge");
 
     }
 
