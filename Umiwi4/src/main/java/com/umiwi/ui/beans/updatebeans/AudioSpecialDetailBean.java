@@ -185,13 +185,13 @@ public class AudioSpecialDetailBean extends BaseGsonBeans {
                         '}';
             }
         }
-        public static class LastRecordList{
+        public static class LastRecordList implements Comparable{
             @SerializedName("id")
             private String id;
             @SerializedName("title")
             private String title;
             @SerializedName("isaudition")
-            private String isaudition;
+            private boolean isaudition;
             @SerializedName("onlinetime")
             private String onlinetime;
             @SerializedName("watchnum")
@@ -200,6 +200,7 @@ public class AudioSpecialDetailBean extends BaseGsonBeans {
             private String playtime;
             @SerializedName("url")
             private String url;
+
 
             public String getId() {
                 return id;
@@ -217,11 +218,11 @@ public class AudioSpecialDetailBean extends BaseGsonBeans {
                 this.title = title;
             }
 
-            public String getIsaudition() {
+            public boolean isaudition() {
                 return isaudition;
             }
 
-            public void setIsaudition(String isaudition) {
+            public void setIsaudition(boolean isaudition) {
                 this.isaudition = isaudition;
             }
 
@@ -268,6 +269,15 @@ public class AudioSpecialDetailBean extends BaseGsonBeans {
                         ", playtime='" + playtime + '\'' +
                         ", url='" + url + '\'' +
                         '}';
+            }
+
+            @Override
+            public int compareTo(Object another) {
+                if(another instanceof LastRecordList) {
+                    LastRecordList las = (LastRecordList) another;
+                    return -this.getOnlinetime().compareTo(las.getOnlinetime());
+                }
+                return 0;
             }
         }
 

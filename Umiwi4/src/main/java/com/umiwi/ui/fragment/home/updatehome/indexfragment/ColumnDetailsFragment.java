@@ -68,6 +68,7 @@ public class ColumnDetailsFragment extends BaseConstantFragment {
 //    private ColumnDetailsBean columnDetailsBean;
     private AudioSpecialDetailsBean.RAudioSpecialDetails details;
     private AnimationDrawable background;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
