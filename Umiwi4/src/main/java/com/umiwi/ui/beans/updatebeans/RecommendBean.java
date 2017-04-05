@@ -232,6 +232,16 @@ public class RecommendBean extends BaseGsonBeans {
                 private String type;
                 @SerializedName("isbuy")
                 private boolean isbuy;
+                @SerializedName("detailurl")
+                private String detailurl;
+
+                public String getDetailurl() {
+                    return detailurl;
+                }
+
+                public void setDetailurl(String detailurl) {
+                    this.detailurl = detailurl;
+                }
 
                 public String getId() {
                     return id;
@@ -335,6 +345,7 @@ public class RecommendBean extends BaseGsonBeans {
                             ", price='" + price + '\'' +
                             ", type='" + type + '\'' +
                             ", isbuy=" + isbuy +
+                            ", detailurl='" + detailurl + '\'' +
                             '}';
                 }
             }

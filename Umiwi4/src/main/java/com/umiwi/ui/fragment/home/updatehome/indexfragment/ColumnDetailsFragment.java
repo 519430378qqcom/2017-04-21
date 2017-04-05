@@ -228,58 +228,6 @@ public class ColumnDetailsFragment extends BaseConstantFragment {
             }
         });
         request.go();
-//        OkHttpUtils.get().url(columnurl).build().execute(new CustomStringCallBack() {
-//            @Override
-//            public void onFaild() {
-//                Log.e("data","失败");
-//            }
-//
-//            @Override
-//            public void onSucess(String data) {
-//                Log.e("data","请求数据成功"+data);
-//                if (!TextUtils.isEmpty(data)){
-//                    columnDetailsBean = JsonUtil.json2Bean(data, ColumnDetailsBean.class);
-//                    List<ColumnDetailsBean.ContentBean> content = columnDetailsBean.getContent();//详情简介
-//
-//                    description.setAdapter(new ColumnDetailsAdapter(getActivity(),content));
-//                    targetuser.setText(columnDetailsBean.getTargetuser());
-//                    attention_listview.setAdapter(new ColumnAttentionAdapter(getActivity(), columnDetailsBean.getAttention()));
-//                    last_record.setAdapter(new ColumnRecordAdapter(getActivity(), columnDetailsBean.getLast_record()));
-//
-//                    title.setText(columnDetailsBean.getTitle());
-////
-//
-//                    priceinfo.setText(columnDetailsBean.getPriceinfo());
-//                    shortcontent.setText(columnDetailsBean.getShortcontent());
-//
-//                    salenum.setText(columnDetailsBean.getSalenum());
-//
-//                    Glide.with(getActivity()).load(columnDetailsBean.getImage()).into(iv_image);
-//                    tv_name.setText(columnDetailsBean.getTutor_name());
-//                    tv_title.setText(columnDetailsBean.getTutor_title());
-////                    tv_prize.setText("订阅："+ columnDetailsBean.getPrice()+"元/年");
-//                    if (columnDetailsBean.isIsbuy()){
-//                        tv_free_read.setText("进入专栏");
-//                        tv_prize.setText("已订阅");
-//                        tv_prize.setEnabled(false);
-//                    }else {
-//                        tv_free_read.setText("免费阅读");
-//                        tv_prize.setEnabled(true);
-//                        tv_prize.setText(String.format("订阅:  %s元/年", columnDetailsBean.getPrice()));
-//                    }
-//                    tv_prize.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                            if (!YoumiRoomUserManager.getInstance().isLogin()) {
-//                                LoginUtil.getInstance().showLoginView(getActivity());
-//                                return;
-//                            }
-//                            getSubscriber(columnDetailsBean.getId());
-//                        }
-//                    });
-//                }
-//            }
-//        });
     }
 
     /**

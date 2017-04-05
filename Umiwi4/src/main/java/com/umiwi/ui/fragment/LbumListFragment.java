@@ -70,7 +70,7 @@ public class LbumListFragment extends BaseConstantFragment implements View.OnCli
     private String catid = "";
     private String type = "";
     private String orderby = "new";
-    private String pagenum = "10";
+    private String pagenum = "";
     private List<String> catidList = new ArrayList<>();//分类
     private List<String> catidListId = new ArrayList<>();//分类id
     private List<String> typeList = new ArrayList<>();//音频 视频
@@ -105,23 +105,25 @@ public class LbumListFragment extends BaseConstantFragment implements View.OnCli
      * "http://v.youmi.cn/ClientApi/getNewZhuanti2List?p=%s&type=%s&order=%s&pagenum=%s&catid=%s";
      */
     private void getinfos() {
-        String url = String.format(UmiwiAPI.UMIWI_LBUMLIST, page, type, orderby, pagenum, catid);
+        String url = String.format(UmiwiAPI.UMIWI_LBUMLIST, page, type, orderby, catid);
         Log.e("TAG", "rLbumlistsurl=" + url);
         GetRequest<LbumListBean> request = new GetRequest<LbumListBean>(url, GsonParser.class, LbumListBean.class, new AbstractRequest.Listener<LbumListBean>() {
             @Override
             public void onResult(AbstractRequest<LbumListBean> request, LbumListBean lbumListBean) {
 
                 ArrayList<LbumListBean.RLbumlist.LbumlistRecord> record = lbumListBean.getR().getRecord();
-
-                Log.e("TAG", "rLbumlists=" + record);
-                if (isRefresh) {
-                    refreshLayout.setRefreshing(false);
-                    lbumlists.clear();
-                } else {
-                    refreshLayout.setLoading(false);
+                if (record != null) {
+                    totalpage = lbumListBean.getR().getPage().getPages();
+                    Log.e("TAG", "rLbumlists=" + record);
+                    if (isRefresh) {
+                        refreshLayout.setRefreshing(false);
+                        lbumlists.clear();
+                    } else {
+                        refreshLayout.setLoading(false);
+                    }
+                    lbumlists.addAll(record);
+                    lbAdapter.setData(lbumlists);
                 }
-                lbumlists.addAll(record);
-                lbAdapter.setData(lbumlists);
             }
 
             @Override

@@ -1,5 +1,8 @@
 package com.umiwi.ui.fragment.home.updatehome.indexfragment;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,9 +10,12 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -76,11 +82,20 @@ public class NewTendencyFragment extends BaseConstantFragment {
     private ArrayList<RecommendBean.RBean.TagsBean.SubTagBean> mList = new ArrayList<>();
     private ArrayList<AudioVideoBean.RAUdioVideo.AudioVideoList> audioVideoList = new ArrayList<>();
     private AudioVideoAdapter audioVideoAdapter;
+    private LinearLayout ll_visiable_or;
+
+    private int touchSlop;
+    private float mFirstY;
+    private float mCurrentY;
+    private int direction;
+    private ObjectAnimator animator;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_startbus_layout, null);
         ButterKnife.inject(this,view);
+
+        ll_visiable_or = (LinearLayout) view.findViewById(R.id.ll_visiable_or);
         mContext = getActivity();
         initRefreshLayout();
         audioVideoAdapter = new AudioVideoAdapter(getActivity());
@@ -110,8 +125,76 @@ public class NewTendencyFragment extends BaseConstantFragment {
         initFlowData();
         initFlowPrice();
         initFlowOrderby();
+        initScrollView();
         getinfos();
         return view;
+    }
+    private void initScrollView() {
+        //最小滑动距离
+        touchSlop = ViewConfiguration.get(mContext).getScaledTouchSlop();
+        listview.setOnTouchListener(mOnTouchListener);
+    }
+
+    private boolean mShow = false;
+    private View.OnTouchListener mOnTouchListener = new View.OnTouchListener() {
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN :
+                    mFirstY = event.getY();
+
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    mCurrentY = event.getY();
+                    if(mCurrentY - mFirstY > touchSlop) {
+                        direction = 0;//down
+
+                    }else if(mFirstY - mCurrentY > touchSlop) {
+                        direction = 1;//up
+
+                    }
+                    if(direction == 1) {
+                        if(mShow) {
+                            showAnim(1);
+                            mShow = !mShow;
+                        }
+                    }else if(direction == 0) {
+                        if(!mShow) {
+                            showAnim(0);
+                            mShow = !mShow;
+                        }
+                    }
+                    break;
+            }
+            return false;
+        }
+    };
+    private void showAnim(int flag) {
+
+        if(animator != null && animator.isRunning()) {
+            animator.cancel();
+        }
+        if (flag == 0) {
+            animator = ObjectAnimator.ofFloat(ll_visiable_or, "translationY", ll_visiable_or.getTranslationY(), 0);
+            animator.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    super.onAnimationEnd(animation);
+                    ll_visiable_or.setVisibility(View.VISIBLE);
+                }
+            });
+        } else {
+            animator = ObjectAnimator.ofFloat(ll_visiable_or,"translationY",ll_visiable_or.getTranslationY(),-ll_visiable_or.getHeight());
+            animator.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    super.onAnimationEnd(animation);
+                    ll_visiable_or.setVisibility(View.GONE);
+                }
+            });
+        }
+        animator.setDuration(200);
+        animator.start();
     }
 
     //请求列表数据
@@ -122,15 +205,18 @@ public class NewTendencyFragment extends BaseConstantFragment {
             @Override
             public void onResult(AbstractRequest<AudioVideoBean> request, AudioVideoBean audioVideoBean) {
                 ArrayList<AudioVideoBean.RAUdioVideo.AudioVideoList> audioVideoLists = audioVideoBean.getR().getRecord();
-                if (isRefresh) {
-                    refreshLayout.setRefreshing(false);
-                    audioVideoList.clear();
-                } else {
-                    refreshLayout.setLoading(false);
+                if(audioVideoLists != null) {
+                    totalpage= audioVideoBean.getR().getPage().getTotalpage();
+                    if (isRefresh) {
+                        refreshLayout.setRefreshing(false);
+                        audioVideoList.clear();
+                    } else {
+                        refreshLayout.setLoading(false);
+                    }
+                    audioVideoList.addAll(audioVideoLists);
+                    audioVideoAdapter.setData(audioVideoList);
+                    Log.e("TAG", "audioVideoBeanR=" + audioVideoLists.toString());
                 }
-                audioVideoList.addAll(audioVideoLists);
-                audioVideoAdapter.setData(audioVideoList);
-                Log.e("TAG", "audioVideoBeanR=" + audioVideoLists.toString());
             }
 
             @Override

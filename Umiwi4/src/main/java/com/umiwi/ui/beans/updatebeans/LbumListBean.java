@@ -146,6 +146,16 @@ public class LbumListBean extends BaseGsonBeans {
             private String watchnum;
             @SerializedName("recordtype")
             private String recordtype;
+            @SerializedName("detailurl")
+            private String detailurl;
+
+            public String getDetailurl() {
+                return detailurl;
+            }
+
+            public void setDetailurl(String detailurl) {
+                this.detailurl = detailurl;
+            }
 
             public String getId() {
                 return id;
@@ -245,7 +255,7 @@ public class LbumListBean extends BaseGsonBeans {
 
             @Override
             public String toString() {
-                return "RLbumlist{" +
+                return "LbumlistRecord{" +
                         "id='" + id + '\'' +
                         ", type='" + type + '\'' +
                         ", image='" + image + '\'' +
@@ -258,6 +268,7 @@ public class LbumListBean extends BaseGsonBeans {
                         ", onlinetime='" + onlinetime + '\'' +
                         ", watchnum='" + watchnum + '\'' +
                         ", recordtype='" + recordtype + '\'' +
+                        ", detailurl='" + detailurl + '\'' +
                         '}';
             }
         }

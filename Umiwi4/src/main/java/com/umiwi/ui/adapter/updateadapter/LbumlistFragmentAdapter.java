@@ -1,6 +1,8 @@
 package com.umiwi.ui.adapter.updateadapter;
 
 import android.support.v4.app.FragmentActivity;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -59,14 +61,40 @@ public class LbumlistFragmentAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         LbumListBean.RLbumlist.LbumlistRecord lbumlistRecord = lbumlists.get(position);
+        Log.e("TAG", "lbumlistRecord=" + lbumlistRecord.toString());
         Glide.with(mActivity).load(lbumlistRecord.getImage()).into(holder.iv_author);
+        if (lbumlistRecord.getTitle() != null) {
+            holder.special_name_textView_1.setText(lbumlistRecord.getTitle());
+        } else {
+            holder.special_name_textView_1.setVisibility(View.INVISIBLE);
+        }
         holder.tv_video_audio.setText(lbumlistRecord.getType());
-        holder.special_name_textView_1.setText(lbumlistRecord.getTitle());
-        holder.special_price_1.setText(lbumlistRecord.getPrice());
-        holder.special_context_1.setText(lbumlistRecord.getShortcontent());
-        holder.expter_time_textView.setText(lbumlistRecord.getOnlinetime());
-        holder.expter_tag.setText(lbumlistRecord.getCatname());
-        holder.expter_detail_textView.setText(lbumlistRecord.getAudiotitle());
+        if (lbumlistRecord.getPrice() != null) {
+            holder.special_price_1.setText(lbumlistRecord.getPrice());
+        } else {
+            holder.special_price_1.setVisibility(View.INVISIBLE);
+        }
+        if (lbumlistRecord.getShortcontent() != null) {
+            holder.special_context_1.setText(lbumlistRecord.getShortcontent());
+        } else {
+            holder.special_context_1.setVisibility(View.INVISIBLE);
+        }
+        if (lbumlistRecord.getOnlinetime() != null) {
+            holder.expter_time_textView.setText(lbumlistRecord.getOnlinetime());
+        } else {
+            holder.expter_time_textView.setVisibility(View.INVISIBLE);
+        }
+        if (!TextUtils.isEmpty(lbumlistRecord.getCatname())) {
+            holder.expter_tag.setText(lbumlistRecord.getCatname());
+            holder.expter_tag.setVisibility(View.VISIBLE);
+        } else {
+            holder.expter_tag.setVisibility(View.INVISIBLE);
+        }
+        if (lbumlistRecord.getAudiotitle() != null) {
+            holder.expter_detail_textView.setText(lbumlistRecord.getAudiotitle());
+        } else {
+            holder.expter_detail_textView.setVisibility(View.INVISIBLE);
+        }
         holder.special_subscribe_number_1.setText("播放"+lbumlistRecord.getWatchnum() + "次");
         return convertView;
     }

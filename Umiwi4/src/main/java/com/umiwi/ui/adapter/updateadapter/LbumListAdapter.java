@@ -1,6 +1,7 @@
 package com.umiwi.ui.adapter.updateadapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -66,8 +67,16 @@ public class LbumListAdapter extends BaseAdapter {
         holder.special_name_textView_1.setText(albumListRecord.getTitle());
         holder.special_price_1.setText(albumListRecord.getPrice());
         holder.special_context_1.setText(albumListRecord.getShortcontent());
-        holder.expter_time_textView.setText(albumListRecord.getOnlinetime());
-        holder.expter_tag.setText(albumListRecord.getCatname());
+        if (!TextUtils.isEmpty(albumListRecord.getOnlinetime())) {
+            holder.expter_time_textView.setText(albumListRecord.getOnlinetime());
+        } else {
+            holder.expter_time_textView.setVisibility(View.INVISIBLE);
+        }
+        if (!TextUtils.isEmpty(albumListRecord.getCatname())) {
+            holder.expter_tag.setText(albumListRecord.getCatname());
+        } else {
+            holder.expter_tag.setVisibility(View.INVISIBLE);
+        }
         holder.expter_detail_textView.setText(albumListRecord.getAudiotitle());
         holder.special_subscribe_number_1.setText("播放"+albumListRecord.getWatchnum() + "次");
         return convertView;

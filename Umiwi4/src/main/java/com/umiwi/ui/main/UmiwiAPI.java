@@ -151,7 +151,7 @@ public final class UmiwiAPI {
     /**
      * 查看专题
      */
-    public static final String UMIWI_LBUMLIST = "http://v.youmi.cn/ClientApi/getNewZhuanti2List?p=%s&type=%s&order=%s&pagenum=%s&catid=%s";
+    public static final String UMIWI_LBUMLIST = "http://v.youmi.cn/ClientApi/getNewZhuanti2List?p=%s&type=%s&order=%s&catid=%s";
     /**
      * 热门视频
      */

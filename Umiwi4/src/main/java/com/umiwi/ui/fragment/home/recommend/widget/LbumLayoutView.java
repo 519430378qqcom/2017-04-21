@@ -16,6 +16,7 @@ import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.updateadapter.LbumListAdapter;
 import com.umiwi.ui.beans.updatebeans.LbumListChangeBean;
 import com.umiwi.ui.beans.updatebeans.RecommendBean;
+import com.umiwi.ui.fragment.AudioSpecialDetailFragment;
 import com.umiwi.ui.fragment.LbumListFragment;
 import com.umiwi.ui.main.UmiwiAPI;
 
@@ -77,7 +78,11 @@ public class LbumLayoutView extends LinearLayout {
         lv_home_expert_rec.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                String detailurl = mList.get(position).getDetailurl();
+                Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
+                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, AudioSpecialDetailFragment.class);
+                intent.putExtra("detailurl", detailurl);
+                mContext.startActivity(intent);
             }
         });
         title_huan.setOnClickListener(new OnClickListener() {
@@ -96,6 +101,7 @@ public class LbumLayoutView extends LinearLayout {
                 mContext.startActivity(intent);
             }
         });
+
     }
     //换一批
     private void getChangeData() {
