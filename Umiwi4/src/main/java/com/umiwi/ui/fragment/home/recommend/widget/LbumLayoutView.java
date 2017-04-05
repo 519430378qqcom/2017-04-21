@@ -23,6 +23,7 @@ public class LbumLayoutView extends LinearLayout {
     private ListView lv_home_expert_rec;
     private LinearLayout ll_expert_root;
     private RelativeLayout rl_tutor_all;
+
     private ArrayList<RecommendBean.RBean.AlbumListBean.AlbumListRecord> mList;
     private int currentpage = 1;
     private int totalpage = 1;
