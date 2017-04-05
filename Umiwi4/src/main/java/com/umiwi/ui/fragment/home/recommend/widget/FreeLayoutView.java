@@ -3,7 +3,6 @@ package com.umiwi.ui.fragment.home.recommend.widget;
 import android.content.Context;
 import android.content.Intent;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -91,7 +90,7 @@ public class FreeLayoutView extends LinearLayout {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (mList.get(position).getType().equals("video")) {
-                    Log.e("TAG", "这是免费视频可以观看");
+//                    Log.e("TAG", "这是免费视频可以观看");
                     Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
                     intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, CourseDetailPlayFragment.class);
                     intent.putExtra(CourseDetailPlayFragment.KEY_DETAIURL, mList.get(position).getUrl());
@@ -99,7 +98,7 @@ public class FreeLayoutView extends LinearLayout {
                 } else if (mList.get(position).getType().equals("audio")) {
                     //TODO
 //                    Toast.makeText(mContext, "敬请期待", Toast.LENGTH_SHORT).show();
-                    Log.e("TAG", "freeBean.get(po)=" + mList.get(position).getUrl());
+//                    Log.e("TAG", "freeBean.get(po)=" + mList.get(position).getUrl());
                     Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
                     intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
                     intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL, mList.get(position).getUrl());

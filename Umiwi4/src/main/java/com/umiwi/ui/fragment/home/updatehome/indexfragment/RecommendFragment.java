@@ -43,6 +43,7 @@ import com.umiwi.ui.fragment.course.CourseDetailPlayFragment;
 import com.umiwi.ui.fragment.home.recommend.widget.ExpertRecLayoutView;
 import com.umiwi.ui.fragment.home.recommend.widget.FreeLayoutView;
 import com.umiwi.ui.fragment.home.recommend.widget.HotVideoLayout;
+import com.umiwi.ui.fragment.home.recommend.widget.LbumLayoutView;
 import com.umiwi.ui.fragment.home.recommend.widget.PaySelectedLayoutViwe;
 import com.umiwi.ui.http.parsers.ADParser;
 import com.umiwi.ui.http.parsers.CourseListParser;
@@ -111,6 +112,7 @@ public class RecommendFragment extends BaseConstantFragment {
 //    private ExpertAnswerDwonLayoutViwe eadlv_expert_answer;
     private PaySelectedLayoutViwe pslv_pay_selected;
 //    private RecommentBottomLayoutView rblv_bottom;
+    private LbumLayoutView lbum_layout;
     private ArrayList<NewFree> mList;
     private LinearLayout ll_point;
 
@@ -212,6 +214,7 @@ public class RecommendFragment extends BaseConstantFragment {
 //        eadlv_expert_answer = (ExpertAnswerDwonLayoutViwe) v.findViewById(eadlv_expert_answer);
         pslv_pay_selected = (PaySelectedLayoutViwe) v.findViewById(R.id.pslv_pay_selected);
 //        rblv_bottom = (RecommentBottomLayoutView) v.findViewById(R.id.rblv_bottom);
+        lbum_layout = (LbumLayoutView) v.findViewById(R.id.lbum_layout);
     }
 
     /**
@@ -247,7 +250,8 @@ public class RecommendFragment extends BaseConstantFragment {
 //                bslv_big_shot.setData(NewHomeRecommendFragment.getRootViewpager(), sc_recomment_root, t.getR().getDalao(), t.getR().getSec_dalao_title());
 //                eadlv_expert_answer.setData(t.getR().getQuestion(), t.getR().getSec_ask_quick());
                 pslv_pay_selected.setData(t.getR().getCharge().getRecord(), t.getR().getSec_charge_title(), t.getR().getSec_charge_huan(),t.getR().getSec_charge_huanurl(),t.getR().getCharge().getPage().getTotalpage());
-
+//                rblv_bottom.setData(getActivity(), t.getR().getBottom());
+                lbum_layout.setData(t.getR().getAlbumlist());
             }
 
         }
