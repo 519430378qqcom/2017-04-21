@@ -124,6 +124,12 @@ public class RecommendFragment extends BaseConstantFragment {
 
 
 
+
+
+
+
+
+
 //    private android.os.Handler handler = new android.os.Handler(){
 //        @Override
 //        public void handleMessage(Message msg) {
