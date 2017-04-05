@@ -27,6 +27,7 @@ public class LbumLayoutView extends LinearLayout {
     private int currentpage = 1;
 
     private int totalpage = 1;
+
     private LbumListAdapter lbumListAdapter;
     private Context mContext;
     public LbumLayoutView(Context context) {
