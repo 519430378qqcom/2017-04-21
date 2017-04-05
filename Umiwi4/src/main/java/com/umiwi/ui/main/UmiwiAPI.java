@@ -145,9 +145,13 @@ public final class UmiwiAPI {
      */
     public static final String VIDEO_TUIJIAN = "http://v.youmi.cn/api8/index";
     /**
-     * 精选专题
+     * 精选专题-换一批
      */
     public static final String UMIWI_CHOICENESS = "http://v.youmi.cn/api8/Albumlist?p=%s";
+    /**
+     * 查看专题
+     */
+    public static final String UMIWI_LBUMLIST = "http://v.youmi.cn/ClientApi/getNewZhuanti2List?p=%s&type=%s&order=%s&pagenum=%s&catid=%s";
     /**
      * 热门视频
      */

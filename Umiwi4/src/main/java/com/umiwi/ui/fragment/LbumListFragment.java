@@ -1,26 +1,30 @@
-package com.umiwi.ui.fragment.home.updatehome.indexfragment;
+package com.umiwi.ui.fragment;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.RemoteException;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
-import com.umiwi.ui.adapter.updateadapter.AudioVideoAdapter;
-import com.umiwi.ui.beans.updatebeans.AudioVideoBean;
+import com.umiwi.ui.adapter.updateadapter.LbumlistFragmentAdapter;
+import com.umiwi.ui.beans.updatebeans.LbumListBean;
 import com.umiwi.ui.beans.updatebeans.RecommendBean;
-import com.umiwi.ui.fragment.course.CourseDetailPlayFragment;
+import com.umiwi.ui.fragment.home.updatehome.indexfragment.VoiceDetailsFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.UmiwiAPI;
+import com.umiwi.ui.main.UmiwiApplication;
 import com.umiwi.ui.view.FlowLayout;
 import com.umiwi.ui.view.RefreshLayout;
 
@@ -34,13 +38,11 @@ import cn.youmi.framework.http.GetRequest;
 import cn.youmi.framework.http.parsers.GsonParser;
 import cn.youmi.framework.util.ToastU;
 
-
 /**
- * Created by Administrator on 2017/3/30 0030.
+ * Created by Administrator on 2017/4/5 0005.
  */
 
-public class StartBusinessFragment extends BaseConstantFragment {
-
+public class LbumListFragment extends BaseConstantFragment implements View.OnClickListener {
     @InjectView(R.id.tv_all_catid1)
     TextView tv_all_catid1;
     @InjectView(R.id.flow_catid1)
@@ -57,87 +59,73 @@ public class StartBusinessFragment extends BaseConstantFragment {
     RefreshLayout refreshLayout;
     @InjectView(R.id.listview)
     ListView listview;
+    @InjectView(R.id.back)
+    ImageView back;
+    @InjectView(R.id.record)
+    ImageView record;
     private int page = 1;
     private boolean isRefresh = true;
     private int totalpage = 1;
     private Context mContext;
-
-    private List<String> catid1List = new ArrayList<>();//一级分类
-    private List<String> priceList = new ArrayList<>();//音频，视频，
-    private List<String> orderbyList = new ArrayList<>();//排序:最热,价格
-    private List<String> catid1ListId = new ArrayList<>();//一级分类ID
-    private List<String> priceListId = new ArrayList<>();//audio,video
-    private List<String> orderbyListId = new ArrayList<>();//排序:ctime,watchnum,price
-    private String catid1 = "";
     private String catid = "";
     private String type = "";
-    private String price = "";
-    private String orderby = "ctime";
-    private ArrayList<RecommendBean.RBean.TagsBean.SubTagBean> mList = new ArrayList<>();
-    ArrayList<AudioVideoBean.RAUdioVideo.AudioVideoList> audioVideoList = new ArrayList<>();
-    private AudioVideoAdapter audioVideoAdapter;
+    private String orderby = "new";
+    private String pagenum = "10";
+    private List<String> catidList = new ArrayList<>();//分类
+    private List<String> catidListId = new ArrayList<>();//分类id
+    private List<String> typeList = new ArrayList<>();//音频 视频
+    private List<String> typeListId = new ArrayList<>();//audio vedio
+    private List<String> orderbyList = new ArrayList<>();//最热 价格
+    private List<String> orderbyListId = new ArrayList<>();//hot price
+    private ArrayList<RecommendBean.RBean.TagsBean> mList = new ArrayList<>();
+    private ArrayList<LbumListBean.RLbumlist.LbumlistRecord> lbumlists = new ArrayList<>();
+    private LbumlistFragmentAdapter lbAdapter;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_startbus_layout, null);
+        View view = inflater.inflate(R.layout.fragment_lbumlist_layout, null);
         ButterKnife.inject(this, view);
         mContext = getActivity();
-
         initRefreshLayout();
-        audioVideoAdapter = new AudioVideoAdapter(getActivity());
-        audioVideoAdapter.setData(audioVideoList);
-        listview.setAdapter(audioVideoAdapter);
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                AudioVideoBean.RAUdioVideo.AudioVideoList audioVideoList = StartBusinessFragment.this.audioVideoList.get(position);
-                String type = audioVideoList.getType();
-                if ("视频".equals(type)) {
-                    String hrefurl = audioVideoList.getUrl();
-                    Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
-                    intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, CourseDetailPlayFragment.class);
-                    intent.putExtra(CourseDetailPlayFragment.KEY_DETAIURL, hrefurl);
-                    startActivity(intent);
-                } else {
-                    String hrefurl = audioVideoList.getUrl();
-                    Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
-                    intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
-                    intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL, hrefurl);
-                    startActivity(intent);
-                }
-            }
-        });
-
-        getCatidData();
-
+        lbAdapter = new LbumlistFragmentAdapter(getActivity());
+        lbAdapter.setData(lbumlists);
+        listview.setAdapter(lbAdapter);
+        getCatIdData();
         initFlowData();
-        initFlowPrice();
+        initTypeData();
         initFlowOrderby();
+        back.setOnClickListener(this);
+        initMediaPlay();
+        getinfos();
         return view;
     }
 
-    //请求列表数据
+    /**
+     * "http://v.youmi.cn/ClientApi/getNewZhuanti2List?p=%s&type=%s&order=%s&pagenum=%s&catid=%s";
+     */
     private void getinfos() {
-        String url = String.format(UmiwiAPI.UMIWI_BUS_WORK_TEND, page, catid, type, price, orderby);
-        Log.e("TAG", "url12121=" + url);
-        GetRequest<AudioVideoBean> request = new GetRequest<AudioVideoBean>(url, GsonParser.class, AudioVideoBean.class, new AbstractRequest.Listener<AudioVideoBean>() {
+        String url = String.format(UmiwiAPI.UMIWI_LBUMLIST, page, type, orderby, pagenum, catid);
+        Log.e("TAG", "rLbumlistsurl=" + url);
+        GetRequest<LbumListBean> request = new GetRequest<LbumListBean>(url, GsonParser.class, LbumListBean.class, new AbstractRequest.Listener<LbumListBean>() {
             @Override
-            public void onResult(AbstractRequest<AudioVideoBean> request, AudioVideoBean audioVideoBean) {
-                ArrayList<AudioVideoBean.RAUdioVideo.AudioVideoList> audioVideoLists = audioVideoBean.getR().getRecord();
+            public void onResult(AbstractRequest<LbumListBean> request, LbumListBean lbumListBean) {
+
+                ArrayList<LbumListBean.RLbumlist.LbumlistRecord> record = lbumListBean.getR().getRecord();
+
+                Log.e("TAG", "rLbumlists=" + record);
                 if (isRefresh) {
                     refreshLayout.setRefreshing(false);
-                    audioVideoList.clear();
+                    lbumlists.clear();
                 } else {
                     refreshLayout.setLoading(false);
                 }
-                audioVideoList.addAll(audioVideoLists);
-                audioVideoAdapter.setData(audioVideoList);
-                Log.e("TAG", "audioVideoBeanR=" + audioVideoLists.toString());
+                lbumlists.addAll(record);
+                lbAdapter.setData(lbumlists);
             }
 
             @Override
-            public void onError(AbstractRequest<AudioVideoBean> requet, int statusCode, String body) {
+            public void onError(AbstractRequest<LbumListBean> requet, int statusCode, String body) {
                 if (isRefresh) {
                     refreshLayout.setRefreshing(false);
                 } else {
@@ -149,24 +137,45 @@ public class StartBusinessFragment extends BaseConstantFragment {
     }
 
     /**
-     * 得到一级分类数据
+     * 播放按钮
      */
-    private void getCatidData() {
+    private void initMediaPlay() {
+        record.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (UmiwiApplication.mainActivity.service != null) {
+                    try {
+
+                        if (UmiwiApplication.mainActivity.service.isPlaying() || UmiwiApplication.mainActivity.isPause) {
+                            if (UmiwiApplication.mainActivity.herfUrl != null) {
+                                Log.e("TAG", "UmiwiApplication.mainActivity.herfUrl=" + UmiwiApplication.mainActivity.herfUrl);
+                                Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
+                                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
+                                intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL, UmiwiApplication.mainActivity.herfUrl);
+                                getActivity().startActivity(intent);
+                            }
+                        }
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Toast toast = Toast.makeText(getActivity(), "没有正在播放的音频", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
+                }
+            }
+        });
+    }
+
+    //获取一级列表
+    private void getCatIdData() {
         GetRequest<RecommendBean> request = new GetRequest<>(
                 UmiwiAPI.VIDEO_TUIJIAN, GsonParser.class, RecommendBean.class, new AbstractRequest.Listener<RecommendBean>() {
             @Override
             public void onResult(AbstractRequest<RecommendBean> request, RecommendBean recommendBean) {
                 ArrayList<RecommendBean.RBean.TagsBean> tagsBeen = recommendBean.getR().getTags();
-                for (int i = 0; i < tagsBeen.size(); i++) {
-                    if ("创业".equals(tagsBeen.get(i).getCatname())) {
-                        catid = tagsBeen.get(i).getCatid();
-                        Log.e("TAG", "catid=" + catid);
-                        ArrayList<RecommendBean.RBean.TagsBean.SubTagBean> subtag = tagsBeen.get(i).getSubtag();
-                        mList.addAll(subtag);
-                        getCatid1Data();
-                        getinfos();
-                    }
-                }
+                mList.addAll(tagsBeen);
+                getCatid1Data();
             }
 
             @Override
@@ -178,35 +187,31 @@ public class StartBusinessFragment extends BaseConstantFragment {
     }
 
     private void getCatid1Data() {
-        catid1List.clear();
-        catid1ListId.clear();
+        catidList.clear();
+        catidList.clear();
         for (int i = 0; i < mList.size(); i++) {
-            catid1List.add(mList.get(i).getCatname());
-            catid1ListId.add(mList.get(i).getCatid());
+            catidList.add(mList.get(i).getCatname());
+            catidListId.add(mList.get(i).getCatid());
         }
         initCatid1Flow();
     }
 
-    /**
-     * 初始化一级分类流部局
-     */
     private void initCatid1Flow() {
         flow_catid1.removeAllViews();
-        for (int i = 0, j = catid1List.size(); i < j; i++) {
+        for (int i = 0, j = catidList.size(); i < j; i++) {
             final TextView tv = (TextView) LayoutInflater.from(mContext).inflate(R
                     .layout.flow_text, flow_catid1, false);
-            tv.setText(catid1List.get(i));
+            tv.setText(catidList.get(i));
             tv.setTextColor(mContext.getResources().getColor(R.color.gray_a));
             tv_all_catid1.setTextColor(mContext.getResources().getColor(R.color.main_color));
             final int finalI = i;
             tv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    catid1 = catid1ListId.get(finalI);
-                    catid = catid1ListId.get(finalI);
+                    catid = catidListId.get(finalI);
                     isRefresh = true;
                     getinfos();
-                    for (int i = 0, j = catid1List.size(); i < j; i++) {
+                    for (int i = 0, j = catidList.size(); i < j; i++) {
                         TextView tv = (TextView) flow_catid1.getChildAt(i);
                         tv.setTextColor(mContext.getResources().getColor(R.color.gray_a));
                     }
@@ -221,17 +226,15 @@ public class StartBusinessFragment extends BaseConstantFragment {
             @Override
             public void onClick(View v) {
                 catid = "";
-                catid1 = "";
                 isRefresh = true;
                 getinfos();
-                for (int i = 0, j = catid1List.size(); i < j; i++) {
+                for (int i = 0, j = catidList.size(); i < j; i++) {
                     TextView tv = (TextView) flow_catid1.getChildAt(i);
                     tv.setTextColor(mContext.getResources().getColor(R.color.gray_a));
                 }
                 tv_all_catid1.setTextColor(mContext.getResources().getColor(R.color.main_color));
             }
         });
-
     }
 
     /**
@@ -266,7 +269,7 @@ public class StartBusinessFragment extends BaseConstantFragment {
         tv_all_orderby.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                orderby = "ctime";
+                orderby = "new";
                 isRefresh = true;
                 getinfos();
                 for (int i = 0, j = orderbyList.size(); i < j; i++) {
@@ -278,68 +281,61 @@ public class StartBusinessFragment extends BaseConstantFragment {
         });
     }
 
-    /**
-     * 初始化price流部局
-     */
-    private void initFlowPrice() {
+    //初始化type流布局
+    private void initTypeData() {
         flow_price.removeAllViews();
-        for (int i = 0, j = priceList.size(); i < j; i++) {
+        for (int i = 0; i < typeList.size(); i++) {
             final TextView tv = (TextView) LayoutInflater.from(mContext).inflate(R
                     .layout.flow_text, flow_price, false);
-            tv.setText(priceList.get(i));
+            tv.setText(typeList.get(i));
             tv.setTextColor(mContext.getResources().getColor(R.color.gray_a));
             tv_all_price.setTextColor(mContext.getResources().getColor(R.color.main_color));
             final int finalI = i;
             tv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    type = priceListId.get(finalI);
+                    type = typeListId.get(finalI);
                     isRefresh = true;
                     getinfos();
-                    for (int i = 0, j = priceList.size(); i < j; i++) {
+                    for (int i = 0, j = typeList.size(); i < j; i++) {
                         TextView tv = (TextView) flow_price.getChildAt(i);
                         tv.setTextColor(mContext.getResources().getColor(R.color.gray_a));
                     }
                     tv.setTextColor(mContext.getResources().getColor(R.color.main_color));
                     tv_all_price.setTextColor(mContext.getResources().getColor(R.color.gray_a));
                 }
+
             });
             flow_price.addView(tv);
         }
-
         tv_all_price.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 type = "";
                 isRefresh = true;
                 getinfos();
-                for (int i = 0, j = priceList.size(); i < j; i++) {
+                for (int i = 0, j = typeList.size(); i < j; i++) {
                     TextView tv = (TextView) flow_price.getChildAt(i);
                     tv.setTextColor(mContext.getResources().getColor(R.color.gray_a));
                 }
                 tv_all_price.setTextColor(mContext.getResources().getColor(R.color.main_color));
             }
         });
-
     }
 
     /**
-     * 初始price和orderby数据
+     * 初始type和orderby数据
      */
     private void initFlowData() {
 
-        priceList.add("音频");
-        priceList.add("视频");
-        // priceList.add("钻石专享");
-        priceListId.add("audio");
-        priceListId.add("album");
-        //priceListId.add("diamond");
+        typeList.add("音频专题");
+        typeList.add("视频专题");
+        typeListId.add("audio");
+        typeListId.add("video");
 
         orderbyList.add("最热");
-        orderbyList.add("免费");
         orderbyList.add("价格");
-        orderbyListId.add("watchnum");
-        orderbyListId.add("free");
+        orderbyListId.add("hot");
         orderbyListId.add("price");
 
     }
@@ -382,5 +378,10 @@ public class StartBusinessFragment extends BaseConstantFragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.reset(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        getActivity().finish();
     }
 }

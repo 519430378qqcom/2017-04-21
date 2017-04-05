@@ -15,21 +15,13 @@ public class AudioVideoBean extends BaseGsonBeans {
     @SerializedName("m")
     private String m;
     @SerializedName("r")
-    private ArrayList<RAUdioVideo> r;
+    private RAUdioVideo r;
 
-    public String getE() {
-        return e;
-    }
-
-    public void setE(String e) {
-        this.e = e;
-    }
-
-    public ArrayList<RAUdioVideo> getR() {
+    public RAUdioVideo getR() {
         return r;
     }
 
-    public void setR(ArrayList<RAUdioVideo> r) {
+    public void setR(RAUdioVideo r) {
         this.r = r;
     }
 
@@ -41,100 +33,190 @@ public class AudioVideoBean extends BaseGsonBeans {
         this.m = m;
     }
 
+    public String getE() {
+        return e;
+    }
+
+    public void setE(String e) {
+        this.e = e;
+    }
+
+    @Override
+    public String toString() {
+        return "AudioVideoBean{" +
+                "e='" + e + '\'' +
+                ", m='" + m + '\'' +
+                ", r=" + r +
+                '}';
+    }
+
     public static class RAUdioVideo{
-        @SerializedName("id")
-        private String id;
-        @SerializedName("type")
-        private String type;
-        @SerializedName("title")
-        private String title;
-        @SerializedName("tagname")
-        private String tagname;
-        @SerializedName("price")
-        private String price;
-        @SerializedName("watchnum")
-        private String watchnum;
-        @SerializedName("url")
-        private String url;
-        @SerializedName("playtime")
-        private String playtime;
+        @SerializedName("record")
+        private ArrayList<AudioVideoList> record;
+        @SerializedName("page")
+        private AudioVideoPageBean page;
 
-        public String getPlaytime() {
-            return playtime;
+        public ArrayList<AudioVideoList> getRecord() {
+            return record;
         }
 
-        public void setPlaytime(String playtime) {
-            this.playtime = playtime;
+        public void setRecord(ArrayList<AudioVideoList> record) {
+            this.record = record;
         }
 
-        public String getId() {
-            return id;
+        public AudioVideoPageBean getPage() {
+            return page;
         }
 
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        public String getType() {
-            return type;
-        }
-
-        public void setType(String type) {
-            this.type = type;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-        public void setTitle(String title) {
-            this.title = title;
-        }
-
-        public String getTagname() {
-            return tagname;
-        }
-
-        public void setTagname(String tagname) {
-            this.tagname = tagname;
-        }
-
-        public String getPrice() {
-            return price;
-        }
-
-        public void setPrice(String price) {
-            this.price = price;
-        }
-
-        public String getWatchnum() {
-            return watchnum;
-        }
-
-        public void setWatchnum(String watchnum) {
-            this.watchnum = watchnum;
-        }
-
-        public String getUrl() {
-            return url;
-        }
-
-        public void setUrl(String url) {
-            this.url = url;
+        public void setPage(AudioVideoPageBean page) {
+            this.page = page;
         }
 
         @Override
         public String toString() {
             return "RAUdioVideo{" +
-                    "id='" + id + '\'' +
-                    ", type='" + type + '\'' +
-                    ", title='" + title + '\'' +
-                    ", tagname='" + tagname + '\'' +
-                    ", price='" + price + '\'' +
-                    ", watchnum='" + watchnum + '\'' +
-                    ", url='" + url + '\'' +
-                    ", playtime='" + playtime + '\'' +
+                    "record=" + record +
+                    ", page=" + page +
                     '}';
         }
+
+        public static class AudioVideoPageBean{
+            @SerializedName("currentpage")
+            private String currentpage;
+            @SerializedName("rows")
+            private int rows;
+            @SerializedName("totalpage")
+            private int totalpage;
+
+            public String getCurrentpage() {
+                return currentpage;
+            }
+
+            public void setCurrentpage(String currentpage) {
+                this.currentpage = currentpage;
+            }
+
+            public int getRows() {
+                return rows;
+            }
+
+            public void setRows(int rows) {
+                this.rows = rows;
+            }
+
+            public int getTotalpage() {
+                return totalpage;
+            }
+
+            public void setTotalpage(int totalpage) {
+                this.totalpage = totalpage;
+            }
+
+            @Override
+            public String toString() {
+                return "AudioVideoPageBean{" +
+                        "currentpage='" + currentpage + '\'' +
+                        ", rows=" + rows +
+                        ", totalpage=" + totalpage +
+                        '}';
+            }
+        }
+        public static class  AudioVideoList{
+            @SerializedName("id")
+            private String id;
+            @SerializedName("type")
+            private String type;
+            @SerializedName("title")
+            private String title;
+            @SerializedName("tagname")
+            private String tagname;
+            @SerializedName("price")
+            private String price;
+            @SerializedName("watchnum")
+            private String watchnum;
+            @SerializedName("url")
+            private String url;
+            @SerializedName("playtime")
+            private String playtime;
+
+            public String getPlaytime() {
+                return playtime;
+            }
+
+            public void setPlaytime(String playtime) {
+                this.playtime = playtime;
+            }
+
+            public String getId() {
+                return id;
+            }
+
+            public void setId(String id) {
+                this.id = id;
+            }
+
+            public String getType() {
+                return type;
+            }
+
+            public void setType(String type) {
+                this.type = type;
+            }
+
+            public String getTitle() {
+                return title;
+            }
+
+            public void setTitle(String title) {
+                this.title = title;
+            }
+
+            public String getTagname() {
+                return tagname;
+            }
+
+            public void setTagname(String tagname) {
+                this.tagname = tagname;
+            }
+
+            public String getPrice() {
+                return price;
+            }
+
+            public void setPrice(String price) {
+                this.price = price;
+            }
+
+            public String getWatchnum() {
+                return watchnum;
+            }
+
+            public void setWatchnum(String watchnum) {
+                this.watchnum = watchnum;
+            }
+
+            public String getUrl() {
+                return url;
+            }
+
+            public void setUrl(String url) {
+                this.url = url;
+            }
+
+            @Override
+            public String toString() {
+                return "RAUdioVideo{" +
+                        "id='" + id + '\'' +
+                        ", type='" + type + '\'' +
+                        ", title='" + title + '\'' +
+                        ", tagname='" + tagname + '\'' +
+                        ", price='" + price + '\'' +
+                        ", watchnum='" + watchnum + '\'' +
+                        ", url='" + url + '\'' +
+                        ", playtime='" + playtime + '\'' +
+                        '}';
+            }
+        }
+
     }
 }

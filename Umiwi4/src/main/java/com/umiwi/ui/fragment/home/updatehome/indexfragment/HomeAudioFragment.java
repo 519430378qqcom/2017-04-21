@@ -100,8 +100,6 @@ public class HomeAudioFragment extends BaseConstantFragment {
     private float mCurrentY;
     private int direction;
     private ObjectAnimator animator;
-    private int height;
-    private int width;
     private LinearLayout ll_visiable_or;
 
     @Nullable

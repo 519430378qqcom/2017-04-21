@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class AudioVideoAdapter extends BaseAdapter {
 
     private FragmentActivity activity;
-    private ArrayList<AudioVideoBean.RAUdioVideo> audioVideoList;
+    private ArrayList<AudioVideoBean.RAUdioVideo.AudioVideoList> audioVideoList;
     public AudioVideoAdapter(FragmentActivity activity) {
         this.activity = activity;
     }
@@ -59,8 +59,8 @@ public class AudioVideoAdapter extends BaseAdapter {
         } else {
             hoder = (ViewHolder) view.getTag();
         }
-        AudioVideoBean.RAUdioVideo raUdioVideo = audioVideoList.get(i);
-        String cat = raUdioVideo.getTagname();
+        AudioVideoBean.RAUdioVideo.AudioVideoList audioVideoList = this.audioVideoList.get(i);
+        String cat = audioVideoList.getTagname();
 //        if (i == 0) {
 //            hoder.view_firstvisable.setVisibility(View.GONE);
 //        } else {
@@ -72,17 +72,17 @@ public class AudioVideoAdapter extends BaseAdapter {
         } else {
             hoder.cat.setVisibility(View.GONE);
         }
-        hoder.title.setText(raUdioVideo.getTitle());
-        hoder.price.setText(raUdioVideo.getPrice());
-        String type = raUdioVideo.getType();
+        hoder.title.setText(audioVideoList.getTitle());
+        hoder.price.setText(audioVideoList.getPrice());
+        String type = audioVideoList.getType();
         if ("视频".equals(type)) {
             hoder.voice_img.setImageResource(R.drawable.video_small);
         } else {
             hoder.voice_img.setImageResource(R.drawable.default_voice);
         }
-        Log.e("TAG", "record.getPrice()=" + raUdioVideo.getPrice());
-        hoder.playtime.setText(raUdioVideo.getPlaytime());
-        hoder.watchnum.setText("播放"+raUdioVideo.getWatchnum()+"次");
+        Log.e("TAG", "record.getPrice()=" + audioVideoList.getPrice());
+        hoder.playtime.setText(audioVideoList.getPlaytime());
+        hoder.watchnum.setText("播放"+audioVideoList.getWatchnum()+"次");
 //        hoder.process.setText("已播"+record.getProcess());
         return view;
     }
@@ -96,7 +96,7 @@ public class AudioVideoAdapter extends BaseAdapter {
 //        TextView process;
 //        View view_firstvisable;
     }
-    public void setData(ArrayList<AudioVideoBean.RAUdioVideo> audioVideoList) {
+    public void setData(ArrayList<AudioVideoBean.RAUdioVideo.AudioVideoList> audioVideoList) {
         this.audioVideoList = audioVideoList;
         notifyDataSetChanged();
     }

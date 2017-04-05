@@ -29,7 +29,6 @@ public class ColumnAdapter extends BaseAdapter {
         this.activity = activity;
 
     }
-
     public ColumnAdapter(FragmentActivity activity, ArrayList<HomeColumnBean.RhomeCoulum.HomeColumnInfo> record) {
         this.activity = activity;
         this.mList = record;
