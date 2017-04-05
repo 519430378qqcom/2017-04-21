@@ -75,6 +75,7 @@ public class AudioSpecialDetailFragment extends BaseConstantFragment {
         detailurl = getActivity().getIntent().getStringExtra("detailurl");
         getInfo();
         return view;
+
     }
 
     /**
