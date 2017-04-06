@@ -59,7 +59,6 @@ public class AudioFragment extends BaseConstantFragment {
                 intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
                 intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL,hrefurl);
                 startActivity(intent);
-
             }
         });
         getinfos();

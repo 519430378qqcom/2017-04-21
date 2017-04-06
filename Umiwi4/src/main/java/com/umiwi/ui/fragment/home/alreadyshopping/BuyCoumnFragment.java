@@ -54,8 +54,6 @@ public class BuyCoumnFragment extends BaseConstantFragment {
         View view = inflater.inflate(R.layout.fragment_alread_column_layout, null);
         mList = new ArrayList<>();
 
-
-
         ButterKnife.inject(this, view);
         buyColumnAdapter = new BuyColumnAdapter(getActivity());
         buyColumnAdapter.setData(mList);

@@ -187,7 +187,7 @@ public class NewHomeRecommendFragment extends BaseConstantFragment {
                 / fragments.size();
         line.getLayoutParams().width = line_width-90;
         line.requestLayout();
-        viewPager.setOffscreenPageLimit(7);
+        viewPager.setOffscreenPageLimit(4);
         viewPager.setAdapter(new FragmentStatePagerAdapter(
                 getChildFragmentManager()) {
 
