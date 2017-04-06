@@ -2,11 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <LinearLayout
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
         android:gravity="center_vertical"
         android:id="@+id/free_layout_1"
         android:layout_width="match_parent"
@@ -65,12 +64,12 @@
             <!--android:layout_marginRight="15dp"-->
             <!--android:background="#adadad" />-->
     </LinearLayout>
-    <View
-        android:id="@+id/view_bottom_no"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_below="@id/menu"
-        android:background="#adadad" />
+    <!--<View-->
+        <!--android:id="@+id/view_bottom_no"-->
+        <!--android:layout_marginLeft="15dp"-->
+        <!--android:layout_marginRight="15dp"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1px"-->
+        <!--android:layout_below="@id/menu"-->
+        <!--android:background="#adadad" />-->
 </LinearLayout>

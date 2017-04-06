@@ -92,7 +92,7 @@ public class NewfreeAdapterV2 extends BaseAdapter {
             iv_audio = (ImageView) rootView.findViewById(R.id.iv_audio);
             free_time_textview_1 = (TextView) rootView.findViewById(R.id.free_time_textview_1);
             free_context_textview_1 = (TextView) rootView.findViewById(R.id.free_context_textview_1);
-            view_bottom_no = rootView.findViewById(R.id.view_bottom_no);
+//            view_bottom_no = rootView.findViewById(R.id.view_bottom_no);
         }
     }
 }

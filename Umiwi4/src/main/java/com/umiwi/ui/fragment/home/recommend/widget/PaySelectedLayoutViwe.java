@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.beans.updatebeans.ChargeBean;
-import com.umiwi.ui.beans.updatebeans.FreeRecordBean;
 import com.umiwi.ui.beans.updatebeans.RecommendBean;
 import com.umiwi.ui.fragment.course.CourseDetailPlayFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.VoiceDetailsFragment;
@@ -211,17 +210,17 @@ public class PaySelectedLayoutViwe extends LinearLayout {
             tv_audio_pay_time = (TextView) view.findViewById(R.id.tv_audio_pay_time);
             tv_audio_pay_context = (TextView) view.findViewById(R.id.tv_audio_pay_context);
             tv_audio_pay_price = (TextView) view.findViewById(R.id.tv_audio_pay_price);
-            v_pay_selected_interval = view.findViewById(R.id.v_pay_selected_interval);
+//            v_pay_selected_interval = view.findViewById(R.id.v_pay_selected_interval);
 
             tv_audio_pay_time.setText(recordBeanX.getPlaytime());
             tv_audio_pay_context.setText(recordBeanX.getTitle());
             tv_audio_pay_price.setText(recordBeanX.getPricetag());
 
-            if (i == datas.size() - 1) {
-                v_pay_selected_interval.setVisibility(GONE);
-            } else {
-                v_pay_selected_interval.setVisibility(VISIBLE);
-            }
+//            if (i == datas.size() - 1) {
+//                v_pay_selected_interval.setVisibility(GONE);
+//            } else {
+//                v_pay_selected_interval.setVisibility(VISIBLE);
+//            }
             final RecommendBean.RBean.ChargeBean.RecordBeanX finalRecordBeanX1 = recordBeanX;
             view.setOnClickListener(new OnClickListener() {
                 @Override
