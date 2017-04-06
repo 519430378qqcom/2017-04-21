@@ -36,7 +36,68 @@ public class VideoSpecialDetailBean extends BaseGsonBeans {
     private String total;
     @SerializedName("record")
     private ArrayList<VideoSpecialRecord> record;
+    @SerializedName("share")
+    private VideoSpecialShare share;
 
+    public VideoSpecialShare getShare() {
+        return share;
+    }
+
+    public void setShare(VideoSpecialShare share) {
+        this.share = share;
+    }
+    public static class VideoSpecialShare{
+        @SerializedName("sharetitle")
+        private String sharetitle;
+        @SerializedName("shareimg")
+        private String shareimg;
+        @SerializedName("shareurl")
+        private String shareurl;
+        @SerializedName("sharecontent")
+        private String sharecontent;
+
+        public String getSharetitle() {
+            return sharetitle;
+        }
+
+        public void setSharetitle(String sharetitle) {
+            this.sharetitle = sharetitle;
+        }
+
+        public String getShareimg() {
+            return shareimg;
+        }
+
+        public void setShareimg(String shareimg) {
+            this.shareimg = shareimg;
+        }
+
+        public String getShareurl() {
+            return shareurl;
+        }
+
+        public void setShareurl(String shareurl) {
+            this.shareurl = shareurl;
+        }
+
+        public String getSharecontent() {
+            return sharecontent;
+        }
+
+        public void setSharecontent(String sharecontent) {
+            this.sharecontent = sharecontent;
+        }
+
+        @Override
+        public String toString() {
+            return "VideoSpecialShare{" +
+                    "sharetitle='" + sharetitle + '\'' +
+                    ", shareimg='" + shareimg + '\'' +
+                    ", shareurl='" + shareurl + '\'' +
+                    ", sharecontent='" + sharecontent + '\'' +
+                    '}';
+        }
+    }
     public String getId() {
         return id;
     }
@@ -254,5 +315,6 @@ public class VideoSpecialDetailBean extends BaseGsonBeans {
                     ", detailurl='" + detailurl + '\'' +
                     '}';
         }
+
     }
 }

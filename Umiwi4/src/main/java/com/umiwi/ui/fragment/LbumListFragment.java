@@ -11,6 +11,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -91,6 +92,25 @@ public class LbumListFragment extends BaseConstantFragment implements View.OnCli
         lbAdapter = new LbumlistFragmentAdapter(getActivity());
         lbAdapter.setData(lbumlists);
         listview.setAdapter(lbAdapter);
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String type = lbumlists.get(position).getType();
+                String typeId = lbumlists.get(position).getId();
+                if ("音频".equals(type)) {
+                    Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
+                    intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, AudioSpecialDetailFragment.class);
+                    intent.putExtra("typeId", typeId);
+                    mContext.startActivity(intent);
+                } else {
+                    String detailurl = lbumlists.get(position).getDetailurl();
+                    Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
+                    intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VideoSpecialDetailFragment.class);
+                    intent.putExtra("detailurl", detailurl);
+                    mContext.startActivity(intent);
+                }
+            }
+        });
         getCatIdData();
         initFlowData();
         initTypeData();

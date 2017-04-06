@@ -3,15 +3,20 @@ package com.umiwi.ui.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.os.RemoteException;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.umiwi.ui.R;
@@ -19,10 +24,15 @@ import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.updateadapter.VideoSpecialDetailAdapter;
 import com.umiwi.ui.beans.UmiwiBuyCreateOrderBeans;
 import com.umiwi.ui.beans.updatebeans.VideoSpecialDetailBean;
+import com.umiwi.ui.dialog.ShareDialog;
+import com.umiwi.ui.fragment.course.CourseDetailPlayFragment;
+import com.umiwi.ui.fragment.home.updatehome.indexfragment.VoiceDetailsFragment;
 import com.umiwi.ui.fragment.pay.PayingFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.UmiwiAPI;
+import com.umiwi.ui.main.UmiwiApplication;
 import com.umiwi.ui.view.NoScrollListview;
+import com.umiwi.video.control.PlayerController;
 
 import java.util.ArrayList;
 
@@ -31,8 +41,6 @@ import butterknife.InjectView;
 import cn.youmi.framework.http.AbstractRequest;
 import cn.youmi.framework.http.GetRequest;
 import cn.youmi.framework.http.parsers.GsonParser;
-
-import static com.umiwi.video.services.VoiceService.url;
 
 /**
  * Created by Administrator on 2017/4/6 0006.
@@ -72,6 +80,8 @@ public class VideoSpecialDetailFragment extends BaseConstantFragment implements 
     private ArrayList<VideoSpecialDetailBean.VideoSpecialRecord> mList = new ArrayList<>();
     private VideoSpecialDetailAdapter detailAdapter;
     private String id;
+    private AnimationDrawable background;
+    private VideoSpecialDetailBean.VideoSpecialShare share;
 
     @Nullable
     @Override
@@ -81,11 +91,20 @@ public class VideoSpecialDetailFragment extends BaseConstantFragment implements 
         ButterKnife.inject(this,view);
         detailurl = getActivity().getIntent().getStringExtra("detailurl");
         detailAdapter = new VideoSpecialDetailAdapter(getActivity());
-//        detailAdapter.setData(mList);
-//        lv_audio_item.setAdapter(detailAdapter);
+        detailAdapter.setData(mList);
+        lv_audio_item.setAdapter(detailAdapter);
+        lv_audio_item.setFocusable(false);
         getInfo();
-
-
+        lv_audio_item.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                VideoSpecialDetailBean.VideoSpecialRecord videoSpecialRecord = mList.get(position);
+                Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
+                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, CourseDetailPlayFragment.class);
+                intent.putExtra(CourseDetailPlayFragment.KEY_DETAIURL, videoSpecialRecord.getDetailurl());
+                getActivity().startActivity(intent);
+            }
+        });
 
         iv_back.setOnClickListener(this);
         iv_shared.setOnClickListener(this);
@@ -97,10 +116,11 @@ public class VideoSpecialDetailFragment extends BaseConstantFragment implements 
 
     private void getInfo() {
 //        String url = String.format(UmiwiAPI.UMIWI_VIDEO_SPECIAL_DETAIL, 1222);
-        Log.e("TAG", "urlurl=" + url);
+        Log.e("TAG", "urlurl=" + detailurl);
         GetRequest<VideoSpecialDetailBean> request = new GetRequest<VideoSpecialDetailBean>(detailurl, GsonParser.class, VideoSpecialDetailBean.class, new AbstractRequest.Listener<VideoSpecialDetailBean>() {
             @Override
             public void onResult(AbstractRequest<VideoSpecialDetailBean> request, VideoSpecialDetailBean detailBean) {
+                share = detailBean.getShare();
                 id = detailBean.getId();
                 title.setText(detailBean.getTitle());
                 Glide.with(getActivity()).load(detailBean.getImage()).into(iv_image);
@@ -113,17 +133,18 @@ public class VideoSpecialDetailFragment extends BaseConstantFragment implements 
                     tv_priceold.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG|Paint.ANTI_ALIAS_FLAG); // 设置中划线并加清晰
                 }
                 shortcontent.setText(detailBean.getSubtitle());
+                description.setText(detailBean.getIntroduce());
                 salenum.setText(detailBean.getSalenum());
                 ArrayList<VideoSpecialDetailBean.VideoSpecialRecord> record = detailBean.getRecord();
                 mList.clear();
                 mList.addAll(record);
-//                detailAdapter.setData(mList);
+                detailAdapter.setData(mList);
                 if (detailBean.isbuy()) {
                     yuedu.setVisibility(View.GONE);
                 } else {
                     yuedu.setVisibility(View.VISIBLE);
                 }
-                tv_changenum.setText("总共" +detailBean.getTotal() +"条,已更新"+detailBean.getRecord().size() +"条音频");
+                tv_changenum.setText("总共" +detailBean.getTotal() +"条,已更新"+detailBean.getRecord().size() +"条视频");
             }
 
             @Override
@@ -138,15 +159,73 @@ public class VideoSpecialDetailFragment extends BaseConstantFragment implements 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.iv_back:
+                getActivity().finish();
+                break;
+            case R.id.iv_shared:
+                if(share == null) {
+                    return;
+                }
+                PlayerController.getInstance().pause();
+                ShareDialog.getInstance().showDialog(getActivity(),
+                        share.getSharetitle(), share.getSharecontent(),
+                        share.getShareurl(), share.getShareimg());
+                break;
+
             case R.id.tv_buy :
                 getSubscriber(id);
                 break;
+            case R.id.yuedu:
+                lv_audio_item.setClickable(false);
+                break;
+            case R.id.record:
+                if (UmiwiApplication.mainActivity.service != null) {
+                    try {
+
+                        if (UmiwiApplication.mainActivity.service.isPlaying() || UmiwiApplication.mainActivity.isPause) {
+                            if (UmiwiApplication.mainActivity.herfUrl != null) {
+                                Log.e("TAG", "UmiwiApplication.mainActivity.herfUrl=" + UmiwiApplication.mainActivity.herfUrl);
+                                Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
+                                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
+                                intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL, UmiwiApplication.mainActivity.herfUrl);
+                                getActivity().startActivity(intent);
+                            }
+                        }
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Toast toast = Toast.makeText(getActivity(), "没有正在播放的音频", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER,0,0);
+                    toast.show();
+                }
+                break;
+
         }
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(UmiwiApplication.mainActivity.service != null) {
+            background = (AnimationDrawable) record.getBackground();
+            try {
+                if (UmiwiApplication.mainActivity.service.isPlaying()) {
+                    background.start();
+                } else {
+                    background.stop();
+                }
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     /**
      * 获取订阅payurl
      */
     private void getSubscriber(String id) {
+        Log.e("TAG", "id=" +id);
         if(id == null) {
             return;
         }

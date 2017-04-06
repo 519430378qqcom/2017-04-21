@@ -102,6 +102,7 @@ public class AudioSpecialDetailFragment extends BaseConstantFragment implements 
         audioSpecialListAdapter = new AudioSpecialListAdapter(getActivity());
         audioSpecialListAdapter.setData(mList);
         lv_audio_item.setAdapter(audioSpecialListAdapter);
+        lv_audio_item.setFocusable(false);
         lv_audio_item.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

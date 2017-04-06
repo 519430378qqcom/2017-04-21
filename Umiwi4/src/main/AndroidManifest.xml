@@ -188,7 +188,14 @@
             android:screenOrientation="portrait" />
 
         <service android:name=".main.UmiwiService" />
-
+        <service
+            android:name="com.umiwi.video.services.VoiceService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.umiwi.video.action.BIND_SERVICE" />
+            </intent-filter>
+        </service>
         <!-- 第三方 -->
 
 
@@ -239,14 +246,7 @@
         <service
             android:name="com.baidu.android.pushservice.CommandService"
             android:exported="true" />
-        <service
-            android:name="com.umiwi.video.services.VoiceService"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.umiwi.video.action.BIND_SERVICE" />
-            </intent-filter>
-        </service>
+
         <!-- <activity -->
         <!-- android:name="com.baidu.android.pushservice.PushKeepAlive" -->
         <!-- android:theme="@android:style/Theme.Translucent.NoTitleBar" /> -->
