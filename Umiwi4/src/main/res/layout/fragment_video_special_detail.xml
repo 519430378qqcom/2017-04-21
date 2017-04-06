@@ -101,14 +101,17 @@
 
                     <TextView
                         android:layout_weight="1"
+                        android:text="dfasf"
                         android:id="@+id/shortcontent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp" />
 
                     <TextView
-                        android:layout_marginRight="15dp"
+                        android:gravity="right"
                         android:id="@+id/salenum"
+                        android:text="sdf"
+                        android:layout_marginRight="15dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
@@ -136,16 +139,26 @@
                         android:textColor="@color/black_alpf"
                         android:textSize="19sp" />
 
-                    <com.umiwi.ui.view.NoScrollListview
-                        android:id="@+id/description"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginTop="10dp"
-                        android:divider="@null"
-                        android:paddingBottom="10dp" />
-
+                    <!--<com.umiwi.ui.view.NoScrollListview-->
+                        <!--android:id="@+id/description"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginLeft="10dp"-->
+                        <!--android:layout_marginRight="10dp"-->
+                        <!--android:layout_marginTop="10dp"-->
+                        <!--android:divider="@null"-->
+                        <!--android:paddingBottom="10dp" />-->
+                        <TextView
+                            android:id="@+id/description"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="@color/black_alpf"
+                            android:textSize="16sp"
+                            />
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1px"
@@ -172,22 +185,22 @@
                             android:textColor="@color/black_alpf"
                             android:textSize="19sp" />
 
-                        <ImageView
-                            android:id="@+id/iv_sort"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="10dp"
-                            android:padding="5dp"
-                            android:src="@drawable/asc_desc" />
+                        <!--<ImageView-->
+                            <!--android:id="@+id/iv_sort"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_gravity="center_vertical"-->
+                            <!--android:layout_marginLeft="10dp"-->
+                            <!--android:padding="5dp"-->
+                            <!--android:src="@drawable/asc_desc" />-->
 
-                        <TextView
-                            android:id="@+id/textView4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="5dp"
-                            android:text="正序" />
+                        <!--<TextView-->
+                            <!--android:id="@+id/textView4"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_gravity="center_vertical"-->
+                            <!--android:layout_marginLeft="5dp"-->
+                            <!--android:text="正序" />-->
 
                         <TextView
                             android:id="@+id/tv_changenum"

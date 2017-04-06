@@ -70,6 +70,46 @@ public class AudioSpecialDetailBean extends BaseGsonBeans {
         private String price;
         @SerializedName("last_record")
         private ArrayList<LastRecordList> last_record;
+        @SerializedName("sharetitle")
+        private String sharetitle;
+        @SerializedName("shareurl")
+        private String shareurl;
+        @SerializedName("sharecontent")
+        private String sharecontent;
+        @SerializedName("shareimg")
+        private String shareimg;
+
+        public String getSharetitle() {
+            return sharetitle;
+        }
+
+        public void setSharetitle(String sharetitle) {
+            this.sharetitle = sharetitle;
+        }
+
+        public String getShareurl() {
+            return shareurl;
+        }
+
+        public void setShareurl(String shareurl) {
+            this.shareurl = shareurl;
+        }
+
+        public String getSharecontent() {
+            return sharecontent;
+        }
+
+        public void setSharecontent(String sharecontent) {
+            this.sharecontent = sharecontent;
+        }
+
+        public String getShareimg() {
+            return shareimg;
+        }
+
+        public void setShareimg(String shareimg) {
+            this.shareimg = shareimg;
+        }
 
         public String getId() {
             return id;
@@ -159,13 +199,18 @@ public class AudioSpecialDetailBean extends BaseGsonBeans {
                     ", title='" + title + '\'' +
                     ", shortcontent='" + shortcontent + '\'' +
                     ", salenum='" + salenum + '\'' +
-                    ", attention=" + content +
+                    ", content=" + content +
                     ", isbuy=" + isbuy +
                     ", priceinfo='" + priceinfo + '\'' +
                     ", price='" + price + '\'' +
                     ", last_record=" + last_record +
+                    ", sharetitle='" + sharetitle + '\'' +
+                    ", shareurl='" + shareurl + '\'' +
+                    ", sharecontent='" + sharecontent + '\'' +
+                    ", shareimg='" + shareimg + '\'' +
                     '}';
         }
+
         public static class RAudioSpecialContent{
             @SerializedName("word")
             private String word;

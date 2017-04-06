@@ -18,6 +18,7 @@ import com.umiwi.ui.beans.updatebeans.LbumListChangeBean;
 import com.umiwi.ui.beans.updatebeans.RecommendBean;
 import com.umiwi.ui.fragment.AudioSpecialDetailFragment;
 import com.umiwi.ui.fragment.LbumListFragment;
+import com.umiwi.ui.fragment.VideoSpecialDetailFragment;
 import com.umiwi.ui.main.UmiwiAPI;
 
 import java.util.ArrayList;
@@ -78,11 +79,21 @@ public class LbumLayoutView extends LinearLayout {
         lv_home_expert_rec.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String detailurl = mList.get(position).getDetailurl();
-                Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
-                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, AudioSpecialDetailFragment.class);
-                intent.putExtra("detailurl", detailurl);
-                mContext.startActivity(intent);
+                String type = mList.get(position).getType();
+                String typeId = mList.get(position).getId();
+                if ("音频".equals(type)) {
+                    Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
+                    intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, AudioSpecialDetailFragment.class);
+                    intent.putExtra("typeId", typeId);
+                    mContext.startActivity(intent);
+                } else {
+                    String detailurl = mList.get(position).getDetailurl();
+                    Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
+                    intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VideoSpecialDetailFragment.class);
+                    intent.putExtra("detailurl", detailurl);
+                    mContext.startActivity(intent);
+                }
+
             }
         });
         title_huan.setOnClickListener(new OnClickListener() {
