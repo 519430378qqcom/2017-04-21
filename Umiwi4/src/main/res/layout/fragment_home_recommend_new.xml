@@ -112,35 +112,35 @@
             <!--android:textColor="@color/black"-->
             <!--android:textSize="15sp" />-->
 
-            <TextView
-                android:id="@+id/tab_audio"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="音频"
-                android:textColor="@color/black"
-                android:textSize="15sp" />
+            <!--<TextView-->
+                <!--android:id="@+id/tab_audio"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:gravity="center"-->
+                <!--android:text="音频"-->
+                <!--android:textColor="@color/black"-->
+                <!--android:textSize="15sp" />-->
 
-            <TextView
-                android:id="@+id/tab_video"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="视频"
-                android:textColor="@color/black"
-                android:textSize="15sp" />
+            <!--<TextView-->
+                <!--android:id="@+id/tab_video"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:gravity="center"-->
+                <!--android:text="视频"-->
+                <!--android:textColor="@color/black"-->
+                <!--android:textSize="15sp" />-->
 
-            <TextView
-                android:id="@+id/tab_old_youmi"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="老优米"
-                android:textColor="@color/black"
-                android:textSize="15sp" />
+            <!--<TextView-->
+                <!--android:id="@+id/tab_old_youmi"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:gravity="center"-->
+                <!--android:text="老优米"-->
+                <!--android:textColor="@color/black"-->
+                <!--android:textSize="15sp" />-->
 
             <TextView
                 android:id="@+id/tab_startbus"
