@@ -2,10 +2,12 @@ package com.umiwi.ui.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -225,8 +227,15 @@ public class AudioSpecialDetailFragment extends BaseConstantFragment implements 
                     yuedu.setVisibility(View.VISIBLE);
                 }
                 audioSpecialListAdapter.setData(mList);
-                tv_changenum.setText("总共" +last_record.size() +"条,已更新"+last_record.size() +"条音频");
-//                .getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG|Paint.ANTI_ALIAS_FLAG); // 设置中划线并加清晰
+                if (!TextUtils.isEmpty(details.getDiscount_price()) && details.getDiscount_price() != details.getPrice()) {
+                    tv_priceold.setText("原价:" + details.getDiscount_price());
+                    tv_priceold.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG); // 设置中划线并加清晰
+                    tv_priceold.setVisibility(View.VISIBLE);
+                } else {
+                    tv_priceold.setVisibility(View.GONE);
+                }
+                tv_changenum.setText("总共" +details.getTotalnum() +"条,已更新"+last_record.size() +"条音频");
+//
             }
 
             @Override

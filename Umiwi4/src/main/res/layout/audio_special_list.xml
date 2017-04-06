@@ -50,6 +50,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="10dp"
+                        android:gravity="center"
                         android:text="试听"
                         android:textColor="@color/white"
                         android:background="@drawable/orange_color_button_bg"

@@ -78,6 +78,26 @@ public class AudioSpecialDetailBean extends BaseGsonBeans {
         private String sharecontent;
         @SerializedName("shareimg")
         private String shareimg;
+        @SerializedName("totalnum")
+        private String totalnum;
+        @SerializedName("discount_price")
+        private String discount_price;
+
+        public String getTotalnum() {
+            return totalnum;
+        }
+
+        public void setTotalnum(String totalnum) {
+            this.totalnum = totalnum;
+        }
+
+        public String getDiscount_price() {
+            return discount_price;
+        }
+
+        public void setDiscount_price(String discount_price) {
+            this.discount_price = discount_price;
+        }
 
         public String getSharetitle() {
             return sharetitle;

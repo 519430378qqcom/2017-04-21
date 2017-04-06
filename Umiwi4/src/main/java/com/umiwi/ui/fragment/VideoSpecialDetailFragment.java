@@ -122,6 +122,7 @@ public class VideoSpecialDetailFragment extends BaseConstantFragment implements 
             public void onResult(AbstractRequest<VideoSpecialDetailBean> request, VideoSpecialDetailBean detailBean) {
                 share = detailBean.getShare();
                 id = detailBean.getId();
+                Log.e("TAG", "id=" +id);
                 title.setText(detailBean.getTitle());
                 Glide.with(getActivity()).load(detailBean.getImage()).into(iv_image);
                 tv_price.setText(detailBean.getPrice());
@@ -225,7 +226,6 @@ public class VideoSpecialDetailFragment extends BaseConstantFragment implements 
      * 获取订阅payurl
      */
     private void getSubscriber(String id) {
-        Log.e("TAG", "id=" +id);
         if(id == null) {
             return;
         }

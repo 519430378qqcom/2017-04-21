@@ -281,10 +281,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:gravity="center"
             android:layout_alignTop="@+id/tv_price"
+            android:layout_alignBaseline="@+id/tv_price"
             android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
-            android:background="@drawable/orange_color_button_bg"
+            android:background="@drawable/orange_color_button"
             android:text="立即购买"
             android:textColor="@color/white" />
 
