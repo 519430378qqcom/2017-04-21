@@ -82,42 +82,43 @@ public class LbumListBean extends BaseGsonBeans {
 
         public static class LbumlistPage{
             @SerializedName("rows")
-            private int rows;
-            @SerializedName("pages")
-            private int pages;
-            @SerializedName("curr_page")
-            private String curr_page;
+            private String rows;
+            @SerializedName("totalpage")
+            private int totalpage;
+            @SerializedName("currentpage")
+            private int currentpage;
 
-            public int getRows() {
+
+            public String getRows() {
                 return rows;
             }
 
-            public void setRows(int rows) {
+            public void setRows(String rows) {
                 this.rows = rows;
             }
 
-            public int getPages() {
-                return pages;
+            public int getTotalpage() {
+                return totalpage;
             }
 
-            public void setPages(int pages) {
-                this.pages = pages;
+            public void setTotalpage(int totalpage) {
+                this.totalpage = totalpage;
             }
 
-            public String getCurr_page() {
-                return curr_page;
+            public int getCurrentpage() {
+                return currentpage;
             }
 
-            public void setCurr_page(String curr_page) {
-                this.curr_page = curr_page;
+            public void setCurrentpage(int currentpage) {
+                this.currentpage = currentpage;
             }
 
             @Override
             public String toString() {
                 return "LbumlistPage{" +
-                        "rows=" + rows +
-                        ", pages=" + pages +
-                        ", curr_page='" + curr_page + '\'' +
+                        "rows='" + rows + '\'' +
+                        ", totalpage=" + totalpage +
+                        ", currentpage=" + currentpage +
                         '}';
             }
         }

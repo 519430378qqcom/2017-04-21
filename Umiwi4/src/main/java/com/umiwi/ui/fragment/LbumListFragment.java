@@ -133,8 +133,8 @@ public class LbumListFragment extends BaseConstantFragment implements View.OnCli
 
                 ArrayList<LbumListBean.RLbumlist.LbumlistRecord> record = lbumListBean.getR().getRecord();
                 if (record != null) {
-                    totalpage = lbumListBean.getR().getPage().getPages();
-                    Log.e("TAG", "rLbumlists=" + record);
+                    totalpage = lbumListBean.getR().getPage().getTotalpage();
+//                    Log.e("TAG", "rLbumlists=" + record);
                     if (isRefresh) {
                         refreshLayout.setRefreshing(false);
                         lbumlists.clear();

@@ -15,6 +15,7 @@ import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.updateadapter.NewfreeAdapterV2;
 import com.umiwi.ui.beans.updatebeans.FreeRecordBean;
 import com.umiwi.ui.beans.updatebeans.RecommendBean;
+import com.umiwi.ui.fragment.LbumListFragment;
 import com.umiwi.ui.fragment.course.CourseDetailPlayFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.VoiceDetailsFragment;
 
@@ -111,7 +112,10 @@ public class FreeLayoutView extends LinearLayout {
         title_huan.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                getData();
+//                getData();
+                Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
+                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, LbumListFragment.class);
+                mContext.startActivity(intent);
             }
         });
     }
