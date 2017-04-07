@@ -1,6 +1,7 @@
 package com.umiwi.ui.adapter.updateadapter;
 
 import android.support.v4.app.FragmentActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -70,10 +71,11 @@ public class BuySpecialAdapter extends BaseAdapter {
         holder.tv_video_audio.setText(buySpecialRecord.getType());
         holder.special_price_1.setText(buySpecialRecord.getPrice());
         holder.expter_time_textView.setText(buySpecialRecord.getOnlinetime());
-        if (buySpecialRecord.getCatname() != null) {
+        if (!TextUtils.isEmpty(buySpecialRecord.getCatname())) {
             holder.expter_tag.setText(buySpecialRecord.getCatname());
+            holder.expter_tag.setVisibility(View.VISIBLE);
         } else {
-            holder.expter_tag.setVisibility(View.INVISIBLE);
+            holder.expter_tag.setVisibility(View.GONE);
         }
         holder.expter_detail_textView.setText(buySpecialRecord.getAudiotitle());
         holder.special_subscribe_number_1.setText("播放" + buySpecialRecord.getWatchnum() + "次");

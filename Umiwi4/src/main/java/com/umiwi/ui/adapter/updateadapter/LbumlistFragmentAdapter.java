@@ -73,10 +73,11 @@ public class LbumlistFragmentAdapter extends BaseAdapter {
         } else {
             holder.special_price_1.setVisibility(View.INVISIBLE);
         }
-        if (lbumlistRecord.getShortcontent() != null) {
-            holder.special_context_1.setText(lbumlistRecord.getShortcontent());
-        } else {
+        if ("0".equals(lbumlistRecord.getShortcontent())) {
             holder.special_context_1.setVisibility(View.INVISIBLE);
+        } else {
+            holder.special_context_1.setVisibility(View.VISIBLE);
+            holder.special_context_1.setText(lbumlistRecord.getShortcontent());
         }
         if (lbumlistRecord.getOnlinetime() != null) {
             holder.expter_time_textView.setText(lbumlistRecord.getOnlinetime());

@@ -483,13 +483,12 @@ public class HomeMainActivity extends AppCompatActivity {
 
     public void PushString() {
         PostRequest<ResultModel> prequest = new PostRequest<ResultModel>(UmiwiAPI.PUSH_BIND, GsonParser.class, ResultModel.class, pushListener);
-
+        prequest.addParam("device_id",mSpUtil.getDeviceId());
         prequest.addParam("app_id", mSpUtil.getAppId());
         prequest.addParam("user_id", mSpUtil.getUserId());
         prequest.addParam("channel_id", mSpUtil.getChannelId());
         prequest.go();
         Log.e("TAG", "mSpUtil.getUserId()=" + mSpUtil.getAppId() + "," + mSpUtil.getUserId() + "," + mSpUtil.getChannelId() + "," + mSpUtil.getDeviceId());
-        Log.e("TAG", "app_id=" + mSpUtil.getAppId() + "," +mSpUtil.getUserId() + "," + mSpUtil.getChannelId() );
     }
 
     private Listener<ResultModel> pushListener = new Listener<ResultModel>() {

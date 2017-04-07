@@ -66,10 +66,11 @@ public class LbumListAdapter extends BaseAdapter {
         holder.tv_video_audio.setText(albumListRecord.getType());
         holder.special_name_textView_1.setText(albumListRecord.getTitle());
         holder.special_price_1.setText(albumListRecord.getPrice());
-        if (!TextUtils.isEmpty(albumListRecord.getShortcontent()) && albumListRecord.getShortcontent() != "0") {
-            holder.special_context_1.setText(albumListRecord.getShortcontent());
+        if ("0".equals(albumListRecord.getShortcontent())) {
+            holder.special_context_1.setVisibility(View.GONE);
         } else {
-            holder.special_context_1.setVisibility(View.INVISIBLE);
+            holder.special_context_1.setVisibility(View.VISIBLE);
+            holder.special_context_1.setText(albumListRecord.getShortcontent());
         }
 
         if (!TextUtils.isEmpty(albumListRecord.getOnlinetime())) {

@@ -1,5 +1,6 @@
 package com.umiwi.ui.fragment.home.updatehome.indexfragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -7,12 +8,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.umeng.analytics.MobclickAgent;
 import com.umiwi.ui.R;
+import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.updateadapter.BuySpecialAdapter;
 import com.umiwi.ui.beans.updatebeans.BuySpecialBean;
+import com.umiwi.ui.fragment.AudioSpecialDetailFragment;
+import com.umiwi.ui.fragment.VideoSpecialDetailFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.managers.YoumiRoomUserManager;
@@ -51,6 +56,25 @@ public class BuySpecialFragment extends BaseConstantFragment {
         buySpecialAdapter = new BuySpecialAdapter(getActivity());
         buySpecialAdapter.setData(mList);
         listview.setAdapter(buySpecialAdapter);
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                BuySpecialBean.RBuySpecial.BuySpecialRecord buySpecialRecord = mList.get(position);
+                String typeId = buySpecialRecord.getId();
+                if("音频".equals(buySpecialRecord.getType())) {
+                    Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
+                    intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, AudioSpecialDetailFragment.class);
+                    intent.putExtra("typeId", typeId);
+                    getActivity().startActivity(intent);
+                } else {
+                    String detailurl = mList.get(position).getDetailurl();
+                    Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
+                    intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VideoSpecialDetailFragment.class);
+                    intent.putExtra("detailurl", detailurl);
+                    getActivity().startActivity(intent);
+                }
+            }
+        });
         getInfos();
         return view;
     }
