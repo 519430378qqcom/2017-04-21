@@ -199,7 +199,7 @@ public class StartBusinessFragment extends BaseConstantFragment {
     //请求列表数据
     private void getinfos() {
         String url = String.format(UmiwiAPI.UMIWI_BUS_WORK_TEND, page, catid, type, price, orderby);
-        Log.e("TAG", "url12121=" + url);
+//        Log.e("TAG", "url12121=" + url);
         GetRequest<AudioVideoBean> request = new GetRequest<AudioVideoBean>(url, GsonParser.class, AudioVideoBean.class, new AbstractRequest.Listener<AudioVideoBean>() {
             @Override
             public void onResult(AbstractRequest<AudioVideoBean> request, AudioVideoBean audioVideoBean) {
@@ -214,7 +214,7 @@ public class StartBusinessFragment extends BaseConstantFragment {
                     }
                     audioVideoList.addAll(audioVideoLists);
                     audioVideoAdapter.setData(audioVideoList);
-                    Log.e("TAG", "audioVideoBeanR=" + audioVideoLists.toString());
+//                    Log.e("TAG", "audioVideoBeanR=" + audioVideoLists.toString());
                 }
             }
 

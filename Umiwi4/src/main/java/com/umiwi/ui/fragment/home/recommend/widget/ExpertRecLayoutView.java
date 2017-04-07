@@ -3,7 +3,6 @@ package com.umiwi.ui.fragment.home.recommend.widget;
 import android.content.Context;
 import android.content.Intent;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -76,7 +75,7 @@ public class ExpertRecLayoutView extends LinearLayout {
 //                    intent.putExtra("isbuy","isbuy");
 //                }
 //                mContext.startActivity(intent);
-                Log.e("TAG", "id1=" + UmiwiAPI.No_buy_column + columnid);
+//                Log.e("TAG", "id1=" + UmiwiAPI.No_buy_column + columnid);
                 if (isbuy) {
                     Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
                     intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, LogicalThinkingFragment.class);

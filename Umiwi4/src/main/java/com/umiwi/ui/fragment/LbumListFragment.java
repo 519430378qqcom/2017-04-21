@@ -167,7 +167,6 @@ public class LbumListFragment extends BaseConstantFragment implements View.OnCli
             public void onClick(View v) {
                 if (UmiwiApplication.mainActivity.service != null) {
                     try {
-
                         if (UmiwiApplication.mainActivity.service.isPlaying() || UmiwiApplication.mainActivity.isPause) {
                             if (UmiwiApplication.mainActivity.herfUrl != null) {
                                 Log.e("TAG", "UmiwiApplication.mainActivity.herfUrl=" + UmiwiApplication.mainActivity.herfUrl);

@@ -2,7 +2,6 @@ package com.umiwi.ui.adapter.updateadapter;
 
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -61,7 +60,7 @@ public class LbumlistFragmentAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         LbumListBean.RLbumlist.LbumlistRecord lbumlistRecord = lbumlists.get(position);
-        Log.e("TAG", "lbumlistRecord=" + lbumlistRecord.toString());
+//        Log.e("TAG", "lbumlistRecord=" + lbumlistRecord.toString());
         Glide.with(mActivity).load(lbumlistRecord.getImage()).into(holder.iv_author);
         if (lbumlistRecord.getTitle() != null) {
             holder.special_name_textView_1.setText(lbumlistRecord.getTitle());

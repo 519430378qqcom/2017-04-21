@@ -12,7 +12,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -238,7 +237,7 @@ public class RecommendFragment extends BaseConstantFragment {
 
         @Override
         public void onResult(AbstractRequest<RecommendBean> request, RecommendBean t) {
-            Log.e("TAG", "t为" + t);
+//            Log.e("TAG", "t为" + t);
 //            Log.e("TAG", "t=" + t.getR().getSec_free_title().toString());
             if (null != t) {
 
@@ -387,7 +386,7 @@ public class RecommendFragment extends BaseConstantFragment {
             }
         });
 
-        Log.e("TAG",mLunboList.size()+"-----------");
+//        Log.e("TAG",mLunboList.size()+"-----------");
     }
 
     AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener() {
@@ -446,7 +445,7 @@ public class RecommendFragment extends BaseConstantFragment {
                 NewFreeResult<NewFree> t) {
 
             if (t == null) {// 主要用于防止服务器数据出错
-                Log.i("youmilog", "返回值为空");
+//                Log.i("youmilog", "返回值为空");
                 mScrollLoader.showLoadErrorView("未知错误,请重试");
                 return;
             }
@@ -457,7 +456,7 @@ public class RecommendFragment extends BaseConstantFragment {
 
             mList.addAll(charts);
 
-            Log.i("youmilog", "最新免费数据长度：" + mList.size());
+//            Log.i("youmilog", "最新免费数据长度：" + mList.size());
             if (mAdapter == null) {
                 mAdapter = new NewfreeAdapter(getActivity(), mList);
                 mListView.setAdapter(mAdapter);// 解析成功 播放列表

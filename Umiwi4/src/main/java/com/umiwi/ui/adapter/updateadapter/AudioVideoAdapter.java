@@ -2,7 +2,6 @@ package com.umiwi.ui.adapter.updateadapter;
 
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -80,7 +79,7 @@ public class AudioVideoAdapter extends BaseAdapter {
         } else {
             hoder.voice_img.setImageResource(R.drawable.default_voice);
         }
-        Log.e("TAG", "record.getPrice()=" + audioVideoList.getPrice());
+//        Log.e("TAG", "record.getPrice()=" + audioVideoList.getPrice());
         hoder.playtime.setText(audioVideoList.getPlaytime());
         hoder.watchnum.setText("播放"+audioVideoList.getWatchnum()+"次");
 //        hoder.process.setText("已播"+record.getProcess());

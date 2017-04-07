@@ -9,7 +9,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -108,7 +107,7 @@ public class NewHomeRecommendFragment extends BaseConstantFragment {
 
     @Override
     public void onResume() {
-        Log.e("TAG", "首页里的onResume()");
+//        Log.e("TAG", "首页里的onResume()");
         super.onResume();
         if(UmiwiApplication.mainActivity.service != null) {
             background = (AnimationDrawable) record.getBackground();
@@ -138,7 +137,7 @@ public class NewHomeRecommendFragment extends BaseConstantFragment {
 
                         if (UmiwiApplication.mainActivity.service.isPlaying() || UmiwiApplication.mainActivity.isPause) {
                             if (UmiwiApplication.mainActivity.herfUrl != null) {
-                                Log.e("TAG", "UmiwiApplication.mainActivity.herfUrl=" + UmiwiApplication.mainActivity.herfUrl);
+//                                Log.e("TAG", "UmiwiApplication.mainActivity.herfUrl=" + UmiwiApplication.mainActivity.herfUrl);
                                 Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
                                 intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
                                 intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL, UmiwiApplication.mainActivity.herfUrl);

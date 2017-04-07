@@ -72,7 +72,7 @@ public class TheHotListFragment extends BaseConstantFragment {
 
             @Override
             public void onSucess(String data) {
-                Log.e("返回数据", data);
+//                Log.e("返回数据", data);
                 recordBeanList.addAll(JsonUtil.json2BeanList(data, TheHotListBeans.RecordBean
                         .class));
                 hotListAdapter.notifyDataSetChanged();

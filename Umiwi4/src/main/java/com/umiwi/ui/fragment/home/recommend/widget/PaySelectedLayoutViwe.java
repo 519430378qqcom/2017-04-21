@@ -3,7 +3,6 @@ package com.umiwi.ui.fragment.home.recommend.widget;
 import android.content.Context;
 import android.content.Intent;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -225,7 +224,7 @@ public class PaySelectedLayoutViwe extends LinearLayout {
             view.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.e("付费音频url=", finalRecordBeanX1.getUrl());
+//                    Log.e("付费音频url=", finalRecordBeanX1.getUrl());
                     Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
                     intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
                     intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL, finalRecordBeanX1.getUrl());

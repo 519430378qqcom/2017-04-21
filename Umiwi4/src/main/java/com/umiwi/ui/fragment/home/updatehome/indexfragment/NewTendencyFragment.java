@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -200,7 +199,7 @@ public class NewTendencyFragment extends BaseConstantFragment {
     //请求列表数据
     private void getinfos() {
         String url = String.format(UmiwiAPI.UMIWI_BUS_WORK_TEND, page, catid, type, price, orderby);
-        Log.e("TAG", "url12121=" + url);
+//        Log.e("TAG", "url12121=" + url);
         GetRequest<AudioVideoBean> request = new GetRequest<AudioVideoBean>(url, GsonParser.class, AudioVideoBean.class, new AbstractRequest.Listener<AudioVideoBean>() {
             @Override
             public void onResult(AbstractRequest<AudioVideoBean> request, AudioVideoBean audioVideoBean) {
@@ -215,7 +214,7 @@ public class NewTendencyFragment extends BaseConstantFragment {
                     }
                     audioVideoList.addAll(audioVideoLists);
                     audioVideoAdapter.setData(audioVideoList);
-                    Log.e("TAG", "audioVideoBeanR=" + audioVideoLists.toString());
+//                    Log.e("TAG", "audioVideoBeanR=" + audioVideoLists.toString());
                 }
             }
 

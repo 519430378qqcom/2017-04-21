@@ -9,6 +9,7 @@ import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -471,6 +472,7 @@ public class HomeMainActivity extends AppCompatActivity {
         @Override
         public void onResult(AbstractRequest<ResultModel> request, ResultModel t) {
             // TODO Auto-generated method stub
+            Log.e("TAG", "ResultModel=" + t.toString());
         }
 
         @Override

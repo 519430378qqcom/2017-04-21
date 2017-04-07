@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -111,7 +110,7 @@ public class BuyCoumnFragment extends BaseConstantFragment {
     private void getInfos() {
         String uid = YoumiRoomUserManager.getInstance().getUid();
         String url = String.format(UmiwiAPI.ALREADY_COLUMN, page, uid);
-        Log.e("已购", "url=" + url);
+//        Log.e("已购", "url=" + url);
         GetRequest<AlreadShopColumnBean> req = new GetRequest<AlreadShopColumnBean>(url, GsonParser.class, AlreadShopColumnBean.class, new AbstractRequest.Listener<AlreadShopColumnBean>() {
             @Override
             public void onResult(AbstractRequest<AlreadShopColumnBean> request, AlreadShopColumnBean alreadyVideoBean) {

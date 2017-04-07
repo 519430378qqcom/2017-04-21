@@ -94,4 +94,16 @@ public class ResultModel extends BaseModel {
 		this.succnum = succnum;
 	}
 
+	@Override
+	public String toString() {
+		return "ResultModel{" +
+				"e='" + e + '\'' +
+				", m='" + m + '\'' +
+				", code='" + code + '\'' +
+				", msg='" + msg + '\'' +
+				", r='" + r + '\'' +
+				", status='" + status + '\'' +
+				", succnum='" + succnum + '\'' +
+				'}';
+	}
 }
