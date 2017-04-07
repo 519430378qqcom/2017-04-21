@@ -441,7 +441,7 @@ public final class UmiwiAPI {
     /**
      * 已购专题
      */
-    public static final String UMIWI_BUYSPECIAL= "http://i.v.youmi.cn/tutorcolumn/buyspeciallist?p=%s&uid=%s";
+    public static final String UMIWI_BUYSPECIAL= "http://i.v.youmi.cn/tutorcolumn/buyspeciallist?p=%s";
     //我的—回答（已回答，待回答）
     public static final String Mine_Answer = "http://i.v.youmi.cn/api8/myquestion?p=%s&answerstate=%s";
     //提交音频

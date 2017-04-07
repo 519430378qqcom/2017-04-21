@@ -3,11 +3,13 @@ package com.umiwi.ui.activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -48,6 +50,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
 import cn.sharesdk.framework.ShareSDK;
@@ -55,12 +58,15 @@ import cn.youmi.account.event.UserEvent;
 import cn.youmi.framework.dialog.MsgDialog;
 import cn.youmi.framework.http.AbstractRequest;
 import cn.youmi.framework.http.AbstractRequest.Listener;
+import cn.youmi.framework.http.CookieDao;
+import cn.youmi.framework.http.CookieModel;
 import cn.youmi.framework.http.GetRequest;
 import cn.youmi.framework.http.HttpDispatcher;
 import cn.youmi.framework.http.PostRequest;
 import cn.youmi.framework.http.parsers.GsonParser;
 import cn.youmi.framework.http.parsers.ModelParser;
 import cn.youmi.framework.http.parsers.ResultParser;
+import cn.youmi.framework.main.BaseApplication;
 import cn.youmi.framework.manager.ModelManager.ModelStatusListener;
 import cn.youmi.framework.manager.ResultEvent;
 import cn.youmi.framework.manager.VersionManager;
@@ -97,6 +103,7 @@ public class HomeMainActivity extends AppCompatActivity {
      * VoiceService的代理类
      */
     public IVoiceService service;
+    private static CookieDao cookiedao = CookieDao.getInstance(BaseApplication.getApplication());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,6 +119,8 @@ public class HomeMainActivity extends AppCompatActivity {
 
         if (YoumiRoomUserManager.getInstance().isLogin()) {
             PushString();
+//            String cookie1 = getCookie();
+//            Log.e("TAG", "cookie=" + cookie1 );
         }
 
         MobclickAgent.openActivityDurationTrack(false);
@@ -135,19 +144,33 @@ public class HomeMainActivity extends AppCompatActivity {
                 }
             }
         }
+//        PushSettings.enableDebugMode(getApplicationContext(), true);
         if (!mSpUtil.getDisturb()) {
             PushManager.startWork(getApplicationContext(), PushConstants.LOGIN_TYPE_API_KEY, Utils.getMetaValue(HomeMainActivity.this, "api_key"));
 //			PushManager.disableLbs(this);// 关闭精准lbs
 //            Log.e("TAG", "百度云推送的api_key=" + Utils.getMetaValue(HomeMainActivity.this, "api_key"));
         }
+//
         YoumiRoomUserManager.getInstance().getUserInfoSave(UserEvent.START_COUNT);//统计
 
         if (NetworkManager.getInstance().checkNet(this) && isMoreThanTwoDay(System.currentTimeMillis(), PreferenceUtils.getPrefLong(this, KEY_AD_TIME, 0l))) {
             saveAd();
         }
 
+        getDeviceId();
     }
 
+
+    public String getCookie() {
+        String cookiestr = "";
+        List<CookieModel> cookiemodels = cookiedao.listAvailable();
+        for (CookieModel cookiemodel : cookiemodels) {
+            String name = cookiemodel.getName();
+            String value = cookiemodel.getValue();
+            cookiestr += name + "=" + value + ";";
+        }
+        return cookiestr;
+    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -178,11 +201,12 @@ public class HomeMainActivity extends AppCompatActivity {
 //        }
         SDCardManager.createDownloadPath();
     }
+
     //TODO  测试
-    public void feedback_clock(View view){
-            Intent i = new Intent(HomeMainActivity.this,UmiwiContainerActivity.class);
-            i.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, FeedbackFragment.class);
-            startActivity(i);
+    public void feedback_clock(View view) {
+        Intent i = new Intent(HomeMainActivity.this, UmiwiContainerActivity.class);
+        i.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, FeedbackFragment.class);
+        startActivity(i);
     }
 
     @Override
@@ -460,11 +484,12 @@ public class HomeMainActivity extends AppCompatActivity {
 
     public void PushString() {
         PostRequest<ResultModel> prequest = new PostRequest<ResultModel>(UmiwiAPI.PUSH_BIND, GsonParser.class, ResultModel.class, pushListener);
+
         prequest.addParam("app_id", mSpUtil.getAppId());
         prequest.addParam("user_id", mSpUtil.getUserId());
         prequest.addParam("channel_id", mSpUtil.getChannelId());
         prequest.go();
-
+        Log.e("TAG", "mSpUtil.getUserId()=" + mSpUtil.getAppId() + "," + mSpUtil.getUserId() + "," + mSpUtil.getChannelId() + "," + mSpUtil.getDeviceId());
     }
 
     private Listener<ResultModel> pushListener = new Listener<ResultModel>() {
@@ -482,6 +507,7 @@ public class HomeMainActivity extends AppCompatActivity {
         }
     };
     private SharePreferenceUtil mSpUtil;
+
 
     private Listener<ResultModel> deleteListener = new Listener<ResultModel>() {
         @Override
@@ -627,6 +653,24 @@ public class HomeMainActivity extends AppCompatActivity {
     public static boolean isMoreThanTwoDay(long afterTime, long beforeTime) {
         long day = (afterTime - beforeTime) / (24 * 60 * 60 * 1000);
         return day >= 1;
+    }
+
+    public void getDeviceId() {
+//        String deviceId = mSpUtil.getDeviceId();
+//        if(deviceId != null) {
+//            return;
+//        }
+        TelephonyManager systemService = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
+        String deviceId1 = systemService.getDeviceId();
+//        Log.e("TAG", "dev=" + deviceId1);
+        String serial = Build.SERIAL;//序号
+        String model = Build.MODEL;//设备名称
+        String id = Build.ID;
+
+        String uuid = UUID.randomUUID().toString();
+        String deviceId = serial + model + deviceId1;
+        Log.e("TAG", "deviceId=" + deviceId);
+        mSpUtil.setDeviceId(deviceId);
     }
 
 }

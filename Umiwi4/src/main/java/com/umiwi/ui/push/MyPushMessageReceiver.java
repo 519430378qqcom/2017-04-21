@@ -38,7 +38,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import cn.youmi.framework.debug.LogUtils;
 import cn.youmi.framework.util.SharePreferenceUtil;
 
 /**
@@ -90,8 +89,8 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
     public void onBind(Context context, int errorCode, String appid,
                        String userId, String channelId, String requestId) {
 
-//        String responseString = "onBind errorCode=" + errorCode + " appid=" + appid + " userId=" + userId + " channelId=" + channelId + " requestId=" + requestId;
-//        Log.e("bind", responseString);
+        String responseString = "onBind errorCode=" + errorCode + " appid=" + appid + " userId=" + userId + " channelId=" + channelId + " requestId=" + requestId;
+        Log.e("TAG", responseString);
 
         // 绑定成功，设置已绑定flag，可以有效的减少不必要的绑定请求
         if (errorCode == 0) {
@@ -104,6 +103,7 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
                 util.setRequestId(requestId);
             }
         }
+        Log.e("TAG", "errorCode=" + errorCode);
     }
 
     /**
@@ -117,7 +117,7 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
     public void onMessage(Context context, String message,
                           String customContentString) {
 //		String messageString = "透传消息 message=\"" + message + "\" customContentString=" + customContentString;
-        LogUtils.e(TAG, "透传消息 message=\"" + message + "\" customContentString=" + customContentString);
+//        LogUtils.e(TAG, "透传消息 message=\"" + message + "\" customContentString=" + customContentString);
 
         try {
             JSONObject jsonContent = new JSONObject(message);
@@ -148,9 +148,11 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
                                       String description, String customContentString) {
 
 //		String notifyString = "通知点击 title=\"" + title + "\" description=\"" + description + "\" customContent=" + customContentString;
-//		Log.d(TAG, notifyString);
+//		Log.d("TAG", notifyString);
 //		System.out.println("=============="+customContentString);
         // 自定义内容获取方式，mykey和myvalue对应通知推送时自定义内容中设置的键和值
+
+
         if (customContentString != null & !TextUtils.isEmpty(customContentString)) {
             JSONObject customJson = null;
             try {
@@ -201,8 +203,8 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
 //		String notifyString = "onNotificationArrived  title=\"" + title
 //				+ "\" description=\"" + description + "\" customContent="
 //				+ customContentString;
-//		Log.d(TAG, notifyString);
-//
+//		Log.d("TAG", notifyString);
+
 //		// 自定义内容获取方式，mykey和myvalue对应通知推送时自定义内容中设置的键和值
 //		if (!TextUtils.isEmpty(customContentString)) {
 //			JSONObject customJson = null;

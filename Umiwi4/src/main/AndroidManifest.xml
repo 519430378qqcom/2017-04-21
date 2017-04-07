@@ -29,8 +29,31 @@
     <!-- 后台下载 -->
     <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
 
+
     <!-- 拍照 -->
     <uses-permission android:name="android.permission.CAMERA" />
+    <!-- Push service 运行需要的权限 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 富媒体需要声明的权限 -->
+    <uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER" />
+    <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
+    <uses-permission android:name="android.permission.EXPAND_STATUS_BAR" />
+
+    <!-- 适配Android N系统必需的ContentProvider写权限声明，写权限包含应用包名-->
+    <uses-permission android:name="baidu.push.permission.WRITE_PUSHINFOPROVIDER.com.umiwi.ui" />
+    <permission
+        android:name="baidu.push.permission.WRITE_PUSHINFOPROVIDER.com.umiwi.ui"
+        android:protectionLevel="normal"></permission>
+
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -203,16 +226,16 @@
         <receiver android:name=".push.MyPushMessageReceiver">
             <intent-filter>
 
-                <!-- 接收 push 消息 -->
+                <!-- 接收push消息 -->
                 <action android:name="com.baidu.android.pushservice.action.MESSAGE" />
-                <!-- 接收 bind、setTags 等 method 的返回结果 -->
+                <!-- 接收bind、setTags等method的返回结果-->
                 <action android:name="com.baidu.android.pushservice.action.RECEIVE" />
-                <!-- 可选。接受通知点击事件，和通知自定义内容 -->
+                <!-- 接收通知点击事件，和通知自定义内容 -->
                 <action android:name="com.baidu.android.pushservice.action.notification.CLICK" />
             </intent-filter>
         </receiver>
         <!-- push service start -->
-        <!-- 用于接收系统消息以保证 PushService 正常运行 -->
+        <!-- 用于接收系统消息以保证PushService正常运行 -->
         <receiver
             android:name="com.baidu.android.pushservice.PushServiceReceiver"
             android:process=":bdservice_v1">
@@ -221,14 +244,14 @@
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
                 <action android:name="com.baidu.android.pushservice.action.notification.SHOW" />
                 <action android:name="com.baidu.android.pushservice.action.media.CLICK" />
-                <!-- 以下四项为可选的 action 声明,可大大提高 service 存活率和消息到达速度 -->
+                <!-- 以下四项为可选的action声明，可大大提高service存活率和消息到达速度 -->
                 <action android:name="android.intent.action.MEDIA_MOUNTED" />
                 <action android:name="android.intent.action.USER_PRESENT" />
                 <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
                 <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
             </intent-filter>
         </receiver>
-        <!-- Push 服务接收客户端发送的各种请求 -->
+        <!-- Push服务接收客户端发送的各种请求-->
         <receiver
             android:name="com.baidu.android.pushservice.RegistrationReceiver"
             android:process=":bdservice_v1">
@@ -238,21 +261,9 @@
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_REMOVED" />
-
                 <data android:scheme="package" />
             </intent-filter>
         </receiver>
-
-        <service
-            android:name="com.baidu.android.pushservice.CommandService"
-            android:exported="true" />
-
-        <!-- <activity -->
-        <!-- android:name="com.baidu.android.pushservice.PushKeepAlive" -->
-        <!-- android:theme="@android:style/Theme.Translucent.NoTitleBar" /> -->
-
-
-        <!-- Push 服务 -->
         <service
             android:name="com.baidu.android.pushservice.PushService"
             android:exported="true"
@@ -262,16 +273,30 @@
             </intent-filter>
         </service>
 
+        <!-- 4.4版本新增的CommandService声明，提升小米和魅族手机上的实际推送到达率 -->
+        <service
+            android:name="com.baidu.android.pushservice.CommandService"
+            android:exported="true" />
+
+        <!-- 适配Android N系统必需的ContentProvider声明，写权限包含应用包名-->
+        <provider
+            android:name="com.baidu.android.pushservice.PushInfoProvider"
+            android:authorities="com.umiwi.ui.bdpush"
+            android:exported="true"
+            android:protectionLevel="signature"
+            android:writePermission="baidu.push.permission.WRITE_PUSHINFOPROVIDER.com.umiwi.ui" />
+
+        <!-- push结束 -->
         <!-- //课程或专题测试用 -->
 
-
-        <!-- <meta-data -->
-        <!-- android:name="api_key" -->
-        <!-- android:value="KSQtdtGBgvvY4UG9FxkSLgac" /> -->
-
+        <!--&lt;!&ndash;测试&ndash;&gt;-->
         <meta-data
-            android:name="api_key"
-            android:value="t6N14YtZKSWwkAElQIIIYrS2" />
+        android:name="api_key"
+        android:value="whsVZklnGiWQD2FrGzlUHZ8L" />
+        <!--正式-->
+        <!--<meta-data-->
+            <!--android:name="api_key"-->
+            <!--android:value="t6N14YtZKSWwkAElQIIIYrS2" />-->
 
         <!-- baidu push service end -->
 
@@ -368,15 +393,15 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.ColumnDetailsSplashActivity"
+        <activity
+            android:name=".activity.ColumnDetailsSplashActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"
             android:launchMode="singleTask"
-            >
+            android:screenOrientation="portrait">
             <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
+            <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--<category android:name="android.intent.category.LAUNCHER" />-->
             <!--</intent-filter>-->
         </activity>
     </application>

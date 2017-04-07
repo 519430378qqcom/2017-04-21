@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -503,6 +504,8 @@ public class RecommendFragment extends BaseConstantFragment {
             GetRequest<HomeADBeans.HomeADBeansRequestData> request = new GetRequest<HomeADBeans.HomeADBeansRequestData>(
                     ad_str, ADParser.class, adListener);
             HttpDispatcher.getInstance().go(request);
+            Log.e("TAG", "CommonHelper.getMacMD5()=" + CommonHelper.getMacMD5());
+            Log.e("TAG", "ad_str=" + ad_str);
         } catch (Resources.NotFoundException e) {
             e.printStackTrace();
         } catch (Exception e) {
@@ -515,6 +518,7 @@ public class RecommendFragment extends BaseConstantFragment {
         @Override
         public void onResult(AbstractRequest<HomeADBeans.HomeADBeansRequestData> request,
                              HomeADBeans.HomeADBeansRequestData t) {
+            Log.e("TAG", "HomeADBeans=" + t);
             if (null != t) {
                 getGiftData();
             }

@@ -22,7 +22,13 @@ public class SharePreferenceUtil {
 		sp = context.getSharedPreferences(file, Context.MODE_PRIVATE);
 		editor = sp.edit();
 	}
-
+	public void setDeviceId(String deviceId){
+		editor.putString("deviceid",deviceId);
+		editor.commit();
+	}
+	public String getDeviceId(){
+		return sp.getString("deviceid","");
+	}
 	// bind succ 
 	public void setBindSucc(boolean succ) {
 		editor.putBoolean("is_succ", succ);

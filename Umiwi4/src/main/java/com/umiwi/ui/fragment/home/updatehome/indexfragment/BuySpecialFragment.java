@@ -11,13 +11,20 @@ import android.widget.ListView;
 
 import com.umeng.analytics.MobclickAgent;
 import com.umiwi.ui.R;
+import com.umiwi.ui.adapter.updateadapter.BuySpecialAdapter;
+import com.umiwi.ui.beans.updatebeans.BuySpecialBean;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.managers.YoumiRoomUserManager;
 import com.umiwi.ui.view.RefreshLayout;
 
+import java.util.ArrayList;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import cn.youmi.framework.http.AbstractRequest;
+import cn.youmi.framework.http.GetRequest;
+import cn.youmi.framework.http.parsers.GsonParser;
 
 
 /**
@@ -33,13 +40,17 @@ public class BuySpecialFragment extends BaseConstantFragment {
     private int totalpage;
     private boolean isla = false;
     private boolean isload = false;
+    private ArrayList<BuySpecialBean.RBuySpecial.BuySpecialRecord> mList = new ArrayList<>();
+    private BuySpecialAdapter buySpecialAdapter;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_buyspecial_layout, null);
         ButterKnife.inject(this,view);
         initrefreshLayout();
-
+        buySpecialAdapter = new BuySpecialAdapter(getActivity());
+        buySpecialAdapter.setData(mList);
+        listview.setAdapter(buySpecialAdapter);
         getInfos();
         return view;
     }
@@ -77,8 +88,34 @@ public class BuySpecialFragment extends BaseConstantFragment {
 
     private void getInfos() {
         String uid = YoumiRoomUserManager.getInstance().getUid();
-        String url = String.format(UmiwiAPI.UMIWI_BUYSPECIAL,page,uid);
-        Log.e("TAG", "UMIWI_BUYSPECIAL=" + url);
+        String url = String.format(UmiwiAPI.UMIWI_BUYSPECIAL,page);
+        Log.e("TAG", "UMIWI_BUYSPECIAL=" + url + ","+uid);
+        GetRequest<BuySpecialBean> request = new GetRequest<BuySpecialBean>(url, GsonParser.class, BuySpecialBean.class, new AbstractRequest.Listener<BuySpecialBean>() {
+            @Override
+            public void onResult(AbstractRequest<BuySpecialBean> request, BuySpecialBean buySpecialBean) {
+                totalpage= buySpecialBean.getR().getPage().getTotalpage();
+                ArrayList<BuySpecialBean.RBuySpecial.BuySpecialRecord> record = buySpecialBean.getR().getRecord();
+                if(record!= null) {
+                    mList.clear();
+                    mList.addAll(record);
+                    buySpecialAdapter.setData(mList);
+                    if (isla) {
+                        listview.setEnabled(true);
+                        refreshLayout.setRefreshing(false);
+                        isla = false;
+                    } else if (isload) {
+                        refreshLayout.setLoading(false);
+                        isload = false;
+                    }
+                }
+            }
+
+            @Override
+            public void onError(AbstractRequest<BuySpecialBean> requet, int statusCode, String body) {
+
+            }
+        });
+        request.go();
     }
 
     @Override
