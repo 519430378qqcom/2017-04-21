@@ -60,7 +60,7 @@ public class VideoSpecialDetailAdapter extends BaseAdapter {
         VideoSpecialDetailBean.VideoSpecialRecord videoSpecialRecord = mList.get(position);
         holder.title.setText(videoSpecialRecord.getTitle());
         holder.playtime.setText(videoSpecialRecord.getPlaytime());
-        holder.watchnum.setText(videoSpecialRecord.getWatchnum() + "次播放");
+        holder.watchnum.setText("播放"+ videoSpecialRecord.getWatchnum() + "次");
         holder.process.setText(videoSpecialRecord.getTime());
         if ("试看".equals(videoSpecialRecord.getPrice())) {
             holder.price.setVisibility(View.VISIBLE);

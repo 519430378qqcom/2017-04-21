@@ -207,6 +207,7 @@ public class AudioSpecialDetailFragment extends BaseConstantFragment implements 
      */
     private void getInfo() {
         String url = String.format(UmiwiAPI.UMIWI_AUDIO_SPECIAL_DETAIL,typeId,orderBy);
+        Log.e("TAG", "url=" + url);
         GetRequest<AudioSpecialDetailBean> request = new GetRequest<AudioSpecialDetailBean>(url, GsonParser.class, AudioSpecialDetailBean.class, new AbstractRequest.Listener<AudioSpecialDetailBean>() {
             @Override
             public void onResult(AbstractRequest<AudioSpecialDetailBean> request, AudioSpecialDetailBean detailBean) {

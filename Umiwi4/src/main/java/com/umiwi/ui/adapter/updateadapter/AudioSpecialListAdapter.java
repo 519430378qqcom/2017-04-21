@@ -56,7 +56,7 @@ public class AudioSpecialListAdapter extends BaseAdapter {
         AudioSpecialDetailBean.RAudioSpecial.LastRecordList lastRecordList = mList.get(position);
         holder.title.setText(lastRecordList.getTitle());
         holder.playtime.setText(lastRecordList.getPlaytime());
-        holder.watchnum.setText(lastRecordList.getWatchnum());
+        holder.watchnum.setText(lastRecordList.getWatchnum() + "次");
         holder.process.setText(lastRecordList.getOnlinetime());
         if (lastRecordList.isaudition()) {
             holder.price.setVisibility(View.VISIBLE);

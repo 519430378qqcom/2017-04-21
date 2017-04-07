@@ -156,7 +156,6 @@ public class VideoSpecialDetailFragment extends BaseConstantFragment implements 
         request.go();
     }
 
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
