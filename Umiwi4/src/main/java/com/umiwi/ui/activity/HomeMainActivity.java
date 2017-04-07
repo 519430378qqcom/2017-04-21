@@ -201,7 +201,6 @@ public class HomeMainActivity extends AppCompatActivity {
 //        }
         SDCardManager.createDownloadPath();
     }
-
     //TODO  测试
     public void feedback_clock(View view) {
         Intent i = new Intent(HomeMainActivity.this, UmiwiContainerActivity.class);
@@ -490,6 +489,7 @@ public class HomeMainActivity extends AppCompatActivity {
         prequest.addParam("channel_id", mSpUtil.getChannelId());
         prequest.go();
         Log.e("TAG", "mSpUtil.getUserId()=" + mSpUtil.getAppId() + "," + mSpUtil.getUserId() + "," + mSpUtil.getChannelId() + "," + mSpUtil.getDeviceId());
+        Log.e("TAG", "app_id=" + mSpUtil.getAppId() + "," +mSpUtil.getUserId() + "," + mSpUtil.getChannelId() );
     }
 
     private Listener<ResultModel> pushListener = new Listener<ResultModel>() {
