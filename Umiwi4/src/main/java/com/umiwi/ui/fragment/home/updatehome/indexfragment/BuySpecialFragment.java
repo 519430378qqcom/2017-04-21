@@ -79,6 +79,7 @@ public class BuySpecialFragment extends BaseConstantFragment {
         String uid = YoumiRoomUserManager.getInstance().getUid();
         String url = String.format(UmiwiAPI.UMIWI_BUYSPECIAL,page,uid);
         Log.e("TAG", "UMIWI_BUYSPECIAL=" + url);
+
     }
 
     @Override

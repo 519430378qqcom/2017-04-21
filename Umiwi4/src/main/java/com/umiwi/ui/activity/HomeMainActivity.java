@@ -464,7 +464,7 @@ public class HomeMainActivity extends AppCompatActivity {
         prequest.addParam("user_id", mSpUtil.getUserId());
         prequest.addParam("channel_id", mSpUtil.getChannelId());
         prequest.go();
-
+        Log.e("TAG", "app_id=" + mSpUtil.getAppId() + "," +mSpUtil.getUserId() + "," + mSpUtil.getChannelId() );
     }
 
     private Listener<ResultModel> pushListener = new Listener<ResultModel>() {
