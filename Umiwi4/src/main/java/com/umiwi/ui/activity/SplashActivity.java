@@ -37,7 +37,7 @@ public class SplashActivity extends AppCompatActivity {
 		
 		setContentView(R.layout.activity_frame_layout);
 
-
+//		overridePendingTransition(R.anim.right_in,R.anim.left_out);
 		
 		FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 		// 获得用户是否是第一次启动
@@ -123,7 +123,7 @@ public class SplashActivity extends AppCompatActivity {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			isKeyBack = true;
 			PreferenceUtils.setPrefBoolean(this, "isCanShowGift", true);
-			startActivity(new Intent(SplashActivity.this, HomeMainActivity.class));
+			startActivity(new Intent(SplashActivity.this, AdvertiseActivity.class));
 //			startActivity(new Intent(SplashActivity.this, ColumnDetailsSplashActivity.class));
 			SplashActivity.this.finish();
 

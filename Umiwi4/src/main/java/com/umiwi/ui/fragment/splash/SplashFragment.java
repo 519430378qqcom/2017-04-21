@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.umeng.analytics.MobclickAgent;
 import com.umiwi.ui.R;
+import com.umiwi.ui.activity.AdvertiseActivity;
 import com.umiwi.ui.activity.HomeMainActivity;
 import com.umiwi.ui.activity.SplashActivity;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
@@ -149,7 +150,7 @@ public class SplashFragment extends BaseConstantFragment {
             Intent i = null;
             if (getActivity() != null) {// 当用户按返回键时
 //                i = new Intent(getActivity(), HomeMainActivity.class);
-                i = new Intent(getActivity(), HomeMainActivity.class);
+                i = new Intent(getActivity(), AdvertiseActivity.class);
                 mSharedPreferences.edit().putBoolean("isCanShowGift", true).commit();
             }
             if (i != null) {
@@ -180,7 +181,7 @@ public class SplashFragment extends BaseConstantFragment {
             Intent i = null;
             if (getActivity() != null) {// 当用户按返回键时
 //                i = new Intent(getActivity(), HomeMainActivity.class);
-                i = new Intent(getActivity(), HomeMainActivity.class);
+                i = new Intent(getActivity(), AdvertiseActivity.class);
             }
             if (i != null) {
                 startActivity(i);

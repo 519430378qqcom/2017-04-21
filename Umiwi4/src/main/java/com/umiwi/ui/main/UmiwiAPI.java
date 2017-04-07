@@ -156,7 +156,10 @@ public final class UmiwiAPI {
      * 热门视频
      */
     public static final String UMIWI_HOTVIDEO_HUAN = "http://api.v.youmi.cn/api8/hotvideo?p=%s";
-
+    /**
+     * 首页广告图
+     */
+    public static final String UMIWI_ADVERTISE= "http://api.v.youmi.cn/api8/ad";
     //================================抽屉模块===================================//
 
     /**

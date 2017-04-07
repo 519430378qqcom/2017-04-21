@@ -115,6 +115,8 @@ public class FreeLayoutView extends LinearLayout {
 //                Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
 //                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, LbumListFragment.class);
 //                mContext.startActivity(intent);
+//                Intent intent = new Intent(mContext,AdvertiseActivity.class);
+//                mContext.startActivity(intent);
             }
         });
     }

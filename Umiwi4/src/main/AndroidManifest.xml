@@ -196,7 +196,7 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
-
+        <activity android:name=".activity.AdvertiseActivity"></activity>
         <!-- 网页容器 -->
 
         <activity
@@ -306,7 +306,10 @@
         <!--正式-->
         <meta-data
             android:name="api_key"
-            android:value="t6N14YtZKSWwkAElQIIIYrS2" />
+            android:value="ch9hiwbufTGrjxo8GSjBaOnj" />
+        <!--<meta-data-->
+            <!--android:name="api_key"-->
+            <!--android:value="t6N14YtZKSWwkAElQIIIYrS2" />-->
          <!--baidu push service end-->
 
         <!-- alipay skd start -->
