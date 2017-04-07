@@ -297,9 +297,7 @@
         <!--<meta-data-->
             <!--android:name="api_key"-->
             <!--android:value="t6N14YtZKSWwkAElQIIIYrS2" />-->
-
         <!-- baidu push service end -->
-
 
         <!-- alipay skd start -->
         <activity
