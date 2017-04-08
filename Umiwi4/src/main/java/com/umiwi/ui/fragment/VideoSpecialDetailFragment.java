@@ -110,6 +110,7 @@ public class VideoSpecialDetailFragment extends BaseConstantFragment implements 
         iv_shared.setOnClickListener(this);
         record.setOnClickListener(this);
         yuedu.setOnClickListener(this);
+        tv_buy.setOnClickListener(this);
         return view;
 
     }
@@ -126,25 +127,33 @@ public class VideoSpecialDetailFragment extends BaseConstantFragment implements 
                 title.setText(detailBean.getTitle());
                 Glide.with(getActivity()).load(detailBean.getImage()).into(iv_image);
                 tv_price.setText(detailBean.getPrice());
-                if (detailBean.getRaw_price() == detailBean.getPrice()) {
+                if (detailBean.getRaw_price().equals(detailBean.getPrice())) {
                     tv_priceold.setVisibility(View.GONE);
                 } else {
                     tv_priceold.setText(detailBean.getRaw_price());
                     tv_priceold.setVisibility(View.VISIBLE);
                     tv_priceold.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG|Paint.ANTI_ALIAS_FLAG); // 设置中划线并加清晰
                 }
-                shortcontent.setText(detailBean.getSubtitle());
+                if ("0".equals(detailBean.getSubtitle())) {
+                    shortcontent.setVisibility(View.INVISIBLE);
+                } else {
+                    shortcontent.setText(detailBean.getSubtitle());
+                }
                 description.setText(detailBean.getIntroduce());
-                salenum.setText(detailBean.getSalenum());
+                if ("0".equals(detailBean.getSalenum())) {
+                    salenum.setVisibility(View.INVISIBLE);
+                } else {
+                    salenum.setText(detailBean.getSalenum());
+                }
                 ArrayList<VideoSpecialDetailBean.VideoSpecialRecord> record = detailBean.getRecord();
                 mList.clear();
                 mList.addAll(record);
                 detailAdapter.setData(mList);
-                if (detailBean.isbuy()) {
-                    yuedu.setVisibility(View.GONE);
-                } else {
-                    yuedu.setVisibility(View.VISIBLE);
-                }
+//                if (detailBean.isbuy()) {
+//                    yuedu.setVisibility(View.GONE);
+//                } else {
+//                    yuedu.setVisibility(View.VISIBLE);
+//                }
                 tv_changenum.setText("总共" +detailBean.getTotal() +"条,已更新"+detailBean.getRecord().size() +"条视频");
             }
 

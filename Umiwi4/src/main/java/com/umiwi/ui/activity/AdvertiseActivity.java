@@ -13,6 +13,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -69,6 +71,12 @@ public class AdvertiseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.getWindow().setFlags(FLAG_HOMEKEY_DISPATCHED, FLAG_HOMEKEY_DISPATCHED);//关键代码
+         /*set it to be no title*/
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        /*set it to be full screen*/
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.fragment_advertise_layout);
 
          vp_ad_images = (ViewPager)findViewById(R.id.vp_ad_images);
@@ -167,7 +175,7 @@ public class AdvertiseActivity extends AppCompatActivity {
 
             final AdvertisementBean.RAdvertBean rAdvertBean = mList.get(position);
             ImageLoader mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
-            mImageLoader.loadImage(rAdvertBean.getImage(), imageView);
+            mImageLoader.loadImage(rAdvertBean.getImage(), imageView,R.drawable.guide_splash);
             imageView.setAdjustViewBounds(true);
             imageView.setMaxHeight(container.getMeasuredHeight());
             imageView.setMaxWidth(container.getMeasuredWidth());

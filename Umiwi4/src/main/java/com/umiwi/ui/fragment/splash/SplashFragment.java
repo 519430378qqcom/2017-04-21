@@ -136,8 +136,6 @@ public class SplashFragment extends BaseConstantFragment {
         } else {
             mHandler.postDelayed(noLoginRun, 3000);
         }
-
-
         return view;
     }
 
