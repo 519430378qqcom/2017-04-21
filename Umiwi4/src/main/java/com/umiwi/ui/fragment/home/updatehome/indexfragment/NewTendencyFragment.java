@@ -152,6 +152,9 @@ public class NewTendencyFragment extends BaseConstantFragment {
                         direction = 1;//up
 
                     }
+
+                    break;
+                case MotionEvent.ACTION_UP:
                     if(direction == 1) {
                         if(mShow) {
                             showAnim(1);

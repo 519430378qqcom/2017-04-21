@@ -135,7 +135,7 @@ public class WorkPlaceFragment extends BaseConstantFragment {
         listview.setOnTouchListener(mOnTouchListener);
     }
 
-    private boolean mShow = false;
+    private boolean mShow = true;
     private View.OnTouchListener mOnTouchListener = new View.OnTouchListener() {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
@@ -153,6 +153,9 @@ public class WorkPlaceFragment extends BaseConstantFragment {
                         direction = 1;//up
 
                     }
+
+                    break;
+                case MotionEvent.ACTION_UP:
                     if(direction == 1) {
                         if(mShow) {
                             showAnim(1);
@@ -164,6 +167,7 @@ public class WorkPlaceFragment extends BaseConstantFragment {
                             mShow = !mShow;
                         }
                     }
+
                     break;
             }
             return false;

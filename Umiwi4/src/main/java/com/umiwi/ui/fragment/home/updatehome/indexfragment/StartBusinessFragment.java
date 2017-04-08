@@ -128,30 +128,42 @@ public class StartBusinessFragment extends BaseConstantFragment {
         initScrollView();
         return view;
     }
+    private boolean scrollFlag = false;// 标记是否滑动
+    private int lastVisibleItemPosition;// 标记上次滑动位置
     private void initScrollView() {
         //最小滑动距离
         touchSlop = ViewConfiguration.get(mContext).getScaledTouchSlop();
         listview.setOnTouchListener(mOnTouchListener);
+
     }
 
-    private boolean mShow = false;
+
+    private boolean mShow = true;
     private View.OnTouchListener mOnTouchListener = new View.OnTouchListener() {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN :
                     mFirstY = event.getY();
-
+                    Log.e("TAG", "mFirstY=" + mFirstY);
                     break;
                 case MotionEvent.ACTION_MOVE:
                     mCurrentY = event.getY();
+                    Log.e("TAG", "mCurrentY=" + mCurrentY);
                     if(mCurrentY - mFirstY > touchSlop) {
                         direction = 0;//down
-
                     }else if(mFirstY - mCurrentY > touchSlop) {
                         direction = 1;//up
-
                     }
+                    break;
+                case MotionEvent.ACTION_UP:
+//                    mCurrentY = event.getY();
+//                    Log.e("TAG", "mCurrentY=" + mCurrentY);
+//                    if(mCurrentY - mFirstY > 0) {
+//                        direction = 0;//down
+//                    }else if(mFirstY - mCurrentY > 0) {
+//                        direction = 1;//up
+//                    }
                     if(direction == 1) {
                         if(mShow) {
                             showAnim(1);
@@ -174,6 +186,7 @@ public class StartBusinessFragment extends BaseConstantFragment {
             animator.cancel();
         }
         if (flag == 0) {
+            Log.e("TAG", "下滑");
             animator = ObjectAnimator.ofFloat(ll_visiable_or, "translationY", ll_visiable_or.getTranslationY(), 0);
             animator.addListener(new AnimatorListenerAdapter() {
                 @Override
@@ -182,7 +195,9 @@ public class StartBusinessFragment extends BaseConstantFragment {
                     ll_visiable_or.setVisibility(View.VISIBLE);
                 }
             });
-        } else {
+        }
+        if(flag == 1) {
+            Log.e("TAG", "上滑");
             animator = ObjectAnimator.ofFloat(ll_visiable_or,"translationY",ll_visiable_or.getTranslationY(),-ll_visiable_or.getHeight());
             animator.addListener(new AnimatorListenerAdapter() {
                 @Override
