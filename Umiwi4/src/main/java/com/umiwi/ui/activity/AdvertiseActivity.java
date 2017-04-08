@@ -161,14 +161,16 @@ public class AdvertiseActivity extends AppCompatActivity {
 
         @Override
         public Object instantiateItem(ViewGroup container, final int position) {
-            ViewGroup.LayoutParams para = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            ViewGroup.LayoutParams para = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
             ImageView imageView = new ImageView(activity);
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-            imageView.setAdjustViewBounds(true);
 
             final AdvertisementBean.RAdvertBean rAdvertBean = mList.get(position);
             ImageLoader mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
             mImageLoader.loadImage(rAdvertBean.getImage(), imageView);
+            imageView.setAdjustViewBounds(true);
+            imageView.setMaxHeight(container.getMeasuredHeight());
+            imageView.setMaxWidth(container.getMeasuredWidth());
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
             imageView.setLayoutParams(para);
             container.addView(imageView, 0);
