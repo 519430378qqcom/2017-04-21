@@ -6,6 +6,7 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -144,6 +145,7 @@ public class JPZTDetailFragment extends BaseConstantFragment implements ModelSta
                     intent.putExtra(PayOrderDetailFragment.KEY_ORDER_ID, buyId);
                     intent.putExtra(PayOrderDetailFragment.KEY_ORDER_TYPE, PayTypeEvent.ZHUANTI);
                     intent.putExtra(PayOrderDetailFragment.KEY_SPM, String.format(StatisticsUrl.ORDER_JPZT_DETAIL, buyId, price));
+                    Log.e("TAG", "buyId=" + buyId + ",price=" + price);
                     startActivity(intent);
                 } else {
                     LoginUtil.getInstance().showLoginView(getActivity());

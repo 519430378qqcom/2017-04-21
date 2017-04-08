@@ -27,10 +27,15 @@ import com.umiwi.ui.beans.updatebeans.VideoSpecialDetailBean;
 import com.umiwi.ui.dialog.ShareDialog;
 import com.umiwi.ui.fragment.course.CourseDetailPlayFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.VoiceDetailsFragment;
+import com.umiwi.ui.fragment.pay.PayOrderDetailFragment;
+import com.umiwi.ui.fragment.pay.PayTypeEvent;
 import com.umiwi.ui.fragment.pay.PayingFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.main.UmiwiApplication;
+import com.umiwi.ui.managers.StatisticsUrl;
+import com.umiwi.ui.managers.YoumiRoomUserManager;
+import com.umiwi.ui.util.LoginUtil;
 import com.umiwi.ui.view.NoScrollListview;
 import com.umiwi.video.control.PlayerController;
 
@@ -82,6 +87,8 @@ public class VideoSpecialDetailFragment extends BaseConstantFragment implements 
     private String id;
     private AnimationDrawable background;
     private VideoSpecialDetailBean.VideoSpecialShare share;
+    private String price;
+    private String sectionid;
 
     @Nullable
     @Override
@@ -123,10 +130,12 @@ public class VideoSpecialDetailFragment extends BaseConstantFragment implements 
             public void onResult(AbstractRequest<VideoSpecialDetailBean> request, VideoSpecialDetailBean detailBean) {
                 share = detailBean.getShare();
                 id = detailBean.getId();
+                sectionid = detailBean.getSectionid();
                 Log.e("TAG", "id=" +id);
                 title.setText(detailBean.getTitle());
                 Glide.with(getActivity()).load(detailBean.getImage()).into(iv_image);
                 tv_price.setText(detailBean.getPrice());
+                price = detailBean.getPrice();
                 if (detailBean.getRaw_price().equals(detailBean.getPrice())) {
                     tv_priceold.setVisibility(View.GONE);
                 } else {
@@ -149,11 +158,11 @@ public class VideoSpecialDetailFragment extends BaseConstantFragment implements 
                 mList.clear();
                 mList.addAll(record);
                 detailAdapter.setData(mList);
-//                if (detailBean.isbuy()) {
-//                    yuedu.setVisibility(View.GONE);
-//                } else {
-//                    yuedu.setVisibility(View.VISIBLE);
-//                }
+                if (detailBean.isbuy()) {
+                    yuedu.setVisibility(View.VISIBLE);
+                } else {
+                    yuedu.setVisibility(View.GONE);
+                }
                 tv_changenum.setText("总共" +detailBean.getTotal() +"条,已更新"+detailBean.getRecord().size() +"条视频");
             }
 
@@ -182,7 +191,18 @@ public class VideoSpecialDetailFragment extends BaseConstantFragment implements 
                 break;
 
             case R.id.tv_buy :
-                getSubscriber(id);
+//                getSubscriber(id);
+                if (YoumiRoomUserManager.getInstance().isLogin()) {
+                    Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
+                    intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, PayOrderDetailFragment.class);
+                    intent.putExtra(PayOrderDetailFragment.KEY_ORDER_ID, sectionid);
+                    intent.putExtra(PayOrderDetailFragment.KEY_ORDER_TYPE, PayTypeEvent.ZHUANTI);
+                    intent.putExtra(PayOrderDetailFragment.KEY_SPM, String.format(StatisticsUrl.ORDER_JPZT_DETAIL, sectionid, price));
+                    Log.e("TAG", "sectionid=" + sectionid + "," +String.format(StatisticsUrl.ORDER_JPZT_DETAIL, sectionid, price) );
+                    startActivity(intent);
+                } else {
+                    LoginUtil.getInstance().showLoginView(getActivity());
+                }
                 break;
             case R.id.yuedu:
                 lv_audio_item.setClickable(false);

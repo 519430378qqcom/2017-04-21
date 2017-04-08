@@ -483,7 +483,6 @@ public class HomeMainActivity extends AppCompatActivity {
 
     public void PushString() {
         PostRequest<ResultModel> prequest = new PostRequest<ResultModel>(UmiwiAPI.PUSH_BIND, GsonParser.class, ResultModel.class, pushListener);
-        prequest.addParam("device_id",mSpUtil.getDeviceId());
         prequest.addParam("app_id", mSpUtil.getAppId());
         prequest.addParam("user_id", mSpUtil.getUserId());
         prequest.addParam("channel_id", mSpUtil.getChannelId());

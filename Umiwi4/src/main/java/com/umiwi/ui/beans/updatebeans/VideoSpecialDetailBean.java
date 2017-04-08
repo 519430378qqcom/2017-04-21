@@ -38,6 +38,16 @@ public class VideoSpecialDetailBean extends BaseGsonBeans {
     private ArrayList<VideoSpecialRecord> record;
     @SerializedName("share")
     private VideoSpecialShare share;
+    @SerializedName("sectionid")
+    private String sectionid;
+
+    public String getSectionid() {
+        return sectionid;
+    }
+
+    public void setSectionid(String sectionid) {
+        this.sectionid = sectionid;
+    }
 
     public VideoSpecialShare getShare() {
         return share;
