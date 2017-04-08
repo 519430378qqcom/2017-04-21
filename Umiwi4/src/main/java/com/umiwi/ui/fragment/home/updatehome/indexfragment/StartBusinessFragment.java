@@ -145,11 +145,11 @@ public class StartBusinessFragment extends BaseConstantFragment {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN :
                     mFirstY = event.getY();
-                    Log.e("TAG", "mFirstY=" + mFirstY);
+//                    Log.e("TAG", "mFirstY=" + mFirstY);
                     break;
                 case MotionEvent.ACTION_MOVE:
                     mCurrentY = event.getY();
-                    Log.e("TAG", "mCurrentY=" + mCurrentY);
+//                    Log.e("TAG", "mCurrentY=" + mCurrentY);
                     if(mCurrentY - mFirstY > touchSlop) {
                         direction = 0;//down
                     }else if(mFirstY - mCurrentY > touchSlop) {
@@ -186,7 +186,7 @@ public class StartBusinessFragment extends BaseConstantFragment {
             animator.cancel();
         }
         if (flag == 0) {
-            Log.e("TAG", "下滑");
+//            Log.e("TAG", "下滑");
             animator = ObjectAnimator.ofFloat(ll_visiable_or, "translationY", ll_visiable_or.getTranslationY(), 0);
             animator.addListener(new AnimatorListenerAdapter() {
                 @Override
@@ -197,7 +197,7 @@ public class StartBusinessFragment extends BaseConstantFragment {
             });
         }
         if(flag == 1) {
-            Log.e("TAG", "上滑");
+//            Log.e("TAG", "上滑");
             animator = ObjectAnimator.ofFloat(ll_visiable_or,"translationY",ll_visiable_or.getTranslationY(),-ll_visiable_or.getHeight());
             animator.addListener(new AnimatorListenerAdapter() {
                 @Override
