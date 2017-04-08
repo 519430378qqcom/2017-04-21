@@ -303,13 +303,13 @@
         <!--<meta-data-->
         <!--android:name="api_key"-->
         <!--android:value="whsVZklnGiWQD2FrGzlUHZ8L" />-->
-        <meta-data
-        android:name="api_key"
-        android:value="ch9hiwbufTGrjxo8GSjBaOnj" />
-        <!--正式-->
         <!--<meta-data-->
-            <!--android:name="api_key"-->
-            <!--android:value="t6N14YtZKSWwkAElQIIIYrS2" />-->
+        <!--android:name="api_key"-->
+        <!--android:value="ch9hiwbufTGrjxo8GSjBaOnj" />-->
+        <!--正式-->
+        <meta-data
+            android:name="api_key"
+            android:value="t6N14YtZKSWwkAElQIIIYrS2" />
          <!--baidu push service end-->
 
         <!-- alipay skd start -->

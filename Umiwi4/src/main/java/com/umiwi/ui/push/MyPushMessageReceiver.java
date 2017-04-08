@@ -123,7 +123,6 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
             JSONObject jsonContent = new JSONObject(message);
             String title = jsonContent.getString("title");
             String description = jsonContent.getString("description");
-
             JSONObject params = jsonContent.getJSONObject("custom_content");
             String msgtype = params.getString("type");
             String msgturl = params.getString("url");
@@ -137,7 +136,6 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
 
     /**
      * 接收通知点击的函数。
-     *
      * @param context             上下文
      * @param title               推送的通知的标题
      * @param description         推送的通知的描述
@@ -189,7 +187,6 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
 
     /**
      * 接收通知到达的函数。
-     *
      * @param context             上下文
      * @param title               推送的通知的标题
      * @param description         推送的通知的描述
@@ -241,7 +238,6 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
 
     /**
      * PushManager.stopWork() 的回调函数。
-     *
      * @param context   上下文
      * @param errorCode 错误码。0表示从云推送解绑定成功；非0表示失败。
      * @param requestId 分配给对云推送的请求的id
