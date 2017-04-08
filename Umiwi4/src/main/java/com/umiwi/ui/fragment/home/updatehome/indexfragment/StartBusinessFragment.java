@@ -325,8 +325,7 @@ public class StartBusinessFragment extends BaseConstantFragment {
                     tv.setTextColor(mContext.getResources().getColor(R.color.gray_a));
                 }
                 tv_all_catid1.setTextColor(mContext.getResources().getColor(R.color.main_color));
-            }
-        });
+            }});
 
     }
 
