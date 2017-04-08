@@ -430,6 +430,7 @@ public class MyPushMessageReceiver extends PushMessageReceiver {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setAction(Intent.ACTION_VIEW);
         context.startActivity(intent);
+
     }
 
     /**

@@ -22,9 +22,13 @@ import com.umiwi.ui.fragment.WebFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.UmiwiApplication;
 import com.umiwi.ui.managers.YoumiRoomUserManager;
+import com.umiwi.ui.util.CacheUtil;
 import com.umiwi.ui.util.CommonHelper;
+import com.umiwi.ui.util.DateUtils;
 
 import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import cn.youmi.framework.dialog.MsgDialog;
 import cn.youmi.framework.util.ImageLoader;
@@ -37,7 +41,7 @@ import cn.youmi.framework.util.PreferenceUtils;
  * @version 2014年6月25日 上午10:11:33
  */
 public class SplashFragment extends BaseConstantFragment {
-
+    public static final String START_MIAN = "start_main";
     private SharedPreferences mSharedPreferences;
 
     Handler mHandler = new Handler();
@@ -136,6 +140,25 @@ public class SplashFragment extends BaseConstantFragment {
         } else {
             mHandler.postDelayed(noLoginRun, 3000);
         }
+        //获取当前时间
+        long millis = System.currentTimeMillis();
+        String yMdHm = DateUtils.yMdHm(millis);
+        String string = CacheUtil.getString(getActivity(), START_MIAN);
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        java.util.Date now = null;
+        java.util.Date date= null;
+        try {
+            now = df.parse(yMdHm);
+            date = df.parse(string);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        long l=now.getTime()-date.getTime();
+        long day=l/(24*60*60*1000);
+        long hour=(l/(60*60*1000)-day*24);
+        long min=((l/(60*1000))-day*24*60-hour*60);
+        long s=(l/1000-day*24*60*60-hour*60*60-min*60);
+
         return view;
     }
 
@@ -148,7 +171,12 @@ public class SplashFragment extends BaseConstantFragment {
             Intent i = null;
             if (getActivity() != null) {// 当用户按返回键时
 //                i = new Intent(getActivity(), HomeMainActivity.class);
-                i = new Intent(getActivity(), AdvertiseActivity.class);
+                boolean isEnterMain = CacheUtil.getBoolean(getActivity(), START_MIAN);
+                if (isEnterMain) {
+                    i = new Intent(getActivity(), HomeMainActivity.class);
+                } else {
+                    i = new Intent(getActivity(), AdvertiseActivity.class);
+                }
                 mSharedPreferences.edit().putBoolean("isCanShowGift", true).commit();
             }
             if (i != null) {
@@ -179,7 +207,12 @@ public class SplashFragment extends BaseConstantFragment {
             Intent i = null;
             if (getActivity() != null) {// 当用户按返回键时
 //                i = new Intent(getActivity(), HomeMainActivity.class);
-                i = new Intent(getActivity(), AdvertiseActivity.class);
+                boolean isEnterMain = CacheUtil.getBoolean(getActivity(), START_MIAN);
+                if (isEnterMain) {
+                    i = new Intent(getActivity(), HomeMainActivity.class);
+                } else {
+                    i = new Intent(getActivity(), AdvertiseActivity.class);
+                }
             }
             if (i != null) {
                 startActivity(i);

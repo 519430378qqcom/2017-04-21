@@ -41,6 +41,7 @@ import com.umiwi.ui.managers.QRCodeManager;
 import com.umiwi.ui.managers.YoumiRoomUserManager;
 import com.umiwi.ui.model.ADSplashModel;
 import com.umiwi.ui.push.Utils;
+import com.umiwi.ui.util.DateUtils;
 import com.umiwi.ui.util.SDCardManager;
 import com.umiwi.video.control.PlayerController;
 
@@ -49,6 +50,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
@@ -158,6 +161,26 @@ public class HomeMainActivity extends AppCompatActivity {
         }
 
         getDeviceId();
+        //获取当前时间
+        long millis = System.currentTimeMillis();
+        String yMdHm = DateUtils.yMdHm(millis);
+
+        Log.e("TAG", "时间="+millis  + yMdHm);
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        java.util.Date now = null;
+        java.util.Date date= null;
+        try {
+            now = df.parse("2004-03-26 13:31:40");
+            date = df.parse("2004-01-02 11:30:24");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        long l=now.getTime()-date.getTime();
+        long day=l/(24*60*60*1000);
+        long hour=(l/(60*60*1000)-day*24);
+        long min=((l/(60*1000))-day*24*60-hour*60);
+        long s=(l/1000-day*24*60*60-hour*60*60-min*60);
+        Log.e("TAG", "时间="+""+day+"天"+hour+"小时"+min+"分"+s+"秒");
     }
 
 

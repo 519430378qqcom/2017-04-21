@@ -18,23 +18,26 @@ import cn.youmi.framework.util.SharePreferenceUtil;
 public class YouMiPushMessageReceiver extends PushMessageReceiver {
 
     @Override
-    public void onBind(Context context, int i, String s, String s1, String s2, String s3) {
-        if(i == 0) {
-            Utils.setBind(context,true);
+    public void onBind(Context context, int errorCode, String s, String s1, String s2, String s3) {
+        if (errorCode == 0) {
+            Utils.setBind(context, true);
             SharePreferenceUtil util = UmiwiApplication.getInstance().getSpUtil();
-            if(TextUtils.isEmpty(util.getAppId())) {
+            if (TextUtils.isEmpty(util.getAppId())) {
                 util.setAppId(s);
                 util.setUserId(s1);
                 util.setChannelId(s2);
                 util.setRequestId(s3);
             }
         }
-        Log.e("TAG", "errorCode124=" + i);
+        Log.e("TAG", "errorCode124=" + errorCode);
     }
 
     @Override
-    public void onUnbind(Context context, int i, String s) {
-
+    public void onUnbind(Context context, int errorCode, String s) {
+        // 解绑定成功，设置未绑定flag，
+        if (errorCode == 0) {
+            Utils.setBind(context, false);
+        }
     }
 
     @Override
@@ -54,7 +57,7 @@ public class YouMiPushMessageReceiver extends PushMessageReceiver {
 
     @Override
     public void onMessage(Context context, String s, String s1) {
-
+        Log.e("TAG", "透传消息=" + s + s1);
     }
 
     @Override

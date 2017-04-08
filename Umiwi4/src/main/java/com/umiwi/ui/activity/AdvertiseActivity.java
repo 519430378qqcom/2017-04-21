@@ -26,8 +26,11 @@ import com.umiwi.ui.fragment.WebFragment;
 import com.umiwi.ui.fragment.course.CourseDetailPlayFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.ColumnDetailsFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.VoiceDetailsFragment;
+import com.umiwi.ui.fragment.splash.SplashFragment;
 import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.main.UmiwiApplication;
+import com.umiwi.ui.util.CacheUtil;
+import com.umiwi.ui.util.DateUtils;
 
 import java.util.ArrayList;
 
@@ -56,6 +59,7 @@ public class AdvertiseActivity extends AppCompatActivity {
                     page --;
                     tv_advert.setText("跳过广告" + page + "");
                     if(page == 0) {
+                        CacheUtil.putString(AdvertiseActivity.this,SplashFragment.START_MIAN,yMdHm);
                         Intent intent = new Intent(AdvertiseActivity.this,HomeMainActivity.class);
                         startActivity(intent);
                         finish();
@@ -67,6 +71,8 @@ public class AdvertiseActivity extends AppCompatActivity {
             }
         }
     };
+    private String yMdHm;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -116,6 +122,10 @@ public class AdvertiseActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 handler.removeCallbacksAndMessages(null);
+
+//                CacheUtil.putBoolean(AdvertiseActivity.this, SplashFragment.START_MIAN,true);
+
+                CacheUtil.putString(AdvertiseActivity.this,SplashFragment.START_MIAN,yMdHm);
                 Intent intent = new Intent(AdvertiseActivity.this,HomeMainActivity.class);
                 startActivity(intent);
                 finish();
@@ -123,6 +133,10 @@ public class AdvertiseActivity extends AppCompatActivity {
         });
         getInfo();
         overridePendingTransition(R.anim.slide_down_in,R.anim.slide_down_out);
+        //获取当前时间
+        long millis = System.currentTimeMillis();
+        yMdHm = DateUtils.yMdHms(millis);
+
     }
 
     @Override
@@ -185,6 +199,7 @@ public class AdvertiseActivity extends AppCompatActivity {
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    CacheUtil.putString(AdvertiseActivity.this,SplashFragment.START_MIAN,yMdHm);
                     Intent intent = new Intent(AdvertiseActivity.this,HomeMainActivity.class);
                     startActivity(intent);
                     if("zhuanti".equals(rAdvertBean.getType())) {
