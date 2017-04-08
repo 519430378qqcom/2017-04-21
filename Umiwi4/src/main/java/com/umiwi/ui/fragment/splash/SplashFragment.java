@@ -45,6 +45,10 @@ public class SplashFragment extends BaseConstantFragment {
     private SharedPreferences mSharedPreferences;
 
     Handler mHandler = new Handler();
+    private long day;
+    private long hour;
+    private long min;
+    private long s;
 
     public static SplashFragment newInstance() {
         SplashFragment f = new SplashFragment();
@@ -142,40 +146,45 @@ public class SplashFragment extends BaseConstantFragment {
         }
         //获取当前时间
         long millis = System.currentTimeMillis();
-        String yMdHm = DateUtils.yMdHm(millis);
+        String yMdHms = DateUtils.yMdHms(millis);
         String string = CacheUtil.getString(getActivity(), START_MIAN);
+        if("".equals(string)) {
+            string = yMdHms;
+        }
+//        Log.e("TAG", "yMdHm=" + yMdHms + ",string=" + string);
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         java.util.Date now = null;
         java.util.Date date= null;
         try {
-            now = df.parse(yMdHm);
+            now = df.parse(yMdHms);
             date = df.parse(string);
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        
         long l=now.getTime()-date.getTime();
-        long day=l/(24*60*60*1000);
-        long hour=(l/(60*60*1000)-day*24);
-        long min=((l/(60*1000))-day*24*60-hour*60);
-        long s=(l/1000-day*24*60*60-hour*60*60-min*60);
-
+        day = l/(24*60*60*1000);
+        hour = (l/(60*60*1000)- day *24);
+        min = ((l/(60*1000))- day *24*60- hour *60);
+        s = (l/1000- day *24*60*60- hour *60*60- min *60);
+//        Log.e("TAG", "时间差为=" + string + ",day=" + day + ",hour="+ hour + ",min=" + min + ",s=" + s);
         return view;
     }
 
     Runnable loginRun = new Runnable() {
         @Override
         public void run() {
-            if(SplashActivity.isKeyBack) {
+            if (SplashActivity.isKeyBack) {
                 return;
             }
             Intent i = null;
             if (getActivity() != null) {// 当用户按返回键时
 //                i = new Intent(getActivity(), HomeMainActivity.class);
-                boolean isEnterMain = CacheUtil.getBoolean(getActivity(), START_MIAN);
-                if (isEnterMain) {
-                    i = new Intent(getActivity(), HomeMainActivity.class);
-                } else {
+//                boolean isEnterMain = CacheUtil.getBoolean(getActivity(), START_MIAN);
+                if (day >= 1 || (day ==0 && hour == 0 && min ==0 && s == 0)) {
                     i = new Intent(getActivity(), AdvertiseActivity.class);
+                } else {
+                    i = new Intent(getActivity(), HomeMainActivity.class);
                 }
                 mSharedPreferences.edit().putBoolean("isCanShowGift", true).commit();
             }
@@ -201,17 +210,17 @@ public class SplashFragment extends BaseConstantFragment {
     Runnable noLoginRun = new Runnable() {
         @Override
         public void run() {
-            if(SplashActivity.isKeyBack) {
+            if (SplashActivity.isKeyBack) {
                 return;
             }
             Intent i = null;
             if (getActivity() != null) {// 当用户按返回键时
 //                i = new Intent(getActivity(), HomeMainActivity.class);
-                boolean isEnterMain = CacheUtil.getBoolean(getActivity(), START_MIAN);
-                if (isEnterMain) {
-                    i = new Intent(getActivity(), HomeMainActivity.class);
-                } else {
+//                boolean isEnterMain = CacheUtil.getBoolean(getActivity(), START_MIAN);
+                if (day >= 1 || (day ==0 && hour == 0 && min ==0 && s == 0)) {
                     i = new Intent(getActivity(), AdvertiseActivity.class);
+                } else {
+                    i = new Intent(getActivity(), HomeMainActivity.class);
                 }
             }
             if (i != null) {
