@@ -101,6 +101,8 @@ public class LbumListFragment extends BaseConstantFragment implements View.OnCli
                     Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
                     intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, AudioSpecialDetailFragment.class);
                     intent.putExtra("typeId", typeId);
+                    String toURI = intent.toURI();
+                    Log.e("TAG", "音频详情toURI=" + toURI);
                     mContext.startActivity(intent);
                 } else {
                     String detailurl = lbumlists.get(position).getDetailurl();

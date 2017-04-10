@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.umiwi.ui.R;
+import com.umiwi.ui.activity.HomeMainActivity;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.ColumnAttentionAdapter;
 import com.umiwi.ui.adapter.ColumnDetailsAdapter;
@@ -134,16 +135,18 @@ public class ColumnDetailsFragment extends BaseConstantFragment {
     @Override
     public void onResume() {
         super.onResume();
-        if(UmiwiApplication.mainActivity.service != null) {
-            background = (AnimationDrawable) record.getBackground();
-            try {
-                if (UmiwiApplication.mainActivity.service.isPlaying()) {
-                    background.start();
-                } else {
-                    background.stop();
+        if(UmiwiApplication.mainActivity != null) {
+            if(UmiwiApplication.mainActivity.service != null) {
+                background = (AnimationDrawable) record.getBackground();
+                try {
+                    if (UmiwiApplication.mainActivity.service.isPlaying()) {
+                        background.start();
+                    } else {
+                        background.stop();
+                    }
+                } catch (RemoteException e) {
+                    e.printStackTrace();
                 }
-            } catch (RemoteException e) {
-                e.printStackTrace();
             }
         }
     }
@@ -269,5 +272,17 @@ public class ColumnDetailsFragment extends BaseConstantFragment {
         i.putExtra(PayingFragment.KEY_PAY_URL, payurl);
         startActivity(i);
         getActivity().finish();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (HomeMainActivity.isForeground) {
+
+        } else {
+            Intent intent = new Intent(getActivity(),HomeMainActivity .class);
+            startActivity(intent);
+        }
+
     }
 }

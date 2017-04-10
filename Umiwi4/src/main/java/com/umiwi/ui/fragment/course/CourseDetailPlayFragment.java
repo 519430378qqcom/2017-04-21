@@ -49,6 +49,7 @@ import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.ViewHolder;
 import com.umeng.analytics.MobclickAgent;
 import com.umiwi.ui.R;
+import com.umiwi.ui.activity.HomeMainActivity;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.CourseDetailsAdapter;
 import com.umiwi.ui.adapter.CourseDetailsAdapter.VideoClickListener;
@@ -419,6 +420,7 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
         PlayerController.getInstance().releaseAndStop();
         PlayerController.getInstance().releaseNativeMediaPlayer();
         NetworkManager.getInstance().removeListener(networkChangeListener);
+
     }
 
     @Override
@@ -443,6 +445,17 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
                 detaiURL, CourseDetailParser.class, detailListener);
         HttpDispatcher.getInstance().go(req);
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (HomeMainActivity.isForeground) {
+
+        } else {
+            Intent intent = new Intent(getActivity(),HomeMainActivity.class);
+            startActivity(intent);
+        }
     }
 
     @Override

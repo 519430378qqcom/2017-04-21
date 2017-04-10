@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.umiwi.ui.R;
+import com.umiwi.ui.activity.HomeMainActivity;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.updateadapter.AudioDetailsAdapter;
 import com.umiwi.ui.adapter.updateadapter.AudioSpecialListAdapter;
@@ -111,10 +112,20 @@ public class AudioSpecialDetailFragment extends BaseConstantFragment implements 
                 boolean isaudition = mList.get(position).isaudition();
                 if (isaudition) {
                     lv_audio_item.setClickable(true);
-                    Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
-                    intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
-                    intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL, mList.get(position).getUrl());
-                    getActivity().startActivity(intent);
+                    if (HomeMainActivity.isForeground) {
+                        Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
+                        intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
+                        intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL, mList.get(position).getUrl());
+                        getActivity().startActivity(intent);
+                    } else {
+                        Intent intent1 = new Intent(getActivity(), HomeMainActivity.class);
+                        startActivity(intent1);
+
+                        Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
+                        intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
+                        intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL, mList.get(position).getUrl());
+                        getActivity().startActivity(intent);
+                    }
 
                 } else {
                     Toast.makeText(mContext, "请购买此专题", Toast.LENGTH_SHORT).show();
@@ -251,22 +262,31 @@ public class AudioSpecialDetailFragment extends BaseConstantFragment implements 
     public void onDestroy() {
         super.onDestroy();
         ButterKnife.reset(this);
+        if (HomeMainActivity.isForeground) {
+
+        } else {
+            Intent intent = new Intent(getActivity(),HomeMainActivity.class);
+            startActivity(intent);
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if(UmiwiApplication.mainActivity.service != null) {
-            background = (AnimationDrawable) record.getBackground();
-            try {
-                if (UmiwiApplication.mainActivity.service.isPlaying()) {
-                    background.start();
-                } else {
-                    background.stop();
+        if(UmiwiApplication.mainActivity!= null) {
+            if(UmiwiApplication.mainActivity.service != null) {
+                background = (AnimationDrawable) record.getBackground();
+                try {
+                    if (UmiwiApplication.mainActivity.service.isPlaying()) {
+                        background.start();
+                    } else {
+                        background.stop();
+                    }
+                } catch (RemoteException e) {
+                    e.printStackTrace();
                 }
-            } catch (RemoteException e) {
-                e.printStackTrace();
             }
+
         }
     }
 
@@ -286,26 +306,29 @@ public class AudioSpecialDetailFragment extends BaseConstantFragment implements 
                        details.getShareurl(), details.getShareimg());
                break;
            case R.id.record:
-               if (UmiwiApplication.mainActivity.service != null) {
-                   try {
+               if(UmiwiApplication.mainActivity != null) {
+                   if (UmiwiApplication.mainActivity.service != null) {
+                       try {
 
-                       if (UmiwiApplication.mainActivity.service.isPlaying() || UmiwiApplication.mainActivity.isPause) {
-                           if (UmiwiApplication.mainActivity.herfUrl != null) {
-                               Log.e("TAG", "UmiwiApplication.mainActivity.herfUrl=" + UmiwiApplication.mainActivity.herfUrl);
-                               Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
-                               intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
-                               intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL, UmiwiApplication.mainActivity.herfUrl);
-                               getActivity().startActivity(intent);
+                           if (UmiwiApplication.mainActivity.service.isPlaying() || UmiwiApplication.mainActivity.isPause) {
+                               if (UmiwiApplication.mainActivity.herfUrl != null) {
+                                   Log.e("TAG", "UmiwiApplication.mainActivity.herfUrl=" + UmiwiApplication.mainActivity.herfUrl);
+                                   Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
+                                   intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
+                                   intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL, UmiwiApplication.mainActivity.herfUrl);
+                                   getActivity().startActivity(intent);
+                               }
                            }
+                       } catch (RemoteException e) {
+                           e.printStackTrace();
                        }
-                   } catch (RemoteException e) {
-                       e.printStackTrace();
+                   } else {
+                       Toast toast = Toast.makeText(getActivity(), "没有正在播放的音频", Toast.LENGTH_SHORT);
+                       toast.setGravity(Gravity.CENTER,0,0);
+                       toast.show();
                    }
-               } else {
-                   Toast toast = Toast.makeText(getActivity(), "没有正在播放的音频", Toast.LENGTH_SHORT);
-                   toast.setGravity(Gravity.CENTER,0,0);
-                   toast.show();
                }
+
                break;
            case R.id.yuedu:
                lv_audio_item.setClickable(false);

@@ -85,6 +85,7 @@ import cn.youmi.framework.util.UpdateUtils;
 public class HomeMainActivity extends AppCompatActivity {
 
 
+    public static final String PUSH_TYPE = "push_type";
     private ProgressBar mProgressBar;
 
     private CollectionDao collectDao;
@@ -102,7 +103,8 @@ public class HomeMainActivity extends AppCompatActivity {
     /**
      * VoiceService的代理类
      */
-    public IVoiceService service;
+    public IVoiceService service ;
+    public static boolean isForeground = false;
     private static CookieDao cookiedao = CookieDao.getInstance(BaseApplication.getApplication());
 
     @Override
@@ -238,12 +240,15 @@ public class HomeMainActivity extends AppCompatActivity {
         QRCodeManager.getInstance().registerListener(qrCodeManagerListener);
         MobclickAgent.onResume(this);
         PlayerController.getInstance().releaseAndStop();
+        isForeground = true;
+
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         MobclickAgent.onPause(this);
+        isForeground = true;
     }
 
     /***
@@ -265,6 +270,7 @@ public class HomeMainActivity extends AppCompatActivity {
         if (!mSpUtil.getDisturb()) {
             PushManager.stopWork(getApplicationContext());
         }
+        isForeground = true;
     }
 
     @Override
@@ -275,7 +281,7 @@ public class HomeMainActivity extends AppCompatActivity {
         PreferenceUtils.setPrefBoolean(this, "isShowGiftOnceAndNoToShowAgain", false);
         UmiwiApplication.mainActivity = null;
         super.onDestroy();
-
+        isForeground = false;
 
     }
 

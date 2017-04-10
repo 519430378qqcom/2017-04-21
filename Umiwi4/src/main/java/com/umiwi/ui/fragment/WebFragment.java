@@ -33,6 +33,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.umeng.analytics.MobclickAgent;
+import com.umiwi.ui.activity.HomeMainActivity;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.dialog.ShareDialog;
 import com.umiwi.ui.event.WebToNativeEvent;
@@ -338,6 +339,12 @@ public class WebFragment extends BaseFragment {
         if (mWebView != null) {
             mWebView.destroy();
             mWebView = null;
+        }
+        if (HomeMainActivity.isForeground) {
+
+        } else {
+            Intent intent = new Intent(getActivity(),HomeMainActivity .class);
+            startActivity(intent);
         }
         super.onDestroy();
     }

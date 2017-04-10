@@ -16,17 +16,22 @@ import android.widget.Toast;
 
 import com.baidu.android.pushservice.PushMessageReceiver;
 import com.umiwi.ui.R;
+import com.umiwi.ui.activity.HomeMainActivity;
 import com.umiwi.ui.activity.SplashActivity;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.activity.UmiwiDetailActivity;
+import com.umiwi.ui.fragment.AudioSpecialDetailFragment;
 import com.umiwi.ui.fragment.LecturerDetailFragment;
 import com.umiwi.ui.fragment.ShakeFragment;
 import com.umiwi.ui.fragment.UserTestInfoFragment;
+import com.umiwi.ui.fragment.VideoSpecialDetailFragment;
 import com.umiwi.ui.fragment.WebFragment;
 import com.umiwi.ui.fragment.course.BigZTListFragment;
 import com.umiwi.ui.fragment.course.CourseDetailPlayFragment;
 import com.umiwi.ui.fragment.course.CourseSequenceListFragment;
 import com.umiwi.ui.fragment.course.JPZTDetailFragment;
+import com.umiwi.ui.fragment.home.updatehome.indexfragment.ColumnDetailsFragment;
+import com.umiwi.ui.fragment.home.updatehome.indexfragment.VoiceDetailsFragment;
 import com.umiwi.ui.fragment.mine.MyCouponFragment;
 import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.main.UmiwiApplication;
@@ -45,6 +50,7 @@ import cn.youmi.framework.util.SharePreferenceUtil;
  */
 
 public class YouMiPushMessageReceiver extends PushMessageReceiver {
+
 
     /**
      * 调用PushManager.startWork后，sdk将对push
@@ -125,6 +131,20 @@ public class YouMiPushMessageReceiver extends PushMessageReceiver {
         }
     }
     /**
+     * 接收通知到达的函数。
+     * @param context             上下文
+     * @param title               推送的通知的标题
+     * @param description         推送的通知的描述
+     * @param customContentString 自定义内容，为空或者json字符串
+     */
+    @Override
+    public void onNotificationArrived(Context context, String title,
+                                      String description, String customContentString) {
+
+
+
+    }
+    /**
      * 接收通知点击的函数。
      * @param context             上下文
      * @param title               推送的通知的标题
@@ -139,53 +159,228 @@ public class YouMiPushMessageReceiver extends PushMessageReceiver {
 
         // 自定义内容获取方式，mykey和myvalue对应通知推送时自定义内容中设置的键和值
 
-
-        if (customContentString != null & !TextUtils.isEmpty(customContentString)) {
-            JSONObject customJson = null;
+//
+//        if (customContentString != null & !TextUtils.isEmpty(customContentString)) {
+//            JSONObject customJson = null;
+//            try {
+//                customJson = new JSONObject(customContentString);
+////                String myvalue = null;
+//                String classes = null;
+//                if (!customJson.isNull("umiwidetailurl")) {
+//                    myvalue = customJson.getString("umiwidetailurl");
+//                    if (!customJson.isNull("classes")) {
+//                        classes = customJson.getString("classes");
+//                        if ("album".equals(classes)) {// 专辑
+//                            updateDetialContent(context, myvalue);
+//                        } else if ("zhuanti".equals(classes)) {// 专题
+//                            updateZhuanTiDetialContent(context, myvalue);
+//                        } else if ("lecturer".equals(classes)) {// 讲师
+//                            updateLecturerContent(context, myvalue);
+//                        } else if ("web".equals(classes)) {
+//                            updateWebContent(context, myvalue);
+//                        } else if ("bigzhuanti".equals(classes)) {
+//                            updateBigZhuanTiDetialContent(context, myvalue);
+//                        } else {
+//                            updateNewVersion(context, myvalue);
+//                        }
+//                    }
+//                }
+//                Log.e("TAG", "customJson");
+//
+//            } catch (JSONException e) {
+//                // TODO Auto-generated catch block
+//                e.printStackTrace();
+//            }
+//        }
+        if(customContentString != null && !TextUtils.isEmpty(customContentString)) {
             try {
-                customJson = new JSONObject(customContentString);
-                String myvalue = null;
-                String classes = null;
-                if (!customJson.isNull("umiwidetailurl")) {
-                    myvalue = customJson.getString("umiwidetailurl");
-                    if (!customJson.isNull("classes")) {
-                        classes = customJson.getString("classes");
-                        if ("album".equals(classes)) {// 专辑
-                            updateDetialContent(context, myvalue);
-                        } else if ("zhuanti".equals(classes)) {// 专题
-                            updateZhuanTiDetialContent(context, myvalue);
-                        } else if ("lecturer".equals(classes)) {// 讲师
-                            updateLecturerContent(context, myvalue);
-                        } else if ("web".equals(classes)) {
-                            updateWebContent(context, myvalue);
-                        } else if ("bigzhuanti".equals(classes)) {
-                            updateBigZhuanTiDetialContent(context, myvalue);
-                        } else {
-                            updateNewVersion(context, myvalue);
-                        }
-                    }
-                }
+                String type = null;
+                String url = null;
+                String id = null;
+                JSONObject customJson = new JSONObject(customContentString);
 
+                if(!customJson.isNull("type")) {
+                    type = customJson.getString("type");
+                }
+                if(!customJson.isNull("url")) {
+                    url = customJson.getString("url");
+                }
+                if(!customJson.isNull("id")) {
+                    id = customJson.getString("id");
+                }
+                Log.e("TAG", "typeurlid=" + type + ",url=" + url +"名字,id=" + id);
+                getDataFromNotification(context,type,url,id);
             } catch (JSONException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
+        }
+//        if(customContentString != null && !TextUtils.isEmpty(customContentString)) {
+//            try {
+//                JSONObject customJson = new JSONObject(customContentString);
+//                String type = null;
+//                String url = null;
+//                String id = null;
+//                type = customJson.getString("type");
+//                url = customJson.getString("url");
+//                id = customJson.getString("id");
+//                Log.e("TAG", "typeurlid=" + type + ",url=" + url +",id=" + id);
+//                JSONObject jsonContent = new JSONObject(customContentString);
+//                String title1 = jsonContent.getString("title");
+//                String description1 = jsonContent.getString("description");
+//                JSONObject params = jsonContent.getJSONObject("custom_content");
+//                String msgtype = params.getString("type");
+//                String msgturl = params.getString("url");
+//                String id = params.getString("id");
+//                Log.e("TAG", "title1=" + title1 + description1);
+//                Log.e("TAG", "推送的消息=" + msgtype + ",url=" + msgturl + ",id=" + id);
+//
+////                getDataFromNotification(type,url,id);
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//        }
+    }
 
+    /**
+     * 根据推送，去开启页面
+     * @param
+     * @param type
+     *              类型:3,打开应用
+     *              1,H5活动页面
+     *              2,视频播放页
+     *              12,视频专题
+     *              13,音频课程
+     *              14,音频专题
+     *              15，专栏
+     * @param url
+     * @param id
+     */
+    private void getDataFromNotification(Context context, String type, String url, String id) {
+        if (HomeMainActivity.isForeground) {
+            Intent intent = new Intent();
+            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            switch (Integer.valueOf(type)) {
+                case 3:
+                    break;
+                case 1:
+                    Log.e("TAG", "打开h5页面");
+                    intent.setClass(context.getApplicationContext(), UmiwiContainerActivity.class);
+                    intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, WebFragment.class);
+                    intent.putExtra(WebFragment.WEB_URL, url);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+                    break;
+                case 2:
+                    Log.e("TAG", "打开视频播放页面");
+                    intent.setClass(context.getApplicationContext(), UmiwiContainerActivity.class);
+                    intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, CourseDetailPlayFragment.class);
+                    intent.putExtra(CourseDetailPlayFragment.KEY_DETAIURL, url);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+                    break;
+                case 12:
+                    Log.e("TAG", "打开视频专题页面");
+                    intent.setClass(context.getApplicationContext(), UmiwiContainerActivity.class);
+                    intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VideoSpecialDetailFragment.class);
+                    intent.putExtra("detailurl", url);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+                    break;
+                case 13:
+                    Log.e("TAG", "打开音频播放页面");
+                    intent.setClass(context.getApplicationContext(), UmiwiContainerActivity.class);
+                    intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
+                    intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL, url);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+                    break;
+                case 14:
+                    Log.e("TAG", "打开音频专题页面");
+                    intent.setClass(context.getApplicationContext(), UmiwiContainerActivity.class);
+                    intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, AudioSpecialDetailFragment.class);
+                    intent.putExtra("typeId", id);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+                    break;
+                case 15:
+                    Log.e("TAG", "打开专栏页面");
+                    intent.setClass(context.getApplicationContext(), UmiwiContainerActivity.class);
+                    intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, ColumnDetailsFragment.class);//详情页
+                    intent.putExtra("columnurl", url);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+                    break;
+            }
+        } else {
+//            Intent intent = new Intent(context.getApplicationContext(),HomeMainActivity.class);
+//            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+//            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//
+
+            switch (Integer.valueOf(type)) {
+                case 1:
+                    Intent intent1 = new Intent(context,UmiwiContainerActivity.class);
+                    intent1.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, WebFragment.class);
+                    intent1.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent1.putExtra(WebFragment.WEB_URL, url);
+                    context.startActivity(intent1);
+                    break;
+                case 2:
+                    Intent intent2 = new Intent();
+                    intent2.setClass(context.getApplicationContext(), UmiwiContainerActivity.class);
+                    intent2.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, CourseDetailPlayFragment.class);
+                    intent2.putExtra(CourseDetailPlayFragment.KEY_DETAIURL, url);
+                    intent2.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent2);
+                    break;
+                case 12:
+                    Intent intent12= new Intent();
+                    intent12.setClass(context.getApplicationContext(), UmiwiContainerActivity.class);
+                    intent12.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VideoSpecialDetailFragment.class);
+                    intent12.putExtra("detailurl", url);
+                    intent12.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    intent12.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent12);
+                    break;
+                case 13:
+                    Intent intent = new Intent(context.getApplicationContext(), HomeMainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+
+//                    Log.e("TAG", "打开音频播放页面");
+                    Intent intent13= new Intent();
+                    intent13.setClass(context.getApplicationContext(), UmiwiContainerActivity.class);
+                    intent13.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
+                    intent13.putExtra(VoiceDetailsFragment.KEY_DETAILURL, url);
+                    intent13.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent13.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    context.startActivity(intent13);
+                    break;
+                case 14:
+                    Intent intent14= new Intent();
+                    intent14.setClass(context.getApplicationContext(), UmiwiContainerActivity.class);
+                    intent14.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, AudioSpecialDetailFragment.class);
+                    intent14.putExtra("typeId", id);
+                    intent14.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent14.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    context.startActivity(intent14);
+                    break;
+                case 15:
+                    Intent intent15= new Intent();
+                    intent15.setClass(context.getApplicationContext(), UmiwiContainerActivity.class);
+                    intent15.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, ColumnDetailsFragment.class);//详情页
+                    intent15.putExtra("columnurl", url);
+                    intent15.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent15.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    context.startActivity(intent15);
+                    break;
+            }
         }
 
-    }
-    /**
-     * 接收通知到达的函数。
-     * @param context             上下文
-     * @param title               推送的通知的标题
-     * @param description         推送的通知的描述
-     * @param customContentString 自定义内容，为空或者json字符串
-     */
-    @Override
-    public void onNotificationArrived(Context context, String title,
-                                      String description, String customContentString) {
-
-
+//
 
     }
 

@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.umiwi.ui.R;
+import com.umiwi.ui.activity.HomeMainActivity;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.updateadapter.VideoSpecialDetailAdapter;
 import com.umiwi.ui.beans.UmiwiBuyCreateOrderBeans;
@@ -236,18 +237,21 @@ public class VideoSpecialDetailFragment extends BaseConstantFragment implements 
     @Override
     public void onResume() {
         super.onResume();
-        if(UmiwiApplication.mainActivity.service != null) {
-            background = (AnimationDrawable) record.getBackground();
-            try {
-                if (UmiwiApplication.mainActivity.service.isPlaying()) {
-                    background.start();
-                } else {
-                    background.stop();
+        if(UmiwiApplication.mainActivity != null) {
+            if(UmiwiApplication.mainActivity.service != null) {
+                background = (AnimationDrawable) record.getBackground();
+                try {
+                    if (UmiwiApplication.mainActivity.service.isPlaying()) {
+                        background.start();
+                    } else {
+                        background.stop();
+                    }
+                } catch (RemoteException e) {
+                    e.printStackTrace();
                 }
-            } catch (RemoteException e) {
-                e.printStackTrace();
             }
         }
+
     }
 
     /**
@@ -295,5 +299,11 @@ public class VideoSpecialDetailFragment extends BaseConstantFragment implements 
     public void onDestroy() {
         super.onDestroy();
         ButterKnife.reset(this);
+        if (HomeMainActivity.isForeground) {
+
+        } else {
+            Intent intent = new Intent(getActivity(),HomeMainActivity.class);
+            startActivity(intent);
+        }
     }
 }

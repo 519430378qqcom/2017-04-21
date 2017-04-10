@@ -1,6 +1,7 @@
 package com.umiwi.ui.fragment.pay;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
@@ -10,14 +11,15 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
-import cn.youmi.framework.fragment.BaseFragment;
-import cn.youmi.framework.util.KeyboardUtils;
-import cn.youmi.framework.util.ToastU;
 
 import com.umeng.analytics.MobclickAgent;
 import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.main.UmiwiAPI;
+
+import cn.youmi.framework.fragment.BaseFragment;
+import cn.youmi.framework.util.KeyboardUtils;
+import cn.youmi.framework.util.ToastU;
 
 /**
  * @author tangxiyong
@@ -45,12 +47,17 @@ public class PayRechargeFragment extends BaseFragment {
 				if (!"".equals(recharge.getText().toString()) && Long.valueOf(recharge.getText().toString()) > 0) {
 					KeyboardUtils.hideKeyboard(getActivity());
 					
-					PayingFragment courseDetailFragment = new PayingFragment();
-					courseDetailFragment.pay_url = String.format(UmiwiAPI.UMIWI_PAY_RECHARGE_API, recharge.getText().toString().trim());
-					courseDetailFragment.toolbarTitle = "充值";
-					UmiwiContainerActivity ca = (UmiwiContainerActivity) getActivity();
-					ca.getNavigationController().pushFragment(courseDetailFragment);
-					
+//					PayingFragment courseDetailFragment = new PayingFragment();
+//					courseDetailFragment.pay_url = String.format(UmiwiAPI.UMIWI_PAY_RECHARGE_API, recharge.getText().toString().trim());
+//					courseDetailFragment.toolbarTitle = "充值";
+//					UmiwiContainerActivity ca = (UmiwiContainerActivity) getActivity();
+//					ca.getNavigationController().pushFragment(courseDetailFragment);
+					Intent i = new Intent(getActivity(), UmiwiContainerActivity.class);
+					i.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, PayingFragment.class);
+					i.putExtra(PayingFragment.KEY_PAY_URL, String.format(UmiwiAPI.UMIWI_PAY_RECHARGE_API, recharge.getText().toString().trim()));
+					startActivity(i);
+					getActivity().finish();
+
 				} else {
 					ToastU.showShort(getActivity(), "充值金额不能为空");
 				}

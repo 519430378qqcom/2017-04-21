@@ -3,6 +3,7 @@ package com.umiwi.ui.fragment.home.recommend.widget;
 import android.content.Context;
 import android.content.Intent;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -73,6 +74,8 @@ public class HotVideoLayout extends LinearLayout {
                 Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
                 intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, CourseDetailPlayFragment.class);
                 intent.putExtra(CourseDetailPlayFragment.KEY_DETAIURL, mList.get(i).getDetailurl());
+                String toURI = intent.toURI();
+                Log.e("TAG", "视频toURI=" + toURI);
                 mContext.startActivity(intent);
             }
         });

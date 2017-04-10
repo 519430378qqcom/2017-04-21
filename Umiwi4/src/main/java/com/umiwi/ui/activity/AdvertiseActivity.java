@@ -189,7 +189,7 @@ public class AdvertiseActivity extends AppCompatActivity {
 
             final AdvertisementBean.RAdvertBean rAdvertBean = mList.get(position);
             ImageLoader mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
-            mImageLoader.loadImage(rAdvertBean.getImage(), imageView,R.drawable.guide_splash);
+            mImageLoader.loadImage(rAdvertBean.getImage(), imageView);
             imageView.setAdjustViewBounds(true);
             imageView.setMaxHeight(container.getMeasuredHeight());
             imageView.setMaxWidth(container.getMeasuredWidth());

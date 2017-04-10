@@ -151,21 +151,24 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case PROGRESS:
-                    if (UmiwiApplication.mainActivity.service != null) {
-                        try {
-                            sb_seekbar.setMax(UmiwiApplication.mainActivity.service.getDuration());
-                            int currentPosition = UmiwiApplication.mainActivity.service.getCurrentPosition();
-                            changeTimes.setText(utils.stringForTime(currentPosition));
-                            totalTime.setText(utils.stringForTime(UmiwiApplication.mainActivity.service.getDuration()));
+                    if(UmiwiApplication.mainActivity!= null) {
+
+                        if (UmiwiApplication.mainActivity.service != null) {
+                            try {
+                                sb_seekbar.setMax(UmiwiApplication.mainActivity.service.getDuration());
+                                int currentPosition = UmiwiApplication.mainActivity.service.getCurrentPosition();
+                                changeTimes.setText(utils.stringForTime(currentPosition));
+                                totalTime.setText(utils.stringForTime(UmiwiApplication.mainActivity.service.getDuration()));
 //                        Log.e("TAG", "service.getDuration()=" + service.getDuration());
 //                        Log.e("TAG", "service.getCurrentPosition()=" + service.getCurrentPosition());
-                            sb_seekbar.setProgress(currentPosition);
-                        } catch (RemoteException e) {
-                            e.printStackTrace();
+                                sb_seekbar.setProgress(currentPosition);
+                            } catch (RemoteException e) {
+                                e.printStackTrace();
+                            }
                         }
+                        removeMessages(PROGRESS);
+                        sendEmptyMessageDelayed(PROGRESS, 1000);
                     }
-                    removeMessages(PROGRESS);
-                    sendEmptyMessageDelayed(PROGRESS, 1000);
                     break;
 
             }
@@ -212,7 +215,9 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
 //        herfurl = "http://i.v.youmi.cn/audioalbum/getApi?id=103";
         Log.e("TAG", "herfurl=" + herfurl);
         //保存播放地址
-        UmiwiApplication.mainActivity.herfUrl = herfurl;
+        if(UmiwiApplication.mainActivity != null) {
+            UmiwiApplication.mainActivity.herfUrl = herfurl;
+        }
         //得到音频播放地址
         if (!TextUtils.isEmpty(herfurl)) {
             getInfos(herfurl);
