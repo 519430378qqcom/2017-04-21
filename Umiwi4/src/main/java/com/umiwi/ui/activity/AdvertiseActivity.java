@@ -90,7 +90,8 @@ public class AdvertiseActivity extends AppCompatActivity {
         adapter = new AdvertiseAdapter(this);
         adapter.setData(mList);
         vp_ad_images.setAdapter(adapter);
-
+        tv_advert.setText("跳过广告" + page + "");
+        handler.sendEmptyMessageDelayed(PROGRESS,1000);
         vp_ad_images.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -99,18 +100,17 @@ public class AdvertiseActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                if (position != (mList.size() - 1)) {
-                    page = 3;
-                    handler.removeMessages(PROGRESS);
-                    tv_advert.setVisibility(View.GONE);
-                } else {
-                    page = 3;
-                    handler.removeMessages(PROGRESS);
-                    tv_advert.setText("跳过广告" + page + "");
-                    tv_advert.setVisibility(View.VISIBLE);
-
-                    handler.sendEmptyMessageDelayed(PROGRESS,1000);
-                }
+//                if (position != (mList.size() - 1)) {
+//                    page = 3;
+//                    handler.removeMessages(PROGRESS);
+//                    tv_advert.setVisibility(View.GONE);
+//                } else {
+//
+//                }
+//                page = 3;
+//                handler.removeMessages(PROGRESS);
+//                tv_advert.setText("跳过广告" + page + "");
+//                handler.sendEmptyMessageDelayed(PROGRESS,1000);
             }
 
             @Override
