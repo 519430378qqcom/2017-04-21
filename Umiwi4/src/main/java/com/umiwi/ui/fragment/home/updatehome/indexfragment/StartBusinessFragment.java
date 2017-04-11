@@ -72,8 +72,8 @@ public class StartBusinessFragment extends BaseConstantFragment {
     private List<String> priceList = new ArrayList<>();//音频，视频，
     private List<String> orderbyList = new ArrayList<>();//排序:最热,价格
     private List<String> catid1ListId = new ArrayList<>();//一级分类ID
-    private List<String> priceListId = new ArrayList<>();//audio,video
-    private List<String> orderbyListId = new ArrayList<>();//排序:ctime,watchnum,price
+    private List<String> priceListId = new ArrayList<>();//audio,album
+    private List<String> orderbyListId = new ArrayList<>();//排序:ctime,watchnum,free,charge
     private String catid1 = "";
     private String catid = "";
     private String type = "";
@@ -213,8 +213,8 @@ public class StartBusinessFragment extends BaseConstantFragment {
 
     //请求列表数据
     private void getinfos() {
-        String url = String.format(UmiwiAPI.UMIWI_BUS_WORK_TEND, page, catid, type, price, orderby);
-//        Log.e("TAG", "url12121=" + url);
+        String url = String.format(UmiwiAPI.UMIWI_BUS_WORK_TEND, page, catid, type, orderby);
+        Log.e("TAG", "url12121=" + url);
         GetRequest<AudioVideoBean> request = new GetRequest<AudioVideoBean>(url, GsonParser.class, AudioVideoBean.class, new AbstractRequest.Listener<AudioVideoBean>() {
             @Override
             public void onResult(AbstractRequest<AudioVideoBean> request, AudioVideoBean audioVideoBean) {

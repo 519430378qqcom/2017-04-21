@@ -78,7 +78,7 @@ public class YouMiPushMessageReceiver extends PushMessageReceiver {
                 util.setRequestId(requestId);
             }
         }
-        Log.e("TAG", "errorCode124=" + errorCode);
+        Log.e("TAG", "errorCode124=" + errorCode + ",appid" + appid);
     }
 
     /**

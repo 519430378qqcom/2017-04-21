@@ -72,7 +72,12 @@ public class AudioVideoAdapter extends BaseAdapter {
             hoder.cat.setVisibility(View.GONE);
         }
         hoder.title.setText(audioVideoList.getTitle());
-        hoder.price.setText(audioVideoList.getPrice());
+        if ("￥0".equals(audioVideoList.getPrice())) {
+            hoder.price.setVisibility(View.GONE);
+        } else {
+            hoder.price.setVisibility(View.VISIBLE);
+            hoder.price.setText(audioVideoList.getPrice());
+        }
         String type = audioVideoList.getType();
         if ("视频".equals(type)) {
             hoder.voice_img.setImageResource(R.drawable.video_small);

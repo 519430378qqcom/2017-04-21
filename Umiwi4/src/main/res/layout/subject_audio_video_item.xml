@@ -45,37 +45,29 @@
             <!--android:layout_height="match_parent"-->
             <!--android:scaleType="fitXY" />-->
 
-        <LinearLayout
-            android:id="@+id/special_right_layout_1"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:orientation="vertical">
+        <!--<LinearLayout-->
+            <!--android:id="@+id/special_right_layout_1"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:orientation="vertical">-->
 
-            <TextView
-                android:id="@+id/special_price_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:text="¥299"
-                android:textColor="@color/main_color"
-                android:textSize="16sp" />
+            <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+                <!--&lt;!&ndash;android:id="@+id/special_price_1"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_gravity="right"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:text="¥299"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:textColor="@color/main_color"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:textSize="16sp" />&ndash;&gt;-->
 
-            <View
-                android:layout_width="1dp"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
+            <!--<View-->
+                <!--android:layout_width="1dp"-->
+                <!--android:layout_height="0dp"-->
+                <!--android:layout_weight="1" />-->
 
-            <TextView
-                android:id="@+id/special_subscribe_number_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_marginLeft="7dp"
-                android:text="播放12万"
-                android:textColor="@color/color_divider"
-                android:textSize="12sp" />
-        </LinearLayout>
+            <!---->
+        <!--</LinearLayout>-->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -92,16 +84,31 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:orientation="vertical">
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_weight="1"
+                        android:id="@+id/special_name_textView_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:text="雷军.精英日课"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+                    <TextView
+                        android:id="@+id/special_price_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:text="¥299"
+                        android:textColor="@color/main_color"
+                        android:textSize="16sp" />
 
-                <TextView
-                    android:id="@+id/special_name_textView_1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:singleLine="true"
-                    android:text="雷军.精英日课"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
+                </LinearLayout>
+
                 <!--android:textColor="@color/black_a8"-->
                 <TextView
                     android:id="@+id/special_context_1"
@@ -150,17 +157,31 @@
                         android:textSize="12sp" />
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/expter_detail_textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <LinearLayout
                     android:layout_marginTop="5dp"
-                    android:ellipsize="end"
-                    android:text="帮你和全球精英"
-                    android:singleLine="true"
-                    android:textColor="@color/black_alpf"
-                    android:textSize="14sp" />
-
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_weight="1"
+                        android:id="@+id/expter_detail_textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:text="帮你和全球精英"
+                        android:singleLine="true"
+                        android:textColor="@color/black_alpf"
+                        android:textSize="14sp" />
+                    <TextView
+                        android:id="@+id/special_subscribe_number_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_marginLeft="7dp"
+                        android:text="播放12万"
+                        android:textColor="@color/color_divider"
+                        android:textSize="12sp" />
+                </LinearLayout>
             </LinearLayout>
 
         </RelativeLayout>

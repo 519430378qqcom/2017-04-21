@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -38,8 +39,6 @@ import cn.youmi.framework.http.AbstractRequest;
 import cn.youmi.framework.http.GetRequest;
 import cn.youmi.framework.http.parsers.GsonParser;
 import cn.youmi.framework.util.ToastU;
-
-import static com.umiwi.ui.R.id.price;
 
 /**
  * Created by Administrator on 2017/3/30 0030.
@@ -72,8 +71,8 @@ public class NewTendencyFragment extends BaseConstantFragment {
     private List<String> priceList = new ArrayList<>();//音频，视频，
     private List<String> orderbyList = new ArrayList<>();//排序:最热,价格
     private List<String> catid1ListId = new ArrayList<>();//一级分类ID
-    private List<String> priceListId = new ArrayList<>();//audio,video
-    private List<String> orderbyListId = new ArrayList<>();//排序:watchnum,price
+    private List<String> priceListId = new ArrayList<>();//audio,album
+    private List<String> orderbyListId = new ArrayList<>();//排序:watchnum,free,charge
     private String catid1 = "";
     private String catid = "";
     private String type = "";
@@ -201,8 +200,8 @@ public class NewTendencyFragment extends BaseConstantFragment {
 
     //请求列表数据
     private void getinfos() {
-        String url = String.format(UmiwiAPI.UMIWI_BUS_WORK_TEND, page, catid, type, price, orderby);
-//        Log.e("TAG", "url12121=" + url);
+        String url = String.format(UmiwiAPI.UMIWI_BUS_WORK_TEND, page, catid, type, orderby);
+        Log.e("TAG", "url12121=" + url);
         GetRequest<AudioVideoBean> request = new GetRequest<AudioVideoBean>(url, GsonParser.class, AudioVideoBean.class, new AbstractRequest.Listener<AudioVideoBean>() {
             @Override
             public void onResult(AbstractRequest<AudioVideoBean> request, AudioVideoBean audioVideoBean) {

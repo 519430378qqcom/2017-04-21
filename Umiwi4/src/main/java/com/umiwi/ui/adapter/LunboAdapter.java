@@ -13,7 +13,6 @@ import android.widget.ImageView;
 import com.umeng.analytics.MobclickAgent;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.beans.UmiwiListBeans;
-import com.umiwi.ui.fragment.LecturerDetailFragment;
 import com.umiwi.ui.fragment.ShareArticleFragment;
 import com.umiwi.ui.fragment.WebFragment;
 import com.umiwi.ui.fragment.course.CourseDetailPlayFragment;
@@ -110,7 +109,8 @@ public class LunboAdapter extends PagerAdapter {
 				}else if ("column".equals(listBeans.getTypes())){
 					Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
 					intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, ColumnDetailsFragment.class);
-					intent.putExtra(LecturerDetailFragment.KEY_DEFAULT_DETAILURL, listBeans.getDetailurl());
+//					intent.putExtra(LecturerDetailFragment.KEY_DEFAULT_DETAILURL, listBeans.getDetailurl());
+					intent.putExtra("columnurl", listBeans.getDetailurl());
 					mContext.startActivity(intent);
 				}else if ("audio".equals(listBeans.getTypes())){
 					Intent intent = new Intent(mContext, UmiwiContainerActivity.class);

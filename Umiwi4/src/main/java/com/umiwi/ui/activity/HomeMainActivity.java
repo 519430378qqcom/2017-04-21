@@ -111,6 +111,8 @@ public class HomeMainActivity extends AppCompatActivity {
     public String columDetailsFragmentUrl;
     public String webFragmentUrl;
     public String courseDetailPalyFragmentUrl;
+
+    public static boolean isAlive;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -245,7 +247,8 @@ public class HomeMainActivity extends AppCompatActivity {
         MobclickAgent.onResume(this);
         PlayerController.getInstance().releaseAndStop();
         isForeground = true;
-
+        Log.e("TAG", "onResume()");
+        Log.e("TAG", "isForeground=" + isForeground);
     }
 
     @Override
@@ -253,6 +256,8 @@ public class HomeMainActivity extends AppCompatActivity {
         super.onPause();
         MobclickAgent.onPause(this);
         isForeground = true;
+        Log.e("TAG", "isForeground=" + isForeground);
+        Log.e("TAG", "onPause()");
     }
 
     /***
@@ -274,7 +279,9 @@ public class HomeMainActivity extends AppCompatActivity {
         if (!mSpUtil.getDisturb()) {
             PushManager.stopWork(getApplicationContext());
         }
-        isForeground = true;
+        isForeground = false;
+        Log.e("TAG", "isForeground=" + isForeground);
+        Log.e("TAG", "onStop()");
     }
 
     @Override
@@ -286,7 +293,8 @@ public class HomeMainActivity extends AppCompatActivity {
         UmiwiApplication.mainActivity = null;
         super.onDestroy();
         isForeground = false;
-
+        Log.e("TAG", "isForeground=" + isForeground);
+        Log.e("TAG", "onDestroy()");
     }
 
     private ModelStatusListener<ResultEvent, String> qrCodeManagerListener = new ModelStatusListener<ResultEvent, String>() {
