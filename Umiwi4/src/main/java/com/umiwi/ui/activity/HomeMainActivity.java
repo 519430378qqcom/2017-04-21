@@ -276,9 +276,9 @@ public class HomeMainActivity extends AppCompatActivity {
     @Override
     public void onStop() {
         super.onStop();
-        if (!mSpUtil.getDisturb()) {
-            PushManager.stopWork(getApplicationContext());
-        }
+//        if (!mSpUtil.getDisturb()) {
+//            PushManager.stopWork(getApplicationContext());
+//        }
         isForeground = false;
         Log.e("TAG", "isForeground=" + isForeground);
         Log.e("TAG", "onStop()");
@@ -293,6 +293,9 @@ public class HomeMainActivity extends AppCompatActivity {
         UmiwiApplication.mainActivity = null;
         super.onDestroy();
         isForeground = false;
+        if (!mSpUtil.getDisturb()) {
+            PushManager.stopWork(getApplicationContext());
+        }
         Log.e("TAG", "isForeground=" + isForeground);
         Log.e("TAG", "onDestroy()");
     }
