@@ -1,6 +1,7 @@
 package com.umiwi.ui.fragment.home.updatehome.indexfragment;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.RemoteException;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -70,6 +72,10 @@ public class ColumnDetailsFragment extends BaseConstantFragment {
     private AudioSpecialDetailsBean.RAudioSpecialDetails details;
     private AnimationDrawable background;
 
+    private RelativeLayout rl_yuedu;
+    private RelativeLayout rl_dingyue;
+
+    public static boolean isAlive = false;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -77,7 +83,7 @@ public class ColumnDetailsFragment extends BaseConstantFragment {
 
         columnurl = getActivity().getIntent().getStringExtra("columnurl");
         Log.e("data", columnurl);
-
+        UmiwiApplication.mainActivity.columDetailsFragmentUrl = columnurl;
         initView(view);
         getData();
 
@@ -85,7 +91,8 @@ public class ColumnDetailsFragment extends BaseConstantFragment {
     }
 
     private void initView(View view) {
-
+        rl_yuedu = (RelativeLayout) view.findViewById(R.id.rl_yuedu);
+        rl_dingyue = (RelativeLayout) view.findViewById(R.id.rl_dingyue);
         targetuser = (TextView) view.findViewById(R.id.targetuser);
         title = (TextView) view.findViewById(R.id.title);
         priceinfo = (TextView) view.findViewById(R.id.priceinfo);
@@ -149,6 +156,8 @@ public class ColumnDetailsFragment extends BaseConstantFragment {
                 }
             }
         }
+        isAlive = true;
+
     }
 
     /**
@@ -205,12 +214,21 @@ public class ColumnDetailsFragment extends BaseConstantFragment {
 
                 Log.e("TAG", "columnDetailsBean.isIsbuy=" + details.isbuy());
                 if (details.isbuy()){
-                    tv_free_read.setText("进入专栏");
+                    tv_free_read.setText("查看专栏");
+                    tv_free_read.setTextColor(Color.WHITE);
+                    rl_yuedu.setBackgroundResource(R.drawable.main_color_button_bg);
                     tv_prize.setText("已订阅");
+                    tv_prize.setTextColor(Color.BLACK);
+                    rl_dingyue.setBackgroundResource(R.drawable.white_color_button_bg);
                     tv_prize.setEnabled(false);
                 }else {
                     tv_free_read.setText("免费阅读");
+                    tv_free_read.setTextColor(Color.BLACK);
+
+                    rl_yuedu.setBackgroundResource(R.drawable.white_color_button_bg);
+                    rl_dingyue.setBackgroundResource(R.drawable.main_color_button_bg);
                     tv_prize.setEnabled(true);
+                    tv_prize.setTextColor(Color.WHITE);
                     tv_prize.setText(String.format("订阅:  %s元/年", details.getPrice()));
                 }
                 tv_prize.setOnClickListener(new View.OnClickListener() {
@@ -284,5 +302,11 @@ public class ColumnDetailsFragment extends BaseConstantFragment {
             startActivity(intent);
         }
 
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        isAlive = false;
     }
 }

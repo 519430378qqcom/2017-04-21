@@ -80,8 +80,10 @@ public class YouMiPushMessageReceiver extends PushMessageReceiver {
         }
         Log.e("TAG", "errorCode124=" + errorCode);
     }
+
     /**
      * PushManager.stopWork() 的回调函数。
+     *
      * @param context   上下文
      * @param errorCode 错误码。0表示从云推送解绑定成功；非0表示失败。
      * @param requestId 分配给对云推送的请求的id
@@ -108,8 +110,10 @@ public class YouMiPushMessageReceiver extends PushMessageReceiver {
     public void onListTags(Context context, int i, List<String> list, String s) {
 
     }
+
     /**
      * 接收透传消息的函数。
+     *
      * @param context             上下文
      * @param message             推送的消息
      * @param customContentString 自定义内容,为空或者json字符串
@@ -130,8 +134,10 @@ public class YouMiPushMessageReceiver extends PushMessageReceiver {
             e.printStackTrace();
         }
     }
+
     /**
      * 接收通知到达的函数。
+     *
      * @param context             上下文
      * @param title               推送的通知的标题
      * @param description         推送的通知的描述
@@ -142,10 +148,11 @@ public class YouMiPushMessageReceiver extends PushMessageReceiver {
                                       String description, String customContentString) {
 
 
-
     }
+
     /**
      * 接收通知点击的函数。
+     *
      * @param context             上下文
      * @param title               推送的通知的标题
      * @param description         推送的通知的描述
@@ -192,78 +199,57 @@ public class YouMiPushMessageReceiver extends PushMessageReceiver {
 //                e.printStackTrace();
 //            }
 //        }
-        if(customContentString != null && !TextUtils.isEmpty(customContentString)) {
+        if (customContentString != null && !TextUtils.isEmpty(customContentString)) {
             try {
                 String type = null;
                 String url = null;
                 String id = null;
                 JSONObject customJson = new JSONObject(customContentString);
 
-                if(!customJson.isNull("type")) {
+                if (!customJson.isNull("type")) {
                     type = customJson.getString("type");
                 }
-                if(!customJson.isNull("url")) {
+                if (!customJson.isNull("url")) {
                     url = customJson.getString("url");
                 }
-                if(!customJson.isNull("id")) {
+                if (!customJson.isNull("id")) {
                     id = customJson.getString("id");
                 }
-                Log.e("TAG", "typeurlid=" + type + ",url=" + url +"名字,id=" + id);
-                getDataFromNotification(context,type,url,id);
+                Log.e("TAG", "typeurlid=" + type + ",url=" + url + "名字,id=" + id);
+                getDataFromNotification(context, type, url, id);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
-//        if(customContentString != null && !TextUtils.isEmpty(customContentString)) {
-//            try {
-//                JSONObject customJson = new JSONObject(customContentString);
-//                String type = null;
-//                String url = null;
-//                String id = null;
-//                type = customJson.getString("type");
-//                url = customJson.getString("url");
-//                id = customJson.getString("id");
-//                Log.e("TAG", "typeurlid=" + type + ",url=" + url +",id=" + id);
-//                JSONObject jsonContent = new JSONObject(customContentString);
-//                String title1 = jsonContent.getString("title");
-//                String description1 = jsonContent.getString("description");
-//                JSONObject params = jsonContent.getJSONObject("custom_content");
-//                String msgtype = params.getString("type");
-//                String msgturl = params.getString("url");
-//                String id = params.getString("id");
-//                Log.e("TAG", "title1=" + title1 + description1);
-//                Log.e("TAG", "推送的消息=" + msgtype + ",url=" + msgturl + ",id=" + id);
-//
-////                getDataFromNotification(type,url,id);
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
-//        }
     }
 
     /**
      * 根据推送，去开启页面
+     *
      * @param
-     * @param type
-     *              类型:3,打开应用
-     *              1,H5活动页面
-     *              2,视频播放页
-     *              12,视频专题
-     *              13,音频课程
-     *              14,音频专题
-     *              15，专栏
+     * @param type 类型:3,打开应用
+     *             1,H5活动页面
+     *             2,视频播放页
+     *             12,视频专题
+     *             13,音频课程
+     *             14,音频专题
+     *             15，专栏
      * @param url
      * @param id
      */
     private void getDataFromNotification(Context context, String type, String url, String id) {
         if (HomeMainActivity.isForeground) {
             Intent intent = new Intent();
-            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+//            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             switch (Integer.valueOf(type)) {
                 case 3:
                     break;
                 case 1:
+
                     Log.e("TAG", "打开h5页面");
+                    if(url.equals(UmiwiApplication.mainActivity.webFragmentUrl)&& WebFragment.isAlive) {
+                        return;
+                    }
                     intent.setClass(context.getApplicationContext(), UmiwiContainerActivity.class);
                     intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, WebFragment.class);
                     intent.putExtra(WebFragment.WEB_URL, url);
@@ -272,6 +258,9 @@ public class YouMiPushMessageReceiver extends PushMessageReceiver {
                     break;
                 case 2:
                     Log.e("TAG", "打开视频播放页面");
+                    if(url.equals(UmiwiApplication.mainActivity.courseDetailPalyFragmentUrl)&&CourseDetailPlayFragment.isAlive) {
+                        return;
+                    }
                     intent.setClass(context.getApplicationContext(), UmiwiContainerActivity.class);
                     intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, CourseDetailPlayFragment.class);
                     intent.putExtra(CourseDetailPlayFragment.KEY_DETAIURL, url);
@@ -280,6 +269,9 @@ public class YouMiPushMessageReceiver extends PushMessageReceiver {
                     break;
                 case 12:
                     Log.e("TAG", "打开视频专题页面");
+                    if(url.equals(UmiwiApplication.mainActivity.videoSpecaialDetailFragmentUrl) && VideoSpecialDetailFragment.isAlive) {
+                        return;
+                    }
                     intent.setClass(context.getApplicationContext(), UmiwiContainerActivity.class);
                     intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VideoSpecialDetailFragment.class);
                     intent.putExtra("detailurl", url);
@@ -288,6 +280,9 @@ public class YouMiPushMessageReceiver extends PushMessageReceiver {
                     break;
                 case 13:
                     Log.e("TAG", "打开音频播放页面");
+                    if(url.equals(UmiwiApplication.mainActivity.herfUrl) && VoiceDetailsFragment.isAlive) {
+                        return;
+                    }
                     intent.setClass(context.getApplicationContext(), UmiwiContainerActivity.class);
                     intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
                     intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL, url);
@@ -296,6 +291,11 @@ public class YouMiPushMessageReceiver extends PushMessageReceiver {
                     break;
                 case 14:
                     Log.e("TAG", "打开音频专题页面");
+                    if(id.equals(UmiwiApplication.mainActivity.audioSpecaialDetailFragmentUrl) &&AudioSpecialDetailFragment.isAlive ) {
+                        return;
+                    }
+//                    Log.e("TAG", "UmiwiApplication.mainActivity.audioSpecaialDetailFragmentUrl="  + AudioSpecialDetailFragment.isAlive);
+//                    Log.e("TAG", "UmiwiApplication.mainActivity.audioSpecaialDetailFragmentUrl="  + UmiwiApplication.mainActivity.audioSpecaialDetailFragmentUrl);
                     intent.setClass(context.getApplicationContext(), UmiwiContainerActivity.class);
                     intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, AudioSpecialDetailFragment.class);
                     intent.putExtra("typeId", id);
@@ -304,6 +304,9 @@ public class YouMiPushMessageReceiver extends PushMessageReceiver {
                     break;
                 case 15:
                     Log.e("TAG", "打开专栏页面");
+                    if(url.equals(UmiwiApplication.mainActivity.columDetailsFragmentUrl) && ColumnDetailsFragment.isAlive) {
+                        return;
+                    }
                     intent.setClass(context.getApplicationContext(), UmiwiContainerActivity.class);
                     intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, ColumnDetailsFragment.class);//详情页
                     intent.putExtra("columnurl", url);
@@ -319,7 +322,13 @@ public class YouMiPushMessageReceiver extends PushMessageReceiver {
 
             switch (Integer.valueOf(type)) {
                 case 1:
-                    Intent intent1 = new Intent(context,UmiwiContainerActivity.class);
+                    //2017年4月11 10.38调试可以
+                    Intent intent21 = new Intent(context.getApplicationContext(), HomeMainActivity.class);
+                    intent21.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    intent21.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent21);
+
+                    Intent intent1 = new Intent(context, UmiwiContainerActivity.class);
                     intent1.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, WebFragment.class);
                     intent1.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -327,6 +336,12 @@ public class YouMiPushMessageReceiver extends PushMessageReceiver {
                     context.startActivity(intent1);
                     break;
                 case 2:
+                    //2017年4月11 10.51调试可以
+                    Intent intent22 = new Intent(context.getApplicationContext(), HomeMainActivity.class);
+                    intent22.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    intent22.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent22);
+
                     Intent intent2 = new Intent();
                     intent2.setClass(context.getApplicationContext(), UmiwiContainerActivity.class);
                     intent2.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, CourseDetailPlayFragment.class);
@@ -336,7 +351,13 @@ public class YouMiPushMessageReceiver extends PushMessageReceiver {
                     context.startActivity(intent2);
                     break;
                 case 12:
-                    Intent intent12= new Intent();
+                    //2017年4月11 10.52调试可以
+                    Intent intent122 = new Intent(context.getApplicationContext(), HomeMainActivity.class);
+                    intent122.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    intent122.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent122);
+
+                    Intent intent12 = new Intent();
                     intent12.setClass(context.getApplicationContext(), UmiwiContainerActivity.class);
                     intent12.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VideoSpecialDetailFragment.class);
                     intent12.putExtra("detailurl", url);
@@ -345,13 +366,14 @@ public class YouMiPushMessageReceiver extends PushMessageReceiver {
                     context.startActivity(intent12);
                     break;
                 case 13:
+                    //2017年4月11 11.01调试可以
                     Intent intent = new Intent(context.getApplicationContext(), HomeMainActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
 
 //                    Log.e("TAG", "打开音频播放页面");
-                    Intent intent13= new Intent();
+                    Intent intent13 = new Intent();
                     intent13.setClass(context.getApplicationContext(), UmiwiContainerActivity.class);
                     intent13.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
                     intent13.putExtra(VoiceDetailsFragment.KEY_DETAILURL, url);
@@ -360,7 +382,13 @@ public class YouMiPushMessageReceiver extends PushMessageReceiver {
                     context.startActivity(intent13);
                     break;
                 case 14:
-                    Intent intent14= new Intent();
+                    //2017年4月11 11.00调试可以
+                    Intent intent114 = new Intent(context.getApplicationContext(), HomeMainActivity.class);
+                    intent114.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    intent114.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent114);
+
+                    Intent intent14 = new Intent();
                     intent14.setClass(context.getApplicationContext(), UmiwiContainerActivity.class);
                     intent14.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, AudioSpecialDetailFragment.class);
                     intent14.putExtra("typeId", id);
@@ -369,7 +397,13 @@ public class YouMiPushMessageReceiver extends PushMessageReceiver {
                     context.startActivity(intent14);
                     break;
                 case 15:
-                    Intent intent15= new Intent();
+                    //2017年4月11 11.02调试可以
+                    Intent intent115 = new Intent(context.getApplicationContext(), HomeMainActivity.class);
+                    intent115.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    intent115.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent115);
+
+                    Intent intent15 = new Intent();
                     intent15.setClass(context.getApplicationContext(), UmiwiContainerActivity.class);
                     intent15.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, ColumnDetailsFragment.class);//详情页
                     intent15.putExtra("columnurl", url);
@@ -473,6 +507,7 @@ public class YouMiPushMessageReceiver extends PushMessageReceiver {
         }
         startNotification(intent, title, description);
     }
+
     /**
      * 启动通知
      */

@@ -202,7 +202,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
     public ImageView startPlayer;
     private ArrayList<AudioTmessageListBeans.RecordX.Record> record;
     private boolean isLoad;
-
+    public static boolean isAlive = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -1199,6 +1199,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
     @Override
     public void onResume() {
         super.onResume();
+        isAlive = true;
     }
 
     @Override
@@ -1212,8 +1213,14 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
 //            getActivity().unbindService(conn);
 //            conn = null;
 //        }
-
         super.onDestroy();
+        isAlive = false;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        isAlive = false;
     }
 
     private void initRefreshLayout() {

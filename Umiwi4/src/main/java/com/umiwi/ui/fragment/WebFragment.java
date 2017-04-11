@@ -79,7 +79,7 @@ public class WebFragment extends BaseFragment {
     private boolean mIsWebViewAvailable;
 
     private String mUrl = "";
-
+    public static  boolean isAlive = false;
 
     public WebFragment() {
         super();
@@ -100,6 +100,7 @@ public class WebFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mUrl = getActivity().getIntent().getStringExtra(WEB_URL);
+        UmiwiApplication.mainActivity.webFragmentUrl = mUrl;
         Log.e("shenqiwnei", "shenqinwei-----:" + mUrl);
         this.setHasOptionsMenu(true);
         this.setRetainInstance(true);
@@ -321,6 +322,7 @@ public class WebFragment extends BaseFragment {
         super.onResume();
         mWebView.onResume();
         MobclickAgent.onPageStart(fragmentName);
+        isAlive = true;
     }
 
     @Override
@@ -347,6 +349,7 @@ public class WebFragment extends BaseFragment {
             startActivity(intent);
         }
         super.onDestroy();
+        isAlive = false;
     }
 
     public WebView getWebView() {

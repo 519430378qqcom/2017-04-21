@@ -167,6 +167,7 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
 //    private int totals;
     private int page = 1;
     private int totals;
+    public static boolean isAlive = false;
 
 
     @Override
@@ -178,6 +179,7 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
 
         detaiURL = getActivity().getIntent().getStringExtra(KEY_DETAIURL);
         Log.e("TAG", "detailRUL==" + detaiURL);
+        UmiwiApplication.mainActivity.courseDetailPalyFragmentUrl = detaiURL;
         PlayerController.getInstance().initPlayerController(getActivity());
         PlayerController.getInstance().initNativeMediaPlayer();
         collectionDao = new CollectionDao();
@@ -394,13 +396,19 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
         PlayerController.getInstance().initConfigrationChange(null);
 //        PlayerController.getInstance().resume();
         MobclickAgent.onPageStart(fragmentName);
+        isAlive = true;
+
     }
 
 
     @Override
     public void onPause() {
         super.onPause();
+        isAlive = false;
         MobclickAgent.onPageEnd(fragmentName);
+        if(PlayerController.getInstance() != null) {
+            PlayerController.getInstance().pause();
+        }
     }
 
     @Override

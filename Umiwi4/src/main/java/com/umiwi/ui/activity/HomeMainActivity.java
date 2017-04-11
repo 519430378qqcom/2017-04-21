@@ -106,7 +106,11 @@ public class HomeMainActivity extends AppCompatActivity {
     public IVoiceService service ;
     public static boolean isForeground = false;
     private static CookieDao cookiedao = CookieDao.getInstance(BaseApplication.getApplication());
-
+    public String audioSpecaialDetailFragmentUrl;
+    public String videoSpecaialDetailFragmentUrl;
+    public String columDetailsFragmentUrl;
+    public String webFragmentUrl;
+    public String courseDetailPalyFragmentUrl;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

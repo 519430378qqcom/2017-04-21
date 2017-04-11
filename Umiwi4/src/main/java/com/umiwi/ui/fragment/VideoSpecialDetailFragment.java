@@ -90,7 +90,7 @@ public class VideoSpecialDetailFragment extends BaseConstantFragment implements 
     private VideoSpecialDetailBean.VideoSpecialShare share;
     private String price;
     private String sectionid;
-
+    public static boolean isAlive = false;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -98,6 +98,7 @@ public class VideoSpecialDetailFragment extends BaseConstantFragment implements 
         mContext = getActivity();
         ButterKnife.inject(this,view);
         detailurl = getActivity().getIntent().getStringExtra("detailurl");
+        UmiwiApplication.mainActivity.videoSpecaialDetailFragmentUrl = detailurl;
         detailAdapter = new VideoSpecialDetailAdapter(getActivity());
         detailAdapter.setData(mList);
         lv_audio_item.setAdapter(detailAdapter);
@@ -251,6 +252,7 @@ public class VideoSpecialDetailFragment extends BaseConstantFragment implements 
                 }
             }
         }
+        isAlive = true;
 
     }
 
@@ -293,6 +295,12 @@ public class VideoSpecialDetailFragment extends BaseConstantFragment implements 
         i.putExtra(PayingFragment.KEY_PAY_URL, payurl);
         startActivity(i);
         getActivity().finish();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        isAlive = false;
     }
 
     @Override

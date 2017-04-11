@@ -88,12 +88,13 @@ public class AudioSpecialDetailFragment extends BaseConstantFragment implements 
     @InjectView(R.id.yuedu)
     RelativeLayout yuedu;
     private Context mContext;
-    private String typeId;
+    public String typeId;
     private AudioSpecialDetailBean.RAudioSpecial details;
     private AudioSpecialListAdapter audioSpecialListAdapter;
     private ArrayList<AudioSpecialDetailBean.RAudioSpecial.LastRecordList> mList = new ArrayList<>();
     private String orderBy = "desc";
     private AnimationDrawable background;
+    public static boolean isAlive = false;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -102,6 +103,7 @@ public class AudioSpecialDetailFragment extends BaseConstantFragment implements 
         mContext = getActivity();
         typeId = getActivity().getIntent().getStringExtra("typeId");
         Log.e("TAG", "typeId=" + typeId);
+        UmiwiApplication.mainActivity.audioSpecaialDetailFragmentUrl = typeId;
         audioSpecialListAdapter = new AudioSpecialListAdapter(getActivity());
         audioSpecialListAdapter.setData(mList);
         lv_audio_item.setAdapter(audioSpecialListAdapter);
@@ -288,6 +290,13 @@ public class AudioSpecialDetailFragment extends BaseConstantFragment implements 
             }
 
         }
+        isAlive = true;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        isAlive = false;
     }
 
     @Override
