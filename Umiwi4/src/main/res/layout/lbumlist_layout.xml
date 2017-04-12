@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -70,6 +71,7 @@
 
 
     <RelativeLayout
+        android:background="@color/white"
         android:id="@+id/rl_tutor_all"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

@@ -22,8 +22,8 @@
 
             <ImageView
                 android:scaleType="centerCrop"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="4dp"
                 android:id="@+id/iv_audio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -44,6 +44,7 @@
                 android:lines="1"
                 android:singleLine="true"
                 android:text="谁的自认倒霉"
+                android:textColor="@color/color_primary_text"
                 android:textSize="16sp" />
                 <!--android:textColor="@color/black_a8"-->
             <TextView

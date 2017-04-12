@@ -205,7 +205,7 @@ public class RecommendFragment extends BaseConstantFragment {
     private void initView(View v) {
         flv_new_free = (FreeLayoutView) v.findViewById(R.id.flv_new_free);
         hot_video_layout = (HotVideoLayout) v.findViewById(R.id.hot_video_layout);
-        //现在改为音频专题
+        //现在改为推荐专栏
         erl_expert_rec = (ExpertRecLayoutView) v.findViewById(R.id.erl_expert_rec);
 
 //        lalv_action_line = (LineActionLayoutViwe) v.findViewById(lalv_action_line);
@@ -580,6 +580,7 @@ public class RecommendFragment extends BaseConstantFragment {
                 UmiwiAPI.VIDEO_LUNBO_NEW,
                 CourseListParser.class, lunboListener);
         //+ CommonHelper.getChannelModelViesion()
+        Log.e("TAG", "UmiwiAPI.VIDEO_LUNBO_NEW=" + UmiwiAPI.VIDEO_LUNBO_NEW);
         HttpDispatcher.getInstance().go(request);
         //request.go();
     }
@@ -588,6 +589,8 @@ public class RecommendFragment extends BaseConstantFragment {
 
         @Override
         public void onResult(AbstractRequest<UmiwiListBeans.ChartsListRequestData> request, UmiwiListBeans.ChartsListRequestData t) {
+            Log.e("TAG", "轮播数据=" + t.getRecord().toString());
+            Log.e("TAG", "轮播数据t=" + t.toString());
             if (null != t && null != t.getRecord()) {
                 mLunboAdapter = new LunboAdapter(getActivity(), t.getRecord());
                 mLunboList.clear();

@@ -53,7 +53,7 @@ public class BuySpecialAdapter extends BaseAdapter {
             holder.special_context_1 = (TextView) convertView.findViewById(R.id.special_context_1);
             holder.expter_time_textView = (TextView) convertView.findViewById(R.id.expter_time_textView);
             holder.expter_tag = (TextView) convertView.findViewById(R.id.expter_tag);
-            holder.expter_detail_textView = (TextView) convertView.findViewById(R.id.expter_detail_textView);
+//            holder.expter_detail_textView = (TextView) convertView.findViewById(R.id.expter_detail_textView);
             holder.special_subscribe_number_1 = (TextView) convertView.findViewById(R.id.special_subscribe_number_1);
             convertView.setTag(holder);
         } else {
@@ -77,8 +77,8 @@ public class BuySpecialAdapter extends BaseAdapter {
         } else {
             holder.expter_tag.setVisibility(View.GONE);
         }
-        holder.expter_detail_textView.setText(buySpecialRecord.getAudiotitle());
-        holder.special_subscribe_number_1.setText("播放" + buySpecialRecord.getWatchnum() + "次");
+//        holder.expter_detail_textView.setText(buySpecialRecord.getAudiotitle());
+        holder.special_subscribe_number_1.setText("播放" + buySpecialRecord.getWatchnum());
 
         return convertView;
     }
@@ -90,7 +90,7 @@ public class BuySpecialAdapter extends BaseAdapter {
         TextView special_context_1;
         TextView expter_time_textView;//更新
         TextView expter_tag;//标签
-        TextView expter_detail_textView;
+//        TextView expter_detail_textView;
         TextView special_subscribe_number_1;//播放次数
     }
     public void setData(ArrayList<BuySpecialBean.RBuySpecial.BuySpecialRecord> mList) {

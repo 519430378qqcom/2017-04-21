@@ -11,9 +11,10 @@
         android:background="@color/white"
         android:padding="15dp">
         <RelativeLayout
+            android:layout_centerVertical="true"
             android:id="@+id/special_header_imageview_1"
-            android:layout_width="110dp"
-            android:layout_height="110dp">
+            android:layout_width="120dp"
+            android:layout_height="90dp">
             <ImageView
                 android:id="@+id/iv_author"
                 android:layout_width="match_parent"
@@ -70,8 +71,9 @@
         <!--</LinearLayout>-->
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
+            android:layout_height="90dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
             android:layout_marginRight="2dp"
             android:layout_toLeftOf="@id/special_right_layout_1"
             android:layout_toRightOf="@id/special_header_imageview_1"
@@ -82,7 +84,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
+                android:layout_weight="1"
                 android:orientation="vertical">
                 <LinearLayout
                     android:orientation="horizontal"
@@ -94,8 +96,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
-                        android:singleLine="true"
-                        android:text="雷军.精英日课"
+                        android:lines="2"
+                        android:text="雷军.精英日课雷军.精英日课雷军.精英日课雷军.精英"
                         android:textColor="@color/black"
                         android:textSize="15sp" />
                     <TextView
@@ -103,7 +105,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginLeft="7dp"
                         android:text="¥299"
                         android:textColor="@color/main_color"
                         android:textSize="15sp" />
@@ -135,6 +137,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
+
                         android:id="@+id/expter_time_textView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -157,33 +160,40 @@
                         android:singleLine="true"
                         android:text="融资"
                         android:textSize="12sp" />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_alignParentRight="true"
+                            android:id="@+id/special_subscribe_number_1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="7dp"
+                            android:text="播放12万"
+                            android:textColor="@color/color_divider"
+                            android:textSize="12sp" />
+                    </RelativeLayout>
+
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_marginTop="5dp"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:layout_weight="1"
-                        android:id="@+id/expter_detail_textView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:text="帮你和全球精英"
-                        android:singleLine="true"
-                        android:textColor="@color/black_alpf"
-                        android:textSize="13sp" />
-                    <TextView
-                        android:id="@+id/special_subscribe_number_1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="right"
-                        android:layout_marginLeft="7dp"
-                        android:text="播放12万"
-                        android:textColor="@color/color_divider"
-                        android:textSize="12sp" />
-                </LinearLayout>
+                <!--<LinearLayout-->
+                    <!--android:layout_marginTop="5dp"-->
+                    <!--android:orientation="horizontal"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content">-->
+                    <!--<TextView-->
+                        <!---->
+                        <!--android:layout_weight="1"-->
+                        <!--android:id="@+id/expter_detail_textView"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:ellipsize="end"-->
+                        <!--android:text="帮你和全球精英"-->
+                        <!--android:singleLine="true"-->
+                        <!--android:textColor="@color/black_alpf"-->
+                        <!--android:textSize="13sp" />-->
+                    <!---->
+                <!--</LinearLayout>-->
             </LinearLayout>
 
         </RelativeLayout>

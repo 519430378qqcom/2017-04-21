@@ -60,12 +60,12 @@ public class HotVideoAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         Glide.with(context).load(mList.get(position).getLimage()).into(viewHolder.iv_author);
-        viewHolder.tv_video_time.setText(mList.get(position).getPlaytime());
+//        viewHolder.tv_video_time.setText(mList.get(position).getPlaytime());
         viewHolder.tv_video_name.setText(mList.get(position).getShorttitle());
         viewHolder.tv_video_detail.setText(mList.get(position).getName() + " " + mList.get(position).getTutortitle());
-        viewHolder.tv_playnum.setText("播放 "+mList.get(position).getWatchnum());
+        viewHolder.tv_playnum.setText("播放: "+mList.get(position).getWatchnum());
         if (!TextUtils.isEmpty(mList.get(position).getTime())) {
-            viewHolder.tv_playname.setText(mList.get(position).getTime());
+            viewHolder.tv_playname.setText("时长: " + mList.get(position).getPlaytime());
         } else {
             viewHolder.tv_playname.setText("null");
         }

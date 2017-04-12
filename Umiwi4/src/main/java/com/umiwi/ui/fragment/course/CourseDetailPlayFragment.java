@@ -282,14 +282,14 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
                 String.format(UmiwiAPI.COMMENT_REPLY_LIST, albumID, 1), GsonParser.class,
 
                 CommentListBeans.CommentListRequestData.class, commentNumber);
-        Log.e("TAG", "评论链接url1213123=" + String.format(UmiwiAPI.COMMENT_REPLY_LIST, albumID, page));
+//        Log.e("TAG", "评论链接url1213123=" + String.format(UmiwiAPI.COMMENT_REPLY_LIST, albumID, page));
         request.go();
     }
     private Listener<CommentListBeans.CommentListRequestData> commentNumber = new Listener<CommentListBeans.CommentListRequestData>() {
         @Override
         public void onResult(AbstractRequest<CommentListBeans.CommentListRequestData> request, CommentListBeans.CommentListRequestData commentListRequestData) {
             totals = commentListRequestData.getTotals();
-            Log.e("TAG", "toatalsssss=" + totals);
+//            Log.e("TAG", "toatalsssss=" + totals);
             mAdapter.setCommentNum(totals + "");
         }
 

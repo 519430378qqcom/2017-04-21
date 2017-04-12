@@ -6,8 +6,8 @@
 
     <TextView
         android:id="@+id/tv_jianjie"
-        android:textColor="@color/black_alpf"
         android:textSize="16sp"
+        android:textColor="@color/black_a8"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

@@ -1,9 +1,9 @@
 package com.umiwi.ui.beans;
 
-import java.util.ArrayList;
-
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.ArrayList;
 
 /**
  * 一级列表解析方式 适用于排行榜
@@ -108,6 +108,35 @@ public class UmiwiListBeans extends BaseGsonBeans {
 
 	@SerializedName("icon")
 	private String icon;
+
+	@Override
+	public String toString() {
+		return "UmiwiListBeans{" +
+				"title='" + title + '\'' +
+				", id=" + id +
+				", albumid='" + albumid + '\'' +
+				", uid=" + uid +
+				", image='" + image + '\'' +
+				", tutoruid='" + tutoruid + '\'' +
+				", grade='" + grade + '\'' +
+				", authorname='" + authorname + '\'' +
+				", classes='" + classes + '\'' +
+				", detailurl='" + detailurl + '\'' +
+				", spmurl='" + spmurl + '\'' +
+				", notelist='" + notelist + '\'' +
+				", favid='" + favid + '\'' +
+				", types='" + types + '\'' +
+				", url='" + url + '\'' +
+				", classname='" + classname + '\'' +
+				", gridtype='" + gridtype + '\'' +
+				", gridmore='" + gridmore + '\'' +
+				", category='" + category + '\'' +
+				", watchnum='" + watchnum + '\'' +
+				", notesnum='" + notesnum + '\'' +
+				", icontype='" + icontype + '\'' +
+				", icon='" + icon + '\'' +
+				'}';
+	}
 
 	public static UmiwiListBeans fromJson(String json) {
 		return new Gson().fromJson(json, UmiwiListBeans.class);
@@ -295,6 +324,30 @@ public class UmiwiListBeans extends BaseGsonBeans {
 		@SerializedName("record")
 		private ArrayList<UmiwiListBeans> record;
 
+		public void setTotal(int total) {
+			this.total = total;
+		}
+
+		public void setTotals(int totals) {
+			this.totals = totals;
+		}
+
+		public void setCurr_page(int curr_page) {
+			this.curr_page = curr_page;
+		}
+
+		public void setPages(int pages) {
+			this.pages = pages;
+		}
+
+		public void setShow(boolean show) {
+			isShow = show;
+		}
+
+		public void setRecord(ArrayList<UmiwiListBeans> record) {
+			this.record = record;
+		}
+
 		public int getTotal() {
 			return total;
 		}
@@ -319,5 +372,16 @@ public class UmiwiListBeans extends BaseGsonBeans {
 			return record;
 		}
 
+		@Override
+		public String toString() {
+			return "ChartsListRequestData{" +
+					"total=" + total +
+					", totals=" + totals +
+					", curr_page=" + curr_page +
+					", pages=" + pages +
+					", isShow=" + isShow +
+					", record=" + record +
+					'}';
+		}
 	}
 }
