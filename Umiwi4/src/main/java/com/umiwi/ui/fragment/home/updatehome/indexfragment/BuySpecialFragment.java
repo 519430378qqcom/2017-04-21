@@ -145,7 +145,27 @@ public class BuySpecialFragment extends BaseConstantFragment {
     @Override
     public void onResume() {
         super.onResume();
+        String uid = YoumiRoomUserManager.getInstance().getUid();
+        String url = String.format(UmiwiAPI.UMIWI_BUYSPECIAL,1);
+        Log.e("TAG", "UMIWI_BUYSPECIAL=" + url + ","+uid);
+        GetRequest<BuySpecialBean> request = new GetRequest<BuySpecialBean>(url, GsonParser.class, BuySpecialBean.class, new AbstractRequest.Listener<BuySpecialBean>() {
+            @Override
+            public void onResult(AbstractRequest<BuySpecialBean> request, BuySpecialBean buySpecialBean) {
+                ArrayList<BuySpecialBean.RBuySpecial.BuySpecialRecord> record = buySpecialBean.getR().getRecord();
+                if(record!= null) {
+                    mList.clear();
+                    mList.addAll(record);
+                    buySpecialAdapter.setData(mList);
 
+                }
+            }
+
+            @Override
+            public void onError(AbstractRequest<BuySpecialBean> requet, int statusCode, String body) {
+
+            }
+        });
+        request.go();
         MobclickAgent.onPageStart(fragmentName);
     }
 

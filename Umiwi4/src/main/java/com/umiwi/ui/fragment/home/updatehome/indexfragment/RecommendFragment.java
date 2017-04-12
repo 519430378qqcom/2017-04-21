@@ -164,7 +164,7 @@ public class RecommendFragment extends BaseConstantFragment {
     private SwipeRefreshLayout.OnRefreshListener mOnRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
-            mLunboList.clear();
+//            mLunboList.clear();
             mList.clear();
             mAdapter.notifyDataSetChanged();
             loadLunboData();
@@ -193,7 +193,7 @@ public class RecommendFragment extends BaseConstantFragment {
         initheader(inflater);
         loadRecommend();
 
-        if (mLunboList.size() > 1) {
+        if (mLunboList != null && mLunboList.size() > 1) {
             mHandler.sendEmptyMessageDelayed(SHOW_NEXT, 5000);
         }
         return view;
@@ -334,7 +334,7 @@ public class RecommendFragment extends BaseConstantFragment {
             @Override
             public void onPageSelected(int position) {
 
-                if(mLunboList.size() >0){
+                if(mLunboList != null && mLunboList.size() >0){
                     int currentPosition = position%mLunboList.size();
                     ll_point.getChildAt(preSelectPosition).setEnabled(false);
                     ll_point.getChildAt(currentPosition).setEnabled(true);
@@ -590,8 +590,8 @@ public class RecommendFragment extends BaseConstantFragment {
         public void onResult(AbstractRequest<UmiwiListBeans.ChartsListRequestData> request, UmiwiListBeans.ChartsListRequestData t) {
             if (null != t && null != t.getRecord()) {
                 mLunboAdapter = new LunboAdapter(getActivity(), t.getRecord());
+                mLunboList.clear();
                 mLunboList = t.getRecord();
-
                 ll_point.removeAllViews();
                 for (int i = 0; i <mLunboList.size(); i++) {
                     ImageView point = new ImageView(getActivity());

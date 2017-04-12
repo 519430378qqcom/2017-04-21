@@ -84,7 +84,7 @@ public class LbumListAdapter extends BaseAdapter {
             holder.expter_tag.setVisibility(View.INVISIBLE);
         }
         holder.expter_detail_textView.setText(albumListRecord.getAudiotitle());
-        holder.special_subscribe_number_1.setText("播放"+albumListRecord.getWatchnum() + "次");
+        holder.special_subscribe_number_1.setText("播放"+albumListRecord.getWatchnum() );
         return convertView;
     }
     class ViewHolder{

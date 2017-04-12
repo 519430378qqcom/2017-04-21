@@ -3,13 +3,11 @@ package com.umiwi.ui.activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -50,7 +48,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
-import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
 import cn.sharesdk.framework.ShareSDK;
@@ -112,7 +109,6 @@ public class HomeMainActivity extends AppCompatActivity {
     public String webFragmentUrl;
     public String courseDetailPalyFragmentUrl;
 
-    public static boolean isAlive;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -152,7 +148,6 @@ public class HomeMainActivity extends AppCompatActivity {
                 }
             }
         }
-//        PushSettings.enableDebugMode(getApplicationContext(), true);
         if (!mSpUtil.getDisturb()) {
             PushManager.startWork(getApplicationContext(), PushConstants.LOGIN_TYPE_API_KEY, Utils.getMetaValue(HomeMainActivity.this, "api_key"));
 //			PushManager.disableLbs(this);// 关闭精准lbs
@@ -165,7 +160,7 @@ public class HomeMainActivity extends AppCompatActivity {
             saveAd();
         }
 
-        getDeviceId();
+//        getDeviceId();
         //获取当前时间
 //        long millis = System.currentTimeMillis();
 //        String yMdHm = DateUtils.yMdHm(millis);
@@ -247,8 +242,8 @@ public class HomeMainActivity extends AppCompatActivity {
         MobclickAgent.onResume(this);
         PlayerController.getInstance().releaseAndStop();
         isForeground = true;
-        Log.e("TAG", "onResume()");
-        Log.e("TAG", "isForeground=" + isForeground);
+//        Log.e("TAG", "onResume()");
+//        Log.e("TAG", "isForeground=" + isForeground);
     }
 
     @Override
@@ -256,8 +251,8 @@ public class HomeMainActivity extends AppCompatActivity {
         super.onPause();
         MobclickAgent.onPause(this);
         isForeground = true;
-        Log.e("TAG", "isForeground=" + isForeground);
-        Log.e("TAG", "onPause()");
+//        Log.e("TAG", "isForeground=" + isForeground);
+//        Log.e("TAG", "onPause()");
     }
 
     /***
@@ -280,8 +275,8 @@ public class HomeMainActivity extends AppCompatActivity {
 //            PushManager.stopWork(getApplicationContext());
 //        }
         isForeground = false;
-        Log.e("TAG", "isForeground=" + isForeground);
-        Log.e("TAG", "onStop()");
+//        Log.e("TAG", "isForeground=" + isForeground);
+//        Log.e("TAG", "onStop()");
     }
 
     @Override
@@ -296,8 +291,8 @@ public class HomeMainActivity extends AppCompatActivity {
         if (!mSpUtil.getDisturb()) {
             PushManager.stopWork(getApplicationContext());
         }
-        Log.e("TAG", "isForeground=" + isForeground);
-        Log.e("TAG", "onDestroy()");
+//        Log.e("TAG", "isForeground=" + isForeground);
+//        Log.e("TAG", "onDestroy()");
     }
 
     private ModelStatusListener<ResultEvent, String> qrCodeManagerListener = new ModelStatusListener<ResultEvent, String>() {
@@ -528,7 +523,7 @@ public class HomeMainActivity extends AppCompatActivity {
         prequest.addParam("user_id", mSpUtil.getUserId());
         prequest.addParam("channel_id", mSpUtil.getChannelId());
         prequest.go();
-        Log.e("TAG", "mSpUtil.getUserId()=" + mSpUtil.getAppId() + "," + mSpUtil.getUserId() + "," + mSpUtil.getChannelId() + "," + mSpUtil.getDeviceId());
+//        Log.e("TAG", "mSpUtil.getUserId()=" + mSpUtil.getAppId() + "," + mSpUtil.getUserId() + "," + mSpUtil.getChannelId() + "," + mSpUtil.getDeviceId());
     }
 
     private Listener<ResultModel> pushListener = new Listener<ResultModel>() {
@@ -694,22 +689,22 @@ public class HomeMainActivity extends AppCompatActivity {
         return day >= 1;
     }
 
-    public void getDeviceId() {
-//        String deviceId = mSpUtil.getDeviceId();
-//        if(deviceId != null) {
-//            return;
-//        }
-        TelephonyManager systemService = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
-        String deviceId1 = systemService.getDeviceId();
-//        Log.e("TAG", "dev=" + deviceId1);
-        String serial = Build.SERIAL;//序号
-        String model = Build.MODEL;//设备名称
-        String id = Build.ID;
-
-        String uuid = UUID.randomUUID().toString();
-        String deviceId = serial + model + deviceId1;
-        Log.e("TAG", "deviceId=" + deviceId);
-        mSpUtil.setDeviceId(deviceId);
-    }
+//    public void getDeviceId() {
+////        String deviceId = mSpUtil.getDeviceId();
+////        if(deviceId != null) {
+////            return;
+////        }
+//        TelephonyManager systemService = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
+//        String deviceId1 = systemService.getDeviceId();
+////        Log.e("TAG", "dev=" + deviceId1);
+//        String serial = Build.SERIAL;//序号
+//        String model = Build.MODEL;//设备名称
+//        String id = Build.ID;
+//
+//        String uuid = UUID.randomUUID().toString();
+//        String deviceId = serial + model + deviceId1;
+//        Log.e("TAG", "deviceId=" + deviceId);
+//        mSpUtil.setDeviceId(deviceId);
+//    }
 
 }

@@ -29,7 +29,6 @@
     <!-- 后台下载 -->
     <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
 
-
     <!-- 拍照 -->
     <uses-permission android:name="android.permission.CAMERA" />
     <!-- Push service 运行需要的权限 -->
@@ -48,12 +47,12 @@
     <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
     <uses-permission android:name="android.permission.EXPAND_STATUS_BAR" />
 
-    <!-- 适配Android N系统必需的ContentProvider写权限声明，写权限包含应用包名-->
+    <!-- 适配Android N系统必需的ContentProvider写权限声明，写权限包含应用包名 -->
     <uses-permission android:name="baidu.push.permission.WRITE_PUSHINFOPROVIDER.com.umiwi.ui" />
+
     <permission
         android:name="baidu.push.permission.WRITE_PUSHINFOPROVIDER.com.umiwi.ui"
-        android:protectionLevel="normal"></permission>
-
+        android:protectionLevel="normal" />
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -196,7 +195,7 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.AdvertiseActivity"></activity>
+        <activity android:name=".activity.AdvertiseActivity" />
         <!-- 网页容器 -->
 
         <activity
@@ -226,24 +225,25 @@
 
                 <!-- 接收push消息 -->
                 <action android:name="com.baidu.android.pushservice.action.MESSAGE" />
-                <!-- 接收bind、setTags等method的返回结果-->
+                <!-- 接收bind、setTags等method的返回结果 -->
                 <action android:name="com.baidu.android.pushservice.action.RECEIVE" />
                 <!-- 接收通知点击事件，和通知自定义内容 -->
                 <action android:name="com.baidu.android.pushservice.action.notification.CLICK" />
             </intent-filter>
         </receiver>
         <!-- push service client -->
-        <!--<receiver android:name=".push.MyPushMessageReceiver">-->
-            <!--<intent-filter>-->
+        <!-- <receiver android:name=".push.MyPushMessageReceiver"> -->
+        <!-- <intent-filter> -->
 
-                <!--&lt;!&ndash; 接收push消息 &ndash;&gt;-->
-                <!--<action android:name="com.baidu.android.pushservice.action.MESSAGE" />-->
-                <!--&lt;!&ndash; 接收bind、setTags等method的返回结果&ndash;&gt;-->
-                <!--<action android:name="com.baidu.android.pushservice.action.RECEIVE" />-->
-                <!--&lt;!&ndash; 接收通知点击事件，和通知自定义内容 &ndash;&gt;-->
-                <!--<action android:name="com.baidu.android.pushservice.action.notification.CLICK" />-->
-            <!--</intent-filter>-->
-        <!--</receiver>-->
+
+        <!-- &lt;!&ndash; 接收push消息 &ndash;&gt; -->
+        <!-- <action android:name="com.baidu.android.pushservice.action.MESSAGE" /> -->
+        <!-- &lt;!&ndash; 接收bind、setTags等method的返回结果&ndash;&gt; -->
+        <!-- <action android:name="com.baidu.android.pushservice.action.RECEIVE" /> -->
+        <!-- &lt;!&ndash; 接收通知点击事件，和通知自定义内容 &ndash;&gt; -->
+        <!-- <action android:name="com.baidu.android.pushservice.action.notification.CLICK" /> -->
+        <!-- </intent-filter> -->
+        <!-- </receiver> -->
         <!-- push service start -->
         <!-- 用于接收系统消息以保证PushService正常运行 -->
         <receiver
@@ -261,7 +261,7 @@
                 <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
             </intent-filter>
         </receiver>
-        <!-- Push服务接收客户端发送的各种请求-->
+        <!-- Push服务接收客户端发送的各种请求 -->
         <receiver
             android:name="com.baidu.android.pushservice.RegistrationReceiver"
             android:process=":bdservice_v1">
@@ -271,9 +271,11 @@
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
                 <data android:scheme="package" />
             </intent-filter>
         </receiver>
+
         <service
             android:name="com.baidu.android.pushservice.PushService"
             android:exported="true"
@@ -288,7 +290,7 @@
             android:name="com.baidu.android.pushservice.CommandService"
             android:exported="true" />
 
-        <!-- 适配Android N系统必需的ContentProvider声明，写权限包含应用包名-->
+        <!-- 适配Android N系统必需的ContentProvider声明，写权限包含应用包名 -->
         <provider
             android:name="com.baidu.android.pushservice.PushInfoProvider"
             android:authorities="com.umiwi.ui.bdpush"
@@ -299,18 +301,20 @@
         <!-- push结束 -->
         <!-- //课程或专题测试用 -->
 
-        <!--&lt;!&ndash;测试&ndash;&gt;-->
-        <!--<meta-data-->
-        <!--android:name="api_key"-->
-        <!--android:value="whsVZklnGiWQD2FrGzlUHZ8L" />-->
-        <!--<meta-data-->
-        <!--android:name="api_key"-->
-        <!--android:value="ch9hiwbufTGrjxo8GSjBaOnj" />-->
-        <!--正式-->
+
+        <!-- &lt;!&ndash;测试&ndash;&gt; -->
+        <!-- <meta-data -->
+        <!-- android:name="api_key" -->
+        <!-- android:value="whsVZklnGiWQD2FrGzlUHZ8L" /> -->
+        <!-- <meta-data -->
+        <!-- android:name="api_key" -->
+        <!-- android:value="ch9hiwbufTGrjxo8GSjBaOnj" /> -->
+        <!-- 正式 -->
         <meta-data
             android:name="api_key"
             android:value="t6N14YtZKSWwkAElQIIIYrS2" />
-         <!--baidu push service end-->
+        <!-- baidu push service end -->
+
 
         <!-- alipay skd start -->
         <activity
@@ -409,12 +413,15 @@
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
-            <!--<intent-filter>-->
-            <!--<action android:name="android.intent.action.MAIN" />-->
 
-            <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
+        <activity android:name=".activity.NewAdvertiseActivity"></activity>
     </application>
 
 </manifest>

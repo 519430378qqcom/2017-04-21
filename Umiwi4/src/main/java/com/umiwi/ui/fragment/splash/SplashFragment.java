@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +14,8 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.umeng.analytics.MobclickAgent;
 import com.umiwi.ui.R;
-import com.umiwi.ui.activity.AdvertiseActivity;
 import com.umiwi.ui.activity.HomeMainActivity;
+import com.umiwi.ui.activity.NewAdvertiseActivity;
 import com.umiwi.ui.activity.SplashActivity;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.fragment.WebFragment;
@@ -183,11 +182,9 @@ public class SplashFragment extends BaseConstantFragment {
 //                i = new Intent(getActivity(), HomeMainActivity.class);
 //                boolean isEnterMain = CacheUtil.getBoolean(getActivity(), START_MIAN);
                 if (day >= 1 || (day ==0 && hour == 0 && min ==0 && s == 0)) {
-                    i = new Intent(getActivity(), AdvertiseActivity.class);
+                    i = new Intent(getActivity(), NewAdvertiseActivity.class);
                 } else {
                     i = new Intent(getActivity(), HomeMainActivity.class);
-                    String s = i.toURI();
-                    Log.e("TAG", "suri格式=" + s);
                 }
                 mSharedPreferences.edit().putBoolean("isCanShowGift", true).commit();
             }
@@ -221,7 +218,7 @@ public class SplashFragment extends BaseConstantFragment {
 //                i = new Intent(getActivity(), HomeMainActivity.class);
 //                boolean isEnterMain = CacheUtil.getBoolean(getActivity(), START_MIAN);
                 if (day >= 1 || (day ==0 && hour == 0 && min ==0 && s == 0)) {
-                    i = new Intent(getActivity(), AdvertiseActivity.class);
+                    i = new Intent(getActivity(), NewAdvertiseActivity.class);
                 } else {
                     i = new Intent(getActivity(), HomeMainActivity.class);
                 }

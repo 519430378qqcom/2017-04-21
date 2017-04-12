@@ -52,20 +52,20 @@ public class AdvertiseActivity extends AppCompatActivity {
     private AdvertiseAdapter adapter;
     private ArrayList<AdvertisementBean.RAdvertBean> mList = new ArrayList<>();
     private int page = 3;
-    private Handler handler = new Handler(){
-        public void handleMessage(Message msg){
+    private Handler handler = new Handler() {
+        public void handleMessage(Message msg) {
             switch (msg.what) {
-                case PROGRESS :
-                    page --;
+                case PROGRESS:
+                    page--;
                     tv_advert.setText("跳过广告" + page + "");
-                    if(page == 0) {
-                        CacheUtil.putString(AdvertiseActivity.this,SplashFragment.START_MIAN,yMdHm);
-                        Intent intent = new Intent(AdvertiseActivity.this,HomeMainActivity.class);
+                    if (page == 0) {
+                        CacheUtil.putString(AdvertiseActivity.this, SplashFragment.START_MIAN, yMdHm);
+                        Intent intent = new Intent(AdvertiseActivity.this, HomeMainActivity.class);
                         startActivity(intent);
                         finish();
                     }
                     handler.removeMessages(PROGRESS);
-                    handler.sendEmptyMessageDelayed(PROGRESS,1000);
+                    handler.sendEmptyMessageDelayed(PROGRESS, 1000);
 
                     break;
             }
@@ -85,13 +85,13 @@ public class AdvertiseActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.fragment_advertise_layout);
 
-         vp_ad_images = (ViewPager)findViewById(R.id.vp_ad_images);
-        tv_advert = (TextView)findViewById(R.id.tv_advert);
+        vp_ad_images = (ViewPager) findViewById(R.id.vp_ad_images);
+        tv_advert = (TextView) findViewById(R.id.tv_advert);
         adapter = new AdvertiseAdapter(this);
         adapter.setData(mList);
         vp_ad_images.setAdapter(adapter);
         tv_advert.setText("跳过广告" + page + "");
-        handler.sendEmptyMessageDelayed(PROGRESS,1000);
+        handler.sendEmptyMessageDelayed(PROGRESS, 1000);
         vp_ad_images.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -125,14 +125,14 @@ public class AdvertiseActivity extends AppCompatActivity {
 
 //                CacheUtil.putBoolean(AdvertiseActivity.this, SplashFragment.START_MIAN,true);
 
-                CacheUtil.putString(AdvertiseActivity.this,SplashFragment.START_MIAN,yMdHm);
-                Intent intent = new Intent(AdvertiseActivity.this,HomeMainActivity.class);
+                CacheUtil.putString(AdvertiseActivity.this, SplashFragment.START_MIAN, yMdHm);
+                Intent intent = new Intent(AdvertiseActivity.this, HomeMainActivity.class);
                 startActivity(intent);
                 finish();
             }
         });
         getInfo();
-        overridePendingTransition(R.anim.slide_down_in,R.anim.slide_down_out);
+        overridePendingTransition(R.anim.slide_down_in, R.anim.slide_down_out);
         //获取当前时间
         long millis = System.currentTimeMillis();
         yMdHm = DateUtils.yMdHms(millis);
@@ -141,7 +141,7 @@ public class AdvertiseActivity extends AppCompatActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(keyCode ==KeyEvent.KEYCODE_BACK) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
             return true;
         }
         return super.onKeyDown(keyCode, event);
@@ -164,9 +164,11 @@ public class AdvertiseActivity extends AppCompatActivity {
         });
         request.go();
     }
+
     class AdvertiseAdapter extends PagerAdapter {
         private Activity activity;
-        private  ArrayList<AdvertisementBean.RAdvertBean> mList;
+        private ArrayList<AdvertisementBean.RAdvertBean> mList;
+
         public AdvertiseAdapter(FragmentActivity activity) {
             this.activity = activity;
         }
@@ -199,37 +201,37 @@ public class AdvertiseActivity extends AppCompatActivity {
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    CacheUtil.putString(AdvertiseActivity.this,SplashFragment.START_MIAN,yMdHm);
-                    Intent intent = new Intent(AdvertiseActivity.this,HomeMainActivity.class);
+                    CacheUtil.putString(AdvertiseActivity.this, SplashFragment.START_MIAN, yMdHm);
+                    Intent intent = new Intent(AdvertiseActivity.this, HomeMainActivity.class);
                     startActivity(intent);
-                    if("zhuanti".equals(rAdvertBean.getType())) {
+                    if ("zhuanti".equals(rAdvertBean.getType())) {
                         String detailurl = rAdvertBean.getUrl();
                         Intent intent1 = new Intent(activity, UmiwiContainerActivity.class);
                         intent1.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VideoSpecialDetailFragment.class);
                         intent1.putExtra("detailurl", detailurl);
                         activity.startActivity(intent1);
-                    }else if("audiozhuanti".equals(rAdvertBean.getType())) {
+                    } else if ("audiozhuanti".equals(rAdvertBean.getType())) {
                         String typeId = rAdvertBean.getAlbumid();
                         Intent intent2 = new Intent(activity, UmiwiContainerActivity.class);
                         intent2.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, AudioSpecialDetailFragment.class);
                         intent2.putExtra("typeId", typeId);
                         activity.startActivity(intent2);
-                    }else if("article".equals(rAdvertBean.getType())) {
+                    } else if ("article".equals(rAdvertBean.getType())) {
                         Intent intent3 = new Intent(activity, UmiwiContainerActivity.class);
                         intent3.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, WebFragment.class);
                         intent3.putExtra(WebFragment.WEB_URL, rAdvertBean.getUrl());
                         activity.startActivity(intent3);
-                    }else if("audio".equals(rAdvertBean.getType())) {
+                    } else if ("audio".equals(rAdvertBean.getType())) {
                         Intent intent4 = new Intent(activity, UmiwiContainerActivity.class);
                         intent4.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
                         intent4.putExtra(VoiceDetailsFragment.KEY_DETAILURL, rAdvertBean.getUrl());
                         activity.startActivity(intent4);
-                    }else if("video".equals(rAdvertBean.getType())) {
+                    } else if ("video".equals(rAdvertBean.getType())) {
                         Intent intent5 = new Intent(activity, UmiwiContainerActivity.class);
                         intent5.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, CourseDetailPlayFragment.class);
                         intent5.putExtra(CourseDetailPlayFragment.KEY_DETAIURL, rAdvertBean.getUrl());
                         activity.startActivity(intent5);
-                    }else if("column".equals(rAdvertBean.getType())) {
+                    } else if ("column".equals(rAdvertBean.getType())) {
                         Intent intent6 = new Intent(activity, UmiwiContainerActivity.class);
                         intent6.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, ColumnDetailsFragment.class);//详情页
                         intent6.putExtra("columnurl", rAdvertBean.getUrl());

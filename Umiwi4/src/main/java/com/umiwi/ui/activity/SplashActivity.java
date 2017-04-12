@@ -123,7 +123,7 @@ public class SplashActivity extends AppCompatActivity {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			isKeyBack = true;
 			PreferenceUtils.setPrefBoolean(this, "isCanShowGift", true);
-			startActivity(new Intent(SplashActivity.this, AdvertiseActivity.class));
+			startActivity(new Intent(SplashActivity.this, HomeMainActivity.class));
 //			startActivity(new Intent(SplashActivity.this, ColumnDetailsSplashActivity.class));
 			SplashActivity.this.finish();
 

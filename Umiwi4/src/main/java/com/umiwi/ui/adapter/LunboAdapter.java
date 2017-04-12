@@ -3,7 +3,6 @@ package com.umiwi.ui.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -40,7 +39,7 @@ public class LunboAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return data == null ? 0 : data.size()*10000000;
+        return data == null ? 0 : data.size()*400000000;
     }
 
     public Object getItem(int position) {
@@ -67,7 +66,7 @@ public class LunboAdapter extends PagerAdapter {
 
         ImageLoader mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
 		mImageLoader.loadImage(listBeans.getImage(), imageView);//, R.drawable.image_loader_big
-
+//		Log.e("TAG", "listBeans.getImage()=" + listBeans.getImage());
 
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
@@ -76,9 +75,9 @@ public class LunboAdapter extends PagerAdapter {
         imageView.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Log.e("Detailurl", "轮播Detailurl="+listBeans.getDetailurl() + ",轮播Url" + listBeans.getUrl());
+//				Log.e("Detailurl", "轮播Detailurl="+listBeans.getDetailurl() + ",轮播Url" + listBeans.getUrl());
 				if ("video".equals(listBeans.getTypes())) {
-					Log.i("youmilog","轮播图开始播放。。。。"+listBeans.getDetailurl());
+//					Log.i("youmilog","轮播图开始播放。。。。"+listBeans.getDetailurl());
 					Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
 //					intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, CourseDetailLayoutFragments.class);
 //					intent.putExtra(CourseDetailLayoutFragments.KEY_DETAIURL, listBeans.getDetailurl());

@@ -95,7 +95,7 @@ public class LbumlistFragmentAdapter extends BaseAdapter {
         } else {
             holder.expter_detail_textView.setVisibility(View.INVISIBLE);
         }
-        holder.special_subscribe_number_1.setText("播放"+lbumlistRecord.getWatchnum() + "次");
+        holder.special_subscribe_number_1.setText("播放"+lbumlistRecord.getWatchnum());
         return convertView;
     }
     class ViewHolder{
