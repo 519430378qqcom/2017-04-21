@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:minHeight="130dp"
     android:orientation="vertical">
 
     <!--第一个行家-->
@@ -47,7 +46,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="100dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@id/special_right_layout_1"
@@ -59,7 +58,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
+                android:layout_weight="1"
                 android:layout_marginBottom="5dp"
                 android:orientation="vertical">
 
@@ -94,14 +93,14 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="2dp"
                     android:id="@+id/expter_time_textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/textview_fillet_bg"
-                    android:ellipsize="end"
                     android:padding="2dp"
                     android:textColor="@color/umiwi_red"
-                    android:singleLine="true"
                     android:text="17小时前更新"
                     android:textSize="12sp" />
 
@@ -122,7 +121,7 @@
         <ImageView
             android:id="@+id/special_header_imageview_1"
             android:layout_width="80dp"
-            android:layout_height="match_parent"
+            android:layout_height="100dp"
             android:scaleType="fitXY" />
 
 
