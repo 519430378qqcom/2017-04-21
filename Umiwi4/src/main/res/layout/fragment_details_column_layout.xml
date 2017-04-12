@@ -70,7 +70,7 @@
                             android:layout_centerVertical="true"
                             android:layout_marginRight="15dp"
                             android:adjustViewBounds="true"
-                            android:background="@drawable/anim_music"
+                            android:background="@drawable/anim_music_ora"
                             android:clickable="true"
                             android:padding="5dp" />
                     </RelativeLayout>
