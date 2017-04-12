@@ -57,7 +57,7 @@
                             android:layout_marginRight="10dp"
                             android:layout_toLeftOf="@+id/record"
                             android:padding="5dp"
-                            android:src="@drawable/share_black" />
+                            android:src="@drawable/share_black_bg" />
 
                         <ImageView
                             android:id="@+id/record"
@@ -67,7 +67,7 @@
                             android:layout_centerVertical="true"
                             android:layout_marginRight="15dp"
                             android:adjustViewBounds="true"
-                            android:background="@drawable/anim_music"
+                            android:background="@drawable/anim_music_ora"
                             android:clickable="true"
                             android:padding="5dp" />
                     </RelativeLayout>
