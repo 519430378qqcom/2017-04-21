@@ -138,7 +138,7 @@ public final class UmiwiAPI {
      * 轮播 添加专题&version=2
      */
     public static final String VIDEO_LUNBO = "http://i.v.youmi.cn/lunbo/list?android";
-    public static final String VIDEO_LUNBO_NEW = "http://i.v.youmi.cn/lunbo/list?imgsizetype=3";
+    public static final String VIDEO_LUNBO_NEW = "http://i.v.youmi.cn/lunbo/list?imgsizetype=2";
 //	public static final String VIDEO_LUNBO = "http://i.v.youmi.cn/ClientApi/list?type=lunbo&version=2";//old api
     /**
      * 首页推荐

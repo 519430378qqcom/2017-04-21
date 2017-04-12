@@ -112,7 +112,7 @@ public class AudioSpecialDetailFragment extends BaseConstantFragment implements 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 boolean isaudition = mList.get(position).isaudition();
-                if (isaudition) {
+                if (details.isbuy()) {
                     lv_audio_item.setClickable(true);
                     if (HomeMainActivity.isForeground) {
                         Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
@@ -128,10 +128,29 @@ public class AudioSpecialDetailFragment extends BaseConstantFragment implements 
                         intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL, mList.get(position).getUrl());
                         getActivity().startActivity(intent);
                     }
-
                 } else {
-                    Toast.makeText(mContext, "请购买此专题", Toast.LENGTH_SHORT).show();
+                    if (isaudition) {
+                        lv_audio_item.setClickable(true);
+                        if (HomeMainActivity.isForeground) {
+                            Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
+                            intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
+                            intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL, mList.get(position).getUrl());
+                            getActivity().startActivity(intent);
+                        } else {
+                            Intent intent1 = new Intent(getActivity(), HomeMainActivity.class);
+                            startActivity(intent1);
+
+                            Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
+                            intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
+                            intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL, mList.get(position).getUrl());
+                            getActivity().startActivity(intent);
+                        }
+
+                    } else {
+                        Toast.makeText(mContext, "请购买此专题", Toast.LENGTH_SHORT).show();
+                    }
                 }
+
             }
         });
         getInfo();
@@ -225,6 +244,7 @@ public class AudioSpecialDetailFragment extends BaseConstantFragment implements 
             @Override
             public void onResult(AbstractRequest<AudioSpecialDetailBean> request, AudioSpecialDetailBean detailBean) {
                 details = detailBean.getR();
+
                 ArrayList<AudioSpecialDetailBean.RAudioSpecial.RAudioSpecialContent> content = details.getContent();//详情
                 description.setAdapter(new AudioDetailsAdapter(getActivity(),content));
                 title.setText(details.getTitle());
