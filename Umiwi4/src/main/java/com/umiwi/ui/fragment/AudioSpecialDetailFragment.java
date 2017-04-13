@@ -261,7 +261,7 @@ public class AudioSpecialDetailFragment extends BaseConstantFragment implements 
                     yuedu.setVisibility(View.VISIBLE);
                 }
                 audioSpecialListAdapter.setData(mList);
-                if (!TextUtils.isEmpty(details.getDiscount_price()) && details.getDiscount_price() != details.getPrice()) {
+                if (!TextUtils.isEmpty(details.getDiscount_price()) && !details.getDiscount_price().equals(details.getPrice()) ) {
                     tv_priceold.setText("原价:" + details.getDiscount_price());
                     tv_priceold.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG); // 设置中划线并加清晰
                     tv_priceold.setVisibility(View.VISIBLE);
