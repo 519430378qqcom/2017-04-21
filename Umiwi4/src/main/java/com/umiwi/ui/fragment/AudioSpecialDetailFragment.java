@@ -83,6 +83,8 @@ public class AudioSpecialDetailFragment extends BaseConstantFragment implements 
     TextView tv_priceold;
     @InjectView(R.id.tv_price)
     TextView tv_price;
+    @InjectView(R.id.tv_yuanjia)
+    TextView tv_yuanjia;
     @InjectView(R.id.tv_buy)
     TextView tv_buy;
     @InjectView(R.id.yuedu)
@@ -263,10 +265,12 @@ public class AudioSpecialDetailFragment extends BaseConstantFragment implements 
                 audioSpecialListAdapter.setData(mList);
                 if (!TextUtils.isEmpty(details.getDiscount_price()) && !details.getDiscount_price().equals(details.getPrice()) ) {
                     tv_priceold.setText("原价:" + details.getDiscount_price());
+                    tv_yuanjia.setText("优惠价:");
                     tv_priceold.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG); // 设置中划线并加清晰
                     tv_priceold.setVisibility(View.VISIBLE);
                 } else {
                     tv_priceold.setVisibility(View.GONE);
+                    tv_yuanjia.setText("售价:");
                 }
                 tv_changenum.setText("总共" +details.getTotalnum() +"条,已更新"+last_record.size() +"条音频");
 //

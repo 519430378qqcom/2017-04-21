@@ -128,7 +128,7 @@ public class LbumListFragment extends BaseConstantFragment implements View.OnCli
      */
     private void getinfos() {
         String url = String.format(UmiwiAPI.UMIWI_LBUMLIST, page, type, orderby, catid);
-        Log.e("TAG", "rLbumlistsurl=" + url);
+//        Log.e("TAG", "rLbumlistsurl=" + url);
         GetRequest<LbumListBean> request = new GetRequest<LbumListBean>(url, GsonParser.class, LbumListBean.class, new AbstractRequest.Listener<LbumListBean>() {
             @Override
             public void onResult(AbstractRequest<LbumListBean> request, LbumListBean lbumListBean) {

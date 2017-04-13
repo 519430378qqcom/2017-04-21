@@ -1,6 +1,5 @@
 package cn.youmi.framework.main;
 
-import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDexApplication;
 
@@ -25,5 +24,6 @@ public class BaseApplication extends MultiDexApplication {
         super.onCreate();
         baseApplication = this;
         sContext = getApplicationContext();
+
     }
 }

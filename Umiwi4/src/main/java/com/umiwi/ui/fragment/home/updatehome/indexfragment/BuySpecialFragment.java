@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -112,7 +113,7 @@ public class BuySpecialFragment extends BaseConstantFragment {
     private void getInfos() {
         String uid = YoumiRoomUserManager.getInstance().getUid();
         String url = String.format(UmiwiAPI.UMIWI_BUYSPECIAL,page);
-//        Log.e("TAG", "UMIWI_BUYSPECIAL=" + url + ","+uid);
+        Log.e("TAG", "UMIWI_BUYSPECIAL=" + url + ","+uid);
         GetRequest<BuySpecialBean> request = new GetRequest<BuySpecialBean>(url, GsonParser.class, BuySpecialBean.class, new AbstractRequest.Listener<BuySpecialBean>() {
             @Override
             public void onResult(AbstractRequest<BuySpecialBean> request, BuySpecialBean buySpecialBean) {

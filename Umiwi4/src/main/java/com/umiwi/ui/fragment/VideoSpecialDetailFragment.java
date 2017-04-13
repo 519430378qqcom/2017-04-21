@@ -77,6 +77,8 @@ public class VideoSpecialDetailFragment extends BaseConstantFragment implements 
     TextView tv_priceold;
     @InjectView(R.id.tv_price)
     TextView tv_price;
+    @InjectView(R.id.tv_yuanjia)
+    TextView tv_yuanjia;
     @InjectView(R.id.tv_buy)
     TextView tv_buy;
     @InjectView(R.id.yuedu)
@@ -133,15 +135,18 @@ public class VideoSpecialDetailFragment extends BaseConstantFragment implements 
                 share = detailBean.getShare();
                 id = detailBean.getId();
                 sectionid = detailBean.getSectionid();
-                Log.e("TAG", "id=" +id);
+
                 title.setText(detailBean.getTitle());
                 Glide.with(getActivity()).load(detailBean.getImage()).into(iv_image);
                 tv_price.setText(detailBean.getPrice());
+                Log.e("TAG", "detailBean.getPrice()=" +detailBean.getPrice());
                 price = detailBean.getPrice();
                 if (detailBean.getRaw_price().equals(detailBean.getPrice())) {
                     tv_priceold.setVisibility(View.GONE);
+                    tv_yuanjia.setText("售价:");
                 } else {
-                    tv_priceold.setText(detailBean.getRaw_price());
+                    tv_priceold.setText("原价:"+detailBean.getRaw_price());
+                    tv_yuanjia.setText("优惠价:");
                     tv_priceold.setVisibility(View.VISIBLE);
                     tv_priceold.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG|Paint.ANTI_ALIAS_FLAG); // 设置中划线并加清晰
                 }

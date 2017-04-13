@@ -114,6 +114,7 @@ public class UmiwiApplication extends BaseApplication implements ServiceConnecti
         UserManager.setInstance(YoumiRoomUserManager.getInstance());
 
         mSpUtil = new SharePreferenceUtil(this, SP_PUSH_NAME);
+
         if (YoumiRoomUserManager.getInstance().isLogin()) {
             PushString();
 //            String cookie1 = getCookie();
@@ -121,9 +122,11 @@ public class UmiwiApplication extends BaseApplication implements ServiceConnecti
         }
 
         if (!mSpUtil.getDisturb()) {
-            PushManager.startWork(getApplicationContext(), PushConstants.LOGIN_TYPE_API_KEY, Utils.getMetaValue(UmiwiApplication.this, "api_key"));
+            PushManager.startWork(getApplicationContext(), PushConstants.LOGIN_TYPE_API_KEY, Utils.getMetaValue(this, "api_key"));
 //			PushManager.disableLbs(this);// 关闭精准lbs
 //            Log.e("TAG", "百度云推送的api_key=" + Utils.getMetaValue(HomeMainActivity.this, "api_key"));
+//            PushManager.resumeWork(this);
+            Log.e("TAG", "resumeWork()");
         }
         configuration = new YoumiConfiguration(this) {
             @Override
@@ -172,7 +175,7 @@ public class UmiwiApplication extends BaseApplication implements ServiceConnecti
         prequest.addParam("user_id", mSpUtil.getUserId());
         prequest.addParam("channel_id", mSpUtil.getChannelId());
         prequest.go();
-//        Log.e("TAG", "mSpUtil.getUserId()=" + mSpUtil.getAppId() + "," + mSpUtil.getUserId() + "," + mSpUtil.getChannelId() + "," + mSpUtil.getDeviceId());
+        Log.e("TAG", "mSpUtil.getUserId()=" + mSpUtil.getAppId() + "," + mSpUtil.getUserId() + "," + mSpUtil.getChannelId() + "," + mSpUtil.getDeviceId());
     }
 
     private AbstractRequest.Listener<ResultModel> pushListener = new AbstractRequest.Listener<ResultModel>() {
@@ -180,7 +183,7 @@ public class UmiwiApplication extends BaseApplication implements ServiceConnecti
         @Override
         public void onResult(AbstractRequest<ResultModel> request, ResultModel t) {
             // TODO Auto-generated method stub
-            Log.e("TAG", "ResultModel=" + t.toString());
+            Log.e("TAG", "ResultModel1234=" + t.toString());
         }
 
         @Override

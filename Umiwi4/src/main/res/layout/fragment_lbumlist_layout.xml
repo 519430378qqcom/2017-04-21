@@ -178,7 +178,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
             android:text="|"
-            android:textColor="@color/Index_backg"
+            android:textColor="@color/transparent"
             android:textSize="16sp" />
         <com.umiwi.ui.view.FlowLayout
             android:id="@+id/flow_orderby"
