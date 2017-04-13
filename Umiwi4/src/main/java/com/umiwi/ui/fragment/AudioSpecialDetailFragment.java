@@ -268,7 +268,7 @@ public class AudioSpecialDetailFragment extends BaseConstantFragment implements 
                 } else {
                     tv_priceold.setVisibility(View.GONE);
                 }
-                tv_changenum.setText("总共" +last_record.size() +"条,已更新"+last_record.size() +"条音频");
+                tv_changenum.setText("总共" +details.getTotalnum() +"条,已更新"+last_record.size() +"条音频");
 //
             }
 

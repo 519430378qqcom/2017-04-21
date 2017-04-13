@@ -12,10 +12,11 @@ import android.widget.ImageView;
 import com.umeng.analytics.MobclickAgent;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.beans.UmiwiListBeans;
+import com.umiwi.ui.fragment.AudioSpecialDetailFragment;
 import com.umiwi.ui.fragment.ShareArticleFragment;
+import com.umiwi.ui.fragment.VideoSpecialDetailFragment;
 import com.umiwi.ui.fragment.WebFragment;
 import com.umiwi.ui.fragment.course.CourseDetailPlayFragment;
-import com.umiwi.ui.fragment.course.JPZTDetailFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.ColumnDetailsFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.ExperDetailsFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.VoiceDetailsFragment;
@@ -91,8 +92,9 @@ public class LunboAdapter extends PagerAdapter {
 					mContext.startActivity(intent);
 				} else if ("zhuanti".equals(listBeans.getTypes())) {
 					Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
-					intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, JPZTDetailFragment.class);
-					intent.putExtra(JPZTDetailFragment.KEY_URL, listBeans.getUrl());
+//					intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, JPZTDetailFragment.class);
+					intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VideoSpecialDetailFragment.class);
+					intent.putExtra("detailurl", listBeans.getDetailurl());
 					mContext.startActivity(intent);
 				} else if ("share".equals(listBeans.getTypes())) {
 					Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
@@ -104,7 +106,6 @@ public class LunboAdapter extends PagerAdapter {
 					intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, ExperDetailsFragment.class);
 					intent.putExtra(ExperDetailsFragment.KEY_DEFAULT_TUTORUID, listBeans.getAlbumid());
 					mContext.startActivity(intent);
-
 				}else if ("column".equals(listBeans.getTypes())){
 					Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
 					intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, ColumnDetailsFragment.class);
@@ -121,7 +122,15 @@ public class LunboAdapter extends PagerAdapter {
 					intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
 					intent.putExtra("uid", listBeans.getId());
 					mContext.startActivity(intent);
-				}else {
+					
+				}else if("audiozhuanti".equals(listBeans.getTypes())) {
+					Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
+					intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, AudioSpecialDetailFragment.class);
+					intent.putExtra("typeId", listBeans.getAlbumid());
+					mContext.startActivity(intent);
+				}
+				
+				else {
 					ToastU.showLong(mContext, "版本不支持，请更新版本");
 				}
 				MobclickAgent.onEvent(mContext, "首页VI", "轮播");

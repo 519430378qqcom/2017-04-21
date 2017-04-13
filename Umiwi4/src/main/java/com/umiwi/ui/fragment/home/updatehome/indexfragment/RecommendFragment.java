@@ -72,6 +72,7 @@ import cn.youmi.framework.http.parsers.GsonParser;
 import cn.youmi.framework.manager.ModelManager;
 import cn.youmi.framework.util.DimensionUtil;
 import cn.youmi.framework.util.ListViewScrollLoader;
+import cn.youmi.framework.util.SystemUtils;
 import cn.youmi.framework.view.LoadingFooter;
 
 import static com.umiwi.ui.R.id.view_pager;
@@ -580,7 +581,7 @@ public class RecommendFragment extends BaseConstantFragment {
                 UmiwiAPI.VIDEO_LUNBO_NEW,
                 CourseListParser.class, lunboListener);
         //+ CommonHelper.getChannelModelViesion()
-        Log.e("TAG", "UmiwiAPI.VIDEO_LUNBO_NEW=" + UmiwiAPI.VIDEO_LUNBO_NEW);
+        request.addParam("version_name", SystemUtils.getVersionName());
         HttpDispatcher.getInstance().go(request);
         //request.go();
     }

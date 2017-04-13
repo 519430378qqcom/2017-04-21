@@ -181,6 +181,10 @@ public class HomeMainActivity extends AppCompatActivity {
 //        long min=((l/(60*1000))-day*24*60-hour*60);
 //        long s=(l/1000-day*24*60*60-hour*60*60-min*60);
 //        Log.e("TAG", "时间="+""+day+"天"+hour+"小时"+min+"分"+s+"秒");
+//        String cookie = getCookie();
+//        String versionName = SystemUtils.getVersionName();
+//        int versionCode = SystemUtils.getVersionCode();
+//        Log.e("TAG", "cookie=" + versionCode);
     }
 
 
@@ -191,7 +195,12 @@ public class HomeMainActivity extends AppCompatActivity {
             String name = cookiemodel.getName();
             String value = cookiemodel.getValue();
             cookiestr += name + "=" + value + ";";
+            String domain = cookiemodel.getDomain();
+            long id = cookiemodel.getId();
+            String expires = cookiemodel.getExpires();
+//            Log.e("TAG", "cookie=" + name + ",value="+ value + ",domain=" + domain + ",id=" + id + ",expires=" + expires);
         }
+
         return cookiestr;
     }
 
