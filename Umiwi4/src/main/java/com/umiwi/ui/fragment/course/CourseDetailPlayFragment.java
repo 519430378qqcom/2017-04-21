@@ -482,7 +482,7 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
                 String.format(UmiwiAPI.COMMENT_REPLY_LIST, albumID, page), GsonParser.class,
 
                 CommentListBeans.CommentListRequestData.class, commentListener);
-        Log.e("TAG", "评论链接url=" + String.format(UmiwiAPI.COMMENT_REPLY_LIST, albumID, page));
+//        Log.e("TAG", "评论链接url=" + String.format(UmiwiAPI.COMMENT_REPLY_LIST, albumID, page));
         request.go();
     }
 
@@ -803,8 +803,8 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
                 loadingVideo = false;
 
                 albumID = String.valueOf(t.getId());
-                Log.e("TAG", "t.getId()=" + t.getId());
-                Log.e("TAG", "albumID=" + albumID);
+//                Log.e("TAG", "t.getId()=" + t.getId());
+//                Log.e("TAG", "albumID=" + albumID);
                 mList.clear();
                 mScrollLoader.onLoadFirstPage();
                 loadRelatedVideos(t.getId() + "");
@@ -852,7 +852,7 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
                 mList.addAll(charts);
                 int totals = t.getTotals();
 //                mAdapter.setCommentNum(totals + "");
-                Log.e("TAG", "totals=" + totals);
+//                Log.e("TAG", "totals=" + totals);
                 if (mAdapter == null) {
                     mAdapter = new CourseDetailsAdapter(getActivity(), mList, CourseDetailPlayFragment.this);
                     mListView.setAdapter(mAdapter);// 解析成功 播放列表

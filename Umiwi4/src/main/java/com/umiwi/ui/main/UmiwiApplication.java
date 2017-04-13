@@ -9,12 +9,16 @@ import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
+import com.baidu.android.pushservice.PushConstants;
+import com.baidu.android.pushservice.PushManager;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.analytics.MobclickAgent;
 import com.umiwi.ui.R;
 import com.umiwi.ui.activity.HomeMainActivity;
 import com.umiwi.ui.managers.YoumiRoomUserManager;
+import com.umiwi.ui.push.Utils;
 import com.umiwi.ui.util.ManifestUtils;
 import com.umiwi.video.application.Settings;
 import com.umiwi.video.services.VoiceService;
@@ -22,8 +26,12 @@ import com.umiwi.video.services.VoiceService;
 import org.xutils.x;
 
 import cn.youmi.account.manager.UserManager;
+import cn.youmi.framework.http.AbstractRequest;
+import cn.youmi.framework.http.PostRequest;
+import cn.youmi.framework.http.parsers.GsonParser;
 import cn.youmi.framework.main.BaseApplication;
 import cn.youmi.framework.main.ConstantProvider;
+import cn.youmi.framework.model.ResultModel;
 import cn.youmi.framework.util.AndroidSDK;
 import cn.youmi.framework.util.SharePreferenceUtil;
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
@@ -37,7 +45,7 @@ import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 public class UmiwiApplication extends BaseApplication implements ServiceConnection {
 
     private static Context sContext;
-//    private static VoiceService.VoiceBinder mBinder;
+    //    private static VoiceService.VoiceBinder mBinder;
     public static HomeMainActivity mainActivity;
     private Activity activity = null;
 
@@ -85,6 +93,7 @@ public class UmiwiApplication extends BaseApplication implements ServiceConnecti
         sContext = getApplicationContext();
 //        bindservice();
 
+
 //		HttpDispatcher.getInstance().registerDispatcherObserver(observer);
 //		String version = Build.VERSION.RELEASE;
 //
@@ -105,7 +114,17 @@ public class UmiwiApplication extends BaseApplication implements ServiceConnecti
         UserManager.setInstance(YoumiRoomUserManager.getInstance());
 
         mSpUtil = new SharePreferenceUtil(this, SP_PUSH_NAME);
+        if (YoumiRoomUserManager.getInstance().isLogin()) {
+            PushString();
+//            String cookie1 = getCookie();
+//            Log.e("TAG", "cookie=" + cookie1 );
+        }
 
+        if (!mSpUtil.getDisturb()) {
+            PushManager.startWork(getApplicationContext(), PushConstants.LOGIN_TYPE_API_KEY, Utils.getMetaValue(UmiwiApplication.this, "api_key"));
+//			PushManager.disableLbs(this);// 关闭精准lbs
+//            Log.e("TAG", "百度云推送的api_key=" + Utils.getMetaValue(HomeMainActivity.this, "api_key"));
+        }
         configuration = new YoumiConfiguration(this) {
             @Override
             public String configDownloadPath() {
@@ -147,6 +166,30 @@ public class UmiwiApplication extends BaseApplication implements ServiceConnecti
         }
     }
 
+    public void PushString() {
+        PostRequest<ResultModel> prequest = new PostRequest<ResultModel>(UmiwiAPI.PUSH_BIND, GsonParser.class, ResultModel.class, pushListener);
+        prequest.addParam("app_id", mSpUtil.getAppId());
+        prequest.addParam("user_id", mSpUtil.getUserId());
+        prequest.addParam("channel_id", mSpUtil.getChannelId());
+        prequest.go();
+//        Log.e("TAG", "mSpUtil.getUserId()=" + mSpUtil.getAppId() + "," + mSpUtil.getUserId() + "," + mSpUtil.getChannelId() + "," + mSpUtil.getDeviceId());
+    }
+
+    private AbstractRequest.Listener<ResultModel> pushListener = new AbstractRequest.Listener<ResultModel>() {
+
+        @Override
+        public void onResult(AbstractRequest<ResultModel> request, ResultModel t) {
+            // TODO Auto-generated method stub
+            Log.e("TAG", "ResultModel=" + t.toString());
+        }
+
+        @Override
+        public void onError(AbstractRequest<ResultModel> requet, int statusCode, String body) {
+            // TODO Auto-generated method stub
+
+        }
+    };
+
     private void bindservice() {
         Intent intent = new Intent(this, VoiceService.class);
         this.bindService(intent, this, BIND_AUTO_CREATE);
@@ -174,7 +217,8 @@ public class UmiwiApplication extends BaseApplication implements ServiceConnecti
     public Handler getUIHandler() {
         return handler;
     }
-//    public VoiceService.VoiceBinder  getBinder(){
+
+    //    public VoiceService.VoiceBinder  getBinder(){
 //         return mBinder;
 //    }
     public void exitApp() {

@@ -93,9 +93,9 @@ public class YouMiPushMessageReceiver extends PushMessageReceiver {
     @Override
     public void onUnbind(Context context, int errorCode, String requestId) {
         // 解绑定成功，设置未绑定flag，
-        if (errorCode == 0) {
-            Utils.setBind(context, false);
-        }
+//        if (errorCode == 0) {
+//            Utils.setBind(context, false);
+//        }
     }
 
     @Override

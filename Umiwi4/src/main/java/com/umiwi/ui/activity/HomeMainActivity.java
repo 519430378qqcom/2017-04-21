@@ -18,8 +18,6 @@ import android.widget.FrameLayout;
 import android.widget.FrameLayout.LayoutParams;
 import android.widget.ProgressBar;
 
-import com.baidu.android.pushservice.PushConstants;
-import com.baidu.android.pushservice.PushManager;
 import com.bumptech.glide.Glide;
 import com.umeng.analytics.MobclickAgent;
 import com.umiwi.ui.IVoiceService;
@@ -38,7 +36,6 @@ import com.umiwi.ui.main.UmiwiApplication;
 import com.umiwi.ui.managers.QRCodeManager;
 import com.umiwi.ui.managers.YoumiRoomUserManager;
 import com.umiwi.ui.model.ADSplashModel;
-import com.umiwi.ui.push.Utils;
 import com.umiwi.ui.util.SDCardManager;
 import com.umiwi.video.control.PlayerController;
 
@@ -121,11 +118,11 @@ public class HomeMainActivity extends AppCompatActivity {
 
         ShareSDK.initSDK(getApplicationContext());
 
-        if (YoumiRoomUserManager.getInstance().isLogin()) {
-            PushString();
-//            String cookie1 = getCookie();
-//            Log.e("TAG", "cookie=" + cookie1 );
-        }
+//        if (YoumiRoomUserManager.getInstance().isLogin()) {
+//            PushString();
+////            String cookie1 = getCookie();
+////            Log.e("TAG", "cookie=" + cookie1 );
+//        }
 
         MobclickAgent.openActivityDurationTrack(false);
         MobclickAgent.setCatchUncaughtExceptions(false);//关掉友盟的错误统计
@@ -148,11 +145,11 @@ public class HomeMainActivity extends AppCompatActivity {
                 }
             }
         }
-        if (!mSpUtil.getDisturb()) {
-            PushManager.startWork(getApplicationContext(), PushConstants.LOGIN_TYPE_API_KEY, Utils.getMetaValue(HomeMainActivity.this, "api_key"));
-//			PushManager.disableLbs(this);// 关闭精准lbs
-//            Log.e("TAG", "百度云推送的api_key=" + Utils.getMetaValue(HomeMainActivity.this, "api_key"));
-        }
+//        if (!mSpUtil.getDisturb()) {
+//            PushManager.startWork(getApplicationContext(), PushConstants.LOGIN_TYPE_API_KEY, Utils.getMetaValue(HomeMainActivity.this, "api_key"));
+////			PushManager.disableLbs(this);// 关闭精准lbs
+////            Log.e("TAG", "百度云推送的api_key=" + Utils.getMetaValue(HomeMainActivity.this, "api_key"));
+//        }
 //
         YoumiRoomUserManager.getInstance().getUserInfoSave(UserEvent.START_COUNT);//统计
 
@@ -297,9 +294,9 @@ public class HomeMainActivity extends AppCompatActivity {
         UmiwiApplication.mainActivity = null;
         super.onDestroy();
         isForeground = false;
-        if (!mSpUtil.getDisturb()) {
-            PushManager.stopWork(getApplicationContext());
-        }
+//        if (!mSpUtil.getDisturb()) {
+//            PushManager.stopWork(getApplicationContext());
+//        }
 //        Log.e("TAG", "isForeground=" + isForeground);
 //        Log.e("TAG", "onDestroy()");
     }
