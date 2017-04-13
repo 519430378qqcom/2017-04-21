@@ -132,7 +132,7 @@ public class NewTendencyFragment extends BaseConstantFragment {
         listview.setOnTouchListener(mOnTouchListener);
     }
 
-    private boolean mShow = false;
+    private boolean mShow = true;
     private View.OnTouchListener mOnTouchListener = new View.OnTouchListener() {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
