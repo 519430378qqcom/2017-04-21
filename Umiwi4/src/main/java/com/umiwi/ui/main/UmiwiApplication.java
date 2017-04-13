@@ -115,19 +115,24 @@ public class UmiwiApplication extends BaseApplication implements ServiceConnecti
 
         mSpUtil = new SharePreferenceUtil(this, SP_PUSH_NAME);
 
-        if (YoumiRoomUserManager.getInstance().isLogin()) {
-            PushString();
+        new Thread() {
+            public void run() {
+                if (YoumiRoomUserManager.getInstance().isLogin()) {
+                    PushString();
 //            String cookie1 = getCookie();
 //            Log.e("TAG", "cookie=" + cookie1 );
-        }
-
-        if (!mSpUtil.getDisturb()) {
-            PushManager.startWork(getApplicationContext(), PushConstants.LOGIN_TYPE_API_KEY, Utils.getMetaValue(this, "api_key"));
+                }
+                if (!mSpUtil.getDisturb()) {
+                    PushManager.startWork(getApplicationContext(), PushConstants.LOGIN_TYPE_API_KEY, Utils.getMetaValue(getApplicationContext(), "api_key"));
 //			PushManager.disableLbs(this);// 关闭精准lbs
 //            Log.e("TAG", "百度云推送的api_key=" + Utils.getMetaValue(HomeMainActivity.this, "api_key"));
 //            PushManager.resumeWork(this);
-            Log.e("TAG", "resumeWork()");
-        }
+                    Log.e("TAG", "resumeWork()");
+                }
+            }
+        }.start();
+
+
         configuration = new YoumiConfiguration(this) {
             @Override
             public String configDownloadPath() {
