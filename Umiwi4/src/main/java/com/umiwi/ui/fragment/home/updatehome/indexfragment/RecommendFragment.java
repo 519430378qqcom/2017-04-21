@@ -505,8 +505,8 @@ public class RecommendFragment extends BaseConstantFragment {
             GetRequest<HomeADBeans.HomeADBeansRequestData> request = new GetRequest<HomeADBeans.HomeADBeansRequestData>(
                     ad_str, ADParser.class, adListener);
             HttpDispatcher.getInstance().go(request);
-            Log.e("TAG", "CommonHelper.getMacMD5()=" + CommonHelper.getMacMD5());
-            Log.e("TAG", "ad_str=" + ad_str);
+//            Log.e("TAG", "CommonHelper.getMacMD5()=" + CommonHelper.getMacMD5());
+//            Log.e("TAG", "ad_str=" + ad_str);
         } catch (Resources.NotFoundException e) {
             e.printStackTrace();
         } catch (Exception e) {
@@ -590,8 +590,8 @@ public class RecommendFragment extends BaseConstantFragment {
 
         @Override
         public void onResult(AbstractRequest<UmiwiListBeans.ChartsListRequestData> request, UmiwiListBeans.ChartsListRequestData t) {
-            Log.e("TAG", "轮播数据=" + t.getRecord().toString());
-            Log.e("TAG", "轮播数据t=" + t.toString());
+//            Log.e("TAG", "轮播数据=" + t.getRecord().toString());
+//            Log.e("TAG", "轮播数据t=" + t.toString());
             if (null != t && null != t.getRecord()) {
                 mLunboAdapter = new LunboAdapter(getActivity(), t.getRecord());
                 mLunboList.clear();
