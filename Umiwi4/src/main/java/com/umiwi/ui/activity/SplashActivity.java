@@ -4,8 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Parcelable;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
 
@@ -22,11 +22,13 @@ import cn.youmi.account.event.UserEvent;
 import cn.youmi.framework.util.AndroidSDK;
 import cn.youmi.framework.util.PreferenceUtils;
 
+
+
 /**
  * @author tangxiyong
  * @version 2014年6月23日 上午10:26:41
  */
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends FragmentActivity {
 
 
 	 public static boolean isKeyBack = false;

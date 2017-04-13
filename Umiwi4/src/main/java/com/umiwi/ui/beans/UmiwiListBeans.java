@@ -15,6 +15,16 @@ public class UmiwiListBeans extends BaseGsonBeans {
 
 	@SerializedName("title")
 	private String title;
+	@SerializedName("isbuy")
+	private boolean isbuy;
+
+	public boolean isbuy() {
+		return isbuy;
+	}
+
+	public void setIsbuy(boolean isbuy) {
+		this.isbuy = isbuy;
+	}
 
 	@SerializedName("id")
 	private long id;

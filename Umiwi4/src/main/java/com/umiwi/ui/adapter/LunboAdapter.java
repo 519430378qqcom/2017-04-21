@@ -17,6 +17,7 @@ import com.umiwi.ui.fragment.ShareArticleFragment;
 import com.umiwi.ui.fragment.VideoSpecialDetailFragment;
 import com.umiwi.ui.fragment.WebFragment;
 import com.umiwi.ui.fragment.course.CourseDetailPlayFragment;
+import com.umiwi.ui.fragment.home.alreadyshopping.LogicalThinkingFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.ColumnDetailsFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.ExperDetailsFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.VoiceDetailsFragment;
@@ -107,11 +108,19 @@ public class LunboAdapter extends PagerAdapter {
 					intent.putExtra(ExperDetailsFragment.KEY_DEFAULT_TUTORUID, listBeans.getAlbumid());
 					mContext.startActivity(intent);
 				}else if ("column".equals(listBeans.getTypes())){
-					Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
-					intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, ColumnDetailsFragment.class);
+					if (listBeans.isbuy()) {
+						Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
+						intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, LogicalThinkingFragment.class);
+						intent.putExtra("id", listBeans.getAlbumid());
+						intent.putExtra("title", listBeans.getTitle());
+						mContext.startActivity(intent);
+					} else {
+						Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
+						intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, ColumnDetailsFragment.class);
 //					intent.putExtra(LecturerDetailFragment.KEY_DEFAULT_DETAILURL, listBeans.getDetailurl());
-					intent.putExtra("columnurl", listBeans.getDetailurl());
-					mContext.startActivity(intent);
+						intent.putExtra("columnurl", listBeans.getDetailurl());
+						mContext.startActivity(intent);
+					}
 				}else if ("audio".equals(listBeans.getTypes())){
 					Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
 					intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
