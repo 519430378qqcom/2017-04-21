@@ -53,6 +53,10 @@ public class WorkPlaceFragment extends BaseConstantFragment {
     TextView tv_all_price;
     @InjectView(R.id.flow_price)
     FlowLayout flow_price;
+    @InjectView(R.id.tv_all_price1)
+    TextView tv_all_price1;
+    @InjectView(R.id.flow_price1)
+    FlowLayout flow_price1;
     @InjectView(R.id.tv_all_orderby)
     TextView tv_all_orderby;
     @InjectView(R.id.flow_orderby)
@@ -72,9 +76,14 @@ public class WorkPlaceFragment extends BaseConstantFragment {
     private List<String> catid1ListId = new ArrayList<>();//一级分类ID
     private List<String> priceListId = new ArrayList<>();//audio,album
     private List<String> orderbyListId = new ArrayList<>();//排序:watchnum,free,charge
+
+    private List<String> priceList1 = new ArrayList<>();//免费 付费
+    private List<String> priceListId1 = new ArrayList<>();//free,charge
+
     private String catid1 = "";
     private String catid = "";
     private String type = "";
+    private String price = "";
     private String orderby = "ctime";
     private ArrayList<RecommendBean.RBean.TagsBean.SubTagBean> mList = new ArrayList<>();
     private ArrayList<AudioVideoBean.RAUdioVideo.AudioVideoList> audioVideoList = new ArrayList<>();
@@ -122,6 +131,7 @@ public class WorkPlaceFragment extends BaseConstantFragment {
         getCatidData();
         initFlowData();
         initFlowPrice();
+        initFlowPriceOrFree();
         initFlowOrderby();
         getinfos();
         initScrollView();
@@ -200,7 +210,7 @@ public class WorkPlaceFragment extends BaseConstantFragment {
     }
 
     private void getinfos() {
-        String url = String.format(UmiwiAPI.UMIWI_BUS_WORK_TEND, page, catid, type, orderby);
+        String url = String.format(UmiwiAPI.UMIWI_BUS_WORK_TEND, page, catid, type,price, orderby);
 //        Log.e("TAG", "url12121=" + url);
         GetRequest<AudioVideoBean> request = new GetRequest<AudioVideoBean>(url, GsonParser.class, AudioVideoBean.class, new AbstractRequest.Listener<AudioVideoBean>() {
             @Override
@@ -358,7 +368,49 @@ public class WorkPlaceFragment extends BaseConstantFragment {
             }
         });
     }
+    /**
+     * 初始化free 和charge
+     */
+    private void initFlowPriceOrFree() {
+        flow_price1.removeAllViews();
+        for (int i = 0, j = priceList1.size(); i < j; i++) {
+            final TextView tv = (TextView) LayoutInflater.from(mContext).inflate(R
+                    .layout.flow_text, flow_price1, false);
+            tv.setText(priceList1.get(i));
+            tv.setTextColor(mContext.getResources().getColor(R.color.gray_a));
+            tv_all_price1.setTextColor(mContext.getResources().getColor(R.color.main_color));
+            final int finalI = i;
+            tv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    price = priceListId1.get(finalI);
+                    isRefresh = true;
+                    getinfos();
+                    for (int i = 0, j = priceList1.size(); i < j; i++) {
+                        TextView tv = (TextView) flow_price1.getChildAt(i);
+                        tv.setTextColor(mContext.getResources().getColor(R.color.gray_a));
+                    }
+                    tv.setTextColor(mContext.getResources().getColor(R.color.main_color));
+                    tv_all_price1.setTextColor(mContext.getResources().getColor(R.color.gray_a));
+                }
+            });
+            flow_price1.addView(tv);
+        }
 
+        tv_all_price1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                price = "";
+                isRefresh = true;
+                getinfos();
+                for (int i = 0, j = priceList1.size(); i < j; i++) {
+                    TextView tv = (TextView) flow_price1.getChildAt(i);
+                    tv.setTextColor(mContext.getResources().getColor(R.color.gray_a));
+                }
+                tv_all_price1.setTextColor(mContext.getResources().getColor(R.color.main_color));
+            }
+        });
+    }
     /**
      * 初始化price流部局
      */
@@ -416,11 +468,14 @@ public class WorkPlaceFragment extends BaseConstantFragment {
         //priceListId.add("diamond");
 
         orderbyList.add("最热");
-        orderbyList.add("免费");
         orderbyList.add("价格");
         orderbyListId.add("watchnum");
-        orderbyListId.add("free");
-        orderbyListId.add("charge");
+        orderbyListId.add("price");
+
+        priceList1.add("免费");
+        priceList1.add("付费");
+        priceListId1.add("free");
+        priceListId1.add("charge");
 
     }
     private void initRefreshLayout() {

@@ -489,7 +489,7 @@ public final class UmiwiAPI {
     /**
      * 创业 职场 新趋势页面数据
      */
-    public static final String UMIWI_BUS_WORK_TEND = "http://i.v.youmi.cn/api8/indexclass?p=%s&catid=%s&type=%s&orderby=%s";
+    public static final String UMIWI_BUS_WORK_TEND = "http://i.v.youmi.cn/api8/indexclass?p=%s&catid=%s&type=%s&price=%s&orderby=%s";
     //首页视频页面数据
     public static final String Login_Video = "http://i.v.youmi.cn/api8/videoindex";
     //首页音频分类
