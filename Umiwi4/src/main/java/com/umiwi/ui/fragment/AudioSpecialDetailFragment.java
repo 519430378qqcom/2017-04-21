@@ -94,7 +94,7 @@ public class AudioSpecialDetailFragment extends BaseConstantFragment implements 
     private AudioSpecialDetailBean.RAudioSpecial details;
     private AudioSpecialListAdapter audioSpecialListAdapter;
     private ArrayList<AudioSpecialDetailBean.RAudioSpecial.LastRecordList> mList = new ArrayList<>();
-    private String orderBy = "desc";
+    private String orderBy = "asc";
     private AnimationDrawable background;
     public static boolean isAlive = false;
     @Nullable
@@ -209,13 +209,13 @@ public class AudioSpecialDetailFragment extends BaseConstantFragment implements 
             public void onClick(View v) {
                 if (textView4.getText().toString().equals("正序")) {
                     textView4.setText("倒序");
-                    orderBy = "asc";
+                    orderBy = "desc";
                     getInfo();
                     rotateImpl();
                     audioSpecialListAdapter.setData(mList);
                 } else {
                     textView4.setText("正序");
-                    orderBy = "desc";
+                    orderBy = "asc";
                     getInfo();
                     audioSpecialListAdapter.setData(mList);
                     rotateImpl1();

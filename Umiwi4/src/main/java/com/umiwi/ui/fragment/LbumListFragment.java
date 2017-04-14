@@ -2,6 +2,7 @@ package com.umiwi.ui.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.support.annotation.Nullable;
@@ -81,7 +82,7 @@ public class LbumListFragment extends BaseConstantFragment implements View.OnCli
     private ArrayList<RecommendBean.RBean.TagsBean> mList = new ArrayList<>();
     private ArrayList<LbumListBean.RLbumlist.LbumlistRecord> lbumlists = new ArrayList<>();
     private LbumlistFragmentAdapter lbAdapter;
-
+    private AnimationDrawable background;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -121,6 +122,25 @@ public class LbumListFragment extends BaseConstantFragment implements View.OnCli
         initMediaPlay();
         getinfos();
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(UmiwiApplication.mainActivity != null) {
+            if(UmiwiApplication.mainActivity.service != null) {
+                background = (AnimationDrawable) record.getBackground();
+                try {
+                    if (UmiwiApplication.mainActivity.service.isPlaying()) {
+                        background.start();
+                    } else {
+                        background.stop();
+                    }
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     /**
