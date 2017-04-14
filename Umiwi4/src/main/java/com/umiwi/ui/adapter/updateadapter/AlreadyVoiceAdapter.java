@@ -52,6 +52,8 @@ public class AlreadyVoiceAdapter extends BaseAdapter {
             hoder.watchnum = (TextView) view.findViewById(R.id.watchnum);
             hoder.process = (TextView) view.findViewById(R.id.process);
             hoder.view_firstvisable = view.findViewById(R.id.view_firstvisable);
+            hoder.price.setVisibility(View.GONE);
+            hoder.process.setVisibility(View.INVISIBLE);
             view.setTag(hoder);
         } else {
             hoder = (VoiceHoder) view.getTag();
@@ -70,6 +72,7 @@ public class AlreadyVoiceAdapter extends BaseAdapter {
             hoder.cat.setVisibility(View.GONE);
         }
         hoder.title.setText(record.getTitle());
+
         hoder.price.setText(record.getPrice());
 //        Log.e("TAG", "record.getPrice()=" + record.getPrice());
         hoder.playtime.setText(record.getPlaytime());

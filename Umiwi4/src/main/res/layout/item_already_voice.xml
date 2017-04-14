@@ -26,9 +26,9 @@
 
             <ImageView
                 android:id="@+id/voice_img"
-                android:layout_marginTop="4dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 android:src="@drawable/default_voice" />
 
             <LinearLayout
@@ -39,10 +39,9 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
-                    >
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp">
 
                     <TextView
                         android:id="@+id/price"
@@ -52,30 +51,28 @@
                         android:layout_centerVertical="true"
                         android:layout_marginRight="10dp"
                         android:text="29"
-                        android:textColor="@color/main_color"
-
-                        />
+                        android:textColor="@color/main_color" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="8dp"
+                        android:layout_toLeftOf="@id/price"
                         android:gravity="center_vertical"
-                        android:paddingBottom="3dp"
-                        android:paddingTop="3dp"
                         android:orientation="horizontal"
-                        android:layout_toLeftOf="@id/price">
+                        android:paddingBottom="3dp"
+                        android:paddingTop="3dp">
 
                         <TextView
-                            android:layout_weight="5"
                             android:id="@+id/title"
+                            android:layout_weight="1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginRight="5dp"
                             android:ellipsize="end"
                             android:singleLine="true"
-                            android:text="大师傅大师傅大师傅大师傅大师傅大师傅大"
+                            android:text="大师傅大师大dfasdfasdfadsfdfassdsdf"
                             android:textColor="@color/umiwi_black" />
 
                         <TextView
@@ -83,14 +80,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
-                            android:layout_toRightOf="@id/title"
                             android:background="@drawable/tv_corner"
+                            android:lines="1"
                             android:paddingBottom="3dp"
                             android:paddingLeft="5dp"
                             android:paddingRight="5dp"
                             android:paddingTop="3dp"
                             android:text="人际关系"
-                            android:lines="1"
                             android:textColor="@color/main_color"
                             android:textSize="10sp"
                             android:visibility="visible" />
@@ -117,8 +113,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/playtime"
-                        android:text="·"
-                        />
+                        android:text="·" />
 
                     <TextView
                         android:id="@+id/watchnum"
