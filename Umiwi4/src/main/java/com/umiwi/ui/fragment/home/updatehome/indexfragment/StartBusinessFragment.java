@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -39,6 +40,7 @@ import cn.youmi.framework.http.AbstractRequest;
 import cn.youmi.framework.http.GetRequest;
 import cn.youmi.framework.http.parsers.GsonParser;
 import cn.youmi.framework.util.ToastU;
+
 
 
 /**
@@ -326,7 +328,6 @@ public class StartBusinessFragment extends BaseConstantFragment {
                 }
                 tv_all_catid1.setTextColor(mContext.getResources().getColor(R.color.main_color));
             }});
-
     }
 
     /**
@@ -338,6 +339,8 @@ public class StartBusinessFragment extends BaseConstantFragment {
             final TextView tv = (TextView) LayoutInflater.from(mContext).inflate(R
                     .layout.flow_text, flow_orderby, false);
             tv.setText(orderbyList.get(i));
+
+            tv.setTextColor(Color.BLACK);
             tv.setTextColor(mContext.getResources().getColor(R.color.gray_a));
             tv_all_orderby.setTextColor(mContext.getResources().getColor(R.color.main_color));
             final int finalI = i;
