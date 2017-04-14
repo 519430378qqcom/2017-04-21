@@ -180,7 +180,7 @@ public class UmiwiApplication extends BaseApplication implements ServiceConnecti
         prequest.addParam("user_id", mSpUtil.getUserId());
         prequest.addParam("channel_id", mSpUtil.getChannelId());
         prequest.go();
-        Log.e("TAG", "mSpUtil.getUserId()=" + mSpUtil.getAppId() + "," + mSpUtil.getUserId() + "," + mSpUtil.getChannelId() + "," + mSpUtil.getDeviceId());
+//        Log.e("TAG", "mSpUtil.getUserId()=" + mSpUtil.getAppId() + "," + mSpUtil.getUserId() + "," + mSpUtil.getChannelId() + "," + mSpUtil.getDeviceId());
     }
 
     private AbstractRequest.Listener<ResultModel> pushListener = new AbstractRequest.Listener<ResultModel>() {

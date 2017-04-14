@@ -1,5 +1,7 @@
 package com.umiwi.ui.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -20,6 +22,8 @@ import android.widget.ProgressBar;
 
 import com.baidu.android.pushservice.PushConstants;
 import com.baidu.android.pushservice.PushManager;
+import com.baidu.soleagencysdk.api.CheckCompletion;
+import com.baidu.soleagencysdk.api.SoleAgencySDK;
 import com.bumptech.glide.Glide;
 import com.umeng.analytics.MobclickAgent;
 import com.umiwi.ui.IVoiceService;
@@ -112,7 +116,7 @@ public class HomeMainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setTitle("独家SDK—V" + SoleAgencySDK.version());
         setContentView(R.layout.activity_main_home);
 
         mSpUtil = UmiwiApplication.getInstance().getSpUtil();
@@ -123,8 +127,6 @@ public class HomeMainActivity extends AppCompatActivity {
 
         if (YoumiRoomUserManager.getInstance().isLogin()) {
             PushString();
-//            String cookie1 = getCookie();
-//            Log.e("TAG", "cookie=" + cookie1 );
         }
 
         MobclickAgent.openActivityDurationTrack(false);
@@ -160,31 +162,18 @@ public class HomeMainActivity extends AppCompatActivity {
             saveAd();
         }
 
-//        getDeviceId();
-        //获取当前时间
-//        long millis = System.currentTimeMillis();
-//        String yMdHm = DateUtils.yMdHm(millis);
-//
-//        Log.e("TAG", "时间="+millis  + yMdHm);
-//        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        java.util.Date now = null;
-//        java.util.Date date= null;
-//        try {
-//            now = df.parse("2004-03-26 13:31:40");
-//            date = df.parse("2004-03-25 13:32:24");
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-//        long l=now.getTime()-date.getTime();
-//        long day=l/(24*60*60*1000);
-//        long hour=(l/(60*60*1000)-day*24);
-//        long min=((l/(60*1000))-day*24*60-hour*60);
-//        long s=(l/1000-day*24*60*60-hour*60*60-min*60);
-//        Log.e("TAG", "时间="+""+day+"天"+hour+"小时"+min+"分"+s+"秒");
-//        String cookie = getCookie();
-//        String versionName = SystemUtils.getVersionName();
-//        int versionCode = SystemUtils.getVersionCode();
-//        Log.e("TAG", "cookie=" + versionCode);
+        SoleAgencySDK.startToCheckShouzhu(this, new CheckCompletion() {
+            @Override
+            public void checkDidComplete() {
+                new AlertDialog.Builder(HomeMainActivity.this).setMessage("SDK checked complete!")
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        }).create().show();
+            }
+        });
     }
 
 
@@ -216,7 +205,7 @@ public class HomeMainActivity extends AppCompatActivity {
                 mPressedTime = mNowTime;
             } else {
                 finish();
-//                UmiwiApplication.getInstance().exitApp();
+                UmiwiApplication.getInstance().exitApp();
             }
             return true;
         }
@@ -297,9 +286,9 @@ public class HomeMainActivity extends AppCompatActivity {
         UmiwiApplication.mainActivity = null;
         super.onDestroy();
         isForeground = false;
-        if (!mSpUtil.getDisturb()) {
-            PushManager.stopWork(getApplicationContext());
-        }
+//        if (!mSpUtil.getDisturb()) {
+//            PushManager.stopWork(getApplicationContext());
+//        }
 //        Log.e("TAG", "isForeground=" + isForeground);
 //        Log.e("TAG", "onDestroy()");
     }

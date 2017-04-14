@@ -252,7 +252,7 @@ public class AudioSpecialDetailFragment extends BaseConstantFragment implements 
                 title.setText(details.getTitle());
                 shortcontent.setText(details.getShortcontent());
                 salenum.setText(details.getSalenum());
-                tv_price.setText(details.getPrice());
+                tv_price.setText(details.getDiscount_price());
                 Glide.with(getActivity()).load(details.getImage()).into(iv_image);
                 ArrayList<AudioSpecialDetailBean.RAudioSpecial.LastRecordList> last_record = details.getLast_record();
                 mList.clear();
@@ -264,7 +264,7 @@ public class AudioSpecialDetailFragment extends BaseConstantFragment implements 
                 }
                 audioSpecialListAdapter.setData(mList);
                 if (!TextUtils.isEmpty(details.getDiscount_price()) && !details.getDiscount_price().equals(details.getPrice()) ) {
-                    tv_priceold.setText("原价:" + details.getDiscount_price());
+                    tv_priceold.setText("原价:" + details.getPrice());
                     tv_yuanjia.setText("优惠价:");
                     tv_priceold.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG); // 设置中划线并加清晰
                     tv_priceold.setVisibility(View.VISIBLE);

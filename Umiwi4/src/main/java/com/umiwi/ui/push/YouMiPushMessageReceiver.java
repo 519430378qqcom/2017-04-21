@@ -80,7 +80,7 @@ public class YouMiPushMessageReceiver extends PushMessageReceiver {
                 util.setRequestId(requestId);
             }
         }
-        Log.e("TAG", "errorCode124=" + errorCode + ",appid" + appid);
+        Log.e("TAG", "errorCode124=" + errorCode + ",appid=" + appid + ",userId=" + userId + ",channelId=" + channelId + ",requestId=" + requestId);
     }
 
     /**
@@ -95,6 +95,8 @@ public class YouMiPushMessageReceiver extends PushMessageReceiver {
 //         解绑定成功，设置未绑定flag，
         if (errorCode == 0) {
             Utils.setBind(context, false);
+
+            Log.e("TAG", "errorCode=" + errorCode + ",requestId="+ requestId);
         }
     }
 

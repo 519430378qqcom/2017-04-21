@@ -20,6 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baidu.android.pushservice.PushManager;
 import com.umeng.analytics.MobclickAgent;
 import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
@@ -144,6 +145,7 @@ public class UserSettingFragment extends BaseFragment implements ActivityCompat.
                             YoumiRoomUserManager.getInstance().logout();
                             YoumiRoomUserManager.getInstance().getUserInfoSave(UserEvent.HOME_LOGIN_OUT);
 
+                            PushManager.stopWork(getActivity());
 //                            UmiwiDetailActivity.activity.finish();
 //                            UmiwiDetailActivity.this.finish();
                             startActivity(new Intent(getActivity(), UmiwiDetailActivity.class));

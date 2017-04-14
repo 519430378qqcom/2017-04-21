@@ -127,12 +127,14 @@ public class LogicalThinkingFragment extends BaseConstantFragment {
             @Override
             public void onResult(AbstractRequest<AttemptBean> request, AttemptBean attemptBean) {
                 ArrayList<AttemptBean.RAttenmpInfo.RecordsBean> recordsBeen = attemptBean.getR().getRecord();
-                Log.e("TAG", "recordsBean=" + recordsBeen.toString());
-                record.clear();
-                update_count.setText(String.format("已更新%s条", recordsBeen.size()));
-                Log.e("TAG", "recordsBeen.size()=" + recordsBeen.size());
-                record.addAll(recordsBeen);
-                logicalThinkingAdapter.notifyDataSetChanged();
+                if(recordsBeen != null) {
+//                    Log.e("TAG", "recordsBean=" + recordsBeen.toString());
+                    record.clear();
+                    update_count.setText(String.format("已更新%s条", recordsBeen.size()));
+//                    Log.e("TAG", "recordsBeen.size()=" + recordsBeen.size());
+                    record.addAll(recordsBeen);
+                    logicalThinkingAdapter.notifyDataSetChanged();
+                }
             }
 
             @Override
