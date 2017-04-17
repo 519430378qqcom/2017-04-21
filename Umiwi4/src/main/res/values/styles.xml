@@ -148,8 +148,13 @@
         <item name="android:windowEnterAnimation">@anim/popshow_anim</item>
         <item name="android:windowExitAnimation">@anim/popdismiss_anim</item>
     </style>
-    
-     <declare-styleable name="TintableImageView">
+
+    <style name="MyTabLayoutTextAppearance" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textSize">15sp</item>
+    </style>
+
+
+    <declare-styleable name="TintableImageView">
         <attr name="tint" format="reference|color" />
     </declare-styleable>
 

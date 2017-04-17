@@ -44,6 +44,7 @@ dependencies {
     compile 'org.xutils:xutils:3.3.36'
     compile files('libs/pushservice-5.6.0.30.jar')
     compile files('libs/baidu_cuid.jar')
+    compile project(':magicindicator')
 }
 
 android {
@@ -80,8 +81,8 @@ android {
 //        huaweiv {}//华为
 //        lenovov {}
 //        yingyongbaov{} //应用宝
-        m91v {}//91助手
-//        m360vt {}  //360 手机助手
+//        m91v {}//91助手
+        m360vt {}  //360 手机助手
 //        anzhuov{} //安卓市场
 //        oppov{}//oppo
 //        meizuv {}//魅族

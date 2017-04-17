@@ -1,4 +1,4 @@
-include ':Umiwi4'
+include ':Umiwi4', ':magicindicator'
 include ':YoumiPay'
 include ':YoumiFramework'
 include ':YoumiResource'
