@@ -13,6 +13,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -20,12 +21,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.updateadapter.MyFragmentStatePagerAdapter;
+import com.umiwi.ui.beans.updatebeans.RecommendBean;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.HotListFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.NewTendencyFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.RecommendFragment;
@@ -34,6 +37,7 @@ import com.umiwi.ui.fragment.home.updatehome.indexfragment.VoiceDetailsFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.WorkPlaceFragment;
 import com.umiwi.ui.fragment.search.SearchFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
+import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.main.UmiwiApplication;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -48,8 +52,11 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.Simple
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+
+import cn.youmi.framework.http.AbstractRequest;
+import cn.youmi.framework.http.GetRequest;
+import cn.youmi.framework.http.parsers.GsonParser;
 
 
 /**
@@ -60,7 +67,7 @@ import java.util.List;
 
 public class NewHomeRecommendFragment extends BaseConstantFragment {
 
-//    @InjectView(R.id.search)
+    //    @InjectView(R.id.search)
 //    TextView search;
 //    @InjectView(R.id.record)
 //    ImageView record;
@@ -95,7 +102,7 @@ public class NewHomeRecommendFragment extends BaseConstantFragment {
     private TextView search;
     private ImageView record;
     private Toolbar toolbar_actionbar;
-//    private TabLayout mTabLayout;
+    //    private TabLayout mTabLayout;
     private ViewPager viewPager;
     private MagicIndicator magic_indicator;
     private ArrayList<Fragment> fragments;
@@ -104,17 +111,20 @@ public class NewHomeRecommendFragment extends BaseConstantFragment {
     private static ViewPager rootviewPager;
     private AnimationDrawable background;
     private ImageView iv_next_tab;
+    private ProgressBar pb_loading;
 
-    public static ViewPager getRootViewpager(){
+    public static ViewPager getRootViewpager() {
         return rootviewPager;
     }
 
-    private String[] tabTitle = {" 推荐 "," 创业 "," 职场 "," 新趋势 "," 排行榜 ","测试一页面","测试二页面","测试三页面"};
-    private List<String> mDataList = Arrays.asList(tabTitle);
+    private String[] tabTitle = {" 推荐 ", " 创业 ", " 职场 ", " 新趋势 ", " 排行榜 ", "测试一页面", "测试二页面", "测试三页面"};
+    //    private List<String> mDataList = Arrays.asList(tabTitle);
+    private List<String> mDataList = new ArrayList<>();
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home_recommend_new,container, false);
+        View view = inflater.inflate(R.layout.fragment_home_recommend_new, container, false);
         initViews(view);
 //        ButterKnife.inject(this, view);
 
@@ -129,11 +139,40 @@ public class NewHomeRecommendFragment extends BaseConstantFragment {
         rootviewPager = viewPager;
 //        initMenuTab();
         initRecord();
-        initData();
+//        initData();
+        getTagsInfo();
         return view;
     }
 
+    //获取导航栏字段
+    private void getTagsInfo() {
+        GetRequest<RecommendBean> request = new GetRequest<>(
+                UmiwiAPI.VIDEO_TUIJIAN, GsonParser.class, RecommendBean.class, new AbstractRequest.Listener<RecommendBean>() {
+            @Override
+            public void onResult(AbstractRequest<RecommendBean> request, RecommendBean recommendBean) {
+                ArrayList<RecommendBean.RBean.MenuBean> menu = recommendBean.getR().getMenu();
+                for (int i = 0; i < menu.size(); i++) {
+                    String catname = menu.get(i).getCatname();
+                    mDataList.add(catname);
+                    Log.e("TAG", "catname=" + catname);
+                }
+                if(mDataList != null) {
+                    initData();
+                }
+                pb_loading.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onError(AbstractRequest<RecommendBean> requet, int statusCode, String body) {
+
+            }
+        });
+        request.go();
+
+    }
+
     private void initViews(View view) {
+        pb_loading = (ProgressBar) view.findViewById(R.id.pb_loading);
         search = (TextView) view.findViewById(R.id.search);
         record = (ImageView) view.findViewById(R.id.record);
         toolbar_actionbar = (Toolbar) view.findViewById(R.id.toolbar_actionbar);
@@ -155,15 +194,13 @@ public class NewHomeRecommendFragment extends BaseConstantFragment {
 //                setIndicator(mTabLayout,1,1);
 //            }
 //        });
-        viewPager.setAdapter(new MyFragmentStatePagerAdapter(getChildFragmentManager(),tabTitle));
+        viewPager.setAdapter(new MyFragmentStatePagerAdapter(getChildFragmentManager(), mDataList));
 //        viewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
+        viewPager.setOffscreenPageLimit(4);
         magic_indicator.setBackgroundColor(Color.WHITE);
         CommonNavigator commonNavigator = new CommonNavigator(getActivity());
-//        commonNavigator.setAdjustMode(true);
-//        commonNavigator.setLeftPadding(UIUtil.dip2px(getActivity(),30));
-//        commonNavigator.setRightPadding(UIUtil.dip2px(getActivity(),30));
-//        commonNavigator.setRight(UIUtil.dip2px(getActivity(),30));
-//        commonNavigator.setLeft(UIUtil.dip2px(getActivity(),30));
+        //均分tag
+        commonNavigator.setAdjustMode(true);
         commonNavigator.setScrollPivotX(0.5f);
         commonNavigator.setAdapter(new CommonNavigatorAdapter() {
             @Override
@@ -191,14 +228,14 @@ public class NewHomeRecommendFragment extends BaseConstantFragment {
             public IPagerIndicator getIndicator(Context context) {
                 LinePagerIndicator linePagerIndicator = new LinePagerIndicator(context);
                 linePagerIndicator.setMode(LinePagerIndicator.MODE_WRAP_CONTENT);
-                linePagerIndicator.setLineHeight(UIUtil.dip2px(context,2));
+                linePagerIndicator.setLineHeight(UIUtil.dip2px(context, 2));
                 linePagerIndicator.setColors(getResources().getColor(R.color.main_color));
 
                 return linePagerIndicator;
             }
         });
         magic_indicator.setNavigator(commonNavigator);
-        ViewPagerHelper.bind(magic_indicator,viewPager);
+        ViewPagerHelper.bind(magic_indicator, viewPager);
         iv_next_tab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -211,7 +248,7 @@ public class NewHomeRecommendFragment extends BaseConstantFragment {
     public void onResume() {
 //        Log.e("TAG", "首页里的onResume()");
         super.onResume();
-        if(UmiwiApplication.mainActivity.service != null) {
+        if (UmiwiApplication.mainActivity.service != null) {
             background = (AnimationDrawable) record.getBackground();
             try {
                 if (UmiwiApplication.mainActivity.service.isPlaying()) {
@@ -251,14 +288,15 @@ public class NewHomeRecommendFragment extends BaseConstantFragment {
                     }
                 } else {
                     Toast toast = Toast.makeText(getActivity(), "没有正在播放的音频", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.CENTER,0,0);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
                 }
             }
         });
     }
+
     //设置TabLayout下划线宽度
-    public void setIndicator (TabLayout tabs,int leftDip,int rightDip) {
+    public void setIndicator(TabLayout tabs, int leftDip, int rightDip) {
         Class<?> tabLayout = tabs.getClass();
         Field tabStrip = null;
         try {
@@ -288,8 +326,11 @@ public class NewHomeRecommendFragment extends BaseConstantFragment {
             child.invalidate();
         }
     }
-        /**初始化导航菜单了**/
-    void initMenuTab(){
+
+    /**
+     * 初始化导航菜单了
+     **/
+    void initMenuTab() {
 //        ViewPropertyAnimator.animate(tabRecommend).scaleX(1.1f).setDuration(0);
 //        ViewPropertyAnimator.animate(tabExpert).scaleY(1.1f).setDuration(0);
 //        ViewPropertyAnimator.animate(tabColumn).scaleX(1.1f).setDuration(0);

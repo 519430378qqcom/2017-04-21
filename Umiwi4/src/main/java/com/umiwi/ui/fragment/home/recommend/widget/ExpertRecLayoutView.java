@@ -30,7 +30,7 @@ import java.util.ArrayList;
 public class ExpertRecLayoutView extends LinearLayout {
 
     private Context mContext;
-    private TextView tv_tutor_title, tv_tutor_all,tv_audio_more;
+    private TextView tv_tutor_title, tv_tutor_all,tv_exp_change;
     private ListView lv_home_expert_rec;
     private LinearLayout ll_expert_root;
     private RelativeLayout rl_tutor_all;
@@ -77,12 +77,14 @@ public class ExpertRecLayoutView extends LinearLayout {
 //                mContext.startActivity(intent);
 //                Log.e("TAG", "id1=" + UmiwiAPI.No_buy_column + columnid);
                 if (isbuy) {
+                    //已购状态
                     Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
                     intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, LogicalThinkingFragment.class);
                     intent.putExtra("id", mList.get(position).getColumnid());
                     intent.putExtra("title", mList.get(position).getTitle());
                     mContext.startActivity(intent);
                 } else {
+                    //未购状态
                     Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
                     intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, ColumnDetailsFragment.class);//详情页
                     intent.putExtra("columnurl", UmiwiAPI.No_buy_column + columnid);
@@ -99,12 +101,10 @@ public class ExpertRecLayoutView extends LinearLayout {
                 mContext.startActivity(intent);
             }
         });
-//        tv_audio_more.setOnClickListener(new OnClickListener() {
+//        tv_exp_change.setOnClickListener(new OnClickListener() {
 //            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
-//                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, AudioSpecialFragment.class);
-//                mContext.startActivity(intent);
+//            public void onClick(View v) {
+//                getChangeData();
 //            }
 //        });
     }

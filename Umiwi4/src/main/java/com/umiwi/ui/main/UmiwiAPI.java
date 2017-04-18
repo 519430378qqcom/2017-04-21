@@ -139,6 +139,10 @@ public final class UmiwiAPI {
      */
     public static final String VIDEO_LUNBO = "http://i.v.youmi.cn/lunbo/list?android";
     public static final String VIDEO_LUNBO_NEW = "http://i.v.youmi.cn/lunbo/list?imgsizetype=2";
+    /**
+     * h5页面的分享
+     */
+    public static final String UMIWI_H5SHARE = "http://i.v.youmi.cn/api8/getShare?url=%s";
 //	public static final String VIDEO_LUNBO = "http://i.v.youmi.cn/ClientApi/list?type=lunbo&version=2";//old api
     /**
      * 首页推荐

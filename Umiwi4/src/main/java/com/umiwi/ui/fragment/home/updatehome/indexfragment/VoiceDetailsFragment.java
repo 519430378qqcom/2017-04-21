@@ -864,7 +864,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                 return;
             }
 
-            PlayerController.getInstance().pause();
+//            PlayerController.getInstance().pause();
             ShareDialog.getInstance().showDialog(getActivity(),
                     infos.getShare().getSharetitle(), infos.getShare().getSharecontent(),
                     infos.getShare().getShareurl(), infos.getShare().getShareimg());

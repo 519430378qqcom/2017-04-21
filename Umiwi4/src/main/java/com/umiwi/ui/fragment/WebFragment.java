@@ -35,6 +35,7 @@ import android.widget.Toast;
 import com.umeng.analytics.MobclickAgent;
 import com.umiwi.ui.activity.HomeMainActivity;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
+import com.umiwi.ui.beans.updatebeans.H5ShareBean;
 import com.umiwi.ui.dialog.ShareDialog;
 import com.umiwi.ui.event.WebToNativeEvent;
 import com.umiwi.ui.fragment.course.BigZTListFragment;
@@ -44,6 +45,7 @@ import com.umiwi.ui.fragment.course.JPZTDetailFragment;
 import com.umiwi.ui.fragment.course.JPZTListFragment;
 import com.umiwi.ui.fragment.pay.PayOrderDetailFragment;
 import com.umiwi.ui.fragment.pay.PayTypeEvent;
+import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.main.UmiwiApplication;
 
 import org.apache.http.Header;
@@ -60,9 +62,11 @@ import java.util.List;
 import cn.youmi.account.event.UserEvent;
 import cn.youmi.account.manager.UserManager;
 import cn.youmi.framework.fragment.BaseFragment;
+import cn.youmi.framework.http.AbstractRequest;
 import cn.youmi.framework.http.CookieDao;
+import cn.youmi.framework.http.GetRequest;
+import cn.youmi.framework.http.parsers.GsonParser;
 import cn.youmi.framework.main.ConstantProvider;
-import cn.youmi.framework.util.ActivityUtils;
 import cn.youmi.framework.util.AndroidSDK;
 import cn.youmi.pay.R;
 
@@ -80,6 +84,11 @@ public class WebFragment extends BaseFragment {
 
     private String mUrl = "";
     public static  boolean isAlive = false;
+    private String share_content;
+    private String share_img;
+    private String share_title;
+    private String share_url;
+    private String id;
 
     public WebFragment() {
         super();
@@ -101,7 +110,7 @@ public class WebFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
         mUrl = getActivity().getIntent().getStringExtra(WEB_URL);
         UmiwiApplication.mainActivity.webFragmentUrl = mUrl;
-        Log.e("shenqiwnei", "shenqinwei-----:" + mUrl);
+        Log.e("shenqiwnei", "shenqinwei-----:" + mUrl + ",id=" + id);
         this.setHasOptionsMenu(true);
         this.setRetainInstance(true);
     }
@@ -138,18 +147,21 @@ public class WebFragment extends BaseFragment {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
 
-                if (!buildShareCopyContent().contains("file:///android_asset")) {
-                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                    shareIntent.setType("text/plain");
-                    shareIntent.putExtra(Intent.EXTRA_TEXT,
-                            buildShareCopyContent());
-                    if (ActivityUtils.isIntentSafe(getActivity(), shareIntent)) {
-                        startActivity(shareIntent);
-                    }
-                } else {
-                    Toast.makeText(getActivity(), "链接不支持", Toast.LENGTH_SHORT)
-                            .show();
-                }
+//                if (!buildShareCopyContent().contains("file:///android_asset")) {
+//                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
+//                    shareIntent.setType("text/plain");
+//                    shareIntent.putExtra(Intent.EXTRA_TEXT,
+//                            buildShareCopyContent());
+//                    if (ActivityUtils.isIntentSafe(getActivity(), shareIntent)) {
+//                        startActivity(shareIntent);
+//                    }
+//                } else {
+//                    Toast.makeText(getActivity(), "链接不支持", Toast.LENGTH_SHORT)
+//                            .show();
+//                }
+                ShareDialog.getInstance().showDialog(getActivity(),
+                        share_title, share_content,
+                        share_url, share_img);
 
                 return true;
             }
@@ -278,7 +290,31 @@ public class WebFragment extends BaseFragment {
         CookieSyncManager.getInstance().sync();
 
         loadUrl(mUrl);
+
+        getInfo();
         return view;
+    }
+
+    private void getInfo() {
+        String url = String.format(UmiwiAPI.UMIWI_H5SHARE,mUrl);
+        GetRequest<H5ShareBean> request = new GetRequest<H5ShareBean>(url, GsonParser.class, H5ShareBean.class, new AbstractRequest.Listener<H5ShareBean>() {
+            @Override
+            public void onResult(AbstractRequest<H5ShareBean> request, H5ShareBean h5ShareBean) {
+                if(h5ShareBean!= null) {
+                    share_content = h5ShareBean.getR().getShare_content();
+                    share_img = h5ShareBean.getR().getShare_img();
+                    share_title = h5ShareBean.getR().getShare_title();
+                    share_url = h5ShareBean.getR().getShare_url();
+                }
+                Log.e("TAG", "share_content=" + share_content);
+            }
+
+            @Override
+            public void onError(AbstractRequest<H5ShareBean> requet, int statusCode, String body) {
+
+            }
+        });
+        request.go();
     }
 
     private class BackKeyListener implements View.OnKeyListener {

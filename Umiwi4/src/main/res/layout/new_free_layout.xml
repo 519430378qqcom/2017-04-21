@@ -17,7 +17,7 @@
             android:layout_marginLeft="15dp"
             android:paddingBottom="10dp"
             android:paddingTop="10dp"
-            android:text="每日音频"
+            android:text="最新免费"
             android:textColor="@color/black"
             android:textSize="18sp"
              />

@@ -30,10 +30,9 @@
             <!--android:textStyle="bold"-->
                 <!--android:text="行家推荐"-->
             <!--<TextView-->
-                <!--android:id="@+id/tv_audio_more"-->
+                <!--android:id="@+id/tv_exp_change"-->
                 <!--android:padding="5dp"-->
-                <!--android:drawableRight="@drawable/category_hot"-->
-                <!--android:text="更多"-->
+                <!--android:text="换一批"-->
                 <!--android:drawablePadding="5dp"-->
                 <!--android:layout_marginRight="10dp"-->
                 <!--android:layout_centerVertical="true"-->

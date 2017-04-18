@@ -24,6 +24,15 @@ public class RecommendBean extends BaseGsonBeans {
     @SerializedName("r")
     private RBean r;
 
+    @Override
+    public String toString() {
+        return "RecommendBean{" +
+                "e='" + e + '\'' +
+                ", m='" + m + '\'' +
+                ", r=" + r +
+                '}';
+    }
+
     public String getE() {
         return e;
     }
@@ -137,6 +146,16 @@ public class RecommendBean extends BaseGsonBeans {
         private ArrayList<TagsBean> tags;
         @SerializedName("albumlist")
         private AlbumListBean albumlist;
+        @SerializedName("menu")
+        private ArrayList<MenuBean> menu;
+
+        public ArrayList<MenuBean> getMenu() {
+            return menu;
+        }
+
+        public void setMenu(ArrayList<MenuBean> menu) {
+            this.menu = menu;
+        }
 
         public AlbumListBean getAlbumlist() {
             return albumlist;
@@ -145,7 +164,36 @@ public class RecommendBean extends BaseGsonBeans {
         public void setAlbumlist(AlbumListBean albumlist) {
             this.albumlist = albumlist;
         }
+        public static class MenuBean{
+            @SerializedName("catid")
+            private String catid;
+            @SerializedName("catname")
+            private String catname;
 
+            public String getCatid() {
+                return catid;
+            }
+
+            public void setCatid(String catid) {
+                this.catid = catid;
+            }
+
+            public String getCatname() {
+                return catname;
+            }
+
+            public void setCatname(String catname) {
+                this.catname = catname;
+            }
+
+            @Override
+            public String toString() {
+                return "MenuBean{" +
+                        "catid='" + catid + '\'' +
+                        ", catname='" + catname + '\'' +
+                        '}';
+            }
+        }
         public static class AlbumListBean{
             @SerializedName("page")
             private AlbumListPage page;

@@ -222,7 +222,7 @@ public class RecommendFragment extends BaseConstantFragment {
      * 加载推荐页数据
      */
     private void loadRecommend() {
-        getIndexAction();
+         getIndexAction();
     }
 
     /**
@@ -242,7 +242,6 @@ public class RecommendFragment extends BaseConstantFragment {
 //            Log.e("TAG", "t为" + t);
 //            Log.e("TAG", "t=" + t.getR().getSec_free_title().toString());
             if (null != t) {
-
                 flv_new_free.setData(t.getR().getFree(), t.getR().getSec_free_title(), t.getR().getSec_free_huan(),t.getR().getSec_free_huanurl());
                 hot_video_layout.setData(t.getR().getHotvideo());
                 erl_expert_rec.setData(t.getR().getTutor(), t.getR().getSec_tutor_title(), t.getR().getSec_tutor_more());

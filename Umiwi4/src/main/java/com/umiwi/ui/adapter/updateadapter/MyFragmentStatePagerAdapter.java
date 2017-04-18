@@ -4,22 +4,21 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.umiwi.ui.fragment.VPFragment5;
-import com.umiwi.ui.fragment.VPFragment6;
-import com.umiwi.ui.fragment.VPFragment7;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.HotListFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.NewTendencyFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.RecommendFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.StartBusinessFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.WorkPlaceFragment;
 
+import java.util.List;
+
 /**
  * Created by Administrator on 2017/4/17 0017.
  */
 
 public class MyFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
-    private String[] tabTitle;
-    public MyFragmentStatePagerAdapter(FragmentManager fm, String[] tabTitle) {
+    private List<String> tabTitle;
+    public MyFragmentStatePagerAdapter(FragmentManager fm, List<String> tabTitle) {
         super(fm);
         this.tabTitle = tabTitle;
     }
@@ -37,18 +36,18 @@ public class MyFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
                 return new NewTendencyFragment();
             case 4:
                 return new HotListFragment();
-            case 5:
-                return new VPFragment5();
-            case 6:
-                return new VPFragment6();
-            case 7:
-                return new VPFragment7();
+//            case 5:
+//                return new VPFragment5();
+//            case 6:
+//                return new VPFragment6();
+//            case 7:
+//                return new VPFragment7();
         }
         return null;
     }
 
     @Override
     public int getCount() {
-        return tabTitle.length;
+        return tabTitle.size();
     }
 }
