@@ -192,8 +192,11 @@ public class NewHomeRecommendFragment extends BaseConstantFragment {
 //            @Override
 //            public void run() {
 //                setIndicator(mTabLayout,1,1);
-//            }
+//          }
 //        });
+        if(mDataList.size() <= 5) {
+            iv_next_tab.setVisibility(View.GONE);
+        }
         viewPager.setAdapter(new MyFragmentStatePagerAdapter(getChildFragmentManager(), mDataList));
 //        viewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
         viewPager.setOffscreenPageLimit(4);

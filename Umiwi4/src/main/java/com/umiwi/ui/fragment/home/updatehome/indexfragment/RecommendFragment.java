@@ -419,6 +419,7 @@ public class RecommendFragment extends BaseConstantFragment {
         }
 //        mAutoViewPager.startAutoScroll(5000);
         MobclickAgent.onPageStart(fragmentName);
+//        Log.e("TAG", "121431234onResume()");
     }
 
     @Override
@@ -426,6 +427,13 @@ public class RecommendFragment extends BaseConstantFragment {
         super.onPause();
 //        mAutoViewPager.stopAutoScroll();
         MobclickAgent.onPageEnd(fragmentName);
+//        Log.e("TAG", "onPause()");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+//        Log.e("TAG", "onStop()");
     }
 
     @Override

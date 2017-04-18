@@ -110,7 +110,7 @@ public class WebFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
         mUrl = getActivity().getIntent().getStringExtra(WEB_URL);
         UmiwiApplication.mainActivity.webFragmentUrl = mUrl;
-        Log.e("shenqiwnei", "shenqinwei-----:" + mUrl + ",id=" + id);
+//        Log.e("shenqiwnei", "shenqinwei-----:" + mUrl + ",id=" + id);
         this.setHasOptionsMenu(true);
         this.setRetainInstance(true);
     }
@@ -297,6 +297,7 @@ public class WebFragment extends BaseFragment {
 
     private void getInfo() {
         String url = String.format(UmiwiAPI.UMIWI_H5SHARE,mUrl);
+//        Log.e("TAG", "share_content=" + url);
         GetRequest<H5ShareBean> request = new GetRequest<H5ShareBean>(url, GsonParser.class, H5ShareBean.class, new AbstractRequest.Listener<H5ShareBean>() {
             @Override
             public void onResult(AbstractRequest<H5ShareBean> request, H5ShareBean h5ShareBean) {
@@ -306,7 +307,7 @@ public class WebFragment extends BaseFragment {
                     share_title = h5ShareBean.getR().getShare_title();
                     share_url = h5ShareBean.getR().getShare_url();
                 }
-                Log.e("TAG", "share_content=" + share_content);
+
             }
 
             @Override
