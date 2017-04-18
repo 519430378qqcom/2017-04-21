@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.umeng.analytics.MobclickAgent;
@@ -51,6 +52,8 @@ public class AudioSpecialFragment extends BaseConstantFragment implements View.O
     ImageView back;
     @InjectView(R.id.record)
     ImageView record;
+    @InjectView(R.id.pb_loading)
+    ProgressBar pb_loading;
     private List<HomeColumnBean.RhomeCoulum.HomeColumnInfo> mList;
     private ColumnAdapter columnAdapter;
     private int page = 1;
@@ -137,22 +140,26 @@ public class AudioSpecialFragment extends BaseConstantFragment implements View.O
         GetRequest<HomeColumnBean> request = new GetRequest<HomeColumnBean>(url, GsonParser.class, HomeColumnBean.class, new AbstractRequest.Listener<HomeColumnBean>() {
             @Override
             public void onResult(AbstractRequest<HomeColumnBean> request, HomeColumnBean homeColumnBean) {
-                HomeColumnBean.RhomeCoulum.PageBean page = homeColumnBean.getR().getPage();
-                totalpage = page.getTotalpage();
-                ArrayList<HomeColumnBean.RhomeCoulum.HomeColumnInfo> record = homeColumnBean.getR().getRecord();
-                mList.clear();
-                mList.addAll(record);
-                columnAdapter.setData(mList);
+                if(homeColumnBean!= null) {
+                    pb_loading.setVisibility(View.GONE);
+                    HomeColumnBean.RhomeCoulum.PageBean page = homeColumnBean.getR().getPage();
+                    totalpage = page.getTotalpage();
+                    ArrayList<HomeColumnBean.RhomeCoulum.HomeColumnInfo> record = homeColumnBean.getR().getRecord();
+                    mList.clear();
+                    mList.addAll(record);
+                    columnAdapter.setData(mList);
 
-                if (isla) {
-                    listview.setEnabled(true);
-                    isla = false;
-                    refreshLayout.setRefreshing(false);
-                } else if (isload) {
-                    isload = false;
-                    refreshLayout.setLoading(false);
+                    if (isla) {
+                        listview.setEnabled(true);
+                        isla = false;
+                        refreshLayout.setRefreshing(false);
+                    } else if (isload) {
+                        isload = false;
+                        refreshLayout.setLoading(false);
+                    }
+
                 }
-                Log.e("homecoulm", "size" + record.size() + "page" + totalpage);
+//                Log.e("homecoulm", "size" + record.size() + "page" + totalpage);
             }
 
             @Override

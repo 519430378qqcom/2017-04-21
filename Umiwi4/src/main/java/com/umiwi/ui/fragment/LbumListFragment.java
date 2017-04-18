@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -65,6 +66,8 @@ public class LbumListFragment extends BaseConstantFragment implements View.OnCli
     ImageView back;
     @InjectView(R.id.record)
     ImageView record;
+    @InjectView(R.id.pb_loading)
+    ProgressBar pb_loading;
     private int page = 1;
     private boolean isRefresh = true;
     private int totalpage = 1;
@@ -155,6 +158,7 @@ public class LbumListFragment extends BaseConstantFragment implements View.OnCli
 
                 ArrayList<LbumListBean.RLbumlist.LbumlistRecord> record = lbumListBean.getR().getRecord();
                 if (record != null) {
+
                     totalpage = lbumListBean.getR().getPage().getTotalpage();
 //                    Log.e("TAG", "rLbumlists=" + record);
                     if (isRefresh) {
@@ -219,6 +223,7 @@ public class LbumListFragment extends BaseConstantFragment implements View.OnCli
                 ArrayList<RecommendBean.RBean.TagsBean> tagsBeen = recommendBean.getR().getTags();
                 mList.addAll(tagsBeen);
                 getCatid1Data();
+                pb_loading.setVisibility(View.GONE);
             }
 
             @Override

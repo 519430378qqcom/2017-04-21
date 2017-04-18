@@ -192,17 +192,28 @@
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="@color/line" />
-
-    <com.umiwi.ui.view.RefreshLayout
-        android:id="@+id/refreshLayout"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <ListView
-            android:divider="@null"
-            android:id="@+id/listview"
+        <com.umiwi.ui.view.RefreshLayout
+            android:id="@+id/refreshLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
 
-    </com.umiwi.ui.view.RefreshLayout>
+            <ListView
+                android:divider="@null"
+                android:id="@+id/listview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </com.umiwi.ui.view.RefreshLayout>
+        <ProgressBar
+            android:indeterminateDrawable="@drawable/custom_progressbar"
+            android:layout_gravity="center"
+            android:id="@+id/pb_loading"
+            android:indeterminate="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </FrameLayout>
+
 </LinearLayout>
