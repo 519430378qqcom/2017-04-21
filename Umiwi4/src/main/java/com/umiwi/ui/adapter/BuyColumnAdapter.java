@@ -1,24 +1,18 @@
 package com.umiwi.ui.adapter;
 
 import android.support.v4.app.FragmentActivity;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.umiwi.ui.R;
 import com.umiwi.ui.beans.updatebeans.AlreadShopColumnBean;
-import com.umiwi.ui.beans.updatebeans.BuyCoumnBean;
-import com.umiwi.ui.beans.updatebeans.HomeCoumnBean;
+import com.umiwi.ui.view.XCRoundRectImageView;
 
 import java.util.List;
 
 import cn.youmi.framework.util.ImageLoader;
-
-import static com.umiwi.ui.main.YoumiConfiguration.context;
 
 /**已购-专栏
  * Created by Gpsi on 2017/3/13.
@@ -54,7 +48,7 @@ public class BuyColumnAdapter extends BaseAdapter {
         if (convertView == null) {
             viewholder = new ViewHolder();
             convertView = View.inflate(activity, R.layout.special_buy_column_item, null);
-            viewholder.special_header_imageview_1 = (ImageView) convertView.findViewById(R.id.special_header_imageview_1);
+            viewholder.special_header_imageview_1 = (XCRoundRectImageView) convertView.findViewById(R.id.special_header_imageview_1);
             viewholder.special_name_textView_1 = (TextView) convertView.findViewById(R.id.special_name_textView_1);
             viewholder.special_context_1 = (TextView) convertView.findViewById(R.id.special_context_1);
             viewholder.expter_time_textView = (TextView) convertView.findViewById(R.id.expter_time_textView);
@@ -83,7 +77,7 @@ public class BuyColumnAdapter extends BaseAdapter {
 
 
     private static class ViewHolder {
-       ImageView special_header_imageview_1;
+        XCRoundRectImageView special_header_imageview_1;
         TextView special_name_textView_1;
         TextView special_context_1;
         TextView expter_time_textView;
