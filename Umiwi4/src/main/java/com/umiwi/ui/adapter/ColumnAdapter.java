@@ -5,12 +5,12 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.umiwi.ui.R;
 import com.umiwi.ui.beans.updatebeans.HomeColumnBean;
+import com.umiwi.ui.view.XCRoundRectImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +56,7 @@ public class ColumnAdapter extends BaseAdapter {
             viewholder = new ViewHolder();
             convertView = View.inflate(activity, R.layout.special_column_item, null);
 
-            viewholder.special_header_imageview_1 = (ImageView) convertView.findViewById(R.id.special_header_imageview_1);
+            viewholder.special_header_imageview_1 = (XCRoundRectImageView) convertView.findViewById(R.id.special_header_imageview_1);
             viewholder.special_price_1 = (TextView) convertView.findViewById(R.id.special_price_1);
             viewholder.special_subscribe_number_1 = (TextView) convertView.findViewById(R.id.special_subscribe_number_1);
             viewholder.special_name_textView_1 = (TextView) convertView.findViewById(R.id.special_name_textView_1);
@@ -95,7 +95,7 @@ public class ColumnAdapter extends BaseAdapter {
     }
 
     private static class ViewHolder {
-        private ImageView special_header_imageview_1;
+        private XCRoundRectImageView special_header_imageview_1;
         private TextView special_price_1, special_subscribe_number_1, special_name_textView_1, special_context_1, expter_time_textView, expter_detail_textView;
     }
 }

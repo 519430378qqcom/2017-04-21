@@ -6,12 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.umiwi.ui.R;
 import com.umiwi.ui.beans.updatebeans.RecommendBean;
 import com.umiwi.ui.main.UmiwiApplication;
+import com.umiwi.ui.view.XCRoundRectImageView;
 
 import java.util.ArrayList;
 
@@ -80,7 +80,7 @@ public class ExpertRecAdapter extends BaseAdapter {
 
     private class ViewHolder {
         public View rootView;
-        public ImageView expert_header_imageview;
+        public XCRoundRectImageView expert_header_imageview;
         //¥299/年
         public TextView expert_price, expter_detail_textView, expter_time_textView, expert_context_1, expert_name_textView_1, expert_subscribe_number;
         //是否购买
@@ -91,7 +91,7 @@ public class ExpertRecAdapter extends BaseAdapter {
         public ViewHolder(View convertView) {
             this.rootView = convertView;
             expert_price = (TextView) rootView.findViewById(R.id.special_price_1);
-            expert_header_imageview = (ImageView) rootView.findViewById(R.id.special_header_imageview_1);
+            expert_header_imageview = (XCRoundRectImageView) rootView.findViewById(R.id.special_header_imageview_1);
             expert_name_textView_1 = (TextView) rootView.findViewById(R.id.special_name_textView_1);
             expert_context_1 = (TextView) rootView.findViewById(R.id.special_context_1);
             expter_time_textView = (TextView) rootView.findViewById(R.id.expter_time_textView);
