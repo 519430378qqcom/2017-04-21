@@ -53,7 +53,7 @@
                         android:gravity="center"
                         android:text="试听"
                         android:textColor="@color/white"
-                        android:background="@drawable/orange_color_button_bg"
+                        android:background="@drawable/orange_probation_bg"
                         />
 
                     <LinearLayout

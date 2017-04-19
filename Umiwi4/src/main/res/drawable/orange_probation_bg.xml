@@ -10,15 +10,16 @@
         android:bottom="@dimen/button_padding_bottom"
         android:top="@dimen/button_padding_top" /> -->
 
-    <corners android:radius="5dp" />
+    <corners android:radius="20dp" />
 
     <solid android:color="@color/color_primary" />
-
+    <size android:height="5dp"
+        android:width="20dp"></size>
     <padding
-        android:bottom="5dp"
+        android:bottom="2dp"
         android:left="7dp"
         android:right="7dp"
-        android:top="5dp" />
-    <!-- <size android:height="1dp" /> -->
+        android:top="2dp" />
+     <!--<size android:height="1dp" />-->
 
 </shape>

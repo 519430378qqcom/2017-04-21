@@ -78,6 +78,7 @@ public class LogicalThinkingAdapter extends BaseAdapter {
             viewHolder.tv_title = (TextView) convertView.findViewById(R.id.tv_title);
             viewHolder.tv_time = (TextView) convertView.findViewById(R.id.tv_time);
             viewHolder.tv_watchnum = (TextView) convertView.findViewById(R.id.tv_watchnum);
+            viewHolder.tv_attempt = (TextView) convertView.findViewById(R.id.tv_attempt);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -85,6 +86,13 @@ public class LogicalThinkingAdapter extends BaseAdapter {
         viewHolder.tv_title.setText(mList.get(position).getTitle());
         viewHolder.tv_time.setText(mList.get(position).getOnlinetime());
         viewHolder.tv_watchnum.setText(mList.get(position).getWatchnum());
+
+//        Log.e("是否显示试读", "是否显示试读=" + mList.get(position).istry());
+        if (mList.get(position).istry()) {
+            viewHolder.tv_attempt.setVisibility(View.VISIBLE);
+        } else {
+            viewHolder.tv_attempt.setVisibility(View.GONE);
+        }
 
         //点击每个item记录变色
         String idArray = CacheUtil.getStringFile(activity, LogicalThinkingFragment.READ_ARRAY_ID);

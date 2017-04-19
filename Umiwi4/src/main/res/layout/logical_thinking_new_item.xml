@@ -40,13 +40,14 @@
                 android:textColor="@color/black"
                 android:textSize="16sp" />
             <TextView
+                android:id="@+id/tv_attempt"
                 android:layout_marginRight="10dp"
                 android:gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="试读"
                 android:textColor="@color/white"
-                android:background="@drawable/orange_color_button_bg"/>
+                android:background="@drawable/orange_probation_bg"/>
         </LinearLayout>
 
         <LinearLayout

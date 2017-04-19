@@ -75,7 +75,7 @@
                             android:layout_marginRight="10dp"
                             android:text="试看"
                             android:textColor="@color/white"
-                            android:background="@drawable/orange_color_button_bg"
+                            android:background="@drawable/orange_probation_bg"
                             />
 
                         <TextView
