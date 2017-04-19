@@ -52,6 +52,8 @@ public class AudioVideoAdapter extends BaseAdapter {
             hoder.playtime = (TextView) view.findViewById(R.id.playtime);
             hoder.watchnum = (TextView) view.findViewById(R.id.watchnum);
             hoder.voice_img = (ImageView) view.findViewById(R.id.voice_img);
+            hoder.tv_tutortitle = (TextView) view.findViewById(R.id.tv_tutortitle);
+            hoder.tv_name = (TextView) view.findViewById(R.id.tv_name);
 //            hoder.process = (TextView) view.findViewById(R.id.process);
 //            hoder.view_firstvisable = view.findViewById(R.id.view_firstvisable);
             view.setTag(hoder);
@@ -97,6 +99,8 @@ public class AudioVideoAdapter extends BaseAdapter {
         TextView price;
         TextView playtime;
         TextView watchnum;
+        TextView tv_name;
+        TextView tv_tutortitle;
 //        TextView process;
 //        View view_firstvisable;
     }

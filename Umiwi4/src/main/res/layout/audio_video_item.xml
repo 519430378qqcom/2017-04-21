@@ -5,12 +5,12 @@
     android:orientation="vertical">
 
     <!--<View-->
-        <!--android:id="@+id/view_firstvisable"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="1px"-->
-        <!--android:layout_marginLeft="10dp"-->
-        <!--android:layout_marginRight="10dp"-->
-        <!--android:background="@color/card_shadow" />-->
+    <!--android:id="@+id/view_firstvisable"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="1px"-->
+    <!--android:layout_marginLeft="10dp"-->
+    <!--android:layout_marginRight="10dp"-->
+    <!--android:background="@color/card_shadow" />-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,9 +26,9 @@
 
             <ImageView
                 android:id="@+id/voice_img"
-                android:layout_marginTop="4dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 android:src="@drawable/default_voice" />
 
             <LinearLayout
@@ -39,10 +39,9 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="10dp"
                     android:layout_marginBottom="5dp"
-                    >
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp">
 
                     <TextView
                         android:id="@+id/price"
@@ -60,19 +59,19 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="8dp"
+                        android:layout_toLeftOf="@id/price"
                         android:gravity="center_vertical"
-                        android:paddingBottom="3dp"
-                        android:paddingTop="3dp"
                         android:orientation="horizontal"
-                        android:layout_toLeftOf="@id/price">
+                        android:paddingBottom="3dp"
+                        android:paddingTop="3dp">
 
                         <TextView
-                            android:layout_weight="5"
                             android:id="@+id/title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginRight="5dp"
+                            android:layout_weight="5"
                             android:ellipsize="end"
                             android:singleLine="true"
                             android:text="大师傅大师傅大师傅大师傅大师傅大师傅大"
@@ -85,12 +84,12 @@
                             android:layout_centerVertical="true"
                             android:layout_toRightOf="@id/title"
                             android:background="@drawable/tv_corner"
+                            android:lines="1"
                             android:paddingBottom="3dp"
                             android:paddingLeft="5dp"
                             android:paddingRight="5dp"
                             android:paddingTop="3dp"
                             android:text="人际关系"
-                            android:lines="1"
                             android:textColor="@color/main_color"
                             android:textSize="10sp"
                             android:visibility="visible" />
@@ -99,11 +98,33 @@
 
                 </RelativeLayout>
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="5dp"
+                    android:orientation="horizontal"
                     android:paddingBottom="5dp">
+
+                    <!--<RelativeLayout-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginLeft="5dp"-->
+                    <!--&gt;-->
+                    <TextView
+                        android:id="@+id/tv_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="优米"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tv_tutortitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1"
+                        android:singleLine="true"
+                        android:text="优米音频工作室" />
 
                     <TextView
                         android:id="@+id/playtime"
@@ -115,15 +136,12 @@
                         android:id="@+id/dian"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/playtime"
-                        android:text="·"
-                        />
+                        android:text="·" />
 
                     <TextView
                         android:id="@+id/watchnum"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/dian"
                         android:text="6次" />
 
                     <!--<TextView-->
@@ -132,7 +150,10 @@
                     <!--android:layout_height="wrap_content"-->
                     <!--android:layout_alignParentRight="true"-->
                     <!--android:text="已播放" />-->
-                </RelativeLayout>
+                    <!--</RelativeLayout>-->
+
+                </LinearLayout>
+
             </LinearLayout>
 
 
