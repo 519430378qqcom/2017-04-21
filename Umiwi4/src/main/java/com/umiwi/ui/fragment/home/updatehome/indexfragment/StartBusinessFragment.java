@@ -271,7 +271,7 @@ public class StartBusinessFragment extends BaseConstantFragment {
 //                    }
 //                }
                 catid = tagsBeen.get(0).getCatid();
-//                Log.e("TAG", "catid=" + catid + ",catname=" +tagsBeen.get(1).getCatname() );
+//                Log.e("TAG", "catid=" + catid + ",catname=" +tagsBeen.get(0).getCatname() );
                 ArrayList<RecommendBean.RBean.TagsBean.SubTagBean> subtag = tagsBeen.get(0).getSubtag();
                 mList.addAll(subtag);
                 getCatid1Data();

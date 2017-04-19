@@ -261,7 +261,7 @@ public class NewTendencyFragment extends BaseConstantFragment {
 //                    }
 //                }
                 catid = tagsBeen.get(2).getCatid();
-//                Log.e("TAG", "catid=" + catid + ",catname=" +tagsBeen.get(1).getCatname() );
+//                Log.e("TAG", "catid=" + catid + ",catname=" +tagsBeen.get(2).getCatname() );
                 ArrayList<RecommendBean.RBean.TagsBean.SubTagBean> subtag = tagsBeen.get(2).getSubtag();
                 mList.addAll(subtag);
                 getCatid1Data();
