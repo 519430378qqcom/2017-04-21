@@ -67,7 +67,7 @@ public class LogicalThinkingAdapter extends BaseAdapter {
 //        }
 //        viewHolder.tv_title.setText(mList.get(position).getTitle());
 //        viewHolder.tv_time.setText(mList.get(position).getOnlinetime());
-//        viewHolder.tv_watchnum.setText(mList.get(position).getWatchnum() + "人读过");
+//        viewHolder.tv_watchnum.setText(mList.get(position).getWatchnum());
 //        viewHolder.tv_description.setText(mList.get(position).getDescription());
 //        Glide.with(activity).load(mList.get(position).getImage()).into(viewHolder.tv_imageview);
         //2017年4月19日新版
@@ -86,6 +86,7 @@ public class LogicalThinkingAdapter extends BaseAdapter {
         viewHolder.tv_time.setText(mList.get(position).getOnlinetime());
         viewHolder.tv_watchnum.setText(mList.get(position).getWatchnum());
 
+        //点击每个item记录变色
         String idArray = CacheUtil.getStringFile(activity, LogicalThinkingFragment.READ_ARRAY_ID);
         if (idArray.contains(mList.get(position).getId())) {
             viewHolder.tv_title.setTextColor(Color.GRAY);
@@ -100,6 +101,6 @@ public class LogicalThinkingAdapter extends BaseAdapter {
 
     class ViewHolder {
         private TextView tv_title, tv_time, tv_watchnum, tv_description,tv_attempt;
-        private ImageView iv_logical_point;
+        private ImageView iv_logical_point,tv_imageview;
     }
 }

@@ -45,6 +45,15 @@ public class TheHotListBeans implements Serializable {
         private String threadnum;
         private String salenum;
         private String type;
+        private String numtag;
+
+        public String getNumtag() {
+            return numtag;
+        }
+
+        public void setNumtag(String numtag) {
+            this.numtag = numtag;
+        }
 
         public String getType() {
             return type;

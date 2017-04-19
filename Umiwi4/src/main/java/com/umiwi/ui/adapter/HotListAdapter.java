@@ -1,7 +1,6 @@
 package com.umiwi.ui.adapter;
 
 import android.content.Context;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -76,15 +75,16 @@ public class HotListAdapter extends BaseAdapter {
         }
         viewHolder.tv_title.setText(recordBean.getTitle());
         viewHolder.tv_playtime.setText(recordBean.getPlaytime());
-        if (!TextUtils.isEmpty(recordBean.getWatchnum())){
-            viewHolder.tv_watchnum.setText(recordBean.getWatchnum());
-        }
-        if (!TextUtils.isEmpty(recordBean.getThreadnum())){
-            viewHolder.tv_watchnum.setText(recordBean.getThreadnum());
-        }
-        if (!TextUtils.isEmpty(recordBean.getSalenum())) {
-            viewHolder.tv_watchnum.setText(recordBean.getSalenum());
-        }
+//        if (!TextUtils.isEmpty(recordBean.getWatchnum())){
+//            viewHolder.tv_watchnum.setText(recordBean.getWatchnum());
+//        }
+//        if (!TextUtils.isEmpty(recordBean.getThreadnum())){
+//            viewHolder.tv_watchnum.setText(recordBean.getThreadnum());
+//        }
+//        if (!TextUtils.isEmpty(recordBean.getSalenum())) {
+//            viewHolder.tv_watchnum.setText(recordBean.getSalenum());
+//        }
+        viewHolder.tv_watchnum.setText(recordBean.getNumtag());
         viewHolder.tv_name.setText(recordBean.getName());
         viewHolder.tv_tutortitle.setText(recordBean.getTutortitle());
         return view;

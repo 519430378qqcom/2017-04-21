@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -28,43 +27,43 @@
             <!--android:textSize="20sp" />-->
     <!--</RelativeLayout>-->
 
-    <FrameLayout
-        android:id="@+id/line_two"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <!--<FrameLayout-->
+        <!--android:id="@+id/line_two"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="41dp"
-            android:orientation="vertical">
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="41dp"-->
+            <!--android:orientation="vertical">-->
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@color/line" />
+            <!--<View-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="1px"-->
+                <!--android:background="@color/line" />-->
 
-            <android.support.design.widget.TabLayout
-                android:id="@+id/tabs_order"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@color/white"
-                app:tabIndicatorColor="@color/main_color"
-                app:tabSelectedTextColor="@color/main_color"
-                app:tabTextColor="@color/black" />
+            <!--<android.support.design.widget.TabLayout-->
+                <!--android:id="@+id/tabs_order"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="40dp"-->
+                <!--android:background="@color/white"-->
+                <!--app:tabIndicatorColor="@color/main_color"-->
+                <!--app:tabSelectedTextColor="@color/main_color"-->
+                <!--app:tabTextColor="@color/black" />-->
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@color/line" />
-        </LinearLayout>
-    </FrameLayout>
+            <!--<View-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="1px"-->
+                <!--android:background="@color/line" />-->
+        <!--</LinearLayout>-->
+    <!--</FrameLayout>-->
 
-    <FrameLayout
-        android:id="@+id/fl_content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <!--<FrameLayout-->
+        <!--android:id="@+id/fl_content"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
 
-    </FrameLayout>
+    <!--</FrameLayout>-->
 
     <!--<com.umiwi.ui.view.RefreshLayout
         android:id="@+id/refreshLayout"
@@ -77,4 +76,75 @@
             android:layout_height="match_parent"/>
 
     </com.umiwi.ui.view.RefreshLayout>-->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="42dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+
+
+            <TextView
+                android:id="@+id/ab_tab_hottop"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="热播榜"
+                android:textColor="@color/main_color"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/ab_tab_saletop"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="热销榜"
+                android:textColor="@color/black"
+                android:textSize="13sp" />
+            <TextView
+                android:id="@+id/ab_tab_threadtop"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="热评榜"
+                android:textColor="@color/black"
+                android:textSize="13sp" />
+            <!--<TextView-->
+                <!--android:id="@+id/ab_tab_special"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:gravity="center"-->
+                <!--android:text="专题"-->
+                <!--android:textColor="@color/black"-->
+                <!--android:textSize="13sp" />-->
+            <!--<TextView-->
+            <!--android:id="@+id/ab_tab_ask_hear"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"-->
+            <!--android:gravity="center"-->
+            <!--android:text="问听"-->
+            <!--android:textColor="@color/black"-->
+            <!--android:textSize="13sp" />-->
+        </LinearLayout>
+
+        <View
+            android:id="@+id/ab_line"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/main_color" />
+    </RelativeLayout>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/ab_viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></android.support.v4.view.ViewPager>
 </LinearLayout>
