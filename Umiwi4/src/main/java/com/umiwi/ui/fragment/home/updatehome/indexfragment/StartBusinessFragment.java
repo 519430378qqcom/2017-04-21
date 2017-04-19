@@ -9,7 +9,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -266,15 +265,16 @@ public class StartBusinessFragment extends BaseConstantFragment {
             @Override
             public void onResult(AbstractRequest<RecommendBean> request, RecommendBean recommendBean) {
                 ArrayList<RecommendBean.RBean.TagsBean> tagsBeen = recommendBean.getR().getTags();
-                for (int i = 0; i < tagsBeen.size(); i++) {
-                    if ("创业".equals(tagsBeen.get(i).getCatname())) {
-                        catid = tagsBeen.get(i).getCatid();
-                        Log.e("TAG", "catid=" + catid);
-                        ArrayList<RecommendBean.RBean.TagsBean.SubTagBean> subtag = tagsBeen.get(i).getSubtag();
-                        mList.addAll(subtag);
-                        getCatid1Data();
-                    }
-                }
+//                for (int i = 0; i < tagsBeen.size(); i++) {
+//                    if ("创业".equals(tagsBeen.get(i).getCatname())) {
+//
+//                    }
+//                }
+                catid = tagsBeen.get(0).getCatid();
+//                Log.e("TAG", "catid=" + catid + ",catname=" +tagsBeen.get(1).getCatname() );
+                ArrayList<RecommendBean.RBean.TagsBean.SubTagBean> subtag = tagsBeen.get(0).getSubtag();
+                mList.addAll(subtag);
+                getCatid1Data();
             }
 
             @Override

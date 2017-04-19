@@ -253,13 +253,18 @@ public class NewTendencyFragment extends BaseConstantFragment {
             @Override
             public void onResult(AbstractRequest<RecommendBean> request, RecommendBean recommendBean) {
                 ArrayList<RecommendBean.RBean.TagsBean> tagsBeen = recommendBean.getR().getTags();
-                for (int i = 0;i <tagsBeen.size(); i ++) {
-                    if("新趋势".equals(tagsBeen.get(i).getCatname())) {
-                        ArrayList<RecommendBean.RBean.TagsBean.SubTagBean> subtag = tagsBeen.get(i).getSubtag();
-                        mList.addAll(subtag);
-                        getCatid1Data();
-                    }
-                }
+//                for (int i = 0;i <tagsBeen.size(); i ++) {
+//                    if("新趋势".equals(tagsBeen.get(i).getCatname())) {
+//                        ArrayList<RecommendBean.RBean.TagsBean.SubTagBean> subtag = tagsBeen.get(i).getSubtag();
+//                        mList.addAll(subtag);
+//                        getCatid1Data();
+//                    }
+//                }
+                catid = tagsBeen.get(2).getCatid();
+//                Log.e("TAG", "catid=" + catid + ",catname=" +tagsBeen.get(1).getCatname() );
+                ArrayList<RecommendBean.RBean.TagsBean.SubTagBean> subtag = tagsBeen.get(2).getSubtag();
+                mList.addAll(subtag);
+                getCatid1Data();
             }
 
             @Override
