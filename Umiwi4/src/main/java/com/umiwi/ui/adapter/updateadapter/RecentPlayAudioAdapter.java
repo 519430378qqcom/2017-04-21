@@ -50,7 +50,7 @@ public class RecentPlayAudioAdapter extends BaseAdapter {
             viewHolder.price = (TextView) convertView.findViewById(R.id.price);
             viewHolder.playtime = (TextView) convertView.findViewById(R.id.playtime);
             viewHolder.watchnum = (TextView) convertView.findViewById(R.id.watchnum);
-            viewHolder.process = (TextView) convertView.findViewById(R.id.process);
+//            viewHolder.process = (TextView) convertView.findViewById(R.id.process);
             viewHolder.view_firstvisable = convertView.findViewById(R.id.view_firstvisable);
             convertView.setTag(viewHolder);
         } else {
@@ -73,7 +73,7 @@ public class RecentPlayAudioAdapter extends BaseAdapter {
         viewHolder.price.setText(record.getPrice());
         viewHolder.playtime.setText(record.getPlaytime());
         viewHolder.watchnum.setText("播放" + record.getWatchnum() + "次");
-        viewHolder.process.setText("已播" + record.getProcess());
+//        viewHolder.process.setText("已播" + record.getProcess());
         return convertView;
     }
 

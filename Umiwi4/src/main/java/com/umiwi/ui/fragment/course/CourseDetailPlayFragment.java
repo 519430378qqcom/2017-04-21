@@ -164,7 +164,7 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
 
     private View rightPanelLayout;
     private ListView playListView;
-//    private int totals;
+    //    private int totals;
     private int page = 1;
     private int totals;
     public static boolean isAlive = false;
@@ -244,7 +244,7 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
         View tabLayout = rootView.findViewById(R.id.tab_layout);
 
         mLoadingFooter = new LoadingFooter(getActivity());// 加载更多的view
-        mScrollLoader = new ListViewQuickReturnScrollLoader(QuickReturnViewType.FOOTER, null, 0, bottomBarLayout, bottomHeight,this, mLoadingFooter);
+        mScrollLoader = new ListViewQuickReturnScrollLoader(QuickReturnViewType.FOOTER, null, 0, bottomBarLayout, bottomHeight, this, mLoadingFooter);
 
         mListView.setAdapter(mAdapter);
         mListView.setOnScrollListener(mScrollLoader);
@@ -285,6 +285,7 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
 //        Log.e("TAG", "评论链接url1213123=" + String.format(UmiwiAPI.COMMENT_REPLY_LIST, albumID, page));
         request.go();
     }
+
     private Listener<CommentListBeans.CommentListRequestData> commentNumber = new Listener<CommentListBeans.CommentListRequestData>() {
         @Override
         public void onResult(AbstractRequest<CommentListBeans.CommentListRequestData> request, CommentListBeans.CommentListRequestData commentListRequestData) {
@@ -298,6 +299,7 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
 
         }
     };
+
     /**
      * 底部登录与权限控制面板
      */
@@ -406,7 +408,7 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
         super.onPause();
         isAlive = false;
         MobclickAgent.onPageEnd(fragmentName);
-        if(PlayerController.getInstance() != null) {
+        if (PlayerController.getInstance() != null) {
             PlayerController.getInstance().pause();
         }
     }
@@ -461,7 +463,7 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
         if (HomeMainActivity.isForeground) {
 
         } else {
-            Intent intent = new Intent(getActivity(),HomeMainActivity.class);
+            Intent intent = new Intent(getActivity(), HomeMainActivity.class);
             startActivity(intent);
         }
     }
@@ -544,8 +546,8 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
                 } else {
                     bottomCourseOldPrice.setVisibility(View.GONE);
                 }
-                bottomCourseOldPrice.setText("￥"+ mRequestData.getOldprice());
-                bottomCourseOldPrice.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG|Paint.ANTI_ALIAS_FLAG); // 设置中划线并加清晰
+                bottomCourseOldPrice.setText("￥" + mRequestData.getOldprice());
+                bottomCourseOldPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG); // 设置中划线并加清晰
                 bottomCourseBuyButton.setVisibility(View.VISIBLE);
                 bottomCompetenceButton.setVisibility(View.VISIBLE);
                 bottomCourseBuyButton.setOnClickListener(courseBuyButtonListener);
@@ -666,10 +668,12 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
             }
 
             if (NetworkManager.getInstance().isWapNetwork()) {
-                if (mSpUtil.getShow3GDialog()) {
+                Log.e("TAG", "mSpUtil.getShow3GDialog()=" + mSpUtil.getShow3GDialog());
+                Log.e("TAG", "mSpUtil.getPlayWith3G()=" + mSpUtil.getPlayWith3G());
+
+                if (!mSpUtil.getShow3GDialog()) {
                     isFirstLoad = true;
                     showNetorkDialog();
-
                 }
                 if (mSpUtil.getPlayWith3G()) {
                     PlayerController.getInstance().prepareAndStart();
@@ -1432,7 +1436,7 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
                 if (mList != null) {
 
                     mList.add(0, t.getR());
-                    totals +=1;
+                    totals += 1;
                     mAdapter.setCommentNum(totals + "");
 //                    mAdapter.notifyDataSetChanged();
                 }
@@ -1486,7 +1490,7 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
             @Override
             public void onClick(View v) {
                 mSpUtil.setPalyWith3G(false);
-                mSpUtil.setShow3GDialog(true);
+                mSpUtil.setShow3GDialog(false);
                 dialogPlus.dismiss();
                 getActivity().finish();
             }
@@ -1496,11 +1500,13 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
             @Override
             public void onClick(View v) {
                 mSpUtil.setPalyWith3G(true);
-                mSpUtil.setShow3GDialog(false);
+                mSpUtil.setShow3GDialog(true);
+                Log.e("TAG", "isFirstLoad=" + isFirstLoad);
                 if (isFirstLoad) {
                     onLoadDetailData();
                     isFirstLoad = false;
                 } else {
+                    onLoadDetailData();
                     PlayerController.getInstance().resume();
                 }
                 dialogPlus.dismiss();

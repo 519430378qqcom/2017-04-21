@@ -108,6 +108,7 @@ public class SettingFragment extends BaseFragment implements OnClickListener{
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				mSpUtil.setPalyWith3G(!isChecked);
+				mSpUtil.setShow3GDialog(!isChecked);
 			}
 		});
 
