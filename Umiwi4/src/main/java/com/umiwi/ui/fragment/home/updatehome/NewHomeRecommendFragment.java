@@ -60,6 +60,7 @@ import cn.youmi.framework.http.GetRequest;
 import cn.youmi.framework.http.parsers.GsonParser;
 
 
+
 /**
  * Created by LvDabing on 2017/2/16.
  * Email：lvdabing@lvshandian.com
@@ -114,6 +115,7 @@ public class NewHomeRecommendFragment extends BaseConstantFragment {
     private ImageView iv_next_tab;
     private ProgressBar pb_loading;
     private TextView tv_nowifi;
+    private boolean isClick = true;
 
     public static ViewPager getRootViewpager() {
         return rootviewPager;
@@ -144,12 +146,25 @@ public class NewHomeRecommendFragment extends BaseConstantFragment {
 //        initData();
         getTagsInfo();
 
+        tv_nowifi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (CommonHelper.checkNetWifi(getActivity())) {
+                    if(isClick) {
+                        getTagsInfo();
+                        isClick = false;
+                    }
+                }
+//                Log.e("TAG", "1212133213");
+            }
+        });
+
         return view;
     }
 
     //获取导航栏字段
     private void getTagsInfo() {
-        if(!CommonHelper.checkNetWifi(getActivity())) {
+        if (!CommonHelper.checkNetWifi(getActivity())) {
             pb_loading.setVisibility(View.GONE);
             tv_nowifi.setVisibility(View.VISIBLE);
         }
@@ -167,6 +182,8 @@ public class NewHomeRecommendFragment extends BaseConstantFragment {
                     initData();
                 }
                 pb_loading.setVisibility(View.GONE);
+                tv_nowifi.setVisibility(View.GONE);
+
             }
 
             @Override
