@@ -39,6 +39,7 @@ import com.umiwi.ui.fragment.search.SearchFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.main.UmiwiApplication;
+import com.umiwi.ui.util.CommonHelper;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -112,6 +113,7 @@ public class NewHomeRecommendFragment extends BaseConstantFragment {
     private AnimationDrawable background;
     private ImageView iv_next_tab;
     private ProgressBar pb_loading;
+    private TextView tv_nowifi;
 
     public static ViewPager getRootViewpager() {
         return rootviewPager;
@@ -141,11 +143,16 @@ public class NewHomeRecommendFragment extends BaseConstantFragment {
         initRecord();
 //        initData();
         getTagsInfo();
+
         return view;
     }
 
     //获取导航栏字段
     private void getTagsInfo() {
+        if(!CommonHelper.checkNetWifi(getActivity())) {
+            pb_loading.setVisibility(View.GONE);
+            tv_nowifi.setVisibility(View.VISIBLE);
+        }
         GetRequest<RecommendBean> request = new GetRequest<>(
                 UmiwiAPI.VIDEO_TUIJIAN, GsonParser.class, RecommendBean.class, new AbstractRequest.Listener<RecommendBean>() {
             @Override
@@ -172,6 +179,7 @@ public class NewHomeRecommendFragment extends BaseConstantFragment {
     }
 
     private void initViews(View view) {
+        tv_nowifi = (TextView) view.findViewById(R.id.tv_nowifi);
         pb_loading = (ProgressBar) view.findViewById(R.id.pb_loading);
         search = (TextView) view.findViewById(R.id.search);
         record = (ImageView) view.findViewById(R.id.record);

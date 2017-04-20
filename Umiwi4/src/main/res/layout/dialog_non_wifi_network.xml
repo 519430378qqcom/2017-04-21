@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:padding="8dp"
-            android:text="您正使用2G/3G网络观看视频，运营商将会收取较高费用。是否继续？"
+            android:text="您正使用2G/3G/4G网络观看视频，运营商将会收取较高费用。是否继续？"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/umiwi_black"
             android:textSize="16sp" />

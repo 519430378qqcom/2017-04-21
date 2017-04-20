@@ -203,8 +203,9 @@ public class SplashFragment extends BaseConstantFragment {
 //                mSharedPreferences.edit().putBoolean("isCanShowGift", true).commit();
 //                startActivity(i2);
 //            }
-
-            getActivity().finish();
+            if(getActivity() != null) {
+                getActivity().finish();
+            }
         }
     };
 

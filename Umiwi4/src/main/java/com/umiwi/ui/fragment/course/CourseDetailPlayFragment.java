@@ -669,6 +669,7 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
                 if (mSpUtil.getShow3GDialog()) {
                     isFirstLoad = true;
                     showNetorkDialog();
+
                 }
                 if (mSpUtil.getPlayWith3G()) {
                     PlayerController.getInstance().prepareAndStart();
@@ -1495,6 +1496,7 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
             @Override
             public void onClick(View v) {
                 mSpUtil.setPalyWith3G(true);
+                mSpUtil.setShow3GDialog(false);
                 if (isFirstLoad) {
                     onLoadDetailData();
                     isFirstLoad = false;
