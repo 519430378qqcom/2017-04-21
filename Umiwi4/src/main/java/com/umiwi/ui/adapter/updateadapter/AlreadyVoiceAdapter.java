@@ -12,6 +12,9 @@ import com.umiwi.ui.beans.updatebeans.AlreadyShopVoiceBean;
 
 import java.util.ArrayList;
 
+import static com.umiwi.ui.R.id.tv_name;
+import static com.umiwi.ui.R.id.tv_tutortitle;
+
 /**
  * Created by Administrator on 2017/3/12.
  */
@@ -50,10 +53,12 @@ public class AlreadyVoiceAdapter extends BaseAdapter {
             hoder.price = (TextView) view.findViewById(R.id.price);
             hoder.playtime = (TextView) view.findViewById(R.id.playtime);
             hoder.watchnum = (TextView) view.findViewById(R.id.watchnum);
-            hoder.process = (TextView) view.findViewById(R.id.process);
+//            hoder.process = (TextView) view.findViewById(R.id.process);
             hoder.view_firstvisable = view.findViewById(R.id.view_firstvisable);
-            hoder.price.setVisibility(View.GONE);
-            hoder.process.setVisibility(View.INVISIBLE);
+            hoder.tv_tutortitle = (TextView) view.findViewById(tv_tutortitle);
+            hoder.tv_name = (TextView) view.findViewById(tv_name);
+//            hoder.price.setVisibility(View.GONE);
+//            hoder.process.setVisibility(View.INVISIBLE);
             view.setTag(hoder);
         } else {
             hoder = (VoiceHoder) view.getTag();
@@ -77,7 +82,7 @@ public class AlreadyVoiceAdapter extends BaseAdapter {
 //        Log.e("TAG", "record.getPrice()=" + record.getPrice());
         hoder.playtime.setText(record.getPlaytime());
         hoder.watchnum.setText("播放"+record.getWatchnum()+"次");
-        hoder.process.setText("已播"+record.getProcess());
+//        hoder.process.setText("已播"+record.getProcess());
         return view;
     }
 
@@ -90,10 +95,10 @@ public class AlreadyVoiceAdapter extends BaseAdapter {
 
         TextView title;
         TextView cat;
-        TextView price;
+        TextView tv_name,tv_tutortitle;
         TextView playtime;
         TextView watchnum;
-        TextView process;
+        TextView price;
         View view_firstvisable;
     }
 }

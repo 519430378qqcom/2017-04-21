@@ -124,7 +124,7 @@
                         android:layout_marginLeft="5dp"
                         android:layout_weight="1"
                         android:singleLine="true"
-                        android:text="优米音频工作室" />
+                        android:text="优米音频工作室优米音频工作室优米音频工作室" />
 
                     <TextView
                         android:id="@+id/playtime"
