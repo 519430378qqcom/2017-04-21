@@ -45,7 +45,7 @@
                     android:layout_toLeftOf="@+id/pricetag"
                     android:singleLine="true"
                     android:text="破解时代"
-                    android:textColor="@color/black_a8"
+                    android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <TextView
@@ -55,7 +55,6 @@
                     android:layout_alignBaseline="@+id/tv_title"
                     android:layout_alignBottom="@+id/tv_title"
                     android:layout_alignParentRight="true"
-                    android:background="@drawable/tv_hot_list02"
                     android:paddingBottom="2dp"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
@@ -63,7 +62,8 @@
                     android:paddingTop="2dp"
                     android:text="创业"
                     android:textColor="@color/hot_list01"
-                    android:textSize="11sp" />
+                    android:textSize="13sp" />
+                    <!--android:background="@drawable/tv_hot_list02"-->
 
             </RelativeLayout>
 

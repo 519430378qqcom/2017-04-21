@@ -66,12 +66,12 @@ public class HotListAdapter extends BaseAdapter {
         }
         if (recordBean.getPricetag().equals("免费")){
             viewHolder.pricetag.setText(recordBean.getPricetag());
-            viewHolder.pricetag.setTextColor(context.getResources().getColor(R.color.hot_list02));
-            viewHolder.pricetag.setBackgroundResource(R.drawable.tv_hot_list02);
+            viewHolder.pricetag.setTextColor(context.getResources().getColor(R.color.hot_list01));
+//            viewHolder.pricetag.setBackgroundResource(R.drawable.tv_hot_list01);
         }else {
             viewHolder.pricetag.setText(recordBean.getPricetag());
             viewHolder.pricetag.setTextColor(context.getResources().getColor(R.color.hot_list01));
-            viewHolder.pricetag.setBackgroundResource(R.drawable.tv_hot_list01);
+//            viewHolder.pricetag.setBackgroundResource(R.drawable.tv_hot_list01);
         }
         viewHolder.tv_title.setText(recordBean.getTitle());
         viewHolder.tv_playtime.setText(recordBean.getPlaytime());
