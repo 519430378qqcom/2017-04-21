@@ -77,7 +77,8 @@ public class AlreadyVoiceAdapter extends BaseAdapter {
             hoder.cat.setVisibility(View.GONE);
         }
         hoder.title.setText(record.getTitle());
-
+        hoder.tv_name.setText(record.getName());
+        hoder.tv_tutortitle.setText(record.getTutortitle());
         hoder.price.setText(record.getPrice());
 //        Log.e("TAG", "record.getPrice()=" + record.getPrice());
         hoder.playtime.setText(record.getPlaytime());

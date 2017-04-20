@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -96,6 +97,8 @@ public class NewTendencyFragment extends BaseConstantFragment {
     private float mCurrentY;
     private int direction;
     private ObjectAnimator animator;
+    private String catidFinal;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -134,7 +137,7 @@ public class NewTendencyFragment extends BaseConstantFragment {
         initFlowPriceOrFree();
         initFlowOrderby();
         initScrollView();
-        getinfos();
+//        getinfos();
         return view;
     }
     private void initScrollView() {
@@ -211,7 +214,7 @@ public class NewTendencyFragment extends BaseConstantFragment {
     //请求列表数据
     private void getinfos() {
         String url = String.format(UmiwiAPI.UMIWI_BUS_WORK_TEND, page, catid, type,price, orderby);
-//        Log.e("TAG", "url12121=" + url);
+        Log.e("TAG", "新趋势数据=" + url);
         GetRequest<AudioVideoBean> request = new GetRequest<AudioVideoBean>(url, GsonParser.class, AudioVideoBean.class, new AbstractRequest.Listener<AudioVideoBean>() {
             @Override
             public void onResult(AbstractRequest<AudioVideoBean> request, AudioVideoBean audioVideoBean) {
@@ -261,9 +264,11 @@ public class NewTendencyFragment extends BaseConstantFragment {
 //                    }
 //                }
                 catid = tagsBeen.get(2).getCatid();
+                catidFinal = catid;
 //                Log.e("TAG", "catid=" + catid + ",catname=" +tagsBeen.get(2).getCatname() );
                 ArrayList<RecommendBean.RBean.TagsBean.SubTagBean> subtag = tagsBeen.get(2).getSubtag();
                 mList.addAll(subtag);
+                getinfos();
                 getCatid1Data();
             }
 
@@ -317,7 +322,7 @@ public class NewTendencyFragment extends BaseConstantFragment {
         tv_all_catid1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                catid = "";
+                catid = catidFinal;
                 catid1 = "";
                 isRefresh = true;
                 getinfos();

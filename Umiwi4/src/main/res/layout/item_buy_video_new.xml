@@ -112,9 +112,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="优米"
-                        android:textSize="14sp" />
+                        android:textSize="13sp" />
 
                     <TextView
+                        android:textSize="13sp"
                         android:id="@+id/tv_tutortitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -124,6 +125,7 @@
                         android:text="优米音频工作室优米音频工作室优米音频工作室" />
 
                     <TextView
+                        android:textSize="13sp"
                         android:id="@+id/playtime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -136,6 +138,7 @@
                         android:text="·" />
 
                     <TextView
+                        android:textSize="13sp"
                         android:id="@+id/watchnum"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

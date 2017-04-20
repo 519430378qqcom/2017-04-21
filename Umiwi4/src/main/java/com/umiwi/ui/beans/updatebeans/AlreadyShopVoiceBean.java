@@ -130,6 +130,26 @@ public class AlreadyShopVoiceBean extends BaseModel {
             private String process;
             @SerializedName("hrefurl")
             private String hrefurl;
+            @SerializedName("name")
+            private String name;
+            @SerializedName("tutortitle")
+            private String tutortitle;
+
+            public String getName() {
+                return name;
+            }
+
+            public void setName(String name) {
+                this.name = name;
+            }
+
+            public String getTutortitle() {
+                return tutortitle;
+            }
+
+            public void setTutortitle(String tutortitle) {
+                this.tutortitle = tutortitle;
+            }
 
             public String getId() {
                 return id;

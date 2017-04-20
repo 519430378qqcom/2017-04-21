@@ -138,6 +138,26 @@ public class AudioVideoBean extends BaseGsonBeans {
             private String url;
             @SerializedName("playtime")
             private String playtime;
+            @SerializedName("name")
+            private String name;
+            @SerializedName("tutortitle")
+            private String tutortitle;
+
+            public String getName() {
+                return name;
+            }
+
+            public void setName(String name) {
+                this.name = name;
+            }
+
+            public String getTutortitle() {
+                return tutortitle;
+            }
+
+            public void setTutortitle(String tutortitle) {
+                this.tutortitle = tutortitle;
+            }
 
             public String getPlaytime() {
                 return playtime;
