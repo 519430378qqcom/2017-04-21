@@ -381,6 +381,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                 AudioTmessageBeans.class,
                 AudioListener);
         request.go();
+         hideKeyBoard();
         closeButtomSend();
     }
 
