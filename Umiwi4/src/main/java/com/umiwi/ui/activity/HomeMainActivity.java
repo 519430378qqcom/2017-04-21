@@ -88,6 +88,8 @@ public class HomeMainActivity extends AppCompatActivity {
 
 
 
+
+
     private CollectionDao collectDao;
 
     public static final String KEY_AD_SPLASH = "key.ad.splash";
