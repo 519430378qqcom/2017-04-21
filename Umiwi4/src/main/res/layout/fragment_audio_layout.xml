@@ -11,7 +11,7 @@
 
         <ListView
             android:id="@+id/listview"
-            android:divider="#00000000"
+            android:divider="@null"
             android:dividerHeight="0dip"
             android:listSelector="@android:color/transparent"
             android:layout_width="match_parent"

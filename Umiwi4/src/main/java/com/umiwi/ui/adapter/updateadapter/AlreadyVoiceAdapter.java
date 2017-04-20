@@ -81,7 +81,7 @@ public class AlreadyVoiceAdapter extends BaseAdapter {
         hoder.price.setText(record.getPrice());
 //        Log.e("TAG", "record.getPrice()=" + record.getPrice());
         hoder.playtime.setText(record.getPlaytime());
-        hoder.watchnum.setText("播放"+record.getWatchnum()+"次");
+        hoder.watchnum.setText("播放"+record.getWatchnum());
 //        hoder.process.setText("已播"+record.getProcess());
         return view;
     }
