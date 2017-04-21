@@ -74,6 +74,7 @@
                             android:layout_weight="5"
                             android:ellipsize="end"
                             android:singleLine="true"
+                            android:textSize="14sp"
                             android:text="大师傅大师傅大师傅大师傅大师傅大师傅大"
                             android:textColor="@color/umiwi_black" />
 

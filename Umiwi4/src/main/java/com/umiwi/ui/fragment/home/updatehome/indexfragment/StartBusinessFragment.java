@@ -5,7 +5,6 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -308,6 +307,7 @@ public class StartBusinessFragment extends BaseConstantFragment {
             final TextView tv = (TextView) LayoutInflater.from(mContext).inflate(R
                     .layout.flow_text, flow_catid1, false);
             tv.setText(catid1List.get(i));
+            tv.setTextSize(14);
             tv.setTextColor(mContext.getResources().getColor(R.color.gray_a));
             tv_all_catid1.setTextColor(mContext.getResources().getColor(R.color.main_color));
             final int finalI = i;
@@ -353,8 +353,8 @@ public class StartBusinessFragment extends BaseConstantFragment {
             final TextView tv = (TextView) LayoutInflater.from(mContext).inflate(R
                     .layout.flow_text, flow_orderby, false);
             tv.setText(orderbyList.get(i));
-
-            tv.setTextColor(Color.BLACK);
+            tv.setTextSize(14);
+//            tv.setTextColor(Color.BLACK);
             tv.setTextColor(mContext.getResources().getColor(R.color.gray_a));
             tv_all_orderby.setTextColor(mContext.getResources().getColor(R.color.main_color));
             final int finalI = i;
@@ -399,6 +399,7 @@ public class StartBusinessFragment extends BaseConstantFragment {
             final TextView tv = (TextView) LayoutInflater.from(mContext).inflate(R
                     .layout.flow_text, flow_price1, false);
             tv.setText(priceList1.get(i));
+            tv.setTextSize(14);
             tv.setTextColor(mContext.getResources().getColor(R.color.gray_a));
             tv_all_price1.setTextColor(mContext.getResources().getColor(R.color.main_color));
             final int finalI = i;
@@ -443,6 +444,7 @@ public class StartBusinessFragment extends BaseConstantFragment {
             final TextView tv = (TextView) LayoutInflater.from(mContext).inflate(R
                     .layout.flow_text, flow_price, false);
             tv.setText(priceList.get(i));
+            tv.setTextSize(14);
             tv.setTextColor(mContext.getResources().getColor(R.color.gray_a));
             tv_all_price.setTextColor(mContext.getResources().getColor(R.color.main_color));
             final int finalI = i;
