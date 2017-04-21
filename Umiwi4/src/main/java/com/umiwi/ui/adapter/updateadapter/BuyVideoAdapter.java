@@ -1,6 +1,7 @@
 package com.umiwi.ui.adapter.updateadapter;
 
 import android.support.v4.app.FragmentActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -11,6 +12,7 @@ import com.umiwi.ui.beans.updatebeans.AlreadyVideoBean;
 
 import java.util.ArrayList;
 
+import static com.umiwi.ui.R.id.cat;
 import static com.umiwi.ui.R.id.tv_name;
 import static com.umiwi.ui.R.id.tv_tutortitle;
 
@@ -53,7 +55,7 @@ public class BuyVideoAdapter extends BaseAdapter {
 //            hoder.describe = (TextView) view.findViewById(R.id.describe);
 //            hoder.paly_length = (TextView) view.findViewById(R.id.paly_length);
             view = View.inflate(activity, R.layout.item_buy_video_new, null);
-            hoder.cat = (TextView) view.findViewById(R.id.cat);
+            hoder.cat = (TextView) view.findViewById(cat);
             hoder.title = (TextView) view.findViewById(R.id.title);
             hoder.price = (TextView) view.findViewById(R.id.price);
             hoder.playtime = (TextView) view.findViewById(R.id.playtime);
@@ -74,6 +76,13 @@ public class BuyVideoAdapter extends BaseAdapter {
 //        hoder.times.setText(recordInfo.getTime());
 //        hoder.describe.setText(recordInfo.getTutortitle());
 //        hoder.paly_length.setText(recordInfo.getPlaytime());
+        String cat = recordInfo.getTagname();
+        if (!TextUtils.isEmpty(cat)) {
+            hoder.cat.setText(cat);
+            hoder.cat.setVisibility(View.VISIBLE);
+        } else {
+            hoder.cat.setVisibility(View.GONE);
+        }
         if (i == 0) {
             hoder.view_firstvisable.setVisibility(View.GONE);
         } else {

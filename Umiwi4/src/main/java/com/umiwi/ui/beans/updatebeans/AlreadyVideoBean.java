@@ -156,7 +156,16 @@ public class AlreadyVideoBean extends BaseGsonBeans {
            private String time;
            @SerializedName("playtime")
            private String playtime;
+           @SerializedName("tagname")
+           private String tagname;
 
+           public String getTagname() {
+               return tagname;
+           }
+
+           public void setTagname(String tagname) {
+               this.tagname = tagname;
+           }
        }
 
         public static class PageBean {

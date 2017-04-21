@@ -22,6 +22,7 @@ import butterknife.InjectView;
 
 /**
  * Created by Administrator on 2017/3/22.
+ * 浏览记录
  */
 
 public class RecentPlayRecordFragment extends BaseConstantFragment {

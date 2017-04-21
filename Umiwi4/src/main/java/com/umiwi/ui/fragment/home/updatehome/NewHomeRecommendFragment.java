@@ -183,7 +183,6 @@ public class NewHomeRecommendFragment extends BaseConstantFragment {
                 }
                 pb_loading.setVisibility(View.GONE);
                 tv_nowifi.setVisibility(View.GONE);
-
             }
 
             @Override

@@ -26,6 +26,7 @@ import java.util.List;
 import cn.youmi.framework.http.AbstractRequest;
 import cn.youmi.framework.http.GetRequest;
 import cn.youmi.framework.http.parsers.GsonParser;
+import cn.youmi.framework.util.ToastU;
 
 /**
  * Created by Administrator on 2017/3/22.
@@ -40,6 +41,7 @@ public class RecentPlayAudioFragment extends BaseConstantFragment {
     private int page = 1;
     private boolean isla = false;
     private boolean isload = false;
+    private boolean isRefresh = true;
     private List<AlreadyShopVoiceBean.RAlreadyVoice.Record> mList;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,12 +79,20 @@ public class RecentPlayAudioFragment extends BaseConstantFragment {
         refreshLayout.setOnLoadListener(new RefreshLayout.OnLoadListener() {
             @Override
             public void onLoad() {
-                isload = true;
                 page++;
+                isRefresh = false;
                 if (page <= totalpage) {
-                    getInfos();
+                    refreshLayout.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            getInfos();
+                        }
+                    }, 1000);
+
                 } else {
+                    ToastU.showLong(getActivity(), "没有更多了!");
                     refreshLayout.setLoading(false);
+
                 }
             }
         });
@@ -90,11 +100,8 @@ public class RecentPlayAudioFragment extends BaseConstantFragment {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                listview.setEnabled(false);
-                isla = true;
+                isRefresh = true;
                 page = 1;
-//                mList.clear();
-
                 getInfos();
             }
         });
@@ -102,9 +109,9 @@ public class RecentPlayAudioFragment extends BaseConstantFragment {
 
     //请求数据
     private void getInfos() {
-        String format = String.format(UmiwiAPI.UMIWI_ENSH_VIDEO, 1);
-        Log.e("TAG", "收藏列表视频format=" + format);
-        String url = UmiwiAPI.UMIWI_AUDIO_RECORD;
+//        String format = String.format(UmiwiAPI.UMIWI_ENSH_VIDEO, 1);
+//        Log.e("TAG", "浏览记录=" + format);
+        String url = String.format(UmiwiAPI.UMIWI_AUDIO_RECORD,page);
         GetRequest<AlreadyShopVoiceBean> request = new GetRequest<AlreadyShopVoiceBean>(
                 url, GsonParser.class,
                 AlreadyShopVoiceBean.class,
@@ -113,24 +120,28 @@ public class RecentPlayAudioFragment extends BaseConstantFragment {
                     public void onResult(AbstractRequest<AlreadyShopVoiceBean> request, AlreadyShopVoiceBean alreadyShopVoiceBean) {
                         AlreadyShopVoiceBean.RAlreadyVoice.PageBean page = alreadyShopVoiceBean.getR().getPage();
                         totalpage = page.getTotalpage();
+                        Log.e("TAG", "toata=" + totalpage);
                         ArrayList<AlreadyShopVoiceBean.RAlreadyVoice.Record> record = alreadyShopVoiceBean.getR().getRecord();
-                        mList.clear();
+
+                        if (isRefresh) {
+                            refreshLayout.setRefreshing(false);
+                            mList.clear();
+                        } else {
+                            refreshLayout.setLoading(false);
+                        }
                         mList.addAll(record);
                         audioAdapter.setData(mList);
 
-                        if (isla) {
-                            listview.setEnabled(true);
-                            isla = false;
-                            refreshLayout.setRefreshing(false);
-                        } else if (isload) {
-                            isload = false;
-                            refreshLayout.setLoading(false);
-                        }
+
                     }
 
                     @Override
                     public void onError(AbstractRequest<AlreadyShopVoiceBean> requet, int statusCode, String body) {
-
+                        if (isRefresh) {
+                            refreshLayout.setRefreshing(false);
+                        } else {
+                            refreshLayout.setLoading(false);
+                        }
                     }
                 });
         request.go();

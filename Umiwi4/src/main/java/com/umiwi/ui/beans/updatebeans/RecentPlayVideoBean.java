@@ -66,6 +66,26 @@ public class RecentPlayVideoBean extends BaseGsonBeans {
         private String url;
         @SerializedName("detailurl")
         private String detailurl;
+        @SerializedName("price")
+        private String price;
+        @SerializedName("tagname")
+        private String tagname;
+
+        public String getTagname() {
+            return tagname;
+        }
+
+        public String getPrice() {
+            return price;
+        }
+
+        public void setPrice(String price) {
+            this.price = price;
+        }
+
+        public void setTagname(String tagname) {
+            this.tagname = tagname;
+        }
 
         public String getTutor_name() {
             return tutor_name;

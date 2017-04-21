@@ -50,6 +50,8 @@ public class RecentPlayAudioAdapter extends BaseAdapter {
             viewHolder.price = (TextView) convertView.findViewById(R.id.price);
             viewHolder.playtime = (TextView) convertView.findViewById(R.id.playtime);
             viewHolder.watchnum = (TextView) convertView.findViewById(R.id.watchnum);
+            viewHolder.tv_name = (TextView) convertView.findViewById(R.id.tv_name);
+            viewHolder.tv_tutortitle = (TextView) convertView.findViewById(R.id.tv_tutortitle);
 //            viewHolder.process = (TextView) convertView.findViewById(R.id.process);
             viewHolder.view_firstvisable = convertView.findViewById(R.id.view_firstvisable);
             convertView.setTag(viewHolder);
@@ -74,6 +76,8 @@ public class RecentPlayAudioAdapter extends BaseAdapter {
         viewHolder.playtime.setText(record.getPlaytime());
         viewHolder.watchnum.setText("播放" + record.getWatchnum() + "次");
 //        viewHolder.process.setText("已播" + record.getProcess());
+        viewHolder.tv_name.setText(record.getName());
+        viewHolder.tv_tutortitle.setText(record.getTutortitle());
         return convertView;
     }
 
@@ -82,9 +86,10 @@ public class RecentPlayAudioAdapter extends BaseAdapter {
         TextView title;
         TextView cat;
         TextView price;
-        TextView playtime;
+        TextView playtime,tv_name,tv_tutortitle;
         TextView watchnum;
         TextView process;
+
     }
 
     public void setData(List<AlreadyShopVoiceBean.RAlreadyVoice.Record> mList) {

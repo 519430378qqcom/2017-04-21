@@ -216,7 +216,7 @@ public final class UmiwiAPI {
     /**
      * 音频浏览记录
      */
-    public static final String UMIWI_AUDIO_RECORD= "http://i.v.youmi.cn/audioalbumlog/audiolistApi";
+    public static final String UMIWI_AUDIO_RECORD= "http://i.v.youmi.cn/audioalbumlog/audiolistApi?p=%s";
     /**
      * 删除播放记录
      */

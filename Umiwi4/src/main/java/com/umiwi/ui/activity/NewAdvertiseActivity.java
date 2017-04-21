@@ -96,7 +96,7 @@ public class NewAdvertiseActivity extends AppCompatActivity {
                 final ArrayList<AdvertisementBean.RAdvertBean> advertisementBeanR = advertisementBean.getR();
                 String image = advertisementBeanR.get(0).getImage();
                 ImageLoader mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
-                mImageLoader.loadImage(image, iv_advertise,R.drawable.guide_splash);
+                mImageLoader.loadImage(image, iv_advertise);
                 tv_advert.setText("跳过广告" + page + "");
                 tv_advert.setClickable(true);
                 handler.sendEmptyMessageDelayed(PROGRESS, 1000);
