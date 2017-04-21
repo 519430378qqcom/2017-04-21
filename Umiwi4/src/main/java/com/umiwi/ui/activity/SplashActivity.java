@@ -1,6 +1,8 @@
 package com.umiwi.ui.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Parcelable;
@@ -11,17 +13,27 @@ import android.view.View;
 
 import com.umeng.analytics.MobclickAgent;
 import com.umiwi.ui.R;
+import com.umiwi.ui.beans.updatebeans.AdvertisementBean;
 import com.umiwi.ui.fragment.splash.SplashFragment;
 import com.umiwi.ui.fragment.splash.SplashNewHorizontalFragment;
+import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.managers.YoumiRoomUserManager;
 import com.umiwi.ui.util.CommonHelper;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
 
 import cn.youmi.account.event.UserEvent;
+import cn.youmi.framework.http.AbstractRequest;
+import cn.youmi.framework.http.GetRequest;
+import cn.youmi.framework.http.parsers.GsonParser;
 import cn.youmi.framework.util.AndroidSDK;
 import cn.youmi.framework.util.PreferenceUtils;
-
 
 
 /**
@@ -30,8 +42,12 @@ import cn.youmi.framework.util.PreferenceUtils;
  */
 public class SplashActivity extends AppCompatActivity {
 
-
+	public static String photoPath = Environment.getExternalStorageDirectory().getAbsolutePath()+"/advertise.jpg";
 	 public static boolean isKeyBack = false;
+	/**
+	 * 广告信息
+	 */
+	public static AdvertisementBean advertisementBean1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -69,8 +85,47 @@ public class SplashActivity extends AppCompatActivity {
 			
 		}
 		fragmentTransaction.commit();
+		requestAdvertise();
 	}
 
+	/**
+	 * 请求广告信息
+	 */
+	private  void requestAdvertise(){
+		GetRequest<AdvertisementBean> request = new GetRequest<AdvertisementBean>(UmiwiAPI.UMIWI_ADVERTISE, GsonParser.class, AdvertisementBean.class, new AbstractRequest.Listener<AdvertisementBean>() {
+			@Override
+			public void onResult(AbstractRequest<AdvertisementBean> request, AdvertisementBean advertisementBean) {
+				advertisementBean1 = advertisementBean;
+				final ArrayList<AdvertisementBean.RAdvertBean> advertisementBeanR = advertisementBean.getR();
+				final String image = advertisementBeanR.get(0).getImage();
+				new Thread(){
+					@Override
+					public void run() {
+						URL url = null;
+						try {
+							url = new URL(image);
+							HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+							conn.setConnectTimeout(5000);
+							conn.setRequestMethod("GET");
+							if(conn.getResponseCode() == 200){
+								InputStream inputStream = conn.getInputStream();
+								Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+								bitmap.compress(Bitmap.CompressFormat.JPEG,100,new FileOutputStream(photoPath));
+							}
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+				}.start();
+			}
+
+			@Override
+			public void onError(AbstractRequest<AdvertisementBean> requet, int statusCode, String body) {
+
+			}
+		});
+		request.go();
+	}
 	@Override
 	protected void onStart() {
 		super.onStart();

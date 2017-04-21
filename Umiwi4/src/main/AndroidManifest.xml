@@ -164,7 +164,7 @@
             android:name=".activity.UmiwiContainerActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name="cn.youmi.framework.activity.FragmentContainerUnSwipeActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -437,7 +437,8 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".activity.NewAdvertiseActivity"></activity>
+        <activity android:name=".activity.NewAdvertiseActivity"
+            android:theme="@style/Transparent.Fullscreen"></activity>
     </application>
 
 </manifest>

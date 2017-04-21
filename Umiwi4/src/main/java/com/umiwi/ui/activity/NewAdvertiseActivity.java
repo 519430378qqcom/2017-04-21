@@ -1,10 +1,11 @@
 package com.umiwi.ui.activity;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -20,19 +21,12 @@ import com.umiwi.ui.fragment.course.CourseDetailPlayFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.ColumnDetailsFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.VoiceDetailsFragment;
 import com.umiwi.ui.fragment.splash.SplashFragment;
-import com.umiwi.ui.main.UmiwiAPI;
-import com.umiwi.ui.main.UmiwiApplication;
 import com.umiwi.ui.util.CacheUtil;
 import com.umiwi.ui.util.DateUtils;
 
 import java.util.ArrayList;
 
-import cn.youmi.framework.http.AbstractRequest;
-import cn.youmi.framework.http.GetRequest;
-import cn.youmi.framework.http.parsers.GsonParser;
-import cn.youmi.framework.util.ImageLoader;
-
-public class NewAdvertiseActivity extends AppCompatActivity {
+public class NewAdvertiseActivity extends Activity {
     private ImageView iv_advertise;
     private TextView tv_advert;
     public static final int FLAG_HOMEKEY_DISPATCHED = 0x80000000; //需要自己定义标志
@@ -90,14 +84,17 @@ public class NewAdvertiseActivity extends AppCompatActivity {
         });
     }
     private void getInfo() {
-        GetRequest<AdvertisementBean> request = new GetRequest<AdvertisementBean>(UmiwiAPI.UMIWI_ADVERTISE, GsonParser.class, AdvertisementBean.class, new AbstractRequest.Listener<AdvertisementBean>() {
-            @Override
-            public void onResult(AbstractRequest<AdvertisementBean> request, AdvertisementBean advertisementBean) {
-                final ArrayList<AdvertisementBean.RAdvertBean> advertisementBeanR = advertisementBean.getR();
-                String image = advertisementBeanR.get(0).getImage();
-                ImageLoader mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
-                mImageLoader.loadImage(image, iv_advertise);
-                tv_advert.setText("跳过广告" + page + "");
+        iv_advertise.setImageBitmap(BitmapFactory.decodeFile(SplashActivity.photoPath));
+//        GetRequest<AdvertisementBean> request = new GetRequest<AdvertisementBean>(UmiwiAPI.UMIWI_ADVERTISE, GsonParser.class, AdvertisementBean.class, new AbstractRequest.Listener<AdvertisementBean>() {
+//            @Override
+//            public void onResult(AbstractRequest<AdvertisementBean> request, AdvertisementBean advertisementBean) {
+//                final ArrayList<AdvertisementBean.RAdvertBean> advertisementBeanR = advertisementBean.getR();
+//                String image = advertisementBeanR.get(0).getImage();
+//                ImageLoader mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
+//                mImageLoader.loadImage(image, iv_advertise);
+//        AdvertisementBean advertisementBean = (AdvertisementBean) getIntent().getSerializableExtra(SplashFragment.ADVERTISEMENT_BEAN);
+        final ArrayList<AdvertisementBean.RAdvertBean> advertisementBeanR = SplashActivity.advertisementBean1.getR();
+        tv_advert.setText("跳过广告" + page + "");
                 tv_advert.setClickable(true);
                 handler.sendEmptyMessageDelayed(PROGRESS, 1000);
                 iv_advertise.setOnClickListener(new View.OnClickListener() {
@@ -143,14 +140,14 @@ public class NewAdvertiseActivity extends AppCompatActivity {
                         handler.removeCallbacksAndMessages(null);
                     }
                 });
-            }
+//            }
 
-            @Override
-            public void onError(AbstractRequest<AdvertisementBean> requet, int statusCode, String body) {
-
-            }
-        });
-        request.go();
+//            @Override
+//            public void onError(AbstractRequest<AdvertisementBean> requet, int statusCode, String body) {
+//
+//            }
+//        });
+//        request.go();
     }
 
     @Override

@@ -1366,6 +1366,7 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
 
     // 点击底部发送按钮，关闭编辑窗口
     private void closeButtomSend() {
+        hideKeyBoard();
         mEditMenuWindow.dismiss();
     }
 

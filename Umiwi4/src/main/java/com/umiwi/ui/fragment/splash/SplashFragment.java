@@ -42,6 +42,7 @@ import cn.youmi.framework.util.PreferenceUtils;
  */
 public class SplashFragment extends BaseConstantFragment {
     public static final String START_MIAN = "start_main";
+    public static final String ADVERTISEMENT_BEAN= "AdvertisementBean";
     private SharedPreferences mSharedPreferences;
 
     Handler mHandler = new Handler();
@@ -168,6 +169,7 @@ public class SplashFragment extends BaseConstantFragment {
         min = ((l/(60*1000))- day *24*60- hour *60);
         s = (l/1000- day *24*60*60- hour *60*60- min *60);
 //        Log.e("TAG", "时间差为=" + string + ",day=" + day + ",hour="+ hour + ",min=" + min + ",s=" + s);
+
         return view;
     }
 
@@ -183,6 +185,8 @@ public class SplashFragment extends BaseConstantFragment {
 //                boolean isEnterMain = CacheUtil.getBoolean(getActivity(), START_MIAN);
                 if (day >= 1 || (day ==0 && hour == 0 && min ==0 && s == 0)) {
                     i = new Intent(getActivity(), NewAdvertiseActivity.class);
+//                    SplashActivity activity = (SplashActivity) getActivity();
+//                    i.putExtra(ADVERTISEMENT_BEAN,activity.advertisementBean1);
                 } else {
                     i = new Intent(getActivity(), HomeMainActivity.class);
                 }

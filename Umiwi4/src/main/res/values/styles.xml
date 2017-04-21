@@ -15,7 +15,12 @@
         <item name="android:background">@android:color/transparent</item>
         <item name="background">@android:color/transparent</item>
     </style>
-
+    <!--透明主题-->
+    <style name="Transparent.Fullscreen" parent="@android:style/Theme.NoTitleBar.Fullscreen">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
     <!-- umiwi 页面背景色 -->
     <style name="umiwi_a_f_bg_style">
         <item name="android:layout_width">match_parent</item>
@@ -144,6 +149,7 @@
         <item name="android:adjustViewBounds">true</item>
         <item name="android:scaleType">fitXY</item>
     </style>
+
     <style name="mypopuwindow_anim_style">
         <item name="android:windowEnterAnimation">@anim/popshow_anim</item>
         <item name="android:windowExitAnimation">@anim/popdismiss_anim</item>
