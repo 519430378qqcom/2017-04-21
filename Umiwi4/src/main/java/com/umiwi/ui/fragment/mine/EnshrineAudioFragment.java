@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -111,7 +110,7 @@ public class EnshrineAudioFragment extends BaseConstantFragment {
     //请求数据
     private void getInfos() {
         String format = String.format(UmiwiAPI.UMIWI_ENSH_AUDIO, page);
-        Log.e("TAG", "收藏列表视频format=" + format);
+//        Log.e("TAG", "收藏列表视频format=" + format);
         GetRequest<AlreadyShopVoiceBean> request = new GetRequest<AlreadyShopVoiceBean>(
                 format, GsonParser.class,
                 AlreadyShopVoiceBean.class,
@@ -152,7 +151,7 @@ public class EnshrineAudioFragment extends BaseConstantFragment {
     public void onResume() {
         super.onResume();
         String format = String.format(UmiwiAPI.UMIWI_ENSH_AUDIO, 1);
-        Log.e("TAG", "收藏列表视频format=" + format);
+//        Log.e("TAG", "收藏列表视频format=" + format);
         GetRequest<AlreadyShopVoiceBean> request = new GetRequest<AlreadyShopVoiceBean>(
                 format, GsonParser.class,
                 AlreadyShopVoiceBean.class,

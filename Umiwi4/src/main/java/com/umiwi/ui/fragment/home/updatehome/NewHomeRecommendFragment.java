@@ -13,7 +13,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -176,7 +175,7 @@ public class NewHomeRecommendFragment extends BaseConstantFragment {
                 for (int i = 0; i < menu.size(); i++) {
                     String catname = menu.get(i).getCatname();
                     mDataList.add(catname);
-                    Log.e("TAG", "catname=" + catname);
+//                    Log.e("TAG", "catname=" + catname);
                 }
                 if(mDataList != null) {
                     initData();

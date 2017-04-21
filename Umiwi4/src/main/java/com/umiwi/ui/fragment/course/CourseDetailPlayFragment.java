@@ -668,8 +668,8 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
             }
 
             if (NetworkManager.getInstance().isWapNetwork()) {
-                Log.e("TAG", "mSpUtil.getShow3GDialog()=" + mSpUtil.getShow3GDialog());
-                Log.e("TAG", "mSpUtil.getPlayWith3G()=" + mSpUtil.getPlayWith3G());
+//                Log.e("TAG", "mSpUtil.getShow3GDialog()=" + mSpUtil.getShow3GDialog());
+//                Log.e("TAG", "mSpUtil.getPlayWith3G()=" + mSpUtil.getPlayWith3G());
 
                 if (!mSpUtil.getShow3GDialog()) {
                     isFirstLoad = true;

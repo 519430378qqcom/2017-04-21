@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -97,7 +96,7 @@ public class EnshrineVideoFragment extends BaseConstantFragment {
 
     private void getInfos() {
         String url = String.format(UmiwiAPI.UMIWI_ENSH_VIDEO,page);
-        Log.e("TAG", "收藏视频列表=" + url);
+//        Log.e("TAG", "收藏视频列表=" + url);
         GetRequest<EnshrineVideoBean> request = new GetRequest<EnshrineVideoBean>(url, GsonParser.class, EnshrineVideoBean.class, new AbstractRequest.Listener<EnshrineVideoBean>() {
             @Override
             public void onResult(AbstractRequest<EnshrineVideoBean> request, EnshrineVideoBean enshrineVideoBean) {

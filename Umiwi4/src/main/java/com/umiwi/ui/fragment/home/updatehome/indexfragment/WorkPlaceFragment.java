@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -213,7 +212,7 @@ public class WorkPlaceFragment extends BaseConstantFragment {
 
     private void getinfos() {
         String url = String.format(UmiwiAPI.UMIWI_BUS_WORK_TEND, page, catid, type,price, orderby);
-        Log.e("TAG", "职场数据=" + url);
+//        Log.e("TAG", "职场数据=" + url);
         GetRequest<AudioVideoBean> request = new GetRequest<AudioVideoBean>(url, GsonParser.class, AudioVideoBean.class, new AbstractRequest.Listener<AudioVideoBean>() {
             @Override
             public void onResult(AbstractRequest<AudioVideoBean> request, AudioVideoBean audioVideoBean) {

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -120,7 +119,7 @@ public class RecentPlayAudioFragment extends BaseConstantFragment {
                     public void onResult(AbstractRequest<AlreadyShopVoiceBean> request, AlreadyShopVoiceBean alreadyShopVoiceBean) {
                         AlreadyShopVoiceBean.RAlreadyVoice.PageBean page = alreadyShopVoiceBean.getR().getPage();
                         totalpage = page.getTotalpage();
-                        Log.e("TAG", "toata=" + totalpage);
+//                        Log.e("TAG", "toata=" + totalpage);
                         ArrayList<AlreadyShopVoiceBean.RAlreadyVoice.Record> record = alreadyShopVoiceBean.getR().getRecord();
 
                         if (isRefresh) {
