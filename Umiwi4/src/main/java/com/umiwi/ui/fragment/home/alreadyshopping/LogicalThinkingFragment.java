@@ -28,7 +28,6 @@ import com.umiwi.ui.fragment.home.updatehome.indexfragment.VoiceDetailsFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.main.UmiwiApplication;
-import com.umiwi.ui.util.CacheUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,14 +100,14 @@ public class LogicalThinkingFragment extends BaseConstantFragment {
                 getActivity().startActivity(intent);
 
 
-                AttemptBean.RAttenmpInfo.RecordsBean recordsBean = record.get(position);
-                String readIdArray = CacheUtil.getStringFile(getActivity(), READ_ARRAY_ID);
-                if(!readIdArray.contains(recordsBean.getId())) {
-
-                    CacheUtil.putStringFile(getActivity(),READ_ARRAY_ID,readIdArray + recordsBean.getId() +",");
-                    //
-                    logicalThinkingAdapter.notifyDataSetChanged();
-                }
+//                AttemptBean.RAttenmpInfo.RecordsBean recordsBean = record.get(position);
+//                String readIdArray = CacheUtil.getStringFile(getActivity(), READ_ARRAY_ID);
+//                if(!readIdArray.contains(recordsBean.getId())) {
+//
+//                    CacheUtil.putStringFile(getActivity(),READ_ARRAY_ID,readIdArray + recordsBean.getId() +",");
+//                    //
+//                    logicalThinkingAdapter.notifyDataSetChanged();
+//                }
             }
         });
         initMediaPlay();
