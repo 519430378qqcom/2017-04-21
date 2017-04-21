@@ -251,11 +251,29 @@ public abstract class AbstractLoginActivity extends BaseSwipeBackActivity {
 			// listener,"10000144","10000144","xxxx");
 			mTencent.login(this, "all", listener);
 		} else {
-			mQQAuth.logout(this);
+//			mQQAuth.logout(this);
+			IUiListener listener = new QQLoginUiListener();
+			// mQQAuth.login(this, "all", listener);
+			// mTencent.loginWithOEM(this, "all",
+			// listener,"10000144","10000144","xxxx");
+			mTencent.login(this, "all", listener);
 		}
 		loginMode = LoginModeEvent.LOGIN_QQ;
 	}
-
+	protected void WeiXinLogin() {
+		if (api.isWXAppInstalled()) {
+			// 微信应用授权
+			SendAuth.Req authReq = new SendAuth.Req();
+			authReq.scope = "snsapi_userinfo";
+			authReq.state = "youmi";
+			api.sendReq(authReq);
+		} else {
+			// 提示用户安装微信
+			Toast.makeText(this, "授权失败,请检查微信版本", Toast.LENGTH_SHORT).show();
+			progressFinish();
+		}
+		loginMode = LoginModeEvent.LOGIN_WEIXIN;
+	}
 	/**
 	 *
 	 * @param scope:snsapi_userinfo
@@ -276,20 +294,7 @@ public abstract class AbstractLoginActivity extends BaseSwipeBackActivity {
 		loginMode = LoginModeEvent.LOGIN_WEIXIN;
 	}
 
-	protected void WeiXinLogin() {
-		if (api.isWXAppInstalled()) {
-			// 微信应用授权
-			SendAuth.Req authReq = new SendAuth.Req();
-			authReq.scope = "snsapi_userinfo";
-			authReq.state = "youmi";
-			api.sendReq(authReq);
-		} else {
-			// 提示用户安装微信
-			Toast.makeText(this, "授权失败,请检查微信版本", Toast.LENGTH_SHORT).show();
-			progressFinish();
-		}
-		loginMode = LoginModeEvent.LOGIN_WEIXIN;
-	}
+
 
 
 	/***/
