@@ -29,6 +29,7 @@ import butterknife.InjectView;
 import cn.youmi.framework.http.AbstractRequest;
 import cn.youmi.framework.http.GetRequest;
 import cn.youmi.framework.http.parsers.GsonParser;
+import cn.youmi.framework.util.ToastU;
 
 /**
  * Created by Administrator on 2017/3/23.
@@ -45,6 +46,7 @@ public class EnshrineVideoFragment extends BaseConstantFragment {
     private boolean isla = false;
     private boolean isload = false;
     private int totalpage;
+    private boolean isRefresh = true;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -103,22 +105,25 @@ public class EnshrineVideoFragment extends BaseConstantFragment {
                 totalpage = page.getTotalpage();
                 ArrayList<EnshrineVideoBean.REnshrineVideo.EnshrineVideoInfo> record = enshrineVideoBean.getR().getRecord();
 //                mList.clear();
-                mList.addAll(record);
-                videoAdapter.setData(mList);
-                if (isla) {
-                    listview.setEnabled(true);
-                    isla = false;
+
+                if (isRefresh) {
                     refreshLayout.setRefreshing(false);
-                } else if (isload) {
-                    isload = false;
+                    mList.clear();
+                } else {
                     refreshLayout.setLoading(false);
                 }
-                Log.e("homecoulm", "size" + record.size() + "page" + totalpage);
+//                Log.e("homecoulm", "size" + record.size() + "page" + totalpage);
+                mList.addAll(record);
+                videoAdapter.setData(mList);
             }
 
             @Override
             public void onError(AbstractRequest<EnshrineVideoBean> requet, int statusCode, String body) {
-
+                if (isRefresh) {
+                    refreshLayout.setRefreshing(false);
+                } else {
+                    refreshLayout.setLoading(false);
+                }
             }
         });
         request.go();
@@ -129,12 +134,20 @@ public class EnshrineVideoFragment extends BaseConstantFragment {
         refreshLayout.setOnLoadListener(new RefreshLayout.OnLoadListener() {
             @Override
             public void onLoad() {
-                isload = true;
                 page++;
+                isRefresh = false;
                 if (page <= totalpage) {
-                    getInfos();
+                    refreshLayout.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            getInfos();
+                        }
+                    }, 1000);
+
                 } else {
+                    ToastU.showLong(getActivity(), "没有更多了!");
                     refreshLayout.setLoading(false);
+
                 }
             }
         });
@@ -142,10 +155,8 @@ public class EnshrineVideoFragment extends BaseConstantFragment {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                listview.setEnabled(false);
-                isla = true;
+                isRefresh = true;
                 page = 1;
-                mList.clear();
                 getInfos();
             }
         });

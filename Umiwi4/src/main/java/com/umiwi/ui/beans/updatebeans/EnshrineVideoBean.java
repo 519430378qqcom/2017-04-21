@@ -144,6 +144,16 @@ public class EnshrineVideoBean extends BaseGsonBeans {
             private String playtime;
             @SerializedName("detailurl")
             private String detailurl;
+            @SerializedName("tagname")
+            private String tagname;
+
+            public String getTagname() {
+                return tagname;
+            }
+
+            public void setTagname(String tagname) {
+                this.tagname = tagname;
+            }
 
             public String getId() {
                 return id;
