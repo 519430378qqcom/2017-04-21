@@ -4,6 +4,7 @@ package com.umiwi.ui.fragment.login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,6 +61,7 @@ public class LoginMemoryFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.e("TAG", "登陆onCreateView()");
         View view = inflater.inflate(R.layout.fragment_login_memory, container, false);
         mActionBarToolbar = (Toolbar) view.findViewById(R.id.toolbar_actionbar);
         setSupportActionBarAndToolbarTitle(mActionBarToolbar, "登录");
@@ -71,18 +73,21 @@ public class LoginMemoryFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
+//        Log.e("TAG", "登陆onResume()");
         MobclickAgent.onPageStart(fragmentName);
     }
 
     @Override
     public void onPause() {
         super.onPause();
+//        Log.e("TAG", "登陆onPause()");
         MobclickAgent.onPageEnd(fragmentName);
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+//        Log.e("TAG", "登陆onDestroyView()");
         YoumiRoomUserManager.getInstance().unregisterListener(mUserListener);
     }
 
@@ -139,6 +144,7 @@ public class LoginMemoryFragment extends BaseFragment {
                 memory_login.setBackgroundResource(R.drawable.login_qq_big);
                 memory_lgoin_text.setText("上次你使用的是 Q Q 登录");
                 memory_login.setOnClickListener(new QQLoginListener());
+
                 setVisibleButton(false, false, true, false);
                 login_umiwi_view.setVisibility(View.VISIBLE);
                 login_weibo.setVisibility(View.VISIBLE);

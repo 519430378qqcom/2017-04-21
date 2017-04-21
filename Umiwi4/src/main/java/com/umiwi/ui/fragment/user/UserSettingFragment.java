@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baidu.android.pushservice.PushManager;
+import com.tencent.tauth.Tencent;
 import com.umeng.analytics.MobclickAgent;
 import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
@@ -66,7 +67,7 @@ public class UserSettingFragment extends BaseFragment implements ActivityCompat.
     private ProgressDialog mProgressDialog;
     private TextView name_tv;
     private RelativeLayout mSeting;
-
+    private Tencent mTencent;
 
     @Nullable
     @Override
@@ -144,7 +145,9 @@ public class UserSettingFragment extends BaseFragment implements ActivityCompat.
                             mProgressDialog.show();
                             YoumiRoomUserManager.getInstance().logout();
                             YoumiRoomUserManager.getInstance().getUserInfoSave(UserEvent.HOME_LOGIN_OUT);
-
+//                            if (mTencent != null) {
+//                                mTencent.logout(getActivity());
+//                            }
                             PushManager.stopWork(getActivity());
 //                            UmiwiDetailActivity.activity.finish();
 //                            UmiwiDetailActivity.this.finish();

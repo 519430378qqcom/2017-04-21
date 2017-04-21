@@ -300,7 +300,6 @@ public abstract class AbstractLoginActivity extends BaseSwipeBackActivity {
 	}
 
 
-
 	/**
 	 * qq登录回调
 	 *
