@@ -437,8 +437,7 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".activity.NewAdvertiseActivity"
-            android:theme="@style/Transparent.Fullscreen"></activity>
+        <activity android:name=".activity.NewAdvertiseActivity"></activity>
     </application>
 
 </manifest>

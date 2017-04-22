@@ -1,5 +1,7 @@
 package com.umiwi.ui.activity;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -8,6 +10,7 @@ import android.os.Environment;
 import android.os.Parcelable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 
@@ -18,6 +21,7 @@ import com.umiwi.ui.fragment.splash.SplashFragment;
 import com.umiwi.ui.fragment.splash.SplashNewHorizontalFragment;
 import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.managers.YoumiRoomUserManager;
+import com.umiwi.ui.util.CacheUtil;
 import com.umiwi.ui.util.CommonHelper;
 
 import java.io.File;
@@ -42,8 +46,10 @@ import cn.youmi.framework.util.PreferenceUtils;
  */
 public class SplashActivity extends AppCompatActivity {
 
-	public static String photoPath = Environment.getExternalStorageDirectory().getAbsolutePath()+"/advertise.jpg";
+	public static String photoPath = "";
+	public static String splashAdvertise = "splashAdvertise";
 	 public static boolean isKeyBack = false;
+	private Activity mContext;
 	/**
 	 * 广告信息
 	 */
@@ -54,7 +60,7 @@ public class SplashActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.activity_frame_layout);
-
+		mContext = this;
 //		overridePendingTransition(R.anim.right_in,R.anim.left_out);
 		
 		FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -92,12 +98,16 @@ public class SplashActivity extends AppCompatActivity {
 	 * 请求广告信息
 	 */
 	private  void requestAdvertise(){
+		photoPath = getFilesDir()+"/advertise.jpg";
 		GetRequest<AdvertisementBean> request = new GetRequest<AdvertisementBean>(UmiwiAPI.UMIWI_ADVERTISE, GsonParser.class, AdvertisementBean.class, new AbstractRequest.Listener<AdvertisementBean>() {
 			@Override
 			public void onResult(AbstractRequest<AdvertisementBean> request, AdvertisementBean advertisementBean) {
 				advertisementBean1 = advertisementBean;
 				final ArrayList<AdvertisementBean.RAdvertBean> advertisementBeanR = advertisementBean.getR();
 				final String image = advertisementBeanR.get(0).getImage();
+				if (image.equals(CacheUtil.getString(mContext,splashAdvertise))){
+					return;
+				}
 				new Thread(){
 					@Override
 					public void run() {
@@ -111,6 +121,7 @@ public class SplashActivity extends AppCompatActivity {
 								InputStream inputStream = conn.getInputStream();
 								Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
 								bitmap.compress(Bitmap.CompressFormat.JPEG,100,new FileOutputStream(photoPath));
+								CacheUtil.putString(mContext,splashAdvertise,image);
 							}
 						} catch (IOException e) {
 							e.printStackTrace();

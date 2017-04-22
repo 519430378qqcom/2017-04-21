@@ -25,6 +25,7 @@ import com.umiwi.ui.fragment.splash.SplashFragment;
 import com.umiwi.ui.util.CacheUtil;
 import com.umiwi.ui.util.DateUtils;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class NewAdvertiseActivity extends Activity {
@@ -85,14 +86,12 @@ public class NewAdvertiseActivity extends Activity {
         });
     }
     private void getInfo() {
+        //如果没有广告图
+        if (!new File(SplashActivity.photoPath).exists()||SplashActivity.advertisementBean1 == null){
+            finish();
+            return;
+        }
         iv_advertise.setImageBitmap(BitmapFactory.decodeFile(SplashActivity.photoPath));
-//        GetRequest<AdvertisementBean> request = new GetRequest<AdvertisementBean>(UmiwiAPI.UMIWI_ADVERTISE, GsonParser.class, AdvertisementBean.class, new AbstractRequest.Listener<AdvertisementBean>() {
-//            @Override
-//            public void onResult(AbstractRequest<AdvertisementBean> request, AdvertisementBean advertisementBean) {
-//                final ArrayList<AdvertisementBean.RAdvertBean> advertisementBeanR = advertisementBean.getR();
-//                String image = advertisementBeanR.get(0).getImage();
-//                ImageLoader mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
-//                mImageLoader.loadImage(image, iv_advertise);
 //        AdvertisementBean advertisementBean = (AdvertisementBean) getIntent().getSerializableExtra(SplashFragment.ADVERTISEMENT_BEAN);
         final ArrayList<AdvertisementBean.RAdvertBean> advertisementBeanR = SplashActivity.advertisementBean1.getR();
         tv_advert.setText("跳过广告" + page + "");
@@ -141,14 +140,6 @@ public class NewAdvertiseActivity extends Activity {
                         handler.removeCallbacksAndMessages(null);
                     }
                 });
-//            }
-
-//            @Override
-//            public void onError(AbstractRequest<AdvertisementBean> requet, int statusCode, String body) {
-//
-//            }
-//        });
-//        request.go();
     }
 
     @Override
