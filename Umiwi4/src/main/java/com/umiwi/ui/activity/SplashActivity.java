@@ -1,7 +1,6 @@
 package com.umiwi.ui.activity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,7 +9,6 @@ import android.os.Environment;
 import android.os.Parcelable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 
@@ -199,5 +197,6 @@ public class SplashActivity extends AppCompatActivity {
 		}
 		return super.onKeyDown(keyCode, event);
 	}
+
 
 }

@@ -88,6 +88,8 @@ public class NewAdvertiseActivity extends Activity {
     private void getInfo() {
         //如果没有广告图
         if (!new File(SplashActivity.photoPath).exists()||SplashActivity.advertisementBean1 == null){
+            Intent intent = new Intent(NewAdvertiseActivity.this, HomeMainActivity.class);
+            startActivity(intent);
             finish();
             return;
         }
