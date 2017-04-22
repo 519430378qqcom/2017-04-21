@@ -26,6 +26,7 @@ import butterknife.InjectView;
 import cn.youmi.framework.http.AbstractRequest;
 import cn.youmi.framework.http.GetRequest;
 import cn.youmi.framework.http.parsers.GsonParser;
+import cn.youmi.framework.util.ToastU;
 
 /**
  * Created by LvDabing on 2017/2/16.
@@ -37,10 +38,11 @@ public class AudioFragment extends BaseConstantFragment {
     ListView listview;
     @InjectView(R.id.refreshLayout)
     RefreshLayout refreshLayout;
-    private int page;
+    private int page = 1;
     private int totalpage;
     private ArrayList<AlreadyShopVoiceBean.RAlreadyVoice.Record> infos = new ArrayList<>();
     private AlreadyVoiceAdapter alreadyVoiceAdapter;
+    private boolean isRefresh = true;
 
     @Nullable
     @Override
@@ -79,18 +81,31 @@ public class AudioFragment extends BaseConstantFragment {
 
         @Override
         public void onResult(AbstractRequest<AlreadyShopVoiceBean> request, AlreadyShopVoiceBean umiAnwebeans) {
-            AlreadyShopVoiceBean.RAlreadyVoice.PageBean page = umiAnwebeans.getR().getPage();
-            totalpage = page.getTotalpage();
-            ArrayList<AlreadyShopVoiceBean.RAlreadyVoice.Record> record = umiAnwebeans.getR().getRecord();
-            infos.addAll(record);
-            alreadyVoiceAdapter.setData(infos);
-            refreshLayout.setRefreshing(false);
-            listview.setEnabled(true);
+            if(umiAnwebeans != null) {
+                AlreadyShopVoiceBean.RAlreadyVoice.PageBean page = umiAnwebeans.getR().getPage();
+                totalpage = page.getTotalpage();
+                ArrayList<AlreadyShopVoiceBean.RAlreadyVoice.Record> record = umiAnwebeans.getR().getRecord();
+
+                if (isRefresh) {
+                    refreshLayout.setRefreshing(false);
+                    infos.clear();
+                } else {
+                    refreshLayout.setLoading(false);
+                }
+                infos.addAll(record);
+                alreadyVoiceAdapter.setData(infos);
+
+
+            }
         }
 
         @Override
         public void onError(AbstractRequest<AlreadyShopVoiceBean> requet, int statusCode, String body) {
-
+            if (isRefresh) {
+                refreshLayout.setRefreshing(false);
+            } else {
+                refreshLayout.setLoading(false);
+            }
 
         }
     };
@@ -120,38 +135,36 @@ public class AudioFragment extends BaseConstantFragment {
 
     private void initRefreshLayout() {
         refreshLayout.setColorSchemeColors(getResources().getColor(R.color.main_color));
-//        refreshLayout.setOnLoadListener(new RefreshLayout.OnLoadListener() {
-//            @Override
-//            public void onLoad() {
-//
-//                page++;
-//                if (page <= totalpage) {
-//                    refreshLayout.postDelayed(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            getinfos();
-//                            refreshLayout.setLoading(false);
-//                        }
-//                    }, 1000);
-//
-//                } else {
-//                    refreshLayout.setLoading(false);
-//
-//                }
-//
-//
-//            }
-//        });
+        refreshLayout.setOnLoadListener(new RefreshLayout.OnLoadListener() {
+            @Override
+            public void onLoad() {
+                page++;
+                isRefresh = false;
+                if (page <= totalpage) {
+                    refreshLayout.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            getinfos();
+                        }
+                    }, 1000);
+
+                } else {
+                    ToastU.showLong(getActivity(), "没有更多了!");
+                    refreshLayout.setLoading(false);
+
+                }
+            }
+        });
 
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                listview.setEnabled(false);
+                isRefresh = true;
                 page = 1;
-                infos.clear();
                 getinfos();
             }
         });
+
     }
     @Override
     public void onDestroyView() {

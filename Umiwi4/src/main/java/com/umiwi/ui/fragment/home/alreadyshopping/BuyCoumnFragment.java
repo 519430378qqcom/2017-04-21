@@ -29,6 +29,7 @@ import butterknife.InjectView;
 import cn.youmi.framework.http.AbstractRequest;
 import cn.youmi.framework.http.GetRequest;
 import cn.youmi.framework.http.parsers.GsonParser;
+import cn.youmi.framework.util.ToastU;
 
 /**
  * 类描述：已购-专栏
@@ -92,6 +93,7 @@ public class BuyCoumnFragment extends BaseConstantFragment {
                         }
                     }, 1000);
                 } else {
+                    ToastU.showLong(getActivity(), "没有更多了!");
                     refreshLayout.setLoading(false);
                 }
             }
@@ -99,10 +101,10 @@ public class BuyCoumnFragment extends BaseConstantFragment {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                listview.setEnabled(false);
+//                listview.setEnabled(false);
                 isla = true;
                 page = 1;
-                mList.clear();
+//                mList.clear();
                 getInfos();
             }
         });
@@ -119,16 +121,16 @@ public class BuyCoumnFragment extends BaseConstantFragment {
                 AlreadShopColumnBean.RalreadyColumn.PageBean page = infos.getPage();
                 totalpage = page.getTotalpage();
                 ArrayList<AlreadShopColumnBean.RalreadyColumn.RecordColumn> record = infos.getRecord();
-                mList.addAll(record);
-                buyColumnAdapter.setData(mList);
                 if (isla) {
-                    listview.setEnabled(true);
+//                    listview.setEnabled(true);
                     refreshLayout.setRefreshing(false);
-                     isla = false;
+                     mList.clear();
                 } else if (isload) {
                     refreshLayout.setLoading(false);
-                    isload = false;
+//                    isload = false;
                 }
+                mList.addAll(record);
+                buyColumnAdapter.setData(mList);
 
             }
 

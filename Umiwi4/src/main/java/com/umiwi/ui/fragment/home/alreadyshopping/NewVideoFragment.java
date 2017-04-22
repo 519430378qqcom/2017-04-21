@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import cn.youmi.framework.http.AbstractRequest;
 import cn.youmi.framework.http.GetRequest;
 import cn.youmi.framework.http.parsers.GsonParser;
+import cn.youmi.framework.util.ToastU;
 
 
 /**
@@ -44,6 +45,7 @@ public class NewVideoFragment extends BaseConstantFragment {
     private ArrayList<AlreadyVideoBean.RalreadyVideo.RecordInfo> buyVideoInfos = new ArrayList<>();
     private int totalpage;
     private BuyVideoAdapter buyVideoAdapter;
+    private boolean isRefresh = true;
 
     @Nullable
     @Override
@@ -76,22 +78,28 @@ public class NewVideoFragment extends BaseConstantFragment {
         refreshLayout.setOnLoadListener(new RefreshLayout.OnLoadListener() {
             @Override
             public void onLoad() {
-//                listview.setEnabled(false);
-                isLoad = true;
                 page++;
-                if (page<=totalpage){
-                     getInfos();
-                }else{
+                isRefresh = false;
+                if (page <= totalpage) {
+                    refreshLayout.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            getInfos();
+                        }
+                    }, 1000);
+
+                } else {
+                    ToastU.showLong(getActivity(), "没有更多了!");
                     refreshLayout.setLoading(false);
+
                 }
             }
         });
+
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                listview.setEnabled(false);
-                isla = true;
-                buyVideoInfos.clear();
+                isRefresh = true;
                 page = 1;
                 getInfos();
             }
@@ -104,19 +112,21 @@ public class NewVideoFragment extends BaseConstantFragment {
         GetRequest<AlreadyVideoBean> req = new GetRequest<AlreadyVideoBean>(url, GsonParser.class, AlreadyVideoBean.class, new AbstractRequest.Listener<AlreadyVideoBean>() {
             @Override
             public void onResult(AbstractRequest<AlreadyVideoBean> request, AlreadyVideoBean alreadyVideoBean) {
-                AlreadyVideoBean.RalreadyVideo r = alreadyVideoBean.getR();
-                AlreadyVideoBean.RalreadyVideo.PageBean page = r.getPage();
-                totalpage = page.getTotalpage();
-                ArrayList<AlreadyVideoBean.RalreadyVideo.RecordInfo> record = r.getRecord();
-                buyVideoInfos.addAll(record);
-                buyVideoAdapter.setData(buyVideoInfos);
-                if (isla){
-                    listview.setEnabled(true);
-                    refreshLayout.setRefreshing(false);
-                    isla = false;
-                }else if (isLoad){
-                    refreshLayout.setLoading(false);
-                    isLoad = false;
+                if(alreadyVideoBean != null) {
+                    AlreadyVideoBean.RalreadyVideo r = alreadyVideoBean.getR();
+                    AlreadyVideoBean.RalreadyVideo.PageBean page = r.getPage();
+                    totalpage = page.getTotalpage();
+                    ArrayList<AlreadyVideoBean.RalreadyVideo.RecordInfo> record = r.getRecord();
+                    if (isRefresh) {
+                        refreshLayout.setRefreshing(false);
+                        buyVideoInfos.clear();
+                    } else {
+                        refreshLayout.setLoading(false);
+                    }
+                    buyVideoInfos.addAll(record);
+                    buyVideoAdapter.setData(buyVideoInfos);
+
+
                 }
             }
 

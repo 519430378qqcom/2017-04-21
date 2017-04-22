@@ -30,6 +30,7 @@ import butterknife.InjectView;
 import cn.youmi.framework.http.AbstractRequest;
 import cn.youmi.framework.http.GetRequest;
 import cn.youmi.framework.http.parsers.GsonParser;
+import cn.youmi.framework.util.ToastU;
 
 
 /**
@@ -94,6 +95,7 @@ public class BuySpecialFragment extends BaseConstantFragment {
                         }
                     }, 1000);
                 } else {
+                    ToastU.showLong(getActivity(), "没有更多了!");
                     refreshLayout.setLoading(false);
                 }
             }
