@@ -9,34 +9,28 @@
         android:layout_width="match_parent"
         android:layout_height="130dp"
         android:background="@color/white"
-        android:padding="15dp">
+        android:paddingRight="10dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:paddingLeft="15dp"
+        >
 
-        <RelativeLayout
-            android:id="@+id/special_right_layout_1"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true">
+        <!--<RelativeLayout-->
+            <!--android:id="@+id/special_right_layout_1"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_alignParentRight="true">-->
 
 
 
-            <TextView
-                android:id="@+id/special_subscribe_number_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginLeft="7dp"
-                android:text="已订阅205"
-                android:textColor="@color/color_divider"
-                android:textSize="14sp" />
-        </RelativeLayout>
+
+        <!--</RelativeLayout>-->
 
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@id/special_right_layout_1"
             android:layout_toRightOf="@id/special_header_imageview_1"
             android:paddingBottom="1dp"
             android:paddingTop="1dp">
@@ -54,7 +48,7 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:singleLine="true"
-                    android:text="雷军.精英日课"
+                    android:text="雷军.精英日课,雷军经看雷军"
                     android:textColor="@color/black_a8"
                     android:textSize="16sp" />
 
@@ -65,7 +59,7 @@
                     android:layout_marginTop="5dp"
                     android:ellipsize="end"
                     android:singleLine="true"
-                    android:text="帮你和全球精英大脑同步"
+                    android:text="帮你和全球精英大脑同步帮你和全球精英大脑同步"
                     android:textSize="14sp" />
 
             </LinearLayout>
@@ -87,15 +81,32 @@
                     android:singleLine="true"
                     android:text="17小时前更新"
                     android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/expter_detail_textView"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:text="帮你和全球精英"
-                    android:singleLine="true"
-                    android:textSize="14sp" />
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:id="@+id/expter_detail_textView"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:text="帮你和全球精英"
+                        android:singleLine="true"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/special_subscribe_number_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="7dp"
+                        android:layout_marginRight="10dp"
+                        android:text="已订阅205"
+                        android:textColor="@color/color_divider"
+                        android:textSize="14sp" />
+                </LinearLayout>
 
             </LinearLayout>
 
