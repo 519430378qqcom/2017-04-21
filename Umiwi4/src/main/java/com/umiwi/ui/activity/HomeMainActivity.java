@@ -83,12 +83,6 @@ public class HomeMainActivity extends AppCompatActivity {
 
     public static final String PUSH_TYPE = "push_type";
     private ProgressBar mProgressBar;
-
-
-
-
-
-
     private CollectionDao collectDao;
 
     public static final String KEY_AD_SPLASH = "key.ad.splash";
