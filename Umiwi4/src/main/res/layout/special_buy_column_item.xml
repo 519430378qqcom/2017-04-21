@@ -80,9 +80,10 @@
                     android:id="@+id/expter_time_textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/textview_fillet_bg"
+                    android:background="@drawable/textview_orange_bg"
                     android:ellipsize="end"
                     android:padding="2dp"
+                    android:textColor="@color/main_color"
                     android:singleLine="true"
                     android:text="17小时前更新"
                     android:textSize="12sp" />
@@ -91,8 +92,8 @@
                     android:id="@+id/expter_detail_textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
                     android:ellipsize="end"
+                    android:text="帮你和全球精英"
                     android:singleLine="true"
                     android:textSize="14sp" />
 

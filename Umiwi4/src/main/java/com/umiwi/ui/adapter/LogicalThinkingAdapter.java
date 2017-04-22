@@ -1,6 +1,7 @@
 package com.umiwi.ui.adapter;
 
 import android.support.v4.app.FragmentActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,7 +68,11 @@ public class LogicalThinkingAdapter extends BaseAdapter {
         viewHolder.tv_title.setText(mList.get(position).getTitle());
         viewHolder.tv_time.setText(mList.get(position).getOnlinetime());
         viewHolder.tv_watchnum.setText(mList.get(position).getWatchnum());
-        viewHolder.tv_description.setText(mList.get(position).getDescription());
+        if (!TextUtils.isEmpty(mList.get(position).getDescription())) {
+            viewHolder.tv_description.setText(mList.get(position).getDescription());
+        } else {
+            viewHolder.tv_description.setVisibility(View.GONE);
+        }
         Glide.with(activity).load(mList.get(position).getImage()).into(viewHolder.tv_imageview);
         //2017年4月19日新版
 //        if (convertView == null) {

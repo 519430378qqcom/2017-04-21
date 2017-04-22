@@ -65,7 +65,7 @@ public class BuyColumnAdapter extends BaseAdapter {
         viewholder.special_name_textView_1.setText(recordColumn.getTitle());
         viewholder.special_context_1.setText(recordColumn.getTutortitle());
         viewholder.expter_time_textView.setText(recordColumn.getUpdatetime());
-        viewholder.expter_detail_textView.setText(recordColumn.getName());
+        viewholder.expter_detail_textView.setText(recordColumn.getUpdateaudio());
         viewholder.special_subscribe_number_1.setText("已订阅"+recordColumn.getSalenum());
         return convertView;
     }

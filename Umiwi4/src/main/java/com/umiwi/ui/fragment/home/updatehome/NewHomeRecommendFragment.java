@@ -226,7 +226,7 @@ public class NewHomeRecommendFragment extends BaseConstantFragment {
         magic_indicator.setBackgroundColor(Color.WHITE);
         CommonNavigator commonNavigator = new CommonNavigator(getActivity());
         //均分tag
-        commonNavigator.setAdjustMode(true);
+//        commonNavigator.setAdjustMode(true);
         commonNavigator.setScrollPivotX(0.5f);
         commonNavigator.setAdapter(new CommonNavigatorAdapter() {
             @Override
@@ -237,7 +237,11 @@ public class NewHomeRecommendFragment extends BaseConstantFragment {
             @Override
             public IPagerTitleView getTitleView(Context context, final int index) {
                 SimplePagerTitleView simplePagerTitleView = new SimplePagerTitleView(context);
-                simplePagerTitleView.setText(mDataList.get(index));
+                if (mDataList.get(index).length() <= 3) {
+                    simplePagerTitleView.setText(" " + mDataList.get(index) + " ");
+                } else {
+                    simplePagerTitleView.setText(mDataList.get(index));
+                }
                 simplePagerTitleView.setNormalColor(Color.BLACK);
                 simplePagerTitleView.setSelectedColor(getResources().getColor(R.color.main_color));
                 simplePagerTitleView.setTextSize(15);
