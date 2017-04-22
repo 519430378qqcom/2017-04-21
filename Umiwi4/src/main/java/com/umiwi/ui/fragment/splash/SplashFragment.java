@@ -183,7 +183,7 @@ public class SplashFragment extends BaseConstantFragment {
             if (getActivity() != null) {// 当用户按返回键时
 //                i = new Intent(getActivity(), HomeMainActivity.class);
 //                boolean isEnterMain = CacheUtil.getBoolean(getActivity(), START_MIAN);
-                if (s >= 1 || (day ==0 && hour == 0 && min ==0 && s == 0)) {
+                if (day >= 1 || (day ==0 && hour == 0 && min ==0 && s == 0)) {
                     i = new Intent(getActivity(), NewAdvertiseActivity.class);
 //                    SplashActivity activity = (SplashActivity) getActivity();
 //                    i.putExtra(ADVERTISEMENT_BEAN,activity.advertisementBean1);
@@ -223,7 +223,7 @@ public class SplashFragment extends BaseConstantFragment {
             if (getActivity() != null) {// 当用户按返回键时
 //                i = new Intent(getActivity(), HomeMainActivity.class);
 //                boolean isEnterMain = CacheUtil.getBoolean(getActivity(), START_MIAN);
-                if (s >= 1 || (day ==0 && hour == 0 && min ==0 && s == 0)) {
+                if (day >= 1 || (day ==0 && hour == 0 && min ==0 && s == 0)) {
                     i = new Intent(getActivity(), NewAdvertiseActivity.class);
                 } else {
                     i = new Intent(getActivity(), HomeMainActivity.class);
