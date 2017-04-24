@@ -25,11 +25,11 @@ import cn.youmi.framework.util.ImageLoader;
 public class ExpertRecAdapter extends BaseAdapter {
 
     private LayoutInflater mLayoutInflater;
-    private ArrayList<RecommendBean.RBean.TutorBean> mList;
+    private ArrayList<RecommendBean.RBean.TColumnBean.TColumnBeanRecord> mList;
     private Activity mActivity;
     private ImageLoader mImageLoader;
 
-    public ExpertRecAdapter(Context context, ArrayList<RecommendBean.RBean.TutorBean> mList) {
+    public ExpertRecAdapter(Context context, ArrayList<RecommendBean.RBean.TColumnBean.TColumnBeanRecord> mList) {
         mLayoutInflater = LayoutInflater.from(context);
         this.mActivity = (Activity) context;
         this.mList = mList;
@@ -63,7 +63,7 @@ public class ExpertRecAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        RecommendBean.RBean.TutorBean tutorBean = mList.get(position);
+        RecommendBean.RBean.TColumnBean.TColumnBeanRecord tutorBean = mList.get(position);
 
         mImageLoader.loadImage(tutorBean.getImage(),viewHolder.expert_header_imageview,R.drawable.ic_launcher);
         viewHolder.expert_name_textView_1.setText(tutorBean.getTitle());
@@ -72,7 +72,7 @@ public class ExpertRecAdapter extends BaseAdapter {
         viewHolder.expter_detail_textView.setText(tutorBean.getUpdateaudio());
         viewHolder.expert_subscribe_number.setText("已订阅"+tutorBean.getSalenum());
         viewHolder.expert_price.setText(tutorBean.getPrice());
-        viewHolder.isBuy = tutorBean.getIsbuy();
+        viewHolder.isBuy = tutorBean.isbuy();
         viewHolder.uid = tutorBean.getUid();
         // TODO 是否已购
         return convertView;

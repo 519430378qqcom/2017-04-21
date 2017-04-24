@@ -114,6 +114,12 @@ public class RecommendBean extends BaseGsonBeans {
         private String sec_charge_huan;
         @SerializedName("sec_charge_huanurl")
         private String sec_charge_huanurl;
+        @SerializedName("sec_tcolumn_title")
+        private String sec_tcolumn_title;
+        @SerializedName("sec_tcolumn_huan")
+        private String sec_tcolumn_huan;
+        @SerializedName("sec_tcolumn_huanurl")
+        private String sec_tcolumn_huanurl;
         @SerializedName("sec_dalao_title")
         private String sec_dalao_title;
         @SerializedName("sec_huodong_title")
@@ -132,6 +138,9 @@ public class RecommendBean extends BaseGsonBeans {
         private HotVideoBean hotvideo;
         @SerializedName("tutor")
         private ArrayList<TutorBean> tutor;
+        @SerializedName("tcolumn")
+        private TColumnBean tcolumn;
+
         @SerializedName("dalao")
         private ArrayList<DalaoBean> dalao;
         @SerializedName("asktutor")
@@ -148,6 +157,38 @@ public class RecommendBean extends BaseGsonBeans {
         private AlbumListBean albumlist;
         @SerializedName("menu")
         private ArrayList<MenuBean> menu;
+
+        public String getSec_tcolumn_title() {
+            return sec_tcolumn_title;
+        }
+
+        public void setSec_tcolumn_title(String sec_tcolumn_title) {
+            this.sec_tcolumn_title = sec_tcolumn_title;
+        }
+
+        public String getSec_tcolumn_huan() {
+            return sec_tcolumn_huan;
+        }
+
+        public void setSec_tcolumn_huan(String sec_tcolumn_huan) {
+            this.sec_tcolumn_huan = sec_tcolumn_huan;
+        }
+
+        public String getSec_tcolumn_huanurl() {
+            return sec_tcolumn_huanurl;
+        }
+
+        public void setSec_tcolumn_huanurl(String sec_tcolumn_huanurl) {
+            this.sec_tcolumn_huanurl = sec_tcolumn_huanurl;
+        }
+
+        public TColumnBean getTcolumn() {
+            return tcolumn;
+        }
+
+        public void setTcolumn(TColumnBean tcolumn) {
+            this.tcolumn = tcolumn;
+        }
 
         public ArrayList<MenuBean> getMenu() {
             return menu;
@@ -192,6 +233,213 @@ public class RecommendBean extends BaseGsonBeans {
                         "catid='" + catid + '\'' +
                         ", catname='" + catname + '\'' +
                         '}';
+            }
+        }
+        public static class TColumnBean{
+            @SerializedName("page")
+            private TColumnBeanPage page;
+            @SerializedName("record")
+            private ArrayList<TColumnBeanRecord> record;
+
+            public TColumnBeanPage getPage() {
+                return page;
+            }
+
+            public void setPage(TColumnBeanPage page) {
+                this.page = page;
+            }
+
+            public ArrayList<TColumnBeanRecord> getRecord() {
+                return record;
+            }
+
+            public void setRecord(ArrayList<TColumnBeanRecord> record) {
+                this.record = record;
+            }
+
+            public static class TColumnBeanRecord{
+                @SerializedName("uid")
+                private String uid;
+                @SerializedName("image")
+                private String image;
+                @SerializedName("name")
+                private String name;
+                @SerializedName("title")
+                private String title;
+                @SerializedName("price")
+                private String price;
+                @SerializedName("isbuy")
+                private boolean isbuy;
+                @SerializedName("tname")
+                private String tname;
+                @SerializedName("ttitle")
+                private String ttitle;
+                @SerializedName("tutortitle")
+                private String tutortitle;
+                @SerializedName("updatetime")
+                private String updatetime;
+                @SerializedName("updateaudio")
+                private String updateaudio;
+                @SerializedName("salenum")
+                private String salenum;
+                @SerializedName("url")
+                private String url;
+                @SerializedName("columnid")
+                private String columnid;
+                @SerializedName("columnurl")
+                private String columnurl;
+
+                public String getUid() {
+                    return uid;
+                }
+
+                public void setUid(String uid) {
+                    this.uid = uid;
+                }
+
+                public String getImage() {
+                    return image;
+                }
+
+                public void setImage(String image) {
+                    this.image = image;
+                }
+
+                public String getName() {
+                    return name;
+                }
+
+                public void setName(String name) {
+                    this.name = name;
+                }
+
+                public String getTitle() {
+                    return title;
+                }
+
+                public void setTitle(String title) {
+                    this.title = title;
+                }
+
+                public String getPrice() {
+                    return price;
+                }
+
+                public void setPrice(String price) {
+                    this.price = price;
+                }
+
+                public boolean isbuy() {
+                    return isbuy;
+                }
+
+                public void setIsbuy(boolean isbuy) {
+                    this.isbuy = isbuy;
+                }
+
+                public String getTname() {
+                    return tname;
+                }
+
+                public void setTname(String tname) {
+                    this.tname = tname;
+                }
+
+                public String getTtitle() {
+                    return ttitle;
+                }
+
+                public void setTtitle(String ttitle) {
+                    this.ttitle = ttitle;
+                }
+
+                public String getTutortitle() {
+                    return tutortitle;
+                }
+
+                public void setTutortitle(String tutortitle) {
+                    this.tutortitle = tutortitle;
+                }
+
+                public String getUpdatetime() {
+                    return updatetime;
+                }
+
+                public void setUpdatetime(String updatetime) {
+                    this.updatetime = updatetime;
+                }
+
+                public String getUpdateaudio() {
+                    return updateaudio;
+                }
+
+                public void setUpdateaudio(String updateaudio) {
+                    this.updateaudio = updateaudio;
+                }
+
+                public String getSalenum() {
+                    return salenum;
+                }
+
+                public void setSalenum(String salenum) {
+                    this.salenum = salenum;
+                }
+
+                public String getUrl() {
+                    return url;
+                }
+
+                public void setUrl(String url) {
+                    this.url = url;
+                }
+
+                public String getColumnid() {
+                    return columnid;
+                }
+
+                public void setColumnid(String columnid) {
+                    this.columnid = columnid;
+                }
+
+                public String getColumnurl() {
+                    return columnurl;
+                }
+
+                public void setColumnurl(String columnurl) {
+                    this.columnurl = columnurl;
+                }
+            }
+            public static class TColumnBeanPage{
+                @SerializedName("currentpage")
+                private int currentpage;
+                @SerializedName("rows")
+                private String rows;
+                @SerializedName("totalpage")
+                private int totalpage;
+
+                public int getCurrentpage() {
+                    return currentpage;
+                }
+
+                public void setCurrentpage(int currentpage) {
+                    this.currentpage = currentpage;
+                }
+
+                public String getRows() {
+                    return rows;
+                }
+
+                public void setRows(String rows) {
+                    this.rows = rows;
+                }
+
+                public int getTotalpage() {
+                    return totalpage;
+                }
+
+                public void setTotalpage(int totalpage) {
+                    this.totalpage = totalpage;
+                }
             }
         }
         public static class AlbumListBean{

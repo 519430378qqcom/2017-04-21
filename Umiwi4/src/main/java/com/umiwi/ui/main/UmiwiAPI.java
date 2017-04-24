@@ -152,6 +152,7 @@ public final class UmiwiAPI {
      * 精选专题-换一批
      */
     public static final String UMIWI_CHOICENESS = "http://v.youmi.cn/api8/Albumlist?p=%s";
+
     /**
      * 查看专题
      */

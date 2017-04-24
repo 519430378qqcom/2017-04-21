@@ -165,6 +165,7 @@
                         android:orientation="horizontal">
 
                         <TextView
+                            android:layout_gravity="center_vertical"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="10dp"
@@ -192,6 +193,7 @@
                             android:text="正序" />
 
                         <TextView
+                            android:layout_weight="1"
                             android:id="@+id/tv_changenum"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -199,6 +201,10 @@
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="5dp"
                             android:text="总共100条,已更新10条音频" />
+                        <RadioButton
+                            android:id="@+id/fav_button"
+                            style="@style/favbuttonstyle"
+                            android:drawableLeft="@drawable/selector_ic_fav"></RadioButton>
                     </LinearLayout>
 
                     <View

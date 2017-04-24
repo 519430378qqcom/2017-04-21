@@ -16,7 +16,9 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,6 +46,7 @@ import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import cn.youmi.account.manager.UserManager;
 import cn.youmi.framework.http.AbstractRequest;
 import cn.youmi.framework.http.GetRequest;
 import cn.youmi.framework.http.parsers.GsonParser;
@@ -89,6 +92,8 @@ public class AudioSpecialDetailFragment extends BaseConstantFragment implements 
     TextView tv_buy;
     @InjectView(R.id.yuedu)
     RelativeLayout yuedu;
+    @InjectView(R.id.fav_button)
+    RadioButton fav_button;
     private Context mContext;
     public String typeId;
     private AudioSpecialDetailBean.RAudioSpecial details;
@@ -97,6 +102,8 @@ public class AudioSpecialDetailFragment extends BaseConstantFragment implements 
     private String orderBy = "asc";
     private AnimationDrawable background;
     public static boolean isAlive = false;
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -163,8 +170,31 @@ public class AudioSpecialDetailFragment extends BaseConstantFragment implements 
         iv_shared.setOnClickListener(this);
         record.setOnClickListener(this);
         yuedu.setOnClickListener(this);
+        fav_button.setOnCheckedChangeListener(favClickListener);
         return view;
 
+    }
+
+    /**
+     * 收藏
+     */
+    private CompoundButton.OnCheckedChangeListener favClickListener = new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            if(TextUtils.isEmpty(typeId)) {
+                return;
+            }
+            if(!UserManager.getInstance().isLogin()) {
+                fav_button.setClickable(false);
+                showLogin();
+                return;
+            }
+
+
+        }
+    };
+    private void showLogin() {
+        LoginUtil.getInstance().showLoginView(getActivity());
     }
     /**
      * 获取订阅payurl

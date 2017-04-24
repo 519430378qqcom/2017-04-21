@@ -7,13 +7,16 @@ import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,6 +47,7 @@ import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import cn.youmi.account.manager.UserManager;
 import cn.youmi.framework.http.AbstractRequest;
 import cn.youmi.framework.http.GetRequest;
 import cn.youmi.framework.http.parsers.GsonParser;
@@ -83,6 +87,8 @@ public class VideoSpecialDetailFragment extends BaseConstantFragment implements 
     TextView tv_buy;
     @InjectView(R.id.yuedu)
     RelativeLayout yuedu;
+    @InjectView(R.id.fav_button)
+    RadioButton fav_button;
     private Context mContext;
     private String detailurl;
     private ArrayList<VideoSpecialDetailBean.VideoSpecialRecord> mList = new ArrayList<>();
@@ -93,6 +99,8 @@ public class VideoSpecialDetailFragment extends BaseConstantFragment implements 
     private String price;
     private String sectionid;
     public static boolean isAlive = false;
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -122,8 +130,28 @@ public class VideoSpecialDetailFragment extends BaseConstantFragment implements 
         record.setOnClickListener(this);
         yuedu.setOnClickListener(this);
         tv_buy.setOnClickListener(this);
+        fav_button.setOnCheckedChangeListener(favCheckListener);
         return view;
 
+    }
+
+    /**
+     * 收藏
+     */
+    private CompoundButton.OnCheckedChangeListener favCheckListener = new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            if(TextUtils.isEmpty(id)) {
+                return;
+            }
+            if(!UserManager.getInstance().isLogin()) {
+               showLogin();
+            }
+        }
+    };
+
+    private void showLogin() {
+        LoginUtil.getInstance().showLoginView(getActivity());
     }
 
     private void getInfo() {

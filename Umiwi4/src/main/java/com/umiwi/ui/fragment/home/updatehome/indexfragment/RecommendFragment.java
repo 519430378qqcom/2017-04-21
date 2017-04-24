@@ -247,7 +247,7 @@ public class RecommendFragment extends BaseConstantFragment {
             if (null != t) {
                 flv_new_free.setData(t.getR().getFree(), t.getR().getSec_free_title(), t.getR().getSec_free_huan(),t.getR().getSec_free_huanurl());
                 hot_video_layout.setData(t.getR().getHotvideo());
-                erl_expert_rec.setData(t.getR().getTutor(), t.getR().getSec_tutor_title(), t.getR().getSec_tutor_more());
+                erl_expert_rec.setData(t.getR().getTcolumn().getRecord(),t.getR().getSec_tcolumn_huanurl());
 //                lalv_action_line.setData(t.getR().getHuodong(), t.getR().getSec_huodong_title());
 //                ealv_expert_answer.setData(t.getR().getAsktutor(), t.getR().getSec_ask_title(), t.getR().getSec_ask_more());
 //                bslv_big_shot.setData(NewHomeRecommendFragment.getRootViewpager(), sc_recomment_root, t.getR().getDalao(), t.getR().getSec_dalao_title());
