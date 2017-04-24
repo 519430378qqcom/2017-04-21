@@ -166,6 +166,16 @@ public class AlreadShopColumnBean extends BaseGsonBeans {
             private String updateaudio;
             @SerializedName("columnurl")
             private String columnurl;
+            @SerializedName("price")
+            private String price;
+
+            public String getPrice() {
+                return price;
+            }
+
+            public void setPrice(String price) {
+                this.price = price;
+            }
         }
         public static class PageBean {
 
