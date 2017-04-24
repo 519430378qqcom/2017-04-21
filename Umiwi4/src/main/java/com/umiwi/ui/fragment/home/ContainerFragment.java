@@ -16,6 +16,7 @@ import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 import com.umeng.analytics.MobclickAgent;
 import com.umiwi.ui.R;
 import com.umiwi.ui.fragment.alreadyboughtfragment.AlreadyBoughtFragment;
+import com.umiwi.ui.fragment.audiolive.AudioLiveFragment;
 import com.umiwi.ui.fragment.home.updatehome.NewHomeRecommendFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.OldYoumiFragment;
 import com.umiwi.ui.managers.YoumiRoomUserManager;
@@ -64,12 +65,14 @@ public class ContainerFragment extends BaseFragment {
                     case 1:
 //                        icon.setImageDrawable(res.getDrawable(R.drawable.selector_ic_bottom_category));
                         icon.setImageDrawable(res.getDrawable(R.drawable.selector_ic_bottom_alreadybought));
-
                         break;
                     case 2:
-                        icon.setImageDrawable(res.getDrawable(R.drawable.selector_ic_bottom_discovery));
+                        icon.setImageDrawable(res.getDrawable(R.drawable.selector_ic_bottom_audiolive));
                         break;
                     case 3:
+                        icon.setImageDrawable(res.getDrawable(R.drawable.selector_ic_bottom_discovery));
+                        break;
+                    case 4:
                         icon.setImageDrawable(res.getDrawable(R.drawable.selector_ic_bottom_mine));
                         break;
                     default:
@@ -84,6 +87,7 @@ public class ContainerFragment extends BaseFragment {
         pages.add(FragmentPagerItem.of("首页", NewHomeRecommendFragment.class));
 //		pages.add(FragmentPagerItem.of("分类",StageSectionCategoryFragment.class));
         pages.add(FragmentPagerItem.of("已购", AlreadyBoughtFragment.class));
+        pages.add(FragmentPagerItem.of("直播", AudioLiveFragment.class));
 //        pages.add(FragmentPagerItem.of("发现", DiscoveryFragment.class));
         pages.add(FragmentPagerItem.of("发现", OldYoumiFragment.class));
 //		pages.add(FragmentPagerItem.of("我的",MineFragment.class));

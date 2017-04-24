@@ -1,11 +1,8 @@
 package com.umiwi.ui.fragment.home.updatehome.indexfragment;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
@@ -13,10 +10,8 @@ import android.widget.TextView;
 
 import com.umeng.analytics.MobclickAgent;
 import com.umiwi.ui.R;
-import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.StageSectionAdapter;
 import com.umiwi.ui.beans.StageSectionBean;
-import com.umiwi.ui.fragment.search.SearchFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.UmiwiAPI;
 
@@ -54,18 +49,19 @@ public class OldYoumiFragment   extends BaseConstantFragment {
         View view = inflater.inflate(R.layout.fragment_stage_section, null);
         TextView title = (TextView) view.findViewById(R.id.title);
         title.setText("老优米");
-        mActionBarToolbar = (Toolbar) view.findViewById(R.id.toolbar_actionbar);
-//        mActionBarToolbar.inflateMenu(R.menu.toolbar_search);
-        mActionBarToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
 
-            @Override
-            public boolean onMenuItemClick(MenuItem arg0) {
-                Intent i = new Intent(getActivity(), UmiwiContainerActivity.class);
-                i.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, SearchFragment.class);
-                startActivity(i);
-                return true;
-            }
-        });
+//        mActionBarToolbar = (Toolbar) view.findViewById(R.id.toolbar_actionbar);
+//        mActionBarToolbar.inflateMenu(R.menu.toolbar_search);
+//        mActionBarToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+//
+//            @Override
+//            public boolean onMenuItemClick(MenuItem arg0) {
+//                Intent i = new Intent(getActivity(), UmiwiContainerActivity.class);
+//                i.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, SearchFragment.class);
+//                startActivity(i);
+//                return true;
+//            }
+//        });
 
         stageSectionListView = (ExpandableListView) view.findViewById(R.id.expandableListView);
 

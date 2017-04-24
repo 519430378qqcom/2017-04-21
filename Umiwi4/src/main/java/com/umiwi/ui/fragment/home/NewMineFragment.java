@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -82,7 +81,7 @@ public class NewMineFragment extends BaseConstantFragment implements ActivityCom
         imageLoader = new ImageLoader(getActivity());
         TextView title = (TextView) view.findViewById(R.id.title);
         title.setText("我的");
-        mActionBarToolbar = (Toolbar) view.findViewById(R.id.toolbar_actionbar);
+//        mActionBarToolbar = (Toolbar) view.findViewById(R.id.toolbar_actionbar);
         mListView = (ListView) view.findViewById(R.id.listView);
         setMineList();
 
