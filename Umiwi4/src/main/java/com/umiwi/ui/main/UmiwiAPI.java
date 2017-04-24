@@ -482,6 +482,8 @@ public final class UmiwiAPI {
     public static final String CREATE_BUYAUDIO = "http://i.v.youmi.cn/orders/buyaudio?format=%s&id=%s&spm=%s";
     //专栏购买生成订单
     public static final String CREATE_SUBSCRIBER_ORDERID = "http://i.v.youmi.cn/orders/buycolumn?format=%s&id=%s";
+    //音频专题购买生成订单
+    public static  final String BUY_SPECIAL_AUDIO = "http://i.v.youmi.cn/orders/buyaudiotopic?format=%s&id=%s";
     //热播榜
     public static final String REBO_BANG = "http://i.v.youmi.cn/api8/hottop";
     //热销榜

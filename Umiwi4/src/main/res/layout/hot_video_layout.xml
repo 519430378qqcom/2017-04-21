@@ -22,6 +22,8 @@
              />
 <!--android:textStyle="bold"-->
         <TextView
+            android:drawableLeft="@drawable/change_more"
+            android:drawablePadding="3dp"
             android:id="@+id/title_huan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

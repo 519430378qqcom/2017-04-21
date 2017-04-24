@@ -23,26 +23,25 @@
                 android:layout_marginLeft="15dp"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
-                android:text="推荐专栏"
+                android:text="热门直播"
                 android:textColor="@color/black"
                 android:textSize="18sp"
-                 />
-            <!--android:textStyle="bold"-->
-                <!--android:text="行家推荐"-->
-            <TextView
-                android:drawableLeft="@drawable/change_more"
-                android:id="@+id/tv_exp_change"
-                android:padding="5dp"
-                android:text="换一批"
-                android:drawablePadding="3dp"
-                android:layout_marginRight="10dp"
-                android:layout_centerVertical="true"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
                 />
+            <!--android:textStyle="bold"-->
+            <!--android:text="行家推荐"-->
+            <!--<TextView-->
+            <!--android:id="@+id/tv_exp_change"-->
+            <!--android:padding="5dp"-->
+            <!--android:text="换一批"-->
+            <!--android:drawablePadding="5dp"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:paddingBottom="10dp"-->
+            <!--android:paddingTop="10dp"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--/>-->
         </RelativeLayout>
 
         <View

@@ -57,6 +57,7 @@ public class ExpertRecLayoutView extends LinearLayout {
         tv_tutor_all = (TextView) findViewById(R.id.tv_tutor_all);
         rl_tutor_all = (RelativeLayout) findViewById(R.id.rl_tutor_all);
         lv_home_expert_rec = (ListView) findViewById(R.id.lv_home_expert_rec);
+        tv_exp_change = (TextView) findViewById(R.id.tv_exp_change);
 //        tv_audio_more = (TextView)findViewById(R.id.tv_audio_more);
         ll_expert_root.setVisibility(GONE);
         lv_home_expert_rec.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -101,12 +102,12 @@ public class ExpertRecLayoutView extends LinearLayout {
                 mContext.startActivity(intent);
             }
         });
-//        tv_exp_change.setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
+        tv_exp_change.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
 //                getChangeData();
-//            }
-//        });
+            }
+        });
     }
 
     public void setData(ArrayList<RecommendBean.RBean.TutorBean> tutorBeen, String tutorTitle, String tutorAll) {

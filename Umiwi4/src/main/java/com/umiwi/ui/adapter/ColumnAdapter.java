@@ -54,7 +54,7 @@ public class ColumnAdapter extends BaseAdapter {
         ViewHolder viewholder = null;
         if (convertView == null) {
             viewholder = new ViewHolder();
-            convertView = View.inflate(activity, R.layout.special_column_item, null);
+            convertView = View.inflate(activity, R.layout.subscibe_column_item, null);
 
             viewholder.special_header_imageview_1 = (XCRoundRectImageView) convertView.findViewById(R.id.special_header_imageview_1);
             viewholder.special_price_1 = (TextView) convertView.findViewById(R.id.special_price_1);

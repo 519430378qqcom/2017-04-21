@@ -41,6 +41,7 @@ import com.umiwi.ui.fragment.UserTestInfoFragment;
 import com.umiwi.ui.fragment.course.CourseDetailPlayFragment;
 import com.umiwi.ui.fragment.home.recommend.widget.ExpertRecLayoutView;
 import com.umiwi.ui.fragment.home.recommend.widget.FreeLayoutView;
+import com.umiwi.ui.fragment.home.recommend.widget.HotAudioLiveLayoutView;
 import com.umiwi.ui.fragment.home.recommend.widget.HotVideoLayout;
 import com.umiwi.ui.fragment.home.recommend.widget.LbumLayoutView;
 import com.umiwi.ui.fragment.home.recommend.widget.PaySelectedLayoutViwe;
@@ -106,6 +107,7 @@ public class RecommendFragment extends BaseConstantFragment {
     private FreeLayoutView flv_new_free;
     private HotVideoLayout hot_video_layout;
     private ExpertRecLayoutView erl_expert_rec;
+    private HotAudioLiveLayoutView hot_audio_live;
 //    private LineActionLayoutViwe lalv_action_line;
 //    private ExpertAnswerLayoutViwe ealv_expert_answer;
 //    private BigShotLayoutView bslv_big_shot;
@@ -140,6 +142,7 @@ public class RecommendFragment extends BaseConstantFragment {
 //        }
 //    };
     MyHandler handler=new  MyHandler(this);
+
 
 
     static  class  MyHandler extends Handler {
@@ -215,6 +218,7 @@ public class RecommendFragment extends BaseConstantFragment {
         pslv_pay_selected = (PaySelectedLayoutViwe) v.findViewById(R.id.pslv_pay_selected);
 //        rblv_bottom = (RecommentBottomLayoutView) v.findViewById(R.id.rblv_bottom);
         lbum_layout = (LbumLayoutView) v.findViewById(R.id.lbum_layout);
+        hot_audio_live = (HotAudioLiveLayoutView) v.findViewById(R.id.hot_audio_live);
     }
 
     /**
@@ -251,7 +255,7 @@ public class RecommendFragment extends BaseConstantFragment {
                 pslv_pay_selected.setData(t.getR().getCharge().getRecord(), t.getR().getSec_charge_title(), t.getR().getSec_charge_huan(),t.getR().getSec_charge_huanurl(),t.getR().getCharge().getPage().getTotalpage());
 //                rblv_bottom.setData(getActivity(), t.getR().getBottom());
                 lbum_layout.setData(t.getR().getAlbumlist());
-
+                hot_audio_live.setData();
             }
         }
 

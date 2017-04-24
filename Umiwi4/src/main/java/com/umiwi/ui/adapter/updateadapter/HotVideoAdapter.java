@@ -5,12 +5,12 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.umiwi.ui.R;
 import com.umiwi.ui.beans.updatebeans.RecommendBean;
+import com.umiwi.ui.view.XCRoundRectImageView;
 
 import java.util.ArrayList;
 
@@ -49,7 +49,7 @@ public class HotVideoAdapter extends BaseAdapter {
         if (convertView == null) {
             viewHolder = new ViewHolder();
             convertView = View.inflate(mContext, R.layout.recentpalyvideo_item, null);
-            viewHolder.iv_author = (ImageView) convertView.findViewById(R.id.iv_author);
+            viewHolder.iv_author = (XCRoundRectImageView) convertView.findViewById(R.id.iv_author);
             viewHolder.tv_video_time = (TextView) convertView.findViewById(R.id.tv_video_time);
             viewHolder.tv_video_name = (TextView) convertView.findViewById(R.id.tv_video_name);
             viewHolder.tv_video_detail = (TextView) convertView.findViewById(R.id.tv_video_detail);
@@ -72,7 +72,7 @@ public class HotVideoAdapter extends BaseAdapter {
         return convertView;
     }
     class ViewHolder{
-        private ImageView iv_author;
+        private XCRoundRectImageView iv_author;
         private TextView tv_video_time;
         private TextView tv_video_name;
         private TextView tv_video_detail;

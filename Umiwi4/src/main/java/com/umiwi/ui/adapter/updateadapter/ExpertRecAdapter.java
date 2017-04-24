@@ -97,6 +97,7 @@ public class ExpertRecAdapter extends BaseAdapter {
             expter_time_textView = (TextView) rootView.findViewById(R.id.expter_time_textView);
             expter_detail_textView = (TextView) rootView.findViewById(R.id.expter_detail_textView);
             expert_subscribe_number = (TextView) rootView.findViewById(R.id.special_subscribe_number_1);
+            expert_subscribe_number.setVisibility(View.GONE);
             isBuy = false;
             uid = "";
         }

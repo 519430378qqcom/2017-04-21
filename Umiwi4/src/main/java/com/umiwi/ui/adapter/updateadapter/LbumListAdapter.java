@@ -5,12 +5,12 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.umiwi.ui.R;
 import com.umiwi.ui.beans.updatebeans.RecommendBean;
+import com.umiwi.ui.view.XCRoundRectImageView;
 
 import java.util.ArrayList;
 
@@ -48,7 +48,7 @@ public class LbumListAdapter extends BaseAdapter {
         if (convertView == null) {
             holder = new ViewHolder();
             convertView = View.inflate(mContext, R.layout.subject_audio_video_item, null);
-            holder.iv_author = (ImageView) convertView.findViewById(R.id.iv_author);
+            holder.iv_author = (XCRoundRectImageView) convertView.findViewById(R.id.iv_author);
             holder.tv_video_audio = (TextView) convertView.findViewById(R.id.tv_video_audio);
             holder.special_name_textView_1 = (TextView) convertView.findViewById(R.id.special_name_textView_1);
             holder.special_price_1 = (TextView) convertView.findViewById(R.id.special_price_1);
@@ -88,7 +88,7 @@ public class LbumListAdapter extends BaseAdapter {
         return convertView;
     }
     class ViewHolder{
-        ImageView iv_author;//图片
+        XCRoundRectImageView iv_author;//图片
         TextView tv_video_audio;//视频/音频
         TextView special_name_textView_1;//title
         TextView special_price_1;//price

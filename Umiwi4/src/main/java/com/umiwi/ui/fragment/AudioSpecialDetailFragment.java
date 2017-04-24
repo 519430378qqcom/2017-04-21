@@ -171,7 +171,8 @@ public class AudioSpecialDetailFragment extends BaseConstantFragment implements 
      */
     private void getSubscriber(String id) {
         String url = null;
-        url = String.format(UmiwiAPI.CREATE_SUBSCRIBER_ORDERID, "json", id);
+        url = String.format(UmiwiAPI.BUY_SPECIAL_AUDIO, "json", id);
+        Log.e("TAG", "payurl121031==" + url);
         GetRequest<UmiwiBuyCreateOrderBeans> request = new GetRequest<UmiwiBuyCreateOrderBeans>(
                 url, GsonParser.class,
                 UmiwiBuyCreateOrderBeans.class,

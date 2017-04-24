@@ -28,6 +28,14 @@
                     android:layout_height="wrap_content" />
 
                 <include layout="@layout/include_view" />
+
+                <!--热门直播-->
+                <com.umiwi.ui.fragment.home.recommend.widget.HotAudioLiveLayoutView
+                    android:id="@+id/hot_audio_live"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <include layout="@layout/include_view" />
+
                 <!--推荐专栏-->
                 <com.umiwi.ui.fragment.home.recommend.widget.ExpertRecLayoutView
                     android:id="@+id/erl_expert_rec"

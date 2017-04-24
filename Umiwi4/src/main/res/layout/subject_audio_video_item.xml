@@ -15,7 +15,7 @@
             android:id="@+id/special_header_imageview_1"
             android:layout_width="120dp"
             android:layout_height="90dp">
-            <ImageView
+            <com.umiwi.ui.view.XCRoundRectImageView
                 android:id="@+id/iv_author"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
