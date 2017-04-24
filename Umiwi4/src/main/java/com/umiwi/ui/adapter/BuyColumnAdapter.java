@@ -54,6 +54,9 @@ public class BuyColumnAdapter extends BaseAdapter {
             viewholder.expter_time_textView = (TextView) convertView.findViewById(R.id.expter_time_textView);
             viewholder.expter_detail_textView = (TextView) convertView.findViewById(R.id.expter_detail_textView);
             viewholder.special_subscribe_number_1 = (TextView) convertView.findViewById(R.id.special_subscribe_number_1);
+            viewholder.special_subscribe_number_1.setVisibility(View.GONE);
+            viewholder.special_price_1 = (TextView) convertView.findViewById(R.id.special_price_1);
+
             convertView.setTag(viewholder);
         } else {
             viewholder = (ViewHolder) convertView.getTag();
@@ -64,9 +67,10 @@ public class BuyColumnAdapter extends BaseAdapter {
         imageLoader.loadImage(recordColumn.getImage(),viewholder.special_header_imageview_1);
         viewholder.special_name_textView_1.setText(recordColumn.getTitle());
         viewholder.special_context_1.setText(recordColumn.getTutortitle());
-        viewholder.expter_time_textView.setText(recordColumn.getUpdatetime());
+        viewholder.expter_time_textView.setText(recordColumn.getUpdatetime() + "更新");
         viewholder.expter_detail_textView.setText(recordColumn.getUpdateaudio());
         viewholder.special_subscribe_number_1.setText("已订阅"+recordColumn.getSalenum());
+
         return convertView;
     }
 
@@ -83,6 +87,6 @@ public class BuyColumnAdapter extends BaseAdapter {
         TextView expter_time_textView;
         TextView expter_detail_textView;
         TextView special_subscribe_number_1;
-
+        TextView special_price_1;
     }
 }

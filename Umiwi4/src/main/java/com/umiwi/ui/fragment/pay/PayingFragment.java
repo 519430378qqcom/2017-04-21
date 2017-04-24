@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Looper;
 import android.support.v7.app.AlertDialog;
@@ -12,22 +11,18 @@ import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.umeng.analytics.MobclickAgent;
 import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
-import com.umiwi.ui.activity.UmiwiDetailActivity;
 import com.umiwi.ui.activity.YMPayActivity;
 import com.umiwi.ui.adapter.PaymentBankAdapter;
 import com.umiwi.ui.adapter.PaymentSdkAdapter;
@@ -43,7 +38,6 @@ import java.util.List;
 
 import cn.youmi.account.event.UserEvent;
 import cn.youmi.account.model.UserModel;
-import cn.youmi.framework.dialog.MsgDialog;
 import cn.youmi.framework.fragment.BaseFragment;
 import cn.youmi.framework.http.AbstractRequest;
 import cn.youmi.framework.http.AbstractRequest.Listener;
@@ -133,7 +127,6 @@ public class PayingFragment extends BaseFragment {
 
             ToastU.show(getActivity(), "购买链接异常", Toast.LENGTH_SHORT);
         }
-
 
         YoumiRoomUserManager.getInstance().registerListener(userListener);
 

@@ -1,7 +1,6 @@
 package com.umiwi.ui.adapter;
 
 import android.support.v4.app.FragmentActivity;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -61,7 +60,7 @@ public class ColumnAdapter extends BaseAdapter {
             viewholder.special_subscribe_number_1 = (TextView) convertView.findViewById(R.id.special_subscribe_number_1);
             viewholder.special_name_textView_1 = (TextView) convertView.findViewById(R.id.special_name_textView_1);
             viewholder.special_context_1 = (TextView) convertView.findViewById(R.id.special_context_1);
-            viewholder.expter_time_textView = (TextView) convertView.findViewById(R.id.expter_time_textView);
+//            viewholder.expter_time_textView = (TextView) convertView.findViewById(R.id.expter_time_textView);
             viewholder.expter_detail_textView = (TextView) convertView.findViewById(R.id.expter_detail_textView);
 
             convertView.setTag(viewholder);
@@ -76,15 +75,15 @@ public class ColumnAdapter extends BaseAdapter {
         } else {
             viewholder.special_price_1.setText(mList.get(position).getPrice());
         }
-        viewholder.special_subscribe_number_1.setText("已订阅" + mList.get(position).getSalenum());
+        viewholder.special_subscribe_number_1.setText(mList.get(position).getSalenum() + "人订阅");
         viewholder.special_name_textView_1.setText(mList.get(position).getTitle());
         viewholder.special_context_1.setText(mList.get(position).getTutortitle());//mList.get(position).getUpdateaudio()
         viewholder.expter_detail_textView.setText(mList.get(position).getUpdateaudio());
-        if (!TextUtils.isEmpty(mList.get(position).getUpdatetime())) {
-            viewholder.expter_time_textView.setText(" " + mList.get(position).getUpdatetime() + "更新 ");
-        } else {
-            viewholder.expter_time_textView.setText("0小时前更新");
-        }
+//        if (!TextUtils.isEmpty(mList.get(position).getUpdatetime())) {
+//            viewholder.expter_time_textView.setText(" " + mList.get(position).getUpdatetime() + "更新 ");
+//        } else {
+//            viewholder.expter_time_textView.setText("0小时前更新");
+//        }
 
         return convertView;
     }

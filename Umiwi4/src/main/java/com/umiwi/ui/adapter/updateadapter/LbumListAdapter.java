@@ -54,6 +54,7 @@ public class LbumListAdapter extends BaseAdapter {
             holder.special_price_1 = (TextView) convertView.findViewById(R.id.special_price_1);
             holder.special_context_1 = (TextView) convertView.findViewById(R.id.special_context_1);
             holder.expter_time_textView = (TextView) convertView.findViewById(R.id.expter_time_textView);
+            holder.expter_time_textView.setVisibility(View.GONE);
             holder.expter_tag = (TextView) convertView.findViewById(R.id.expter_tag);
 //            holder.expter_detail_textView = (TextView) convertView.findViewById(R.id.expter_detail_textView);
             holder.special_subscribe_number_1 = (TextView) convertView.findViewById(R.id.special_subscribe_number_1);
