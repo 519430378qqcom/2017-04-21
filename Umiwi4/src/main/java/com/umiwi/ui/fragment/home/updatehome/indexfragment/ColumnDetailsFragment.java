@@ -47,7 +47,7 @@ import static cn.youmi.framework.main.BaseApplication.getApplication;
  * Created by Administrator on 2017/3/6.
  */
 
-//专栏详情
+//未购专栏详情
 public class ColumnDetailsFragment extends BaseConstantFragment {
 
     private String columnurl;
