@@ -11,8 +11,6 @@ import com.umiwi.ui.beans.updatebeans.AudioSpecialDetailsBean;
 
 import java.util.ArrayList;
 
-import static com.umiwi.ui.main.YoumiConfiguration.context;
-
 /**
  * Created by Administrator on 2017/3/6.
  */
@@ -49,7 +47,7 @@ public class ColumnAttentionAdapter extends BaseAdapter {
         ColumnAttentionAdapter.ViewHolder viewHolder;
         if (convertView == null){
             viewHolder = new ColumnAttentionAdapter.ViewHolder();
-            convertView = View.inflate(context, R.layout.column_details,null);
+            convertView = View.inflate(activity, R.layout.column_details,null);
             viewHolder.tv_jianjie = (TextView) convertView.findViewById(R.id.tv_jianjie);
 
             convertView.setTag(viewHolder);

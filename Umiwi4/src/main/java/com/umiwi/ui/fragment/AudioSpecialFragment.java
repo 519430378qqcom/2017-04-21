@@ -22,7 +22,7 @@ import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.ColumnAdapter;
 import com.umiwi.ui.beans.updatebeans.HomeColumnBean;
-import com.umiwi.ui.fragment.home.alreadyshopping.LogicalThinkingFragment;
+import com.umiwi.ui.fragment.alreadyboughtfragment.BuyColumnDetailsFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.ColumnDetailsFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.VoiceDetailsFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
@@ -68,7 +68,7 @@ public class AudioSpecialFragment extends BaseConstantFragment implements View.O
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.audio_special_layout,null);
         mList = new ArrayList<>();
         ButterKnife.inject(this,view);
@@ -83,9 +83,12 @@ public class AudioSpecialFragment extends BaseConstantFragment implements View.O
                 boolean isbuy = mList.get(i).getIsbuy();
                 if (isbuy) {
                     Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
-                    intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, LogicalThinkingFragment.class);
+//                    intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, LogicalThinkingFragment.class);
                     intent.putExtra("id", mList.get(i).getId());
-                    intent.putExtra("title", mList.get(i).getTitle());
+//                    intent.putExtra("title", mList.get(i).getTitle());
+                    intent.putExtra("columnurl",mList.get(i).getColumnurl());
+                    intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS,BuyColumnDetailsFragment.class);
+//                    intent.putExtra("id", mList.get(i).getColumnid());
                     startActivity(intent);
                 } else {
                     Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);

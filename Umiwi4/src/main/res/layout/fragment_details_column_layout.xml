@@ -246,7 +246,7 @@
 
     <include
         android:id="@+id/rl_background"
-        layout="@layout/back_share_record_layout"></include>
+        layout="@layout/back_share_record_layout"/>
 
     <LinearLayout
 

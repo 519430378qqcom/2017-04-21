@@ -8,11 +8,13 @@
         android:id="@+id/scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fillViewport="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true">
 
         <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -35,83 +37,125 @@
                         android:background="@color/gray_a"
                         android:scaleType="fitXY" />
 
-
-                    <LinearLayout
-                        android:padding="5dp"
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
                         android:background="#11000000"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/tv_name"
-                            android:text="大数据行业热点分析"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:textColor="@color/white"
-                            android:textSize="16sp" />
-
-                        <TextView
-                            android:text="业热点分析"
-                            android:id="@+id/tv_title"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:textColor="@color/white"
-                            android:textSize="13sp" />
-                    </LinearLayout>
-
-                </RelativeLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="10dp">
-
-                    <LinearLayout
-                        android:id="@+id/ll_orderby"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center">
+                        android:padding="5dp">
 
                         <ImageView
-                            android:id="@+id/iv_sort"
+                            android:id="@+id/iv_fold_down"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:src="@drawable/daoxuanniu" />
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:padding="5dp"
+                            android:src="@drawable/fold_down" />
 
-                        <TextView
-                            android:id="@+id/orderby"
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:text="正序" />
-                    </LinearLayout>
+                            android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/update_count"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:text="已更新0条" />
-                </LinearLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:background="@color/gray_a">
+                            <TextView
+                                android:id="@+id/tv_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:text="大数据行业热点分析"
+                                android:textColor="@color/white"
+                                android:textSize="16sp" />
 
-                </View>
+                            <TextView
+                                android:id="@+id/tv_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:text="业热点分析"
+                                android:textColor="@color/white"
+                                android:textSize="13sp" />
+                        </LinearLayout>
+                    </RelativeLayout>
+
+
+                </RelativeLayout>
+
                 <LinearLayout
-                    android:visibility="gone"
-                    android:id="@+id/ll_column_details"
+                    android:id="@+id/ll_listvisable"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="10dp">
+
+                        <LinearLayout
+                            android:id="@+id/ll_orderby"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center">
+
+                            <ImageView
+                                android:id="@+id/iv_sort"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:src="@drawable/daoxuanniu" />
+
+                            <TextView
+                                android:id="@+id/orderby"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:text="正序"
+                                android:textColor="@color/main_color" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/update_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_weight="1"
+                            android:text="已更新0条"
+                            android:textColor="@color/black_alpf" />
+
+                        <TextView
+                            android:id="@+id/tv_buynumber"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="4556人订阅" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="@color/gray_a">
+
+                    </View>
+
+                    <ListView
+                        android:id="@+id/lv_buycolumn"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:divider="@null">
+                    </ListView>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/ll_column_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -205,32 +249,31 @@
                 </LinearLayout>
 
 
-
                 <!--<LinearLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:orientation="vertical">-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:orientation="vertical">-->
 
-                    <!--<TextView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_marginLeft="10dp"-->
-                        <!--android:layout_marginTop="20dp"-->
-                        <!--android:text="最近更新"-->
-                        <!--android:textColor="@color/black"-->
-                        <!--android:textSize="19sp" />-->
+                <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="10dp"-->
+                <!--android:layout_marginTop="20dp"-->
+                <!--android:text="最近更新"-->
+                <!--android:textColor="@color/black"-->
+                <!--android:textSize="19sp" />-->
 
-                    <!--<com.umiwi.ui.view.NoScrollListview-->
-                        <!--android:id="@+id/last_record"-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_marginLeft="10dp"-->
-                        <!--android:layout_marginTop="10dp"-->
-                        <!--android:divider="@null" />-->
+                <!--<com.umiwi.ui.view.NoScrollListview-->
+                <!--android:id="@+id/last_record"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="10dp"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:divider="@null" />-->
 
-                    <!--<RelativeLayout-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="60dp" />-->
+                <!--<RelativeLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="60dp" />-->
                 <!--</LinearLayout>-->
             </LinearLayout>
         </LinearLayout>
@@ -241,18 +284,19 @@
         layout="@layout/back_share_record_layout"></include>
 
     <RelativeLayout
-        android:visibility="gone"
         android:id="@+id/rl_bottom_up"
-        android:background="@android:color/transparent"
-        android:layout_gravity="bottom"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@android:color/transparent"
+        android:visibility="gone">
+
         <ImageView
-            android:padding="15dp"
-            android:layout_alignParentRight="true"
-            android:src="@drawable/image_up"
+            android:id="@+id/iv_up"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            />
+            android:layout_alignParentRight="true"
+            android:padding="15dp"
+            android:src="@drawable/image_up" />
     </RelativeLayout>
 </FrameLayout>
