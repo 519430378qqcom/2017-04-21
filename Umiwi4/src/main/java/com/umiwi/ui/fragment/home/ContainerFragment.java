@@ -38,9 +38,11 @@ import cn.youmi.framework.manager.ModelManager.ModelStatusListener;
  */
 @SuppressLint("ValidFragment")
 public class ContainerFragment extends BaseFragment {
-
+    private static ViewPager rootviewPager;
     private ViewPager mViewPager;
-
+    public static ViewPager getViewPagerItem(){
+        return rootviewPager;
+    }
     @SuppressLint("InflateParams")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,7 +51,7 @@ public class ContainerFragment extends BaseFragment {
 
         final SmartTabLayout viewPagerTab = (SmartTabLayout) view.findViewById(R.id.viewpagertab);
         mViewPager = (ViewPager) view.findViewById(R.id.viewpager);
-
+        rootviewPager = mViewPager;
         viewPagerTab.setCustomTabView(new SmartTabLayout.TabProvider() {
             final Resources res = getActivity().getResources();
 

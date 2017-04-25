@@ -6,8 +6,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.umiwi.ui.R;
+import com.umiwi.ui.beans.updatebeans.RecommendBean;
 import com.umiwi.ui.view.XCRoundRectImageView;
+
+import java.util.ArrayList;
 
 /**
  * Created by lenovo on 2017/4/25.
@@ -15,13 +19,14 @@ import com.umiwi.ui.view.XCRoundRectImageView;
 
 public class AudioLiveAdapter extends BaseAdapter {
     private FragmentActivity mActivity;
+    private ArrayList<RecommendBean.RBean.HotLiveBean.HotLiveRecord> mList;
     public AudioLiveAdapter(FragmentActivity activity) {
         this.mActivity = activity;
     }
 
     @Override
     public int getCount() {
-        return 3;
+        return mList.size();
     }
 
     @Override
@@ -50,11 +55,19 @@ public class AudioLiveAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
+
+        RecommendBean.RBean.HotLiveBean.HotLiveRecord hotLiveRecord = mList.get(position);
+        Glide.with(mActivity).load(hotLiveRecord.getLimage()).into(holder.iv_author);
+        holder.special_name_textView.setText(hotLiveRecord.getTitle());
+        holder.special_context.setText(hotLiveRecord.getSubtitle());
+        holder.special_price.setText(hotLiveRecord.getPrice());
+        holder.expter_time_textView.setText(hotLiveRecord.getStatus());
+        holder.special_subscribe_number.setText(hotLiveRecord.getPartakenum() + "参与");
         return convertView;
     }
 
-    public void setData() {
-
+    public void setData(ArrayList<RecommendBean.RBean.HotLiveBean.HotLiveRecord> mList) {
+        this.mList = mList;
         notifyDataSetChanged();
     }
     class ViewHolder{

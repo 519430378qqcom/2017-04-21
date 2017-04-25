@@ -142,7 +142,8 @@ public class RecommendFragment extends BaseConstantFragment {
 //        }
 //    };
     MyHandler handler=new  MyHandler(this);
-
+    //直播链接
+    public static String sec_live_moreurl;
 
 
     static  class  MyHandler extends Handler {
@@ -256,6 +257,7 @@ public class RecommendFragment extends BaseConstantFragment {
 //                rblv_bottom.setData(getActivity(), t.getR().getBottom());
                 lbum_layout.setData(t.getR().getAlbumlist());
                 hot_audio_live.setData(t.getR().getLive(),t.getR().getSec_live_moreurl());
+                sec_live_moreurl = t.getR().getSec_live_moreurl();
             }
         }
 

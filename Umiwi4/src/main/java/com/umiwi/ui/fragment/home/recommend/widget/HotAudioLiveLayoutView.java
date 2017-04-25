@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.umiwi.ui.R;
 import com.umiwi.ui.adapter.updateadapter.HotAudioLiveAdapter;
 import com.umiwi.ui.beans.updatebeans.RecommendBean;
+import com.umiwi.ui.fragment.home.ContainerFragment;
 
 import java.util.ArrayList;
 
@@ -60,7 +61,7 @@ public class HotAudioLiveLayoutView extends LinearLayout {
         rl_tutor_all.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                ContainerFragment.getViewPagerItem().setCurrentItem(2);
             }
         });
 
