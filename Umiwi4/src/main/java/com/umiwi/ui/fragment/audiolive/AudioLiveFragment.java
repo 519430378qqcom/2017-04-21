@@ -55,7 +55,7 @@ public class AudioLiveFragment extends BaseConstantFragment {
         fragments.add(new AudioLiveNoStartFragment());
         fragments.add(new AudioLiveAlreadyOffFrgament());
         line_width = getActivity().getWindowManager().getDefaultDisplay().getWidth()/fragments.size();
-        ab_line.getLayoutParams().width = line_width-180;
+        ab_line.getLayoutParams().width = line_width-120;
         ab_line.requestLayout();
         vp_viewPager.setOffscreenPageLimit(2);
         vp_viewPager.setCurrentItem(0);
@@ -74,7 +74,7 @@ public class AudioLiveFragment extends BaseConstantFragment {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 float tagerX = position * line_width + positionOffsetPixels / fragments.size();
-                ViewPropertyAnimator.animate(ab_line).translationX(tagerX+90).setDuration(0);
+                ViewPropertyAnimator.animate(ab_line).translationX(tagerX+60).setDuration(0);
             }
 
             @Override
