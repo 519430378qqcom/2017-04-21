@@ -8,7 +8,6 @@
         android:id="@+id/scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true">
@@ -140,12 +139,11 @@
 
                     </View>
 
-                    <ListView
+                    <com.umiwi.ui.view.NoScrollListview
                         android:id="@+id/lv_buycolumn"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:divider="@null">
-                    </ListView>
+                        android:layout_height="wrap_content"
+                        android:divider="@null"/>
                 </LinearLayout>
 
 

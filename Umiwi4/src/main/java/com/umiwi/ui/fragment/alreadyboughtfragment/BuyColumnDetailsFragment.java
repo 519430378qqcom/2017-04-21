@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -26,8 +25,6 @@ import com.umiwi.ui.view.ScrollChangeScrollView;
 
 import java.util.ArrayList;
 
-import butterknife.ButterKnife;
-import butterknife.InjectView;
 import cn.youmi.framework.http.AbstractRequest;
 import cn.youmi.framework.http.GetRequest;
 import cn.youmi.framework.http.parsers.GsonParser;
@@ -38,51 +35,29 @@ import cn.youmi.framework.http.parsers.GsonParser;
  */
 
 public class BuyColumnDetailsFragment extends BaseConstantFragment {
-    @InjectView(R.id.scrollview)
     ScrollChangeScrollView scrollview;
-    @InjectView(R.id.iv_image)
     ImageView iv_image;
-    @InjectView(R.id.iv_fold_down)
     ImageView iv_fold_down;
-    @InjectView(R.id.tv_name)
     TextView tv_name;
-    @InjectView(R.id.tv_title)
     TextView tv_title;
-    @InjectView(R.id.ll_orderby)
     LinearLayout ll_orderby;
-    @InjectView(R.id.iv_sort)
     ImageView iv_sort;
-    @InjectView(R.id.orderby)
     TextView orderby;
-    @InjectView(R.id.update_count)
     TextView update_count;
-    @InjectView(R.id.tv_buynumber)
     TextView tv_buynumber;
-    @InjectView(R.id.lv_buycolumn)
-    ListView lv_buycolumn;
-    @InjectView(R.id.ll_listvisable)
+//    @InjectView(R.id.lv_buycolumn)
+//    NoScrollListview lv_buycolumn;
     LinearLayout ll_listvisable;
-    @InjectView(R.id.ll_column_details)
     LinearLayout ll_column_details;
-    @InjectView(R.id.description)
     NoScrollListview description;
-    @InjectView(R.id.targetuser)
     TextView targetuser;
-    @InjectView(R.id.attention_listview)
     NoScrollListview attention_listview;
-    @InjectView(R.id.rl_background)
     View rl_background;
-    @InjectView(R.id.iv_back)
     ImageView iv_back;
-    @InjectView(R.id.tab_title)
     TextView tab_title;
-    @InjectView(R.id.iv_shared)
     ImageView iv_shared;
-    @InjectView(R.id.record)
     ImageView record;
-    @InjectView(R.id.rl_bottom_up)
     RelativeLayout rl_bottom_up;
-    @InjectView(R.id.iv_up)
     ImageView iv_up;
 
     private String orderbyId = "new";
@@ -91,19 +66,51 @@ public class BuyColumnDetailsFragment extends BaseConstantFragment {
     private LogicalThinkingAdapter logicalThinkingAdapter;
     private AudioSpecialDetailsBean.RAudioSpecialDetails details;
     private String columnurl;
+    private NoScrollListview lv_buycolumn;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_buy_column_details,null);
-        ButterKnife.inject(this,view);
+//        ButterKnife.inject(this,view);
+
         id = getActivity().getIntent().getStringExtra("id");
         columnurl = getActivity().getIntent().getStringExtra("columnurl");
 
-
+        initView(view);
+        getDetailsData();
         getListData();
         return view;
     }
+
+    private void initView(View view) {
+        scrollview = (ScrollChangeScrollView) view.findViewById(R.id.scrollview);
+        scrollview.scrollTo(0,0);
+        lv_buycolumn = (NoScrollListview) view.findViewById(R.id.lv_buycolumn);
+        iv_image = (ImageView) view.findViewById(R.id.iv_image);
+        iv_fold_down = (ImageView) view.findViewById(R.id.iv_fold_down);
+        tv_name = (TextView) view.findViewById(R.id.tv_name);
+        tv_title = (TextView) view.findViewById(R.id.tv_title);
+        ll_orderby = (LinearLayout) view.findViewById(R.id.ll_orderby);
+        iv_sort = (ImageView) view.findViewById(R.id.iv_sort);
+        orderby = (TextView) view.findViewById(R.id.orderby);
+        update_count = (TextView) view.findViewById(R.id.update_count);
+        tv_buynumber = (TextView) view.findViewById(R.id.tv_buynumber);
+        ll_listvisable = (LinearLayout) view.findViewById(R.id.ll_listvisable);
+        ll_column_details = (LinearLayout) view.findViewById(R.id.ll_column_details);
+        description = (NoScrollListview) view.findViewById(R.id.description);
+        targetuser = (TextView) view.findViewById(R.id.targetuser);
+        attention_listview = (NoScrollListview) view.findViewById(R.id.attention_listview);
+        rl_background = view.findViewById(R.id.rl_background);
+        iv_back = (ImageView) view.findViewById(R.id.iv_back);
+        tab_title = (TextView) view.findViewById(R.id.tab_title);
+        iv_shared = (ImageView) view.findViewById(R.id.iv_shared);
+        record = (ImageView) view.findViewById(R.id.record);
+        iv_up = (ImageView) view.findViewById(R.id.iv_up);
+        rl_bottom_up = (RelativeLayout) view.findViewById(R.id.rl_bottom_up);
+        lv_buycolumn.setFocusable(false);
+    }
+
     //获取专栏简介数据
     private void getDetailsData() {
         String url = String.format(UmiwiAPI.No_buy_column,25);
@@ -148,8 +155,9 @@ public class BuyColumnDetailsFragment extends BaseConstantFragment {
                     recordList.addAll(recordsBeen);
                     logicalThinkingAdapter = new LogicalThinkingAdapter(getActivity(), recordList);
                     lv_buycolumn.setAdapter(logicalThinkingAdapter);
+
                 }
-                getDetailsData();
+
             }
 
             @Override
@@ -163,6 +171,6 @@ public class BuyColumnDetailsFragment extends BaseConstantFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        ButterKnife.reset(this);
+//        ButterKnife.reset(this);
     }
 }
