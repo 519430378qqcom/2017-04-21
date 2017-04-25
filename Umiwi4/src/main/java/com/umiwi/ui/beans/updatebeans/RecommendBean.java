@@ -158,6 +158,208 @@ public class RecommendBean extends BaseGsonBeans {
         @SerializedName("menu")
         private ArrayList<MenuBean> menu;
 
+        //直播
+        @SerializedName("sec_live_moreurl")
+        private String sec_live_moreurl;
+        @SerializedName("sec_live_title")
+        private String sec_live_title;
+        @SerializedName("live")
+        private HotLiveBean live;
+
+        public static class HotLiveBean{
+            @SerializedName("record")
+            private ArrayList<HotLiveRecord> record;
+            @SerializedName("page")
+            private HotLivePage page;
+            public static class HotLiveRecord{
+                @SerializedName("id")
+                private String id;
+                @SerializedName("title")
+                private String title;
+                @SerializedName("price")
+                private String price;
+                @SerializedName("isbuy")
+                private boolean isbuy;
+                @SerializedName("status")
+                private String status;
+                @SerializedName("partakenum")
+                private String partakenum;
+                @SerializedName("subtitle")
+                private String subtitle;
+                @SerializedName("limage")
+                private String limage;
+                @SerializedName("detailurl")
+                private String detailurl;
+
+                public String getId() {
+                    return id;
+                }
+
+                public void setId(String id) {
+                    this.id = id;
+                }
+
+                public String getTitle() {
+                    return title;
+                }
+
+                public void setTitle(String title) {
+                    this.title = title;
+                }
+
+                public String getPrice() {
+                    return price;
+                }
+
+                public void setPrice(String price) {
+                    this.price = price;
+                }
+
+                public boolean isbuy() {
+                    return isbuy;
+                }
+
+                public void setIsbuy(boolean isbuy) {
+                    this.isbuy = isbuy;
+                }
+
+                public String getStatus() {
+                    return status;
+                }
+
+                public void setStatus(String status) {
+                    this.status = status;
+                }
+
+                public String getPartakenum() {
+                    return partakenum;
+                }
+
+                public void setPartakenum(String partakenum) {
+                    this.partakenum = partakenum;
+                }
+
+                public String getSubtitle() {
+                    return subtitle;
+                }
+
+                public void setSubtitle(String subtitle) {
+                    this.subtitle = subtitle;
+                }
+
+                public String getLimage() {
+                    return limage;
+                }
+
+                public void setLimage(String limage) {
+                    this.limage = limage;
+                }
+
+                public String getDetailurl() {
+                    return detailurl;
+                }
+
+                public void setDetailurl(String detailurl) {
+                    this.detailurl = detailurl;
+                }
+
+                @Override
+                public String toString() {
+                    return "HotLiveRecord{" +
+                            "id='" + id + '\'' +
+                            ", title='" + title + '\'' +
+                            ", price='" + price + '\'' +
+                            ", isbuy=" + isbuy +
+                            ", status='" + status + '\'' +
+                            ", partakenum='" + partakenum + '\'' +
+                            ", subtitle='" + subtitle + '\'' +
+                            ", limage='" + limage + '\'' +
+                            ", detailurl='" + detailurl + '\'' +
+                            '}';
+                }
+            }
+            public static class HotLivePage{
+                @SerializedName("currentpage")
+                private int currentpage;
+                @SerializedName("rows")
+                private String rows;
+                @SerializedName("totalpage")
+                private int totalpage;
+
+                public int getCurrentpage() {
+                    return currentpage;
+                }
+
+                public void setCurrentpage(int currentpage) {
+                    this.currentpage = currentpage;
+                }
+
+                public int getTotalpage() {
+                    return totalpage;
+                }
+
+                public void setTotalpage(int totalpage) {
+                    this.totalpage = totalpage;
+                }
+
+                public String getRows() {
+                    return rows;
+                }
+
+                public void setRows(String rows) {
+                    this.rows = rows;
+                }
+
+                @Override
+                public String toString() {
+                    return "HotLivePage{" +
+                            "currentpage=" + currentpage +
+                            ", rows='" + rows + '\'' +
+                            ", totalpage=" + totalpage +
+                            '}';
+                }
+            }
+
+            public ArrayList<HotLiveRecord> getRecord() {
+                return record;
+            }
+
+            public void setRecord(ArrayList<HotLiveRecord> record) {
+                this.record = record;
+            }
+
+            public HotLivePage getPage() {
+                return page;
+            }
+
+            public void setPage(HotLivePage page) {
+                this.page = page;
+            }
+        }
+        public String getSec_live_moreurl() {
+            return sec_live_moreurl;
+        }
+
+        public void setSec_live_moreurl(String sec_live_moreurl) {
+            this.sec_live_moreurl = sec_live_moreurl;
+        }
+
+        public HotLiveBean getLive() {
+            return live;
+        }
+
+        public void setLive(HotLiveBean live) {
+            this.live = live;
+        }
+
+        public String getSec_live_title() {
+            return sec_live_title;
+        }
+
+        public void setSec_live_title(String sec_live_title) {
+            this.sec_live_title = sec_live_title;
+        }
+
         public String getSec_tcolumn_title() {
             return sec_tcolumn_title;
         }

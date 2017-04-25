@@ -28,6 +28,8 @@ import com.umiwi.ui.fragment.home.updatehome.indexfragment.VoiceDetailsFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.main.UmiwiApplication;
+import com.umiwi.ui.managers.YoumiRoomUserManager;
+import com.umiwi.ui.util.CacheUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -99,15 +101,16 @@ public class LogicalThinkingFragment extends BaseConstantFragment {
                 intent.putExtra("isTry", true);
                 getActivity().startActivity(intent);
 
+                String uid = YoumiRoomUserManager.getInstance().getUid();
 
-//                AttemptBean.RAttenmpInfo.RecordsBean recordsBean = record.get(position);
-//                String readIdArray = CacheUtil.getStringFile(getActivity(), READ_ARRAY_ID);
-//                if(!readIdArray.contains(recordsBean.getId())) {
-//
-//                    CacheUtil.putStringFile(getActivity(),READ_ARRAY_ID,readIdArray + recordsBean.getId() +",");
-//                    //
-//                    logicalThinkingAdapter.notifyDataSetChanged();
-//                }
+                AttemptBean.RAttenmpInfo.RecordsBean recordsBean = record.get(position);
+                String readIdArray = CacheUtil.getStringFile(getActivity(), READ_ARRAY_ID);
+                if(!readIdArray.contains(recordsBean.getId() + uid)) {
+
+                    CacheUtil.putStringFile(getActivity(),READ_ARRAY_ID,readIdArray + recordsBean.getId() + uid +",");
+                    //
+                    logicalThinkingAdapter.notifyDataSetChanged();
+                }
             }
         });
         initMediaPlay();

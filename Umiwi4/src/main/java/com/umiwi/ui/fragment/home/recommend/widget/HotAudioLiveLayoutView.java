@@ -12,6 +12,9 @@ import android.widget.TextView;
 
 import com.umiwi.ui.R;
 import com.umiwi.ui.adapter.updateadapter.HotAudioLiveAdapter;
+import com.umiwi.ui.beans.updatebeans.RecommendBean;
+
+import java.util.ArrayList;
 
 /**
  * Created by Administrator on 2017/4/24 0024.
@@ -25,6 +28,8 @@ public class HotAudioLiveLayoutView extends LinearLayout {
     private RelativeLayout rl_tutor_all;
     private Context mContext;
     private HotAudioLiveAdapter hotAudioLiveAdapter;
+    private ArrayList<RecommendBean.RBean.HotLiveBean.HotLiveRecord> record;
+    String sec_live_moreurl;
     public HotAudioLiveLayoutView(Context context) {
         super(context);
         initView(context);
@@ -60,10 +65,12 @@ public class HotAudioLiveLayoutView extends LinearLayout {
         });
 
     }
-    public void setData(){
+    public void setData(RecommendBean.RBean.HotLiveBean live, String sec_live_moreurl){
+        record = live.getRecord();
+        this.sec_live_moreurl = sec_live_moreurl;
 
         ll_expert_root.setVisibility(VISIBLE);
-        hotAudioLiveAdapter = new HotAudioLiveAdapter(mContext);
+        hotAudioLiveAdapter = new HotAudioLiveAdapter(mContext,record);
         lv_home_expert_rec.setAdapter(hotAudioLiveAdapter);
 
     }

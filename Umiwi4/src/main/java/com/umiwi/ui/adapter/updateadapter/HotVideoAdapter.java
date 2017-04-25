@@ -14,8 +14,6 @@ import com.umiwi.ui.view.XCRoundRectImageView;
 
 import java.util.ArrayList;
 
-import static com.umiwi.ui.main.YoumiConfiguration.context;
-
 /**
  * Created by Administrator on 2017/3/24.
  */
@@ -59,7 +57,7 @@ public class HotVideoAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        Glide.with(context).load(mList.get(position).getLimage()).into(viewHolder.iv_author);
+        Glide.with(mContext).load(mList.get(position).getLimage()).into(viewHolder.iv_author);
 //        viewHolder.tv_video_time.setText(mList.get(position).getPlaytime());
         viewHolder.tv_video_name.setText(mList.get(position).getShorttitle());
         viewHolder.tv_video_detail.setText(mList.get(position).getName() + " " + mList.get(position).getTutortitle());

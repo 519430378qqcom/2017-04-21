@@ -255,7 +255,7 @@ public class RecommendFragment extends BaseConstantFragment {
                 pslv_pay_selected.setData(t.getR().getCharge().getRecord(), t.getR().getSec_charge_title(), t.getR().getSec_charge_huan(),t.getR().getSec_charge_huanurl(),t.getR().getCharge().getPage().getTotalpage());
 //                rblv_bottom.setData(getActivity(), t.getR().getBottom());
                 lbum_layout.setData(t.getR().getAlbumlist());
-                hot_audio_live.setData();
+                hot_audio_live.setData(t.getR().getLive(),t.getR().getSec_live_moreurl());
             }
         }
 

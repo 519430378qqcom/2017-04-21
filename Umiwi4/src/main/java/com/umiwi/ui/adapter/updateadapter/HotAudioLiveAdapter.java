@@ -6,8 +6,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.umiwi.ui.R;
+import com.umiwi.ui.beans.updatebeans.RecommendBean;
 import com.umiwi.ui.view.XCRoundRectImageView;
+
+import java.util.ArrayList;
 
 
 /**
@@ -17,13 +21,15 @@ import com.umiwi.ui.view.XCRoundRectImageView;
 public class HotAudioLiveAdapter extends BaseAdapter {
 
     private Context mContext;
-    public HotAudioLiveAdapter(Context mContext) {
+    private ArrayList<RecommendBean.RBean.HotLiveBean.HotLiveRecord> record;
+    public HotAudioLiveAdapter(Context mContext, ArrayList<RecommendBean.RBean.HotLiveBean.HotLiveRecord> record) {
         this.mContext = mContext;
+        this.record = record;
     }
 
     @Override
     public int getCount() {
-        return 3;
+        return record.size();
     }
 
     @Override
@@ -52,6 +58,13 @@ public class HotAudioLiveAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
+        RecommendBean.RBean.HotLiveBean.HotLiveRecord hotLiveRecord = record.get(position);
+        Glide.with(mContext).load(hotLiveRecord.getLimage()).into(viewHolder.iv_author);
+        viewHolder.special_name_textView.setText(hotLiveRecord.getTitle());
+        viewHolder.special_context.setText(hotLiveRecord.getSubtitle());
+        viewHolder.special_price.setText(hotLiveRecord.getPrice());
+        viewHolder.expter_time_textView.setText(hotLiveRecord.getStatus());
+        viewHolder.special_subscribe_number.setText(hotLiveRecord.getPartakenum() + "参与");
 
         return convertView;
     }

@@ -19,7 +19,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:padding="8dp"
-            android:src="@drawable/back_black" />
+            android:src="@drawable/back_audio_special" />
 
         <TextView
             android:id="@+id/tab_title"
