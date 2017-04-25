@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
-
-    <ScrollView
+    <com.umiwi.ui.view.ScrollChangeScrollView
+        android:id="@+id/scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -32,143 +32,96 @@
                         android:id="@+id/iv_image"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@color/color_divider"
+                        android:background="@color/gray_a"
                         android:scaleType="fitXY" />
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:background="@android:color/transparent"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
 
-                        <ImageView
-                            android:id="@+id/iv_back"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="10dp"
-                            android:padding="8dp"
-                            android:src="@drawable/black_back" />
-
-                        <ImageView
-                            android:id="@+id/iv_shared"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginRight="10dp"
-                            android:layout_toLeftOf="@+id/record"
-                            android:padding="5dp"
-                            android:src="@drawable/share_black_bg" />
-
-                        <ImageView
-                            android:id="@+id/record"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginRight="15dp"
-                            android:adjustViewBounds="true"
-                            android:background="@drawable/anim_music_ora"
-                            android:clickable="true"
-                            android:padding="5dp" />
-                    </RelativeLayout>
-                    <!--<include layout="@layout/back_share_record_layout">-->
-                    <!--</include>-->
                     <LinearLayout
+                        android:padding="5dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
                         android:background="#11000000"
-                        android:gravity="center_horizontal"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
 
-                        <!--<LinearLayout-->
-                            <!--android:orientation="horizontal"-->
-                            <!--android:layout_gravity="center_horizontal"-->
+                        <TextView
+                            android:id="@+id/tv_name"
+                            android:text="大数据行业热点分析"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:textColor="@color/white"
+                            android:textSize="16sp" />
 
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:gravity="center_horizontal">-->
-
-                            <TextView
-                                android:id="@+id/tv_name"
-                                android:layout_marginLeft="10dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/white"
-                                android:textSize="16sp" />
-
-                            <TextView
-                                android:id="@+id/tv_title"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dp"
-                                android:textColor="@color/white"
-                                android:textSize="16sp" />
-                        <!--</LinearLayout>-->
+                        <TextView
+                            android:text="业热点分析"
+                            android:id="@+id/tv_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:textColor="@color/white"
+                            android:textSize="13sp" />
                     </LinearLayout>
 
                 </RelativeLayout>
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp">
+                <!--<RelativeLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="20dp">-->
 
-                    <TextView
-                        android:id="@+id/priceinfo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="10dp"
-                        android:textColor="@color/main_color" />
+                    <!--<TextView-->
+                        <!--android:id="@+id/priceinfo"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_alignParentRight="true"-->
+                        <!--android:layout_centerVertical="true"-->
+                        <!--android:layout_marginRight="10dp"-->
+                        <!--android:textColor="@color/main_color" />-->
 
-                    <TextView
-                        android:id="@+id/title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_toLeftOf="@id/priceinfo"
-                        android:singleLine="true"
-                        android:textColor="@color/black"
-                        android:textSize="20sp" />
+                    <!--<TextView-->
+                        <!--android:id="@+id/title"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_alignParentLeft="true"-->
+                        <!--android:layout_centerVertical="true"-->
+                        <!--android:layout_marginLeft="10dp"-->
+                        <!--android:layout_marginRight="5dp"-->
+                        <!--android:layout_toLeftOf="@id/priceinfo"-->
+                        <!--android:singleLine="true"-->
+                        <!--android:textColor="@color/black"-->
+                        <!--android:textSize="20sp" />-->
 
 
-                </RelativeLayout>
+                <!--</RelativeLayout>-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal">
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="10dp"-->
+                    <!--android:orientation="horizontal">-->
 
-                    <TextView
-                        android:layout_weight="1"
-                        android:id="@+id/shortcontent"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp" />
+                    <!--<TextView-->
+                        <!--android:id="@+id/shortcontent"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginLeft="10dp"-->
+                        <!--android:layout_weight="1" />-->
 
-                    <TextView
-                        android:id="@+id/salenum"
-                        android:text="订阅0人"
-                        android:layout_marginRight="10dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:paddingBottom="10dp" />
-                </LinearLayout>
+                    <!--<TextView-->
+                        <!--android:id="@+id/salenum"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginLeft="20dp"-->
+                        <!--android:layout_marginRight="10dp"-->
+                        <!--android:paddingBottom="10dp"-->
+                        <!--android:text="订阅0人" />-->
+                <!--</LinearLayout>-->
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:background="@color/line" />
+                <!--<View-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="1px"-->
+                    <!--android:background="@color/line" />-->
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -210,7 +163,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="20dp"
-                        android:text="目标人群"
+                        android:text="适宜人群"
                         android:textColor="@color/black"
                         android:textSize="19sp" />
 
@@ -241,7 +194,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="20dp"
-                        android:text="订阅提醒"
+                        android:text="订阅须知"
                         android:textColor="@color/black"
                         android:textSize="19sp" />
 
@@ -285,16 +238,22 @@
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"/>
+                        android:layout_height="60dp" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-    </ScrollView>
+    </com.umiwi.ui.view.ScrollChangeScrollView>
+
+    <include
+        android:id="@+id/rl_background"
+        layout="@layout/back_share_record_layout"></include>
+
     <LinearLayout
+
         android:id="@+id/yuedu"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
         android:background="@color/white"
         android:gravity="center_vertical"
         android:orientation="horizontal">
@@ -337,4 +296,4 @@
                 android:textSize="16sp" />
         </RelativeLayout>
     </LinearLayout>
-</RelativeLayout>
+</FrameLayout>

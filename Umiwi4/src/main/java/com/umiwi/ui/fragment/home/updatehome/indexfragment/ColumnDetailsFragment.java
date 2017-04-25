@@ -11,6 +11,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -34,6 +35,7 @@ import com.umiwi.ui.main.UmiwiApplication;
 import com.umiwi.ui.managers.YoumiRoomUserManager;
 import com.umiwi.ui.util.LoginUtil;
 import com.umiwi.ui.view.NoScrollListview;
+import com.umiwi.ui.view.ScrollChangeScrollView;
 
 import java.util.ArrayList;
 
@@ -68,7 +70,7 @@ public class ColumnDetailsFragment extends BaseConstantFragment {
     private NoScrollListview description;
     private NoScrollListview attention_listview;
     private NoScrollListview last_record;
-//    private ColumnDetailsBean columnDetailsBean;
+    //    private ColumnDetailsBean columnDetailsBean;
     private AudioSpecialDetailsBean.RAudioSpecialDetails details;
     private AnimationDrawable background;
 
@@ -76,6 +78,11 @@ public class ColumnDetailsFragment extends BaseConstantFragment {
     private RelativeLayout rl_dingyue;
 
     public static boolean isAlive = false;
+    private ScrollChangeScrollView scrollview;
+    private int height;
+    private View rl_background;
+    private TextView tab_title;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -91,13 +98,16 @@ public class ColumnDetailsFragment extends BaseConstantFragment {
     }
 
     private void initView(View view) {
+        tab_title = (TextView) view.findViewById(R.id.tab_title);
+        rl_background =  view.findViewById(R.id.rl_background);
+        scrollview = (ScrollChangeScrollView) view.findViewById(R.id.scrollview);
         rl_yuedu = (RelativeLayout) view.findViewById(R.id.rl_yuedu);
         rl_dingyue = (RelativeLayout) view.findViewById(R.id.rl_dingyue);
         targetuser = (TextView) view.findViewById(R.id.targetuser);
-        title = (TextView) view.findViewById(R.id.title);
-        priceinfo = (TextView) view.findViewById(R.id.priceinfo);
-        shortcontent = (TextView) view.findViewById(R.id.shortcontent);
-        salenum = (TextView) view.findViewById(R.id.salenum);
+//        title = (TextView) view.findViewById(R.id.title);
+//        priceinfo = (TextView) view.findViewById(R.id.priceinfo);
+//        shortcontent = (TextView) view.findViewById(R.id.shortcontent);
+//        salenum = (TextView) view.findViewById(R.id.salenum);
         tv_name = (TextView) view.findViewById(R.id.tv_name);
         tv_prize = (TextView) view.findViewById(R.id.tv_prize);
         tv_free_read = (TextView) view.findViewById(R.id.tv_free_read);
@@ -107,8 +117,8 @@ public class ColumnDetailsFragment extends BaseConstantFragment {
 //                Toast.makeText(getActivity(), "免费试读", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
                 intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, LogicalThinkingFragment.class);
-                intent.putExtra("id",details.getId());
-                intent.putExtra("title",details.getTitle());
+                intent.putExtra("id", details.getId());
+                intent.putExtra("title", details.getTitle());
                 startActivity(intent);
             }
         });
@@ -128,22 +138,80 @@ public class ColumnDetailsFragment extends BaseConstantFragment {
             @Override
             public void onClick(View view) {
                 ShareDialog.getInstance().showDialog(getActivity(), details.getSharetitle(),
-                        details.getSharecontent(),details.getShareurl(), details.getShareimg());
+                        details.getSharecontent(), details.getShareurl(), details.getShareimg());
             }
         });
         tv_title = (TextView) view.findViewById(R.id.tv_title);
 
-        description = (NoScrollListview) view. findViewById(R.id.description);
-        attention_listview = (NoScrollListview) view. findViewById(R.id.attention_listview);
-        last_record = (NoScrollListview) view. findViewById(R.id.last_record);
+        description = (NoScrollListview) view.findViewById(R.id.description);
+        attention_listview = (NoScrollListview) view.findViewById(R.id.attention_listview);
+        last_record = (NoScrollListview) view.findViewById(R.id.last_record);
         initMediaPlay();
+
+        // 获取顶部图片高度后，设置滚动监听
+        ViewTreeObserver vto = iv_image.getViewTreeObserver();
+        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                iv_image.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                height = iv_image.getHeight();
+                scrollview.setScrollViewListener(mScrollViewListener);
+            }
+        });
     }
+
+    private ScrollChangeScrollView.ScrollViewListener mScrollViewListener = new ScrollChangeScrollView.ScrollViewListener() {
+        @Override
+        public void onScrollChanged(ScrollChangeScrollView scrollView, int x, int y, int oldx, int oldy) {
+            if (y <= 0) {
+                tab_title.setVisibility(View.INVISIBLE);
+//                iv_back.setImageResource(R.drawable.back_white);
+//                iv_shared.setImageResource(R.drawable.share_img);
+//                record.setBackgroundResource(R.drawable.anim_music_white);
+                //设置文字背景颜色，白色
+                rl_background.setBackgroundColor(Color.argb((int) 0, 255, 255, 255));//AGB由相关工具获得，或者美工提供
+                //设置文字颜色，黑色
+//                tab_title.setTextColor(Color.argb((int) 0, 255, 255, 255));
+//                Log.e("111", "y <= 0");
+            } else if (y > 0 && y <= height) {
+                float scale = (float) y / height;
+                float alpha = (255 * scale);
+                //只是layout背景透明(仿知乎滑动效果)白色透明
+                rl_background.setBackgroundColor(Color.argb((int) alpha, 255, 255, 255));
+                //设置文字颜色，黑色，加透明度
+                if (y > height / 2 && y <= height) {
+//                    iv_back.setImageResource(R.drawable.back_black);
+//                    iv_shared.setImageResource(R.drawable.share_black);
+//                    record.setBackgroundResource(R.drawable.anim_music_black);
+                    tab_title.setVisibility(View.VISIBLE);
+                } else {
+//                    iv_back.setImageResource(R.drawable.back_white);
+//                    iv_shared.setImageResource(R.drawable.share_img);
+//                    record.setBackgroundResource(R.drawable.anim_music_white);
+                    tab_title.setVisibility(View.INVISIBLE);
+                }
+                tab_title.setTextColor(Color.argb((int) alpha, 0, 0, 0));
+//                Log.e("111", "y > 0 && y <= imageHeight");
+            } else {
+//                iv_back.setImageResource(R.drawable.back_black);
+//                iv_shared.setImageResource(R.drawable.share_black);
+//                record.setBackgroundResource(R.drawable.anim_music_black);
+                //白色不透明
+                tab_title.setVisibility(View.VISIBLE);
+                rl_background.setBackgroundColor(Color.argb((int) 255, 255, 255, 255));
+                //设置文字颜色
+                //黑色
+                tab_title.setTextColor(Color.argb((int) 255, 0, 0, 0));
+//                Log.e("111", "else");
+            }
+        }
+    };
 
     @Override
     public void onResume() {
         super.onResume();
-        if(UmiwiApplication.mainActivity != null) {
-            if(UmiwiApplication.mainActivity.service != null) {
+        if (UmiwiApplication.mainActivity != null) {
+            if (UmiwiApplication.mainActivity.service != null) {
                 background = (AnimationDrawable) record.getBackground();
                 try {
                     if (UmiwiApplication.mainActivity.service.isPlaying()) {
@@ -184,7 +252,7 @@ public class ColumnDetailsFragment extends BaseConstantFragment {
                     }
                 } else {
                     Toast toast = Toast.makeText(getActivity(), "没有正在播放的音频", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.CENTER,0,0);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
                 }
             }
@@ -197,23 +265,25 @@ public class ColumnDetailsFragment extends BaseConstantFragment {
             public void onResult(AbstractRequest<AudioSpecialDetailsBean> request, AudioSpecialDetailsBean audioSpecialDetailsBean) {
                 details = audioSpecialDetailsBean.getR();
                 ArrayList<AudioSpecialDetailsBean.RAudioSpecialDetails.ContentWord> content = details.getContent();//详情简介
-                description.setAdapter(new ColumnDetailsAdapter(getActivity(),content));
+                description.setAdapter(new ColumnDetailsAdapter(getActivity(), content));
                 targetuser.setText(details.getTargetuser());
                 ArrayList<AudioSpecialDetailsBean.RAudioSpecialDetails.AttentionWord> attention = details.getAttention();
                 attention_listview.setAdapter(new ColumnAttentionAdapter(getActivity(), details.getAttention()));
                 last_record.setAdapter(new ColumnRecordAdapter(getActivity(), details.getLast_record()));
-                title.setText(details.getTitle());
-                priceinfo.setText(details.getPriceinfo());
-                shortcontent.setText(details.getShortcontent());
-
-                salenum.setText(details.getSalenum());
+//                title.setText(details.getTitle());
+//                priceinfo.setText(details.getPriceinfo());
+//                shortcontent.setText(details.getShortcontent());
+                tab_title.setText(details.getTitle());
+//                salenum.setText(details.getSalenum());
 
                 Glide.with(getActivity()).load(details.getImage()).into(iv_image);
-                tv_name.setText(details.getTutor_name());
-                tv_title.setText(details.getTutor_title());
+//                tv_name.setText(details.getTutor_name());
+//                tv_title.setText(details.getTutor_title());
+                tv_name.setText(details.getTitle());
+                tv_title.setText(details.getShortcontent());
 
                 Log.e("TAG", "columnDetailsBean.isIsbuy=" + details.isbuy());
-                if (details.isbuy()){
+                if (details.isbuy()) {
                     tv_free_read.setText("查看专栏");
                     tv_free_read.setTextColor(Color.WHITE);
                     rl_yuedu.setBackgroundResource(R.drawable.main_color_button_bg);
@@ -221,7 +291,7 @@ public class ColumnDetailsFragment extends BaseConstantFragment {
                     tv_prize.setTextColor(Color.BLACK);
                     rl_dingyue.setBackgroundResource(R.drawable.white_color_button_bg);
                     tv_prize.setEnabled(false);
-                }else {
+                } else {
                     tv_free_read.setText("免费阅读");
                     tv_free_read.setTextColor(Color.BLACK);
 
@@ -298,7 +368,7 @@ public class ColumnDetailsFragment extends BaseConstantFragment {
         if (HomeMainActivity.isForeground) {
 
         } else {
-            Intent intent = new Intent(getActivity(),HomeMainActivity .class);
+            Intent intent = new Intent(getActivity(), HomeMainActivity.class);
             startActivity(intent);
         }
 

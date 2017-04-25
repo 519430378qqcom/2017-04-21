@@ -11,6 +11,8 @@
         android:textSize="16sp"
         android:layout_width="0dp"
         android:layout_weight="1"
+        android:ellipsize="end"
+        android:lines="1"
         android:textColor="@color/black_a8"
         android:layout_height="wrap_content" />
 

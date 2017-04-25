@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -126,6 +127,7 @@ public class ExpertRecLayoutView extends LinearLayout {
         }
         if(!TextUtils.isEmpty(huanurl)) {
             String url = huanurl + "?p=" + currentpage;
+            Log.e("TAG", "推荐专栏换一批=" + url);
             GetRequest<TcolumnChangeBean> request = new GetRequest<TcolumnChangeBean>(url, GsonParser.class, TcolumnChangeBean.class, new AbstractRequest.Listener<TcolumnChangeBean>() {
                 @Override
                 public void onResult(AbstractRequest<TcolumnChangeBean> request, TcolumnChangeBean tcolumnChangeBean) {
@@ -144,12 +146,13 @@ public class ExpertRecLayoutView extends LinearLayout {
         }
     }
 
-    public void setData(ArrayList<RecommendBean.RBean.TColumnBean.TColumnBeanRecord> tutorBeen, String sec_tcolumn_huanurl) {
+    public void setData(ArrayList<RecommendBean.RBean.TColumnBean.TColumnBeanRecord> tutorBeen, String sec_tcolumn_huanurl, int totalpage) {
 
 //        tv_tutor_title.setText(tutorTitle);
 //        tv_tutor_all.setText(tutorAll);
         huanurl = sec_tcolumn_huanurl;
         mList = tutorBeen;
+        this.totalpage = totalpage;
         if (null == mList || mList.size() == 0)
             return;
         ll_expert_root.setVisibility(VISIBLE);

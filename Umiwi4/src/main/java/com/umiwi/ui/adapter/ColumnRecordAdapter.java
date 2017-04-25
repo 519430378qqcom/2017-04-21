@@ -11,8 +11,6 @@ import com.umiwi.ui.beans.updatebeans.AudioSpecialDetailsBean;
 
 import java.util.ArrayList;
 
-import static com.umiwi.ui.main.YoumiConfiguration.context;
-
 /**
  * Created by Administrator on 2017/3/6.
  */
@@ -46,16 +44,16 @@ public class ColumnRecordAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        ColumnRecordAdapter.ViewHolder viewHolder;
+        ViewHolder viewHolder;
         if (convertView == null){
             viewHolder = new ViewHolder();
-            convertView = View.inflate(context, R.layout.column_record,null);
+            convertView = View.inflate(activity, R.layout.column_record,null);
             viewHolder.tv_title = (TextView) convertView.findViewById(R.id.tv_title);
             viewHolder.tv_time = (TextView) convertView.findViewById(R.id.tv_time);
 
             convertView.setTag(viewHolder);
         }else{
-            viewHolder = (ColumnRecordAdapter.ViewHolder) convertView.getTag();
+            viewHolder = (ViewHolder) convertView.getTag();
         }
 
         viewHolder.tv_title.setText(last_record.get(position).getTitle());

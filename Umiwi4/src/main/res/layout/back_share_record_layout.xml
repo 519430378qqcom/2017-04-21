@@ -3,12 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-    <RelativeLayout
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#33000000"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="3dp">
+        <!--android:background="#40e6e6e6"-->
 
         <ImageView
             android:id="@+id/iv_back"
@@ -17,7 +19,20 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:padding="8dp"
-            android:src="@drawable/back_white" />
+            android:src="@drawable/back_black" />
+
+        <TextView
+            android:id="@+id/tab_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:lines="1"
+            android:text="钟铁柱"
+            android:textSize="15sp"
+            android:visibility="invisible" />
 
         <ImageView
             android:id="@+id/iv_shared"
@@ -27,7 +42,7 @@
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@+id/record"
             android:padding="5dp"
-            android:src="@drawable/share_img" />
+            android:src="@drawable/share_black" />
 
         <ImageView
             android:id="@+id/record"
@@ -37,8 +52,8 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
             android:adjustViewBounds="true"
-            android:background="@drawable/anim_music_white"
+            android:background="@drawable/anim_music"
             android:clickable="true"
             android:padding="5dp" />
-    </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>
