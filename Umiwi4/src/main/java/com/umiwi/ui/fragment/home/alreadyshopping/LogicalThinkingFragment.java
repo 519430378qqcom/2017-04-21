@@ -101,6 +101,8 @@ public class LogicalThinkingFragment extends BaseConstantFragment {
                 intent.putExtra("isTry", true);
                 getActivity().startActivity(intent);
 
+
+
                 String uid = YoumiRoomUserManager.getInstance().getUid();
 
                 AttemptBean.RAttenmpInfo.RecordsBean recordsBean = record.get(position);
@@ -108,7 +110,6 @@ public class LogicalThinkingFragment extends BaseConstantFragment {
                 if(!readIdArray.contains(recordsBean.getId() + uid)) {
 
                     CacheUtil.putStringFile(getActivity(),READ_ARRAY_ID,readIdArray + recordsBean.getId() + uid +",");
-                    //
                     logicalThinkingAdapter.notifyDataSetChanged();
                 }
             }

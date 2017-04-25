@@ -19,7 +19,7 @@ import com.umiwi.ui.adapter.updateadapter.ExpertRecAdapter;
 import com.umiwi.ui.beans.updatebeans.RecommendBean;
 import com.umiwi.ui.beans.updatebeans.TcolumnChangeBean;
 import com.umiwi.ui.fragment.AudioSpecialFragment;
-import com.umiwi.ui.fragment.home.alreadyshopping.LogicalThinkingFragment;
+import com.umiwi.ui.fragment.alreadyboughtfragment.BuyColumnDetailsFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.ColumnDetailsFragment;
 import com.umiwi.ui.main.UmiwiAPI;
 
@@ -59,7 +59,7 @@ public class ExpertRecLayoutView extends LinearLayout {
 
     private void init(final Context context) {
         mContext = context;
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.home_expert_recommend_layout, this);
         ll_expert_root = (LinearLayout) findViewById(R.id.ll_expert_root);
         tv_tutor_title = (TextView) findViewById(R.id.tv_tutor_title);
@@ -89,9 +89,12 @@ public class ExpertRecLayoutView extends LinearLayout {
                 if (isbuy) {
                     //已购状态
                     Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
-                    intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, LogicalThinkingFragment.class);
+//                    intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, LogicalThinkingFragment.class);
+//                    intent.putExtra("id", mList.get(position).getColumnid());
+//                    intent.putExtra("title", mList.get(position).getTitle());
+
+                    intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS,BuyColumnDetailsFragment.class);
                     intent.putExtra("id", mList.get(position).getColumnid());
-                    intent.putExtra("title", mList.get(position).getTitle());
                     mContext.startActivity(intent);
                 } else {
                     //未购状态
