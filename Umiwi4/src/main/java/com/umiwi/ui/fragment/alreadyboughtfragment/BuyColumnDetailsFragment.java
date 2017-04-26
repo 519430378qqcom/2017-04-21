@@ -132,6 +132,11 @@ public class BuyColumnDetailsFragment extends BaseConstantFragment implements Vi
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(getActivity(), "点击", Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(getActivity(),UmiwiContainerActivity.class);
+                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, ColumnReadFragment.class);
+                intent.putExtra(ColumnReadFragment.DETAIL_ID,recordList.get(position).getId());
+                getActivity().startActivity(intent);
             }
         });
 

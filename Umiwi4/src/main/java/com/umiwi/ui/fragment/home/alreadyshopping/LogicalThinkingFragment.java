@@ -98,7 +98,7 @@ public class LogicalThinkingFragment extends BaseConstantFragment {
                 intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL, String.format(UmiwiAPI.MIANFEI_YUEDU, record.get(position).getId()));
 //                Log.e("TAG", "String.format(UmiwiAPI.MIANFEI_YUEDU, record.get(position).getId())=" +
 //                        String.format(UmiwiAPI.MIANFEI_YUEDU, record.get(position).getId()));
-                intent.putExtra("isTry", true);
+//                intent.putExtra("isTry", true);
                 getActivity().startActivity(intent);
                 String uid = YoumiRoomUserManager.getInstance().getUid();
 

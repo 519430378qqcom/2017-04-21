@@ -847,12 +847,12 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
             video.setVideoUrl(source);
             Log.e("TAG", "设置audio的URL=" + source);
             videos.add(video);
-            Log.e("TAG", "video=" + video.getAlbumTitle());//怎么对公司进行调研
-            Log.e("TAG", "video=" + video.getVideoId());//57
-            Log.e("TAG", "video=" + video.getAlbumId());//55
-            Log.e("TAG", "video=" + video.getFileName());//null
-            Log.e("TAG", "video=" + video.getTitle());//怎样对公司进行调研
-            Log.e("TAG", "video=" + video.getVideoUrl());//http://v.youmi.cn/audioalbum/playsourceapi?audioalbumid=55&audiofileid=57
+//            Log.e("TAG", "video=" + video.getAlbumTitle());//怎么对公司进行调研
+//            Log.e("TAG", "video=" + video.getVideoId());//57
+//            Log.e("TAG", "video=" + video.getAlbumId());//55
+//            Log.e("TAG", "video=" + video.getFileName());//null
+//            Log.e("TAG", "video=" + video.getTitle());//怎样对公司进行调研
+//            Log.e("TAG", "video=" + video.getVideoUrl());//http://v.youmi.cn/audioalbum/playsourceapi?audioalbumid=55&audiofileid=57
         }
         return videos;
     }
@@ -986,9 +986,9 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                 }
                 mAdapter = new VoiceDetailsAdapter(getActivity(), audioFileList, infos, recordList, VoiceDetailsFragment.this);
                 mListView.setAdapter(mAdapter);
-                Log.e("TAG", "11111audioFileList=" + audioFileList);
-                Log.e("TAG", "1111111mAdapter=" + mAdapter);
-                Log.e("TAG", "1213213131=" + recordList.toString());
+//                Log.e("TAG", "11111audioFileList=" + audioFileList);
+//                Log.e("TAG", "1111111mAdapter=" + mAdapter);
+//                Log.e("TAG", "1213213131=" + recordList.toString());
                 mAdapter.setWriteCommenntViewOnClickListener(writeCommentListener);
 //                    收藏按钮
                 if (UserManager.getInstance().isLogin() && collectionDao.isSaved(albumID)) {
@@ -1168,7 +1168,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
 //                UmiwiApplication.mainActivity.service.getAudioPath()
                 break;
             case R.id.start_player:
-                Log.e("TAG", "点我干什么？");
+//                Log.e("TAG", "点我干什么？");
                 try {
                     if (UmiwiApplication.mainActivity.service.isPlaying()) {
                         //暂停
