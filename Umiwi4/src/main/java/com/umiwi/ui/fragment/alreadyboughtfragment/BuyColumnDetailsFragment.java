@@ -1,25 +1,36 @@
 package com.umiwi.ui.fragment.alreadyboughtfragment;
 
+import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.os.RemoteException;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.umiwi.ui.R;
+import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.ColumnAttentionAdapter;
 import com.umiwi.ui.adapter.ColumnDetailsAdapter;
 import com.umiwi.ui.adapter.LogicalThinkingAdapter;
 import com.umiwi.ui.beans.updatebeans.AttemptBean;
 import com.umiwi.ui.beans.updatebeans.AudioSpecialDetailsBean;
+import com.umiwi.ui.dialog.ShareDialog;
+import com.umiwi.ui.fragment.home.updatehome.indexfragment.VoiceDetailsFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.UmiwiAPI;
+import com.umiwi.ui.main.UmiwiApplication;
 import com.umiwi.ui.view.NoScrollListview;
 import com.umiwi.ui.view.ScrollChangeScrollView;
 
@@ -29,12 +40,13 @@ import cn.youmi.framework.http.AbstractRequest;
 import cn.youmi.framework.http.GetRequest;
 import cn.youmi.framework.http.parsers.GsonParser;
 
+
 /**
  * Created by Administrator on 2017/4/25 0025.
  * 已购专栏详情页面
  */
 
-public class BuyColumnDetailsFragment extends BaseConstantFragment {
+public class BuyColumnDetailsFragment extends BaseConstantFragment implements View.OnClickListener {
     ScrollChangeScrollView scrollview;
     ImageView iv_image;
     ImageView iv_fold_down;
@@ -67,6 +79,7 @@ public class BuyColumnDetailsFragment extends BaseConstantFragment {
     private AudioSpecialDetailsBean.RAudioSpecialDetails details;
     private String columnurl;
     private NoScrollListview lv_buycolumn;
+    private AnimationDrawable background;
 
     @Nullable
     @Override
@@ -80,6 +93,7 @@ public class BuyColumnDetailsFragment extends BaseConstantFragment {
         initView(view);
         getDetailsData();
         getListData();
+        initMediaPlay();
         return view;
     }
 
@@ -109,11 +123,20 @@ public class BuyColumnDetailsFragment extends BaseConstantFragment {
         iv_up = (ImageView) view.findViewById(R.id.iv_up);
         rl_bottom_up = (RelativeLayout) view.findViewById(R.id.rl_bottom_up);
         lv_buycolumn.setFocusable(false);
+
+        iv_fold_down.setOnClickListener(this);
+        iv_sort.setOnClickListener(this);
+        iv_back.setOnClickListener(this);
+        iv_shared.setOnClickListener(this);
+        record.setOnClickListener(this);
+        iv_up.setOnClickListener(this);
+        ll_orderby.setOnClickListener(this);
     }
 
     //获取专栏简介数据
     private void getDetailsData() {
-        String url = String.format(UmiwiAPI.No_buy_column,25);
+       String url = String.format(UmiwiAPI.UMIWI_NOBUY_COLUMN,id + "");
+
         Log.e("TAG", "已购买的专栏url="  + url);
         GetRequest<AudioSpecialDetailsBean> request = new GetRequest<AudioSpecialDetailsBean>(url, GsonParser.class, AudioSpecialDetailsBean.class, new AbstractRequest.Listener<AudioSpecialDetailsBean>() {
             @Override
@@ -128,7 +151,6 @@ public class BuyColumnDetailsFragment extends BaseConstantFragment {
                 Glide.with(getActivity()).load(details.getImage()).into(iv_image);
                 tv_name.setText(details.getTitle());
                 tv_title.setText(details.getShortcontent());
-
 
             }
 
@@ -155,11 +177,8 @@ public class BuyColumnDetailsFragment extends BaseConstantFragment {
                     recordList.addAll(recordsBeen);
                     logicalThinkingAdapter = new LogicalThinkingAdapter(getActivity(), recordList);
                     lv_buycolumn.setAdapter(logicalThinkingAdapter);
-
                 }
-
             }
-
             @Override
             public void onError(AbstractRequest<AttemptBean> requet, int statusCode, String body) {
 
@@ -171,6 +190,94 @@ public class BuyColumnDetailsFragment extends BaseConstantFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-//        ButterKnife.reset(this);
+        //ButterKnife.reset(this);
+    }
+    /**
+     * 播放按钮
+     */
+    private void initMediaPlay() {
+        if (UmiwiApplication.mainActivity != null) {
+            if (UmiwiApplication.mainActivity.service != null) {
+                background = (AnimationDrawable) record.getBackground();
+                try {
+                    if (UmiwiApplication.mainActivity.service.isPlaying()) {
+                        background.start();
+                    } else {
+                        background.stop();
+                    }
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.iv_back :
+                getActivity().finish();
+                break;
+            case R.id.iv_fold_down:
+                ll_column_details.setVisibility(View.VISIBLE);
+                ll_listvisable.setVisibility(View.GONE);
+                rl_bottom_up.setVisibility(View.VISIBLE);
+                break;
+            case R.id.iv_up:
+                ll_column_details.setVisibility(View.GONE);
+                ll_listvisable.setVisibility(View.VISIBLE);
+                rl_bottom_up.setVisibility(View.GONE);
+                break;
+            case R.id.iv_shared:
+                ShareDialog.getInstance().showDialog(getActivity(), details.getSharetitle(),
+                        details.getSharecontent(), details.getShareurl(), details.getShareimg());
+                break;
+            case R.id.record:
+                initRecord();
+                break;
+            case R.id.ll_orderby:
+                if (orderby.getText().toString().equals("正序")) {
+                    orderby.setText("倒序");
+                    orderbyId = "old";
+                    getListData();
+                    rotateImpl();
+                } else {
+                    orderby.setText("正序");
+                    orderbyId = "new";
+                    getListData();
+                    rotateImpl();
+                }
+                break;
+        }
+    }
+    public void rotateImpl() {
+        Animation animation = AnimationUtils.loadAnimation(getActivity(),
+                R.anim.sort_anim);
+        iv_sort.startAnimation(animation);
+    }
+
+    private void initRecord() {
+        if (UmiwiApplication.mainActivity.service != null) {
+            try {
+
+                if (UmiwiApplication.mainActivity.service.isPlaying() || UmiwiApplication.mainActivity.isPause) {
+                    if (UmiwiApplication.mainActivity.herfUrl != null) {
+                        Log.e("TAG", "UmiwiApplication.mainActivity.herfUrl=" + UmiwiApplication.mainActivity.herfUrl);
+                        Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
+                        intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
+                        intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL, UmiwiApplication.mainActivity.herfUrl);
+                        getActivity().startActivity(intent);
+                    }
+                }
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        } else {
+            Toast toast = Toast.makeText(getActivity(), "没有正在播放的音频", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+        }
     }
 }

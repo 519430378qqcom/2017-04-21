@@ -458,6 +458,7 @@ public final class UmiwiAPI {
     //未购专栏详情页
     public static final String No_buy_column = "http://i.v.youmi.cn/tutorcolumn/detailApi?id=";
 
+    public static final String UMIWI_NOBUY_COLUMN="http://i.v.youmi.cn/tutorcolumn/detailApi?id=%s";
     //已购买
     public static final String Ask_Hear = "http://i.v.youmi.cn/api8/buyquestion";
     //已购-视频

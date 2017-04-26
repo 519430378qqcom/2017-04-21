@@ -100,9 +100,6 @@ public class LogicalThinkingFragment extends BaseConstantFragment {
 //                        String.format(UmiwiAPI.MIANFEI_YUEDU, record.get(position).getId()));
                 intent.putExtra("isTry", true);
                 getActivity().startActivity(intent);
-
-
-
                 String uid = YoumiRoomUserManager.getInstance().getUid();
 
                 AttemptBean.RAttenmpInfo.RecordsBean recordsBean = record.get(position);

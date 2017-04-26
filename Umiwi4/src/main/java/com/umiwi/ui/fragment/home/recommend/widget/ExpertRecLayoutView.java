@@ -100,7 +100,7 @@ public class ExpertRecLayoutView extends LinearLayout {
                     //未购状态
                     Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
                     intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, ColumnDetailsFragment.class);//详情页
-                    intent.putExtra("columnurl", UmiwiAPI.No_buy_column + columnid);
+                    intent.putExtra("columnurl", String.format(UmiwiAPI.UMIWI_NOBUY_COLUMN,columnid));
                     mContext.startActivity(intent);
                 }
             }
