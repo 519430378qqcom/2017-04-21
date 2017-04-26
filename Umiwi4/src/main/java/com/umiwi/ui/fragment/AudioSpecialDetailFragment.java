@@ -2,6 +2,7 @@ package com.umiwi.ui.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
@@ -40,6 +42,7 @@ import com.umiwi.ui.main.UmiwiApplication;
 import com.umiwi.ui.managers.YoumiRoomUserManager;
 import com.umiwi.ui.util.LoginUtil;
 import com.umiwi.ui.view.NoScrollListview;
+import com.umiwi.ui.view.ScrollChangeScrollView;
 import com.umiwi.video.control.PlayerController;
 
 import java.util.ArrayList;
@@ -94,6 +97,12 @@ public class AudioSpecialDetailFragment extends BaseConstantFragment implements 
     RelativeLayout yuedu;
     @InjectView(R.id.fav_button)
     RadioButton fav_button;
+    @InjectView(R.id.rl_background)
+    View rl_background;
+    @InjectView(R.id.tab_title)
+    TextView tab_title;
+    @InjectView(R.id.scrollview)
+    ScrollChangeScrollView scrollview;
     private Context mContext;
     public String typeId;
     private AudioSpecialDetailBean.RAudioSpecial details;
@@ -102,6 +111,7 @@ public class AudioSpecialDetailFragment extends BaseConstantFragment implements 
     private String orderBy = "asc";
     private AnimationDrawable background;
     public static boolean isAlive = false;
+    private int height;
 
 
     @Nullable
@@ -165,6 +175,17 @@ public class AudioSpecialDetailFragment extends BaseConstantFragment implements 
         getInfo();
         changeOrder();
 
+        // 获取顶部图片高度后，设置滚动监听
+        ViewTreeObserver vto = iv_image.getViewTreeObserver();
+        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                iv_image.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                height = iv_image.getHeight();
+                scrollview.setScrollViewListener(mScrollViewListener);
+            }
+        });
+
         tv_buy.setOnClickListener(this);
         iv_back.setOnClickListener(this);
         iv_shared.setOnClickListener(this);
@@ -174,6 +195,52 @@ public class AudioSpecialDetailFragment extends BaseConstantFragment implements 
         return view;
 
     }
+    private ScrollChangeScrollView.ScrollViewListener mScrollViewListener = new ScrollChangeScrollView.ScrollViewListener() {
+        @Override
+        public void onScrollChanged(ScrollChangeScrollView scrollView, int x, int y, int oldx, int oldy) {
+            if (y <= 0) {
+                tab_title.setVisibility(View.INVISIBLE);
+//                iv_back.setImageResource(R.drawable.back_white);
+//                iv_shared.setImageResource(R.drawable.share_img);
+//                record.setBackgroundResource(R.drawable.anim_music_white);
+                //设置文字背景颜色，白色
+                rl_background.setBackgroundColor(Color.argb((int) 0, 255, 255, 255));//AGB由相关工具获得，或者美工提供
+                //设置文字颜色，黑色
+//                tab_title.setTextColor(Color.argb((int) 0, 255, 255, 255));
+//                Log.e("111", "y <= 0");
+            } else if (y > 0 && y <= height) {
+                float scale = (float) y / height;
+                float alpha = (255 * scale);
+                //只是layout背景透明(仿知乎滑动效果)白色透明
+                rl_background.setBackgroundColor(Color.argb((int) alpha, 255, 255, 255));
+                //设置文字颜色，黑色，加透明度
+                if (y > height / 2 && y <= height) {
+//                    iv_back.setImageResource(R.drawable.back_black);
+//                    iv_shared.setImageResource(R.drawable.share_black);
+//                    record.setBackgroundResource(R.drawable.anim_music_black);
+                    tab_title.setVisibility(View.VISIBLE);
+                } else {
+//                    iv_back.setImageResource(R.drawable.back_white);
+//                    iv_shared.setImageResource(R.drawable.share_img);
+//                    record.setBackgroundResource(R.drawable.anim_music_white);
+                    tab_title.setVisibility(View.INVISIBLE);
+                }
+                tab_title.setTextColor(Color.argb((int) alpha, 0, 0, 0));
+//                Log.e("111", "y > 0 && y <= imageHeight");
+            } else {
+//                iv_back.setImageResource(R.drawable.back_black);
+//                iv_shared.setImageResource(R.drawable.share_black);
+//                record.setBackgroundResource(R.drawable.anim_music_black);
+                //白色不透明
+                tab_title.setVisibility(View.VISIBLE);
+                rl_background.setBackgroundColor(Color.argb((int) 255, 255, 255, 255));
+                //设置文字颜色
+                //黑色
+                tab_title.setTextColor(Color.argb((int) 255, 0, 0, 0));
+//                Log.e("111", "else");
+            }
+        }
+    };
 
     /**
      * 收藏
@@ -281,6 +348,7 @@ public class AudioSpecialDetailFragment extends BaseConstantFragment implements 
                 ArrayList<AudioSpecialDetailBean.RAudioSpecial.RAudioSpecialContent> content = details.getContent();//详情
                 description.setAdapter(new AudioDetailsAdapter(getActivity(),content));
                 title.setText(details.getTitle());
+                tab_title.setText(details.getTitle());
                 shortcontent.setText(details.getShortcontent());
                 salenum.setText(details.getSalenum());
 //                tv_price.setText(details.getPrice());

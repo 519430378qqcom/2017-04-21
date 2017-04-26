@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -125,14 +126,15 @@ public class BuyColumnDetailsFragment extends BaseConstantFragment implements Vi
         record = (ImageView) view.findViewById(R.id.record);
         iv_up = (ImageView) view.findViewById(R.id.iv_up);
         rl_bottom_up = (RelativeLayout) view.findViewById(R.id.rl_bottom_up);
-        lv_buycolumn.setFocusable(false);
 
-        lv_buycolumn.setOnClickListener(new View.OnClickListener() {
+
+        lv_buycolumn.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
-
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getActivity(), "点击", Toast.LENGTH_SHORT).show();
             }
         });
+
 
         // 获取顶部图片高度后，设置滚动监听
         ViewTreeObserver vto = iv_image.getViewTreeObserver();
@@ -244,6 +246,7 @@ public class BuyColumnDetailsFragment extends BaseConstantFragment implements Vi
 //                    Log.e("TAG", "recordsBeen.size()=" + recordsBeen.size());
                     recordList.addAll(recordsBeen);
                     logicalThinkingAdapter = new LogicalThinkingAdapter(getActivity(), recordList);
+                    lv_buycolumn.setFocusable(false);
                     lv_buycolumn.setAdapter(logicalThinkingAdapter);
                 }
             }

@@ -13,9 +13,9 @@
         android:layout_alignParentTop="true">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
 
             <LinearLayout
@@ -143,7 +143,7 @@
                         android:id="@+id/lv_buycolumn"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:divider="@null"/>
+                        android:divider="@null" />
                 </LinearLayout>
 
 
@@ -279,7 +279,7 @@
 
     <include
         android:id="@+id/rl_background"
-        layout="@layout/back_share_record_layout"></include>
+        layout="@layout/back_share_record_layout" />
 
     <RelativeLayout
         android:id="@+id/rl_bottom_up"

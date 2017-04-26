@@ -4,7 +4,8 @@
     android:layout_height="match_parent">
 
 
-    <ScrollView
+    <com.umiwi.ui.view.ScrollChangeScrollView
+        android:id="@+id/scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
@@ -32,45 +33,46 @@
                         android:background="@color/color_divider"
                         android:scaleType="fitXY" />
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:background="@android:color/transparent"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                    <!--<RelativeLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginTop="10dp"-->
+                        <!--android:background="@android:color/transparent"-->
+                        <!--android:gravity="center_vertical"-->
+                        <!--android:orientation="horizontal">-->
 
-                        <ImageView
-                            android:id="@+id/iv_back"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="10dp"
-                            android:padding="8dp"
-                            android:src="@drawable/black_back" />
+                        <!--<ImageView-->
+                            <!--android:id="@+id/iv_back"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_centerVertical="true"-->
+                            <!--android:layout_marginLeft="10dp"-->
+                            <!--android:padding="8dp"-->
+                            <!--android:src="@drawable/black_back" />-->
 
-                        <ImageView
-                            android:id="@+id/iv_shared"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginRight="10dp"
-                            android:layout_toLeftOf="@+id/record"
-                            android:padding="5dp"
-                            android:src="@drawable/share_black_bg" />
+                        <!--<ImageView-->
+                            <!--android:id="@+id/iv_shared"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_centerVertical="true"-->
+                            <!--android:layout_marginRight="10dp"-->
+                            <!--android:layout_toLeftOf="@+id/record"-->
+                            <!--android:padding="5dp"-->
+                            <!--android:src="@drawable/share_black_bg" />-->
 
-                        <ImageView
-                            android:id="@+id/record"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginRight="15dp"
-                            android:adjustViewBounds="true"
-                            android:background="@drawable/anim_music_ora"
-                            android:clickable="true"
-                            android:padding="5dp" />
-                    </RelativeLayout>
+                        <!--<ImageView-->
+                            <!--android:id="@+id/record"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_alignParentRight="true"-->
+                            <!--android:layout_centerVertical="true"-->
+                            <!--android:layout_marginRight="15dp"-->
+                            <!--android:adjustViewBounds="true"-->
+                            <!--android:background="@drawable/anim_music_ora"-->
+                            <!--android:clickable="true"-->
+                            <!--android:padding="5dp" />-->
+                    <!--</RelativeLayout>-->
+
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -227,8 +229,10 @@
                     android:layout_height="60dp"/>
             </LinearLayout>
         </LinearLayout>
-    </ScrollView>
-
+    </com.umiwi.ui.view.ScrollChangeScrollView>
+    <include
+        android:id="@+id/rl_background"
+        layout="@layout/back_share_record_layout" />
     <RelativeLayout
         android:id="@+id/yuedu"
         android:layout_width="match_parent"
