@@ -40,7 +40,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
-                        android:background="#11000000"
+                        android:background="#22000000"
                         android:padding="5dp">
 
                         <ImageView
@@ -105,7 +105,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"
-                                android:src="@drawable/daoxuanniu" />
+                                android:src="@drawable/image_sort_desc" />
 
                             <TextView
                                 android:id="@+id/orderby"

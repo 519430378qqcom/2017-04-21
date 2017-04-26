@@ -1,6 +1,7 @@
 package com.umiwi.ui.fragment.alreadyboughtfragment;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.RemoteException;
@@ -10,6 +11,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -80,6 +82,7 @@ public class BuyColumnDetailsFragment extends BaseConstantFragment implements Vi
     private String columnurl;
     private NoScrollListview lv_buycolumn;
     private AnimationDrawable background;
+    private int height;
 
     @Nullable
     @Override
@@ -124,6 +127,24 @@ public class BuyColumnDetailsFragment extends BaseConstantFragment implements Vi
         rl_bottom_up = (RelativeLayout) view.findViewById(R.id.rl_bottom_up);
         lv_buycolumn.setFocusable(false);
 
+        lv_buycolumn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        // 获取顶部图片高度后，设置滚动监听
+        ViewTreeObserver vto = iv_image.getViewTreeObserver();
+        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                iv_image.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                height = iv_image.getHeight();
+                scrollview.setScrollViewListener(mScrollViewListener);
+            }
+        });
+
         iv_fold_down.setOnClickListener(this);
         iv_sort.setOnClickListener(this);
         iv_back.setOnClickListener(this);
@@ -132,6 +153,53 @@ public class BuyColumnDetailsFragment extends BaseConstantFragment implements Vi
         iv_up.setOnClickListener(this);
         ll_orderby.setOnClickListener(this);
     }
+
+    private ScrollChangeScrollView.ScrollViewListener mScrollViewListener = new ScrollChangeScrollView.ScrollViewListener() {
+        @Override
+        public void onScrollChanged(ScrollChangeScrollView scrollView, int x, int y, int oldx, int oldy) {
+            if (y <= 0) {
+                tab_title.setVisibility(View.INVISIBLE);
+//                iv_back.setImageResource(R.drawable.back_white);
+//                iv_shared.setImageResource(R.drawable.share_img);
+//                record.setBackgroundResource(R.drawable.anim_music_white);
+                //设置文字背景颜色，白色
+                rl_background.setBackgroundColor(Color.argb((int) 0, 255, 255, 255));//AGB由相关工具获得，或者美工提供
+                //设置文字颜色，黑色
+//                tab_title.setTextColor(Color.argb((int) 0, 255, 255, 255));
+//                Log.e("111", "y <= 0");
+            } else if (y > 0 && y <= height) {
+                float scale = (float) y / height;
+                float alpha = (255 * scale);
+                //只是layout背景透明(仿知乎滑动效果)白色透明
+                rl_background.setBackgroundColor(Color.argb((int) alpha, 255, 255, 255));
+                //设置文字颜色，黑色，加透明度
+                if (y > height / 2 && y <= height) {
+//                    iv_back.setImageResource(R.drawable.back_black);
+//                    iv_shared.setImageResource(R.drawable.share_black);
+//                    record.setBackgroundResource(R.drawable.anim_music_black);
+                    tab_title.setVisibility(View.VISIBLE);
+                } else {
+//                    iv_back.setImageResource(R.drawable.back_white);
+//                    iv_shared.setImageResource(R.drawable.share_img);
+//                    record.setBackgroundResource(R.drawable.anim_music_white);
+                    tab_title.setVisibility(View.INVISIBLE);
+                }
+                tab_title.setTextColor(Color.argb((int) alpha, 0, 0, 0));
+//                Log.e("111", "y > 0 && y <= imageHeight");
+            } else {
+//                iv_back.setImageResource(R.drawable.back_black);
+//                iv_shared.setImageResource(R.drawable.share_black);
+//                record.setBackgroundResource(R.drawable.anim_music_black);
+                //白色不透明
+                tab_title.setVisibility(View.VISIBLE);
+                rl_background.setBackgroundColor(Color.argb((int) 255, 255, 255, 255));
+                //设置文字颜色
+                //黑色
+                tab_title.setTextColor(Color.argb((int) 255, 0, 0, 0));
+//                Log.e("111", "else");
+            }
+        }
+    };
 
     //获取专栏简介数据
     private void getDetailsData() {
@@ -151,7 +219,7 @@ public class BuyColumnDetailsFragment extends BaseConstantFragment implements Vi
                 Glide.with(getActivity()).load(details.getImage()).into(iv_image);
                 tv_name.setText(details.getTitle());
                 tv_title.setText(details.getShortcontent());
-
+                tv_buynumber.setText(details.getSalenum());
             }
 
             @Override
@@ -238,19 +306,32 @@ public class BuyColumnDetailsFragment extends BaseConstantFragment implements Vi
                 initRecord();
                 break;
             case R.id.ll_orderby:
-                if (orderby.getText().toString().equals("正序")) {
-                    orderby.setText("倒序");
-                    orderbyId = "old";
-                    getListData();
-                    rotateImpl();
-                } else {
-                    orderby.setText("正序");
-                    orderbyId = "new";
-                    getListData();
-                    rotateImpl();
-                }
+                initSort();
+                break;
+            case R.id.iv_sort:
+                initSort();
                 break;
         }
+    }
+
+    private void initSort() {
+        if (orderby.getText().toString().equals("正序")) {
+            orderby.setText("倒序");
+            orderbyId = "old";
+            getListData();
+            rotateImpl();
+        } else {
+            orderby.setText("正序");
+            orderbyId = "new";
+            getListData();
+            rotateImpl1();
+        }
+    }
+
+    private void rotateImpl1() {
+        Animation animation = AnimationUtils.loadAnimation(getActivity(),
+                R.anim.sort_anim_an);
+        iv_sort.startAnimation(animation);
     }
     public void rotateImpl() {
         Animation animation = AnimationUtils.loadAnimation(getActivity(),
