@@ -7,10 +7,13 @@ import android.os.Bundle;
 import android.os.RemoteException;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.util.SparseArray;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -34,7 +37,6 @@ import com.umiwi.ui.view.NoScrollListview;
 import java.util.ArrayList;
 
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import cn.youmi.framework.http.AbstractRequest;
 import cn.youmi.framework.http.GetRequest;
 import cn.youmi.framework.http.parsers.GsonParser;
@@ -51,37 +53,27 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
     ImageView record;
     View rl_background;
 
-
     TextView title;
     ImageView iv_play;
-    @InjectView(R.id.tv_play_title)
     TextView tv_play_title;
-    @InjectView(R.id.tv_play_time)
     TextView tv_play_time;
 
-    @InjectView(R.id.nsl_content)
     NoScrollListview nsl_content;
 
-    @InjectView(R.id.ll_leave_word)
     LinearLayout ll_leave_word;
-    @InjectView(R.id.iv_leaveword)
     ImageView iv_leaveword;
 
-    @InjectView(R.id.nsl_message_list)
     ListView nsl_message_list;
 
-    @InjectView(R.id.rl_buy_column)
     RelativeLayout rl_buy_column;
-    @InjectView(R.id.tv_buy_column)
     TextView tv_buy_column;
 
-
-
     //顶部悬浮框
-    @InjectView(R.id.ll_leave_word1)
     LinearLayout ll_leave_word1;
-    @InjectView(R.id.iv_leaveword1)
     ImageView iv_leaveword1;
+    //底部悬浮框
+    LinearLayout ll_leave_word2;
+    ImageView iv_leaveword2;
 
     public static final String DETAIL_ID = "id";
     private String id;
@@ -92,7 +84,8 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
     private ArrayList<AudioTmessageListBeans.RecordX.Record> mList = new ArrayList<>();
     private AnimationDrawable background;
     private int height;
-
+    private int floaty;
+    private int height1;
 
 
     @Nullable
@@ -107,19 +100,6 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
         getDetailsData();
         getMessageList();
         initMediaPlay();
-        View inflate = View.inflate(getActivity(), R.layout.column_header_view, null);
-        nsl_message_list.addHeaderView(inflate);
-
-        iv_back.setOnClickListener(this);
-        iv_shared.setOnClickListener(this);
-        record.setOnClickListener(this);
-        iv_leaveword.setOnClickListener(this);
-        tv_buy_column.setOnClickListener(this);
-        iv_play.setOnClickListener(this);
-
-
-
-
         return view;
     }
 
@@ -129,11 +109,103 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
         iv_shared = (ImageView) view.findViewById(R.id.iv_shared);
         record = (ImageView) view.findViewById(R.id.record);
         rl_background = view.findViewById(R.id.rl_background);
-        title = (TextView) view.findViewById(R.id.title);
-        iv_play = (ImageView) view.findViewById(R.id.iv_play);
+
+        nsl_message_list = (ListView) view.findViewById(R.id.nsl_message_list);
+        rl_buy_column = (RelativeLayout) view.findViewById(R.id.rl_buy_column);
+        tv_buy_column = (TextView) view.findViewById(R.id.tv_buy_column);
+        ll_leave_word1 = (LinearLayout) view.findViewById(R.id.ll_leave_word1);
+        iv_leaveword1 = (ImageView) view.findViewById(R.id.iv_leaveword1);
+        ll_leave_word2 = (LinearLayout) view.findViewById(R.id.ll_leave_word2);
+        iv_leaveword2 = (ImageView) view.findViewById(R.id.iv_leaveword2);
+
+        View inflate = View.inflate(getActivity(), R.layout.column_header_view, null);
+        title = (TextView) inflate.findViewById(R.id.title);
+        iv_play = (ImageView) inflate.findViewById(R.id.iv_play);
+        tv_play_title = (TextView) inflate.findViewById(R.id.tv_play_title);
+        tv_play_time = (TextView) inflate.findViewById(R.id.tv_play_time);
+        nsl_content = (NoScrollListview) inflate.findViewById(R.id.nsl_content);
+        ll_leave_word = (LinearLayout) inflate.findViewById(R.id.ll_leave_word);
+        iv_leaveword = (ImageView) inflate.findViewById(R.id.iv_leaveword);
+
+        nsl_message_list.addHeaderView(inflate);
+        nsl_message_list.setVerticalScrollBarEnabled(false);
+        nsl_message_list.setFastScrollEnabled(false);
+        nsl_message_list.setOnScrollListener(mScrollListener);
+
+        iv_back.setOnClickListener(this);
+        iv_shared.setOnClickListener(this);
+        record.setOnClickListener(this);
+        iv_leaveword.setOnClickListener(this);
+        tv_buy_column.setOnClickListener(this);
+        iv_play.setOnClickListener(this);
+        ll_leave_word1.setVisibility(View.GONE);
+
+        ViewTreeObserver vto = ll_leave_word.getViewTreeObserver();
+        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                ll_leave_word.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                height1 = ll_leave_word.getHeight();
+                int height = ll_leave_word2.getHeight();
+
+                floaty = (int) ll_leave_word.getY();
+                Log.e("TAG", "y=" + floaty);
+                Log.e("TAG", "height=" + height);
+            }
+        });
+
     }
+    private int mCurrentfirstVisibleItem = 0;
+    private SparseArray recordSp = new SparseArray(0);
+    private boolean isFloat;
+    private AbsListView.OnScrollListener mScrollListener= new AbsListView.OnScrollListener() {
 
 
+        @Override
+        public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+        }
+
+        @Override
+        public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+            mCurrentfirstVisibleItem = firstVisibleItem;
+
+            View firstView  = view.getChildAt(0);
+            if(null != firstView) {
+                ItemRecod  itemRecord  = (ItemRecod) recordSp.get(firstVisibleItem);
+                if (null == itemRecord) {
+                    itemRecord = new ItemRecod();
+                }
+                itemRecord.height = firstView.getHeight();
+                itemRecord.top = firstView.getTop();
+                recordSp.append(firstVisibleItem,itemRecord);
+                int h = getScrollY();
+                if (h >= floaty) {
+                    ll_leave_word1.setVisibility(View.VISIBLE);
+                } else {
+                    ll_leave_word1.setVisibility(View.GONE);
+                }
+                Log.e("TAG", "h=" + h);
+            }
+        }
+    };
+    private int getScrollY() {
+        int height = 0;
+        for (int i = 0; i < mCurrentfirstVisibleItem; i++) {
+            ItemRecod itemRecod = (ItemRecod) recordSp.get(i);
+            height += itemRecod.height;
+        }
+        ItemRecod itemRecod = (ItemRecod) recordSp.get(mCurrentfirstVisibleItem);
+        if (null == itemRecod) {
+            itemRecod = new ItemRecod();
+        }
+        return height - itemRecod.top;
+    }
+    class ItemRecod {
+        int height = 0;
+        int top = 0;
+    }
 
     private void initMediaPlay() {
         if (UmiwiApplication.mainActivity != null) {
@@ -215,7 +287,6 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
                 mList.clear();
                 mList.addAll(record);
                 columnMessageAdapter = new ColumnMessageAdapter(getActivity(),mList);
-                nsl_message_list.setFocusable(false);
                 nsl_message_list.setAdapter(columnMessageAdapter);
             }
 

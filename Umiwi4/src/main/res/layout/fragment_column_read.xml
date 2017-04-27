@@ -26,17 +26,12 @@
             android:background="@color/gray_a" />
         <!--悬浮框-->
         <LinearLayout
-            android:visibility="gone"
             android:id="@+id/ll_leave_word1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:orientation="vertical">
-
-            <!--<View-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="1px"-->
-            <!--android:background="@color/gray_a" />-->
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -69,21 +64,12 @@
                 android:layout_height="1px"
                 android:background="@color/gray_a" />
         </LinearLayout>
-
-        <!--<com.umiwi.ui.view.ScrollChangeScrollView-->
-        <!--android:id="@+id/scrollview"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="0dp"-->
-        <!--android:layout_weight="1"-->
-        <!--android:background="@color/white">-->
-
-
-
         <LinearLayout
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="20dp">
+            >
 
             <ListView
                 android:id="@+id/nsl_message_list"
@@ -95,30 +81,15 @@
 
     </LinearLayout>
 
-
-    <!--</com.umiwi.ui.view.ScrollChangeScrollView>-->
-
-
-    <!--<View-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="1px"-->
-    <!--android:background="@color/gray_a" />-->
-
     <!--底部悬浮框-->
     <LinearLayout
-        android:visibility="gone"
-        android:layout_alignParentBottom="true"
         android:id="@+id/ll_leave_word2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:background="@color/white"
-        android:orientation="vertical">
-
-        <!--<View-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="1px"-->
-        <!--android:background="@color/gray_a" />-->
-
+        android:orientation="vertical"
+        android:visibility="gone">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
