@@ -14,6 +14,8 @@ import com.umiwi.ui.beans.updatebeans.LbumListBean;
 
 import java.util.ArrayList;
 
+import static com.umiwi.ui.main.YoumiConfiguration.context;
+
 /**
  * Created by Administrator on 2017/4/5 0005.
  */
@@ -62,7 +64,7 @@ public class LbumlistFragmentAdapter extends BaseAdapter {
         }
         LbumListBean.RLbumlist.LbumlistRecord lbumlistRecord = lbumlists.get(position);
 //        Log.e("TAG", "lbumlistRecord=" + lbumlistRecord.toString());
-        Glide.with(mActivity).load(lbumlistRecord.getImage()).into(holder.iv_author);
+        Glide.with(context).load(lbumlistRecord.getImage()).into(holder.iv_author);
         if (lbumlistRecord.getTitle() != null) {
             holder.special_name_textView_1.setText(lbumlistRecord.getTitle());
         } else {

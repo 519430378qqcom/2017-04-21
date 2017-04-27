@@ -14,6 +14,8 @@ import java.util.ArrayList;
 
 import cn.youmi.framework.view.CircleImageView;
 
+import static com.umiwi.ui.main.YoumiConfiguration.context;
+
 /**
  * Created by Administrator on 2017/4/26 0026.
  */
@@ -57,7 +59,7 @@ public class ColumnMessageAdapter extends BaseAdapter {
         }
 
         AudioTmessageListBeans.RecordX.Record record = this.record.get(position);
-        Glide.with(activity).load(record.getAvatar()).into(holder.userhead_imageview);
+        Glide.with(context).load(record.getAvatar()).into(holder.userhead_imageview);
         holder.username_textview.setText(record.getName());
         holder.content_textview.setText(record.getContent());
         holder.time_textview.setText(record.getTime());

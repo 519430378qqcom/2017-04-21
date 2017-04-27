@@ -2,9 +2,12 @@ package com.umiwi.ui.fragment.alreadyboughtfragment;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.os.RemoteException;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
@@ -20,8 +24,11 @@ import com.umiwi.ui.adapter.updateadapter.ColumnMessageAdapter;
 import com.umiwi.ui.adapter.updateadapter.ColumnReadDetailsAdapter;
 import com.umiwi.ui.beans.AudioTmessageListBeans;
 import com.umiwi.ui.beans.updatebeans.ColumnReadBean;
+import com.umiwi.ui.dialog.ShareDialog;
+import com.umiwi.ui.fragment.home.updatehome.indexfragment.VoiceDetailsFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.UmiwiAPI;
+import com.umiwi.ui.main.UmiwiApplication;
 import com.umiwi.ui.view.NoScrollListview;
 
 import java.util.ArrayList;
@@ -80,6 +87,7 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
     private int totalpage;
     private ColumnMessageAdapter columnMessageAdapter;
     private ArrayList<AudioTmessageListBeans.RecordX.Record> mList = new ArrayList<>();
+    private AnimationDrawable background;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -88,7 +96,7 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
         id = getActivity().getIntent().getStringExtra(DETAIL_ID);
         getDetailsData();
         getMessageList();
-
+        initMediaPlay();
 
         iv_back.setOnClickListener(this);
         iv_shared.setOnClickListener(this);
@@ -98,6 +106,24 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
         iv_play.setOnClickListener(this);
         return view;
     }
+
+    private void initMediaPlay() {
+        if (UmiwiApplication.mainActivity != null) {
+            if (UmiwiApplication.mainActivity.service != null) {
+                background = (AnimationDrawable) record.getBackground();
+                try {
+                    if (UmiwiApplication.mainActivity.service.isPlaying()) {
+                        background.start();
+                    } else {
+                        background.stop();
+                    }
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -105,10 +131,11 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
                 getActivity().finish();
                 break;
             case R.id.iv_shared :
-
+                ShareDialog.getInstance().showDialog(getActivity(), details.getShare().getSharetitle(),
+                        details.getShare().getSharecontent(), details.getShare().getShareurl(), details.getShare().getShareimg());
                 break;
             case R.id.record :
-
+                initPlay();
                 break;
             case R.id.iv_leaveword :
                 Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
@@ -121,6 +148,29 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
             case R.id.iv_play:
 
                 break;
+        }
+    }
+
+    private void initPlay() {
+        if (UmiwiApplication.mainActivity.service != null) {
+            try {
+
+                if (UmiwiApplication.mainActivity.service.isPlaying() || UmiwiApplication.mainActivity.isPause) {
+                    if (UmiwiApplication.mainActivity.herfUrl != null) {
+                        Log.e("TAG", "UmiwiApplication.mainActivity.herfUrl=" + UmiwiApplication.mainActivity.herfUrl);
+                        Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
+                        intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
+                        intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL, UmiwiApplication.mainActivity.herfUrl);
+                        getActivity().startActivity(intent);
+                    }
+                }
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        } else {
+            Toast toast = Toast.makeText(getActivity(), "没有正在播放的音频", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
         }
     }
 

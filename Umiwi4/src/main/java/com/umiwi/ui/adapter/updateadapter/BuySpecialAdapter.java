@@ -14,6 +14,8 @@ import com.umiwi.ui.beans.updatebeans.BuySpecialBean;
 
 import java.util.ArrayList;
 
+import static com.umiwi.ui.main.YoumiConfiguration.context;
+
 /**
  * Created by Administrator on 2017/4/7 0007.
  */
@@ -62,7 +64,7 @@ public class BuySpecialAdapter extends BaseAdapter {
         }
         BuySpecialBean.RBuySpecial.BuySpecialRecord buySpecialRecord = mList.get(position);
 //        Log.e("TAG", "lbumlistRecord=" + lbumlistRecord.toString());
-        Glide.with(activity).load(buySpecialRecord.getImage()).into(holder.iv_author);
+        Glide.with(context).load(buySpecialRecord.getImage()).into(holder.iv_author);
         if (buySpecialRecord.getTitle() != null) {
             holder.special_name_textView_1.setText(buySpecialRecord.getTitle());
         } else {

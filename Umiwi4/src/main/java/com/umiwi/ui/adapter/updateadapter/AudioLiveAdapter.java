@@ -13,6 +13,8 @@ import com.umiwi.ui.view.XCRoundRectImageView;
 
 import java.util.ArrayList;
 
+import static com.umiwi.ui.main.YoumiConfiguration.context;
+
 /**
  * Created by lenovo on 2017/4/25.
  */
@@ -57,7 +59,7 @@ public class AudioLiveAdapter extends BaseAdapter {
         }
 
         RecommendBean.RBean.HotLiveBean.HotLiveRecord hotLiveRecord = mList.get(position);
-        Glide.with(mActivity).load(hotLiveRecord.getLimage()).into(holder.iv_author);
+        Glide.with(context).load(hotLiveRecord.getLimage()).into(holder.iv_author);
         holder.special_name_textView.setText(hotLiveRecord.getTitle());
         holder.special_context.setText(hotLiveRecord.getSubtitle());
         holder.special_price.setText(hotLiveRecord.getPrice());

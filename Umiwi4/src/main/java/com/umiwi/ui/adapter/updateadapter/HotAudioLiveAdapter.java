@@ -13,6 +13,8 @@ import com.umiwi.ui.view.XCRoundRectImageView;
 
 import java.util.ArrayList;
 
+import static com.umiwi.ui.main.YoumiConfiguration.context;
+
 
 /**
  * Created by Administrator on 2017/4/24 0024.
@@ -59,7 +61,7 @@ public class HotAudioLiveAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         RecommendBean.RBean.HotLiveBean.HotLiveRecord hotLiveRecord = record.get(position);
-        Glide.with(mContext).load(hotLiveRecord.getLimage()).into(viewHolder.iv_author);
+        Glide.with(context).load(hotLiveRecord.getLimage()).into(viewHolder.iv_author);
         viewHolder.special_name_textView.setText(hotLiveRecord.getTitle());
         viewHolder.special_context.setText(hotLiveRecord.getSubtitle());
         viewHolder.special_price.setText(hotLiveRecord.getPrice());
