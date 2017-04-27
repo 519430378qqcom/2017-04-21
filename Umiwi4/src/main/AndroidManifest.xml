@@ -164,7 +164,7 @@
             android:name=".activity.UmiwiContainerActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name="cn.youmi.framework.activity.FragmentContainerUnSwipeActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -219,20 +219,25 @@
             </intent-filter>
         </service>
         <!-- 百度独家SDK -->
-        <receiver android:name="com.baidu.soleagencysdk.downloadapk.CompleteReceiver" >
+        <receiver android:name="com.baidu.soleagencysdk.downloadapk.CompleteReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
                 <action android:name="android.intent.action.DOWNLOAD_NOTIFICATION_CLICKED" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_ADDED" />
+
                 <data android:scheme="package" /> <!-- 注意！！ 这句必须要加，否则接收不到安装完成广播 -->
             </intent-filter>
         </receiver>
 
         <!-- 百度独家SDK -->
-        <meta-data android:name="BDAPPID" android:value="6149933" />
-        <meta-data android:name="BDAPPKEY" android:value="rkg2suzAGa3NY9WZkR1knmOw" />
+        <meta-data
+            android:name="BDAPPID"
+            android:value="6149933" />
+        <meta-data
+            android:name="BDAPPKEY"
+            android:value="rkg2suzAGa3NY9WZkR1knmOw" />
 
         <!-- 第三方 -->
 
@@ -437,7 +442,8 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".activity.NewAdvertiseActivity"></activity>
+        <activity android:name=".activity.NewAdvertiseActivity" />
+        <activity android:name=".activity.LiveDetailsActivity"></activity>
     </application>
 
 </manifest>

@@ -82,7 +82,8 @@
 
     <string name="version_umiwi_introduce">关于优米：\n \t\t\t\t优米致力做“精品知识服务平台”，提供创业、职场、新趋势等多个领域的系统知识，以音频、视频、专题、直播等方式传递给用户，为用户打磨有用、实用、好用的干货。
 </string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="live_recommend">直播介绍</string>
+    <string name="join">参与</string>
+    <string name="immediately_join">立即参与</string>
 </resources>
