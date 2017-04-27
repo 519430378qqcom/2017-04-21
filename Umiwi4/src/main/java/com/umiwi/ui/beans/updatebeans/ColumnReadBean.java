@@ -69,8 +69,20 @@ public class ColumnReadBean extends BaseGsonBeans {
         @SerializedName("share")
         private ReadShare share;
         public static class ReadContentWord{
+            @SerializedName("strong")
+            private String strong;
             @SerializedName("word")
             private String word;
+            @SerializedName("image")
+            private String image;
+
+            public String getImage() {
+                return image;
+            }
+
+            public void setImage(String image) {
+                this.image = image;
+            }
 
             public String getWord() {
                 return word;
@@ -80,10 +92,20 @@ public class ColumnReadBean extends BaseGsonBeans {
                 this.word = word;
             }
 
+            public String getStrong() {
+                return strong;
+            }
+
+            public void setStrong(String strong) {
+                this.strong = strong;
+            }
+
             @Override
             public String toString() {
                 return "ReadContentWord{" +
-                        "word='" + word + '\'' +
+                        "strong='" + strong + '\'' +
+                        ", word='" + word + '\'' +
+                        ", image='" + image + '\'' +
                         '}';
             }
         }

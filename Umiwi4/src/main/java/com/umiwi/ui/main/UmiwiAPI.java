@@ -475,6 +475,10 @@ public final class UmiwiAPI {
      * 已购专栏详情页面用户留言
      */
     public static final String UMIWI_COLUM_MESSAGE = "http://i.v.youmi.cn/tmessage/listapi?id=%s&p=%s";
+    /**
+     * 已购专栏提交留言
+     */
+    public static final String UMIWI_MESSAGE_COMMIT = "http://i.v.youmi.cn/tmessage/addapi?aid=%s&content=%s";
     //已购买
     public static final String Ask_Hear = "http://i.v.youmi.cn/api8/buyquestion";
     //已购-视频

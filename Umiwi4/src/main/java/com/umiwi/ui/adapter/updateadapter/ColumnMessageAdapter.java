@@ -58,7 +58,7 @@ public class ColumnMessageAdapter extends BaseAdapter {
             holder= (ViewHolder) convertView.getTag();
         }
 
-        AudioTmessageListBeans.RecordX.Record record = this.record.get(position);
+        AudioTmessageListBeans.RecordX.Record record = this.record.get(position-1);
         Glide.with(context).load(record.getAvatar()).into(holder.userhead_imageview);
         holder.username_textview.setText(record.getName());
         holder.content_textview.setText(record.getContent());
