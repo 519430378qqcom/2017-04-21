@@ -1,6 +1,7 @@
 package com.umiwi.ui.fragment.audiolive;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -11,7 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.umiwi.ui.R;
-import com.umiwi.ui.activity.LiveDetailsActivity;
+import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.updateadapter.AudioLiveAdapter;
 import com.umiwi.ui.beans.updatebeans.AudioLiveBean;
 import com.umiwi.ui.beans.updatebeans.RecommendBean;
@@ -60,7 +61,11 @@ public class AudioLiveOnFragment extends BaseConstantFragment {
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                LiveDetailsActivity.start(mContext,"5");
+                Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
+                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS,LiveDetailsFragment.class);
+                intent.putExtra(LiveDetailsFragment.DETAILS_ID,"5");
+                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
             }
         });
         return view;

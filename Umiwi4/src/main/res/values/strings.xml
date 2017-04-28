@@ -86,4 +86,5 @@
     <string name="live_recommend">直播介绍</string>
     <string name="join">参与</string>
     <string name="immediately_join">立即参与</string>
+    <string name="send">发送</string>
 </resources>

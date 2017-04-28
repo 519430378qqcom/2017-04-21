@@ -2,6 +2,7 @@ package com.umiwi.ui.beans;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -72,7 +73,7 @@ public class LiveDetailsBean extends BaseGsonBeans{
             this.share = share;
         }
 
-        public static class RecordBean {
+        public static class RecordBean implements Serializable{
             /**
              * id : 5
              * title : 怎样留住高端人才

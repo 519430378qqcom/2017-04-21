@@ -443,7 +443,7 @@
             <!-- </intent-filter> -->
         </activity>
         <activity android:name=".activity.NewAdvertiseActivity" />
-        <activity android:name=".activity.LiveDetailsActivity"></activity>
+        <activity android:name=".activity.LiveRoomActivity"></activity>
     </application>
 
 </manifest>
