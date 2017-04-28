@@ -14,6 +14,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.AbsListView;
 import android.widget.ImageView;
@@ -95,6 +96,7 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
     private VoiceDetailsFragment voiceDetailsFragment;
     private String source;
     private String detailurl;
+    private int screenHeight;
 
     @Nullable
     @Override
@@ -104,11 +106,13 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
         id = getActivity().getIntent().getStringExtra(DETAIL_ID);
         voiceDetailsFragment = new VoiceDetailsFragment();
 
+        screenHeight = getScreenHeight(getActivity());
+        Log.e("TAG", "screenHeight=" + screenHeight);
+
         initView(view);
         getDetailsData();
         getMessageList();
-        int screenHeight = getScreenHeight(getActivity());
-        Log.e("TAG", "screenHeight=" + screenHeight);
+
         return view;
     }
 
@@ -119,6 +123,7 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
         return display.getHeight();
     }
     private void initView(View view) {
+
         iv_back = (ImageView) view.findViewById(R.id.iv_back);
         tab_title = (TextView) view.findViewById(R.id.tab_title);
         iv_shared = (ImageView) view.findViewById(R.id.iv_shared);
@@ -155,24 +160,42 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
         iv_play.setOnClickListener(this);
         ll_leave_word1.setVisibility(View.GONE);
 
-//        int[] location = new int[2];
-//        ll_leave_word.getLocationOnScreen(location);
-//        ll_leave_word.getLocationInWindow(location);
-//        Log.e("TAG", "location=" + location[1]);
 
-//        ViewTreeObserver vto = ll_leave_word.getViewTreeObserver();
-//        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-//            @Override
-//            public void onGlobalLayout() {
-//                ll_leave_word.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-//                height1 = ll_leave_word.getHeight();
-//                int height = ll_leave_word2.getHeight();
-//
-//                floaty = (int) ll_leave_word.getY();
-//                Log.e("TAG", "y=" + floaty);
-//                Log.e("TAG", "height=" + height);
-//            }
-//        });
+        ViewTreeObserver vto = ll_leave_word.getViewTreeObserver();
+        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                ll_leave_word.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+
+                floaty = (int) ll_leave_word.getY();
+                Log.e("TAG", "y=" + floaty);
+
+                if (floaty < screenHeight) {
+                    ll_leave_word2.setVisibility(View.GONE);
+                } else {
+                    ll_leave_word2.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+
+
+        ViewTreeObserver observer = ll_leave_word2.getViewTreeObserver();
+        observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                ll_leave_word2.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                float y = ll_leave_word2.getY();
+                int top = ll_leave_word2.getTop();
+
+                int height = ll_leave_word2.getHeight();
+
+//                Log.e("TAG", "底部悬浮=" + y);
+//                Log.e("TAG", "底部悬浮top=" + top);
+//                Log.e("TAG", "底部悬浮height=" + height);
+            }
+        });
+
 
     }
 
@@ -192,25 +215,47 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
         @Override
         public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 
-//            mCurrentfirstVisibleItem = firstVisibleItem;
-//
-//            View firstView  = view.getChildAt(0);
-//            if(null != firstView) {
-//                ItemRecod  itemRecord  = (ItemRecod) recordSp.get(firstVisibleItem);
-//                if (null == itemRecord) {
-//                    itemRecord = new ItemRecod();
-//                }
-//                itemRecord.height = firstView.getHeight();
-//                itemRecord.top = firstView.getTop();
-//                recordSp.append(firstVisibleItem,itemRecord);
-//                int h = getScrollY();
-//                if (h >= floaty) {
-//                    ll_leave_word1.setVisibility(View.VISIBLE);
-//                } else {
-//                    ll_leave_word1.setVisibility(View.GONE);
-//                }
-//                Log.e("TAG", "h=" + h);
-//            }
+            int[] location = new int[2];
+            ll_leave_word2.getLocationOnScreen(location);
+            int x = location[0];
+            int y = location[1];
+//            Log.e("TAG", "top121=" + y);
+
+
+            int top = ll_leave_word2.getTop();
+//            Log.e("TAG", "top=" + top);
+
+
+            mCurrentfirstVisibleItem = firstVisibleItem;
+
+            View firstView  = view.getChildAt(0);
+            if(null != firstView) {
+                ItemRecod  itemRecord  = (ItemRecod) recordSp.get(firstVisibleItem);
+                if (null == itemRecord) {
+                    itemRecord = new ItemRecod();
+                }
+                itemRecord.height = firstView.getHeight();
+                itemRecord.top = firstView.getTop();
+                recordSp.append(firstVisibleItem,itemRecord);
+                int h = getScrollY();
+                //顶部悬浮
+                if (h >= floaty) {
+                    ll_leave_word1.setVisibility(View.VISIBLE);
+                } else {
+                    ll_leave_word1.setVisibility(View.GONE);
+                }
+                Log.e("TAG", "h=" + h);
+                //底部悬浮
+                if(h==0) {
+                    return;
+                }
+                if(h <= (floaty - top )) {
+                   ll_leave_word2.setVisibility(View.VISIBLE);
+
+                }else if(h > (floaty - top ) && h <floaty) {
+                    ll_leave_word2.setVisibility(View.GONE);
+                }
+            }
         }
     };
     private int getScrollY() {
@@ -234,6 +279,7 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
     public void onResume() {
         super.onResume();
         initMedia();
+        getMessageList();
     }
 
     private void initMedia() {
