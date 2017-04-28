@@ -97,7 +97,6 @@ public class BuyColumnDetailsFragment extends BaseConstantFragment implements Vi
         initView(view);
         getDetailsData();
         getListData();
-        initMediaPlay();
         return view;
     }
 
@@ -268,10 +267,10 @@ public class BuyColumnDetailsFragment extends BaseConstantFragment implements Vi
         super.onDestroy();
         //ButterKnife.reset(this);
     }
-    /**
-     * 播放按钮
-     */
-    private void initMediaPlay() {
+
+    @Override
+    public void onResume() {
+        super.onResume();
         if (UmiwiApplication.mainActivity != null) {
             if (UmiwiApplication.mainActivity.service != null) {
                 background = (AnimationDrawable) record.getBackground();
@@ -286,9 +285,8 @@ public class BuyColumnDetailsFragment extends BaseConstantFragment implements Vi
                 }
             }
         }
-
-
     }
+
 
     @Override
     public void onClick(View v) {

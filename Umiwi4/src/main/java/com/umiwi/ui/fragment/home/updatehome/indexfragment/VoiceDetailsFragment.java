@@ -845,7 +845,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
             AudioModel video = AudioManager.getInstance().getVideoById(
                     audiofileBean.getAid() + "");
             video.setVideoUrl(source);
-            Log.e("TAG", "设置audio的URL=" + source);
+//            Log.e("TAG", "设置audio的URL=" + source);
             videos.add(video);
 //            Log.e("TAG", "video=" + video.getAlbumTitle());//怎么对公司进行调研
 //            Log.e("TAG", "video=" + video.getVideoId());//57
@@ -1094,8 +1094,9 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
 
     /**
      * 绑定服务
+     * @param
      */
-    public void bindVoiceSerive() {
+    public  void bindVoiceSerive() {
         //发消息，更新进度
         handler.sendEmptyMessage(PROGRESS);
         if (source.equals(UmiwiApplication.mainActivity.musicUrl)) {
@@ -1109,6 +1110,13 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
             }
             return;
         }
+
+        bind(source);
+//        getActivity().startService(intent);
+//        intent.putExtra("url", url);
+    }
+
+    public void bind(final String source) {
         //保存当前音频链接地址
         UmiwiApplication.mainActivity.musicUrl = source;
         Intent intent = new Intent(UmiwiApplication.mainActivity, VoiceService.class);
@@ -1128,8 +1136,20 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
 
                     if (UmiwiApplication.mainActivity.service != null) {
                         try {
+//                            if (source.equals(UmiwiApplication.mainActivity.musicUrl)) {
+//                                //如果再次进来当前音乐暂停，就继续播放
+//                                try {
+//                                    if (!UmiwiApplication.mainActivity.service.isPlaying()) {
+//                                        UmiwiApplication.mainActivity.service.play();
+//                                    }
+//                                } catch (RemoteException e) {
+//                                    e.printStackTrace();
+//                                }
+//                                return;
+//                            }
+
                             UmiwiApplication.mainActivity.service.openAudio(source);
-                            Log.e("TAG", "source=in" + source);
+//                            Log.e("TAG", "source=in" + VoiceDetailsFragment.this.source);
                         } catch (RemoteException e) {
                             e.printStackTrace();
                         }
@@ -1151,8 +1171,6 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
         }
         intent.putExtra("source", source);
         UmiwiApplication.mainActivity.bindService(intent, conn, getActivity().BIND_AUTO_CREATE);
-//        getActivity().startService(intent);
-//        intent.putExtra("url", url);
     }
 
     @Override

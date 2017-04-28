@@ -68,6 +68,17 @@ public class ColumnReadBean extends BaseGsonBeans {
         private ReadAudioFile audiofile;
         @SerializedName("share")
         private ReadShare share;
+        @SerializedName("detailurl")
+        private String detailurl;
+
+        public String getDetailurl() {
+            return detailurl;
+        }
+
+        public void setDetailurl(String detailurl) {
+            this.detailurl = detailurl;
+        }
+
         public static class ReadContentWord{
             @SerializedName("strong")
             private String strong;
