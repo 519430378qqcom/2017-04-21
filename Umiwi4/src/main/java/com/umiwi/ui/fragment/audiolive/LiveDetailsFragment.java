@@ -137,6 +137,7 @@ public class LiveDetailsFragment extends BaseConstantFragment{
         }
         Intent intent = new Intent(getActivity(), LiveChatRoomActivity.class);
         intent.putExtra(LiveDetailsFragment.DETAILS_ID,liveDetails.getR().getRecord().getId());
+        intent.putExtra(LiveChatRoomActivity.ROOM_ID,liveDetails.getR().getRecord().getRoomid());
         getActivity().startActivity(intent);
     }
 

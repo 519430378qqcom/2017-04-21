@@ -17,6 +17,7 @@ import butterknife.InjectView;
 
 /**
  * Created by Administrator on 2017/4/27.
+ * 直播介绍
  */
 
 public class LiveRecommendAdapter extends RecyclerView.Adapter<LiveRecommendAdapter.LiveRecommendViewHolder>{
