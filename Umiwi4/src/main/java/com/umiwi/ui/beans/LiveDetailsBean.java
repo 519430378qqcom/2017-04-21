@@ -7,6 +7,7 @@ import java.util.List;
 
 /**
  * Created by Administrator on 2017/4/27.
+ * 直播详情的bean类
  */
 
 public class LiveDetailsBean extends BaseGsonBeans{

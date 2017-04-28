@@ -45,6 +45,19 @@ dependencies {
     compile files('libs/pushservice-5.6.0.30.jar')
     compile files('libs/baidu_cuid.jar')
     compile project(':magicindicator')
+    //网易云信依赖
+    compile fileTree(dir: 'libs', include: '*.jar')
+    // 添加依赖。注意，版本号必须一致。
+    // 基础功能 (必需)
+    compile 'com.netease.nimlib:basesdk:3.3.0'
+    // 音视频需要
+    compile 'com.netease.nimlib:avchat:3.3.0'
+    // 聊天室需要
+    compile 'com.netease.nimlib:chatroom:3.3.0'
+//    // 实时会话服务需要
+//    compile 'com.netease.nimlib:rts:3.3.0'
+//    // 全文检索服务需要
+//    compile 'com.netease.nimlib:lucene:3.3.0'
 }
 
 android {
@@ -240,4 +253,20 @@ idea {
         downloadJavadoc = true // 下载依赖项目的文档
         downloadSources = true // 下载依赖项目的源码
     }
+    //网易云信配置
+    allprojects {
+        repositories {
+            jcenter() // 或者 mavenCentral()
+        }
+    }
+
+    android {
+        defaultConfig {
+            ndk {
+                //设置支持的SO库架构
+                abiFilters "armeabi-v7a", "x86","arm64-v8a","x86_64"
+            }
+        }
+    }
+
 }

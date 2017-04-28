@@ -6,6 +6,7 @@
         android:id="@+id/rl_head"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:gravity="center_vertical">
         <ImageView
             android:id="@+id/iv_back"
@@ -15,6 +16,7 @@
             android:padding="5dp"
             android:src="@drawable/back_audio_special" />
         <LinearLayout
+            android:id="@+id/ll_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -39,6 +41,12 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
             android:src="@drawable/more_3point"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/ll_tv"
+            android:layout_marginTop="4dp"
+            android:background="@color/black_33"/>
     </RelativeLayout>
     <android.support.v7.widget.RecyclerView
         android:layout_below="@+id/rl_head"
@@ -66,3 +74,4 @@
             android:text="@string/send"/>
     </RelativeLayout>
 </RelativeLayout>
+

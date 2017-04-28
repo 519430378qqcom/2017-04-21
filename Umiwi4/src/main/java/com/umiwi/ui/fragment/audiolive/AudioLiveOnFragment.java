@@ -64,7 +64,6 @@ public class AudioLiveOnFragment extends BaseConstantFragment {
                 Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
                 intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS,LiveDetailsFragment.class);
                 intent.putExtra(LiveDetailsFragment.DETAILS_ID,"5");
-                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
             }
         });

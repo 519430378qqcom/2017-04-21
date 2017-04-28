@@ -1,6 +1,7 @@
 package com.umiwi.ui.fragment.audiolive;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,7 +16,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.umiwi.ui.R;
-import com.umiwi.ui.activity.LiveRoomActivity;
+import com.umiwi.ui.activity.LiveChatRoomActivity;
 import com.umiwi.ui.adapter.LiveRecommendAdapter;
 import com.umiwi.ui.beans.LiveDetailsBean;
 import com.umiwi.ui.dialog.ShareDialog;
@@ -134,6 +135,14 @@ public class LiveDetailsFragment extends BaseConstantFragment{
         }else {
             //支付
         }
-        LiveRoomActivity.start(activity,liveDetails.getR().getRecord().getId());
+        Intent intent = new Intent(getActivity(), LiveChatRoomActivity.class);
+        intent.putExtra(LiveDetailsFragment.DETAILS_ID,liveDetails.getR().getRecord().getId());
+        getActivity().startActivity(intent);
+    }
+
+    @Override
+    public void onDestroyView() {
+        ButterKnife.reset(this);
+        super.onDestroyView();
     }
 }

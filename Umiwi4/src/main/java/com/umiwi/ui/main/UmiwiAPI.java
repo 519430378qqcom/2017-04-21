@@ -12,6 +12,10 @@ public final class UmiwiAPI {
      * 直播详情
      */
     public static final String LIVE_DETAILS = "http://i.v.youmi.cn/Telecast/getlivedetail?id=";
+    /**
+     * 获取网易云信账户信息
+     */
+    public static final String NIM_ACCOUNT = "http://i.v.youmi.cn/Yxaccount/getAccidapi";
     // ===============================登录  相关===================================================//
 
     /**
