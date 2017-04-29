@@ -20,6 +20,7 @@ import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,6 +45,7 @@ import butterknife.ButterKnife;
 import cn.youmi.framework.http.AbstractRequest;
 import cn.youmi.framework.http.GetRequest;
 import cn.youmi.framework.http.parsers.GsonParser;
+import cn.youmi.framework.util.ToastU;
 
 /**
  * Created by Administrator on 2017/4/26 0026.
@@ -83,7 +85,7 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
     private String id;
     private ColumnReadBean.RColumnRead details;
     private int page = 1;
-    private int totalpage;
+    private int totalpage = 0;
     private ColumnMessageAdapter columnMessageAdapter;
     private ArrayList<AudioTmessageListBeans.RecordX.Record> mList = new ArrayList<>();
     private AnimationDrawable background;
@@ -97,6 +99,13 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
     private String source;
     private String detailurl;
     private int screenHeight;
+    private View footView;
+
+    private boolean isLoading=false;
+    private ProgressBar progressBar2;
+    private int currentpage =1;
+    private int totalItem;
+    private int lastVisibleItem;
 
     @Nullable
     @Override
@@ -147,7 +156,11 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
         ll_leave_word = (LinearLayout) inflate.findViewById(R.id.ll_leave_word);
         iv_leaveword = (ImageView) inflate.findViewById(R.id.iv_leaveword);
 
+        //底部加载更多布局
+        footView = View.inflate(getActivity(), R.layout.column_foot_view,null);
+        progressBar2 = (ProgressBar) footView.findViewById(R.id.progressBar2);
         nsl_message_list.addHeaderView(inflate);
+        nsl_message_list.addFooterView(footView);
         nsl_message_list.setVerticalScrollBarEnabled(false);
         nsl_message_list.setFastScrollEnabled(false);
         nsl_message_list.setOnScrollListener(mScrollListener);
@@ -210,22 +223,38 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
         @Override
         public void onScrollStateChanged(AbsListView view, int scrollState) {
 
+//            if(scrollState == SCROLL_STATE_IDLE && view.getLastVisiblePosition() == mList.size() + 1 && footView.isShown()) {
+//
+//                if(!isLoading) {
+//                    getDataMore();
+//                    isLoading = true;
+//                    Log.e("TAG", "view.getCount()+ 1=" + view.getCount());
+//                }
+//            }
+            if(lastVisibleItem == totalItem && scrollState == SCROLL_STATE_IDLE && !isLoading && footView.isShown()) {
+                isLoading = true;
+                getDataMore();
+
+            }
         }
 
         @Override
         public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
-            int[] location = new int[2];
-            ll_leave_word2.getLocationOnScreen(location);
-            int x = location[0];
-            int y = location[1];
+            if (isLoading) {
+                footView.setVisibility(View.VISIBLE);
+            }
+            lastVisibleItem = firstVisibleItem + visibleItemCount;
+            totalItem = totalItemCount;
+            Log.e("TAG", "totalItemCount=" + totalItemCount);
+//            int[] location = new int[2];
+//            ll_leave_word2.getLocationOnScreen(location);
+//            int x = location[0];
+//            int y = location[1];
 //            Log.e("TAG", "top121=" + y);
 
 
             int top = ll_leave_word2.getTop();
 //            Log.e("TAG", "top=" + top);
-
-
             mCurrentfirstVisibleItem = firstVisibleItem;
 
             View firstView  = view.getChildAt(0);
@@ -244,7 +273,7 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
                 } else {
                     ll_leave_word1.setVisibility(View.GONE);
                 }
-                Log.e("TAG", "h=" + h);
+//                Log.e("TAG", "h=" + h);
                 //底部悬浮
                 if(h==0) {
                     return;
@@ -258,6 +287,48 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
             }
         }
     };
+
+    private void getDataMore() {
+        currentpage ++;
+        Log.e("TAG", "currentpage=" + currentpage);
+        if (currentpage <= totalpage) {
+            footView.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    getMore();
+
+                }
+            }, 1000);
+        } else {
+            ToastU.showLong(getActivity(), "没有更多了!");
+            isLoading = false;
+            footView.setVisibility(View.GONE);
+        }
+
+    }
+
+    private void getMore() {
+        String url = String.format(UmiwiAPI.UMIWI_COLUM_MESSAGE,id,currentpage);
+        Log.e("TAG", "阅读界面url=" + url);
+        GetRequest<AudioTmessageListBeans> request = new GetRequest<AudioTmessageListBeans>(url, GsonParser.class, AudioTmessageListBeans.class, new AbstractRequest.Listener<AudioTmessageListBeans>() {
+            @Override
+            public void onResult(AbstractRequest<AudioTmessageListBeans> request, AudioTmessageListBeans audioTmessageListBeans) {
+                ArrayList<AudioTmessageListBeans.RecordX.Record> record = audioTmessageListBeans.getR().getRecord();
+//                Log.e("TAG", "阅读界面record=" + record.toString());
+                currentpage = audioTmessageListBeans.getR().getPage().getCurrentpage();
+                isLoading = false;
+                mList.addAll(record);
+                columnMessageAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onError(AbstractRequest<AudioTmessageListBeans> requet, int statusCode, String body) {
+
+            }
+        });
+        request.go();
+    }
+
     private int getScrollY() {
         int height = 0;
         for (int i = 0; i < mCurrentfirstVisibleItem; i++) {
@@ -300,7 +371,7 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
                                     iv_play.setBackgroundResource(R.drawable.image_play);
                                 }
 
-                                Log.e("TAG", "detailurl=" + detailurl + "UmiwiApplication.mainActivity.herfUrl=" + UmiwiApplication.mainActivity.herfUrl);
+//                                Log.e("TAG", "detailurl=" + detailurl + "UmiwiApplication.mainActivity.herfUrl=" + UmiwiApplication.mainActivity.herfUrl);
                             } else {
                                 background.stop();
                                 iv_play.setBackgroundResource(R.drawable.image_play);
@@ -379,8 +450,8 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
                         }
                         UmiwiApplication.mainActivity.service.openAudio(url);
                         UmiwiApplication.mainActivity.musicUrl = url;
-                        Log.e("TAG", "source=" + source);
-                        Log.e("TAG", "UmiwiApplication.mainActivity.musicUrl=" + UmiwiApplication.mainActivity.musicUrl);
+//                        Log.e("TAG", "source=" + source);
+//                        Log.e("TAG", "UmiwiApplication.mainActivity.musicUrl=" + UmiwiApplication.mainActivity.musicUrl);
 
                         iv_play.setBackgroundResource(R.drawable.image_pause);
 
@@ -390,8 +461,8 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
                 } else {
                     voiceDetailsFragment.bind(url);
                     UmiwiApplication.mainActivity.musicUrl = url;
-                    Log.e("TAG", "source1=" + source);
-                    Log.e("TAG", "UmiwiApplication.mainActivity.musicUrl1=" + UmiwiApplication.mainActivity.musicUrl);
+//                    Log.e("TAG", "source1=" + source);
+//                    Log.e("TAG", "UmiwiApplication.mainActivity.musicUrl1=" + UmiwiApplication.mainActivity.musicUrl);
                     iv_play.setBackgroundResource(R.drawable.image_pause);
                     AnimationDrawable background = (AnimationDrawable) record.getBackground();
                     background.start();
@@ -429,6 +500,7 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
             @Override
             public void onResult(AbstractRequest<AudioTmessageListBeans> request, AudioTmessageListBeans audioTmessageListBeans) {
                 totalpage = audioTmessageListBeans.getR().getPage().getTotalpage();
+                currentpage = audioTmessageListBeans.getR().getPage().getCurrentpage();
                 ArrayList<AudioTmessageListBeans.RecordX.Record> record = audioTmessageListBeans.getR().getRecord();
 //                Log.e("TAG", "阅读界面record=" + record.toString());
                 mList.clear();
