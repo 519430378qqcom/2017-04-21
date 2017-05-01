@@ -102,7 +102,7 @@ public class LogicalThinkingAdapter extends BaseAdapter {
         String uid = YoumiRoomUserManager.getInstance().getUid();
         //点击每个item记录变色
         String idArray = CacheUtil.getStringFile(activity, LogicalThinkingFragment.READ_ARRAY_ID);
-        if (idArray.contains(mList.get(position).getId() + uid)) {
+        if (idArray.contains(mList.get(position).getId() + uid + LogicalThinkingFragment.NO_BUY)) {
             viewHolder.tv_title.setTextColor(Color.GRAY);
             viewHolder.iv_logical_point.setBackgroundResource(R.drawable.logical_point_gray);
         } else {

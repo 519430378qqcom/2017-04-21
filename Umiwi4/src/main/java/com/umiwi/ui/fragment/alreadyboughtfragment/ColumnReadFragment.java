@@ -169,6 +169,8 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
         iv_shared.setOnClickListener(this);
         record.setOnClickListener(this);
         iv_leaveword.setOnClickListener(this);
+        iv_leaveword1.setOnClickListener(this);
+        iv_leaveword2.setOnClickListener(this);
         tv_buy_column.setOnClickListener(this);
         iv_play.setOnClickListener(this);
         ll_leave_word1.setVisibility(View.GONE);
@@ -220,7 +222,10 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
 
         @Override
         public void onScrollStateChanged(AbsListView view, int scrollState) {
-            if(nsl_message_list.getLastVisiblePosition() == mList.size() +1 && scrollState == SCROLL_STATE_IDLE && progressBar2.isShown()&& !isLoading ) {
+            if(nsl_message_list.getLastVisiblePosition() == mList.size() +1
+                    && scrollState == SCROLL_STATE_IDLE
+                    && progressBar2.isShown()
+                    && !isLoading ) {
                 getDataMore();
             }
 
@@ -401,6 +406,18 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
                 intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, ColumnLeaveMessageFragment.class);
                 intent.putExtra("aid",details.getId());
                 startActivity(intent);
+                break;
+            case R.id.iv_leaveword1 :
+                Intent intent1 = new Intent(getActivity(), UmiwiContainerActivity.class);
+                intent1.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, ColumnLeaveMessageFragment.class);
+                intent1.putExtra("aid",details.getId());
+                startActivity(intent1);
+                break;
+            case R.id.iv_leaveword2 :
+                Intent intent2 = new Intent(getActivity(), UmiwiContainerActivity.class);
+                intent2.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, ColumnLeaveMessageFragment.class);
+                intent2.putExtra("aid",details.getId());
+                startActivity(intent2);
                 break;
             case R.id.tv_buy_column :
 

@@ -46,6 +46,7 @@ import cn.youmi.framework.http.parsers.GsonParser;
  */
 
 public class LogicalThinkingFragment extends BaseConstantFragment {
+
     @InjectView(R.id.orderby)
     TextView orderby;
     @InjectView(R.id.update_count)
@@ -64,12 +65,14 @@ public class LogicalThinkingFragment extends BaseConstantFragment {
     ImageView record1;
     private AnimationDrawable background;
     public static final String READ_ARRAY_ID = "read_array_id";
+    public static final String NO_BUY = "nobuy";
     private String id;
     private LogicalThinkingAdapter logicalThinkingAdapter;
     private List<LogincalThinkingBean.RecordBean> thinkingBeanList = new ArrayList<>();
 
     private String orderbyId = "new";
     private ArrayList<AttemptBean.RAttenmpInfo.RecordsBean> record = new ArrayList<>();
+
 
     @Nullable
     @Override
@@ -104,9 +107,9 @@ public class LogicalThinkingFragment extends BaseConstantFragment {
 
                 AttemptBean.RAttenmpInfo.RecordsBean recordsBean = record.get(position);
                 String readIdArray = CacheUtil.getStringFile(getActivity(), READ_ARRAY_ID);
-                if(!readIdArray.contains(recordsBean.getId() + uid)) {
+                if(!readIdArray.contains(recordsBean.getId() + uid + NO_BUY)) {
 
-                    CacheUtil.putStringFile(getActivity(),READ_ARRAY_ID,readIdArray + recordsBean.getId() + uid +",");
+                    CacheUtil.putStringFile(getActivity(),READ_ARRAY_ID,readIdArray + recordsBean.getId() + uid + NO_BUY +",");
                     logicalThinkingAdapter.notifyDataSetChanged();
                 }
             }
