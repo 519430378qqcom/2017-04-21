@@ -192,24 +192,22 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
         });
 
 
-
-        ViewTreeObserver observer = ll_leave_word2.getViewTreeObserver();
-        observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                ll_leave_word2.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                float y = ll_leave_word2.getY();
-                int top = ll_leave_word2.getTop();
-
-                int height = ll_leave_word2.getHeight();
-
-//                Log.e("TAG", "底部悬浮=" + y);
-//                Log.e("TAG", "底部悬浮top=" + top);
-//                Log.e("TAG", "底部悬浮height=" + height);
-            }
-        });
-
-
+//
+//        ViewTreeObserver observer = ll_leave_word2.getViewTreeObserver();
+//        observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+//            @Override
+//            public void onGlobalLayout() {
+//                ll_leave_word2.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+//                float y = ll_leave_word2.getY();
+//                int top = ll_leave_word2.getTop();
+//
+//                int height = ll_leave_word2.getHeight();
+//
+////                Log.e("TAG", "底部悬浮=" + y);
+////                Log.e("TAG", "底部悬浮top=" + top);
+////                Log.e("TAG", "底部悬浮height=" + height);
+//            }
+//        });
     }
 
 
@@ -222,20 +220,10 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
 
         @Override
         public void onScrollStateChanged(AbsListView view, int scrollState) {
-
-//            if(scrollState == SCROLL_STATE_IDLE && view.getLastVisiblePosition() == mList.size() + 1 && footView.isShown()) {
-//
-//                if(!isLoading) {
-//                    getDataMore();
-//                    isLoading = true;
-//                    Log.e("TAG", "view.getCount()+ 1=" + view.getCount());
-//                }
-//            }
-            if(lastVisibleItem == totalItem && scrollState == SCROLL_STATE_IDLE && !isLoading && footView.isShown()) {
-                isLoading = true;
+            if(nsl_message_list.getLastVisiblePosition() == mList.size() +1 && scrollState == SCROLL_STATE_IDLE && progressBar2.isShown()&& !isLoading ) {
                 getDataMore();
-
             }
+
         }
 
         @Override
@@ -243,9 +231,9 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
             if (isLoading) {
                 footView.setVisibility(View.VISIBLE);
             }
-            lastVisibleItem = firstVisibleItem + visibleItemCount;
-            totalItem = totalItemCount;
-            Log.e("TAG", "totalItemCount=" + totalItemCount);
+//            lastVisibleItem = firstVisibleItem + visibleItemCount;
+//            totalItem = totalItemCount;
+//            Log.e("TAG", "totalItemCount=" + totalItemCount);
 //            int[] location = new int[2];
 //            ll_leave_word2.getLocationOnScreen(location);
 //            int x = location[0];
@@ -289,6 +277,7 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
     };
 
     private void getDataMore() {
+        isLoading = true;
         currentpage ++;
         Log.e("TAG", "currentpage=" + currentpage);
         if (currentpage <= totalpage) {
@@ -296,7 +285,6 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
                 @Override
                 public void run() {
                     getMore();
-
                 }
             }, 1000);
         } else {
@@ -304,7 +292,6 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
             isLoading = false;
             footView.setVisibility(View.GONE);
         }
-
     }
 
     private void getMore() {
@@ -316,6 +303,7 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
                 ArrayList<AudioTmessageListBeans.RecordX.Record> record = audioTmessageListBeans.getR().getRecord();
 //                Log.e("TAG", "阅读界面record=" + record.toString());
                 currentpage = audioTmessageListBeans.getR().getPage().getCurrentpage();
+
                 isLoading = false;
                 mList.addAll(record);
                 columnMessageAdapter.notifyDataSetChanged();
@@ -370,7 +358,6 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
                                 } else {
                                     iv_play.setBackgroundResource(R.drawable.image_play);
                                 }
-
 //                                Log.e("TAG", "detailurl=" + detailurl + "UmiwiApplication.mainActivity.herfUrl=" + UmiwiApplication.mainActivity.herfUrl);
                             } else {
                                 background.stop();
@@ -390,8 +377,6 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
             }
         });
         request.go();
-
-
     }
 
 //    private void initMediaPlay() {
