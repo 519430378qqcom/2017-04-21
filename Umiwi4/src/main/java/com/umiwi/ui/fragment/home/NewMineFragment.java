@@ -24,6 +24,9 @@ import com.umiwi.ui.fragment.OfflineActivityFragment;
 import com.umiwi.ui.fragment.WebFragment;
 import com.umiwi.ui.fragment.down.DownloadedListFragment;
 import com.umiwi.ui.fragment.mine.EnshrineListFragment;
+import com.umiwi.ui.fragment.mine.HelpCenterFragment;
+import com.umiwi.ui.fragment.mine.MemberCenterFragment;
+import com.umiwi.ui.fragment.mine.MyAudioLiveFragment;
 import com.umiwi.ui.fragment.mine.MyCardFragment;
 import com.umiwi.ui.fragment.mine.MyCouponFragment;
 import com.umiwi.ui.fragment.mine.MyMessageFragment;
@@ -75,7 +78,7 @@ public class NewMineFragment extends BaseConstantFragment implements ActivityCom
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home_mine_new, null);
 
         imageLoader = new ImageLoader(getActivity());
@@ -103,19 +106,26 @@ public class NewMineFragment extends BaseConstantFragment implements ActivityCom
                     case 3://意见
                         intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, FeedbackFragment.class);
                         break;
-                    case 5://积分
+
+                    case 5://会员中心
+                        intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS,MemberCenterFragment.class);
+                        break;
+                    case 6://积分
                         intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, WebFragment.class);
                         intent.putExtra(WebFragment.WEB_URL, UmiwiAPI.INTEGRAL);
                         isWebNotice = true;
                         break;
-                    case 6://余额
+                    case 7://余额
                         intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, PayRechargeFragment.class);
                         break;
-                    case 8://下载
-                        intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, DownloadedListFragment.class);
 
+                    case 9://我的直播
+                        intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS,MyAudioLiveFragment.class);
                         break;
-                    case 9://浏览记录
+                    case 10://下载
+                        intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, DownloadedListFragment.class);
+                        break;
+                    case 11://浏览记录
                         intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, RecentPlayRecordFragment.class);
 //                        intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, WebFragment.class);
 //                        intent.putExtra(WebFragment.WEB_URL, UmiwiAPI.WEEK_REPORT);
@@ -123,24 +133,29 @@ public class NewMineFragment extends BaseConstantFragment implements ActivityCom
 //                    case 10://我答
 //                        intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, MyAnswerFragment.class);
 //                        break;
-                    case 10://收藏
+                    case 12://收藏
                         intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, EnshrineListFragment.class);
                         break;
 
-                    case 12://私信
+                    case 14://私信
 //                        intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, MyFavListFragment.class);
                         intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, MyMessageFragment.class);
                         break;
-                    case 13://热门活动
+                    case 15://热门活动
                         intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, OfflineActivityFragment.class);
                         break;
-                    case 15://优惠券
+
+
+                    case 17://优惠券
                         intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, MyCouponFragment.class);
                         break;
-                    case 16://开卡
+                    case 18://开卡
                         intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, MyCardFragment.class);
                         break;
-                    case 17://设置
+                    case 19://帮助中心
+                        intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, HelpCenterFragment.class);
+                        break;
+                    case 20://设置
                         intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, SettingFragment.class);
                         break;
                 }
@@ -313,16 +328,20 @@ public class NewMineFragment extends BaseConstantFragment implements ActivityCom
         }
         mlist.add(new NewMineFragment.MineItem(true));
         mlist.add(new NewMineFragment.MineItem(R.drawable.sing_in,R.drawable.category_hot,"","签到",""));
-        mlist.add(new NewMineFragment.MineItem(R.drawable.feed_back, R.drawable.category_hot, "", "意见反馈", ""));
+        mlist.add(new NewMineFragment.MineItem(R.drawable.image_feedback, R.drawable.category_hot, "", "意见反馈", ""));
         mlist.add(new NewMineFragment.MineItem(true));
+        mlist.add(new NewMineFragment.MineItem(R.drawable.member_center, R.drawable.category_hot, "", "会员中心", ""));
         mlist.add(new NewMineFragment.MineItem(R.drawable.available_integral, R.drawable.category_hot, "", "积分", ""));
         mlist.add(new NewMineFragment.MineItem(R.drawable.balance, R.drawable.category_hot, "", "我的余额", "0.0"));
-        mlist.add(new NewMineFragment.MineItem(true));
 
+        mlist.add(new NewMineFragment.MineItem(true));
+        mlist.add(new NewMineFragment.MineItem(R.drawable.mine_live, R.drawable.category_hot, "", "我的直播", ""));
 //        mlist.add(new NewMineFragment.MineItem(R.drawable.answer, R.drawable.category_hot, "", "我答", ""));
         mlist.add(new NewMineFragment.MineItem(R.drawable.download, R.drawable.category_hot, "", "下载", ""));
         mlist.add(new NewMineFragment.MineItem(R.drawable.history, R.drawable.category_hot, "", "浏览记录", ""));
         mlist.add(new NewMineFragment.MineItem(R.drawable.favorite, R.drawable.category_hot, "", "我的收藏", ""));
+
+
         mlist.add(new NewMineFragment.MineItem(true));
         mlist.add(new NewMineFragment.MineItem(R.drawable.mine_message, R.drawable.category_hot, "", "我的私信", ""));
 //        if (Integer.valueOf(noticeModel.getMessage()) > 0) {
@@ -332,9 +351,11 @@ public class NewMineFragment extends BaseConstantFragment implements ActivityCom
 //        }
 //        mlist.add(new NewMineFragment.MineItem(R.drawable.study, R.drawable.category_hot, "", "我的学习周报", ""));
         mlist.add(new NewMineFragment.MineItem(R.drawable.hot_events, R.drawable.category_hot, "", "热门活动", ""));
+
         mlist.add(new NewMineFragment.MineItem(true));
         mlist.add(new NewMineFragment.MineItem(R.drawable.mine_discount, R.drawable.category_hot, "", "我的优惠券", ""));
         mlist.add(new NewMineFragment.MineItem(R.drawable.mine_card, R.drawable.category_hot, "", "开卡/兑换课程", ""));
+        mlist.add(new NewMineFragment.MineItem(R.drawable.help_center, R.drawable.category_hot, "", "帮助中心", ""));
         mlist.add(new NewMineFragment.MineItem(R.drawable.mine_setting, R.drawable.category_hot, "", "设置", ""));
         mlist.add(new NewMineFragment.MineItem(true));
     }
@@ -455,7 +476,7 @@ public class NewMineFragment extends BaseConstantFragment implements ActivityCom
                         if (position == 9) {
                             itemContent.setTextColor(getActivity().getResources().getColor(R.color.umiwi_red));
                         }
-                        if(position == 6){
+                        if(position == 7){
 
                             itemContent.setTextColor(getActivity().getResources().getColor(R.color.main_color));
                             if (YoumiRoomUserManager.getInstance().isLogin() && !TextUtils.isEmpty(YoumiRoomUserManager.getInstance().getUser().getBalance())) {

@@ -34,6 +34,8 @@ import com.umiwi.ui.fragment.home.updatehome.indexfragment.VoiceDetailsFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.main.UmiwiApplication;
+import com.umiwi.ui.managers.YoumiRoomUserManager;
+import com.umiwi.ui.util.CacheUtil;
 import com.umiwi.ui.view.NoScrollListview;
 import com.umiwi.ui.view.ScrollChangeScrollView;
 
@@ -42,6 +44,8 @@ import java.util.ArrayList;
 import cn.youmi.framework.http.AbstractRequest;
 import cn.youmi.framework.http.GetRequest;
 import cn.youmi.framework.http.parsers.GsonParser;
+
+import static com.umiwi.ui.fragment.home.alreadyshopping.LogicalThinkingFragment.READ_ARRAY_ID;
 
 
 /**
@@ -133,6 +137,14 @@ public class BuyColumnDetailsFragment extends BaseConstantFragment implements Vi
                 intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, ColumnReadFragment.class);
                 intent.putExtra(ColumnReadFragment.DETAIL_ID,recordList.get(position).getId());
                 getActivity().startActivity(intent);
+
+                String uid = YoumiRoomUserManager.getInstance().getUid();
+                AttemptBean.RAttenmpInfo.RecordsBean recordsBean = recordList.get(position);
+                String readIdArray = CacheUtil.getStringFile(getActivity(), READ_ARRAY_ID);
+                if(!readIdArray.contains(recordsBean.getId() + uid + recordsBean.isbuy())) {
+                    CacheUtil.putStringFile(getActivity(),READ_ARRAY_ID,readIdArray + recordsBean.getId() + uid + recordsBean.isbuy() +",");
+                    logicalThinkingAdapter.notifyDataSetChanged();
+                }
             }
         });
 

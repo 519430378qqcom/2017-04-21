@@ -110,9 +110,9 @@ public class LogicalThinkingFragment extends BaseConstantFragment {
 
                 AttemptBean.RAttenmpInfo.RecordsBean recordsBean = record.get(position);
                 String readIdArray = CacheUtil.getStringFile(getActivity(), READ_ARRAY_ID);
-                if(!readIdArray.contains(recordsBean.getId() + uid + NO_BUY)) {
+                if(!readIdArray.contains(recordsBean.getId() + uid + recordsBean.isbuy())) {
 
-                    CacheUtil.putStringFile(getActivity(),READ_ARRAY_ID,readIdArray + recordsBean.getId() + uid + NO_BUY +",");
+                    CacheUtil.putStringFile(getActivity(),READ_ARRAY_ID,readIdArray + recordsBean.getId() + uid + recordsBean.isbuy() +",");
                     logicalThinkingAdapter.notifyDataSetChanged();
                 }
             }
@@ -224,6 +224,5 @@ public class LogicalThinkingFragment extends BaseConstantFragment {
         super.onDestroyView();
         ButterKnife.reset(this);
     }
-
 
 }
