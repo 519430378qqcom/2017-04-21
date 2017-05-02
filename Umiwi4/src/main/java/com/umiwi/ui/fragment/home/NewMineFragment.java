@@ -301,7 +301,6 @@ public class NewMineFragment extends BaseConstantFragment implements ActivityCom
             user_name.setText(getString(R.string.home_mine_user_name));
             user_time.setText(getString(R.string.home_mine_user_time));
             user_time.setVisibility(View.VISIBLE);
-
         }
     }
 
