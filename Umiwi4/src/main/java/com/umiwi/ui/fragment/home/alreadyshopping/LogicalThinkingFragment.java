@@ -24,6 +24,7 @@ import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.LogicalThinkingAdapter;
 import com.umiwi.ui.beans.LogincalThinkingBean;
 import com.umiwi.ui.beans.updatebeans.AttemptBean;
+import com.umiwi.ui.fragment.alreadyboughtfragment.NotBuyColumnReadFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.VoiceDetailsFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.UmiwiAPI;
@@ -76,7 +77,7 @@ public class LogicalThinkingFragment extends BaseConstantFragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_logical_thinking, null);
         ButterKnife.inject(this, view);
         id = getActivity().getIntent().getStringExtra("id");
@@ -97,11 +98,13 @@ public class LogicalThinkingFragment extends BaseConstantFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
-                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
-                intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL, String.format(UmiwiAPI.MIANFEI_YUEDU, record.get(position).getId()));
+//                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
+//                intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL, String.format(UmiwiAPI.MIANFEI_YUEDU, record.get(position).getId()));
 //                Log.e("TAG", "String.format(UmiwiAPI.MIANFEI_YUEDU, record.get(position).getId())=" +
 //                        String.format(UmiwiAPI.MIANFEI_YUEDU, record.get(position).getId()));
 //                intent.putExtra("isTry", true);
+                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, NotBuyColumnReadFragment.class);
+                intent.putExtra("id",record.get(position).getId());
                 getActivity().startActivity(intent);
                 String uid = YoumiRoomUserManager.getInstance().getUid();
 

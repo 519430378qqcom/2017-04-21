@@ -30,13 +30,17 @@ import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.updateadapter.ColumnMessageAdapter;
 import com.umiwi.ui.adapter.updateadapter.ColumnReadDetailsAdapter;
 import com.umiwi.ui.beans.AudioTmessageListBeans;
+import com.umiwi.ui.beans.UmiwiBuyCreateOrderBeans;
 import com.umiwi.ui.beans.updatebeans.AudioResourceBean;
 import com.umiwi.ui.beans.updatebeans.ColumnReadBean;
 import com.umiwi.ui.dialog.ShareDialog;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.VoiceDetailsFragment;
+import com.umiwi.ui.fragment.pay.PayingFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.main.UmiwiApplication;
+import com.umiwi.ui.managers.YoumiRoomUserManager;
+import com.umiwi.ui.util.LoginUtil;
 import com.umiwi.ui.view.NoScrollListview;
 
 import java.util.ArrayList;
@@ -47,11 +51,13 @@ import cn.youmi.framework.http.GetRequest;
 import cn.youmi.framework.http.parsers.GsonParser;
 import cn.youmi.framework.util.ToastU;
 
+import static cn.youmi.framework.main.BaseApplication.getApplication;
+
 /**
  * Created by Administrator on 2017/4/26 0026.
  */
 
-public class ColumnReadFragment extends BaseConstantFragment implements View.OnClickListener {
+public class NotBuyColumnReadFragment extends BaseConstantFragment implements View.OnClickListener {
 
     ImageView iv_back;
     TextView tab_title;
@@ -110,13 +116,13 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_column_read, null);
+        View view = inflater.inflate(R.layout.fragment_column_read_notbuy, null);
 //        ButterKnife.inject(this,view);
         id = getActivity().getIntent().getStringExtra(DETAIL_ID);
         voiceDetailsFragment = new VoiceDetailsFragment();
 
         screenHeight = getScreenHeight(getActivity());
-        Log.e("TAG", "screenHeight=" + screenHeight);
+//        Log.e("TAG", "screenHeight=" + screenHeight);
 
         initView(view);
         getDetailsData();
@@ -155,7 +161,7 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
         nsl_content = (NoScrollListview) inflate.findViewById(R.id.nsl_content);
         ll_leave_word = (LinearLayout) inflate.findViewById(R.id.ll_leave_word);
         iv_leaveword = (ImageView) inflate.findViewById(R.id.iv_leaveword);
-
+        iv_leaveword.setVisibility(View.GONE);
         //底部加载更多布局
         footView = View.inflate(getActivity(), R.layout.column_foot_view,null);
         progressBar2 = (ProgressBar) footView.findViewById(R.id.progressBar2);
@@ -168,9 +174,9 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
         iv_back.setOnClickListener(this);
         iv_shared.setOnClickListener(this);
         record.setOnClickListener(this);
-        iv_leaveword.setOnClickListener(this);
-        iv_leaveword1.setOnClickListener(this);
-        iv_leaveword2.setOnClickListener(this);
+//        iv_leaveword.setOnClickListener(this);
+//        iv_leaveword1.setOnClickListener(this);
+//        iv_leaveword2.setOnClickListener(this);
         tv_buy_column.setOnClickListener(this);
         iv_play.setOnClickListener(this);
         ll_leave_word1.setVisibility(View.GONE);
@@ -183,13 +189,13 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
                 ll_leave_word.getViewTreeObserver().removeOnGlobalLayoutListener(this);
 
                 floaty = (int) ll_leave_word.getY();
-                Log.e("TAG", "y=" + floaty);
+//                Log.e("TAG", "y=" + floaty);
 
-                if (floaty < screenHeight) {
-                    ll_leave_word2.setVisibility(View.GONE);
-                } else {
-                    ll_leave_word2.setVisibility(View.VISIBLE);
-                }
+//                if (floaty < screenHeight) {
+//                    ll_leave_word2.setVisibility(View.GONE);
+//                } else {
+//                    ll_leave_word2.setVisibility(View.VISIBLE);
+//                }
             }
         });
 
@@ -222,6 +228,9 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
 
         @Override
         public void onScrollStateChanged(AbsListView view, int scrollState) {
+//            if(mList.size() == 0) {
+//                nsl_message_list.removeFooterView(footView);
+//            }
             if(nsl_message_list.getLastVisiblePosition() == mList.size() +1
                     && scrollState == SCROLL_STATE_IDLE
                     && progressBar2.isShown()
@@ -233,6 +242,9 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
 
         @Override
         public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+//            if(mList.size() == 0) {
+//                nsl_message_list.removeFooterView(footView);
+//            }
             if (isLoading) {
                 footView.setVisibility(View.VISIBLE);
             }
@@ -260,23 +272,23 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
                 itemRecord.top = firstView.getTop();
                 recordSp.append(firstVisibleItem,itemRecord);
                 int h = getScrollY();
-                //顶部悬浮
-                if (h >= floaty) {
-                    ll_leave_word1.setVisibility(View.VISIBLE);
-                } else {
-                    ll_leave_word1.setVisibility(View.GONE);
-                }
-//                Log.e("TAG", "h=" + h);
-                //底部悬浮
-                if(h==0) {
-                    return;
-                }
-                if(h <= (floaty - top )) {
-                   ll_leave_word2.setVisibility(View.VISIBLE);
-
-                }else if(h > (floaty - top ) && h <floaty) {
-                    ll_leave_word2.setVisibility(View.GONE);
-                }
+//                //顶部悬浮
+//                if (h >= floaty) {
+//                    ll_leave_word1.setVisibility(View.VISIBLE);
+//                } else {
+//                    ll_leave_word1.setVisibility(View.GONE);
+//                }
+////                Log.e("TAG", "h=" + h);
+//                //底部悬浮
+//                if(h==0) {
+//                    return;
+//                }
+//                if(h <= (floaty - top )) {
+//                   ll_leave_word2.setVisibility(View.VISIBLE);
+//
+//                }else if(h > (floaty - top ) && h <floaty) {
+//                    ll_leave_word2.setVisibility(View.GONE);
+//                }
             }
         }
     };
@@ -284,7 +296,7 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
     private void getDataMore() {
         isLoading = true;
         currentpage ++;
-        Log.e("TAG", "currentpage=" + currentpage);
+//        Log.e("TAG", "currentpage=" + currentpage);
         if (currentpage <= totalpage) {
             footView.postDelayed(new Runnable() {
                 @Override
@@ -343,7 +355,7 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
     public void onResume() {
         super.onResume();
         initMedia();
-        getMessageList();
+//        getMessageList();
     }
 
     private void initMedia() {
@@ -401,31 +413,35 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
             case R.id.record :
                 initPlay();
                 break;
-            case R.id.iv_leaveword :
-                Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
-                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, ColumnLeaveMessageFragment.class);
-                intent.putExtra("aid",details.getId());
-                startActivity(intent);
-                break;
-            case R.id.iv_leaveword1 :
-                Intent intent1 = new Intent(getActivity(), UmiwiContainerActivity.class);
-                intent1.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, ColumnLeaveMessageFragment.class);
-                intent1.putExtra("aid",details.getId());
-                startActivity(intent1);
-                break;
-            case R.id.iv_leaveword2 :
-                Intent intent2 = new Intent(getActivity(), UmiwiContainerActivity.class);
-                intent2.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, ColumnLeaveMessageFragment.class);
-                intent2.putExtra("aid",details.getId());
-                startActivity(intent2);
-                break;
+//            case R.id.iv_leaveword :
+//                Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
+//                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, ColumnLeaveMessageFragment.class);
+//                intent.putExtra("aid",details.getId());
+//                startActivity(intent);
+//                break;
+//            case R.id.iv_leaveword1 :
+//                Intent intent1 = new Intent(getActivity(), UmiwiContainerActivity.class);
+//                intent1.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, ColumnLeaveMessageFragment.class);
+//                intent1.putExtra("aid",details.getId());
+//                startActivity(intent1);
+//                break;
+//            case R.id.iv_leaveword2 :
+//                Intent intent2 = new Intent(getActivity(), UmiwiContainerActivity.class);
+//                intent2.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, ColumnLeaveMessageFragment.class);
+//                intent2.putExtra("aid",details.getId());
+//                startActivity(intent2);
+//                break;
             case R.id.tv_buy_column :
-
+                if (!YoumiRoomUserManager.getInstance().isLogin()) {
+                    LoginUtil.getInstance().showLoginView(getApplication());
+                    return;
+                }
+                getSubscriber(details.getTcolumnid());
                 break;
             case R.id.iv_play:
 
                 UmiwiApplication.mainActivity.herfUrl = detailurl;
-                Log.e("TAG", "detailurl=" + detailurl);
+//                Log.e("TAG", "detailurl=" + detailurl);
 
                 if (UmiwiApplication.mainActivity.service != null) {
 
@@ -497,17 +513,17 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
 
     private void getMessageList() {
         String url = String.format(UmiwiAPI.UMIWI_COLUM_MESSAGE,id,page);
-        Log.e("TAG", "阅读界面url=" + url);
+//        Log.e("TAG", "阅读界面url=" + url);
         GetRequest<AudioTmessageListBeans> request = new GetRequest<AudioTmessageListBeans>(url, GsonParser.class, AudioTmessageListBeans.class, new AbstractRequest.Listener<AudioTmessageListBeans>() {
             @Override
             public void onResult(AbstractRequest<AudioTmessageListBeans> request, AudioTmessageListBeans audioTmessageListBeans) {
                 totalpage = audioTmessageListBeans.getR().getPage().getTotalpage();
                 currentpage = audioTmessageListBeans.getR().getPage().getCurrentpage();
                 ArrayList<AudioTmessageListBeans.RecordX.Record> record = audioTmessageListBeans.getR().getRecord();
-//                Log.e("TAG", "阅读界面record=" + record.toString());
                 if(record.size() == 0) {
                     footView.setVisibility(View.GONE);
                 }
+//                Log.e("TAG", "阅读界面record=" + record.toString());
                 mList.clear();
                 mList.addAll(record);
                 columnMessageAdapter = new ColumnMessageAdapter(getActivity(),mList);
@@ -525,6 +541,7 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
     //获取页面数据
     private void getDetailsData() {
         String url = String.format(UmiwiAPI.UMIWI_COLUMN_READ,id);
+        Log.e("TAG", "NotBuyColumnReadFragment.url=" + url);
         GetRequest<ColumnReadBean> request = new GetRequest<ColumnReadBean>(url, GsonParser.class, ColumnReadBean.class, new AbstractRequest.Listener<ColumnReadBean>() {
             @Override
             public void onResult(AbstractRequest<ColumnReadBean> request, ColumnReadBean columnReadBean) {
@@ -533,6 +550,7 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
                 tab_title.setText(details.getTcolumntitle());
                 tab_title.setTextColor(Color.BLACK);
                 tab_title.setVisibility(View.VISIBLE);
+                tv_buy_column.setText("订阅:" + details.getPriceinfo());
 
                 title.setText(details.getTitle());
                 tv_play_title.setText(details.getAudiofile().getAtitle());
@@ -577,6 +595,44 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
     public void onDestroy() {
         super.onDestroy();
         ButterKnife.reset(this);
+    }
+    /**
+     * 获取订阅payurl
+     */
+    private void getSubscriber(String id) {
+        String url = null;
+        url = String.format(UmiwiAPI.CREATE_SUBSCRIBER_ORDERID, "json", id);
+        GetRequest<UmiwiBuyCreateOrderBeans> request = new GetRequest<UmiwiBuyCreateOrderBeans>(
+                url, GsonParser.class,
+                UmiwiBuyCreateOrderBeans.class,
+                subscriberListener);
+        request.go();
+    }
+    private AbstractRequest.Listener<UmiwiBuyCreateOrderBeans> subscriberListener = new AbstractRequest.Listener<UmiwiBuyCreateOrderBeans>() {
+        @Override
+        public void onResult(AbstractRequest<UmiwiBuyCreateOrderBeans> request, UmiwiBuyCreateOrderBeans umiwiBuyCreateOrderBeans) {
+            String payurl = umiwiBuyCreateOrderBeans.getR().getPayurl();
+            subscriberBuyDialog(payurl);
+            Log.e("TAG", "payurl==" + payurl);
+        }
+
+        @Override
+        public void onError(AbstractRequest<UmiwiBuyCreateOrderBeans> requet, int statusCode, String body) {
+
+        }
+    };
+
+    /**
+     * 跳转到购买界面
+     *
+     * @param payurl
+     */
+    public void subscriberBuyDialog(String payurl) {
+        Intent i = new Intent(getActivity(), UmiwiContainerActivity.class);
+        i.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, PayingFragment.class);
+        i.putExtra(PayingFragment.KEY_PAY_URL, payurl);
+        startActivity(i);
+        getActivity().finish();
     }
 
 

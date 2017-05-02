@@ -80,7 +80,6 @@ public class BuyColumnDetailsFragment extends BaseConstantFragment implements Vi
     private ArrayList<AttemptBean.RAttenmpInfo.RecordsBean> recordList = new ArrayList<>();
     private LogicalThinkingAdapter logicalThinkingAdapter;
     private AudioSpecialDetailsBean.RAudioSpecialDetails details;
-    private String columnurl;
     private NoScrollListview lv_buycolumn;
     private AnimationDrawable background;
     private int height;
@@ -92,7 +91,7 @@ public class BuyColumnDetailsFragment extends BaseConstantFragment implements Vi
 //        ButterKnife.inject(this,view);
 
         id = getActivity().getIntent().getStringExtra("id");
-        columnurl = getActivity().getIntent().getStringExtra("columnurl");
+
 
         initView(view);
         getDetailsData();
@@ -130,8 +129,6 @@ public class BuyColumnDetailsFragment extends BaseConstantFragment implements Vi
         lv_buycolumn.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getActivity(), "点击", Toast.LENGTH_SHORT).show();
-
                 Intent intent = new Intent(getActivity(),UmiwiContainerActivity.class);
                 intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, ColumnReadFragment.class);
                 intent.putExtra(ColumnReadFragment.DETAIL_ID,recordList.get(position).getId());
@@ -351,7 +348,7 @@ public class BuyColumnDetailsFragment extends BaseConstantFragment implements Vi
 
                 if (UmiwiApplication.mainActivity.service.isPlaying() || UmiwiApplication.mainActivity.isPause) {
                     if (UmiwiApplication.mainActivity.herfUrl != null) {
-                        Log.e("TAG", "UmiwiApplication.mainActivity.herfUrl=" + UmiwiApplication.mainActivity.herfUrl);
+//                        Log.e("TAG", "UmiwiApplication.mainActivity.herfUrl=" + UmiwiApplication.mainActivity.herfUrl);
                         Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
                         intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
                         intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL, UmiwiApplication.mainActivity.herfUrl);

@@ -93,7 +93,9 @@ public class AudioSpecialFragment extends BaseConstantFragment implements View.O
                 } else {
                     Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
                     intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, ColumnDetailsFragment.class);//详情页
+//                    intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, NotBuyColumnReadFragment.class);//详情页
                     intent.putExtra("columnurl", mList.get(i).getColumnurl());
+//                    intent.putExtra("id", mList.get(i).getId());
 //                    Log.e("TAG", "mList.get(i).getColumnurl()=" + mList.get(i).getColumnurl());
                     startActivity(intent);
                 }

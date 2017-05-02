@@ -309,6 +309,7 @@ public class ColumnDetailsFragment extends BaseConstantFragment {
                             return;
                         }
                         getSubscriber(details.getId());
+                        Log.e("TAG", "details.getId()=" + details.getId());
                     }
                 });
 
