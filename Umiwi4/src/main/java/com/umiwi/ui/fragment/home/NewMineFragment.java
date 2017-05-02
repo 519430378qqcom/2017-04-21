@@ -491,6 +491,20 @@ public class NewMineFragment extends BaseConstantFragment implements ActivityCom
                                 itemContent.setText("0.0");
                             }
                         }
+                        if(position == 6) {
+                            itemContent.setTextColor(getActivity().getResources().getColor(R.color.main_color));
+                            if (YoumiRoomUserManager.getInstance().isLogin() && !TextUtils.isEmpty(YoumiRoomUserManager.getInstance().getUser().getMycoin())) {
+                                //已登录
+                                String mycoin = YoumiRoomUserManager.getInstance().getUser().getMycoin();
+                                if (mycoin != null && mycoin != "") {
+                                    int coin = Integer.parseInt(mycoin);
+                                    itemContent.setText(coin + "");
+                                }
+                            } else {
+                                //未登录
+                                itemContent.setText("0");
+                            }
+                        }
                     }
             }
             return convertView;
