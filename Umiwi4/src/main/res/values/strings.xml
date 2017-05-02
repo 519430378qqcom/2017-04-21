@@ -87,4 +87,6 @@
     <string name="join">参与</string>
     <string name="immediately_join">立即参与</string>
     <string name="send">发送</string>
+    <string name="send_your_message">\t提问或发表你的看法</string>
+    <string name="visitor">游客</string>
 </resources>

@@ -1,10 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <TextView
-        android:id="@+id/tv_content"
+    android:layout_height="wrap_content"
+    android:paddingRight="20dp"
+    android:paddingLeft="10dp"
+    android:paddingBottom="15dp">
+    <RelativeLayout
+        android:id="@+id/rl_container"
+        android:layout_alignParentRight="true"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black_a8"/>
+        android:layout_height="wrap_content">
+        <com.umiwi.ui.view.CircleImageView
+            android:id="@+id/civ_head"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_launcher"/>
+        <TextView
+            android:id="@+id/tv_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/civ_head"
+            android:layout_alignTop="@+id/civ_head"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/black_66"
+            android:textSize="13sp"
+            android:text="@string/visitor"/>
+        <RelativeLayout
+            android:id="@+id/rl_background"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/tv_id"
+            android:layout_alignRight="@+id/tv_id"
+            android:background="@drawable/white_rectangle">
+            <TextView
+                android:id="@+id/tv_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black_a8"
+                android:textSize="14sp"
+                android:text="@string/a_umiwi_login"/>
+        </RelativeLayout>
+    </RelativeLayout>
 </RelativeLayout>

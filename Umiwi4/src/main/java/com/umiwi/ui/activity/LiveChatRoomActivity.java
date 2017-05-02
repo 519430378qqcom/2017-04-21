@@ -2,10 +2,10 @@ package com.umiwi.ui.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -22,24 +22,30 @@ import com.netease.nimlib.sdk.chatroom.ChatRoomService;
 import com.netease.nimlib.sdk.chatroom.ChatRoomServiceObserver;
 import com.netease.nimlib.sdk.chatroom.model.ChatRoomMessage;
 import com.netease.nimlib.sdk.chatroom.model.EnterChatRoomData;
+import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
+import com.netease.nimlib.sdk.msg.model.IMMessage;
 import com.umiwi.ui.R;
-import com.umiwi.ui.adapter.MessageListAdapter;
 import com.umiwi.ui.beans.LiveDetailsBean;
 import com.umiwi.ui.beans.NIMAccountBean;
 import com.umiwi.ui.fragment.audiolive.LiveDetailsFragment;
 import com.umiwi.ui.main.UmiwiAPI;
+import com.umiwi.ui.managers.Container;
+import com.umiwi.ui.managers.ModuleProxy;
+import com.umiwi.ui.managers.MsgListManager;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
+import cn.youmi.account.manager.UserManager;
 import cn.youmi.framework.http.AbstractRequest;
 import cn.youmi.framework.http.GetRequest;
 import cn.youmi.framework.http.parsers.GsonParser;
 
-public class LiveChatRoomActivity extends AppCompatActivity {
+public class LiveChatRoomActivity extends AppCompatActivity implements ModuleProxy {
     @InjectView(R.id.iv_back)
     ImageView ivBack;
     @InjectView(R.id.tv_title)
@@ -60,20 +66,26 @@ public class LiveChatRoomActivity extends AppCompatActivity {
      */
     private String roomId;
     /**
-     * 聊天室消息集合
+     * 消息列表控制器
      */
-    public LinkedList<ChatRoomMessage> chatRoomMessages;
-    private MessageListAdapter messageListAdapter;
+    private MsgListManager msgListManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         setContentView(R.layout.activity_live_chat_room);
         ButterKnife.inject(this);
-        chatRoomMessages = new LinkedList<>();
         loginNIM();
         initData();
         initMessageList();
+        setListener();
+    }
+
+    /**
+     * 监听设置
+     */
+    private void setListener() {
     }
 
     /**
@@ -143,9 +155,8 @@ public class LiveChatRoomActivity extends AppCompatActivity {
      * 初始化
      */
     private void initMessageList() {
-        rcy_mesagelist.setLayoutManager(new LinearLayoutManager(this));
-        messageListAdapter = new MessageListAdapter(this, chatRoomMessages);
-        rcy_mesagelist.setAdapter(messageListAdapter);
+        Container container = new Container(this, roomId, SessionTypeEnum.ChatRoom, this);
+        msgListManager = new MsgListManager(container, rcy_mesagelist);
     }
     /**
      * 进入聊天室
@@ -169,24 +180,14 @@ public class LiveChatRoomActivity extends AppCompatActivity {
             if (messages == null || messages.isEmpty()) {
                 return;
             }
-            Toast.makeText(LiveChatRoomActivity.this, messages.get(0).getContent(), Toast.LENGTH_SHORT).show();
-            onImcomingMessage(messages);
+            msgListManager.onImcomingMessage(messages);
         }
     };
-
-    /**
-     *
-     */
-    private void onImcomingMessage(List<ChatRoomMessage> messages) {
-        chatRoomMessages.addAll(messages);
-        messageListAdapter.messages = chatRoomMessages;
-        messageListAdapter.notifyDataSetChanged();
-//        messageListAdapter.notifyItemRangeInserted(chatRoomMessages.size() - messages.size(),chatRoomMessages.size());
-    }
 
     @Override
     protected void onDestroy() {
         ButterKnife.reset(this);
+        registerObservers(false);
         super.onDestroy();
     }
 
@@ -201,11 +202,18 @@ public class LiveChatRoomActivity extends AppCompatActivity {
             case R.id.btn_comfirm:
                 String content = etInput.getText().toString().trim();
                 // 创建文本消息
-                ChatRoomMessage message = ChatRoomMessageBuilder.createChatRoomTextMessage(roomId,content);
+                final ChatRoomMessage message = ChatRoomMessageBuilder.createChatRoomTextMessage(roomId,content);
+                //添加扩展字段userName
+                HashMap<String, Object> map = new HashMap<>();
+                map.put(MsgListManager.USER_NAME, UserManager.getInstance().getUser().getUsername());
+                message.setRemoteExtension(map);
                 NIMClient.getService(ChatRoomService.class).sendMessage(message,true).setCallback(new RequestCallback<Void>() {
                     @Override
                     public void onSuccess(Void param) {
-                        Toast.makeText(LiveChatRoomActivity.this, "发送成功", Toast.LENGTH_SHORT).show();
+                        //添加自己发送的消息到集合
+                        ArrayList<ChatRoomMessage> chatRoomMessages = new ArrayList<>();
+                        chatRoomMessages.add(message);
+                        msgListManager.onImcomingMessage(chatRoomMessages);
                     }
 
                     @Override
@@ -221,4 +229,25 @@ public class LiveChatRoomActivity extends AppCompatActivity {
                 break;
         }
     }
+
+    @Override
+    public boolean sendMessage(IMMessage msg) {
+        return false;
+    }
+
+    @Override
+    public void onInputPanelExpand() {
+
+    }
+
+    @Override
+    public void shouldCollapseInputPanel() {
+
+    }
+
+    @Override
+    public boolean isLongClickEnabled() {
+        return false;
+    }
+
 }
