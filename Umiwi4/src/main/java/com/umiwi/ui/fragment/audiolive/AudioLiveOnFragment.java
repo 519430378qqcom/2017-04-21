@@ -12,7 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.umiwi.ui.R;
-import com.umiwi.ui.activity.UmiwiContainerActivity;
+import com.umiwi.ui.activity.LiveChatRoomActivity;
 import com.umiwi.ui.adapter.updateadapter.AudioLiveAdapter;
 import com.umiwi.ui.beans.updatebeans.AudioLiveBean;
 import com.umiwi.ui.beans.updatebeans.RecommendBean;
@@ -62,10 +62,10 @@ public class AudioLiveOnFragment extends BaseConstantFragment {
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
-                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS,LiveDetailsFragment.class);
+                Intent intent = new Intent(getActivity(), LiveChatRoomActivity.class);
                 intent.putExtra(LiveDetailsFragment.DETAILS_ID,"5");
-                startActivity(intent);
+                intent.putExtra(LiveChatRoomActivity.ROOM_ID,"8692675");
+                getActivity().startActivity(intent);
             }
         });
         return view;

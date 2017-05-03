@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -25,7 +24,7 @@ import com.netease.nimlib.sdk.chatroom.model.EnterChatRoomData;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
 import com.umiwi.ui.R;
-import com.umiwi.ui.beans.LiveDetailsBean;
+import com.umiwi.ui.beans.ChatRoomDetailsBean;
 import com.umiwi.ui.beans.NIMAccountBean;
 import com.umiwi.ui.fragment.audiolive.LiveDetailsFragment;
 import com.umiwi.ui.main.UmiwiAPI;
@@ -69,11 +68,14 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
      * 消息列表控制器
      */
     private MsgListManager msgListManager;
-
+    /**
+     * 聊天室消息
+     */
+    private ChatRoomDetailsBean chatRoomDetailsBean;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+//        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         setContentView(R.layout.activity_live_chat_room);
         ButterKnife.inject(this);
         loginNIM();
@@ -92,11 +94,14 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
      * 登录网易云信服务端
      */
     private void loginNIM() {
+        //请求服务器接口获得网易云信通行证
         GetRequest<NIMAccountBean> request = new GetRequest<NIMAccountBean>(UmiwiAPI.NIM_ACCOUNT, GsonParser.class, NIMAccountBean.class, new AbstractRequest.Listener<NIMAccountBean>() {
             @Override
             public void onResult(AbstractRequest<NIMAccountBean> request, NIMAccountBean nimAccountBean) {
                 if (nimAccountBean != null) {
                     final LoginInfo loginInfo = new LoginInfo(nimAccountBean.getR().getAccid(), nimAccountBean.getR().getToken());
+                    Log.e("TAG",loginInfo.getAccount()+"----"+loginInfo.getToken());
+                    //请求网易云信登录
                     RequestCallback<LoginInfo> callback = new RequestCallback<LoginInfo>() {
                         @Override
                         public void onSuccess(LoginInfo param) {
@@ -132,19 +137,17 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
     private void initData() {
         String id = getIntent().getStringExtra(LiveDetailsFragment.DETAILS_ID);
         roomId = getIntent().getStringExtra(ROOM_ID);
-        GetRequest<LiveDetailsBean> request = new GetRequest<>(
-                UmiwiAPI.LIVE_DETAILS + id, GsonParser.class, LiveDetailsBean.class, new AbstractRequest.Listener<LiveDetailsBean>() {
+        GetRequest<ChatRoomDetailsBean> request = new GetRequest<>(
+                UmiwiAPI.CHAT_DETAILS + id, GsonParser.class, ChatRoomDetailsBean.class, new AbstractRequest.Listener<ChatRoomDetailsBean>() {
             @Override
-            public void onResult(AbstractRequest<LiveDetailsBean> request, LiveDetailsBean liveDetailsBean) {
-                if (liveDetailsBean != null) {
-                    LiveDetailsBean.RBean.RecordBean record = liveDetailsBean.getR().getRecord();
-                    tvTitle.setText(record.getTitle());
-                    tvStatus.setText(record.getStatus()+"("+record.getPartakenum()+"人)");
+            public void onResult(AbstractRequest<ChatRoomDetailsBean> request, ChatRoomDetailsBean chatRoomDetails) {
+                if (chatRoomDetails != null) {
+                    chatRoomDetailsBean = chatRoomDetails;
                 }
             }
 
             @Override
-            public void onError(AbstractRequest<LiveDetailsBean> requet, int statusCode, String body) {
+            public void onError(AbstractRequest<ChatRoomDetailsBean> requet, int statusCode, String body) {
 
             }
         });

@@ -22,6 +22,10 @@ public final class UmiwiAPI {
      */
     public static final String LIVE_DETAILS = "http://i.v.youmi.cn/Telecast/getlivedetail?id=";
     /**
+     * 聊天室详情
+     */
+    public static final String CHAT_DETAILS = "http://i.v.youmi.cn/Telecast/telecastApi?id=";
+    /**
      * 获取网易云信账户信息
      */
     public static final String NIM_ACCOUNT = "http://i.v.youmi.cn/Yxaccount/getAccidapi";
