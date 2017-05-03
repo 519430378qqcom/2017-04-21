@@ -40,7 +40,6 @@ import static com.umiwi.ui.main.YoumiConfiguration.context;
 
 public class MemberCenterFragment extends BaseConstantFragment {
 
-
     @InjectView(R.id.iv_back)
     ImageView ivBack;
     @InjectView(R.id.iv_back1)
