@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.umeng.analytics.MobclickAgent;
 import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
@@ -50,6 +51,8 @@ import cn.youmi.account.model.UserModel;
 import cn.youmi.framework.manager.ModelManager;
 import cn.youmi.framework.util.ImageLoader;
 import cn.youmi.framework.view.CircleImageView;
+
+import static com.umiwi.ui.main.YoumiConfiguration.context;
 
 
 /**
@@ -261,7 +264,8 @@ public class NewMineFragment extends BaseConstantFragment implements ActivityCom
 
             // 加载用户名
             user_name.setText(username);
-            imageLoader.loadImage(userphoto, user_photo, R.drawable.fragment_mine_photo);
+//            imageLoader.loadImage(userphoto, user_photo, R.drawable.fragment_mine_photo);
+            Glide.with(context).load(userphoto).into(user_photo);
             // 加载会员有效期
             if (!TextUtils.isEmpty(usertime)) {
                 user_time.setVisibility(View.VISIBLE);
@@ -291,6 +295,9 @@ public class NewMineFragment extends BaseConstantFragment implements ActivityCom
                         break;
                     case 24:// 皇冠会员
                         user_grade.setImageResource(R.drawable.mine_user_crown);
+                        break;
+                    case 26://白金会员
+                        user_grade.setImageResource(R.drawable.image_baijin);
                         break;
                 }
             }

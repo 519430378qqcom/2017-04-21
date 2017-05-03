@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.umeng.analytics.MobclickAgent;
 import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
@@ -43,8 +44,9 @@ import com.umiwi.video.control.PlayerController.PlayerItem;
 import java.util.ArrayList;
 
 import cn.youmi.framework.util.AndroidSDK;
-import cn.youmi.framework.util.ImageLoader;
 import cn.youmi.framework.view.CircleImageView;
+
+import static com.umiwi.ui.main.YoumiConfiguration.context;
 
 public class CourseDetailsAdapter extends BaseAdapter {
 
@@ -364,8 +366,9 @@ public class CourseDetailsAdapter extends BaseAdapter {
             }
         }
         CircleImageView autorAvatarImageView = (CircleImageView) view.findViewById(R.id.author_avatar_image_view);
-        ImageLoader mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
-        mImageLoader.loadImage(mRequestData.getAuthorAvatar(), autorAvatarImageView);
+//        ImageLoader mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
+//        mImageLoader.loadImage(mRequestData.getAuthorAvatar(), autorAvatarImageView);
+        Glide.with(context).load(mRequestData.getAuthorAvatar()).into(autorAvatarImageView);
         RelativeLayout lectureContainer = (RelativeLayout) view.findViewById(R.id.lecture_container);
 //        lectureContainer.setOnClickListener(mLectureOnClickListener);
 
@@ -383,9 +386,9 @@ public class CourseDetailsAdapter extends BaseAdapter {
         TextView titleTextView = (TextView) view.findViewById(R.id.title);
         TextView authorNameTextView = (TextView) view.findViewById(R.id.authorname);
 
-        ImageLoader mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
-        mImageLoader.loadImage(video.getImage(), imageView);
-
+//        ImageLoader mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
+//        mImageLoader.loadImage(video.getImage(), imageView);
+        Glide.with(context).load(video.getImage()).into(imageView);
         titleTextView.setText(video.getTitle());
         authorNameTextView.setText(video.getAuthorname());
 
@@ -400,8 +403,10 @@ public class CourseDetailsAdapter extends BaseAdapter {
         writeComment.setOnClickListener(writeCommentViewOnClickListener);
 
         commentNum.setText("评论 (" + commentNumStr + ")");
-        ImageLoader mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
-        mImageLoader.loadImage(YoumiRoomUserManager.getInstance().getUser().getAvatar(), header, R.drawable.fragment_mine_photo);
+//        ImageLoader mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
+//        mImageLoader.loadImage(YoumiRoomUserManager.getInstance().getUser().getAvatar(), header, R.drawable.fragment_mine_photo);
+
+        Glide.with(context).load(YoumiRoomUserManager.getInstance().getUser().getAvatar()).into(header);
     }
 
     private void configureCommentItme(View view, int position) {
@@ -427,9 +432,10 @@ public class CourseDetailsAdapter extends BaseAdapter {
         TextView contentTextView = (TextView) view.findViewById(R.id.content_textview);
 
         nameTextView.setText(commentBean.getUsername());
-        ImageLoader mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
-        mImageLoader.loadImage(commentBean.getHeadimg(), iconImageView);
+//        ImageLoader mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
+//        mImageLoader.loadImage(commentBean.getHeadimg(), iconImageView);
 
+        Glide.with(context).load(commentBean.getHeadimg()).into(iconImageView);
         timeTextView.setText(commentBean.getCtime().split(" ")[0]);
         contentTextView.setText(commentBean.getQuestion());
     }

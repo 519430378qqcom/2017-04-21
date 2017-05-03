@@ -291,7 +291,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_toRightOf="@+id/tv_onemonthyuan"
                 android:text="35元"
-                android:textColor="@color/black_a8"
+                android:textColor="@color/gray_a"
                 android:textSize="16sp" />
 
             <TextView
@@ -354,7 +354,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_toRightOf="@+id/tv_threemonthyuan"
                 android:text="35元"
-                android:textColor="@color/black_a8"
+                android:textColor="@color/gray_a"
                 android:textSize="16sp" />
 
             <TextView
@@ -412,7 +412,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_toRightOf="@+id/tv_sixmonthyuan"
                 android:text="35元"
-                android:textColor="@color/black_a8"
+                android:textColor="@color/gray_a"
                 android:textSize="16sp" />
 
             <TextView
@@ -520,7 +520,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_toRightOf="@+id/tv_zuanshiyuan"
                 android:text="35元"
-                android:textColor="@color/black_a8"
+                android:textColor="@color/gray_a"
                 android:textSize="16sp" />
 
             <TextView

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,10 +73,13 @@ public class LiveDetailsFragment extends BaseConstantFragment{
     }
     private void initData() {
         String id = activity.getIntent().getStringExtra(DETAILS_ID);
-        GetRequest<LiveDetailsBean> request = new GetRequest<>(
+        Log.e("TAG", "liveDetailsBean=" + UmiwiAPI.LIVE_DETAILS+id);
+        GetRequest<LiveDetailsBean> request = new GetRequest<LiveDetailsBean>(
                 UmiwiAPI.LIVE_DETAILS+id, GsonParser.class, LiveDetailsBean.class, new AbstractRequest.Listener<LiveDetailsBean>() {
             @Override
             public void onResult(AbstractRequest<LiveDetailsBean> request, LiveDetailsBean liveDetailsBean) {
+
+                Log.e("TAG", "liveDetailsBean=" + liveDetailsBean.getR().getRecord().getImage());
                 if(liveDetailsBean !=null) {
                     liveDetails = liveDetailsBean;
                     LiveDetailsBean.RBean.RecordBean record = liveDetailsBean.getR().getRecord();

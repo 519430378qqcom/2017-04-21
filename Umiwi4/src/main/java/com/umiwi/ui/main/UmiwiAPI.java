@@ -95,6 +95,11 @@ public final class UmiwiAPI {
      */
     public static final String UMIWI_USER_INFO = "http://i.v.youmi.cn/apimember/getUserinfo?app=android";
     /**
+     * 会员中心
+     */
+    public static final String UMIWI_MEMBERCENTER = "http://i.v.youmi.cn/member/memberlistApi";
+
+    /**
      * 会员Token
      */
     // "http://passport.youmi.cn/login/login/?" + str + "&expire=315360000"

@@ -809,7 +809,7 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
 
                 albumID = String.valueOf(t.getId());
 //                Log.e("TAG", "t.getId()=" + t.getId());
-//                Log.e("TAG", "albumID=" + albumID);
+                Log.e("TAG", "albumID=" + albumID);
                 mList.clear();
                 mScrollLoader.onLoadFirstPage();
                 loadRelatedVideos(t.getId() + "");
@@ -1159,7 +1159,7 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
         intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, PayOrderDetailFragment.class);
         intent.putExtra(PayOrderDetailFragment.KEY_ORDER_ID, "23");
         intent.putExtra(PayOrderDetailFragment.KEY_ORDER_TYPE, PayTypeEvent.VIP);
-        intent.putExtra(PayOrderDetailFragment.KEY_SPM, String.format(StatisticsUrl.ORDER_VIP_DETAIL, "7", albumID));
+        intent.putExtra(PayOrderDetailFragment.KEY_SPM, String.format(StatisticsUrl.ORDER_VIP_DETAIL, "7" , albumID));
         startActivity(intent);
     }
 

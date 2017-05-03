@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.umiwi.ui.R;
 import com.umiwi.ui.beans.AudioTmessageListBeans;
 import com.umiwi.ui.beans.updatebeans.VoicePlayBean;
@@ -27,6 +28,8 @@ import java.util.List;
 import cn.youmi.framework.util.AndroidSDK;
 import cn.youmi.framework.util.ImageLoader;
 import cn.youmi.framework.view.CircleImageView;
+
+import static com.umiwi.ui.main.YoumiConfiguration.context;
 
 
 /**
@@ -191,8 +194,9 @@ public class VoiceDetailsAdapter extends BaseAdapter {
         TextView timeTextView = (TextView) view.findViewById(R.id.time_textview);
         TextView contentTextView = (TextView) view.findViewById(R.id.content_textview);
         AudioTmessageListBeans.RecordX.Record record = recordList.get(index);
-        ImageLoader mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
-        mImageLoader.loadImage(record.getAvatar(), iconImageView);
+//        ImageLoader mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
+//        mImageLoader.loadImage(record.getAvatar(), iconImageView);
+        Glide.with(context).load(record.getAvatar()).into(iconImageView);
         nameTextView.setText(record.getName());
         timeTextView.setText(record.getTime());
         contentTextView.setText(record.getContent());
@@ -215,8 +219,9 @@ public class VoiceDetailsAdapter extends BaseAdapter {
 
 
         commentNum.setText("评论 (" + totalnum + ")");
-        ImageLoader mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
-        mImageLoader.loadImage(YoumiRoomUserManager.getInstance().getUser().getAvatar(), header, R.drawable.fragment_mine_photo);
+//        ImageLoader mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
+//        mImageLoader.loadImage(YoumiRoomUserManager.getInstance().getUser().getAvatar(), header, R.drawable.fragment_mine_photo);
+        Glide.with(context).load(YoumiRoomUserManager.getInstance().getUser().getAvatar()).into(header);
         writeComment.setOnClickListener(writeCommentViewOnClickListener);
     }
 

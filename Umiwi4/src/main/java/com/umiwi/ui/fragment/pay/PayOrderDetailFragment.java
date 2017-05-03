@@ -212,7 +212,7 @@ public class PayOrderDetailFragment extends BaseFragment {
 		if (null == ordercoupon || "".equals(ordercoupon)) {
 			url = String.format(UmiwiAPI.UMIWI_PAY_API, id, type) + CommonHelper.getChannelModelViesion() + spmurl;
 		} else {
-			url = String.format(UmiwiAPI.UMIWI_PAY_API, id, type) + ordercoupon + CommonHelper.getChannelModelViesion() + spmurl;
+			url = String.format(UmiwiAPI.UMIWI_PAY_API, id, type) + ordercoupon + CommonHelper.getChannelModelViesion() + spmurl ;
 		}
 		Log.e("TAG", "url=" + url);
 		GetRequest<UmiwiPayOrderBeans.PayOrderBeansRequestData> request = new GetRequest<UmiwiPayOrderBeans.PayOrderBeansRequestData>(
