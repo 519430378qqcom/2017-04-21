@@ -14,6 +14,10 @@ public final class UmiwiAPI {
      */
     public static final String UMIWI_AUIDOLIVE = "http://i.v.youmi.cn/Telecast/getlive?status=%s&p=%s";
     /**
+     * 我的直播
+     */
+    public static final String MY_LIVE = "http://i.v.youmi.cn/Telecast/getmylive?status=%s&p=%s";
+    /**
      * 直播详情
      */
     public static final String LIVE_DETAILS = "http://i.v.youmi.cn/Telecast/getlivedetail?id=";

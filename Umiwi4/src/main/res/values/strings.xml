@@ -89,4 +89,8 @@
     <string name="send">发送</string>
     <string name="send_your_message">\t提问或发表你的看法</string>
     <string name="visitor">游客</string>
+    <string name="my_live">我的直播</string>
+    <string name="living">直播中</string>
+    <string name="immediately_start">即将开始</string>
+    <string name="already_end">已结束</string>
 </resources>
