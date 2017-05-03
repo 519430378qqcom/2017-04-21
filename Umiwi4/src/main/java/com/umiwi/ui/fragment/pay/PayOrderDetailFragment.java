@@ -14,12 +14,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import cn.youmi.framework.fragment.BaseFragment;
-import cn.youmi.framework.http.AbstractRequest;
-import cn.youmi.framework.http.AbstractRequest.Listener;
-import cn.youmi.framework.http.GetRequest;
-import cn.youmi.framework.http.parsers.GsonParser;
-import cn.youmi.framework.util.ToastU;
 
 import com.umeng.analytics.MobclickAgent;
 import com.umiwi.ui.R;
@@ -31,6 +25,13 @@ import com.umiwi.ui.beans.UmiwiPayOrderBeans.PayOrderBeansRequestData;
 import com.umiwi.ui.fragment.pay.PayCouponFragment.OnCouponListChooseListener;
 import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.util.CommonHelper;
+
+import cn.youmi.framework.fragment.BaseFragment;
+import cn.youmi.framework.http.AbstractRequest;
+import cn.youmi.framework.http.AbstractRequest.Listener;
+import cn.youmi.framework.http.GetRequest;
+import cn.youmi.framework.http.parsers.GsonParser;
+import cn.youmi.framework.util.ToastU;
 
 /**
  * @author tangxiyong
@@ -213,6 +214,7 @@ public class PayOrderDetailFragment extends BaseFragment {
 		} else {
 			url = String.format(UmiwiAPI.UMIWI_PAY_API, id, type) + ordercoupon + CommonHelper.getChannelModelViesion() + spmurl;
 		}
+		Log.e("TAG", "url=" + url);
 		GetRequest<UmiwiPayOrderBeans.PayOrderBeansRequestData> request = new GetRequest<UmiwiPayOrderBeans.PayOrderBeansRequestData>(
 				url, GsonParser.class,
 				UmiwiPayOrderBeans.PayOrderBeansRequestData.class,

@@ -1,5 +1,6 @@
 package com.umiwi.ui.fragment.mine;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -10,7 +11,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.umiwi.ui.R;
+import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.managers.YoumiRoomUserManager;
 import com.umiwi.ui.view.CircleImageView;
@@ -20,6 +23,8 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 import cn.youmi.account.model.UserModel;
 import cn.youmi.framework.util.ImageLoader;
+
+import static com.umiwi.ui.main.YoumiConfiguration.context;
 
 /**
  * Created by Administrator on 2017/5/2 0002.
@@ -38,22 +43,22 @@ public class MemberCenterFragment extends BaseConstantFragment {
     CircleImageView ivBigShotImage;
     @InjectView(R.id.tv_name)
     TextView tvName;
-    @InjectView(R.id.tv_monthly_pay)
-    TextView tvMonthlyPay;
+//    @InjectView(R.id.tv_monthly_pay)
+//    TextView tvMonthlyPay;
     @InjectView(R.id.tv_status)
     TextView tvStatus;
     @InjectView(R.id.tv_expire_time)
     TextView tvExpireTime;
-    @InjectView(R.id.tv_lianxubaoyue)
-    TextView tvLianxubaoyue;
-    @InjectView(R.id.tv_baoyueprice)
-    TextView tvBaoyueprice;
-    @InjectView(R.id.tv_baoyueyuan)
-    TextView tvBaoyueyuan;
-    @InjectView(R.id.tv_baoyueold)
-    TextView tvBaoyueold;
-    @InjectView(R.id.tv_baoyuebutton)
-    TextView tvBaoyuebutton;
+//    @InjectView(R.id.tv_lianxubaoyue)
+//    TextView tvLianxubaoyue;
+//    @InjectView(R.id.tv_baoyueprice)
+//    TextView tvBaoyueprice;
+//    @InjectView(R.id.tv_baoyueyuan)
+//    TextView tvBaoyueyuan;
+//    @InjectView(R.id.tv_baoyueold)
+//    TextView tvBaoyueold;
+//    @InjectView(R.id.tv_baoyuebutton)
+//    TextView tvBaoyuebutton;
     @InjectView(R.id.tv_onemonth)
     TextView tvOnemonth;
     @InjectView(R.id.tv_onemonthprice)
@@ -96,8 +101,8 @@ public class MemberCenterFragment extends BaseConstantFragment {
     TextView tvZuanshibutton;
     @InjectView(R.id.tv_huiyuan)
     TextView tvHuiyuan;
-    @InjectView(R.id.tv_baoyuexieyi)
-    TextView tvBaoyuexieyi;
+//    @InjectView(R.id.tv_baoyuexieyi)
+//    TextView tvBaoyuexieyi;
     private ImageLoader imageLoader;
 
     @Nullable
@@ -121,14 +126,15 @@ public class MemberCenterFragment extends BaseConstantFragment {
         String usertime = mUser.getIdentity_expire();
 
         tvName.setText(username);
-        imageLoader.loadImage(userphoto, ivBigShotImage, R.drawable.fragment_mine_photo);
+//        imageLoader.loadImage(userphoto, ivBigShotImage, R.drawable.fragment_mine_photo);
+        Glide.with(context).load(userphoto).into(ivBigShotImage);
         // 加载会员有效期
         if (!TextUtils.isEmpty(usertime)) {
             tvExpireTime.setVisibility(View.VISIBLE);
             if (usertime.length() > 10) {
-                tvExpireTime.setText("到期时间： " + usertime.substring(0, 10));
+                tvExpireTime.setText("到期时间:" + usertime.substring(0, 10));
             } else {
-                tvExpireTime.setText("到期时间： " + usertime);
+                tvExpireTime.setText("到期时间:" + usertime);
             }
         } else {
             tvExpireTime.setVisibility(View.INVISIBLE);
@@ -143,6 +149,14 @@ public class MemberCenterFragment extends BaseConstantFragment {
                 case 23:// 钻石会员
 //                    tvStatus.setImageResource(R.drawable.mine_user_diamond);
                     tvStatus.setText("当前身份:" + "钻石会员");
+                    tvOnemonthbutton.setBackgroundResource(R.drawable.gray_probation_bg);
+                    tvOnemonthbutton.setClickable(false);
+                    tvThreemonthbutton.setBackgroundResource(R.drawable.gray_probation_bg);
+                    tvThreemonthbutton.setClickable(false);
+                    tvSixmonthbutton.setBackgroundResource(R.drawable.gray_probation_bg);
+                    tvSixmonthbutton.setClickable(false);
+
+
                     break;
                 case 20:// 白银会员
 //                    tvStatus.setImageResource(R.drawable.mine_user_silvery);
@@ -169,16 +183,16 @@ public class MemberCenterFragment extends BaseConstantFragment {
         ButterKnife.reset(this);
     }
 
-    @OnClick({R.id.iv_back, R.id.tv_monthly_pay, R.id.tv_baoyuebutton, R.id.tv_onemonthbutton, R.id.tv_threemonthbutton, R.id.tv_sixmonthbutton, R.id.tv_zuanshibutton, R.id.tv_huiyuan, R.id.tv_baoyuexieyi})
+    @OnClick({R.id.iv_back, R.id.tv_onemonthbutton, R.id.tv_threemonthbutton, R.id.tv_sixmonthbutton, R.id.tv_zuanshibutton, R.id.tv_huiyuan})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
                 getActivity().finish();
                 break;
-            case R.id.tv_monthly_pay:
-                break;
-            case R.id.tv_baoyuebutton:
-                break;
+//            case R.id.tv_monthly_pay:
+//                break;
+//            case R.id.tv_baoyuebutton:
+//                break;
             case R.id.tv_onemonthbutton:
                 break;
             case R.id.tv_threemonthbutton:
@@ -188,10 +202,12 @@ public class MemberCenterFragment extends BaseConstantFragment {
             case R.id.tv_zuanshibutton:
                 break;
             case R.id.tv_huiyuan:
-
+                Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
+                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS,MemberAgreementFragment.class);
+                startActivity(intent);
                 break;
-            case R.id.tv_baoyuexieyi:
-                break;
+//            case R.id.tv_baoyuexieyi:
+//                break;
         }
     }
 }

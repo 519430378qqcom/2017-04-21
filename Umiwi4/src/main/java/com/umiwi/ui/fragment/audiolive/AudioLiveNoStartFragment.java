@@ -35,6 +35,7 @@ public class AudioLiveNoStartFragment extends BaseConstantFragment {
     @InjectView(R.id.listview)
     ListView listview;
     private int page = 1;
+    private int status = 1;
     private int totalpage;
     private boolean isRefresh = true;
 
@@ -58,8 +59,7 @@ public class AudioLiveNoStartFragment extends BaseConstantFragment {
         audioLiveAdapter = new AudioLiveAdapter(getActivity());
         audioLiveAdapter.setData(mList);
         listview.setAdapter(audioLiveAdapter);
-//        getInfos();
-        getData();
+        getInfos();
         return view;
     }
 
@@ -95,32 +95,10 @@ public class AudioLiveNoStartFragment extends BaseConstantFragment {
             }
         });
     }
-    private void getData() {
-        GetRequest<RecommendBean> request = new GetRequest<>(
-                UmiwiAPI.VIDEO_TUIJIAN, GsonParser.class, RecommendBean.class, indexActionListener);
-        request.go();
-    }
-    private AbstractRequest.Listener<RecommendBean> indexActionListener = new AbstractRequest.Listener<RecommendBean>() {
-        @Override
-        public void onResult(AbstractRequest<RecommendBean> request, RecommendBean recommendBean) {
-            if(recommendBean != null) {
-                sec_live_moreurl = recommendBean.getR().getSec_live_moreurl();
-                getInfos();
-            }
 
-        }
-
-        @Override
-        public void onError(AbstractRequest<RecommendBean> requet, int statusCode, String body) {
-
-        }
-    };
     private void getInfos() {
-        String moreurl = sec_live_moreurl;
-        if(moreurl == null) {
-            return;
-        }
-        GetRequest<AudioLiveBean> request = new GetRequest<AudioLiveBean>(moreurl, GsonParser.class, AudioLiveBean.class, new AbstractRequest.Listener<AudioLiveBean>() {
+        String url = String.format(UmiwiAPI.UMIWI_AUIDOLIVE,status,page);
+        GetRequest<AudioLiveBean> request = new GetRequest<AudioLiveBean>(url, GsonParser.class, AudioLiveBean.class, new AbstractRequest.Listener<AudioLiveBean>() {
             @Override
             public void onResult(AbstractRequest<AudioLiveBean> request, AudioLiveBean audioLiveBean) {
                 ArrayList<RecommendBean.RBean.HotLiveBean.HotLiveRecord> record = audioLiveBean.getR().getRecord();
@@ -131,11 +109,7 @@ public class AudioLiveNoStartFragment extends BaseConstantFragment {
                 } else {
                     refreshLayout.setLoading(false);
                 }
-                for (int i=0;i <record.size(); i++) {
-                    if(!"直播中".equals(record.get(i).getStatus()) && !"已结束".equals(record.get(i).getStatus())) {
-                        mList.add(record.get(i)) ;
-                    }
-                }
+                mList.addAll(record);
                 audioLiveAdapter.setData(mList);
 
             }

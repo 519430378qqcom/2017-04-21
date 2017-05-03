@@ -8,6 +8,11 @@ package com.umiwi.ui.main;
  */
 public final class UmiwiAPI {
     // ===============================直播  相关===================================================//
+
+    /**
+     * 直播页面 数据
+     */
+    public static final String UMIWI_AUIDOLIVE = "http://i.v.youmi.cn/Telecast/getlive?status=%s&p=%s";
     /**
      * 直播详情
      */

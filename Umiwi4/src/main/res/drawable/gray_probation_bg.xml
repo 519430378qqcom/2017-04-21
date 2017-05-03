@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle" >
+
+    <!-- <corners android:radius="@dimen/button_radius" />
+
+    <solid android:color="@color/umiwi_login_button_green" />
+
+    <padding
+        android:bottom="@dimen/button_padding_bottom"
+        android:top="@dimen/button_padding_top" /> -->
+
+    <corners android:radius="20dp" />
+
+    <solid android:color="@color/gray_a" />
+    <size android:height="5dp"
+        android:width="20dp"></size>
+    <padding
+        android:bottom="3dp"
+        android:left="20dp"
+        android:right="20dp"
+        android:top="3dp" />
+     <!--<size android:height="1dp" />-->
+
+</shape>

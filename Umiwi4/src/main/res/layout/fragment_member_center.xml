@@ -81,18 +81,18 @@
                     android:textColor="#7e4636"
                     android:textSize="12sp" />
 
-                <TextView
-                    android:id="@+id/tv_monthly_pay"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="15dp"
-                    android:drawableRight="@drawable/monthly_pay"
-                    android:gravity="center_vertical"
-                    android:text="连续包月管理"
-                    android:textColor="#7e4636"
-                    android:textSize="15sp" />
+                <!--<TextView-->
+                    <!--android:id="@+id/tv_monthly_pay"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_alignParentRight="true"-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--android:layout_marginRight="15dp"-->
+                    <!--android:drawableRight="@drawable/monthly_pay"-->
+                    <!--android:gravity="center_vertical"-->
+                    <!--android:text="连续包月管理"-->
+                    <!--android:textColor="#7e4636"-->
+                    <!--android:textSize="15sp" />-->
             </RelativeLayout>
 
             <TextView
@@ -183,71 +183,71 @@
             android:layout_height="1px"
             android:background="@color/gray_a" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+        <!--<RelativeLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="0dp"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:orientation="horizontal">-->
 
-            <TextView
-                android:id="@+id/tv_lianxubaoyue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="连续包月会员"
-                android:textColor="@color/black_a8"
-                android:textSize="16sp" />
+            <!--<TextView-->
+                <!--android:id="@+id/tv_lianxubaoyue"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="连续包月会员"-->
+                <!--android:textColor="@color/black_a8"-->
+                <!--android:textSize="16sp" />-->
 
-            <TextView
-                android:id="@+id/tv_baoyueprice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/tv_lianxubaoyue"
-                android:text="18"
-                android:textColor="@color/main_color"
-                android:textSize="16sp" />
+            <!--<TextView-->
+                <!--android:id="@+id/tv_baoyueprice"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_toRightOf="@+id/tv_lianxubaoyue"-->
+                <!--android:text="18"-->
+                <!--android:textColor="@color/main_color"-->
+                <!--android:textSize="16sp" />-->
 
-            <TextView
-                android:id="@+id/tv_baoyueyuan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/tv_baoyueprice"
-                android:text="元"
-                android:textColor="@color/black_a8"
-                android:textSize="16sp" />
+            <!--<TextView-->
+                <!--android:id="@+id/tv_baoyueyuan"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_toRightOf="@+id/tv_baoyueprice"-->
+                <!--android:text="元"-->
+                <!--android:textColor="@color/black_a8"-->
+                <!--android:textSize="16sp" />-->
 
-            <TextView
-                android:id="@+id/tv_baoyueold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@+id/tv_baoyueyuan"
-                android:text="35元"
-                android:textColor="@color/black_a8"
-                android:textSize="16sp" />
+            <!--<TextView-->
+                <!--android:id="@+id/tv_baoyueold"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="5dp"-->
+                <!--android:layout_toRightOf="@+id/tv_baoyueyuan"-->
+                <!--android:text="35元"-->
+                <!--android:textColor="@color/black_a8"-->
+                <!--android:textSize="16sp" />-->
 
-            <TextView
-                android:id="@+id/tv_baoyuebutton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:background="@drawable/orange_probation_bg"
-                android:gravity="center"
-                android:paddingBottom="3dp"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:paddingTop="3dp"
-                android:text="开通"
-                android:textColor="@color/white"
-                android:textSize="14sp" />
-        </RelativeLayout>
+            <!--<TextView-->
+                <!--android:id="@+id/tv_baoyuebutton"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:background="@drawable/orange_probation_bg"-->
+                <!--android:gravity="center"-->
+                <!--android:paddingBottom="3dp"-->
+                <!--android:paddingLeft="15dp"-->
+                <!--android:paddingRight="15dp"-->
+                <!--android:paddingTop="3dp"-->
+                <!--android:text="开通"-->
+                <!--android:textColor="@color/white"-->
+                <!--android:textSize="14sp" />-->
+        <!--</RelativeLayout>-->
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/gray_a" />
+        <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1px"-->
+            <!--android:background="@color/gray_a" />-->
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -299,12 +299,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:background="@drawable/orange_probation_bg"
+                android:background="@drawable/orange_customer_bg"
                 android:gravity="center"
-                android:paddingBottom="3dp"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:paddingTop="3dp"
                 android:text="开通"
                 android:textColor="@color/white"
                 android:textSize="14sp" />
@@ -576,23 +572,23 @@
                     android:textSize="15sp" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal">
+            <!--<LinearLayout-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1"-->
+                <!--android:gravity="center_horizontal">-->
 
-                <TextView
-                    android:id="@+id/tv_baoyuexieyi"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawablePadding="3dp"
-                    android:drawableRight="@drawable/category_hot"
-                    android:padding="5dp"
-                    android:text="连续包月服务协议"
-                    android:textColor="@color/black_a8"
-                    android:textSize="15sp" />
-            </LinearLayout>
+                <!--<TextView-->
+                    <!--android:id="@+id/tv_baoyuexieyi"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:drawablePadding="3dp"-->
+                    <!--android:drawableRight="@drawable/category_hot"-->
+                    <!--android:padding="5dp"-->
+                    <!--android:text="连续包月服务协议"-->
+                    <!--android:textColor="@color/black_a8"-->
+                    <!--android:textSize="15sp" />-->
+            <!--</LinearLayout>-->
         </LinearLayout>
 
     </LinearLayout>
