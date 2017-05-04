@@ -105,7 +105,7 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
                     RequestCallback<LoginInfo> callback = new RequestCallback<LoginInfo>() {
                         @Override
                         public void onSuccess(LoginInfo param) {
-                            Toast.makeText(LiveChatRoomActivity.this, loginInfo.getAccount() + "登录成功", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LiveChatRoomActivity.this,"登录成功", Toast.LENGTH_SHORT).show();
                             accessChatRoom(roomId);
                             registerObservers(true);
                         }
@@ -143,6 +143,21 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
             public void onResult(AbstractRequest<ChatRoomDetailsBean> request, ChatRoomDetailsBean chatRoomDetails) {
                 if (chatRoomDetails != null) {
                     chatRoomDetailsBean = chatRoomDetails;
+                    ChatRoomDetailsBean.RBean.RecordBean record = chatRoomDetails.getR().getRecord();
+                    tvTitle.setText(record.getTitle());
+                    String partNum = "("+record.getPartakenum()+"人)";
+                    String status = record.getStatus();
+                    switch (status){
+                        case "1":
+                            tvStatus.setText("未开始"+partNum);
+                            break;
+                        case "2":
+                            tvStatus.setText("直播中"+partNum);
+                            break;
+                        case "3":
+                            tvStatus.setText("已结束"+partNum);
+                            break;
+                    }
                 }
             }
 

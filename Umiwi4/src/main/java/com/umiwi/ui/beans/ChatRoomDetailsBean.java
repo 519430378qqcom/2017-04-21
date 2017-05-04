@@ -75,6 +75,8 @@ public class ChatRoomDetailsBean {
             /**
              * id : 5
              * roomid : 8692675
+             * title: "怎样留住高端人才",
+             *partakenum: "0",
              * gethistory : http://i.v.youmi.cn/telecast/closeliveDetailapi/
              * tutor_accid : 1_7106276
              * cur_accid : 1_7106276
@@ -85,6 +87,10 @@ public class ChatRoomDetailsBean {
             private String id;
             @SerializedName("roomid")
             private String roomid;
+            @SerializedName("title")
+            private String title;
+            @SerializedName("partakenum")
+            private String partakenum;
             @SerializedName("gethistory")
             private String gethistory;
             @SerializedName("tutor_accid")
@@ -96,6 +102,21 @@ public class ChatRoomDetailsBean {
             @SerializedName("istutor")
             private String istutor;
 
+            public String getTitle() {
+                return title;
+            }
+
+            public void setTitle(String title) {
+                this.title = title;
+            }
+
+            public String getPartakenum() {
+                return partakenum;
+            }
+
+            public void setPartakenum(String partakenum) {
+                this.partakenum = partakenum;
+            }
             public String getId() {
                 return id;
             }
