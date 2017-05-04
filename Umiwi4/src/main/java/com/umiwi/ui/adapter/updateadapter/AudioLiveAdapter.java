@@ -1,5 +1,6 @@
 package com.umiwi.ui.adapter.updateadapter;
 
+import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,6 +64,10 @@ public class AudioLiveAdapter extends BaseAdapter {
         holder.special_name_textView.setText(hotLiveRecord.getTitle());
         holder.special_context.setText(hotLiveRecord.getSubtitle());
         holder.special_price.setText(hotLiveRecord.getPrice());
+        if("已结束".equals(hotLiveRecord.getStatus())) {
+            holder.expter_time_textView.setBackgroundResource(R.drawable.textview_fillet_bg);
+            holder.expter_time_textView.setTextColor(Color.GRAY);
+        }
         holder.expter_time_textView.setText(hotLiveRecord.getStatus());
         holder.special_subscribe_number.setText(hotLiveRecord.getPartakenum() + "参与");
         return convertView;

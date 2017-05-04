@@ -1,14 +1,17 @@
 package com.umiwi.ui.fragment.audiolive;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.umiwi.ui.R;
+import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.updateadapter.AudioLiveAdapter;
 import com.umiwi.ui.beans.updatebeans.AudioLiveBean;
 import com.umiwi.ui.beans.updatebeans.RecommendBean;
@@ -50,7 +53,7 @@ public class AudioLiveAlreadyOffFrgament extends BaseConstantFragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.audio_live_layout, null);
         ButterKnife.inject(this, view);
 
@@ -59,6 +62,19 @@ public class AudioLiveAlreadyOffFrgament extends BaseConstantFragment {
         listview.setAdapter(audioLiveAdapter);
         initRefreshLayout();
         getInfos();
+
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                RecommendBean.RBean.HotLiveBean.HotLiveRecord hotLiveRecord = mList.get(position);
+                String liveId = hotLiveRecord.getId();
+                Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
+                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS,AudioLiveDetailsFragment.class);
+                intent.putExtra(AudioLiveDetailsFragment.LIVEID,liveId);
+                startActivity(intent);
+            }
+        });
+
         return view;
     }
 

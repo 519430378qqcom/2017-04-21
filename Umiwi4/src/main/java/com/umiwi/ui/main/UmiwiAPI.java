@@ -20,7 +20,7 @@ public final class UmiwiAPI {
     /**
      * 直播详情
      */
-    public static final String LIVE_DETAILS = "http://i.v.youmi.cn/Telecast/getlivedetail?id=";
+    public static final String LIVE_DETAILS = "http://i.v.youmi.cn/Telecast/getlivedetail?id=%s";
     /**
      * 聊天室详情
      */
