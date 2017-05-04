@@ -95,9 +95,11 @@
     <string name="already_end">已结束</string>
     <string name="click_start_record">点击开始录音</string>
     <string name="click_stop_record">点击停止录音</string>
+    <string name="click_send_record">点击发送录音</string>
     <string name="pack_up">收起</string>
     <string name="audio">语音</string>
     <string name="text">文字</string>
     <string name="picture">图片</string>
     <string name="record_60_hint">录满60秒将自动发送，并启动下一条录音</string>
+    <string name="send_hint">发送和即可录制下一条</string>
 </resources>

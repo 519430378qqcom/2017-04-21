@@ -3,6 +3,8 @@ package com.umiwi.ui.activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -26,6 +28,9 @@ import com.netease.nimlib.sdk.chatroom.ChatRoomService;
 import com.netease.nimlib.sdk.chatroom.ChatRoomServiceObserver;
 import com.netease.nimlib.sdk.chatroom.model.ChatRoomMessage;
 import com.netease.nimlib.sdk.chatroom.model.EnterChatRoomData;
+import com.netease.nimlib.sdk.media.record.AudioRecorder;
+import com.netease.nimlib.sdk.media.record.IAudioRecordCallback;
+import com.netease.nimlib.sdk.media.record.RecordType;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
 import com.umiwi.ui.R;
@@ -36,7 +41,9 @@ import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.managers.Container;
 import com.umiwi.ui.managers.ModuleProxy;
 import com.umiwi.ui.managers.MsgListManager;
+import com.umiwi.ui.util.DateUtils;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -48,6 +55,8 @@ import cn.youmi.account.manager.UserManager;
 import cn.youmi.framework.http.AbstractRequest;
 import cn.youmi.framework.http.GetRequest;
 import cn.youmi.framework.http.parsers.GsonParser;
+
+import static com.umiwi.ui.main.YoumiConfiguration.context;
 
 /**
  * 主播聊天室界面
@@ -106,7 +115,17 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
      * 聊天室消息
      */
     private ChatRoomDetailsBean chatRoomDetailsBean;
-
+    private Handler handler;
+    private Long time;
+    /**
+     * 录音的对象
+     */
+    private AudioRecorder recorder;
+    /**
+     * 录制的音频文件
+     */
+    private File myAudiofile;
+    private long myAudioLength;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -245,6 +264,7 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
     protected void onDestroy() {
         ButterKnife.reset(this);
         registerObservers(false);
+        handler.removeCallbacksAndMessages(null);
         super.onDestroy();
     }
 
@@ -280,18 +300,130 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
                 switchSoftInput(false);
                 break;
             case R.id.btn_cancle://取消录制
+                initRecordStatus();
                 break;
             case R.id.iv_record://开始||停止录音
-                if(getResources().getString(R.string.click_start_record).equals(tvRecordHint.getText().toString())) {
-                    rlInputOptions.setVisibility(View.GONE);
-                    tvRecordHintTop.setVisibility(View.VISIBLE);
-                    tvRecordHintTop.setText(R.string.record_60_hint);
-                    btnCancle.setVisibility(View.VISIBLE);
-                    ivRecord.setImageResource(R.drawable.record_pause);
-                    tvRecordHint.setText(R.string.click_stop_record);
-
-                }else {}
+                record();
                 break;
+        }
+    }
+
+    /**
+     * 开始||停止录音
+     */
+    private void record() {
+        //开始录音
+        if(getResources().getString(R.string.click_start_record).equals(tvRecordHint.getText().toString())) {
+            startRecord();
+        }else if(getResources().getString(R.string.click_stop_record).equals(tvRecordHint.getText().toString())) {//停止录音
+            tvRecordHintTop.setText(R.string.send_hint);
+            handler.removeCallbacksAndMessages(null);
+            ivRecord.setImageResource(R.drawable.record_send);
+            tvRecordHint.setText(R.string.click_send_record);
+            recorder.completeRecord(false);
+        }else if(getResources().getString(R.string.click_send_record).equals(tvRecordHint.getText().toString())){//发送录音
+            sendAudioMsg();
+            initRecordStatus();
+        }
+    }
+
+    /**
+     * 初始化录音状态
+     */
+    private void initRecordStatus() {
+        handler.removeCallbacksAndMessages(null);
+        rlInputOptions.setVisibility(View.VISIBLE);
+        tvRecordHintTop.setVisibility(View.GONE);
+        tvRecordTime.setText("00:00");
+        btnCancle.setVisibility(View.GONE);
+        ivRecord.setImageResource(R.drawable.record);
+        tvRecordHint.setText(R.string.click_start_record);
+    }
+
+    /**
+     * 开启录音
+     */
+    private void startRecord() {
+        // 初始化recorder
+        if(recorder == null) {
+            recorder =  new AudioRecorder(
+                    context,
+                    RecordType.AAC, // 录制音频类型（aac/amr)
+                    60, // 最长录音时长，到该长度后，会自动停止录音, 默认120s
+                    callback // 录音过程回调
+            );
+        }
+        // 开始录音
+        if (recorder.startRecord()) {
+            //显示录制状态
+            rlInputOptions.setVisibility(View.GONE);
+            tvRecordHintTop.setVisibility(View.VISIBLE);
+            tvRecordHintTop.setText(R.string.record_60_hint);
+            btnCancle.setVisibility(View.VISIBLE);
+            ivRecord.setImageResource(R.drawable.record_pause);
+            tvRecordHint.setText(R.string.click_stop_record);
+            //录音计时
+            if(handler == null) {
+                handler = new Handler(){
+                    @Override
+                    public void handleMessage(Message msg) {
+                        time +=1000;
+                        tvRecordTime.setText(DateUtils.formatmmss(time));
+                        if(time>=60*1000) {
+                        }else {
+                            handler.sendMessageDelayed(Message.obtain(),1000);
+                        }
+                    }
+                };
+            }
+            time = 0L;
+            handler.removeCallbacksAndMessages(null);
+            handler.sendMessageDelayed(Message.obtain(),1000);
+        }else {
+            Toast.makeText(AuthorChatRoomActivity.this, "启动录音失败", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    // 定义录音过程回调对象
+    IAudioRecordCallback callback = new IAudioRecordCallback () {
+
+        public void onRecordReady() {
+            // 初始化完成回调，提供此接口用于在录音前关闭本地音视频播放（可选）
+        }
+
+        public void onRecordStart(File audioFile, RecordType recordType) {
+            // 开始录音回调
+        }
+
+        public void onRecordSuccess(File audioFile, long audioLength, RecordType recordType) {
+            // 录音结束，成功
+            myAudiofile = audioFile;
+            myAudioLength = audioLength;
+        }
+
+        public void onRecordFail() {
+            // 录音结束，出错
+        }
+
+        public void onRecordCancel() {
+            // 录音结束， 用户主动取消录音
+        }
+
+        public void onRecordReachedMaxTime(int maxTime) {
+            // 到达指定的最长录音时间
+            sendAudioMsg();
+            startRecord();
+        }
+    };
+    /**
+     * 发送语音消息
+     */
+    private void sendAudioMsg() {
+        if(myAudiofile !=null) {
+            // 创建音频消息
+            ChatRoomMessage message = ChatRoomMessageBuilder.createChatRoomAudioMessage(roomId,myAudiofile,myAudioLength);
+            // 发送消息。如果需要关心发送结果，可设置回调函数。发送完成时，会收到回调。如果失败，会有具体的错误码。
+            NIMClient.getService(ChatRoomService.class).sendMessage(message,true);
         }
     }
 
