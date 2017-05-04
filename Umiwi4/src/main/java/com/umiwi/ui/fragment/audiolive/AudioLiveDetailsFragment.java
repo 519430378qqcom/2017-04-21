@@ -10,6 +10,7 @@ import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.umiwi.ui.R;
@@ -30,7 +31,6 @@ import cn.youmi.framework.http.AbstractRequest;
 import cn.youmi.framework.http.GetRequest;
 import cn.youmi.framework.http.parsers.GsonParser;
 
-import static com.umiwi.ui.R.id.tab_title;
 import static com.umiwi.ui.main.YoumiConfiguration.context;
 
 /**
@@ -53,7 +53,7 @@ public class AudioLiveDetailsFragment extends BaseConstantFragment {
     NoScrollListview description;
     @InjectView(R.id.iv_back)
     ImageView ivBack;
-    @InjectView(tab_title)
+    @InjectView(R.id.tab_title)
     TextView tabTitle;
     @InjectView(R.id.iv_shared)
     ImageView ivShared;
@@ -75,12 +75,15 @@ public class AudioLiveDetailsFragment extends BaseConstantFragment {
     private int height;
 
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_audiolive_details, null);
         ButterKnife.inject(this, view);
+
         liveId = getActivity().getIntent().getStringExtra(LIVEID);
+
         record.setVisibility(View.GONE);
         description.setFocusable(false);
         getInfo();
@@ -148,9 +151,14 @@ public class AudioLiveDetailsFragment extends BaseConstantFragment {
     //获取详情数据
     private void getInfo() {
         String url = String.format(UmiwiAPI.LIVE_DETAILS, liveId);
-        GetRequest<AudioLiveDetailsBean> request = new GetRequest<AudioLiveDetailsBean>(url, GsonParser.class, AudioLiveDetailsBean.class, new AbstractRequest.Listener<AudioLiveDetailsBean>() {
-            @Override
-            public void onResult(AbstractRequest<AudioLiveDetailsBean> request, AudioLiveDetailsBean audioLiveDetailsBean) {
+        GetRequest<AudioLiveDetailsBean> request = new GetRequest<AudioLiveDetailsBean>(url, GsonParser.class, AudioLiveDetailsBean.class,getinfoListener);
+        request.go();
+    }
+    private AbstractRequest.Listener<AudioLiveDetailsBean> getinfoListener = new AbstractRequest.Listener<AudioLiveDetailsBean>() {
+        @Override
+        public void onResult(AbstractRequest<AudioLiveDetailsBean> request, AudioLiveDetailsBean audioLiveDetailsBean) {
+
+            if(detailsRecord == null) {
                 detailsRecord = audioLiveDetailsBean.getR().getRecord();
                 share = audioLiveDetailsBean.getR().getShare();
 
@@ -166,7 +174,7 @@ public class AudioLiveDetailsFragment extends BaseConstantFragment {
                     tvLivestatus.setBackgroundResource(R.drawable.textview_fillet_bg);
                     tvLivestatus.setTextColor(Color.GRAY);
                 }
-                if("未开始".equals(detailsRecord.getStatus())) {
+                if ("未开始".equals(detailsRecord.getStatus())) {
                     tvLivestatus.setVisibility(View.GONE);
                     tvStarttime.setTextColor(getResources().getColor(R.color.main_color));
                     tvStarttime.setBackgroundResource(R.drawable.textview_orange_bg);
@@ -180,18 +188,15 @@ public class AudioLiveDetailsFragment extends BaseConstantFragment {
                 }
                 //开始时间
                 tvStarttime.setText(detailsRecord.getLive_time());
-
-
             }
+        }
 
-            @Override
-            public void onError(AbstractRequest<AudioLiveDetailsBean> requet, int statusCode, String body) {
-
-            }
-        });
-        request.go();
-    }
-
+        @Override
+        public void onError(AbstractRequest<AudioLiveDetailsBean> requet, int statusCode, String body) {
+            Toast.makeText(getActivity(),"ERROR",Toast.LENGTH_LONG).show();
+        }
+    };
+//
     @Override
     public void onDestroyView() {
         super.onDestroyView();

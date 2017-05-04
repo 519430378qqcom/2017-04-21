@@ -80,7 +80,7 @@ public class LiveDetailsFragment extends BaseConstantFragment{
             public void onResult(AbstractRequest<LiveDetailsBean> request, LiveDetailsBean liveDetailsBean) {
 
                 Log.e("TAG", "liveDetailsBean=" + liveDetailsBean.getR().getRecord().getImage());
-                if(liveDetailsBean !=null) {
+                if(liveDetailsBean != null) {
                     liveDetails = liveDetailsBean;
                     LiveDetailsBean.RBean.RecordBean record = liveDetailsBean.getR().getRecord();
                     Glide.with(activity.getApplicationContext()).load(record.getImage()).into(ivLiveImge);
