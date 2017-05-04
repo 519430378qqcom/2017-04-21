@@ -22,6 +22,10 @@ public final class UmiwiAPI {
      */
     public static final String LIVE_DETAILS = "http://i.v.youmi.cn/Telecast/getlivedetail?id=%s";
     /**
+     * 直播详情购买
+     */
+    public static final String UMIWI_AUDIOLIVE_DETAILS_BUY = "http://i.v.youmi.cn/orders/buytelecast?id=%s&format=json";
+    /**
      * 聊天室详情
      */
     public static final String CHAT_DETAILS = "http://i.v.youmi.cn/Telecast/telecastApi?id=";

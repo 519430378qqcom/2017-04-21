@@ -1,8 +1,10 @@
 package com.umiwi.ui.fragment.audiolive;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +16,13 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.umiwi.ui.R;
+import com.umiwi.ui.activity.LiveChatRoomActivity;
+import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.updateadapter.AudioLiveDetailsAdapter;
+import com.umiwi.ui.beans.UmiwiBuyCreateOrderBeans;
 import com.umiwi.ui.beans.updatebeans.AudioLiveDetailsBean;
 import com.umiwi.ui.dialog.ShareDialog;
+import com.umiwi.ui.fragment.pay.PayingFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.view.NoScrollListview;
@@ -68,12 +74,14 @@ public class AudioLiveDetailsFragment extends BaseConstantFragment {
     @InjectView(R.id.rl_background)
     View rl_background;
     public static final String LIVEID = "liveId";
-
+    public static final String ENTERYET = "enter";
     private String liveId;//id
     private AudioLiveDetailsBean.RAudioLiveDetails.AudioLiveDetailsRecord detailsRecord;//详情
     private AudioLiveDetailsBean.RAudioLiveDetails.AudioLiveDetailsShare share;//分享
     private int height;
-
+    private boolean gotoBuyFragment;
+    private boolean isFirstClick;
+    private String payurl;
 
 
     @Nullable
@@ -83,12 +91,19 @@ public class AudioLiveDetailsFragment extends BaseConstantFragment {
         ButterKnife.inject(this, view);
 
         liveId = getActivity().getIntent().getStringExtra(LIVEID);
-
+        Log.e("TAG", "liveId=" + liveId);
         record.setVisibility(View.GONE);
         description.setFocusable(false);
-        getInfo();
+//        getInfo();
         initScroll();
         return view;
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getInfo();
     }
 
     private void initScroll() {
@@ -154,11 +169,13 @@ public class AudioLiveDetailsFragment extends BaseConstantFragment {
         GetRequest<AudioLiveDetailsBean> request = new GetRequest<AudioLiveDetailsBean>(url, GsonParser.class, AudioLiveDetailsBean.class,getinfoListener);
         request.go();
     }
+
+    private boolean isAutio;
     private AbstractRequest.Listener<AudioLiveDetailsBean> getinfoListener = new AbstractRequest.Listener<AudioLiveDetailsBean>() {
         @Override
         public void onResult(AbstractRequest<AudioLiveDetailsBean> request, AudioLiveDetailsBean audioLiveDetailsBean) {
 
-            if(detailsRecord == null) {
+
                 detailsRecord = audioLiveDetailsBean.getR().getRecord();
                 share = audioLiveDetailsBean.getR().getShare();
 
@@ -182,13 +199,24 @@ public class AudioLiveDetailsFragment extends BaseConstantFragment {
                 tvTakepart.setText(detailsRecord.getPartakenum() + "参与");
                 //底部参与价格
                 if (detailsRecord.isbuy()) {
-                    tvGotoliveroom.setText(detailsRecord.getPrice());
+                    tvGotoliveroom.setText("立即参与");
+                    rlBottomBack.setBackgroundColor(getResources().getColor(R.color.green_color));
                 } else {
+                    rlBottomBack.setBackgroundColor(getResources().getColor(R.color.main_color));
                     tvGotoliveroom.setText("立即参与(" + detailsRecord.getPrice() + ")");
                 }
                 //开始时间
                 tvStarttime.setText(detailsRecord.getLive_time());
-            }
+
+                //判断是否购买
+                if(liveId.equals(PayingFragment.payId) && detailsRecord.isbuy()&&!isAutio) {
+                    isAutio= true;
+                    Intent intent = new Intent(getActivity(), LiveChatRoomActivity.class);
+                    intent.putExtra(LiveDetailsFragment.DETAILS_ID, detailsRecord.getId());
+                    intent.putExtra(LiveChatRoomActivity.ROOM_ID, detailsRecord.getRoomid());
+                    getActivity().startActivity(intent);
+                }
+
         }
 
         @Override
@@ -214,11 +242,56 @@ public class AudioLiveDetailsFragment extends BaseConstantFragment {
                         share.getSharecontent(), share.getShareurl(), share.getShareimg());
                 break;
             case R.id.tv_gotoliveroom:
-
+                if (detailsRecord.isbuy()) {
+                    Intent intent = new Intent(getActivity(), LiveChatRoomActivity.class);
+                    intent.putExtra(LiveDetailsFragment.DETAILS_ID, detailsRecord.getId());
+                    intent.putExtra(LiveChatRoomActivity.ROOM_ID, detailsRecord.getRoomid());
+                    getActivity().startActivity(intent);
+                } else {
+                    goToBuy(detailsRecord.getId());
+                }
                 break;
             case R.id.rl_bottom_back:
 
                 break;
         }
     }
+
+    //获取购买url
+    private void goToBuy(String id) {
+        String url = String.format(UmiwiAPI.UMIWI_AUDIOLIVE_DETAILS_BUY,id);
+        GetRequest<UmiwiBuyCreateOrderBeans> request = new GetRequest<UmiwiBuyCreateOrderBeans>(
+                url, GsonParser.class,
+                UmiwiBuyCreateOrderBeans.class,
+                buyListener);
+        request.go();
+    }
+    private AbstractRequest.Listener<UmiwiBuyCreateOrderBeans> buyListener = new AbstractRequest.Listener<UmiwiBuyCreateOrderBeans>() {
+        @Override
+        public void onResult(AbstractRequest<UmiwiBuyCreateOrderBeans> request, UmiwiBuyCreateOrderBeans umiwiBuyCreateOrderBeans) {
+            payurl = umiwiBuyCreateOrderBeans.getR().getPayurl();
+            subscriberBuyDialog(payurl);
+//            Log.e("TAG", "buypayurl==" + payurl);
+        }
+
+        @Override
+        public void onError(AbstractRequest<UmiwiBuyCreateOrderBeans> requet, int statusCode, String body) {
+
+        }
+    };
+    /**
+     * 跳转到购买界面
+     *
+     * @param payurl
+     */
+    public void subscriberBuyDialog(String payurl) {
+        Intent i = new Intent(getActivity(), UmiwiContainerActivity.class);
+        i.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, PayingFragment.class);
+        i.putExtra(PayingFragment.KEY_PAY_URL, payurl);
+        i.putExtra(PayingFragment.PAY_ID,liveId);
+        startActivity(i);
+//        getActivity().startActivityForResult(i,1000);
+
+    }
+
 }

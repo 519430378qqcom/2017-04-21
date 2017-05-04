@@ -4,6 +4,9 @@ import java.util.HashSet;
 import java.util.List;
 
 public class ModelManager<K,E> {
+	public interface CustomerListener{
+		void customer();
+	}
 
 	public interface ModelStatusListener<K,E>{
 		void onModelGet(K key, E models);

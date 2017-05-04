@@ -41,7 +41,6 @@
                     android:id="@+id/tv_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="关系攻略:残酷社会生存法则"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
@@ -60,7 +59,6 @@
                         android:ellipsize="end"
                         android:padding="1dp"
                         android:singleLine="true"
-                        android:text="直播中"
                         android:textColor="@color/main_color"
                         android:textSize="13sp" />
 
@@ -69,7 +67,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@+id/tv_livestatus"
-                        android:text="4月6日 18:00开始"
                         android:textColor="@color/black_a8" />
 
                     <TextView
@@ -77,7 +74,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:text="45566参与" />
+                         />
                 </RelativeLayout>
 
             </LinearLayout>
@@ -130,7 +127,6 @@
 
     <RelativeLayout
         android:id="@+id/rl_bottom_back"
-        android:background="@color/main_color"
         android:layout_gravity="bottom"
         android:layout_width="match_parent"
         android:layout_height="50dp">
@@ -142,7 +138,6 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textColor="@color/white"
-            android:text="立即参与(¥9.9)"
             />
     </RelativeLayout>
 </FrameLayout>
