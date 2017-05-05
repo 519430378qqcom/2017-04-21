@@ -81,22 +81,18 @@ public class AudioFragment extends BaseConstantFragment {
 
         @Override
         public void onResult(AbstractRequest<AlreadyShopVoiceBean> request, AlreadyShopVoiceBean umiAnwebeans) {
-            if(umiAnwebeans != null) {
-                AlreadyShopVoiceBean.RAlreadyVoice.PageBean page = umiAnwebeans.getR().getPage();
-                totalpage = page.getTotalpage();
-                ArrayList<AlreadyShopVoiceBean.RAlreadyVoice.Record> record = umiAnwebeans.getR().getRecord();
+            AlreadyShopVoiceBean.RAlreadyVoice.PageBean page = umiAnwebeans.getR().getPage();
+            totalpage = page.getTotalpage();
+            ArrayList<AlreadyShopVoiceBean.RAlreadyVoice.Record> record = umiAnwebeans.getR().getRecord();
 
-                if (isRefresh) {
-                    refreshLayout.setRefreshing(false);
-                    infos.clear();
-                } else {
-                    refreshLayout.setLoading(false);
-                }
-                infos.addAll(record);
-                alreadyVoiceAdapter.setData(infos);
-
-
+            if (isRefresh) {
+                refreshLayout.setRefreshing(false);
+                infos.clear();
+            } else {
+                refreshLayout.setLoading(false);
             }
+            infos.addAll(record);
+            alreadyVoiceAdapter.setData(infos);
         }
 
         @Override

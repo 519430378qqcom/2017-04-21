@@ -140,7 +140,23 @@ public class AudioLiveNoStartFragment extends BaseConstantFragment {
     @Override
     public void onResume() {
         super.onResume();
+        String url = String.format(UmiwiAPI.UMIWI_AUIDOLIVE,status,1);
+        GetRequest<AudioLiveBean> request = new GetRequest<AudioLiveBean>(url, GsonParser.class, AudioLiveBean.class, new AbstractRequest.Listener<AudioLiveBean>() {
+            @Override
+            public void onResult(AbstractRequest<AudioLiveBean> request, AudioLiveBean audioLiveBean) {
+                ArrayList<RecommendBean.RBean.HotLiveBean.HotLiveRecord> record = audioLiveBean.getR().getRecord();
+                mList.clear();
+                mList.addAll(record);
+                audioLiveAdapter.setData(mList);
 
+            }
+
+            @Override
+            public void onError(AbstractRequest<AudioLiveBean> requet, int statusCode, String body) {
+
+            }
+        });
+        request.go();
 
     }
 

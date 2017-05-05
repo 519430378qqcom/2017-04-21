@@ -25,6 +25,8 @@ import com.umiwi.ui.dialog.ShareDialog;
 import com.umiwi.ui.fragment.pay.PayingFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.UmiwiAPI;
+import com.umiwi.ui.managers.YoumiRoomUserManager;
+import com.umiwi.ui.util.LoginUtil;
 import com.umiwi.ui.view.NoScrollListview;
 import com.umiwi.ui.view.ScrollChangeScrollView;
 
@@ -74,15 +76,12 @@ public class AudioLiveDetailsFragment extends BaseConstantFragment {
     @InjectView(R.id.rl_background)
     View rl_background;
     public static final String LIVEID = "liveId";
-    public static final String ENTERYET = "enter";
     private String liveId;//id
     private AudioLiveDetailsBean.RAudioLiveDetails.AudioLiveDetailsRecord detailsRecord;//详情
     private AudioLiveDetailsBean.RAudioLiveDetails.AudioLiveDetailsShare share;//分享
     private int height;
-    private boolean gotoBuyFragment;
-    private boolean isFirstClick;
     private String payurl;
-
+    private boolean isAutio;//是否进入过聊天室
 
     @Nullable
     @Override
@@ -170,7 +169,7 @@ public class AudioLiveDetailsFragment extends BaseConstantFragment {
         request.go();
     }
 
-    private boolean isAutio;
+
     private AbstractRequest.Listener<AudioLiveDetailsBean> getinfoListener = new AbstractRequest.Listener<AudioLiveDetailsBean>() {
         @Override
         public void onResult(AbstractRequest<AudioLiveDetailsBean> request, AudioLiveDetailsBean audioLiveDetailsBean) {
@@ -242,21 +241,29 @@ public class AudioLiveDetailsFragment extends BaseConstantFragment {
                         share.getSharecontent(), share.getShareurl(), share.getShareimg());
                 break;
             case R.id.tv_gotoliveroom:
-                if (detailsRecord.isbuy()) {
-                    Intent intent = new Intent(getActivity(), LiveChatRoomActivity.class);
-                    intent.putExtra(LiveDetailsFragment.DETAILS_ID, detailsRecord.getId());
-                    intent.putExtra(LiveChatRoomActivity.ROOM_ID, detailsRecord.getRoomid());
-                    getActivity().startActivity(intent);
+                if (!YoumiRoomUserManager.getInstance().isLogin()) {
+                    showLogin();
                 } else {
-                    goToBuy(detailsRecord.getId());
+                    if (detailsRecord.isbuy()) {
+                        Intent intent = new Intent(getActivity(), LiveChatRoomActivity.class);
+                        intent.putExtra(LiveDetailsFragment.DETAILS_ID, detailsRecord.getId());
+                        intent.putExtra(LiveChatRoomActivity.ROOM_ID, detailsRecord.getRoomid());
+                        getActivity().startActivity(intent);
+                    } else {
+                        goToBuy(detailsRecord.getId());
+                    }
                 }
+
                 break;
             case R.id.rl_bottom_back:
 
                 break;
         }
     }
-
+    //跳转登陆
+    private void showLogin() {
+        LoginUtil.getInstance().showLoginView(getActivity());
+    }
     //获取购买url
     private void goToBuy(String id) {
         String url = String.format(UmiwiAPI.UMIWI_AUDIOLIVE_DETAILS_BUY,id);
@@ -281,7 +288,6 @@ public class AudioLiveDetailsFragment extends BaseConstantFragment {
     };
     /**
      * 跳转到购买界面
-     *
      * @param payurl
      */
     public void subscriberBuyDialog(String payurl) {
