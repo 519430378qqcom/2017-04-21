@@ -6,13 +6,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.umiwi.ui.R;
 import com.umiwi.ui.beans.updatebeans.AlreadShopColumnBean;
 import com.umiwi.ui.view.XCRoundRectImageView;
 
 import java.util.List;
-
-import cn.youmi.framework.util.ImageLoader;
 
 /**已购-专栏
  * Created by Gpsi on 2017/3/13.
@@ -63,8 +62,10 @@ public class BuyColumnAdapter extends BaseAdapter {
         }
 
         AlreadShopColumnBean.RalreadyColumn.RecordColumn recordColumn = mList.get(position);
-        ImageLoader imageLoader = new ImageLoader(activity);
-        imageLoader.loadImage(recordColumn.getImage(),viewholder.special_header_imageview_1);
+//        ImageLoader imageLoader = new ImageLoader(activity);
+//        imageLoader.loadImage(recordColumn.getImage(),viewholder.special_header_imageview_1);
+
+        Glide.with(activity).load(recordColumn.getImage()).into(viewholder.special_header_imageview_1);
         viewholder.special_name_textView_1.setText(recordColumn.getTitle());
         viewholder.special_context_1.setText(recordColumn.getTutortitle());
         viewholder.expter_time_textView.setText(recordColumn.getUpdatetime() + "更新");

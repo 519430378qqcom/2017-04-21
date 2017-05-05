@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.umeng.analytics.MobclickAgent;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.beans.UmiwiListBeans;
@@ -26,7 +27,6 @@ import com.umiwi.ui.managers.StatisticsManager;
 
 import java.util.ArrayList;
 
-import cn.youmi.framework.util.ImageLoader;
 import cn.youmi.framework.util.ToastU;
 
 public class LunboAdapter extends PagerAdapter {
@@ -66,10 +66,10 @@ public class LunboAdapter extends PagerAdapter {
 
         final UmiwiListBeans listBeans = (UmiwiListBeans) getItem(position % data.size());
 
-        ImageLoader mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
-		mImageLoader.loadImage(listBeans.getImage(), imageView);//, R.drawable.image_loader_big
+//        ImageLoader mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
+//		mImageLoader.loadImage(listBeans.getImage(), imageView);//, R.drawable.image_loader_big
 //		Log.e("TAG", "listBeans.getImage()=" + listBeans.getImage());
-
+		Glide.with(UmiwiApplication.getApplication()).load(listBeans.getImage()).into(imageView);
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
     	imageView.setLayoutParams(para);

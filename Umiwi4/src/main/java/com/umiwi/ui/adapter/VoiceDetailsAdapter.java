@@ -239,8 +239,9 @@ public class VoiceDetailsAdapter extends BaseAdapter {
 //        }
                 authorTitle.setText(experDetailsVoiceBean.getTutortitle());
         CircleImageView autorAvatarImageView = (CircleImageView) view.findViewById(R.id.author_avatar_image_view);
-        ImageLoader mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
-        mImageLoader.loadImage(experDetailsVoiceBean.getTutorimage(), autorAvatarImageView);
+//        ImageLoader mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
+//        mImageLoader.loadImage(experDetailsVoiceBean.getTutorimage(), autorAvatarImageView);
+        Glide.with(context).load(experDetailsVoiceBean.getTutorimage()).into(autorAvatarImageView);
         RelativeLayout lectureContainer = (RelativeLayout) view.findViewById(R.id.lecture_container);
 
 //        lectureContainer.setOnClickListener(new View.OnClickListener() {
@@ -340,14 +341,16 @@ public class VoiceDetailsAdapter extends BaseAdapter {
                 course_description1.setText(content.get(0).getWord());
                 iv_voice_detail1.setVisibility(View.VISIBLE);
                 ImageLoader mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
-                mImageLoader.loadImage(content.get(1).getImage(), iv_voice_detail1);
+//                mImageLoader.loadImage(content.get(1).getImage(), iv_voice_detail1);
+                Glide.with(context).load(content.get(1).getImage()).into(iv_voice_detail1);
             }
             if(content.size() == 3) {
                 course_description1.setVisibility(View.VISIBLE);
                 course_description1.setText(content.get(0).getWord());
                 iv_voice_detail1.setVisibility(View.VISIBLE);
-                ImageLoader mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
-                mImageLoader.loadImage(content.get(1).getImage(), iv_voice_detail1);
+//                ImageLoader mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
+//                mImageLoader.loadImage(content.get(1).getImage(), iv_voice_detail1);
+                Glide.with(context).load(content.get(1).getImage()).into(iv_voice_detail1);
                 course_description2.setVisibility(View.VISIBLE);
                 course_description2.setText(content.get(2).getWord());
             }
@@ -355,12 +358,14 @@ public class VoiceDetailsAdapter extends BaseAdapter {
                 course_description1.setVisibility(View.VISIBLE);
                 course_description1.setText(content.get(0).getWord());
                 iv_voice_detail1.setVisibility(View.VISIBLE);
-                ImageLoader mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
-                mImageLoader.loadImage(content.get(1).getImage(), iv_voice_detail1);
+//                ImageLoader mImageLoader = new ImageLoader(UmiwiApplication.getApplication());
+//                mImageLoader.loadImage(content.get(1).getImage(), iv_voice_detail1);
+                Glide.with(context).load(content.get(1).getImage()).into(iv_voice_detail1);
                 course_description2.setVisibility(View.VISIBLE);
                 course_description2.setText(content.get(2).getWord());
                 iv_voice_detail2.setVisibility(View.VISIBLE);
-                mImageLoader.loadImage(content.get(3).getImage(), iv_voice_detail2);
+//                mImageLoader.loadImage(content.get(3).getImage(), iv_voice_detail2);
+                Glide.with(context).load(content.get(3).getImage()).into(iv_voice_detail2);
             }
 
         }

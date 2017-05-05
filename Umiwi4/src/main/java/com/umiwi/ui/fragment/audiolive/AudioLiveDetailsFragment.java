@@ -215,9 +215,7 @@ public class AudioLiveDetailsFragment extends BaseConstantFragment {
                     intent.putExtra(LiveChatRoomActivity.ROOM_ID, detailsRecord.getRoomid());
                     getActivity().startActivity(intent);
                 }
-
         }
-
         @Override
         public void onError(AbstractRequest<AudioLiveDetailsBean> requet, int statusCode, String body) {
             Toast.makeText(getActivity(),"ERROR",Toast.LENGTH_LONG).show();
