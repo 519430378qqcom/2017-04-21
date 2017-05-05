@@ -2,20 +2,32 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingRight="20dp"
-    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingLeft="20dp"
     android:paddingBottom="15dp">
+    <TextView
+        android:id="@+id/tv_send_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black_66"
+        android:visibility="gone"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_centerHorizontal="true"
+        android:textSize="13sp"
+        android:text="00:00"/>
     <RelativeLayout
         android:id="@+id/rl_container"
         android:layout_alignParentRight="true"
-        android:layout_width="wrap_content"
+        android:layout_below="@+id/tv_send_time"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <com.umiwi.ui.view.CircleImageView
             android:id="@+id/civ_head"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_alignParentRight="true"
-            android:src="@drawable/ic_launcher"/>
+            android:src="@drawable/fragment_mine_login_no"/>
         <TextView
             android:id="@+id/tv_id"
             android:layout_width="wrap_content"
@@ -27,7 +39,7 @@
             android:textSize="13sp"
             android:text="@string/visitor"/>
         <RelativeLayout
-            android:id="@+id/rl_background"
+            android:id="@+id/rl_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -40,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/black_a8"
                 android:textSize="14sp"
-                android:text="@string/a_umiwi_login"/>
+                android:text="@string/visitor"/>
         </RelativeLayout>
     </RelativeLayout>
 </RelativeLayout>

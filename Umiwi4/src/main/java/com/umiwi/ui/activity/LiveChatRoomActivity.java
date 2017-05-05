@@ -21,6 +21,7 @@ import com.netease.nimlib.sdk.chatroom.ChatRoomService;
 import com.netease.nimlib.sdk.chatroom.ChatRoomServiceObserver;
 import com.netease.nimlib.sdk.chatroom.model.ChatRoomMessage;
 import com.netease.nimlib.sdk.chatroom.model.EnterChatRoomData;
+import com.netease.nimlib.sdk.msg.MsgServiceObserve;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
 import com.umiwi.ui.R;
@@ -32,7 +33,6 @@ import com.umiwi.ui.managers.Container;
 import com.umiwi.ui.managers.ModuleProxy;
 import com.umiwi.ui.managers.MsgListManager;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -108,6 +108,7 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
                             Toast.makeText(LiveChatRoomActivity.this,"登录成功", Toast.LENGTH_SHORT).show();
                             accessChatRoom(roomId);
                             registerObservers(true);
+                            registerMultimediaObserver(true);
                         }
 
                         @Override
@@ -198,14 +199,31 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
             if (messages == null || messages.isEmpty()) {
                 return;
             }
-            msgListManager.onImcomingMessage(messages);
+            for (ChatRoomMessage chatRoomMessage:messages){
+                msgListManager.onImcomingMessage(chatRoomMessage);
+            }
+        }
+    };
+    Observer<IMMessage> statusObserver = new Observer<IMMessage>() {
+        @Override
+        public void onEvent(IMMessage msg) {
+            msgListManager.onImcomingMessage(msg);
         }
     };
 
+    /**
+     * 注册多媒体接收器
+     * @param register
+     */
+    private void registerMultimediaObserver(Boolean register){
+        // 监听消息状态变化
+        NIMClient.getService(MsgServiceObserve.class).observeMsgStatus(statusObserver, register);
+    }
     @Override
     protected void onDestroy() {
         ButterKnife.reset(this);
         registerObservers(false);
+        registerMultimediaObserver(false);
         super.onDestroy();
     }
 
@@ -221,17 +239,16 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
                 String content = etInput.getText().toString().trim();
                 // 创建文本消息
                 final ChatRoomMessage message = ChatRoomMessageBuilder.createChatRoomTextMessage(roomId,content);
-                //添加扩展字段userName
                 HashMap<String, Object> map = new HashMap<>();
-                map.put(MsgListManager.USER_NAME, UserManager.getInstance().getUser().getUsername());
+                map.put(MsgListManager.IS_AUTHOR,false);
+                map.put(MsgListManager.HEAD_PHOTO_URL, UserManager.getInstance().getUser().getAvatar());
+                message.setFromAccount(UserManager.getInstance().getUser().getUsername());
                 message.setRemoteExtension(map);
                 NIMClient.getService(ChatRoomService.class).sendMessage(message,true).setCallback(new RequestCallback<Void>() {
                     @Override
                     public void onSuccess(Void param) {
                         //添加自己发送的消息到集合
-                        ArrayList<ChatRoomMessage> chatRoomMessages = new ArrayList<>();
-                        chatRoomMessages.add(message);
-                        msgListManager.onImcomingMessage(chatRoomMessages);
+                        msgListManager.onImcomingMessage(message);
                     }
 
                     @Override

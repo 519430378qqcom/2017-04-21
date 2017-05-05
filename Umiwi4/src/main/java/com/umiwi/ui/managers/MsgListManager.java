@@ -4,12 +4,11 @@ import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.netease.nimlib.sdk.chatroom.model.ChatRoomMessage;
 import com.netease.nimlib.sdk.msg.constant.MsgTypeEnum;
+import com.netease.nimlib.sdk.msg.model.IMMessage;
 import com.umiwi.ui.adapter.MessageListAdapter;
 
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Created by Administrator on 2017/5/2.
@@ -18,9 +17,17 @@ import java.util.List;
 
 public class MsgListManager {
     /**
+     * 是否主播
+     */
+    public static final String IS_AUTHOR = "headPhoto";
+    /**
      * 消息扩展字段，中的昵称字段
      */
-    public static final String USER_NAME = "name";
+    public static final String USER_NAME = "username";
+    /**
+     * 消息扩展字段，头像的图片链接
+     */
+    public static final String HEAD_PHOTO_URL = "avatar";
     /**
      * 消息集合最大容量
      */
@@ -31,7 +38,7 @@ public class MsgListManager {
     /**
      * 聊天室消息集合
      */
-    public LinkedList<ChatRoomMessage> chatRoomMessages;
+    public LinkedList<IMMessage> chatRoomMessages;
     private MessageListAdapter messageListAdapter;
     public MsgListManager(Container container, RecyclerView msgView) {
         this.container = container;
@@ -53,10 +60,9 @@ public class MsgListManager {
     /**
      *当收到消息之后
      */
-    public void onImcomingMessage(List<ChatRoomMessage> messages) {
-        boolean needScrollToBottom = isLastMessageVisible();
+    public void onImcomingMessage(IMMessage message) {
+        boolean isLastMessageVisible = isLastMessageVisible();
         boolean needRefresh = false;
-        for (ChatRoomMessage message : messages) {
             // 保证显示到界面上的消息，来自同一个聊天室
             if (isMyMessage(message)) {
                 //只接收3种消息类型
@@ -66,15 +72,13 @@ public class MsgListManager {
                 saveMessage(message);
                 needRefresh = true;
             }
-        }
         if(needRefresh) {
             messageListAdapter.notifyDataSetChanged();
         }
-        if(needScrollToBottom) {
+        if(isLastMessageVisible) {
             msgView.scrollToPosition(messageListAdapter.getBottomDataPosition());
         }
     }
-
     /**
      * 判断底部数据是否可见
      * @return
@@ -88,7 +92,7 @@ public class MsgListManager {
      * 保存消息到消息集合，并保证不超过消息数量的最大值
      * @param message
      */
-    public void saveMessage(final ChatRoomMessage message) {
+    public void saveMessage(final IMMessage message) {
         if (message == null) {
             return;
         }
@@ -104,9 +108,10 @@ public class MsgListManager {
      * @param message
      * @return
      */
-    public boolean isMyMessage(ChatRoomMessage message) {
+    public boolean isMyMessage(IMMessage message) {
         return message.getSessionType() == container.sessionType
                 && message.getSessionId() != null
                 && message.getSessionId().equals(container.account);
     }
+
 }

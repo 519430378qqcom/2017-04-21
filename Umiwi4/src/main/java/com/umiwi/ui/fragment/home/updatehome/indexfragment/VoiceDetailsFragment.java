@@ -1090,7 +1090,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
         }
     }
 
-    private ServiceConnection conn = null;
+    public static ServiceConnection conn = null;
 
     /**
      * 绑定服务
@@ -1116,7 +1116,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
 //        intent.putExtra("url", url);
     }
 
-    public void bind(final String source) {
+    public static void bind(final String source) {
         //保存当前音频链接地址
         UmiwiApplication.mainActivity.musicUrl = source;
         Intent intent = new Intent(UmiwiApplication.mainActivity, VoiceService.class);
@@ -1170,7 +1170,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
 
         }
         intent.putExtra("source", source);
-        UmiwiApplication.mainActivity.bindService(intent, conn, getActivity().BIND_AUTO_CREATE);
+        UmiwiApplication.mainActivity.bindService(intent, conn, UmiwiApplication.mainActivity.BIND_AUTO_CREATE);
     }
 
     @Override

@@ -94,8 +94,6 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
     private int height1;
     private String url;
     private String aid;
-
-    private VoiceDetailsFragment voiceDetailsFragment;
     private String source;
     private String detailurl;
     private int screenHeight;
@@ -113,8 +111,6 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
         View view = inflater.inflate(R.layout.fragment_column_read, null);
 //        ButterKnife.inject(this,view);
         id = getActivity().getIntent().getStringExtra(DETAIL_ID);
-        voiceDetailsFragment = new VoiceDetailsFragment();
-
         screenHeight = getScreenHeight(getActivity());
         Log.e("TAG", "screenHeight=" + screenHeight);
 
@@ -461,7 +457,7 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
                         e.printStackTrace();
                     }
                 } else {
-                    voiceDetailsFragment.bind(url);
+                    VoiceDetailsFragment.bind(url);
                     UmiwiApplication.mainActivity.musicUrl = url;
 //                    Log.e("TAG", "source1=" + source);
 //                    Log.e("TAG", "UmiwiApplication.mainActivity.musicUrl1=" + UmiwiApplication.mainActivity.musicUrl);
