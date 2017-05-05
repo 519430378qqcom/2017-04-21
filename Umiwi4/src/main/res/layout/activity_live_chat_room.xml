@@ -81,6 +81,8 @@
             android:hint="@string/send_your_message"
             android:drawableLeft="@drawable/edit"
             android:paddingLeft="25dp"
+            android:textColorHint="#ffbbbbbb"
+            android:textCursorDrawable="@drawable/cursor"
             />
         <Button
             android:id="@+id/btn_comfirm"

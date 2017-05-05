@@ -239,6 +239,7 @@ public class RecommendFragment extends BaseConstantFragment {
         public void onResult(AbstractRequest<RecommendBean> request, RecommendBean t) {
 //            Log.e("TAG", "t为" + t);
 //            Log.e("TAG", "t=" + t.getR().getSec_free_title().toString());
+
             if (null != t) {
                 flv_new_free.setData(t.getR().getFree(), t.getR().getSec_free_title(), t.getR().getSec_free_huan(),t.getR().getSec_free_huanurl());
                 hot_video_layout.setData(t.getR().getHotvideo());
@@ -348,7 +349,6 @@ public class RecommendFragment extends BaseConstantFragment {
                         image.setImageResource(R.drawable.point_normal);
                     }
                 }
-
 
             }
 
