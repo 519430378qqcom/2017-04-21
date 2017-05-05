@@ -40,12 +40,10 @@ public class NewVideoFragment extends BaseConstantFragment {
     private ListView listview;
     private RefreshLayout refreshLayout;
     private int page = 1;
-    private boolean isla = false;
-    private boolean isLoad = false;;
-    private ArrayList<AlreadyVideoBean.RalreadyVideo.RecordInfo> buyVideoInfos = new ArrayList<>();
     private int totalpage;
-    private BuyVideoAdapter buyVideoAdapter;
     private boolean isRefresh = true;
+    private ArrayList<AlreadyVideoBean.RalreadyVideo.RecordInfo> buyVideoInfos = new ArrayList<>();
+    private BuyVideoAdapter buyVideoAdapter;
 
     @Nullable
     @Override

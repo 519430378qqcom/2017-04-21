@@ -41,7 +41,6 @@
                 android:text="音频"
                 android:textColor="@color/main_color"
                 android:textSize="13sp" />
-
             <TextView
                 android:id="@+id/ab_tab_video"
                 android:layout_width="0dp"
@@ -49,6 +48,15 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="视频"
+                android:textColor="@color/black"
+                android:textSize="13sp" />
+            <TextView
+                android:id="@+id/ab_tab_audiolive"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="直播"
                 android:textColor="@color/black"
                 android:textSize="13sp" />
             <TextView

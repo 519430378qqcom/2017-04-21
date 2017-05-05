@@ -466,7 +466,7 @@ public final class UmiwiAPI {
 
 
     // =================================已购相关=================================================//
-
+    public static final String UMIWI_BUYAUDIOLIVE="http://i.v.youmi.cn/Telecast/gethotlive?p=%s";
 
     // =================================新优米首页相关=================================================//
     public static final String CELEBRTYY_LIST = "http://i.v.youmi.cn/apireader/tutorList";
@@ -509,7 +509,7 @@ public final class UmiwiAPI {
     public static final String Ask_Hear = "http://i.v.youmi.cn/api8/buyquestion";
     //已购-视频
     public static final String ALREADY_VIDEO = "http://i.v.youmi.cn/api8/buyvideolist";
-
+    //已购音频
     public static final String ALREADY_VOICE = "http://i.v.youmi.cn/audioalbum/buylist";
 
     public static final String Hear_url = "http://i.v.youmi.cn/api8/questionlisten";
