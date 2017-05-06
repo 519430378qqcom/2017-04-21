@@ -549,13 +549,14 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
     private void sendAudioMsg() {
         if(myAudiofile !=null) {
             // 创建音频消息
-            ChatRoomMessage message = ChatRoomMessageBuilder.createChatRoomAudioMessage(roomId,myAudiofile,myAudioLength);
+            final ChatRoomMessage message = ChatRoomMessageBuilder.createChatRoomAudioMessage(roomId,myAudiofile,myAudioLength);
             putCommonInfo(message);
             // 发送消息。如果需要关心发送结果，可设置回调函数。发送完成时，会收到回调。如果失败，会有具体的错误码。
             NIMClient.getService(ChatRoomService.class).sendMessage(message,true).setCallback(new RequestCallback<Void>() {
                 @Override
                 public void onSuccess(Void param) {
                     Toast.makeText(AuthorChatRoomActivity.this, "录音发送成功", Toast.LENGTH_SHORT).show();
+                    msgListManager.onImcomingMessage(message);
                 }
 
                 @Override

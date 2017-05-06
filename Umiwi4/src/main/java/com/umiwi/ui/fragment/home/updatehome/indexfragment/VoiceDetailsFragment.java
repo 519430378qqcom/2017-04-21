@@ -159,8 +159,8 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                                 int currentPosition = UmiwiApplication.mainActivity.service.getCurrentPosition();
                                 changeTimes.setText(utils.stringForTime(currentPosition));
                                 totalTime.setText(utils.stringForTime(UmiwiApplication.mainActivity.service.getDuration()));
-//                        Log.e("TAG", "service.getDuration()=" + service.getDuration());
-//                        Log.e("TAG", "service.getCurrentPosition()=" + service.getCurrentPosition());
+//                        Log.e("TAG", "service.getDuration()=" + UmiwiApplication.mainActivity.service.getDuration());
+//                        Log.e("TAG", "service.getCurrentPosition()=" + UmiwiApplication.mainActivity.service.getCurrentPosition());
                                 sb_seekbar.setProgress(currentPosition);
                             } catch (RemoteException e) {
                                 e.printStackTrace();

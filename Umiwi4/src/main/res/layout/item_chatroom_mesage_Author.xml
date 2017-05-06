@@ -72,9 +72,29 @@
                 android:layout_height="36dp"
                 android:background="@drawable/maincolor_rectangle">
                 <ImageView
+                    android:id="@+id/iv_audio_controll"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:src="@android:drawable/ic_media_pause"/>
+                <SeekBar
+                    android:id="@+id/sb_audio_progress"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/iv_audio_controll"
+                    android:layout_marginRight="10dp"
+                    android:layout_toLeftOf="@+id/tv_audio_time"/>
+                <TextView
+                    android:id="@+id/tv_audio_time"
+                    android:layout_width="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:textColor="@color/black_a8"
+                    android:text="00:00"/>
             </RelativeLayout>
         </RelativeLayout>
     </RelativeLayout>

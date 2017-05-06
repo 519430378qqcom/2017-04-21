@@ -19,7 +19,7 @@ public class MsgListManager {
     /**
      * 是否主播
      */
-    public static final String IS_AUTHOR = "headPhoto";
+    public static final String IS_AUTHOR = "isauthor";
     /**
      * 消息扩展字段，中的昵称字段
      */
@@ -28,6 +28,10 @@ public class MsgListManager {
      * 消息扩展字段，头像的图片链接
      */
     public static final String HEAD_PHOTO_URL = "avatar";
+    /**
+     * 消息的本地扩展字段，记录每个音频文件的播放进度
+     */
+    public static final String AUDIO_PLAYED_DURATION = "avatar";
     /**
      * 消息集合最大容量
      */
