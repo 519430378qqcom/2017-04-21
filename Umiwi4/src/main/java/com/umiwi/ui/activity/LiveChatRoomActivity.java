@@ -254,6 +254,9 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
         ButterKnife.reset(this);
         registerObservers(false);
         registerMultimediaObserver(false);
+        if(msgListManager.messageListAdapter.handler !=null) {
+            msgListManager.messageListAdapter.handler.removeCallbacksAndMessages(null);
+        }
         super.onDestroy();
         Log.e("TAG", "onDestroy()");
     }
@@ -278,7 +281,6 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
                 HashMap<String, Object> map = new HashMap<>();
                 map.put(MsgListManager.IS_AUTHOR, false);
                 map.put(MsgListManager.HEAD_PHOTO_URL, UserManager.getInstance().getUser().getAvatar());
-                message.setFromAccount(UserManager.getInstance().getUser().getUsername());
                 message.setRemoteExtension(map);
                 NIMClient.getService(ChatRoomService.class).sendMessage(message, true).setCallback(new RequestCallback<Void>() {
                     @Override

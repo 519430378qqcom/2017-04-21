@@ -21,17 +21,13 @@ public class MsgListManager {
      */
     public static final String IS_AUTHOR = "isauthor";
     /**
-     * 消息扩展字段，中的昵称字段
-     */
-    public static final String USER_NAME = "username";
-    /**
      * 消息扩展字段，头像的图片链接
      */
     public static final String HEAD_PHOTO_URL = "avatar";
     /**
      * 消息的本地扩展字段，记录每个音频文件的播放进度
      */
-    public static final String AUDIO_PLAYED_DURATION = "avatar";
+    public static final String AUDIO_PLAYED_DURATION = "currenPosition";
     /**
      * 消息集合最大容量
      */
@@ -43,7 +39,7 @@ public class MsgListManager {
      * 聊天室消息集合
      */
     public LinkedList<IMMessage> chatRoomMessages;
-    private MessageListAdapter messageListAdapter;
+    public MessageListAdapter messageListAdapter;
     public MsgListManager(Container container, RecyclerView msgView) {
         this.container = container;
         this.msgView = msgView;
@@ -77,7 +73,7 @@ public class MsgListManager {
                 needRefresh = true;
             }
         if(needRefresh) {
-            messageListAdapter.notifyDataSetChanged();
+            messageListAdapter.notifyItemChanged(chatRoomMessages.size());
         }
         if(isLastMessageVisible) {
             msgView.scrollToPosition(messageListAdapter.getBottomDataPosition());
@@ -100,11 +96,18 @@ public class MsgListManager {
         if (message == null) {
             return;
         }
-
+        //屏蔽没有扩展字段的消息
+        if (message.getRemoteExtension().size()<3) {
+            return;
+        }
         if (chatRoomMessages.size() >= MESSAGE_CAPACITY) {
             chatRoomMessages.poll();
         }
-
+//        if(message.getMsgType()==MsgTypeEnum.audio) {
+//            HashMap<String, Object> map = new HashMap<>();
+//            map.put(MsgListManager.AUDIO_PLAYED_DURATION,0);
+//            message.setLocalExtension(map);
+//        }
         chatRoomMessages.add(message);
     }
     /**

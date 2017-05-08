@@ -3,6 +3,7 @@ package com.umiwi.ui.activity;
 import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
@@ -237,6 +238,7 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
                             break;
                         case "3":
                             tvStatus.setText("已结束"+partNum);
+                            getChatRecord(3);
                             break;
                     }
                 }
@@ -248,6 +250,12 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
             }
         });
         request.go();
+    }
+
+    /**
+     * 获取聊天记录
+     */
+    private void getChatRecord(int status) {
     }
 
     /**
@@ -310,6 +318,9 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
         registerMultimediaObserver(false);
         if(handler != null) {
             handler.removeCallbacksAndMessages(null);
+        }
+        if(msgListManager.messageListAdapter.handler !=null) {
+            msgListManager.messageListAdapter.handler.removeCallbacksAndMessages(null);
         }
         super.onDestroy();
     }
@@ -395,8 +406,17 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
                 startActivityForResult(intent,PICTURE_REQUEST);
                 break;
             case R.id.btn_cancle://取消录制
-                recorder.completeRecord(true);
-                initRecordStatus();
+                new AlertDialog.Builder(this)
+                            .setTitle("取消当前语音录制")
+                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    recorder.completeRecord(true);
+                                    initRecordStatus();
+                                }
+                            })
+                            .setNegativeButton("取消", null)
+                            .show();
                 break;
             case R.id.iv_record://开始||停止录音
                 record();
@@ -556,7 +576,6 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
         HashMap<String, Object> map = new HashMap<>();
         map.put(MsgListManager.IS_AUTHOR,true);
         map.put(MsgListManager.HEAD_PHOTO_URL, UserManager.getInstance().getUser().getAvatar());
-        message.setFromAccount(UserManager.getInstance().getUser().getUsername());
         message.setRemoteExtension(map);
     }
     /**
@@ -619,6 +638,9 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
      * 发送文本消息
      */
     private void sendTextMsg(String content) {
+        if(content==null||content!=null&&content.trim().equals("")) {
+            Toast.makeText(AuthorChatRoomActivity.this, "文字输入不能为空", Toast.LENGTH_SHORT).show();
+        }
         // 创建文本消息
         final ChatRoomMessage message = ChatRoomMessageBuilder.createChatRoomTextMessage(roomId, content);
         putCommonInfo(message);
