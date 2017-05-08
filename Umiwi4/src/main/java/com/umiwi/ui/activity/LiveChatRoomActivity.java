@@ -2,6 +2,7 @@ package com.umiwi.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -38,6 +39,7 @@ import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.managers.Container;
 import com.umiwi.ui.managers.ModuleProxy;
 import com.umiwi.ui.managers.MsgListManager;
+import com.umiwi.ui.view.RefreshLayout;
 
 import java.util.HashMap;
 import java.util.List;
@@ -67,6 +69,8 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
     EditText etInput;
     @InjectView(R.id.btn_comfirm)
     Button btnComfirm;
+    @InjectView(R.id.refreshLayout)
+    RefreshLayout refreshLayout;
     public static final String ROOM_ID = "roomId";
     /**
      * 聊天室ID
@@ -82,6 +86,10 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
     private ChatRoomDetailsBean chatRoomDetailsBean;
     private PopupWindow popupWindow;
     private String id;
+    /**
+     * 拉取聊天记录的时间撮
+     */
+    private long chatRecordLastTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,15 +100,51 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
         loginNIM();
         initData();
         initMessageList();
-        setListener();
+        initRefreshLayout();
     }
 
+    private void initRefreshLayout() {
+        refreshLayout.setColorSchemeColors(getResources().getColor(R.color.main_color));
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getChatRecord();
+            }
+        });
+    }
     /**
-     * 监听设置
+     * 获取聊天记录
      */
-    private void setListener() {
-    }
+    private void getChatRecord() {
+        if("已结束".equals(tvStatus.getText().toString())) {
 
+        }else {
+            NIMClient.getService(ChatRoomService.class).pullMessageHistory(roomId, chatRecordLastTime, 30).setCallback(new RequestCallback<List<ChatRoomMessage>>() {
+                @Override
+                public void onSuccess(List<ChatRoomMessage> param) {
+                    if(param!=null&&param.size()>0) {
+                        chatRecordLastTime = param.get(param.size() - 1).getTime();
+                        for (IMMessage imMessage:param){
+                            msgListManager.addHeadMessage(imMessage);
+                        }
+                        refreshLayout.setRefreshing(false);
+                    }else {
+                        Toast.makeText(LiveChatRoomActivity.this, "没用更多消息了", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailed(int code) {
+
+                }
+
+                @Override
+                public void onException(Throwable exception) {
+
+                }
+            });
+        }
+    }
     /**
      * 登录网易云信服务端
      */
@@ -281,6 +325,7 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
                 HashMap<String, Object> map = new HashMap<>();
                 map.put(MsgListManager.IS_AUTHOR, false);
                 map.put(MsgListManager.HEAD_PHOTO_URL, UserManager.getInstance().getUser().getAvatar());
+                map.put(MsgListManager.USER_NAME,UserManager.getInstance().getUser().getUsername());
                 message.setRemoteExtension(map);
                 NIMClient.getService(ChatRoomService.class).sendMessage(message, true).setCallback(new RequestCallback<Void>() {
                     @Override

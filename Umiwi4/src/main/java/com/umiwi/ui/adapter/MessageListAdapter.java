@@ -109,7 +109,7 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             watcherViewHolder = (WatcherViewHolder) holder;
             if (map.size() > 1) {
                 setformatTime(watcherViewHolder.tv_send_time, position);
-                String userName = chatRoomMessage.getFromNick();
+                String userName = (String) chatRoomMessage.getRemoteExtension().get(MsgListManager.USER_NAME);
                 watcherViewHolder.tvId.setText(userName);
                 String url = (String) map.get(MsgListManager.HEAD_PHOTO_URL);
                 Glide.with(context).load(url).placeholder(R.drawable.fragment_mine_login_no).into(watcherViewHolder.civHead);
@@ -122,7 +122,7 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             authorViewHolder = (AuthorViewHolder) holder;
             if (map.size() > 1) {
                 setformatTime(authorViewHolder.tv_send_time, position);
-                String userName = chatRoomMessage.getFromNick();
+                String userName = (String) chatRoomMessage.getRemoteExtension().get(MsgListManager.USER_NAME);
                 authorViewHolder.tvId.setText(userName);
                 String url = (String) map.get(MsgListManager.HEAD_PHOTO_URL);
                 Glide.with(context).load(url).placeholder(R.drawable.fragment_mine_login_no).into(authorViewHolder.civHead);

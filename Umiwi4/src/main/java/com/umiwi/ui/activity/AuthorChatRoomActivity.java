@@ -13,9 +13,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.RemoteException;
 import android.provider.MediaStore;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -57,6 +57,7 @@ import com.umiwi.ui.managers.Container;
 import com.umiwi.ui.managers.ModuleProxy;
 import com.umiwi.ui.managers.MsgListManager;
 import com.umiwi.ui.util.DateUtils;
+import com.umiwi.ui.view.RefreshLayout;
 
 import java.io.File;
 import java.util.HashMap;
@@ -122,6 +123,8 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
     RelativeLayout rlInputText;
     @InjectView(R.id.rl_input)
     RelativeLayout rlInput;
+    @InjectView(R.id.refreshLayout)
+    RefreshLayout refreshLayout;
     /**
      * 聊天室ID
      */
@@ -153,7 +156,11 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
     private PopupWindow popupWindow;
     private String id;
     private boolean isAthor = true;
-
+    /**
+     * 拉取聊天记录的时间撮
+     */
+    private long chatRecordLastTime = 0;
+    private int page;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -162,13 +169,17 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
         loginNIM();
         initData();
         initMessageList();
-        setListener();
+        initRefreshLayout();
     }
 
-    /**
-     * 监听设置
-     */
-    private void setListener() {
+    private void initRefreshLayout() {
+        refreshLayout.setColorSchemeColors(getResources().getColor(R.color.main_color));
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getChatRecord();
+            }
+        });
     }
 
     /**
@@ -181,7 +192,6 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
             public void onResult(AbstractRequest<NIMAccountBean> request, NIMAccountBean nimAccountBean) {
                 if (nimAccountBean != null) {
                     final LoginInfo loginInfo = new LoginInfo(nimAccountBean.getR().getAccid(), nimAccountBean.getR().getToken());
-                    Log.e("TAG", loginInfo.getAccount() + "----" + loginInfo.getToken());
                     //请求网易云信登录
                     RequestCallback<LoginInfo> callback = new RequestCallback<LoginInfo>() {
                         @Override
@@ -194,13 +204,11 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
 
                         @Override
                         public void onFailed(int code) {
-                            Log.e("TAG", code + "");
                             Toast.makeText(AuthorChatRoomActivity.this, "登录失败", Toast.LENGTH_SHORT).show();
                         }
 
                         @Override
                         public void onException(Throwable exception) {
-                            Log.e("TAG", exception.toString());
                             Toast.makeText(AuthorChatRoomActivity.this, exception.toString(), Toast.LENGTH_SHORT).show();
                         }
                     };
@@ -218,7 +226,6 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
 
     private void initData() {
         id = getIntent().getStringExtra(LiveDetailsFragment.DETAILS_ID);
-        Log.e("TAG", "id=" + id);
         roomId = getIntent().getStringExtra(ROOM_ID);
         GetRequest<ChatRoomDetailsBean> request = new GetRequest<>(
                 UmiwiAPI.CHAT_DETAILS + id, GsonParser.class, ChatRoomDetailsBean.class, new AbstractRequest.Listener<ChatRoomDetailsBean>() {
@@ -233,15 +240,15 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
                     switch (status){
                         case "1":
                             tvStatus.setText("未开始"+partNum);
-                            getChatRecord(1);
+                            getChatRecord();
                             break;
                         case "2":
                             tvStatus.setText("直播中"+partNum);
-                            getChatRecord(2);
+                            getChatRecord();
                             break;
                         case "3":
                             tvStatus.setText("已结束"+partNum);
-                            getChatRecord(3);
+                            getChatRecord();
                             break;
                     }
                 }
@@ -258,17 +265,34 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
     /**
      * 获取聊天记录
      */
-    private void getChatRecord(int status) {
-        if(status == 3) {
+    private void getChatRecord() {
+        if("已结束".equals(tvStatus.getText().toString())) {
+            String url = String.format(UmiwiAPI.CHAT_RECORD,id,page);
+            GetRequest<ChatRoomDetailsBean> request = new GetRequest<>(
+                    url, GsonParser.class, ChatRoomDetailsBean.class, new AbstractRequest.Listener<ChatRoomDetailsBean>() {
+                @Override
+                public void onResult(AbstractRequest<ChatRoomDetailsBean> request, ChatRoomDetailsBean chatRoomDetailsBean) {
 
+                }
+
+                @Override
+                public void onError(AbstractRequest<ChatRoomDetailsBean> requet, int statusCode, String body) {
+
+                }
+            });
         }else {
-            NIMClient.getService(ChatRoomService.class).pullMessageHistory(roomId, 0, 100).setCallback(new RequestCallback<List<ChatRoomMessage>>() {
+            NIMClient.getService(ChatRoomService.class).pullMessageHistory(roomId, chatRecordLastTime, 30).setCallback(new RequestCallback<List<ChatRoomMessage>>() {
                 @Override
                 public void onSuccess(List<ChatRoomMessage> param) {
-                    if(param!=null) {
-                        for (int i=param.size()-1;i>0;i--){
-                            msgListManager.onImcomingMessage(param.get(i));
+                    if(param!=null&&param.size()>0) {
+                        chatRecordLastTime = param.get(param.size() - 1).getTime();
+                        for (IMMessage imMessage:param){
+                            msgListManager.addHeadMessage(imMessage);
                         }
+                        refreshLayout.setRefreshing(false);
+                    }else {
+                        Toast.makeText(AuthorChatRoomActivity.this, "没用更多消息了", Toast.LENGTH_SHORT).show();
+                        refreshLayout.setRefreshing(false);
                     }
                 }
 
@@ -603,6 +627,7 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
         HashMap<String, Object> map = new HashMap<>();
         map.put(MsgListManager.IS_AUTHOR,true);
         map.put(MsgListManager.HEAD_PHOTO_URL, UserManager.getInstance().getUser().getAvatar());
+        map.put(MsgListManager.USER_NAME,UserManager.getInstance().getUser().getUsername());
         message.setRemoteExtension(map);
     }
     /**

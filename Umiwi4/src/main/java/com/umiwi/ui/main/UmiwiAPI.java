@@ -36,7 +36,7 @@ public final class UmiwiAPI {
     /**
      * 结束直播的聊天消息
      */
-    public static final String CHAT_RECORD = "http://i.v.youmi.cn/Telecast/closeliveDetailapi?id=";
+    public static final String CHAT_RECORD = "http://i.v.youmi.cn/Telecast/closeliveDetailapi?id=%s&p=%s";
     /**
      * 获取网易云信账户信息
      */

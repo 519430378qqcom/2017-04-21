@@ -50,14 +50,19 @@
             android:layout_marginTop="4dp"
             android:background="@color/black_33"/>
     </RelativeLayout>
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rcy_mesagelist"
-        android:layout_below="@+id/rl_head"
-        android:layout_above="@+id/rl_bottom"
+    <com.umiwi.ui.view.RefreshLayout
+        android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </android.support.v7.widget.RecyclerView>
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_head"
+        android:layout_above="@+id/fl_bottom">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rcy_mesagelist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+        </android.support.v7.widget.RecyclerView>
+    </com.umiwi.ui.view.RefreshLayout>
     <RelativeLayout
         android:id="@+id/rl_bottom"
         android:layout_width="match_parent"

@@ -25,6 +25,10 @@ public class MsgListManager {
      */
     public static final String HEAD_PHOTO_URL = "avatar";
     /**
+     * 消息扩展字段，头像的图片链接
+     */
+    public static final String USER_NAME = "username";
+    /**
      * 消息的本地扩展字段，记录每个音频文件的播放进度
      */
     public static final String AUDIO_PLAYED_DURATION = "currenPosition";
@@ -77,6 +81,31 @@ public class MsgListManager {
         }
         if(isLastMessageVisible) {
             msgView.scrollToPosition(messageListAdapter.getBottomDataPosition());
+        }
+    }
+    /**
+     *头部加数据
+     */
+    public void addHeadMessage(IMMessage message) {
+        boolean needRefresh = false;
+        // 保证显示到界面上的消息，来自同一个聊天室
+        if (isMyMessage(message)) {
+            //只接收3种消息类型
+            if(message.getMsgType()!=MsgTypeEnum.image&&message.getMsgType()!=MsgTypeEnum.audio&&message.getMsgType()!=MsgTypeEnum.text) {
+                return;
+            }
+            //屏蔽没有扩展字段的消息
+            if (message.getRemoteExtension().size()<2) {
+                return;
+            }
+            if (chatRoomMessages.size() >= MESSAGE_CAPACITY) {
+                chatRoomMessages.poll();
+            }
+            chatRoomMessages.addFirst(message);
+            needRefresh = true;
+        }
+        if(needRefresh) {
+            messageListAdapter.notifyDataSetChanged();
         }
     }
     /**
