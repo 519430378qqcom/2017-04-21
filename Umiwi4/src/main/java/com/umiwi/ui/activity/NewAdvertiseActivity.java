@@ -18,6 +18,7 @@ import com.umiwi.ui.beans.updatebeans.AdvertisementBean;
 import com.umiwi.ui.fragment.AudioSpecialDetailFragment;
 import com.umiwi.ui.fragment.VideoSpecialDetailFragment;
 import com.umiwi.ui.fragment.WebFragment;
+import com.umiwi.ui.fragment.audiolive.AudioLiveDetailsFragment;
 import com.umiwi.ui.fragment.course.CourseDetailPlayFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.ColumnDetailsFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.VoiceDetailsFragment;
@@ -137,6 +138,11 @@ public class NewAdvertiseActivity extends Activity {
                             intent6.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, ColumnDetailsFragment.class);//详情页
                             intent6.putExtra("columnurl", advertisementBeanR.get(0).getUrl());
                             startActivity(intent6);
+                        } else if("telecast".equals(advertisementBeanR.get(0).getType())) {
+                            Intent intent7 = new Intent(NewAdvertiseActivity.this, UmiwiContainerActivity.class);
+                            intent7.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS,AudioLiveDetailsFragment.class);
+                            intent7.putExtra(AudioLiveDetailsFragment.LIVEID,advertisementBeanR.get(0).getAlbumid());
+                            startActivity(intent7);
                         }
                         finish();
                         handler.removeCallbacksAndMessages(null);
