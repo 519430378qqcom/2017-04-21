@@ -13,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.netease.nimlib.sdk.msg.attachment.AudioAttachment;
@@ -193,7 +192,6 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     public void onClick(View v) {
                         if (UmiwiApplication.mainActivity.service != null) {
                             try {
-                                Toast.makeText(context, UmiwiApplication.mainActivity.service.isPlaying()+"--"+isPlayUrl(audioUrl), Toast.LENGTH_SHORT).show();
                                 //正在播放，并且播放的是此item
                                 if (UmiwiApplication.mainActivity.service.isPlaying()&& isPlayUrl(audioUrl)) {
                                     UmiwiApplication.mainActivity.service.pause();

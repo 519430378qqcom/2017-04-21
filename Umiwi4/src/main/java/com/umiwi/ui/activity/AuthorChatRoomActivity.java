@@ -233,9 +233,11 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
                     switch (status){
                         case "1":
                             tvStatus.setText("未开始"+partNum);
+                            getChatRecord(1);
                             break;
                         case "2":
                             tvStatus.setText("直播中"+partNum);
+                            getChatRecord(2);
                             break;
                         case "3":
                             tvStatus.setText("已结束"+partNum);
@@ -257,6 +259,30 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
      * 获取聊天记录
      */
     private void getChatRecord(int status) {
+        if(status == 3) {
+
+        }else {
+            NIMClient.getService(ChatRoomService.class).pullMessageHistory(roomId, 0, 100).setCallback(new RequestCallback<List<ChatRoomMessage>>() {
+                @Override
+                public void onSuccess(List<ChatRoomMessage> param) {
+                    if(param!=null) {
+                        for (int i=param.size()-1;i>0;i--){
+                            msgListManager.onImcomingMessage(param.get(i));
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailed(int code) {
+
+                }
+
+                @Override
+                public void onException(Throwable exception) {
+
+                }
+            });
+        }
     }
 
     /**

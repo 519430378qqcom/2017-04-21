@@ -97,7 +97,7 @@ public class MsgListManager {
             return;
         }
         //屏蔽没有扩展字段的消息
-        if (message.getRemoteExtension().size()<3) {
+        if (message.getRemoteExtension().size()<2) {
             return;
         }
         if (chatRoomMessages.size() >= MESSAGE_CAPACITY) {
