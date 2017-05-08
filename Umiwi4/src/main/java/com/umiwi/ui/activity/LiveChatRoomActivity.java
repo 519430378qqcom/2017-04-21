@@ -254,7 +254,7 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
         ButterKnife.reset(this);
         registerObservers(false);
         registerMultimediaObserver(false);
-        if(msgListManager.messageListAdapter.handler !=null) {
+        if (msgListManager.messageListAdapter.handler != null) {
             msgListManager.messageListAdapter.handler.removeCallbacksAndMessages(null);
         }
         super.onDestroy();
@@ -365,11 +365,15 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
             case R.id.tv_details:
                 popupWindow.dismiss();
                 popupWindow = null;
-                Intent intent = new Intent(this, UmiwiContainerActivity.class);
-                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, AudioLiveDetailsFragment.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                intent.putExtra(LIVEID, id);
-                startActivity(intent);
+                if (AudioLiveDetailsFragment.isPause) {
+                    finish();
+                } else {
+                    Intent intent = new Intent(this, UmiwiContainerActivity.class);
+                    intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, AudioLiveDetailsFragment.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    intent.putExtra(LIVEID, id);
+                    startActivity(intent);
+                }
                 break;
 
         }

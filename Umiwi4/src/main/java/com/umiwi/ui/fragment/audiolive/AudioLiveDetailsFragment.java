@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.umiwi.ui.R;
+import com.umiwi.ui.activity.AuthorChatRoomActivity;
 import com.umiwi.ui.activity.LiveChatRoomActivity;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.updateadapter.AudioLiveDetailsAdapter;
@@ -82,6 +83,8 @@ public class AudioLiveDetailsFragment extends BaseConstantFragment {
     private boolean isAutio;//是否进入过聊天室
 
     public static boolean isPause = false;
+    private boolean isAuthor;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -89,6 +92,7 @@ public class AudioLiveDetailsFragment extends BaseConstantFragment {
         ButterKnife.inject(this, view);
 
         liveId = getActivity().getIntent().getStringExtra(LIVEID);
+        isAuthor = getActivity().getIntent().getBooleanExtra("isAuthor", false);
         Log.e("TAG", "liveId=" + liveId);
         record.setVisibility(View.GONE);
         description.setFocusable(false);
@@ -97,6 +101,20 @@ public class AudioLiveDetailsFragment extends BaseConstantFragment {
         return view;
     }
 
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        isPause = true;
+        Log.e("TAG", "onPause()");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        isPause = false;
+        Log.e("TAG", "onStop()");
+    }
 
     @Override
     public void onResume() {
@@ -242,10 +260,18 @@ public class AudioLiveDetailsFragment extends BaseConstantFragment {
                     showLogin();
                 } else {
                     if (detailsRecord.isbuy()) {
-                        Intent intent = new Intent(getActivity(), LiveChatRoomActivity.class);
-                        intent.putExtra(LiveDetailsFragment.DETAILS_ID, detailsRecord.getId());
-                        intent.putExtra(LiveChatRoomActivity.ROOM_ID, detailsRecord.getRoomid());
-                        getActivity().startActivity(intent);
+                        if (isAuthor) {
+                            Intent intent = new Intent(getActivity(), AuthorChatRoomActivity.class);
+                            intent.putExtra(LiveDetailsFragment.DETAILS_ID, detailsRecord.getId());
+                            intent.putExtra(LiveChatRoomActivity.ROOM_ID, detailsRecord.getRoomid());
+                            getActivity().startActivity(intent);
+                        } else {
+                            Intent intent = new Intent(getActivity(), LiveChatRoomActivity.class);
+                            intent.putExtra(LiveDetailsFragment.DETAILS_ID, detailsRecord.getId());
+                            intent.putExtra(LiveChatRoomActivity.ROOM_ID, detailsRecord.getRoomid());
+                            getActivity().startActivity(intent);
+                        }
+
                     } else {
                         goToBuy(detailsRecord.getId());
                     }

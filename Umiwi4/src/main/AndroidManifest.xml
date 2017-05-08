@@ -541,7 +541,8 @@
 
         <activity android:name=".activity.LiveChatRoomActivity"
             android:launchMode="singleTask"/>
-        <activity android:name=".activity.AuthorChatRoomActivity"></activity>
+        <activity android:name=".activity.AuthorChatRoomActivity"
+            android:launchMode="singleTask"></activity>
     </application>
 
 </manifest>
