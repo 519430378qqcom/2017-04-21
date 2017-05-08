@@ -39,8 +39,6 @@ import cn.youmi.framework.http.AbstractRequest;
 import cn.youmi.framework.http.GetRequest;
 import cn.youmi.framework.http.parsers.GsonParser;
 
-import static com.umiwi.ui.main.YoumiConfiguration.context;
-
 /**
  * Created by Administrator on 2017/5/4 0004.
  */
@@ -83,6 +81,7 @@ public class AudioLiveDetailsFragment extends BaseConstantFragment {
     private String payurl;
     private boolean isAutio;//是否进入过聊天室
 
+    public static boolean isPause = false;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -174,11 +173,10 @@ public class AudioLiveDetailsFragment extends BaseConstantFragment {
         @Override
         public void onResult(AbstractRequest<AudioLiveDetailsBean> request, AudioLiveDetailsBean audioLiveDetailsBean) {
 
-
                 detailsRecord = audioLiveDetailsBean.getR().getRecord();
                 share = audioLiveDetailsBean.getR().getShare();
 
-                Glide.with(context).load(detailsRecord.getImage()).into(ivImage);
+                Glide.with(getActivity()).load(detailsRecord.getImage()).into(ivImage);
                 tvTitle.setText(detailsRecord.getTitle());
                 tabTitle.setText(detailsRecord.getTitle());
 
@@ -213,7 +211,7 @@ public class AudioLiveDetailsFragment extends BaseConstantFragment {
                     Intent intent = new Intent(getActivity(), LiveChatRoomActivity.class);
                     intent.putExtra(LiveDetailsFragment.DETAILS_ID, detailsRecord.getId());
                     intent.putExtra(LiveChatRoomActivity.ROOM_ID, detailsRecord.getRoomid());
-                    getActivity().startActivity(intent);
+                    getActivity().finish();
                 }
         }
         @Override
@@ -227,6 +225,7 @@ public class AudioLiveDetailsFragment extends BaseConstantFragment {
         super.onDestroyView();
         ButterKnife.reset(this);
     }
+
 
     @OnClick({R.id.iv_back, R.id.iv_shared, R.id.tv_gotoliveroom, R.id.rl_bottom_back})
     public void onViewClicked(View view) {

@@ -1,13 +1,17 @@
 package com.umiwi.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +31,8 @@ import com.netease.nimlib.sdk.msg.model.IMMessage;
 import com.umiwi.ui.R;
 import com.umiwi.ui.beans.ChatRoomDetailsBean;
 import com.umiwi.ui.beans.NIMAccountBean;
+import com.umiwi.ui.dialog.ShareDialog;
+import com.umiwi.ui.fragment.audiolive.AudioLiveDetailsFragment;
 import com.umiwi.ui.fragment.audiolive.LiveDetailsFragment;
 import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.managers.Container;
@@ -44,7 +50,9 @@ import cn.youmi.framework.http.AbstractRequest;
 import cn.youmi.framework.http.GetRequest;
 import cn.youmi.framework.http.parsers.GsonParser;
 
-public class LiveChatRoomActivity extends AppCompatActivity implements ModuleProxy {
+import static com.umiwi.ui.fragment.audiolive.AudioLiveDetailsFragment.LIVEID;
+
+public class LiveChatRoomActivity extends AppCompatActivity implements ModuleProxy, View.OnClickListener {
     @InjectView(R.id.iv_back)
     ImageView ivBack;
     @InjectView(R.id.tv_title)
@@ -72,6 +80,9 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
      * 聊天室消息
      */
     private ChatRoomDetailsBean chatRoomDetailsBean;
+    private PopupWindow popupWindow;
+    private String id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,12 +111,12 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
             public void onResult(AbstractRequest<NIMAccountBean> request, NIMAccountBean nimAccountBean) {
                 if (nimAccountBean != null) {
                     final LoginInfo loginInfo = new LoginInfo(nimAccountBean.getR().getAccid(), nimAccountBean.getR().getToken());
-                    Log.e("TAG",loginInfo.getAccount()+"----"+loginInfo.getToken());
+                    Log.e("TAG", loginInfo.getAccount() + "----" + loginInfo.getToken());
                     //请求网易云信登录
                     RequestCallback<LoginInfo> callback = new RequestCallback<LoginInfo>() {
                         @Override
                         public void onSuccess(LoginInfo param) {
-                            Toast.makeText(LiveChatRoomActivity.this,"登录成功", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LiveChatRoomActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
                             accessChatRoom(roomId);
                             registerObservers(true);
                             registerMultimediaObserver(true);
@@ -113,13 +124,13 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
 
                         @Override
                         public void onFailed(int code) {
-                            Log.e("TAG",code+"");
+                            Log.e("TAG", code + "");
                             Toast.makeText(LiveChatRoomActivity.this, "登录失败", Toast.LENGTH_SHORT).show();
                         }
 
                         @Override
                         public void onException(Throwable exception) {
-                            Log.e("TAG",exception.toString());
+                            Log.e("TAG", exception.toString());
                             Toast.makeText(LiveChatRoomActivity.this, exception.toString(), Toast.LENGTH_SHORT).show();
                         }
                     };
@@ -136,7 +147,7 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
     }
 
     private void initData() {
-        String id = getIntent().getStringExtra(LiveDetailsFragment.DETAILS_ID);
+        id = getIntent().getStringExtra(LiveDetailsFragment.DETAILS_ID);
         roomId = getIntent().getStringExtra(ROOM_ID);
         GetRequest<ChatRoomDetailsBean> request = new GetRequest<>(
                 UmiwiAPI.CHAT_DETAILS + id, GsonParser.class, ChatRoomDetailsBean.class, new AbstractRequest.Listener<ChatRoomDetailsBean>() {
@@ -146,17 +157,17 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
                     chatRoomDetailsBean = chatRoomDetails;
                     ChatRoomDetailsBean.RBean.RecordBean record = chatRoomDetails.getR().getRecord();
                     tvTitle.setText(record.getTitle());
-                    String partNum = "("+record.getPartakenum()+"人)";
+                    String partNum = "(" + record.getPartakenum() + "人)";
                     String status = record.getStatus();
-                    switch (status){
+                    switch (status) {
                         case "1":
-                            tvStatus.setText("未开始"+partNum);
+                            tvStatus.setText("未开始" + partNum);
                             break;
                         case "2":
-                            tvStatus.setText("直播中"+partNum);
+                            tvStatus.setText("直播中" + partNum);
                             break;
                         case "3":
-                            tvStatus.setText("已结束"+partNum);
+                            tvStatus.setText("已结束" + partNum);
                             break;
                     }
                 }
@@ -177,16 +188,20 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
         Container container = new Container(this, roomId, SessionTypeEnum.ChatRoom, this);
         msgListManager = new MsgListManager(container, rcy_mesagelist);
     }
+
     /**
      * 进入聊天室
+     *
      * @param roomId
      */
-    private void accessChatRoom(String roomId){
+    private void accessChatRoom(String roomId) {
         EnterChatRoomData data = new EnterChatRoomData(roomId);
         NIMClient.getService(ChatRoomService.class).enterChatRoom(data);
     }
+
     /**
      * 注册消息接收器
+     *
      * @param register
      */
     private void registerObservers(boolean register) {
@@ -199,7 +214,7 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
             if (messages == null || messages.isEmpty()) {
                 return;
             }
-            for (ChatRoomMessage chatRoomMessage:messages){
+            for (ChatRoomMessage chatRoomMessage : messages) {
                 msgListManager.onImcomingMessage(chatRoomMessage);
             }
         }
@@ -213,18 +228,34 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
 
     /**
      * 注册多媒体接收器
+     *
      * @param register
      */
-    private void registerMultimediaObserver(Boolean register){
+    private void registerMultimediaObserver(Boolean register) {
         // 监听消息状态变化
         NIMClient.getService(MsgServiceObserve.class).observeMsgStatus(statusObserver, register);
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.e("TAG", "onPause()");
+    }
+
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.e("TAG", "onStop()");
+    }
+
     @Override
     protected void onDestroy() {
         ButterKnife.reset(this);
         registerObservers(false);
         registerMultimediaObserver(false);
         super.onDestroy();
+        Log.e("TAG", "onDestroy()");
     }
 
     @OnClick({R.id.iv_back, R.id.iv_more, R.id.btn_comfirm})
@@ -234,17 +265,22 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
                 finish();
                 break;
             case R.id.iv_more:
+                if (popupWindow != null && popupWindow.isShowing()) {
+                    popupWindow.dismiss();
+                } else {
+                    initmPopupWindow();
+                }
                 break;
             case R.id.btn_comfirm:
                 String content = etInput.getText().toString().trim();
                 // 创建文本消息
-                final ChatRoomMessage message = ChatRoomMessageBuilder.createChatRoomTextMessage(roomId,content);
+                final ChatRoomMessage message = ChatRoomMessageBuilder.createChatRoomTextMessage(roomId, content);
                 HashMap<String, Object> map = new HashMap<>();
-                map.put(MsgListManager.IS_AUTHOR,false);
+                map.put(MsgListManager.IS_AUTHOR, false);
                 map.put(MsgListManager.HEAD_PHOTO_URL, UserManager.getInstance().getUser().getAvatar());
                 message.setFromAccount(UserManager.getInstance().getUser().getUsername());
                 message.setRemoteExtension(map);
-                NIMClient.getService(ChatRoomService.class).sendMessage(message,true).setCallback(new RequestCallback<Void>() {
+                NIMClient.getService(ChatRoomService.class).sendMessage(message, true).setCallback(new RequestCallback<Void>() {
                     @Override
                     public void onSuccess(Void param) {
                         //添加自己发送的消息到集合
@@ -265,6 +301,36 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
         }
     }
 
+    public void initmPopupWindow() {
+        View cusView = getLayoutInflater().inflate(R.layout.popupview_item, null);
+        popupWindow = new PopupWindow(cusView, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, true);
+        popupWindow.setTouchable(true);
+        popupWindow.setFocusable(true);
+        popupWindow.setOutsideTouchable(false);
+        popupWindow.showAsDropDown(ivMore, -350, 50);
+
+        //触摸事件
+        cusView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (popupWindow != null && popupWindow.isShowing()) {
+                    popupWindow.dismiss();
+                    popupWindow = null;
+                }
+                return false;
+            }
+        });
+
+        TextView tv_share = (TextView) cusView.findViewById(R.id.tv_share);
+        TextView tv_details = (TextView) cusView.findViewById(R.id.tv_details);
+        TextView tv_stop = (TextView) cusView.findViewById(R.id.tv_stop);
+        View line = cusView.findViewById(R.id.view_line);
+        line.setVisibility(View.GONE);
+        tv_stop.setVisibility(View.GONE);
+        tv_share.setOnClickListener(this);
+        tv_details.setOnClickListener(this);
+    }
+
     @Override
     public boolean sendMessage(IMMessage msg) {
         return false;
@@ -283,6 +349,28 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
     @Override
     public boolean isLongClickEnabled() {
         return false;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tv_share:
+                popupWindow.dismiss();
+                popupWindow = null;
+                ChatRoomDetailsBean.RBean.ShareBean share = chatRoomDetailsBean.getR().getShare();
+                ShareDialog.getInstance().showDialog(this, share.getSharetitle(), share.getSharecontent(), share.getShareurl(), share.getShareimg());
+                break;
+            case R.id.tv_details:
+                popupWindow.dismiss();
+                popupWindow = null;
+                Intent intent = new Intent(this, UmiwiContainerActivity.class);
+                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, AudioLiveDetailsFragment.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                intent.putExtra(LIVEID, id);
+                startActivity(intent);
+                break;
+
+        }
     }
 
 }

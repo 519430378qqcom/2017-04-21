@@ -1,5 +1,6 @@
 package com.umiwi.ui.activity;
 
+import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -14,12 +15,14 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,6 +46,9 @@ import com.netease.nimlib.sdk.msg.model.IMMessage;
 import com.umiwi.ui.R;
 import com.umiwi.ui.beans.ChatRoomDetailsBean;
 import com.umiwi.ui.beans.NIMAccountBean;
+import com.umiwi.ui.beans.updatebeans.AudioLiveStopBean;
+import com.umiwi.ui.dialog.ShareDialog;
+import com.umiwi.ui.fragment.audiolive.AudioLiveDetailsFragment;
 import com.umiwi.ui.fragment.audiolive.LiveDetailsFragment;
 import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.main.UmiwiApplication;
@@ -63,12 +69,13 @@ import cn.youmi.framework.http.AbstractRequest;
 import cn.youmi.framework.http.GetRequest;
 import cn.youmi.framework.http.parsers.GsonParser;
 
+import static com.umiwi.ui.fragment.audiolive.AudioLiveDetailsFragment.LIVEID;
 import static com.umiwi.ui.main.YoumiConfiguration.context;
 
 /**
  * 主播聊天室界面
  */
-public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleProxy {
+public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleProxy, View.OnClickListener {
     public static final String ROOM_ID = "roomId";
     /**
      * 相册图片回调的请求码
@@ -142,6 +149,9 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
      */
     private String userSelectPath;
 
+    private PopupWindow popupWindow;
+    private String id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -205,7 +215,8 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
     }
 
     private void initData() {
-        String id = getIntent().getStringExtra(LiveDetailsFragment.DETAILS_ID);
+        id = getIntent().getStringExtra(LiveDetailsFragment.DETAILS_ID);
+        Log.e("TAG", "id=" + id);
         roomId = getIntent().getStringExtra(ROOM_ID);
         GetRequest<ChatRoomDetailsBean> request = new GetRequest<>(
                 UmiwiAPI.CHAT_DETAILS + id, GsonParser.class, ChatRoomDetailsBean.class, new AbstractRequest.Listener<ChatRoomDetailsBean>() {
@@ -350,6 +361,11 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
                finish();
                 break;
             case R.id.iv_more:
+                if (popupWindow != null && popupWindow.isShowing()) {
+                    popupWindow.dismiss();
+                } else {
+                    initmPopupWindow();
+                }
                 break;
             case R.id.btn_comfirm://发送文本消息
                 String content = etInput.getText().toString().trim();
@@ -386,6 +402,33 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
                 record();
                 break;
         }
+    }
+    public void initmPopupWindow() {
+        View cusView = getLayoutInflater().inflate(R.layout.popupview_item, null);
+        popupWindow = new PopupWindow(cusView, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, true);
+        popupWindow.setTouchable(true);
+        popupWindow.setFocusable(true);
+        popupWindow.setOutsideTouchable(false);
+        popupWindow.showAsDropDown(ivMore, -350, 50);
+
+        //触摸事件
+        cusView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (popupWindow != null && popupWindow.isShowing()) {
+                    popupWindow.dismiss();
+                    popupWindow = null;
+                }
+                return false;
+            }
+        });
+
+        TextView tv_share = (TextView) cusView.findViewById(R.id.tv_share);
+        TextView tv_details = (TextView) cusView.findViewById(R.id.tv_details);
+        TextView tv_stop = (TextView) cusView.findViewById(R.id.tv_stop);
+        tv_share.setOnClickListener(this);
+        tv_details.setOnClickListener(this);
+        tv_stop.setOnClickListener(this);
     }
 
     /**
@@ -677,4 +720,73 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
         return false;
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tv_share:
+                popupWindow.dismiss();
+                popupWindow = null;
+                ChatRoomDetailsBean.RBean.ShareBean share = chatRoomDetailsBean.getR().getShare();
+                ShareDialog.getInstance().showDialog(this, share.getSharetitle(), share.getSharecontent(), share.getShareurl(), share.getShareimg());
+                break;
+            case R.id.tv_details:
+                popupWindow.dismiss();
+                popupWindow = null;
+                Intent intent = new Intent(this, UmiwiContainerActivity.class);
+                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, AudioLiveDetailsFragment.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                intent.putExtra(LIVEID, id);
+                startActivity(intent);
+                break;
+            case R.id.tv_stop:
+                popupWindow.dismiss();
+                popupWindow = null;
+                showdialog();
+                break;
+        }
+    }
+    //结束直播
+    private void showdialog() {
+        View view = View.inflate(this,R.layout.stop_audiolive_dialog,null);
+        final AlertDialog dialog = new AlertDialog.Builder(this)
+                .setView(view)
+                .show();
+        TextView tv_cancle = (TextView) view.findViewById(R.id.tv_cancle);
+        TextView tv_commit = (TextView) view.findViewById(R.id.tv_commit);
+        dialog.show();
+        tv_cancle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        tv_commit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stopAudioLive(dialog);
+            }
+        });
+    }
+
+    private void stopAudioLive(final AlertDialog dialog) {
+        String url = String.format(UmiwiAPI.UMIWI_STOP_AUDIOLIVE,id);
+        GetRequest<AudioLiveStopBean> request = new GetRequest<AudioLiveStopBean>(url, GsonParser.class, AudioLiveStopBean.class, new AbstractRequest.Listener<AudioLiveStopBean>() {
+            @Override
+            public void onResult(AbstractRequest<AudioLiveStopBean> request, AudioLiveStopBean audioLiveStopBean) {
+                boolean audioLiveStopBeanR = audioLiveStopBean.isR();
+                if (audioLiveStopBeanR) {
+                    finish();
+                } else {
+                    Toast.makeText(AuthorChatRoomActivity.this, audioLiveStopBean.getM().trim().toString(), Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                }
+            }
+
+            @Override
+            public void onError(AbstractRequest<AudioLiveStopBean> requet, int statusCode, String body) {
+
+            }
+        });
+        request.go();
+    }
 }

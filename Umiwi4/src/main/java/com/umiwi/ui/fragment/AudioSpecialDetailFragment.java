@@ -191,7 +191,8 @@ public class AudioSpecialDetailFragment extends BaseConstantFragment implements 
         iv_shared.setOnClickListener(this);
         record.setOnClickListener(this);
         yuedu.setOnClickListener(this);
-        fav_button.setOnCheckedChangeListener(favClickListener);
+        fav_button.setVisibility(View.GONE);
+//        fav_button.setOnCheckedChangeListener(favClickListener);
         return view;
 
     }

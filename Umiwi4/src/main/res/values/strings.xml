@@ -33,6 +33,7 @@
     <string name="logiin">登录</string>
     <string name="logout">退出</string>
     <string name="are_yout_sure_your_wanna_loggout">您确定要退出登录?</string>
+    <string name="stop_audio_live">结束本次直播?</string>
     <string name="logging_out">正在退出登录</string>
     <string name="about_umiwi">关于优米</string>
 

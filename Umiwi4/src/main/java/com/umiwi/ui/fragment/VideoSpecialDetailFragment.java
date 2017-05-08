@@ -151,7 +151,8 @@ public class VideoSpecialDetailFragment extends BaseConstantFragment implements 
         record.setOnClickListener(this);
         yuedu.setOnClickListener(this);
         tv_buy.setOnClickListener(this);
-        fav_button.setOnCheckedChangeListener(favCheckListener);
+        fav_button.setVisibility(View.GONE);
+//        fav_button.setOnCheckedChangeListener(favCheckListener);
         return view;
 
     }

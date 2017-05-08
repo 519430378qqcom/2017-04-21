@@ -1110,15 +1110,13 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
             }
             return;
         }
-
         bind(source);
 //        getActivity().startService(intent);
 //        intent.putExtra("url", url);
     }
 
     public static void bind(final String source) {
-        //保存当前音频链接地址
-        UmiwiApplication.mainActivity.musicUrl = source;
+
         Intent intent = new Intent(UmiwiApplication.mainActivity, VoiceService.class);
 //        intent.setAction("com.umiwi.video.action.BIND_SERVICE");
         if (conn == null) {
@@ -1126,6 +1124,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
             conn = new ServiceConnection() {
                 /**
                  * 当绑定服务成功的时候回调这个方法
+                 *
                  * @param name
                  * @param iBinder
                  */
@@ -1159,6 +1158,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
 
                 /**
                  * 当和服务断掉的时候回调这个方法
+                 *
                  * @param name
                  */
                 @Override
@@ -1168,7 +1168,17 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                 }
             };
 
+        } else {
+            if(!source.equals(UmiwiApplication.mainActivity.musicUrl)) {
+                try {
+                    UmiwiApplication.mainActivity.service.openAudio(source);
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+            }
         }
+        //保存当前音频链接地址
+        UmiwiApplication.mainActivity.musicUrl = source;
         intent.putExtra("source", source);
         UmiwiApplication.mainActivity.bindService(intent, conn, UmiwiApplication.mainActivity.BIND_AUTO_CREATE);
     }
@@ -1187,16 +1197,24 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                 break;
             case R.id.start_player:
 //                Log.e("TAG", "点我干什么？");
+                if(source == null) {
+                    return;
+                }
                 try {
-                    if (UmiwiApplication.mainActivity.service.isPlaying()) {
-                        //暂停
-                        UmiwiApplication.mainActivity.service.pause();
-                        UmiwiApplication.mainActivity.isPause = true;
-                        startPlayer.setBackgroundResource(R.drawable.pause_player);
+                    if (UmiwiApplication.mainActivity.service != null) {
+                        if (UmiwiApplication.mainActivity.service.isPlaying()) {
+                            //暂停
+                            UmiwiApplication.mainActivity.service.pause();
+                            UmiwiApplication.mainActivity.isPause = true;
+                            startPlayer.setBackgroundResource(R.drawable.pause_player);
+                        } else {
+                            UmiwiApplication.mainActivity.service.play();
+                            startPlayer.setBackgroundResource(R.drawable.start_player);
+                        }
                     } else {
-                        UmiwiApplication.mainActivity.service.play();
-                        startPlayer.setBackgroundResource(R.drawable.start_player);
+                        bind(source);
                     }
+
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }

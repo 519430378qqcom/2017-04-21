@@ -187,22 +187,22 @@
                             android:textColor="@color/black_alpf"
                             android:textSize="19sp" />
 
-                        <ImageView
-                            android:id="@+id/iv_sort"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="10dp"
-                            android:padding="5dp"
-                            android:src="@drawable/asc_desc" />
+                        <!--<ImageView-->
+                            <!--android:id="@+id/iv_sort"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_gravity="center_vertical"-->
+                            <!--android:layout_marginLeft="10dp"-->
+                            <!--android:padding="5dp"-->
+                            <!--android:src="@drawable/asc_desc" />-->
 
-                        <TextView
-                            android:id="@+id/textView4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="5dp"
-                            android:text="正序" />
+                        <!--<TextView-->
+                            <!--android:id="@+id/textView4"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_gravity="center_vertical"-->
+                            <!--android:layout_marginLeft="5dp"-->
+                            <!--android:text="正序" />-->
 
                         <TextView
                             android:id="@+id/tv_changenum"

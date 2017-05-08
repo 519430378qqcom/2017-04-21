@@ -10,6 +10,10 @@ public final class UmiwiAPI {
     // ===============================直播  相关===================================================//
 
     /**
+     * 关闭直播
+     */
+    public static final String UMIWI_STOP_AUDIOLIVE = "http://i.v.youmi.cn/Telecast/closelive?id=%s";
+    /**
      * 直播页面 数据
      */
     public static final String UMIWI_AUIDOLIVE = "http://i.v.youmi.cn/Telecast/getlive?status=%s&p=%s";
