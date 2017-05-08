@@ -41,7 +41,9 @@ import com.netease.nimlib.sdk.chatroom.model.EnterChatRoomData;
 import com.netease.nimlib.sdk.media.record.AudioRecorder;
 import com.netease.nimlib.sdk.media.record.IAudioRecordCallback;
 import com.netease.nimlib.sdk.media.record.RecordType;
+import com.netease.nimlib.sdk.msg.MessageBuilder;
 import com.netease.nimlib.sdk.msg.MsgServiceObserve;
+import com.netease.nimlib.sdk.msg.constant.MsgTypeEnum;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
 import com.umiwi.ui.R;
@@ -160,7 +162,6 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
      * 拉取聊天记录的时间撮
      */
     private long chatRecordLastTime = 0;
-    private int page;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -240,17 +241,15 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
                     switch (status){
                         case "1":
                             tvStatus.setText("未开始"+partNum);
-                            getChatRecord();
                             break;
                         case "2":
                             tvStatus.setText("直播中"+partNum);
-                            getChatRecord();
                             break;
                         case "3":
                             tvStatus.setText("已结束"+partNum);
-                            getChatRecord();
                             break;
                     }
+                    getChatRecord();
                 }
             }
 
@@ -267,19 +266,6 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
      */
     private void getChatRecord() {
         if("已结束".equals(tvStatus.getText().toString())) {
-            String url = String.format(UmiwiAPI.CHAT_RECORD,id,page);
-            GetRequest<ChatRoomDetailsBean> request = new GetRequest<>(
-                    url, GsonParser.class, ChatRoomDetailsBean.class, new AbstractRequest.Listener<ChatRoomDetailsBean>() {
-                @Override
-                public void onResult(AbstractRequest<ChatRoomDetailsBean> request, ChatRoomDetailsBean chatRoomDetailsBean) {
-
-                }
-
-                @Override
-                public void onError(AbstractRequest<ChatRoomDetailsBean> requet, int statusCode, String body) {
-
-                }
-            });
         }else {
             NIMClient.getService(ChatRoomService.class).pullMessageHistory(roomId, chatRecordLastTime, 30).setCallback(new RequestCallback<List<ChatRoomMessage>>() {
                 @Override

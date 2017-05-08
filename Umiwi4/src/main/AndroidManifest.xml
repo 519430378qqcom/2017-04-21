@@ -543,6 +543,8 @@
             android:launchMode="singleTask"/>
         <activity android:name=".activity.AuthorChatRoomActivity"
             android:launchMode="singleTask"></activity>
+        <activity android:name=".activity.ChatRecordActivity"
+            android:launchMode="singleTask"></activity>
     </application>
 
 </manifest>

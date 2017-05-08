@@ -99,7 +99,7 @@ public class MsgListManager {
                 return;
             }
             if (chatRoomMessages.size() >= MESSAGE_CAPACITY) {
-                chatRoomMessages.poll();
+                chatRoomMessages.removeLast();
             }
             chatRoomMessages.addFirst(message);
             needRefresh = true;

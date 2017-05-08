@@ -31,6 +31,8 @@ import com.netease.nimlib.sdk.msg.MsgServiceObserve;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
 import com.umiwi.ui.R;
+import com.umiwi.ui.adapter.ChatRecordAdapter;
+import com.umiwi.ui.beans.ChatRecordBean;
 import com.umiwi.ui.beans.ChatRoomDetailsBean;
 import com.umiwi.ui.beans.NIMAccountBean;
 import com.umiwi.ui.dialog.ShareDialog;
@@ -42,6 +44,7 @@ import com.umiwi.ui.managers.ModuleProxy;
 import com.umiwi.ui.managers.MsgListManager;
 import com.umiwi.ui.view.RefreshLayout;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -55,7 +58,7 @@ import cn.youmi.framework.http.parsers.GsonParser;
 
 import static com.umiwi.ui.fragment.audiolive.AudioLiveDetailsFragment.LIVEID;
 
-public class LiveChatRoomActivity extends AppCompatActivity implements ModuleProxy, View.OnClickListener {
+public class ChatRecordActivity extends AppCompatActivity implements ModuleProxy, View.OnClickListener {
     @InjectView(R.id.iv_back)
     ImageView ivBack;
     @InjectView(R.id.tv_title)
@@ -66,10 +69,6 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
     ImageView ivMore;
     @InjectView(R.id.rcy_mesagelist)
     RecyclerView rcy_mesagelist;
-    @InjectView(R.id.et_input)
-    EditText etInput;
-    @InjectView(R.id.btn_comfirm)
-    Button btnComfirm;
     @InjectView(R.id.refreshLayout)
     RefreshLayout refreshLayout;
     public static final String ROOM_ID = "roomId";
@@ -91,6 +90,8 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
      * 拉取聊天记录的时间撮
      */
     private long chatRecordLastTime = 0;
+    private int page;
+    private ChatRecordAdapter chatRecordAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,9 +99,7 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
 //        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         setContentView(R.layout.activity_live_chat_room);
         ButterKnife.inject(this);
-        loginNIM();
         initData();
-        initMessageList();
         initRefreshLayout();
     }
 
@@ -117,79 +116,30 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
      * 获取聊天记录
      */
     private void getChatRecord() {
-        if("已结束".equals(tvStatus.getText().toString())) {
-        }else {
-            NIMClient.getService(ChatRoomService.class).pullMessageHistory(roomId, chatRecordLastTime, 30).setCallback(new RequestCallback<List<ChatRoomMessage>>() {
-                @Override
-                public void onSuccess(List<ChatRoomMessage> param) {
-                    if(param!=null&&param.size()>0) {
-                        chatRecordLastTime = param.get(param.size() - 1).getTime();
-                        for (IMMessage imMessage:param){
-                            msgListManager.addHeadMessage(imMessage);
-                        }
-                        refreshLayout.setRefreshing(false);
-                    }else {
-                        Toast.makeText(LiveChatRoomActivity.this, "没用更多消息了", Toast.LENGTH_SHORT).show();
-                        refreshLayout.setRefreshing(false);
-                    }
-                }
-
-                @Override
-                public void onFailed(int code) {
-
-                }
-
-                @Override
-                public void onException(Throwable exception) {
-
-                }
-            });
-        }
-    }
-
-    /**
-     * 登录网易云信服务端
-     */
-    private void loginNIM() {
-        //请求服务器接口获得网易云信通行证
-        GetRequest<NIMAccountBean> request = new GetRequest<NIMAccountBean>(UmiwiAPI.NIM_ACCOUNT, GsonParser.class, NIMAccountBean.class, new AbstractRequest.Listener<NIMAccountBean>() {
+        String url = String.format(UmiwiAPI.CHAT_RECORD,id,page);
+        GetRequest<ChatRecordBean> request = new GetRequest<>(
+                url, GsonParser.class, ChatRecordBean.class, new AbstractRequest.Listener<ChatRecordBean>() {
             @Override
-            public void onResult(AbstractRequest<NIMAccountBean> request, NIMAccountBean nimAccountBean) {
-                if (nimAccountBean != null) {
-                    final LoginInfo loginInfo = new LoginInfo(nimAccountBean.getR().getAccid(), nimAccountBean.getR().getToken());
-                    Log.e("TAG", loginInfo.getAccount() + "----" + loginInfo.getToken());
-                    //请求网易云信登录
-                    RequestCallback<LoginInfo> callback = new RequestCallback<LoginInfo>() {
-                        @Override
-                        public void onSuccess(LoginInfo param) {
-                            Toast.makeText(LiveChatRoomActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
-                            accessChatRoom(roomId);
-                            registerObservers(true);
-                            registerMultimediaObserver(true);
-                        }
+            public void onResult(AbstractRequest<ChatRecordBean> request, ChatRecordBean chatRecordBean) {
+                if(chatRecordBean!=null) {
+                    page++;
+                    List<ChatRecordBean.RBean.RecordBean> record = chatRecordBean.getR().getRecord();
+                    if(chatRecordAdapter == null) {
+                        chatRecordAdapter = new ChatRecordAdapter(ChatRecordActivity.this);
+                        rcy_mesagelist.setAdapter(chatRecordAdapter);
+                    }else {
 
-                        @Override
-                        public void onFailed(int code) {
-                            Log.e("TAG", code + "");
-                            Toast.makeText(LiveChatRoomActivity.this, "登录失败", Toast.LENGTH_SHORT).show();
-                        }
-
-                        @Override
-                        public void onException(Throwable exception) {
-                            Log.e("TAG", exception.toString());
-                            Toast.makeText(LiveChatRoomActivity.this, exception.toString(), Toast.LENGTH_SHORT).show();
-                        }
-                    };
-                    NIMClient.getService(AuthService.class).login(loginInfo).setCallback(callback);
+                    }
+                }else {
+                    refreshLayout.setRefreshing(false);
                 }
             }
 
             @Override
-            public void onError(AbstractRequest<NIMAccountBean> requet, int statusCode, String body) {
+            public void onError(AbstractRequest<ChatRecordBean> requet, int statusCode, String body) {
 
             }
         });
-        request.go();
     }
 
     private void initData() {
@@ -228,84 +178,24 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
         request.go();
     }
 
-    /**
-     * 初始化
-     */
-    private void initMessageList() {
-        Container container = new Container(this, roomId, SessionTypeEnum.ChatRoom, this);
-        msgListManager = new MsgListManager(container, rcy_mesagelist);
-    }
-
-    /**
-     * 进入聊天室
-     *
-     * @param roomId
-     */
-    private void accessChatRoom(String roomId) {
-        EnterChatRoomData data = new EnterChatRoomData(roomId);
-        NIMClient.getService(ChatRoomService.class).enterChatRoom(data);
-    }
-
-    /**
-     * 注册消息接收器
-     *
-     * @param register
-     */
-    private void registerObservers(boolean register) {
-        NIMClient.getService(ChatRoomServiceObserver.class).observeReceiveMessage(incomingChatRoomMsg, register);
-    }
-
-    Observer<List<ChatRoomMessage>> incomingChatRoomMsg = new Observer<List<ChatRoomMessage>>() {
-        @Override
-        public void onEvent(List<ChatRoomMessage> messages) {
-            if (messages == null || messages.isEmpty()) {
-                return;
-            }
-            for (ChatRoomMessage chatRoomMessage : messages) {
-                msgListManager.onImcomingMessage(chatRoomMessage);
-            }
-        }
-    };
-    Observer<IMMessage> statusObserver = new Observer<IMMessage>() {
-        @Override
-        public void onEvent(IMMessage msg) {
-            msgListManager.onImcomingMessage(msg);
-        }
-    };
-
-    /**
-     * 注册多媒体接收器
-     *
-     * @param register
-     */
-    private void registerMultimediaObserver(Boolean register) {
-        // 监听消息状态变化
-        NIMClient.getService(MsgServiceObserve.class).observeMsgStatus(statusObserver, register);
-    }
-
     @Override
     protected void onPause() {
         super.onPause();
-        Log.e("TAG", "onPause()");
     }
 
 
     @Override
     protected void onStop() {
         super.onStop();
-        Log.e("TAG", "onStop()");
     }
 
     @Override
     protected void onDestroy() {
         ButterKnife.reset(this);
-        registerObservers(false);
-        registerMultimediaObserver(false);
         if (msgListManager.messageListAdapter.handler != null) {
             msgListManager.messageListAdapter.handler.removeCallbacksAndMessages(null);
         }
         super.onDestroy();
-        Log.e("TAG", "onDestroy()");
     }
 
     @OnClick({R.id.iv_back, R.id.iv_more, R.id.btn_comfirm})
@@ -320,33 +210,6 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
                 } else {
                     initmPopupWindow();
                 }
-                break;
-            case R.id.btn_comfirm:
-                String content = etInput.getText().toString().trim();
-                // 创建文本消息
-                final ChatRoomMessage message = ChatRoomMessageBuilder.createChatRoomTextMessage(roomId, content);
-                HashMap<String, Object> map = new HashMap<>();
-                map.put(MsgListManager.IS_AUTHOR, false);
-                map.put(MsgListManager.HEAD_PHOTO_URL, UserManager.getInstance().getUser().getAvatar());
-                map.put(MsgListManager.USER_NAME,UserManager.getInstance().getUser().getUsername());
-                message.setRemoteExtension(map);
-                NIMClient.getService(ChatRoomService.class).sendMessage(message, true).setCallback(new RequestCallback<Void>() {
-                    @Override
-                    public void onSuccess(Void param) {
-                        //添加自己发送的消息到集合
-                        msgListManager.onImcomingMessage(message);
-                    }
-
-                    @Override
-                    public void onFailed(int code) {
-
-                    }
-
-                    @Override
-                    public void onException(Throwable exception) {
-
-                    }
-                });
                 break;
         }
     }
