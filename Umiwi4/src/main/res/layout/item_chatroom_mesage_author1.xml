@@ -63,6 +63,10 @@
                 android:layout_height="wrap_content">
                 <ImageView
                     android:id="@+id/iv_receive"
+                    android:minWidth="60dp"
+                    android:minHeight="60dp"
+                    android:maxWidth="240dp"
+                    android:maxHeight="500dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </RelativeLayout>

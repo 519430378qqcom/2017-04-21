@@ -18,7 +18,6 @@ import com.bumptech.glide.Glide;
 import com.umiwi.ui.R;
 import com.umiwi.ui.beans.ChatRecordBean;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.VoiceDetailsFragment;
-import com.umiwi.ui.main.UmiwiApplication;
 import com.umiwi.ui.managers.MsgListManager;
 import com.umiwi.ui.util.DateUtils;
 import com.umiwi.ui.view.CircleImageView;
@@ -28,6 +27,8 @@ import java.util.LinkedList;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import cn.youmi.account.manager.UserManager;
+
+import static com.umiwi.ui.main.UmiwiApplication.mainActivity;
 
 
 /**
@@ -54,7 +55,7 @@ public class ChatRecordAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         @Override
         public void handleMessage(Message msg) {
             try {
-                String audioPath = UmiwiApplication.mainActivity.service.getAudioPath();
+                String audioPath = mainActivity.service.getAudioPath();
                 String url = msg.getData().getString(URL);
                 if(audioPath.equals(url)) {
                     if(viewHolder.sb_audio_progress.getProgress()<viewHolder.sb_audio_progress.getMax()) {
@@ -62,7 +63,7 @@ public class ChatRecordAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                         sendHandler(url,viewHolder);
                     }else {
                         viewHolder.sb_audio_progress.setProgress(0);
-                        viewHolder.iv_audio_controll.setImageResource(android.R.drawable.ic_media_pause);
+                        viewHolder.iv_audio_controll.setImageResource(android.R.drawable.ic_media_play);
                     }
                 }
             } catch (RemoteException e) {
@@ -128,7 +129,7 @@ public class ChatRecordAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 authorViewHolder.rl_audio.setVisibility(View.GONE);
                 authorViewHolder.rl_picture.setVisibility(View.VISIBLE);
                 String url1 = chatRecord.getPictureattach().getUrl();
-                Glide.with(context).load(url1).placeholder(R.drawable.change_more).into(authorViewHolder.iv_receive);
+                Glide.with(context).load(url1).into(authorViewHolder.iv_receive);
             } else if ("AUDIO".equals(chatRecord.getMsgtype())) {//显示录音
                 authorViewHolder.rl_text.setVisibility(View.GONE);
                 authorViewHolder.rl_audio.setVisibility(View.VISIBLE);
@@ -149,20 +150,23 @@ public class ChatRecordAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 authorViewHolder.sb_audio_progress.setMax((int) duration);
                 authorViewHolder.sb_audio_progress.setProgress(0);
                 //判断当前列表的音频文件是否正在播放
-                if (UmiwiApplication.mainActivity.service != null) {
+                if (mainActivity.service != null) {
                     String playingUrl = null;
                     try {
-                        playingUrl = UmiwiApplication.mainActivity.service.getAudioPath();
+                        playingUrl = mainActivity.service.getAudioPath();
                     //播放的是当前列表的音频
                     if (isPlayUrl(playingUrl)) {
                         try {
                             //判断播放状态
-                            if (UmiwiApplication.mainActivity.service.isPlaying()) {
+                            if (mainActivity.service.isPlaying()) {
                                 authorViewHolder.iv_audio_controll.setImageResource(android.R.drawable.ic_media_pause);
+                                authorViewHolder.sb_audio_progress.setProgress(mainActivity.service.getCurrentPosition());
                             } else {
                                 authorViewHolder.iv_audio_controll.setImageResource(android.R.drawable.ic_media_play);
+                                if(mainActivity.service.getCurrentPosition()>=duration) {
+                                    authorViewHolder.sb_audio_progress.setProgress(0);
+                                }
                             }
-                            authorViewHolder.sb_audio_progress.setProgress(UmiwiApplication.mainActivity.service.getCurrentPosition());
                         } catch (RemoteException e) {
                             e.printStackTrace();
                         }
@@ -180,31 +184,31 @@ public class ChatRecordAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 authorViewHolder.iv_audio_controll.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (UmiwiApplication.mainActivity.service != null) {
+                        if (mainActivity.service != null) {
                             try {
                                 //正在播放，并且播放的是此item
-                                if (UmiwiApplication.mainActivity.service.isPlaying()&& isPlayUrl(audioUrl)) {
-                                    UmiwiApplication.mainActivity.service.pause();
+                                if (mainActivity.service.isPlaying()&& isPlayUrl(audioUrl)) {
+                                    mainActivity.service.pause();
                                     authorViewHolder.iv_audio_controll.setImageResource(android.R.drawable.ic_media_play);
                                     handler.removeCallbacksAndMessages(null);
                                     //正在播放，此前播放的不是此item
-                                }else if(UmiwiApplication.mainActivity.service.isPlaying()&&!isPlayUrl(audioUrl)) {
-                                    UmiwiApplication.mainActivity.service.pause();
-                                    UmiwiApplication.mainActivity.service.openAudio(audioUrl);
+                                }else if(mainActivity.service.isPlaying()&&!isPlayUrl(audioUrl)) {
+                                    mainActivity.service.pause();
+                                    mainActivity.service.openAudio(audioUrl);
                                     authorViewHolder.iv_audio_controll.setImageResource(android.R.drawable.ic_media_pause);
                                     viewHolder.iv_audio_controll.setImageResource(android.R.drawable.ic_media_play);
                                     viewHolder.sb_audio_progress.setProgress(0);
                                     sendHandler(audioUrl,authorViewHolder);
                                     //播放暂停状态,之前播放的是此item
-                                }else if(!UmiwiApplication.mainActivity.service.isPlaying()&& isPlayUrl(audioUrl)) {
-                                    UmiwiApplication.mainActivity.service.play();
-                                    UmiwiApplication.mainActivity.service.seekTo(authorViewHolder.sb_audio_progress.getProgress());
+                                }else if(!mainActivity.service.isPlaying()&& isPlayUrl(audioUrl)) {
+                                    mainActivity.service.play();
+                                    mainActivity.service.seekTo(authorViewHolder.sb_audio_progress.getProgress());
                                     authorViewHolder.iv_audio_controll.setImageResource(android.R.drawable.ic_media_pause);
                                     sendHandler(audioUrl,authorViewHolder);
                                     //播放暂停状态,之前播放的也不是此item
-                                }else if(!UmiwiApplication.mainActivity.service.isPlaying()&&!isPlayUrl(audioUrl)) {
-                                    UmiwiApplication.mainActivity.service.openAudio(audioUrl);
-                                    UmiwiApplication.mainActivity.service.seekTo(authorViewHolder.sb_audio_progress.getProgress());
+                                }else if(!mainActivity.service.isPlaying()&&!isPlayUrl(audioUrl)) {
+                                    mainActivity.service.openAudio(audioUrl);
+                                    mainActivity.service.seekTo(authorViewHolder.sb_audio_progress.getProgress());
                                     authorViewHolder.iv_audio_controll.setImageResource(android.R.drawable.ic_media_pause);
                                     sendHandler(audioUrl,authorViewHolder);
                                 }
@@ -222,11 +226,11 @@ public class ChatRecordAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     @Override
                     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 //                        chatRoomMessage.getLocalExtension().put(MsgListManager.AUDIO_PLAYED_DURATION,progress);
-                        if(fromUser&&UmiwiApplication.mainActivity.service!=null) {
+                        if(fromUser&& mainActivity.service!=null) {
                             try {
                                 //播放的是此item
                                 if (isPlayUrl(audioUrl)) {
-                                    UmiwiApplication.mainActivity.service.seekTo(progress);
+                                    mainActivity.service.seekTo(progress);
                                 }
                             } catch (RemoteException e) {
                                 e.printStackTrace();
@@ -255,10 +259,10 @@ public class ChatRecordAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
      * @throws RemoteException
      */
     private boolean isPlayUrl(String audioUrl) throws RemoteException {
-        if (UmiwiApplication.mainActivity.service == null) {
+        if (mainActivity.service == null) {
             return false;
         }
-        return UmiwiApplication.mainActivity.service.getAudioPath().equals(audioUrl);
+        return mainActivity.service.getAudioPath().equals(audioUrl);
     }
 
     /**

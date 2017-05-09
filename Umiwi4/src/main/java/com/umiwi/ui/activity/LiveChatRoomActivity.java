@@ -169,13 +169,11 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
 
                         @Override
                         public void onFailed(int code) {
-                            Log.e("TAG", code + "");
                             Toast.makeText(LiveChatRoomActivity.this, "登录失败", Toast.LENGTH_SHORT).show();
                         }
 
                         @Override
                         public void onException(Throwable exception) {
-                            Log.e("TAG", exception.toString());
                             Toast.makeText(LiveChatRoomActivity.this, exception.toString(), Toast.LENGTH_SHORT).show();
                         }
                     };
@@ -285,14 +283,12 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
     @Override
     protected void onPause() {
         super.onPause();
-        Log.e("TAG", "onPause()");
     }
 
 
     @Override
     protected void onStop() {
         super.onStop();
-        Log.e("TAG", "onStop()");
     }
 
     @Override
@@ -304,7 +300,6 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
             msgListManager.messageListAdapter.handler.removeCallbacksAndMessages(null);
         }
         super.onDestroy();
-        Log.e("TAG", "onDestroy()");
     }
 
     @OnClick({R.id.iv_back, R.id.iv_more, R.id.btn_comfirm})
@@ -324,6 +319,7 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
                 String content = etInput.getText().toString().trim();
                 if(content == null||content.equals("")) {
                     Toast.makeText(LiveChatRoomActivity.this, "发送空消息不能为空", Toast.LENGTH_SHORT).show();
+                    return;
                 }
                 // 创建文本消息
                 final ChatRoomMessage message = ChatRoomMessageBuilder.createChatRoomTextMessage(roomId, content);

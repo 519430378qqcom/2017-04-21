@@ -16,6 +16,7 @@ import android.provider.MediaStore;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -160,6 +161,7 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
      * 拉取聊天记录的时间撮
      */
     private long chatRecordLastTime = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -195,7 +197,7 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
                     RequestCallback<LoginInfo> callback = new RequestCallback<LoginInfo>() {
                         @Override
                         public void onSuccess(LoginInfo param) {
-                            Toast.makeText(AuthorChatRoomActivity.this,"登录成功", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AuthorChatRoomActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
                             accessChatRoom(roomId);
                             registerObservers(true);
                             registerMultimediaObserver(true);
@@ -234,17 +236,17 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
                     chatRoomDetailsBean = chatRoomDetails;
                     ChatRoomDetailsBean.RBean.RecordBean record = chatRoomDetails.getR().getRecord();
                     tvTitle.setText(record.getTitle());
-                    String partNum = "("+record.getPartakenum()+"人)";
+                    String partNum = "(" + record.getPartakenum() + "人)";
                     String status = record.getStatus();
-                    switch (status){
+                    switch (status) {
                         case "1":
-                            tvStatus.setText("未开始"+partNum);
+                            tvStatus.setText("未开始" + partNum);
                             break;
                         case "2":
-                            tvStatus.setText("直播中"+partNum);
+                            tvStatus.setText("直播中" + partNum);
                             break;
                         case "3":
-                            tvStatus.setText("已结束"+partNum);
+                            tvStatus.setText("已结束" + partNum);
                             break;
                     }
                     getChatRecord();
@@ -263,18 +265,18 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
      * 获取聊天记录
      */
     private void getChatRecord() {
-        if("已结束".equals(tvStatus.getText().toString())) {
-        }else {
+        if ("已结束".equals(tvStatus.getText().toString())) {
+        } else {
             NIMClient.getService(ChatRoomService.class).pullMessageHistory(roomId, chatRecordLastTime, 30).setCallback(new RequestCallback<List<ChatRoomMessage>>() {
                 @Override
                 public void onSuccess(List<ChatRoomMessage> param) {
-                    if(param!=null&&param.size()>0) {
+                    if (param != null && param.size() > 0) {
                         chatRecordLastTime = param.get(param.size() - 1).getTime();
-                        for (IMMessage imMessage:param){
+                        for (IMMessage imMessage : param) {
                             msgListManager.addHeadMessage(imMessage);
                         }
                         refreshLayout.setRefreshing(false);
-                    }else {
+                    } else {
                         Toast.makeText(AuthorChatRoomActivity.this, "没用更多消息了", Toast.LENGTH_SHORT).show();
                         refreshLayout.setRefreshing(false);
                     }
@@ -326,7 +328,7 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
             if (messages == null || messages.isEmpty()) {
                 return;
             }
-            for(ChatRoomMessage messages1:messages){
+            for (ChatRoomMessage messages1 : messages) {
                 msgListManager.onImcomingMessage(messages1);
             }
         }
@@ -340,31 +342,34 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
 
     /**
      * 注册多媒体接收器
+     *
      * @param register
      */
-    private void registerMultimediaObserver(Boolean register){
+    private void registerMultimediaObserver(Boolean register) {
         // 监听消息状态变化
         NIMClient.getService(MsgServiceObserve.class).observeMsgStatus(statusObserver, register);
     }
+
     @Override
     protected void onDestroy() {
         ButterKnife.reset(this);
         registerObservers(false);
         registerMultimediaObserver(false);
-        if(handler != null) {
+        if (handler != null) {
             handler.removeCallbacksAndMessages(null);
         }
-        if(msgListManager.messageListAdapter.handler !=null) {
+        if (msgListManager.messageListAdapter.handler != null) {
             msgListManager.messageListAdapter.handler.removeCallbacksAndMessages(null);
         }
         super.onDestroy();
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == PICTURE_REQUEST & resultCode == RESULT_OK) {
             Uri uri = data.getData();
             userSelectPath = getAbsolutePath(context, uri);
-            if(new File(userSelectPath).exists()) {
+            if (new File(userSelectPath).exists()) {
                 sendPictureMsg();
             }
         }
@@ -372,6 +377,7 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
 
     /**
      * 通过相册返回的uri获取图片绝对路径
+     *
      * @param context
      * @param uri
      * @return
@@ -399,12 +405,13 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
         }
         return data;
     }
-    @OnClick({R.id.iv_back, R.id.iv_more, R.id.btn_comfirm,R.id.tv_record_hint_top, R.id.tv_audio, R.id.tv_text, R.id.tv_picture,
+
+    @OnClick({R.id.iv_back, R.id.iv_more, R.id.btn_comfirm, R.id.tv_record_hint_top, R.id.tv_audio, R.id.tv_text, R.id.tv_picture,
             R.id.btn_cancle, R.id.iv_record})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
-               finish();
+                finish();
                 break;
             case R.id.iv_more:
                 if (popupWindow != null && popupWindow.isShowing()) {
@@ -424,10 +431,10 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
                 switchSoftInput(false);
                 break;
             case R.id.tv_text://点击文本功能
-                if(getResources().getString(R.string.pack_up).equals(tvText.getText().toString())) {//点击收起
+                if (getResources().getString(R.string.pack_up).equals(tvText.getText().toString())) {//点击收起
                     switchStatus(R.id.tv_picture);
                     switchSoftInput(false);
-                }else {
+                } else {
                     switchStatus(R.id.tv_text);
                 }
                 break;
@@ -438,26 +445,27 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
                 Intent intent = new Intent(Intent.ACTION_PICK, null);
                 intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(intent,PICTURE_REQUEST);
+                startActivityForResult(intent, PICTURE_REQUEST);
                 break;
             case R.id.btn_cancle://取消录制
                 new AlertDialog.Builder(this)
-                            .setTitle("取消当前语音录制")
-                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    recorder.completeRecord(true);
-                                    initRecordStatus();
-                                }
-                            })
-                            .setNegativeButton("取消", null)
-                            .show();
+                        .setTitle("取消当前语音录制")
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                recorder.completeRecord(true);
+                                initRecordStatus();
+                            }
+                        })
+                        .setNegativeButton("取消", null)
+                        .show();
                 break;
             case R.id.iv_record://开始||停止录音
                 record();
                 break;
         }
     }
+
     public void initmPopupWindow() {
         View cusView = getLayoutInflater().inflate(R.layout.popupview_item, null);
         popupWindow = new PopupWindow(cusView, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, true);
@@ -491,15 +499,15 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
      */
     private void record() {
         //开始录音
-        if(getResources().getString(R.string.click_start_record).equals(tvRecordHint.getText().toString())) {
+        if (getResources().getString(R.string.click_start_record).equals(tvRecordHint.getText().toString())) {
             startRecord();
-        }else if(getResources().getString(R.string.click_stop_record).equals(tvRecordHint.getText().toString())) {//停止录音
+        } else if (getResources().getString(R.string.click_stop_record).equals(tvRecordHint.getText().toString())) {//停止录音
             tvRecordHintTop.setText(R.string.send_hint);
             handler.removeCallbacksAndMessages(null);
             ivRecord.setImageResource(R.drawable.record_send);
             tvRecordHint.setText(R.string.click_send_record);
             recorder.completeRecord(false);
-        }else if(getResources().getString(R.string.click_send_record).equals(tvRecordHint.getText().toString())){//发送录音
+        } else if (getResources().getString(R.string.click_send_record).equals(tvRecordHint.getText().toString())) {//发送录音
             sendAudioMsg();
             initRecordStatus();
         }
@@ -523,11 +531,11 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
      */
     private void startRecord() {
         // 初始化recorder
-        if(recorder == null) {
-            recorder =  new AudioRecorder(
+        if (recorder == null) {
+            recorder = new AudioRecorder(
                     context,
                     RecordType.AAC, // 录制音频类型（aac/amr)
-                    60, // 最长录音时长，到该长度后，会自动停止录音, 默认120s
+                    66, // 最长录音时长，到该长度后，会自动停止录音, 默认120s
                     callback // 录音过程回调
             );
         }
@@ -541,35 +549,42 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
             ivRecord.setImageResource(R.drawable.record_pause);
             tvRecordHint.setText(R.string.click_stop_record);
             //录音计时
-            if(handler == null) {
-                handler = new Handler(){
+            if (handler == null) {
+                handler = new Handler() {
                     @Override
                     public void handleMessage(Message msg) {
-                        time +=1000;
+                        time += 1000;
                         tvRecordTime.setText(DateUtils.formatmmss(time));
-                        if(time>=60*1000) {
-                        }else {
-                            handler.sendMessageDelayed(Message.obtain(),1000);
+                        if (time >= 60 * 1000) {
+                            recorder.completeRecord(false);
+                            sendAudioMsg();
+                            startRecord();
+                        } else {
+                            handler.sendMessageDelayed(Message.obtain(), 1000);
                         }
                     }
                 };
             }
             time = 0L;
             handler.removeCallbacksAndMessages(null);
-            handler.sendMessageDelayed(Message.obtain(),1000);
-        }else {
+            handler.sendMessageDelayed(Message.obtain(), 1000);
+        } else {
             Toast.makeText(AuthorChatRoomActivity.this, "启动录音失败", Toast.LENGTH_SHORT).show();
         }
     }
 
+    /**
+     * 是否自动到达最大录音时间
+     */
+    private Boolean isAutoMax;
     // 定义录音过程回调对象
-    IAudioRecordCallback callback = new IAudioRecordCallback () {
+    IAudioRecordCallback callback = new IAudioRecordCallback() {
 
         public void onRecordReady() {
             // 初始化完成回调，提供此接口用于在录音前关闭本地音视频播放（可选）
-            if(UmiwiApplication.mainActivity.service != null) {
+            if (UmiwiApplication.mainActivity.service != null) {
                 try {
-                    if(UmiwiApplication.mainActivity.service.isPlaying()) {
+                    if (UmiwiApplication.mainActivity.service.isPlaying()) {
                         UmiwiApplication.mainActivity.service.pause();
                     }
                 } catch (RemoteException e) {
@@ -579,10 +594,12 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
         }
 
         public void onRecordStart(File audioFile, RecordType recordType) {
+            Log.e("TAG", "onRecordStart");
             // 开始录音回调
         }
 
         public void onRecordSuccess(File audioFile, long audioLength, RecordType recordType) {
+            Log.e("TAG", "onRecordSuccess");
             // 录音结束，成功
             myAudiofile = audioFile;
             myAudioLength = audioLength;
@@ -593,37 +610,39 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
         }
 
         public void onRecordCancel() {
+            Log.e("TAG", "onRecordCancel");
             // 录音结束， 用户主动取消录音
         }
 
         public void onRecordReachedMaxTime(int maxTime) {
             // 到达指定的最长录音时间
-            sendAudioMsg();
-            startRecord();
+            Log.e("TAG", "onRecordReachedMaxTime");
         }
     };
 
     /**
      * 给发送的消息添加共同的数据
+     *
      * @param message
      */
-    private void putCommonInfo(ChatRoomMessage message){
+    private void putCommonInfo(ChatRoomMessage message) {
         HashMap<String, Object> map = new HashMap<>();
-        map.put(MsgListManager.IS_AUTHOR,true);
+        map.put(MsgListManager.IS_AUTHOR, true);
         map.put(MsgListManager.HEAD_PHOTO_URL, UserManager.getInstance().getUser().getAvatar());
-        map.put(MsgListManager.USER_NAME,UserManager.getInstance().getUser().getUsername());
+        map.put(MsgListManager.USER_NAME, UserManager.getInstance().getUser().getUsername());
         message.setRemoteExtension(map);
     }
+
     /**
      * 发送图片消息
      */
     private void sendPictureMsg() {
         // 创建图片消息
-        String displayName = userSelectPath.substring(userSelectPath.lastIndexOf("/")+1,userSelectPath.lastIndexOf("."));
-        final ChatRoomMessage message = ChatRoomMessageBuilder.createChatRoomImageMessage(roomId,new File(userSelectPath),displayName);
+        String displayName = userSelectPath.substring(userSelectPath.lastIndexOf("/") + 1, userSelectPath.lastIndexOf("."));
+        final ChatRoomMessage message = ChatRoomMessageBuilder.createChatRoomImageMessage(roomId, new File(userSelectPath), displayName);
         putCommonInfo(message);
         // 发送消息。如果需要关心发送结果，可设置回调函数。发送完成时，会收到回调。如果失败，会有具体的错误码。
-        NIMClient.getService(ChatRoomService.class).sendMessage(message,true).setCallback(new RequestCallback<Void>() {
+        NIMClient.getService(ChatRoomService.class).sendMessage(message, true).setCallback(new RequestCallback<Void>() {
             @Override
             public void onSuccess(Void param) {
                 Toast.makeText(AuthorChatRoomActivity.this, "图片发送成功", Toast.LENGTH_SHORT).show();
@@ -641,16 +660,17 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
             }
         });
     }
+
     /**
      * 发送语音消息
      */
     private void sendAudioMsg() {
-        if(myAudiofile !=null) {
+        if (myAudiofile != null) {
             // 创建音频消息
-            final ChatRoomMessage message = ChatRoomMessageBuilder.createChatRoomAudioMessage(roomId,myAudiofile,myAudioLength);
+            final ChatRoomMessage message = ChatRoomMessageBuilder.createChatRoomAudioMessage(roomId, myAudiofile, myAudioLength);
             putCommonInfo(message);
             // 发送消息。如果需要关心发送结果，可设置回调函数。发送完成时，会收到回调。如果失败，会有具体的错误码。
-            NIMClient.getService(ChatRoomService.class).sendMessage(message,true).setCallback(new RequestCallback<Void>() {
+            NIMClient.getService(ChatRoomService.class).sendMessage(message, true).setCallback(new RequestCallback<Void>() {
                 @Override
                 public void onSuccess(Void param) {
                     Toast.makeText(AuthorChatRoomActivity.this, "录音发送成功", Toast.LENGTH_SHORT).show();
@@ -674,8 +694,9 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
      * 发送文本消息
      */
     private void sendTextMsg(String content) {
-        if(content==null||content!=null&&content.trim().equals("")) {
+        if (content == null || content != null && content.trim().equals("")) {
             Toast.makeText(AuthorChatRoomActivity.this, "文字输入不能为空", Toast.LENGTH_SHORT).show();
+            return;
         }
         // 创建文本消息
         final ChatRoomMessage message = ChatRoomMessageBuilder.createChatRoomTextMessage(roomId, content);
@@ -702,32 +723,35 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
 
     /**
      * 切换软件盘显示
+     *
      * @param isShow
      */
-    private void switchSoftInput(Boolean isShow){
+    private void switchSoftInput(Boolean isShow) {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        if(isShow) {
-            imm.showSoftInput(etInput,InputMethodManager.SHOW_FORCED);
-        }else {
+        if (isShow) {
+            imm.showSoftInput(etInput, InputMethodManager.SHOW_FORCED);
+        } else {
             imm.hideSoftInputFromWindow(etInput.getWindowToken(), 0); //强制隐藏键盘
         }
     }
+
     /**
      * 切换输入显示状态
+     *
      * @param id
      */
-    private void switchStatus(int id){
-        switch (id){
+    private void switchStatus(int id) {
+        switch (id) {
             case R.id.tv_audio:
                 tvAudio.setTextColor(getResources().getColor(R.color.main_color));
                 Drawable icon_audio_checked = getResources().getDrawable(R.drawable.icon_audio_checked);
                 icon_audio_checked.setBounds(0, 0, icon_audio_checked.getMinimumWidth(), icon_audio_checked.getMinimumHeight());
-                tvAudio.setCompoundDrawables(icon_audio_checked,null,null,null);
+                tvAudio.setCompoundDrawables(icon_audio_checked, null, null, null);
                 tvText.setTextColor(getResources().getColor(R.color.black_a8));
                 tvText.setText(R.string.text);
                 Drawable icon_text_normal = getResources().getDrawable(R.drawable.icon_text_normal);
                 icon_text_normal.setBounds(0, 0, icon_text_normal.getMinimumWidth(), icon_text_normal.getMinimumHeight());
-                tvText.setCompoundDrawables(icon_text_normal,null,null,null);
+                tvText.setCompoundDrawables(icon_text_normal, null, null, null);
                 rlInputText.setVisibility(View.GONE);
                 rlInputAudio.setVisibility(View.VISIBLE);
                 break;
@@ -736,11 +760,11 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
                 tvText.setText(R.string.pack_up);
                 Drawable icon_text_checked = getResources().getDrawable(R.drawable.icon_text_checked);
                 icon_text_checked.setBounds(0, 0, icon_text_checked.getMinimumWidth(), icon_text_checked.getMinimumHeight());
-                tvText.setCompoundDrawables(icon_text_checked,null,null,null);
+                tvText.setCompoundDrawables(icon_text_checked, null, null, null);
                 tvAudio.setTextColor(getResources().getColor(R.color.black_a8));
                 Drawable icon_audio_normal = getResources().getDrawable(R.drawable.icon_audio_normal);
                 icon_audio_normal.setBounds(0, 0, icon_audio_normal.getMinimumWidth(), icon_audio_normal.getMinimumHeight());
-                tvAudio.setCompoundDrawables(icon_audio_normal,null,null,null);
+                tvAudio.setCompoundDrawables(icon_audio_normal, null, null, null);
                 rlInputText.setVisibility(View.VISIBLE);
                 rlInputAudio.setVisibility(View.GONE);
                 break;
@@ -748,17 +772,18 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
                 tvAudio.setTextColor(getResources().getColor(R.color.black_a8));
                 Drawable icon_audio_normal1 = getResources().getDrawable(R.drawable.icon_audio_normal);
                 icon_audio_normal1.setBounds(0, 0, icon_audio_normal1.getMinimumWidth(), icon_audio_normal1.getMinimumHeight());
-                tvAudio.setCompoundDrawables(icon_audio_normal1,null,null,null);
+                tvAudio.setCompoundDrawables(icon_audio_normal1, null, null, null);
                 tvText.setTextColor(getResources().getColor(R.color.black_a8));
                 tvText.setText(R.string.text);
                 Drawable icon_text_normal1 = getResources().getDrawable(R.drawable.icon_text_normal);
                 icon_text_normal1.setBounds(0, 0, icon_text_normal1.getMinimumWidth(), icon_text_normal1.getMinimumHeight());
-                tvText.setCompoundDrawables(icon_text_normal1,null,null,null);
+                tvText.setCompoundDrawables(icon_text_normal1, null, null, null);
                 rlInputText.setVisibility(View.GONE);
                 rlInputAudio.setVisibility(View.GONE);
                 break;
         }
     }
+
     @Override
     public boolean sendMessage(IMMessage msg) {
         return false;
@@ -793,7 +818,7 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
                 popupWindow = null;
                 Intent intent = new Intent(this, UmiwiContainerActivity.class);
                 intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, AudioLiveDetailsFragment.class);
-                intent.putExtra("isAuthor",isAthor);
+                intent.putExtra("isAuthor", isAthor);
                 intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 intent.putExtra(LIVEID, id);
                 startActivity(intent);
@@ -805,9 +830,10 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
                 break;
         }
     }
+
     //结束直播
     private void showdialog() {
-        View view = View.inflate(this,R.layout.stop_audiolive_dialog,null);
+        View view = View.inflate(this, R.layout.stop_audiolive_dialog, null);
         final AlertDialog dialog = new AlertDialog.Builder(this)
                 .setView(view)
                 .show();
@@ -829,7 +855,7 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
     }
 
     private void stopAudioLive(final AlertDialog dialog) {
-        String url = String.format(UmiwiAPI.UMIWI_STOP_AUDIOLIVE,id);
+        String url = String.format(UmiwiAPI.UMIWI_STOP_AUDIOLIVE, id);
         GetRequest<AudioLiveStopBean> request = new GetRequest<AudioLiveStopBean>(url, GsonParser.class, AudioLiveStopBean.class, new AbstractRequest.Listener<AudioLiveStopBean>() {
             @Override
             public void onResult(AbstractRequest<AudioLiveStopBean> request, AudioLiveStopBean audioLiveStopBean) {

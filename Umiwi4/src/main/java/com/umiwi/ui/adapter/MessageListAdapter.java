@@ -33,6 +33,8 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import cn.youmi.account.manager.UserManager;
 
+import static com.umiwi.ui.main.UmiwiApplication.mainActivity;
+
 
 /**
  * Created by Administrator on 2017/4/28.
@@ -66,7 +68,7 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                         sendHandler(url,viewHolder);
                     }else {
                         viewHolder.sb_audio_progress.setProgress(0);
-                        viewHolder.iv_audio_controll.setImageResource(android.R.drawable.ic_media_pause);
+                        viewHolder.iv_audio_controll.setImageResource(android.R.drawable.ic_media_play);
                     }
                 }
             } catch (RemoteException e) {
@@ -138,7 +140,7 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 authorViewHolder.rl_audio.setVisibility(View.GONE);
                 authorViewHolder.rl_picture.setVisibility(View.VISIBLE);
                 ImageAttachment attachment = (ImageAttachment) chatRoomMessage.getAttachment();
-                Glide.with(context).load(attachment.getUrl()).placeholder(R.drawable.change_more).into(authorViewHolder.iv_receive);
+                Glide.with(context).load(attachment.getUrl()).into(authorViewHolder.iv_receive);
             } else if (chatRoomMessage.getMsgType() == MsgTypeEnum.audio) {//显示录音
                 authorViewHolder.rl_text.setVisibility(View.GONE);
                 authorViewHolder.rl_audio.setVisibility(View.VISIBLE);
@@ -167,12 +169,15 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     if (isPlayUrl(playingUrl)) {
                         try {
                             //判断播放状态
-                            if (UmiwiApplication.mainActivity.service.isPlaying()) {
+                            if (mainActivity.service.isPlaying()) {
                                 authorViewHolder.iv_audio_controll.setImageResource(android.R.drawable.ic_media_pause);
+                                authorViewHolder.sb_audio_progress.setProgress(mainActivity.service.getCurrentPosition());
                             } else {
                                 authorViewHolder.iv_audio_controll.setImageResource(android.R.drawable.ic_media_play);
+                                if(mainActivity.service.getCurrentPosition()>=duration) {
+                                    authorViewHolder.sb_audio_progress.setProgress(0);
+                                }
                             }
-                            authorViewHolder.sb_audio_progress.setProgress(UmiwiApplication.mainActivity.service.getCurrentPosition());
                         } catch (RemoteException e) {
                             e.printStackTrace();
                         }
