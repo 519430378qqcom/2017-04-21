@@ -175,7 +175,7 @@ public class ChatRecordActivity extends AppCompatActivity implements ModuleProxy
     @Override
     protected void onDestroy() {
         ButterKnife.reset(this);
-        if (chatRecordAdapter.handler != null) {
+        if (chatRecordAdapter!=null&&chatRecordAdapter.handler != null) {
             chatRecordAdapter.handler.removeCallbacksAndMessages(null);
         }
         super.onDestroy();
