@@ -25,7 +25,6 @@ import com.umiwi.ui.fragment.OfflineActivityFragment;
 import com.umiwi.ui.fragment.WebFragment;
 import com.umiwi.ui.fragment.down.DownloadedListFragment;
 import com.umiwi.ui.fragment.mine.EnshrineListFragment;
-import com.umiwi.ui.fragment.mine.HelpCenterFragment;
 import com.umiwi.ui.fragment.mine.MemberCenterFragment;
 import com.umiwi.ui.fragment.mine.MyAudioLiveFragment;
 import com.umiwi.ui.fragment.mine.MyCardFragment;
@@ -155,10 +154,10 @@ public class NewMineFragment extends BaseConstantFragment implements ActivityCom
                     case 18://开卡
                         intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, MyCardFragment.class);
                         break;
-                    case 19://帮助中心
-                        intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, HelpCenterFragment.class);
-                        break;
-                    case 20://设置
+//                    case 19://帮助中心
+//                        intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, HelpCenterFragment.class);
+//                        break;
+                    case 19://设置
                         intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, SettingFragment.class);
                         break;
                 }
@@ -361,7 +360,7 @@ public class NewMineFragment extends BaseConstantFragment implements ActivityCom
         mlist.add(new NewMineFragment.MineItem(true));
         mlist.add(new NewMineFragment.MineItem(R.drawable.mine_discount, R.drawable.category_hot, "", "我的优惠券", ""));
         mlist.add(new NewMineFragment.MineItem(R.drawable.mine_card, R.drawable.category_hot, "", "开卡/兑换课程", ""));
-        mlist.add(new NewMineFragment.MineItem(R.drawable.help_center, R.drawable.category_hot, "", "帮助中心", ""));
+//        mlist.add(new NewMineFragment.MineItem(R.drawable.help_center, R.drawable.category_hot, "", "帮助中心", ""));
         mlist.add(new NewMineFragment.MineItem(R.drawable.mine_setting, R.drawable.category_hot, "", "设置", ""));
         mlist.add(new NewMineFragment.MineItem(true));
     }

@@ -423,7 +423,6 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
                     startActivity(intent);
                 }
                 break;
-
         }
     }
 

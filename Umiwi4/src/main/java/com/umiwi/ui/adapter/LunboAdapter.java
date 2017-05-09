@@ -140,7 +140,7 @@ public class LunboAdapter extends PagerAdapter {
                     mContext.startActivity(intent);
                 } else if("telecast".equals(listBeans.getTypes())) {
                     Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
-                    intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, AudioSpecialDetailFragment.class);
+                    intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, AudioLiveDetailsFragment.class);
                     intent.putExtra(AudioLiveDetailsFragment.LIVEID, listBeans.getAlbumid());
                     mContext.startActivity(intent);
                 }
