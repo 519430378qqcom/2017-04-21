@@ -82,7 +82,7 @@ public class ChatRecordAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             View view = LayoutInflater.from(context).inflate(R.layout.item_chatroom_mesage_watcher, parent, false);
             return new WatcherViewHolder(view);
         } else {
-            View view = LayoutInflater.from(context).inflate(R.layout.item_chatroom_mesage_author1, parent, false);
+            View view = LayoutInflater.from(context).inflate(R.layout.item_chatroom_mesage_author, parent, false);
             return new AuthorViewHolder(view);
         }
     }
