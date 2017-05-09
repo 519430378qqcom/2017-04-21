@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.umiwi.ui.R;
+import com.umiwi.ui.activity.ChatRecordActivity;
 import com.umiwi.ui.activity.LiveChatRoomActivity;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.updateadapter.HotAudioLiveAdapter;
@@ -67,10 +68,17 @@ public class HotAudioLiveLayoutView extends LinearLayout {
                 String liveId = hotLiveRecord.getId();
                 String roomid = hotLiveRecord.getRoomid();
                 if (isbuy) {
-                    Intent intent = new Intent(mContext, LiveChatRoomActivity.class);
-                    intent.putExtra(LiveDetailsFragment.DETAILS_ID, liveId);
-                    intent.putExtra(LiveChatRoomActivity.ROOM_ID, roomid);
-                    mContext.startActivity(intent);
+                    if ("已结束".equals(hotLiveRecord.getStatus())) {
+                        Intent intent = new Intent(mContext, ChatRecordActivity.class);
+                        intent.putExtra(LiveDetailsFragment.DETAILS_ID, liveId);
+                        intent.putExtra(ChatRecordActivity.ROOM_ID, roomid);
+                        mContext.startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(mContext, LiveChatRoomActivity.class);
+                        intent.putExtra(LiveDetailsFragment.DETAILS_ID, liveId);
+                        intent.putExtra(LiveChatRoomActivity.ROOM_ID, roomid);
+                        mContext.startActivity(intent);
+                    }
                 } else {
                     Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
                     intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, AudioLiveDetailsFragment.class);

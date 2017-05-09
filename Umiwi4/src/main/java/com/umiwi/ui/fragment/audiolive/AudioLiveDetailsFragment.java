@@ -265,7 +265,7 @@ public class AudioLiveDetailsFragment extends BaseConstantFragment {
                         if ("已结束".equals(detailsRecord.getStatus())) {
                             Intent intent = new Intent(getActivity(), ChatRecordActivity.class);
                             intent.putExtra(LiveDetailsFragment.DETAILS_ID, detailsRecord.getId());
-                            intent.putExtra(LiveChatRoomActivity.ROOM_ID, detailsRecord.getRoomid());
+                            intent.putExtra(ChatRecordActivity.ROOM_ID, detailsRecord.getRoomid());
                             getActivity().startActivity(intent);
                         } else {
                             if (isAuthor) {
