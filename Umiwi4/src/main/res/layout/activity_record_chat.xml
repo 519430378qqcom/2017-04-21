@@ -55,7 +55,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rl_head"
-        android:layout_above="@+id/fl_bottom">
+        android:layout_above="@+id/rl_bottom">
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rcy_mesagelist"
             android:layout_width="match_parent"
@@ -71,10 +71,10 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/black_a8"
-            android:text="直播已结束"
-            android:textColor="@color/black"
-            android:textSize="20sp"/>
+            android:background="@color/black_66"
+            android:text="本次直播结束"
+            android:textColor="@color/white"
+            android:textSize="18sp"/>
     </RelativeLayout>
 </RelativeLayout>
 
