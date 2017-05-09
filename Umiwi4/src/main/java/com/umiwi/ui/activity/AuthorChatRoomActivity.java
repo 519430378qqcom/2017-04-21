@@ -41,9 +41,7 @@ import com.netease.nimlib.sdk.chatroom.model.EnterChatRoomData;
 import com.netease.nimlib.sdk.media.record.AudioRecorder;
 import com.netease.nimlib.sdk.media.record.IAudioRecordCallback;
 import com.netease.nimlib.sdk.media.record.RecordType;
-import com.netease.nimlib.sdk.msg.MessageBuilder;
 import com.netease.nimlib.sdk.msg.MsgServiceObserve;
-import com.netease.nimlib.sdk.msg.constant.MsgTypeEnum;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
 import com.umiwi.ui.R;
@@ -685,6 +683,7 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
         NIMClient.getService(ChatRoomService.class).sendMessage(message, true).setCallback(new RequestCallback<Void>() {
             @Override
             public void onSuccess(Void param) {
+                etInput.setText("");
                 //添加自己发送的消息到集合
                 msgListManager.onImcomingMessage(message);
             }

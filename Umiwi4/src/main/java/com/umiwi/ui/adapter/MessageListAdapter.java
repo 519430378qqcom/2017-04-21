@@ -148,9 +148,9 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 long duration = attachment.getDuration();
                 try {
                     if(isPlayUrl(audioUrl)) {
-                        authorViewHolder.iv_audio_controll.setImageResource(android.R.drawable.ic_media_play);
-                    }else {
                         authorViewHolder.iv_audio_controll.setImageResource(android.R.drawable.ic_media_pause);
+                    }else {
+                        authorViewHolder.iv_audio_controll.setImageResource(android.R.drawable.ic_media_play);
                     }
                 } catch (RemoteException e) {
                     e.printStackTrace();
@@ -168,23 +168,23 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                         try {
                             //判断播放状态
                             if (UmiwiApplication.mainActivity.service.isPlaying()) {
-                                authorViewHolder.iv_audio_controll.setImageResource(android.R.drawable.ic_media_play);
-                            } else {
                                 authorViewHolder.iv_audio_controll.setImageResource(android.R.drawable.ic_media_pause);
+                            } else {
+                                authorViewHolder.iv_audio_controll.setImageResource(android.R.drawable.ic_media_play);
                             }
                             authorViewHolder.sb_audio_progress.setProgress(UmiwiApplication.mainActivity.service.getCurrentPosition());
                         } catch (RemoteException e) {
                             e.printStackTrace();
                         }
                     } else {
-                        authorViewHolder.iv_audio_controll.setImageResource(android.R.drawable.ic_media_pause);
+                        authorViewHolder.iv_audio_controll.setImageResource(android.R.drawable.ic_media_play);
                         authorViewHolder.sb_audio_progress.setProgress(0);
                     }
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     }
                 } else {
-                    authorViewHolder.iv_audio_controll.setImageResource(android.R.drawable.ic_media_pause);
+                    authorViewHolder.iv_audio_controll.setImageResource(android.R.drawable.ic_media_play);
                     authorViewHolder.sb_audio_progress.setProgress(0);
                 }
                 authorViewHolder.iv_audio_controll.setOnClickListener(new View.OnClickListener() {
@@ -195,27 +195,27 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                                 //正在播放，并且播放的是此item
                                 if (UmiwiApplication.mainActivity.service.isPlaying()&& isPlayUrl(audioUrl)) {
                                     UmiwiApplication.mainActivity.service.pause();
-                                    authorViewHolder.iv_audio_controll.setImageResource(android.R.drawable.ic_media_pause);
+                                    authorViewHolder.iv_audio_controll.setImageResource(android.R.drawable.ic_media_play);
                                     handler.removeCallbacksAndMessages(null);
                                     //正在播放，此前播放的不是此item
                                 }else if(UmiwiApplication.mainActivity.service.isPlaying()&&!isPlayUrl(audioUrl)) {
                                     UmiwiApplication.mainActivity.service.pause();
                                     UmiwiApplication.mainActivity.service.openAudio(audioUrl);
-                                    authorViewHolder.iv_audio_controll.setImageResource(android.R.drawable.ic_media_play);
-                                    viewHolder.iv_audio_controll.setImageResource(android.R.drawable.ic_media_pause);
+                                    authorViewHolder.iv_audio_controll.setImageResource(android.R.drawable.ic_media_pause);
+                                    viewHolder.iv_audio_controll.setImageResource(android.R.drawable.ic_media_play);
                                     viewHolder.sb_audio_progress.setProgress(0);
                                     sendHandler(audioUrl,authorViewHolder);
                                     //播放暂停状态,之前播放的是此item
                                 }else if(!UmiwiApplication.mainActivity.service.isPlaying()&& isPlayUrl(audioUrl)) {
                                     UmiwiApplication.mainActivity.service.play();
                                     UmiwiApplication.mainActivity.service.seekTo(authorViewHolder.sb_audio_progress.getProgress());
-                                    authorViewHolder.iv_audio_controll.setImageResource(android.R.drawable.ic_media_play);
+                                    authorViewHolder.iv_audio_controll.setImageResource(android.R.drawable.ic_media_pause);
                                     sendHandler(audioUrl,authorViewHolder);
                                     //播放暂停状态,之前播放的也不是此item
                                 }else if(!UmiwiApplication.mainActivity.service.isPlaying()&&!isPlayUrl(audioUrl)) {
                                     UmiwiApplication.mainActivity.service.openAudio(audioUrl);
                                     UmiwiApplication.mainActivity.service.seekTo(authorViewHolder.sb_audio_progress.getProgress());
-                                    authorViewHolder.iv_audio_controll.setImageResource(android.R.drawable.ic_media_play);
+                                    authorViewHolder.iv_audio_controll.setImageResource(android.R.drawable.ic_media_pause);
                                     sendHandler(audioUrl,authorViewHolder);
                                 }
                             } catch (RemoteException e) {
@@ -223,7 +223,7 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                             }
                         }else {
                             VoiceDetailsFragment.bind(audioUrl);
-                            authorViewHolder.iv_audio_controll.setImageResource(android.R.drawable.ic_media_play);
+                            authorViewHolder.iv_audio_controll.setImageResource(android.R.drawable.ic_media_pause);
                             sendHandler(audioUrl,authorViewHolder);
                         }
                     }

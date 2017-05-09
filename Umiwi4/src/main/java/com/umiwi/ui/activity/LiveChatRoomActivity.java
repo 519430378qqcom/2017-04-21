@@ -26,7 +26,6 @@ import com.netease.nimlib.sdk.chatroom.ChatRoomService;
 import com.netease.nimlib.sdk.chatroom.ChatRoomServiceObserver;
 import com.netease.nimlib.sdk.chatroom.model.ChatRoomMessage;
 import com.netease.nimlib.sdk.chatroom.model.EnterChatRoomData;
-import com.netease.nimlib.sdk.msg.MessageBuilder;
 import com.netease.nimlib.sdk.msg.MsgServiceObserve;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
@@ -323,6 +322,9 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
                 break;
             case R.id.btn_comfirm:
                 String content = etInput.getText().toString().trim();
+                if(content == null||content.equals("")) {
+                    Toast.makeText(LiveChatRoomActivity.this, "发送空消息不能为空", Toast.LENGTH_SHORT).show();
+                }
                 // 创建文本消息
                 final ChatRoomMessage message = ChatRoomMessageBuilder.createChatRoomTextMessage(roomId, content);
                 HashMap<String, Object> map = new HashMap<>();
@@ -333,6 +335,7 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
                 NIMClient.getService(ChatRoomService.class).sendMessage(message, true).setCallback(new RequestCallback<Void>() {
                     @Override
                     public void onSuccess(Void param) {
+                        etInput.setText("");
                         //添加自己发送的消息到集合
                         msgListManager.onImcomingMessage(message);
                     }
