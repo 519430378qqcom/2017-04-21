@@ -17,7 +17,9 @@ import org.json.JSONObject;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
+import cn.youmi.framework.debug.LogUtils;
 import cn.youmi.framework.http.AbstractRequest.Parser;
 import cn.youmi.framework.http.okhttp.OkHttpStack;
 import cn.youmi.framework.http.volley.HeaderedStringRequest;
@@ -155,6 +157,8 @@ public class HttpDispatcher {
 		Listener<String> responseListener = new Listener<String>() {
 			@Override
 			public void onResponse(String response) {
+				//LogUtils.d("response:[" + response + "]");
+				//Log.e("TEST","response:[" + response + "]");
 				T result = null;
 				Exception exeption = null;
 				if (parserInputType == String.class) {
@@ -268,6 +272,8 @@ public class HttpDispatcher {
 			request.getListener().onError(request, -1, null);
 			return;
 		}
+		//Log.e("TEST","url:[ " + request.getURL() + " ]---" + "params[ " + request.getParams()+ " ]");
+		//LogUtils.e("系统DEBUG一关");
 		if(mDispatcherObserver != null){
 			mDispatcherObserver.willDispatch(request);
 		}

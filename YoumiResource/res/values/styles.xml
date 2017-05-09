@@ -8,10 +8,10 @@
     
     
     <style name="ActionBarTheme" parent=""><!-- "@style/Widget.AppCompat.Toolbar" -->>
-        <item name="android:textColorPrimary">#fff</item>
-        <item name="colorControlNormal">?actionBarIconColor</item>
-        <item name="colorControlHighlight">#3fff</item>
-    </style>
+    <item name="android:textColorPrimary">@color/black</item><!--#fff-->
+    <item name="colorControlNormal">?actionBarIconColor</item>
+    <item name="colorControlHighlight">#3fff</item>
+</style>
     
     <style name="ActionBarPopupTheme" parent="Theme.AppCompat.Light" />
     

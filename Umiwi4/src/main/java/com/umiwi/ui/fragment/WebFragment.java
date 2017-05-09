@@ -33,6 +33,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.umeng.analytics.MobclickAgent;
+import com.umiwi.ui.R;
 import com.umiwi.ui.activity.HomeMainActivity;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.beans.updatebeans.H5ShareBean;
@@ -68,7 +69,7 @@ import cn.youmi.framework.http.GetRequest;
 import cn.youmi.framework.http.parsers.GsonParser;
 import cn.youmi.framework.main.ConstantProvider;
 import cn.youmi.framework.util.AndroidSDK;
-import cn.youmi.pay.R;
+
 
 @SuppressWarnings("deprecation")
 @SuppressLint({"ValidFragment", "SetJavaScriptEnabled"})
@@ -235,14 +236,14 @@ public class WebFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_payweb_layout, container, false);
+        View view = inflater.inflate(R.layout.fragment_youmi_webview_layout, container, false);
         this.setHasOptionsMenu(true);
         if (mWebView != null) {
             mWebView.destroy();
         }
         mActionBarToolbar = (Toolbar) view.findViewById(R.id.toolbar_actionbar);
         setSupportActionBar(mActionBarToolbar);
-        mActionBarToolbar.setNavigationIcon(R.drawable.ic_action_bar_return);
+        mActionBarToolbar.setNavigationIcon(R.drawable.ic_action_bar_return_black);
         mWebView = (WebView) view.findViewById(R.id.webView);
         mProgressBar = (ProgressBar) view.findViewById(R.id.progressbar);
 

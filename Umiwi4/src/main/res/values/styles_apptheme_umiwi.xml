@@ -28,9 +28,9 @@
         <item name="popupItemBackground">?android:selectableItemBackground</item>
         <item name="photoItemForeground">?android:selectableItemBackground</item>
         <item name="photoItemForegroundBorderless">?android:selectableItemBackground</item>
-
-        <item name="colorPrimary">@color/color_primary</item><!-- actionbar bg color -->>
-        <item name="colorPrimaryDark">@color/color_primary_dark</item>
+        <!--color_primary  -->
+        <item name="colorPrimary">@color/black</item><!-- actionbar bg color -->>
+        <item name="colorPrimaryDark">@color/black</item><!--color_primary_dark -->
         <item name="android:textColorPrimaryInverse">@color/color_secondary_text</item>
         <item name="android:textColorPrimary">@color/color_primary_text</item>
         <item name="colorAccent">@color/color_accent</item>
@@ -134,8 +134,8 @@
 
 
     <style name="ActionBar.TitleTextStyle.Umiwi" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textColor">@android:color/black</item><!--@android:color/white -->
+        <item name="android:textColorPrimary">@android:color/black</item>
         <item name="android:textSize">18sp</item>
     </style>
 
@@ -149,7 +149,7 @@
     <style name="ActionBarPopupThemeOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="ActionBarTheme" parent=""><!-- "@style/Widget.AppCompat.Toolbar" -->>
-        <item name="android:textColorPrimary">#fff</item>
+        <item name="android:textColorPrimary">@color/black</item><!--#fff -->
         <item name="colorControlNormal">?actionBarIconColor</item>
         <item name="colorControlHighlight">#3fff</item>
         <item name="toolbarNavigationButtonStyle">@style/UmiwiToolbarNavigationButtonStyle</item>

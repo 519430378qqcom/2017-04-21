@@ -136,6 +136,7 @@
                 android:src="@drawable/next_voice" />
         </LinearLayout>
     </RelativeLayout>
-    <include layout="@layout/voice_detail_fragment_layout"/>
+
+    <include layout="@layout/voice_detail_fragment_layout" />
 </LinearLayout>
 </FrameLayout>

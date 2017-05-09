@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     <RelativeLayout
-        android:background="@color/main_color"
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         >
@@ -14,7 +14,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="8dp"
-            android:src="@drawable/ic_action_bar_return" />
+            android:src="@drawable/ic_action_bar_return_black" />
         <!--<TextView-->
         <!--android:layout_toRightOf="@+id/back"-->
         <!--android:layout_width="match_parent"-->
@@ -33,7 +33,7 @@
             android:layout_marginTop="5dp"
             android:gravity="center"
             android:text="我的收藏"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="20sp" />
     </RelativeLayout>
 

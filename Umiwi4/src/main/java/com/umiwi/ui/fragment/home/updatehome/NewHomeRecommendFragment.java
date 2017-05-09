@@ -220,14 +220,21 @@ public class NewHomeRecommendFragment extends BaseConstantFragment {
         if(mDataList.size() <= 5) {
             iv_next_tab.setVisibility(View.GONE);
         }
+
+        mDataList.add("测试1");
+        mDataList.add("测试2");
+        mDataList.add("测试3");
         viewPager.setAdapter(new MyFragmentStatePagerAdapter(getChildFragmentManager(), mDataList));
 //        viewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
-        viewPager.setOffscreenPageLimit(4);
+        viewPager.setOffscreenPageLimit(8);//4 comment by wangsan
         magic_indicator.setBackgroundColor(Color.WHITE);
         CommonNavigator commonNavigator = new CommonNavigator(getActivity());
         //均分tag
 //        commonNavigator.setAdjustMode(true);
         commonNavigator.setScrollPivotX(0.5f);
+
+
+
         commonNavigator.setAdapter(new CommonNavigatorAdapter() {
             @Override
             public int getCount() {
