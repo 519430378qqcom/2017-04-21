@@ -109,7 +109,8 @@ public class AudioFragment extends BaseConstantFragment {
     @Override
     public void onResume() {
         super.onResume();
-        String url = UmiwiAPI.ALREADY_VOICE + "?p=" + 1;
+        page = 1;
+        String url = UmiwiAPI.ALREADY_VOICE + "?p=" + page;
         GetRequest<AlreadyShopVoiceBean> request = new GetRequest<AlreadyShopVoiceBean>(
                 url, GsonParser.class,
                 AlreadyShopVoiceBean.class, new AbstractRequest.Listener<AlreadyShopVoiceBean>() {

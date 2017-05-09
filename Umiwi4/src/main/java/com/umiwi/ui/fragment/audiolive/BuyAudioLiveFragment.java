@@ -132,7 +132,8 @@ public class BuyAudioLiveFragment extends BaseConstantFragment {
     @Override
     public void onResume() {
         super.onResume();
-        String url = String.format(UmiwiAPI.UMIWI_BUYAUDIOLIVE, 1);
+        page = 1;
+        String url = String.format(UmiwiAPI.UMIWI_BUYAUDIOLIVE, page);
         GetRequest<BuyAudioLiveBean> request = new GetRequest<BuyAudioLiveBean>(url, GsonParser.class, BuyAudioLiveBean.class, new AbstractRequest.Listener<BuyAudioLiveBean>() {
             @Override
             public void onResult(AbstractRequest<BuyAudioLiveBean> request, BuyAudioLiveBean buyAudioLiveBean) {

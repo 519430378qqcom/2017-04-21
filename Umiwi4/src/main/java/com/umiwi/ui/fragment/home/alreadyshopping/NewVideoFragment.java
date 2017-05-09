@@ -140,7 +140,8 @@ public class NewVideoFragment extends BaseConstantFragment {
     @Override
     public void onResume() {
         super.onResume();
-        String url = UmiwiAPI.ALREADY_VIDEO+"?p="+1;
+        page = 1;
+        String url = UmiwiAPI.ALREADY_VIDEO+"?p="+page;
         GetRequest<AlreadyVideoBean> req = new GetRequest<AlreadyVideoBean>(url, GsonParser.class, AlreadyVideoBean.class, new AbstractRequest.Listener<AlreadyVideoBean>() {
             @Override
             public void onResult(AbstractRequest<AlreadyVideoBean> request, AlreadyVideoBean alreadyVideoBean) {
