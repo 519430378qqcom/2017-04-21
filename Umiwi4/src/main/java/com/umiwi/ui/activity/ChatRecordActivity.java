@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
 import android.view.View;
@@ -23,7 +24,6 @@ import com.umiwi.ui.fragment.audiolive.AudioLiveDetailsFragment;
 import com.umiwi.ui.fragment.audiolive.LiveDetailsFragment;
 import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.managers.ModuleProxy;
-import com.umiwi.ui.managers.MsgListManager;
 import com.umiwi.ui.view.RefreshLayout;
 
 import java.util.List;
@@ -55,10 +55,6 @@ public class ChatRecordActivity extends AppCompatActivity implements ModuleProxy
      * 聊天室ID
      */
     private String roomId;
-    /**
-     * 消息列表控制器
-     */
-    private MsgListManager msgListManager;
     /**
      * 聊天室消息
      */
@@ -96,21 +92,23 @@ public class ChatRecordActivity extends AppCompatActivity implements ModuleProxy
                 url, GsonParser.class, ChatRecordBean.class, new AbstractRequest.Listener<ChatRecordBean>() {
             @Override
             public void onResult(AbstractRequest<ChatRecordBean> request, ChatRecordBean chatRecordBean) {
-                if(chatRecordBean!=null) {
+                List<ChatRecordBean.RBean.RecordBean> records = chatRecordBean.getR().getRecord();
+                if (records!=null&&records.size()>0){
                     page++;
-                    List<ChatRecordBean.RBean.RecordBean> records = chatRecordBean.getR().getRecord();
                     if(chatRecordAdapter == null) {
                         chatRecordAdapter = new ChatRecordAdapter(ChatRecordActivity.this);
                         for (ChatRecordBean.RBean.RecordBean recordBean:records){
                             chatRecordAdapter.addChatRecord(recordBean);
                         }
-                        chatRecordAdapter.notifyDataSetChanged();
+                        rcy_mesagelist.setLayoutManager(new LinearLayoutManager(ChatRecordActivity.this));
+                        rcy_mesagelist.setAdapter(chatRecordAdapter);
                     }else {
                         for (ChatRecordBean.RBean.RecordBean recordBean:records){
                             chatRecordAdapter.addChatRecord(recordBean);
                         }
                         chatRecordAdapter.notifyDataSetChanged();
                     }
+                    refreshLayout.setRefreshing(false);
                 }else {
                     refreshLayout.setRefreshing(false);
                     Toast.makeText(ChatRecordActivity.this, "没用更多消息了", Toast.LENGTH_SHORT).show();

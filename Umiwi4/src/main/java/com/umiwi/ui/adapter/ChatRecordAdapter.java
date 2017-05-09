@@ -135,7 +135,7 @@ public class ChatRecordAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 authorViewHolder.rl_picture.setVisibility(View.GONE);
                 ChatRecordBean.RBean.RecordBean.AudioattachBean audioattach = chatRecord.getAudioattach();
                 final String audioUrl = audioattach.getUrl();
-                long duration = audioattach.getDur();
+                long duration = Long.parseLong(audioattach.getDur());
                 try {
                     if(isPlayUrl(audioUrl)) {
                         authorViewHolder.iv_audio_controll.setImageResource(android.R.drawable.ic_media_play);
