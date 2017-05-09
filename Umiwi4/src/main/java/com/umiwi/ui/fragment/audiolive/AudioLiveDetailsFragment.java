@@ -23,6 +23,7 @@ import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.updateadapter.AudioLiveDetailsAdapter;
 import com.umiwi.ui.beans.UmiwiBuyCreateOrderBeans;
 import com.umiwi.ui.beans.updatebeans.AudioLiveDetailsBean;
+import com.umiwi.ui.beans.updatebeans.JewelBuyAudioBena;
 import com.umiwi.ui.dialog.ShareDialog;
 import com.umiwi.ui.fragment.pay.PayingFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
@@ -81,10 +82,11 @@ public class AudioLiveDetailsFragment extends BaseConstantFragment {
     private AudioLiveDetailsBean.RAudioLiveDetails.AudioLiveDetailsShare share;//分享
     private int height;
     private String payurl;
-    private boolean isAutio;//是否进入过聊天室
+    public static boolean isAutio;//是否进入过聊天室
 
     public static boolean isPause = false;
     private boolean isAuthor;
+
 
     @Nullable
     @Override
@@ -134,6 +136,7 @@ public class AudioLiveDetailsFragment extends BaseConstantFragment {
             }
         });
     }
+
     private ScrollChangeScrollView.ScrollViewListener mScrollViewListener = new ScrollChangeScrollView.ScrollViewListener() {
         @Override
         public void onScrollChanged(ScrollChangeScrollView scrollView, int x, int y, int oldx, int oldy) {
@@ -180,11 +183,12 @@ public class AudioLiveDetailsFragment extends BaseConstantFragment {
             }
         }
     };
+
     //获取详情数据
     private void getInfo() {
         String url = String.format(UmiwiAPI.LIVE_DETAILS, liveId);
         Log.e("TAG", "直播详情url=" + url);
-        GetRequest<AudioLiveDetailsBean> request = new GetRequest<AudioLiveDetailsBean>(url, GsonParser.class, AudioLiveDetailsBean.class,getinfoListener);
+        GetRequest<AudioLiveDetailsBean> request = new GetRequest<AudioLiveDetailsBean>(url, GsonParser.class, AudioLiveDetailsBean.class, getinfoListener);
         request.go();
     }
 
@@ -193,28 +197,36 @@ public class AudioLiveDetailsFragment extends BaseConstantFragment {
         @Override
         public void onResult(AbstractRequest<AudioLiveDetailsBean> request, AudioLiveDetailsBean audioLiveDetailsBean) {
 
-                detailsRecord = audioLiveDetailsBean.getR().getRecord();
-                share = audioLiveDetailsBean.getR().getShare();
+            detailsRecord = audioLiveDetailsBean.getR().getRecord();
+            share = audioLiveDetailsBean.getR().getShare();
 
-                Glide.with(getActivity()).load(detailsRecord.getImage()).into(ivImage);
-                tvTitle.setText(detailsRecord.getTitle());
-                tabTitle.setText(detailsRecord.getTitle());
+            Glide.with(getActivity()).load(detailsRecord.getImage()).into(ivImage);
+            tvTitle.setText(detailsRecord.getTitle());
+            tabTitle.setText(detailsRecord.getTitle());
 
-                ArrayList<AudioLiveDetailsBean.RAudioLiveDetails.AudioLiveDetailsRecord.AudioDetailsDescription> content = detailsRecord.getDescription();
-                description.setAdapter(new AudioLiveDetailsAdapter(getActivity(), content));
-                tvLivestatus.setText(detailsRecord.getStatus());
-                //直播状态
-                if ("已结束".equals(detailsRecord.getStatus())) {
-                    tvLivestatus.setBackgroundResource(R.drawable.textview_fillet_bg);
-                    tvLivestatus.setTextColor(Color.GRAY);
-                }
-                if ("未开始".equals(detailsRecord.getStatus())) {
-                    tvLivestatus.setVisibility(View.GONE);
-                    tvStarttime.setTextColor(getResources().getColor(R.color.main_color));
-                    tvStarttime.setBackgroundResource(R.drawable.textview_orange_bg);
-                }
-                tvTakepart.setText(detailsRecord.getPartakenum() + "参与");
+            ArrayList<AudioLiveDetailsBean.RAudioLiveDetails.AudioLiveDetailsRecord.AudioDetailsDescription> content = detailsRecord.getDescription();
+            description.setAdapter(new AudioLiveDetailsAdapter(getActivity(), content));
+            tvLivestatus.setText(detailsRecord.getStatus());
+            //直播状态
+            if ("已结束".equals(detailsRecord.getStatus())) {
+                tvLivestatus.setBackgroundResource(R.drawable.textview_fillet_bg);
+                tvLivestatus.setTextColor(Color.GRAY);
+            }
+            if ("未开始".equals(detailsRecord.getStatus())) {
+                tvLivestatus.setVisibility(View.GONE);
+                tvStarttime.setTextColor(getResources().getColor(R.color.main_color));
+                tvStarttime.setBackgroundResource(R.drawable.textview_orange_bg);
+            }
+            tvTakepart.setText(detailsRecord.getPartakenum() + "参与");
+            //开始时间
+            tvStarttime.setText(detailsRecord.getLive_time());
+
+            //免费状态
+            if (detailsRecord.isfree()) {
                 //底部参与价格
+                tvGotoliveroom.setText("立即参与");
+                rlBottomBack.setBackgroundColor(getResources().getColor(R.color.green_color));
+            } else {
                 if (detailsRecord.isbuy()) {
                     tvGotoliveroom.setText("立即参与");
                     rlBottomBack.setBackgroundColor(getResources().getColor(R.color.green_color));
@@ -222,24 +234,35 @@ public class AudioLiveDetailsFragment extends BaseConstantFragment {
                     rlBottomBack.setBackgroundColor(getResources().getColor(R.color.main_color));
                     tvGotoliveroom.setText("立即参与(" + detailsRecord.getPrice() + ")");
                 }
-                //开始时间
-                tvStarttime.setText(detailsRecord.getLive_time());
+            }
 
-                //判断是否购买
-                if(liveId.equals(PayingFragment.payId) && detailsRecord.isbuy()&&!isAutio) {
-                    isAutio= true;
+
+            //判断是否购买
+            if (liveId.equals(PayingFragment.payId) && detailsRecord.isbuy() && !isAutio) {
+                isAutio = true;
+                if ("已结束".equals(detailsRecord.getStatus())) {
+                    Intent intent = new Intent(getActivity(), ChatRecordActivity.class);
+                    intent.putExtra(LiveDetailsFragment.DETAILS_ID, detailsRecord.getId());
+                    intent.putExtra(ChatRecordActivity.ROOM_ID, detailsRecord.getRoomid());
+                    getActivity().startActivity(intent);
+                } else {
                     Intent intent = new Intent(getActivity(), LiveChatRoomActivity.class);
                     intent.putExtra(LiveDetailsFragment.DETAILS_ID, detailsRecord.getId());
                     intent.putExtra(LiveChatRoomActivity.ROOM_ID, detailsRecord.getRoomid());
+                    startActivity(intent);
                     getActivity().finish();
                 }
+
+            }
         }
+
         @Override
         public void onError(AbstractRequest<AudioLiveDetailsBean> requet, int statusCode, String body) {
-            Toast.makeText(getActivity(),"ERROR",Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "ERROR", Toast.LENGTH_LONG).show();
         }
     };
-//
+
+    //
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -261,28 +284,57 @@ public class AudioLiveDetailsFragment extends BaseConstantFragment {
                 if (!YoumiRoomUserManager.getInstance().isLogin()) {
                     showLogin();
                 } else {
-                    if (detailsRecord.isbuy()) {
-                        if ("已结束".equals(detailsRecord.getStatus())) {
-                            Intent intent = new Intent(getActivity(), ChatRecordActivity.class);
-                            intent.putExtra(LiveDetailsFragment.DETAILS_ID, detailsRecord.getId());
-                            intent.putExtra(ChatRecordActivity.ROOM_ID, detailsRecord.getRoomid());
-                            getActivity().startActivity(intent);
-                        } else {
-                            if (isAuthor) {
-                                Intent intent = new Intent(getActivity(), AuthorChatRoomActivity.class);
+                    //免费
+                    if (detailsRecord.isfree()) {
+                        if (detailsRecord.isbuy()) {
+                            if ("已结束".equals(detailsRecord.getStatus())) {
+                                Intent intent = new Intent(getActivity(), ChatRecordActivity.class);
                                 intent.putExtra(LiveDetailsFragment.DETAILS_ID, detailsRecord.getId());
-                                intent.putExtra(LiveChatRoomActivity.ROOM_ID, detailsRecord.getRoomid());
+                                intent.putExtra(ChatRecordActivity.ROOM_ID, detailsRecord.getRoomid());
                                 getActivity().startActivity(intent);
                             } else {
-                                Intent intent = new Intent(getActivity(), LiveChatRoomActivity.class);
-                                intent.putExtra(LiveDetailsFragment.DETAILS_ID, detailsRecord.getId());
-                                intent.putExtra(LiveChatRoomActivity.ROOM_ID, detailsRecord.getRoomid());
-                                getActivity().startActivity(intent);
+                                if (isAuthor) {
+                                    Intent intent = new Intent(getActivity(), AuthorChatRoomActivity.class);
+                                    intent.putExtra(LiveDetailsFragment.DETAILS_ID, detailsRecord.getId());
+                                    intent.putExtra(LiveChatRoomActivity.ROOM_ID, detailsRecord.getRoomid());
+                                    getActivity().startActivity(intent);
+                                } else {
+                                    Intent intent = new Intent(getActivity(), LiveChatRoomActivity.class);
+                                    intent.putExtra(LiveDetailsFragment.DETAILS_ID, detailsRecord.getId());
+                                    intent.putExtra(LiveChatRoomActivity.ROOM_ID, detailsRecord.getRoomid());
+                                    getActivity().startActivity(intent);
+                                }
                             }
+                        } else {
+                            //没有购买 钻石购买
+                            zuanShiBuy(detailsRecord.getId());
                         }
                     } else {
-                        goToBuy(detailsRecord.getId());
+                        //不免费
+                        if (detailsRecord.isbuy()) {
+                            if ("已结束".equals(detailsRecord.getStatus())) {
+                                Intent intent = new Intent(getActivity(), ChatRecordActivity.class);
+                                intent.putExtra(LiveDetailsFragment.DETAILS_ID, detailsRecord.getId());
+                                intent.putExtra(ChatRecordActivity.ROOM_ID, detailsRecord.getRoomid());
+                                getActivity().startActivity(intent);
+                            } else {
+                                if (isAuthor) {
+                                    Intent intent = new Intent(getActivity(), AuthorChatRoomActivity.class);
+                                    intent.putExtra(LiveDetailsFragment.DETAILS_ID, detailsRecord.getId());
+                                    intent.putExtra(LiveChatRoomActivity.ROOM_ID, detailsRecord.getRoomid());
+                                    getActivity().startActivity(intent);
+                                } else {
+                                    Intent intent = new Intent(getActivity(), LiveChatRoomActivity.class);
+                                    intent.putExtra(LiveDetailsFragment.DETAILS_ID, detailsRecord.getId());
+                                    intent.putExtra(LiveChatRoomActivity.ROOM_ID, detailsRecord.getRoomid());
+                                    getActivity().startActivity(intent);
+                                }
+                            }
+                        } else {
+                            goToBuy(detailsRecord.getId());
+                        }
                     }
+
                 }
 
                 break;
@@ -291,24 +343,64 @@ public class AudioLiveDetailsFragment extends BaseConstantFragment {
                 break;
         }
     }
+
+    private void zuanShiBuy(String id) {
+        String url = String.format(UmiwiAPI.UMIWI_AUDIOLIVE_FREE_ZUANSI, id);
+        Log.e("TAG", "url====" + url);
+        GetRequest<JewelBuyAudioBena> request = new GetRequest<JewelBuyAudioBena>(
+                url, GsonParser.class,
+                JewelBuyAudioBena.class,
+                freeBuyListener);
+        request.go();
+    }
+    private AbstractRequest.Listener<JewelBuyAudioBena> freeBuyListener= new AbstractRequest.Listener<JewelBuyAudioBena>() {
+        @Override
+        public void onResult(AbstractRequest<JewelBuyAudioBena> request, JewelBuyAudioBena jewelBuyAudioBena) {
+//            payurl = umiwiBuyCreateOrderBeans.getR().getPayurl();
+//            subscriberBuyDialog(payurl);
+            if(jewelBuyAudioBena.getR().getId() != null) {
+                if ("已结束".equals(detailsRecord.getStatus())) {
+                    Intent intent = new Intent(getActivity(), ChatRecordActivity.class);
+                    intent.putExtra(LiveDetailsFragment.DETAILS_ID, detailsRecord.getId());
+                    intent.putExtra(ChatRecordActivity.ROOM_ID, detailsRecord.getRoomid());
+                    getActivity().startActivity(intent);
+                } else {
+                    Intent intent = new Intent(getActivity(), LiveChatRoomActivity.class);
+                    intent.putExtra(LiveDetailsFragment.DETAILS_ID, detailsRecord.getId());
+                    intent.putExtra(LiveChatRoomActivity.ROOM_ID, detailsRecord.getRoomid());
+                    startActivity(intent);
+                    getActivity().finish();
+                }
+            }
+
+
+        }
+
+        @Override
+        public void onError(AbstractRequest<JewelBuyAudioBena> requet, int statusCode, String body) {
+
+        }
+    };
     //跳转登陆
     private void showLogin() {
         LoginUtil.getInstance().showLoginView(getActivity());
     }
+
     //获取购买url
     private void goToBuy(String id) {
-        String url = String.format(UmiwiAPI.UMIWI_AUDIOLIVE_DETAILS_BUY,id);
+        String url = String.format(UmiwiAPI.UMIWI_AUDIOLIVE_DETAILS_BUY, id);
         GetRequest<UmiwiBuyCreateOrderBeans> request = new GetRequest<UmiwiBuyCreateOrderBeans>(
                 url, GsonParser.class,
                 UmiwiBuyCreateOrderBeans.class,
                 buyListener);
         request.go();
     }
+
     private AbstractRequest.Listener<UmiwiBuyCreateOrderBeans> buyListener = new AbstractRequest.Listener<UmiwiBuyCreateOrderBeans>() {
         @Override
         public void onResult(AbstractRequest<UmiwiBuyCreateOrderBeans> request, UmiwiBuyCreateOrderBeans umiwiBuyCreateOrderBeans) {
-            payurl = umiwiBuyCreateOrderBeans.getR().getPayurl();
-            subscriberBuyDialog(payurl);
+//            payurl = umiwiBuyCreateOrderBeans.getR().getPayurl();
+//            subscriberBuyDialog(payurl);
 //            Log.e("TAG", "buypayurl==" + payurl);
         }
 
@@ -317,15 +409,17 @@ public class AudioLiveDetailsFragment extends BaseConstantFragment {
 
         }
     };
+
     /**
      * 跳转到购买界面
+     *
      * @param payurl
      */
     public void subscriberBuyDialog(String payurl) {
         Intent i = new Intent(getActivity(), UmiwiContainerActivity.class);
         i.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, PayingFragment.class);
         i.putExtra(PayingFragment.KEY_PAY_URL, payurl);
-        i.putExtra(PayingFragment.PAY_ID,liveId);
+        i.putExtra(PayingFragment.PAY_ID, liveId);
         startActivity(i);
 //        getActivity().startActivityForResult(i,1000);
 

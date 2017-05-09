@@ -128,7 +128,6 @@ public class PayingFragment extends BaseFragment {
             payId = intent.getStringExtra(PAY_ID);
             payment(pay_url);
         } else {
-
             ToastU.show(getActivity(), "购买链接异常", Toast.LENGTH_SHORT);
         }
 

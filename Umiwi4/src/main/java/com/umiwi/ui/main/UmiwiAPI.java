@@ -28,6 +28,10 @@ public final class UmiwiAPI {
     /**
      * 直播详情购买
      */
+    /**
+     * 钻石购买 免费购买
+     */
+    public static final String UMIWI_AUDIOLIVE_FREE_ZUANSI = "http://i.v.youmi.cn/telecast/buytelecastApi?format=json&id=%s";
     public static final String UMIWI_AUDIOLIVE_DETAILS_BUY = "http://i.v.youmi.cn/orders/buytelecast?id=%s&format=json";
     /**
      * 聊天室详情

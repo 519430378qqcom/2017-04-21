@@ -68,8 +68,8 @@ public class AudioLiveDetailsBean extends BaseGsonBeans {
             private String image;
             @SerializedName("description")
             private ArrayList<AudioDetailsDescription> description;
-            @SerializedName("isVip")
-            private boolean isVip;
+            @SerializedName("isfree")
+            private boolean isfree;
 
             public static class AudioDetailsDescription{
                 @SerializedName("word")
@@ -171,12 +171,12 @@ public class AudioLiveDetailsBean extends BaseGsonBeans {
                 this.description = description;
             }
 
-            public boolean isVip() {
-                return isVip;
+            public boolean isfree() {
+                return isfree;
             }
 
-            public void setVip(boolean vip) {
-                isVip = vip;
+            public void setIsfree(boolean isfree) {
+                this.isfree = isfree;
             }
 
             @Override
@@ -192,7 +192,7 @@ public class AudioLiveDetailsBean extends BaseGsonBeans {
                         ", live_time='" + live_time + '\'' +
                         ", image='" + image + '\'' +
                         ", description=" + description +
-                        ", isVip=" + isVip +
+                        ", isfree=" + isfree +
                         '}';
             }
         }

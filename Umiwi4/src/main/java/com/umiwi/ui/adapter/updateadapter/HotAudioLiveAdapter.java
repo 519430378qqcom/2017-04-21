@@ -2,6 +2,7 @@ package com.umiwi.ui.adapter.updateadapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -65,7 +66,12 @@ public class HotAudioLiveAdapter extends BaseAdapter {
         Glide.with(context).load(hotLiveRecord.getLimage()).into(viewHolder.iv_author);
         viewHolder.special_name_textView.setText(hotLiveRecord.getTitle());
         viewHolder.special_context.setText(hotLiveRecord.getSubtitle());
-        viewHolder.special_price.setText(hotLiveRecord.getPrice());
+        if (!TextUtils.isEmpty(hotLiveRecord.getPrice())) {
+            viewHolder.special_price.setText(hotLiveRecord.getPrice());
+        } else {
+            viewHolder.special_price.setText("免费");
+        }
+
         if("已结束".equals(hotLiveRecord.getStatus())) {
             viewHolder.expter_time_textView.setBackgroundResource(R.drawable.textview_fillet_bg);
             viewHolder.expter_time_textView.setTextColor(Color.GRAY);

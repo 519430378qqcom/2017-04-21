@@ -136,7 +136,6 @@ public class AudioLiveOnFragment extends BaseConstantFragment {
             }
         });
         request.go();
-
     }
 
     private void getInfos() {
