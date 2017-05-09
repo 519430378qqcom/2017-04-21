@@ -13,7 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.umiwi.ui.R;
-import com.umiwi.ui.activity.AuthorChatRoomActivity;
+import com.umiwi.ui.activity.ChatRecordActivity;
 import com.umiwi.ui.activity.LiveChatRoomActivity;
 import com.umiwi.ui.adapter.MyLiveAdapter;
 import com.umiwi.ui.beans.MyLiveBean;
@@ -58,7 +58,7 @@ public class EndLiveFragment extends Fragment {
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getActivity(), AuthorChatRoomActivity.class);
+                Intent intent = new Intent(getActivity(), ChatRecordActivity.class);
                 intent.putExtra(LiveDetailsFragment.DETAILS_ID,myLiveBean1.getR().getRecord().get(position).getId());
                 intent.putExtra(LiveChatRoomActivity.ROOM_ID,myLiveBean1.getR().getRecord().get(position).getRoomid());
                 getActivity().startActivity(intent);

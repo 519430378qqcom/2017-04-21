@@ -15,11 +15,8 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.netease.nimlib.sdk.msg.attachment.AudioAttachment;
-import com.netease.nimlib.sdk.msg.attachment.ImageAttachment;
-import com.netease.nimlib.sdk.msg.constant.MsgTypeEnum;
-import com.netease.nimlib.sdk.msg.model.IMMessage;
 import com.umiwi.ui.R;
+import com.umiwi.ui.beans.ChatRecordBean;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.VoiceDetailsFragment;
 import com.umiwi.ui.main.UmiwiApplication;
 import com.umiwi.ui.managers.MsgListManager;
@@ -27,7 +24,6 @@ import com.umiwi.ui.util.DateUtils;
 import com.umiwi.ui.view.CircleImageView;
 
 import java.util.LinkedList;
-import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -48,7 +44,7 @@ public class ChatRecordAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
      */
     private final int AUTHOR_MSG = 2;
     private Context context;
-    public LinkedList<IMMessage> messages;
+    public LinkedList<ChatRecordBean.RBean.RecordBean> chatRecords;
     private final String URL = "url";
     /**
      * 当前音频的viewHolder
@@ -92,59 +88,54 @@ public class ChatRecordAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public int getItemViewType(int position) {
-        return (Boolean) messages.get(position).getRemoteExtension().get(MsgListManager.IS_AUTHOR) ? AUTHOR_MSG : WATCHER_MSG;
+        return chatRecords.get(position).isIs_bozhu() ? AUTHOR_MSG : WATCHER_MSG;
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-        if (messages.size() < 1) {
+        if (chatRecords.size() < 1) {
             return;
         }
-        final IMMessage chatRoomMessage = messages.get(position);
-        Map<String, Object> map = chatRoomMessage.getRemoteExtension();
+        final ChatRecordBean.RBean.RecordBean chatRecord = chatRecords.get(position);
         WatcherViewHolder watcherViewHolder;
         final AuthorViewHolder authorViewHolder;
         if (holder instanceof WatcherViewHolder) {
             watcherViewHolder = (WatcherViewHolder) holder;
-            if (map.size() > 1) {
                 setformatTime(watcherViewHolder.tv_send_time, position);
-                String userName = (String) chatRoomMessage.getRemoteExtension().get(MsgListManager.USER_NAME);
+                String userName = chatRecord.getFromnick();
                 watcherViewHolder.tvId.setText(userName);
-                String url = (String) map.get(MsgListManager.HEAD_PHOTO_URL);
+                String url = chatRecord.getAvatar();
                 Glide.with(context).load(url).placeholder(R.drawable.fragment_mine_login_no).into(watcherViewHolder.civHead);
                 if (UserManager.getInstance().getUser().getUsername().equals(userName)) {//自己发的消息
                     watcherViewHolder.rl_text.setBackgroundResource(R.drawable.blue_rectangle);
                 }
-            }
-            watcherViewHolder.tv_content.setText(chatRoomMessage.getContent());
+            watcherViewHolder.tv_content.setText(chatRecord.getTextattach());
         } else if (holder instanceof AuthorViewHolder) {
             authorViewHolder = (AuthorViewHolder) holder;
-            if (map.size() > 1) {
                 setformatTime(authorViewHolder.tv_send_time, position);
-                String userName = (String) chatRoomMessage.getRemoteExtension().get(MsgListManager.USER_NAME);
+                String userName = chatRecord.getFromnick();
                 authorViewHolder.tvId.setText(userName);
-                String url = (String) map.get(MsgListManager.HEAD_PHOTO_URL);
+                String url = chatRecord.getAvatar();
                 Glide.with(context).load(url).placeholder(R.drawable.fragment_mine_login_no).into(authorViewHolder.civHead);
                 authorViewHolder.rl_text.setBackgroundResource(R.drawable.maincolor_rectangle);
-            }
-            if (chatRoomMessage.getMsgType() == MsgTypeEnum.text) {//显示文本消息
+            if ("TEXT".equals(chatRecord.getMsgtype())) {//显示文本消息
                 authorViewHolder.rl_text.setVisibility(View.VISIBLE);
                 authorViewHolder.rl_audio.setVisibility(View.GONE);
                 authorViewHolder.rl_picture.setVisibility(View.GONE);
-                authorViewHolder.tv_content.setText(chatRoomMessage.getContent());
-            } else if (chatRoomMessage.getMsgType() == MsgTypeEnum.image) {//显示图片消息
+                authorViewHolder.tv_content.setText(chatRecord.getTextattach());
+            } else if ("PICTURE".equals(chatRecord.getMsgtype())) {//显示图片消息
                 authorViewHolder.rl_text.setVisibility(View.GONE);
                 authorViewHolder.rl_audio.setVisibility(View.GONE);
                 authorViewHolder.rl_picture.setVisibility(View.VISIBLE);
-                ImageAttachment attachment = (ImageAttachment) chatRoomMessage.getAttachment();
-                Glide.with(context).load(attachment.getUrl()).placeholder(R.drawable.change_more).into(authorViewHolder.iv_receive);
-            } else if (chatRoomMessage.getMsgType() == MsgTypeEnum.audio) {//显示录音
+                String url1 = chatRecord.getPictureattach().getUrl();
+                Glide.with(context).load(url1).placeholder(R.drawable.change_more).into(authorViewHolder.iv_receive);
+            } else if ("AUDIO".equals(chatRecord.getMsgtype())) {//显示录音
                 authorViewHolder.rl_text.setVisibility(View.GONE);
                 authorViewHolder.rl_audio.setVisibility(View.VISIBLE);
                 authorViewHolder.rl_picture.setVisibility(View.GONE);
-                AudioAttachment attachment = (AudioAttachment) chatRoomMessage.getAttachment();
-                final String audioUrl = attachment.getUrl();
-                long duration = attachment.getDuration();
+                ChatRecordBean.RBean.RecordBean.AudioattachBean audioattach = chatRecord.getAudioattach();
+                final String audioUrl = audioattach.getUrl();
+                long duration = audioattach.getDur();
                 try {
                     if(isPlayUrl(audioUrl)) {
                         authorViewHolder.iv_audio_controll.setImageResource(android.R.drawable.ic_media_play);
@@ -290,12 +281,12 @@ public class ChatRecordAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
      * @return
      */
     private void setformatTime(TextView tv_time, int position) {
-        Long time = messages.get(position).getTime();
+        long time = Long.valueOf(chatRecords.get(position).getMsgtimestamp());
         if (position == 0) {
             tv_time.setVisibility(View.VISIBLE);
             tv_time.setText(DateUtils.MdHm(time));
         } else {
-            Long lastTime = messages.get(position - 1).getTime();
+            Long lastTime = Long.valueOf(chatRecords.get(position - 1).getMsgtimestamp());
             if (time - lastTime > 120000) {
                 tv_time.setVisibility(View.VISIBLE);
                 tv_time.setText(DateUtils.MdHm(time));
@@ -307,7 +298,7 @@ public class ChatRecordAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public int getItemCount() {
-        return messages.size();
+        return chatRecords.size();
     }
 
     /**
@@ -364,7 +355,15 @@ public class ChatRecordAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
-    public int getBottomDataPosition() {
-        return messages.size() - 1;
+    public void addChatRecord(ChatRecordBean.RBean.RecordBean chatRecord){
+        if(chatRecords!=null) {
+            if (chatRecords.size() >= MsgListManager.MESSAGE_CAPACITY) {
+                chatRecords.removeLast();
+            }
+            chatRecords.addFirst(chatRecord);
+        }else {
+            chatRecords = new LinkedList<>();
+            chatRecords.addFirst(chatRecord);
+        }
     }
 }

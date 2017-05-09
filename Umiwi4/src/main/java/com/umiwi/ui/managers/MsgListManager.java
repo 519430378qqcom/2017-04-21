@@ -35,7 +35,7 @@ public class MsgListManager {
     /**
      * 消息集合最大容量
      */
-    private static final int MESSAGE_CAPACITY = 500;
+    public static final int MESSAGE_CAPACITY = 500;
     private Container container;
     private RecyclerView msgView;
     private Context context;

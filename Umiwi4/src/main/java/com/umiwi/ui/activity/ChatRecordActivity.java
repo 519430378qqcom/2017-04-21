@@ -5,53 +5,32 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.netease.nimlib.sdk.NIMClient;
-import com.netease.nimlib.sdk.Observer;
-import com.netease.nimlib.sdk.RequestCallback;
-import com.netease.nimlib.sdk.auth.AuthService;
-import com.netease.nimlib.sdk.auth.LoginInfo;
-import com.netease.nimlib.sdk.chatroom.ChatRoomMessageBuilder;
-import com.netease.nimlib.sdk.chatroom.ChatRoomService;
-import com.netease.nimlib.sdk.chatroom.ChatRoomServiceObserver;
-import com.netease.nimlib.sdk.chatroom.model.ChatRoomMessage;
-import com.netease.nimlib.sdk.chatroom.model.EnterChatRoomData;
-import com.netease.nimlib.sdk.msg.MessageBuilder;
-import com.netease.nimlib.sdk.msg.MsgServiceObserve;
-import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
 import com.umiwi.ui.R;
 import com.umiwi.ui.adapter.ChatRecordAdapter;
 import com.umiwi.ui.beans.ChatRecordBean;
 import com.umiwi.ui.beans.ChatRoomDetailsBean;
-import com.umiwi.ui.beans.NIMAccountBean;
 import com.umiwi.ui.dialog.ShareDialog;
 import com.umiwi.ui.fragment.audiolive.AudioLiveDetailsFragment;
 import com.umiwi.ui.fragment.audiolive.LiveDetailsFragment;
 import com.umiwi.ui.main.UmiwiAPI;
-import com.umiwi.ui.managers.Container;
 import com.umiwi.ui.managers.ModuleProxy;
 import com.umiwi.ui.managers.MsgListManager;
 import com.umiwi.ui.view.RefreshLayout;
 
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
-import cn.youmi.account.manager.UserManager;
 import cn.youmi.framework.http.AbstractRequest;
 import cn.youmi.framework.http.GetRequest;
 import cn.youmi.framework.http.parsers.GsonParser;
@@ -86,10 +65,6 @@ public class ChatRecordActivity extends AppCompatActivity implements ModuleProxy
     private ChatRoomDetailsBean chatRoomDetailsBean;
     private PopupWindow popupWindow;
     private String id;
-    /**
-     * 拉取聊天记录的时间撮
-     */
-    private long chatRecordLastTime = 0;
     private int page;
     private ChatRecordAdapter chatRecordAdapter;
 
@@ -97,7 +72,7 @@ public class ChatRecordActivity extends AppCompatActivity implements ModuleProxy
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-        setContentView(R.layout.activity_live_chat_room);
+        setContentView(R.layout.activity_record_chat);
         ButterKnife.inject(this);
         initData();
         initRefreshLayout();
@@ -123,15 +98,22 @@ public class ChatRecordActivity extends AppCompatActivity implements ModuleProxy
             public void onResult(AbstractRequest<ChatRecordBean> request, ChatRecordBean chatRecordBean) {
                 if(chatRecordBean!=null) {
                     page++;
-                    List<ChatRecordBean.RBean.RecordBean> record = chatRecordBean.getR().getRecord();
+                    List<ChatRecordBean.RBean.RecordBean> records = chatRecordBean.getR().getRecord();
                     if(chatRecordAdapter == null) {
                         chatRecordAdapter = new ChatRecordAdapter(ChatRecordActivity.this);
-                        rcy_mesagelist.setAdapter(chatRecordAdapter);
+                        for (ChatRecordBean.RBean.RecordBean recordBean:records){
+                            chatRecordAdapter.addChatRecord(recordBean);
+                        }
+                        chatRecordAdapter.notifyDataSetChanged();
                     }else {
-
+                        for (ChatRecordBean.RBean.RecordBean recordBean:records){
+                            chatRecordAdapter.addChatRecord(recordBean);
+                        }
+                        chatRecordAdapter.notifyDataSetChanged();
                     }
                 }else {
                     refreshLayout.setRefreshing(false);
+                    Toast.makeText(ChatRecordActivity.this, "没用更多消息了", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -140,6 +122,7 @@ public class ChatRecordActivity extends AppCompatActivity implements ModuleProxy
 
             }
         });
+        request.go();
     }
 
     private void initData() {
@@ -192,13 +175,13 @@ public class ChatRecordActivity extends AppCompatActivity implements ModuleProxy
     @Override
     protected void onDestroy() {
         ButterKnife.reset(this);
-        if (msgListManager.messageListAdapter.handler != null) {
-            msgListManager.messageListAdapter.handler.removeCallbacksAndMessages(null);
+        if (chatRecordAdapter.handler != null) {
+            chatRecordAdapter.handler.removeCallbacksAndMessages(null);
         }
         super.onDestroy();
     }
 
-    @OnClick({R.id.iv_back, R.id.iv_more, R.id.btn_comfirm})
+    @OnClick({R.id.iv_back, R.id.iv_more})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:

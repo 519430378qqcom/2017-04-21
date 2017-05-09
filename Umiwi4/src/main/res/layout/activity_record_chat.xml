@@ -67,39 +67,14 @@
         android:id="@+id/rl_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="5dp"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
         android:layout_alignParentBottom="true">
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/black_33"/>
-        <EditText
-            android:id="@+id/et_input"
-            android:layout_width="250dp"
-            android:layout_height="50dp"
-            android:textSize="14sp"
-            android:textColor="@color/black_a8"
-            android:layout_marginTop="5dp"
-            android:background="@null"
-            android:hint="@string/send_your_message"
-            android:drawableLeft="@drawable/edit"
-            android:paddingLeft="25dp"
-            android:textColorHint="#ffbbbbbb"
-            android:textCursorDrawable="@drawable/cursor"
-            />
         <Button
-            android:id="@+id/btn_comfirm"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/button_send_rectangle"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:text="@string/send"/>
+            android:background="@color/black_a8"
+            android:text="直播已结束"
+            android:textColor="@color/black"
+            android:textSize="20sp"/>
     </RelativeLayout>
 </RelativeLayout>
 
