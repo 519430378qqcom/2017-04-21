@@ -571,7 +571,6 @@ public class RecommendFragment extends BaseConstantFragment {
                 i.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, GiftFragment.class);
                 startActivity(i);
             }
-
         }
 
         @Override
@@ -662,7 +661,6 @@ public class RecommendFragment extends BaseConstantFragment {
 
             }
         }
-
         @SuppressWarnings("deprecation")
         @Override
         public void onError(AbstractRequest<UmiwiListBeans.ChartsListRequestData> requet, int statusCode, String body) {
@@ -680,7 +678,6 @@ public class RecommendFragment extends BaseConstantFragment {
                     }
                 }
             });
-
             refreshLayout.setRefreshing(false);
         }
     };

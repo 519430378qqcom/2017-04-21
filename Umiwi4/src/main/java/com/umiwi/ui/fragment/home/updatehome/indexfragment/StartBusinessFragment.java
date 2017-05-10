@@ -40,7 +40,6 @@ import cn.youmi.framework.http.parsers.GsonParser;
 import cn.youmi.framework.util.ToastU;
 
 
-
 /**
  * Created by Administrator on 2017/3/30 0030.
  */
@@ -139,9 +138,9 @@ public class StartBusinessFragment extends BaseConstantFragment {
     }
 
 
-
     private boolean scrollFlag = false;// 标记是否滑动
     private int lastVisibleItemPosition;// 标记上次滑动位置
+
     private void initScrollView() {
         //最小滑动距离
         touchSlop = ViewConfiguration.get(mContext).getScaledTouchSlop();
@@ -155,16 +154,16 @@ public class StartBusinessFragment extends BaseConstantFragment {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
             switch (event.getAction()) {
-                case MotionEvent.ACTION_DOWN :
+                case MotionEvent.ACTION_DOWN:
                     mFirstY = event.getY();
 //                    Log.e("TAG", "mFirstY=" + mFirstY);
                     break;
                 case MotionEvent.ACTION_MOVE:
                     mCurrentY = event.getY();
 //                    Log.e("TAG", "mCurrentY=" + mCurrentY);
-                    if(mCurrentY - mFirstY > touchSlop) {
+                    if (mCurrentY - mFirstY > touchSlop) {
                         direction = 0;//down
-                    }else if(mFirstY - mCurrentY > touchSlop) {
+                    } else if (mFirstY - mCurrentY > touchSlop) {
                         direction = 1;//up
                     }
                     break;
@@ -176,13 +175,13 @@ public class StartBusinessFragment extends BaseConstantFragment {
 //                    }else if(mFirstY - mCurrentY > 0) {
 //                        direction = 1;//up
 //                    }
-                    if(direction == 1) {
-                        if(mShow) {
+                    if (direction == 1) {
+                        if (mShow) {
                             showAnim(1);
                             mShow = !mShow;
                         }
-                    }else if(direction == 0) {
-                        if(!mShow) {
+                    } else if (direction == 0) {
+                        if (!mShow) {
                             showAnim(0);
                             mShow = !mShow;
                         }
@@ -192,9 +191,10 @@ public class StartBusinessFragment extends BaseConstantFragment {
             return false;
         }
     };
+
     private void showAnim(int flag) {
 
-        if(animator != null && animator.isRunning()) {
+        if (animator != null && animator.isRunning()) {
             animator.cancel();
         }
         if (flag == 0) {
@@ -208,9 +208,9 @@ public class StartBusinessFragment extends BaseConstantFragment {
                 }
             });
         }
-        if(flag == 1) {
+        if (flag == 1) {
 //            Log.e("TAG", "上滑");
-            animator = ObjectAnimator.ofFloat(ll_visiable_or,"translationY",ll_visiable_or.getTranslationY(),-ll_visiable_or.getHeight());
+            animator = ObjectAnimator.ofFloat(ll_visiable_or, "translationY", ll_visiable_or.getTranslationY(), -ll_visiable_or.getHeight());
             animator.addListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
@@ -225,14 +225,14 @@ public class StartBusinessFragment extends BaseConstantFragment {
 
     //请求列表数据
     private void getinfos() {
-        String url = String.format(UmiwiAPI.UMIWI_BUS_WORK_TEND, page, catid, type,price, orderby);
+        String url = String.format(UmiwiAPI.UMIWI_BUS_WORK_TEND, page, catid, type, price, orderby);
 //        Log.e("TAG", "创业数据=" + url);
         GetRequest<AudioVideoBean> request = new GetRequest<AudioVideoBean>(url, GsonParser.class, AudioVideoBean.class, new AbstractRequest.Listener<AudioVideoBean>() {
             @Override
             public void onResult(AbstractRequest<AudioVideoBean> request, AudioVideoBean audioVideoBean) {
                 ArrayList<AudioVideoBean.RAUdioVideo.AudioVideoList> audioVideoLists = audioVideoBean.getR().getRecord();
-                if(audioVideoLists != null) {
-                    totalpage= audioVideoBean.getR().getPage().getTotalpage();
+                if (audioVideoLists != null) {
+                    totalpage = audioVideoBean.getR().getPage().getTotalpage();
                     if (isRefresh) {
                         refreshLayout.setRefreshing(false);
                         audioVideoList.clear();
@@ -247,11 +247,8 @@ public class StartBusinessFragment extends BaseConstantFragment {
 
             @Override
             public void onError(AbstractRequest<AudioVideoBean> requet, int statusCode, String body) {
-                if (isRefresh) {
-                    refreshLayout.setRefreshing(false);
-                } else {
-                    refreshLayout.setLoading(false);
-                }
+                refreshLayout.setRefreshing(false);
+                refreshLayout.setLoading(false);
             }
         });
         request.go();
@@ -341,7 +338,8 @@ public class StartBusinessFragment extends BaseConstantFragment {
                     tv.setTextColor(mContext.getResources().getColor(R.color.gray_a));
                 }
                 tv_all_catid1.setTextColor(mContext.getResources().getColor(R.color.main_color));
-            }});
+            }
+        });
     }
 
     /**
@@ -513,12 +511,7 @@ public class StartBusinessFragment extends BaseConstantFragment {
                 page++;
                 isRefresh = false;
                 if (page <= totalpage) {
-                    refreshLayout.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            getinfos();
-                        }
-                    }, 1000);
+                    getinfos();
 
                 } else {
                     ToastU.showLong(mContext, "没有更多了!");

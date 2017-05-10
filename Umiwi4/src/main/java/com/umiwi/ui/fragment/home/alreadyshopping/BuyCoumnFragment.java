@@ -86,12 +86,7 @@ public class BuyCoumnFragment extends BaseConstantFragment {
                 isload = true;
                 page++;
                 if (page <= totalpage) {
-                    refreshLayout.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            getInfos();
-                        }
-                    }, 1000);
+                    getInfos();
                 } else {
                     ToastU.showLong(getActivity(), "没有更多了!");
                     refreshLayout.setLoading(false);
@@ -136,7 +131,8 @@ public class BuyCoumnFragment extends BaseConstantFragment {
 
             @Override
             public void onError(AbstractRequest<AlreadShopColumnBean> requet, int statusCode, String body) {
-
+                refreshLayout.setRefreshing(false);
+                refreshLayout.setLoading(false);
             }
         });
 

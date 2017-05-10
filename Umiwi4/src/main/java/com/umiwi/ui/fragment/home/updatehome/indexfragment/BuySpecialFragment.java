@@ -48,11 +48,12 @@ public class BuySpecialFragment extends BaseConstantFragment {
     private boolean isload = false;
     private ArrayList<BuySpecialBean.RBuySpecial.BuySpecialRecord> mList = new ArrayList<>();
     private BuySpecialAdapter buySpecialAdapter;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_buyspecial_layout, null);
-        ButterKnife.inject(this,view);
+        ButterKnife.inject(this, view);
         initrefreshLayout();
         buySpecialAdapter = new BuySpecialAdapter(getActivity());
         buySpecialAdapter.setData(mList);
@@ -62,7 +63,7 @@ public class BuySpecialFragment extends BaseConstantFragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 BuySpecialBean.RBuySpecial.BuySpecialRecord buySpecialRecord = mList.get(position);
                 String typeId = buySpecialRecord.getId();
-                if("音频".equals(buySpecialRecord.getType())) {
+                if ("音频".equals(buySpecialRecord.getType())) {
                     Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
                     intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, AudioSpecialDetailFragment.class);
                     intent.putExtra("typeId", typeId);
@@ -88,12 +89,7 @@ public class BuySpecialFragment extends BaseConstantFragment {
                 isload = true;
                 page++;
                 if (page <= totalpage) {
-                    refreshLayout.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            getInfos();
-                        }
-                    }, 1000);
+                    getInfos();
                 } else {
                     ToastU.showLong(getActivity(), "没有更多了!");
                     refreshLayout.setLoading(false);
@@ -114,14 +110,14 @@ public class BuySpecialFragment extends BaseConstantFragment {
 
     private void getInfos() {
         String uid = YoumiRoomUserManager.getInstance().getUid();
-        String url = String.format(UmiwiAPI.UMIWI_BUYSPECIAL,page);
-        Log.e("TAG", "UMIWI_BUYSPECIAL=" + url + ","+uid);
+        String url = String.format(UmiwiAPI.UMIWI_BUYSPECIAL, page);
+        Log.e("TAG", "UMIWI_BUYSPECIAL=" + url + "," + uid);
         GetRequest<BuySpecialBean> request = new GetRequest<BuySpecialBean>(url, GsonParser.class, BuySpecialBean.class, new AbstractRequest.Listener<BuySpecialBean>() {
             @Override
             public void onResult(AbstractRequest<BuySpecialBean> request, BuySpecialBean buySpecialBean) {
-                totalpage= buySpecialBean.getR().getPage().getTotalpage();
+                totalpage = buySpecialBean.getR().getPage().getTotalpage();
                 ArrayList<BuySpecialBean.RBuySpecial.BuySpecialRecord> record = buySpecialBean.getR().getRecord();
-                if(record!= null) {
+                if (record != null) {
                     mList.clear();
                     mList.addAll(record);
                     buySpecialAdapter.setData(mList);
@@ -138,7 +134,8 @@ public class BuySpecialFragment extends BaseConstantFragment {
 
             @Override
             public void onError(AbstractRequest<BuySpecialBean> requet, int statusCode, String body) {
-
+                refreshLayout.setRefreshing(false);
+                refreshLayout.setLoading(false);
             }
         });
         request.go();
@@ -149,13 +146,13 @@ public class BuySpecialFragment extends BaseConstantFragment {
         super.onResume();
         page = 1;
         String uid = YoumiRoomUserManager.getInstance().getUid();
-        String url = String.format(UmiwiAPI.UMIWI_BUYSPECIAL,page);
+        String url = String.format(UmiwiAPI.UMIWI_BUYSPECIAL, page);
 //        Log.e("TAG", "UMIWI_BUYSPECIAL=" + url + ","+uid);
         GetRequest<BuySpecialBean> request = new GetRequest<BuySpecialBean>(url, GsonParser.class, BuySpecialBean.class, new AbstractRequest.Listener<BuySpecialBean>() {
             @Override
             public void onResult(AbstractRequest<BuySpecialBean> request, BuySpecialBean buySpecialBean) {
                 ArrayList<BuySpecialBean.RBuySpecial.BuySpecialRecord> record = buySpecialBean.getR().getRecord();
-                if(record!= null) {
+                if (record != null) {
                     mList.clear();
                     mList.addAll(record);
                     buySpecialAdapter.setData(mList);
@@ -177,6 +174,7 @@ public class BuySpecialFragment extends BaseConstantFragment {
         super.onPause();
         MobclickAgent.onPageStart(fragmentName);
     }
+
     @Override
     public void onDestroy() {
         super.onDestroy();

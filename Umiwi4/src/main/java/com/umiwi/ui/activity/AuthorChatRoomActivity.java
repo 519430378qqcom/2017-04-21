@@ -827,7 +827,6 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
                 popupWindow = null;
                 Intent intent = new Intent(this, UmiwiContainerActivity.class);
                 intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, AudioLiveDetailsFragment.class);
-                intent.putExtra("isAuthor", isAthor);
                 intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 intent.putExtra(LIVEID, id);
                 startActivity(intent);

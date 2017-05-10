@@ -95,7 +95,6 @@ public class AudioLiveDetailsFragment extends BaseConstantFragment {
         ButterKnife.inject(this, view);
 
         liveId = getActivity().getIntent().getStringExtra(LIVEID);
-        isAuthor = getActivity().getIntent().getBooleanExtra("isAuthor", false);
         Log.e("TAG", "liveId=" + liveId);
         record.setVisibility(View.GONE);
         description.setFocusable(false);
@@ -293,7 +292,7 @@ public class AudioLiveDetailsFragment extends BaseConstantFragment {
                                 intent.putExtra(ChatRecordActivity.ROOM_ID, detailsRecord.getRoomid());
                                 getActivity().startActivity(intent);
                             } else {
-                                if (isAuthor) {
+                                if ("1".equals(detailsRecord.getIstutor())) {
                                     Intent intent = new Intent(getActivity(), AuthorChatRoomActivity.class);
                                     intent.putExtra(LiveDetailsFragment.DETAILS_ID, detailsRecord.getId());
                                     intent.putExtra(LiveChatRoomActivity.ROOM_ID, detailsRecord.getRoomid());

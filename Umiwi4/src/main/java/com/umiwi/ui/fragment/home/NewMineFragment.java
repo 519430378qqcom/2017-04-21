@@ -25,7 +25,6 @@ import com.umiwi.ui.fragment.OfflineActivityFragment;
 import com.umiwi.ui.fragment.WebFragment;
 import com.umiwi.ui.fragment.down.DownloadedListFragment;
 import com.umiwi.ui.fragment.mine.EnshrineListFragment;
-import com.umiwi.ui.fragment.mine.MemberCenterFragment;
 import com.umiwi.ui.fragment.mine.MyAudioLiveFragment;
 import com.umiwi.ui.fragment.mine.MyCardFragment;
 import com.umiwi.ui.fragment.mine.MyCouponFragment;
@@ -109,25 +108,25 @@ public class NewMineFragment extends BaseConstantFragment implements ActivityCom
                         intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, FeedbackFragment.class);
                         break;
 
-                    case 5://会员中心
-                        intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS,MemberCenterFragment.class);
-                        break;
-                    case 6://积分
+//                    case 5://会员中心
+//                        intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS,MemberCenterFragment.class);
+//                        break;
+                    case 5://积分
                         intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, WebFragment.class);
                         intent.putExtra(WebFragment.WEB_URL, UmiwiAPI.INTEGRAL);
                         isWebNotice = true;
                         break;
-                    case 7://余额
+                    case 6://余额
                         intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, PayRechargeFragment.class);
                         break;
 
-                    case 9://我的直播
+                    case 8://我的直播
                         intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS,MyAudioLiveFragment.class);
                         break;
-                    case 10://下载
+                    case 9://下载
                         intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, DownloadedListFragment.class);
                         break;
-                    case 11://浏览记录
+                    case 10://浏览记录
                         intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, RecentPlayRecordFragment.class);
 //                        intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, WebFragment.class);
 //                        intent.putExtra(WebFragment.WEB_URL, UmiwiAPI.WEEK_REPORT);
@@ -135,29 +134,29 @@ public class NewMineFragment extends BaseConstantFragment implements ActivityCom
 //                    case 10://我答
 //                        intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, MyAnswerFragment.class);
 //                        break;
-                    case 12://收藏
+                    case 11://收藏
                         intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, EnshrineListFragment.class);
                         break;
 
-                    case 14://私信
+                    case 13://私信
 //                        intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, MyFavListFragment.class);
                         intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, MyMessageFragment.class);
                         break;
-                    case 15://热门活动
+                    case 14://热门活动
                         intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, OfflineActivityFragment.class);
                         break;
 
 
-                    case 17://优惠券
+                    case 16://优惠券
                         intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, MyCouponFragment.class);
                         break;
-                    case 18://开卡
+                    case 17://开卡
                         intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, MyCardFragment.class);
                         break;
 //                    case 19://帮助中心
 //                        intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, HelpCenterFragment.class);
 //                        break;
-                    case 19://设置
+                    case 18://设置
                         intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, SettingFragment.class);
                         break;
                 }
@@ -295,9 +294,9 @@ public class NewMineFragment extends BaseConstantFragment implements ActivityCom
                     case 24:// 皇冠会员
                         user_grade.setImageResource(R.drawable.mine_user_crown);
                         break;
-                    case 26://白金会员
-                        user_grade.setImageResource(R.drawable.image_baijin);
-                        break;
+//                    case 26://白金会员
+//                        user_grade.setImageResource(R.drawable.image_baijin);
+//                        break;
                 }
             }
 
@@ -335,7 +334,7 @@ public class NewMineFragment extends BaseConstantFragment implements ActivityCom
         mlist.add(new NewMineFragment.MineItem(R.drawable.sing_in,R.drawable.category_hot,"","签到",""));
         mlist.add(new NewMineFragment.MineItem(R.drawable.image_feedback, R.drawable.category_hot, "", "意见反馈", ""));
         mlist.add(new NewMineFragment.MineItem(true));
-        mlist.add(new NewMineFragment.MineItem(R.drawable.member_center, R.drawable.category_hot, "", "会员中心", ""));
+//        mlist.add(new NewMineFragment.MineItem(R.drawable.member_center, R.drawable.category_hot, "", "会员中心", ""));
         mlist.add(new NewMineFragment.MineItem(R.drawable.available_integral, R.drawable.category_hot, "", "积分", ""));
         mlist.add(new NewMineFragment.MineItem(R.drawable.balance, R.drawable.category_hot, "", "我的余额", "0.0"));
 
@@ -481,7 +480,7 @@ public class NewMineFragment extends BaseConstantFragment implements ActivityCom
                         if (position == 9) {
                             itemContent.setTextColor(getActivity().getResources().getColor(R.color.umiwi_red));
                         }
-                        if(position == 7){
+                        if(position == 6){
 
                             itemContent.setTextColor(getActivity().getResources().getColor(R.color.main_color));
                             if (YoumiRoomUserManager.getInstance().isLogin() && !TextUtils.isEmpty(YoumiRoomUserManager.getInstance().getUser().getBalance())) {
@@ -496,7 +495,7 @@ public class NewMineFragment extends BaseConstantFragment implements ActivityCom
                                 itemContent.setText("0.0");
                             }
                         }
-                        if(position == 6) {
+                        if(position == 5) {
                             itemContent.setTextColor(getActivity().getResources().getColor(R.color.main_color));
                             if (YoumiRoomUserManager.getInstance().isLogin() && !TextUtils.isEmpty(YoumiRoomUserManager.getInstance().getUser().getMycoin())) {
                                 //已登录

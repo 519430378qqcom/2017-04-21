@@ -91,12 +91,7 @@ public class AudioLiveOnFragment extends BaseConstantFragment {
                 page++;
                 isRefresh = false;
                 if (page <= totalpage) {
-                    refreshLayout.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            getInfos();
-                        }
-                    }, 1000);
+                    getInfos();
 
                 } else {
                     ToastU.showLong(getActivity(), "没有更多了!");
@@ -159,7 +154,8 @@ public class AudioLiveOnFragment extends BaseConstantFragment {
 
             @Override
             public void onError(AbstractRequest<AudioLiveBean> requet, int statusCode, String body) {
-
+                refreshLayout.setRefreshing(false);
+                refreshLayout.setLoading(false);
             }
         });
         request.go();
