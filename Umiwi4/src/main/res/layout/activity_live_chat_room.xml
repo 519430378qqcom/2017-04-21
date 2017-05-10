@@ -96,7 +96,7 @@
             android:layout_marginTop="5dp"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
-            android:background="@drawable/button_send_rectangle"
+            android:background="@drawable/button_send_rectangle_selector"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:text="@string/send"/>

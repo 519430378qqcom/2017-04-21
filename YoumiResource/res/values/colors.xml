@@ -4,6 +4,7 @@
     <color name="background_tab_pressed">#6633B5E5</color>
     <!-- 主色调 -->
     <color name="main_color">#ff7000</color>
+    <color name="main_color_half">#ff9100</color>
     <!-- 纯黑色 -->
     <color name="umiwi_black0">#000000</color>
     <!-- 黑色 -->
