@@ -10,6 +10,10 @@ public final class UmiwiAPI {
     // ===============================直播  相关===================================================//
 
     /**
+     * 已购直播
+     */
+    public static final String UMIWI_BUYAUDIOLIVE="http://i.v.youmi.cn/Telecast/getbuylive?p=%s";
+    /**
      * 关闭直播
      */
     public static final String UMIWI_STOP_AUDIOLIVE = "http://i.v.youmi.cn/Telecast/closelive?id=%s";
@@ -478,7 +482,7 @@ public final class UmiwiAPI {
 
 
     // =================================已购相关=================================================//
-    public static final String UMIWI_BUYAUDIOLIVE="http://i.v.youmi.cn/Telecast/gethotlive?p=%s";
+
 
     // =================================新优米首页相关=================================================//
     public static final String CELEBRTYY_LIST = "http://i.v.youmi.cn/apireader/tutorList";
