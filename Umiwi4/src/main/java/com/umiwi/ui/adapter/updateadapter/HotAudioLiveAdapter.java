@@ -77,7 +77,7 @@ public class HotAudioLiveAdapter extends BaseAdapter {
             viewHolder.expter_time_textView.setTextColor(Color.GRAY);
         }
         viewHolder.expter_time_textView.setText(hotLiveRecord.getStatus());
-        viewHolder.special_subscribe_number.setText(hotLiveRecord.getPartakenum() + "参与");
+        viewHolder.special_subscribe_number.setText(hotLiveRecord.getPartakenum() + "人参与");
 
         return convertView;
     }
