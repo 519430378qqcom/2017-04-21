@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -68,14 +69,14 @@ public class AudioLiveDetailsFragment extends BaseConstantFragment {
     ImageView ivShared;
     @InjectView(R.id.record)
     ImageView record;
-    @InjectView(R.id.tv_gotoliveroom)
-    TextView tvGotoliveroom;
     @InjectView(R.id.rl_bottom_back)
     RelativeLayout rlBottomBack;
     @InjectView(R.id.scrollview)
     ScrollChangeScrollView scrollview;
     @InjectView(R.id.rl_background)
     View rl_background;
+    @InjectView(R.id.btn_gotoliveroom)
+    Button btn_gotoliveroom;
     public static final String LIVEID = "liveId";
     private String liveId;//id
     private AudioLiveDetailsBean.RAudioLiveDetails.AudioLiveDetailsRecord detailsRecord;//详情
@@ -223,15 +224,15 @@ public class AudioLiveDetailsFragment extends BaseConstantFragment {
             //免费状态
             if (detailsRecord.isfree()) {
                 //底部参与价格
-                tvGotoliveroom.setText("立即参与");
+                btn_gotoliveroom.setText("立即参与");
                 rlBottomBack.setBackgroundColor(getResources().getColor(R.color.green_color));
             } else {
                 if (detailsRecord.isbuy()) {
-                    tvGotoliveroom.setText("立即参与");
+                    btn_gotoliveroom.setText("立即参与");
                     rlBottomBack.setBackgroundColor(getResources().getColor(R.color.green_color));
                 } else {
                     rlBottomBack.setBackgroundColor(getResources().getColor(R.color.main_color));
-                    tvGotoliveroom.setText("立即参与(" + detailsRecord.getPrice() + ")");
+                    btn_gotoliveroom.setText("立即参与(" + detailsRecord.getPrice() + ")");
                 }
             }
 
@@ -269,7 +270,7 @@ public class AudioLiveDetailsFragment extends BaseConstantFragment {
     }
 
 
-    @OnClick({R.id.iv_back, R.id.iv_shared, R.id.tv_gotoliveroom, R.id.rl_bottom_back})
+    @OnClick({R.id.iv_back, R.id.iv_shared, R.id.btn_gotoliveroom, R.id.rl_bottom_back})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -279,7 +280,7 @@ public class AudioLiveDetailsFragment extends BaseConstantFragment {
                 ShareDialog.getInstance().showDialog(getActivity(), share.getSharetitle(),
                         share.getSharecontent(), share.getShareurl(), share.getShareimg());
                 break;
-            case R.id.tv_gotoliveroom:
+            case R.id.btn_gotoliveroom:
                 if (!YoumiRoomUserManager.getInstance().isLogin()) {
                     showLogin();
                 } else {
