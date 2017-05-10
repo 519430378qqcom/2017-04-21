@@ -240,7 +240,7 @@ public class ColumnDetailsFragment extends BaseConstantFragment {
 
                         if (UmiwiApplication.mainActivity.service.isPlaying() || UmiwiApplication.mainActivity.isPause) {
                             if (UmiwiApplication.mainActivity.herfUrl != null) {
-                                Log.e("TAG", "UmiwiApplication.mainActivity.herfUrl=" + UmiwiApplication.mainActivity.herfUrl);
+//                                Log.e("TAG", "UmiwiApplication.mainActivity.herfUrl=" + UmiwiApplication.mainActivity.herfUrl);
                                 Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
                                 intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
                                 intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL, UmiwiApplication.mainActivity.herfUrl);
@@ -282,7 +282,7 @@ public class ColumnDetailsFragment extends BaseConstantFragment {
                 tv_name.setText(details.getTitle());
                 tv_title.setText(details.getShortcontent());
 
-                Log.e("TAG", "columnDetailsBean.isIsbuy=" + details.isbuy());
+//                Log.e("TAG", "columnDetailsBean.isIsbuy=" + details.isbuy());
                 if (details.isbuy()) {
                     tv_free_read.setText("查看专栏");
                     tv_free_read.setTextColor(Color.WHITE);
@@ -309,6 +309,7 @@ public class ColumnDetailsFragment extends BaseConstantFragment {
                             return;
                         }
                         getSubscriber(details.getId());
+                        Log.e("TAG", "details.getId()=" + details.getId());
                     }
                 });
 

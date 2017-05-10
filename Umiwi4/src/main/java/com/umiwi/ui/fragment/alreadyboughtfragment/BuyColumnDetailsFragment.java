@@ -34,6 +34,8 @@ import com.umiwi.ui.fragment.home.updatehome.indexfragment.VoiceDetailsFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.UmiwiAPI;
 import com.umiwi.ui.main.UmiwiApplication;
+import com.umiwi.ui.managers.YoumiRoomUserManager;
+import com.umiwi.ui.util.CacheUtil;
 import com.umiwi.ui.view.NoScrollListview;
 import com.umiwi.ui.view.ScrollChangeScrollView;
 
@@ -42,6 +44,8 @@ import java.util.ArrayList;
 import cn.youmi.framework.http.AbstractRequest;
 import cn.youmi.framework.http.GetRequest;
 import cn.youmi.framework.http.parsers.GsonParser;
+
+import static com.umiwi.ui.fragment.home.alreadyshopping.LogicalThinkingFragment.READ_ARRAY_ID;
 
 
 /**
@@ -80,7 +84,6 @@ public class BuyColumnDetailsFragment extends BaseConstantFragment implements Vi
     private ArrayList<AttemptBean.RAttenmpInfo.RecordsBean> recordList = new ArrayList<>();
     private LogicalThinkingAdapter logicalThinkingAdapter;
     private AudioSpecialDetailsBean.RAudioSpecialDetails details;
-    private String columnurl;
     private NoScrollListview lv_buycolumn;
     private AnimationDrawable background;
     private int height;
@@ -92,12 +95,11 @@ public class BuyColumnDetailsFragment extends BaseConstantFragment implements Vi
 //        ButterKnife.inject(this,view);
 
         id = getActivity().getIntent().getStringExtra("id");
-        columnurl = getActivity().getIntent().getStringExtra("columnurl");
+
 
         initView(view);
         getDetailsData();
         getListData();
-        initMediaPlay();
         return view;
     }
 
@@ -131,7 +133,18 @@ public class BuyColumnDetailsFragment extends BaseConstantFragment implements Vi
         lv_buycolumn.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getActivity(), "点击", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(),UmiwiContainerActivity.class);
+                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, ColumnReadFragment.class);
+                intent.putExtra(ColumnReadFragment.DETAIL_ID,recordList.get(position).getId());
+                getActivity().startActivity(intent);
+
+                String uid = YoumiRoomUserManager.getInstance().getUid();
+                AttemptBean.RAttenmpInfo.RecordsBean recordsBean = recordList.get(position);
+                String readIdArray = CacheUtil.getStringFile(getActivity(), READ_ARRAY_ID);
+                if(!readIdArray.contains(recordsBean.getId() + uid + recordsBean.isbuy())) {
+                    CacheUtil.putStringFile(getActivity(),READ_ARRAY_ID,readIdArray + recordsBean.getId() + uid + recordsBean.isbuy() +",");
+                    logicalThinkingAdapter.notifyDataSetChanged();
+                }
             }
         });
 
@@ -263,10 +276,10 @@ public class BuyColumnDetailsFragment extends BaseConstantFragment implements Vi
         super.onDestroy();
         //ButterKnife.reset(this);
     }
-    /**
-     * 播放按钮
-     */
-    private void initMediaPlay() {
+
+    @Override
+    public void onResume() {
+        super.onResume();
         if (UmiwiApplication.mainActivity != null) {
             if (UmiwiApplication.mainActivity.service != null) {
                 background = (AnimationDrawable) record.getBackground();
@@ -281,9 +294,8 @@ public class BuyColumnDetailsFragment extends BaseConstantFragment implements Vi
                 }
             }
         }
-
-
     }
+
 
     @Override
     public void onClick(View v) {
@@ -348,7 +360,7 @@ public class BuyColumnDetailsFragment extends BaseConstantFragment implements Vi
 
                 if (UmiwiApplication.mainActivity.service.isPlaying() || UmiwiApplication.mainActivity.isPause) {
                     if (UmiwiApplication.mainActivity.herfUrl != null) {
-                        Log.e("TAG", "UmiwiApplication.mainActivity.herfUrl=" + UmiwiApplication.mainActivity.herfUrl);
+//                        Log.e("TAG", "UmiwiApplication.mainActivity.herfUrl=" + UmiwiApplication.mainActivity.herfUrl);
                         Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
                         intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
                         intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL, UmiwiApplication.mainActivity.herfUrl);

@@ -90,8 +90,9 @@
                 android:id="@+id/expter_detail_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="3dp"
                 android:ellipsize="end"
-                android:text="帮你和全球精英"
+                android:text="帮你和全球精英帮你和全球精英帮你和全球精英"
                 android:singleLine="true"
                 android:textSize="14sp" />
             <ImageView
@@ -100,11 +101,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/category_hot"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:layout_alignParentBottom="true"
-                android:orientation="vertical">
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true">
 
                 <!--<TextView-->
                     <!--android:layout_gravity="center_vertical"-->

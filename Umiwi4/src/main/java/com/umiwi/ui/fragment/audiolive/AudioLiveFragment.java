@@ -45,8 +45,6 @@ public class AudioLiveFragment extends BaseConstantFragment {
         return view;
     }
 
-
-
     private void initMenuTab() {
         ViewPropertyAnimator.animate(tab_liveon).scaleX(1.0f).setDuration(0);
         ViewPropertyAnimator.animate(tab_nostart).scaleX(1.0f).setDuration(0);

@@ -24,6 +24,7 @@ import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.LogicalThinkingAdapter;
 import com.umiwi.ui.beans.LogincalThinkingBean;
 import com.umiwi.ui.beans.updatebeans.AttemptBean;
+import com.umiwi.ui.fragment.alreadyboughtfragment.NotBuyColumnReadFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.VoiceDetailsFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
 import com.umiwi.ui.main.UmiwiAPI;
@@ -46,6 +47,7 @@ import cn.youmi.framework.http.parsers.GsonParser;
  */
 
 public class LogicalThinkingFragment extends BaseConstantFragment {
+
     @InjectView(R.id.orderby)
     TextView orderby;
     @InjectView(R.id.update_count)
@@ -64,6 +66,7 @@ public class LogicalThinkingFragment extends BaseConstantFragment {
     ImageView record1;
     private AnimationDrawable background;
     public static final String READ_ARRAY_ID = "read_array_id";
+    public static final String NO_BUY = "nobuy";
     private String id;
     private LogicalThinkingAdapter logicalThinkingAdapter;
     private List<LogincalThinkingBean.RecordBean> thinkingBeanList = new ArrayList<>();
@@ -71,9 +74,10 @@ public class LogicalThinkingFragment extends BaseConstantFragment {
     private String orderbyId = "new";
     private ArrayList<AttemptBean.RAttenmpInfo.RecordsBean> record = new ArrayList<>();
 
+
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_logical_thinking, null);
         ButterKnife.inject(this, view);
         id = getActivity().getIntent().getStringExtra("id");
@@ -94,19 +98,21 @@ public class LogicalThinkingFragment extends BaseConstantFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
-                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
-                intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL, String.format(UmiwiAPI.MIANFEI_YUEDU, record.get(position).getId()));
+//                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
+//                intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL, String.format(UmiwiAPI.MIANFEI_YUEDU, record.get(position).getId()));
 //                Log.e("TAG", "String.format(UmiwiAPI.MIANFEI_YUEDU, record.get(position).getId())=" +
 //                        String.format(UmiwiAPI.MIANFEI_YUEDU, record.get(position).getId()));
-                intent.putExtra("isTry", true);
+//                intent.putExtra("isTry", true);
+                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, NotBuyColumnReadFragment.class);
+                intent.putExtra("id",record.get(position).getId());
                 getActivity().startActivity(intent);
                 String uid = YoumiRoomUserManager.getInstance().getUid();
 
                 AttemptBean.RAttenmpInfo.RecordsBean recordsBean = record.get(position);
                 String readIdArray = CacheUtil.getStringFile(getActivity(), READ_ARRAY_ID);
-                if(!readIdArray.contains(recordsBean.getId() + uid)) {
+                if(!readIdArray.contains(recordsBean.getId() + uid + recordsBean.isbuy())) {
 
-                    CacheUtil.putStringFile(getActivity(),READ_ARRAY_ID,readIdArray + recordsBean.getId() + uid +",");
+                    CacheUtil.putStringFile(getActivity(),READ_ARRAY_ID,readIdArray + recordsBean.getId() + uid + recordsBean.isbuy() +",");
                     logicalThinkingAdapter.notifyDataSetChanged();
                 }
             }
@@ -218,6 +224,5 @@ public class LogicalThinkingFragment extends BaseConstantFragment {
         super.onDestroyView();
         ButterKnife.reset(this);
     }
-
 
 }

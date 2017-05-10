@@ -7,6 +7,44 @@ package com.umiwi.ui.main;
  *         // ===============================请这种形式按模块写接口===========================================//
  */
 public final class UmiwiAPI {
+    // ===============================直播  相关===================================================//
+
+    /**
+     * 关闭直播
+     */
+    public static final String UMIWI_STOP_AUDIOLIVE = "http://i.v.youmi.cn/Telecast/closelive?id=%s";
+    /**
+     * 直播页面 数据
+     */
+    public static final String UMIWI_AUIDOLIVE = "http://i.v.youmi.cn/Telecast/getlive?status=%s&p=%s";
+    /**
+     * 我的直播
+     */
+    public static final String MY_LIVE = "http://i.v.youmi.cn/Telecast/getmylive?status=%s&p=%s";
+    /**
+     * 直播详情
+     */
+    public static final String LIVE_DETAILS = "http://i.v.youmi.cn/Telecast/getlivedetail?id=%s";
+    /**
+     * 直播详情购买
+     */
+    /**
+     * 钻石购买 免费购买
+     */
+    public static final String UMIWI_AUDIOLIVE_FREE_ZUANSI = "http://i.v.youmi.cn/telecast/buytelecastApi?format=json&id=%s";
+    public static final String UMIWI_AUDIOLIVE_DETAILS_BUY = "http://i.v.youmi.cn/orders/buytelecast?id=%s&format=json";
+    /**
+     * 聊天室详情
+     */
+    public static final String CHAT_DETAILS = "http://i.v.youmi.cn/Telecast/telecastApi?id=";
+    /**
+     * 结束直播的聊天消息
+     */
+    public static final String CHAT_RECORD = "http://i.v.youmi.cn/Telecast/closeliveDetailapi?id=%s&p=%s";
+    /**
+     * 获取网易云信账户信息
+     */
+    public static final String NIM_ACCOUNT = "http://i.v.youmi.cn/Yxaccount/getAccidapi";
     // ===============================登录  相关===================================================//
 
     /**
@@ -76,6 +114,11 @@ public final class UmiwiAPI {
      * 会员信息
      */
     public static final String UMIWI_USER_INFO = "http://i.v.youmi.cn/apimember/getUserinfo?app=android";
+    /**
+     * 会员中心
+     */
+    public static final String UMIWI_MEMBERCENTER = "http://i.v.youmi.cn/member/memberlistApi";
+
     /**
      * 会员Token
      */
@@ -435,7 +478,7 @@ public final class UmiwiAPI {
 
 
     // =================================已购相关=================================================//
-
+    public static final String UMIWI_BUYAUDIOLIVE="http://i.v.youmi.cn/Telecast/gethotlive?p=%s";
 
     // =================================新优米首页相关=================================================//
     public static final String CELEBRTYY_LIST = "http://i.v.youmi.cn/apireader/tutorList";
@@ -458,12 +501,27 @@ public final class UmiwiAPI {
     //未购专栏详情页
     public static final String No_buy_column = "http://i.v.youmi.cn/tutorcolumn/detailApi?id=";
 
+    /**
+     * 专栏阅读详情页面
+     */
+    public static final String UMIWI_COLUMN_READ = "http://i.v.youmi.cn/audioalbum/detailApi?id=%s";
+    /**
+     * 未购专栏详情页面
+     */
     public static final String UMIWI_NOBUY_COLUMN="http://i.v.youmi.cn/tutorcolumn/detailApi?id=%s";
+    /**
+     * 已购专栏详情页面用户留言
+     */
+    public static final String UMIWI_COLUM_MESSAGE = "http://i.v.youmi.cn/tmessage/listapi?id=%s&p=%s";
+    /**
+     * 已购专栏提交留言
+     */
+    public static final String UMIWI_MESSAGE_COMMIT = "http://i.v.youmi.cn/tmessage/addapi?aid=%s&content=%s";
     //已购买
     public static final String Ask_Hear = "http://i.v.youmi.cn/api8/buyquestion";
     //已购-视频
     public static final String ALREADY_VIDEO = "http://i.v.youmi.cn/api8/buyvideolist";
-
+    //已购音频
     public static final String ALREADY_VOICE = "http://i.v.youmi.cn/audioalbum/buylist";
 
     public static final String Hear_url = "http://i.v.youmi.cn/api8/questionlisten";

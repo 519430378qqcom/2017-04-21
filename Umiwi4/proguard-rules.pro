@@ -119,3 +119,14 @@
 #okio
 -dontwarn okio.**
 -keep class okio.**{*;}
+
+#IM
+-dontwarn com.netease.**
+-dontwarn io.netty.**
+-keep class com.netease.** {*;}
+#如果 netty 使用的官方版本，它中间用到了反射，因此需要 keep。如果使用的是我们提供的版本，则不需要 keep
+-keep class io.netty.** {*;}
+
+##如果你使用全文检索插件，需要加入
+#-dontwarn org.apache.lucene.**
+#-keep class org.apache.lucene.** {*;}

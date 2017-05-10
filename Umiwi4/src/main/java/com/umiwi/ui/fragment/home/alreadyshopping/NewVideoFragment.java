@@ -40,12 +40,10 @@ public class NewVideoFragment extends BaseConstantFragment {
     private ListView listview;
     private RefreshLayout refreshLayout;
     private int page = 1;
-    private boolean isla = false;
-    private boolean isLoad = false;;
-    private ArrayList<AlreadyVideoBean.RalreadyVideo.RecordInfo> buyVideoInfos = new ArrayList<>();
     private int totalpage;
-    private BuyVideoAdapter buyVideoAdapter;
     private boolean isRefresh = true;
+    private ArrayList<AlreadyVideoBean.RalreadyVideo.RecordInfo> buyVideoInfos = new ArrayList<>();
+    private BuyVideoAdapter buyVideoAdapter;
 
     @Nullable
     @Override
@@ -142,7 +140,8 @@ public class NewVideoFragment extends BaseConstantFragment {
     @Override
     public void onResume() {
         super.onResume();
-        String url = UmiwiAPI.ALREADY_VIDEO+"?p="+1;
+        page = 1;
+        String url = UmiwiAPI.ALREADY_VIDEO+"?p="+page;
         GetRequest<AlreadyVideoBean> req = new GetRequest<AlreadyVideoBean>(url, GsonParser.class, AlreadyVideoBean.class, new AbstractRequest.Listener<AlreadyVideoBean>() {
             @Override
             public void onResult(AbstractRequest<AlreadyVideoBean> request, AlreadyVideoBean alreadyVideoBean) {

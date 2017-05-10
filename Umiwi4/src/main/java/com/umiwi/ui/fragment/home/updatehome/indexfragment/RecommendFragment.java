@@ -126,12 +126,6 @@ public class RecommendFragment extends BaseConstantFragment {
 
 
 
-
-
-
-
-
-
 //    private android.os.Handler handler = new android.os.Handler(){
 //        @Override
 //        public void handleMessage(Message msg) {
@@ -245,6 +239,7 @@ public class RecommendFragment extends BaseConstantFragment {
         public void onResult(AbstractRequest<RecommendBean> request, RecommendBean t) {
 //            Log.e("TAG", "t为" + t);
 //            Log.e("TAG", "t=" + t.getR().getSec_free_title().toString());
+
             if (null != t) {
                 flv_new_free.setData(t.getR().getFree(), t.getR().getSec_free_title(), t.getR().getSec_free_huan(),t.getR().getSec_free_huanurl());
                 hot_video_layout.setData(t.getR().getHotvideo());
@@ -257,7 +252,6 @@ public class RecommendFragment extends BaseConstantFragment {
 //                rblv_bottom.setData(getActivity(), t.getR().getBottom());
                 lbum_layout.setData(t.getR().getAlbumlist());
                 hot_audio_live.setData(t.getR().getLive(),t.getR().getSec_live_moreurl());
-                sec_live_moreurl = t.getR().getSec_live_moreurl();
             }
         }
 
@@ -355,7 +349,6 @@ public class RecommendFragment extends BaseConstantFragment {
                         image.setImageResource(R.drawable.point_normal);
                     }
                 }
-
 
             }
 

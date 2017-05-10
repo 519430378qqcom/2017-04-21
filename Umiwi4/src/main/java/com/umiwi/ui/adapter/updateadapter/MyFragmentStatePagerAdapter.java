@@ -39,12 +39,12 @@ public class MyFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
                 return new NewTendencyFragment();
             case 4:
                 return new HotListFragment();
-            case 5:
-                return new VPFragment5();
-            case 6:
-                return new VPFragment6();
-            case 7:
-                return new VPFragment7();
+//            case 5:
+//                return new VPFragment5();
+//            case 6:
+//                return new VPFragment6();
+//            case 7:
+//                return new VPFragment7();
         }
         return null;
     }

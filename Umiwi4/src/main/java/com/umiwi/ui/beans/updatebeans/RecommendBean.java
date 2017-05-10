@@ -190,6 +190,16 @@ public class RecommendBean extends BaseGsonBeans {
                 private String limage;
                 @SerializedName("detailurl")
                 private String detailurl;
+                @SerializedName("roomid")
+                private String roomid;
+
+                public String getRoomid() {
+                    return roomid;
+                }
+
+                public void setRoomid(String roomid) {
+                    this.roomid = roomid;
+                }
 
                 public String getId() {
                     return id;

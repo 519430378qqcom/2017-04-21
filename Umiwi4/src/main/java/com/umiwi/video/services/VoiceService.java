@@ -142,6 +142,7 @@ public class VoiceService extends Service {
 
     };
 
+
     /**
      * 音频播放
      */
@@ -163,6 +164,7 @@ public class VoiceService extends Service {
      * @param url
      */
     private void openAudio(String url) {
+
         this.url = url;
         Log.e("TAG", "服务里传递的URL=" + url);
         if (mediaPlayer != null) {

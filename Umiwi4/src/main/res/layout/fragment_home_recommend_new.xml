@@ -207,6 +207,7 @@
             android:id="@+id/magic_indicator"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             />
 
         <ImageView
@@ -216,7 +217,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:background="@android:color/transparent"
+            android:background="#22ffffff"
             android:padding="5dp"
             android:src="@drawable/category_hot" />
     </LinearLayout>

@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.umiwi.ui.R;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.beans.updatebeans.ChargeBean;
@@ -149,7 +150,8 @@ public class PaySelectedLayoutViwe extends LinearLayout {
         }
         if (videoSize == 1) {
             recordBeanX = datas.get(0);
-            mImageLoader.loadImage(recordBeanX.getImage(), iv_pay_video, R.drawable.ic_launcher);
+//            mImageLoader.loadImage(recordBeanX.getImage(), iv_pay_video, R.drawable.ic_launcher);
+            Glide.with(mContext).load(recordBeanX.getImage()).placeholder(R.drawable.ic_launcher).into(iv_pay_video);
             tv_pay_video_tag_right.setText(recordBeanX.getPricetag());
             tv_pay_video_tag_left.setText(recordBeanX.getPlaytime());
             ll_pay_right_video.setVisibility(View.GONE);
@@ -168,14 +170,16 @@ public class PaySelectedLayoutViwe extends LinearLayout {
         } else if (videoSize == 2) {
             /**左侧**/
             recordBeanX = datas.get(0);
-            mImageLoader.loadImage(recordBeanX.getImage(), iv_pay_video, R.drawable.ic_launcher);
+//            mImageLoader.loadImage(recordBeanX.getImage(), iv_pay_video, R.drawable.ic_launcher);
+            Glide.with(mContext).load(recordBeanX.getImage()).placeholder(R.drawable.ic_launcher).into(iv_pay_video);
             tv_pay_video_tag_right.setText(recordBeanX.getPricetag());
             tv_pay_video_tag_left.setText(recordBeanX.getPlaytime());
 
             /**右侧**/
             ll_pay_right_video.setVisibility(View.VISIBLE);
             recordBeanX = datas.get(1);
-            mImageLoader.loadImage(recordBeanX.getImage(), iv_pay_video_1, R.drawable.ic_launcher);
+//            mImageLoader.loadImage(recordBeanX.getImage(), iv_pay_video_1, R.drawable.ic_launcher);
+            Glide.with(mContext).load(recordBeanX.getImage()).placeholder(R.drawable.ic_launcher).into(iv_pay_video_1);
             tv_pay_video_tag_right_1.setText(recordBeanX.getPricetag());
             tv_pay_video_tag_left_1.setText(recordBeanX.getPlaytime());
             //点击跳转

@@ -42,6 +42,7 @@ public class AttemptBean extends BaseGsonBeans {
         @SerializedName("page")
         private PageBean page;
 
+
         public String getTitle() {
             return title;
         }
@@ -87,7 +88,16 @@ public class AttemptBean extends BaseGsonBeans {
             private String image;
             @SerializedName("onlinetime")
             private String onlinetime;
+            @SerializedName("isbuy")
+            private boolean isbuy;
 
+            public boolean isbuy() {
+                return isbuy;
+            }
+
+            public void setIsbuy(boolean isbuy) {
+                this.isbuy = isbuy;
+            }
             public String getId() {
                 return id;
             }

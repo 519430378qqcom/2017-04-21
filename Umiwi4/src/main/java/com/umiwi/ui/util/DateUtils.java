@@ -14,6 +14,7 @@ public class DateUtils {
     private static SimpleDateFormat format = new SimpleDateFormat("HH:mm");
     private static SimpleDateFormat fMat = new SimpleDateFormat("HH:mm:ss");
     private static SimpleDateFormat mat = new SimpleDateFormat("MM-dd");
+    private static SimpleDateFormat MdHm = new SimpleDateFormat("MM-dd HH:mm");
     private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     private static SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private static SimpleDateFormat sdf1 = new SimpleDateFormat("mm:ss");
@@ -56,6 +57,15 @@ public class DateUtils {
         return fMat.format(new Date(time));
     }
 
+    /**
+     * 获取 MM-dd HH:mm
+     *
+     * @param time
+     * @return
+     */
+    public static String MdHm(long time) {
+        return MdHm.format(new Date(time));
+    }
     /**
      * 获取 MM-dd
      *

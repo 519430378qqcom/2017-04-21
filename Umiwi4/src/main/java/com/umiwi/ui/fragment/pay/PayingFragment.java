@@ -44,6 +44,7 @@ import cn.youmi.framework.http.AbstractRequest.Listener;
 import cn.youmi.framework.http.GetRequest;
 import cn.youmi.framework.http.HttpDispatcher;
 import cn.youmi.framework.http.parsers.GsonParser;
+import cn.youmi.framework.manager.ModelManager;
 import cn.youmi.framework.manager.ModelManager.ModelStatusListener;
 import cn.youmi.framework.util.ToastU;
 
@@ -55,6 +56,7 @@ public class PayingFragment extends BaseFragment {
 
     public static final String KEY_PAY_URL = "key.payurl";
     public String pay_url;
+    public static final String PAY_ID="id";
     public String toolbarTitle = "";
     public boolean isMineRecharge = false;
 
@@ -98,6 +100,7 @@ public class PayingFragment extends BaseFragment {
     private View lines_04;
 
     private android.os.Handler handler = new android.os.Handler(Looper.getMainLooper());
+    public static String payId;
 
     @SuppressLint("InflateParams")
     @Override
@@ -122,9 +125,9 @@ public class PayingFragment extends BaseFragment {
         Intent intent = getActivity().getIntent();
         if (!TextUtils.isEmpty(intent.getStringExtra(KEY_PAY_URL))) {
             pay_url = intent.getStringExtra(KEY_PAY_URL);
+            payId = intent.getStringExtra(PAY_ID);
             payment(pay_url);
         } else {
-
             ToastU.show(getActivity(), "购买链接异常", Toast.LENGTH_SHORT);
         }
 
@@ -402,6 +405,8 @@ public class PayingFragment extends BaseFragment {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     YoumiRoomUserManager.getInstance().getUserInfoSave(UserEvent.PAY_SUCC);
+//                                    Intent intent = new Intent();
+//                                    getActivity().setResult(Activity.RESULT_OK,intent);
                                 }
                             });
                     normalDialog.show();
@@ -474,7 +479,6 @@ public class PayingFragment extends BaseFragment {
                     } else {
                         ca.slideToFinishActivity();
                     }
-
                     break;
                 default:
                     break;
@@ -487,5 +491,8 @@ public class PayingFragment extends BaseFragment {
         }
     };
 
-
+    private ModelManager.CustomerListener customerListener;
+    public void setCustomerListener(ModelManager.CustomerListener customerListener){
+        this.customerListener = customerListener;
+    }
 }

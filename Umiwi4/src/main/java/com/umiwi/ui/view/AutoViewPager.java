@@ -97,7 +97,7 @@ public class AutoViewPager extends ViewPager {
     }
 
     private void sendScrollMessage(long delayTimeInMills) {
-        /** remove messages before, keeps one message is running at most **/
+        /** remove chatRoomMessages before, keeps one message is running at most **/
         handler.removeMessages(SCROLL_WHAT);
         handler.sendEmptyMessageDelayed(SCROLL_WHAT, delayTimeInMills);
     }

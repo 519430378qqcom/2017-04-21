@@ -159,8 +159,8 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                                 int currentPosition = UmiwiApplication.mainActivity.service.getCurrentPosition();
                                 changeTimes.setText(utils.stringForTime(currentPosition));
                                 totalTime.setText(utils.stringForTime(UmiwiApplication.mainActivity.service.getDuration()));
-//                        Log.e("TAG", "service.getDuration()=" + service.getDuration());
-//                        Log.e("TAG", "service.getCurrentPosition()=" + service.getCurrentPosition());
+//                        Log.e("TAG", "service.getDuration()=" + UmiwiApplication.mainActivity.service.getDuration());
+//                        Log.e("TAG", "service.getCurrentPosition()=" + UmiwiApplication.mainActivity.service.getCurrentPosition());
                                 sb_seekbar.setProgress(currentPosition);
                             } catch (RemoteException e) {
                                 e.printStackTrace();
@@ -845,14 +845,14 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
             AudioModel video = AudioManager.getInstance().getVideoById(
                     audiofileBean.getAid() + "");
             video.setVideoUrl(source);
-            Log.e("TAG", "设置audio的URL=" + source);
+//            Log.e("TAG", "设置audio的URL=" + source);
             videos.add(video);
-            Log.e("TAG", "video=" + video.getAlbumTitle());//怎么对公司进行调研
-            Log.e("TAG", "video=" + video.getVideoId());//57
-            Log.e("TAG", "video=" + video.getAlbumId());//55
-            Log.e("TAG", "video=" + video.getFileName());//null
-            Log.e("TAG", "video=" + video.getTitle());//怎样对公司进行调研
-            Log.e("TAG", "video=" + video.getVideoUrl());//http://v.youmi.cn/audioalbum/playsourceapi?audioalbumid=55&audiofileid=57
+//            Log.e("TAG", "video=" + video.getAlbumTitle());//怎么对公司进行调研
+//            Log.e("TAG", "video=" + video.getVideoId());//57
+//            Log.e("TAG", "video=" + video.getAlbumId());//55
+//            Log.e("TAG", "video=" + video.getFileName());//null
+//            Log.e("TAG", "video=" + video.getTitle());//怎样对公司进行调研
+//            Log.e("TAG", "video=" + video.getVideoUrl());//http://v.youmi.cn/audioalbum/playsourceapi?audioalbumid=55&audiofileid=57
         }
         return videos;
     }
@@ -986,9 +986,9 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                 }
                 mAdapter = new VoiceDetailsAdapter(getActivity(), audioFileList, infos, recordList, VoiceDetailsFragment.this);
                 mListView.setAdapter(mAdapter);
-                Log.e("TAG", "11111audioFileList=" + audioFileList);
-                Log.e("TAG", "1111111mAdapter=" + mAdapter);
-                Log.e("TAG", "1213213131=" + recordList.toString());
+//                Log.e("TAG", "11111audioFileList=" + audioFileList);
+//                Log.e("TAG", "1111111mAdapter=" + mAdapter);
+//                Log.e("TAG", "1213213131=" + recordList.toString());
                 mAdapter.setWriteCommenntViewOnClickListener(writeCommentListener);
 //                    收藏按钮
                 if (UserManager.getInstance().isLogin() && collectionDao.isSaved(albumID)) {
@@ -1090,12 +1090,13 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
         }
     }
 
-    private ServiceConnection conn = null;
+    public static ServiceConnection conn = null;
 
     /**
      * 绑定服务
+     * @param
      */
-    public void bindVoiceSerive() {
+    public  void bindVoiceSerive() {
         //发消息，更新进度
         handler.sendEmptyMessage(PROGRESS);
         if (source.equals(UmiwiApplication.mainActivity.musicUrl)) {
@@ -1109,8 +1110,13 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
             }
             return;
         }
-        //保存当前音频链接地址
-        UmiwiApplication.mainActivity.musicUrl = source;
+        bind(source);
+//        getActivity().startService(intent);
+//        intent.putExtra("url", url);
+    }
+
+    public static void bind(final String source) {
+
         Intent intent = new Intent(UmiwiApplication.mainActivity, VoiceService.class);
 //        intent.setAction("com.umiwi.video.action.BIND_SERVICE");
         if (conn == null) {
@@ -1118,6 +1124,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
             conn = new ServiceConnection() {
                 /**
                  * 当绑定服务成功的时候回调这个方法
+                 *
                  * @param name
                  * @param iBinder
                  */
@@ -1128,8 +1135,20 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
 
                     if (UmiwiApplication.mainActivity.service != null) {
                         try {
+//                            if (source.equals(UmiwiApplication.mainActivity.musicUrl)) {
+//                                //如果再次进来当前音乐暂停，就继续播放
+//                                try {
+//                                    if (!UmiwiApplication.mainActivity.service.isPlaying()) {
+//                                        UmiwiApplication.mainActivity.service.play();
+//                                    }
+//                                } catch (RemoteException e) {
+//                                    e.printStackTrace();
+//                                }
+//                                return;
+//                            }
+
                             UmiwiApplication.mainActivity.service.openAudio(source);
-                            Log.e("TAG", "source=in" + source);
+//                            Log.e("TAG", "source=in" + VoiceDetailsFragment.this.source);
                         } catch (RemoteException e) {
                             e.printStackTrace();
                         }
@@ -1139,6 +1158,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
 
                 /**
                  * 当和服务断掉的时候回调这个方法
+                 *
                  * @param name
                  */
                 @Override
@@ -1148,11 +1168,19 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
                 }
             };
 
+        } else {
+            if(!source.equals(UmiwiApplication.mainActivity.musicUrl)) {
+                try {
+                    UmiwiApplication.mainActivity.service.openAudio(source);
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+            }
         }
+        //保存当前音频链接地址
+        UmiwiApplication.mainActivity.musicUrl = source;
         intent.putExtra("source", source);
-        UmiwiApplication.mainActivity.bindService(intent, conn, getActivity().BIND_AUTO_CREATE);
-//        getActivity().startService(intent);
-//        intent.putExtra("url", url);
+        UmiwiApplication.mainActivity.bindService(intent, conn, UmiwiApplication.mainActivity.BIND_AUTO_CREATE);
     }
 
     @Override
@@ -1168,17 +1196,25 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
 //                UmiwiApplication.mainActivity.service.getAudioPath()
                 break;
             case R.id.start_player:
-                Log.e("TAG", "点我干什么？");
+//                Log.e("TAG", "点我干什么？");
+                if(source == null) {
+                    return;
+                }
                 try {
-                    if (UmiwiApplication.mainActivity.service.isPlaying()) {
-                        //暂停
-                        UmiwiApplication.mainActivity.service.pause();
-                        UmiwiApplication.mainActivity.isPause = true;
-                        startPlayer.setBackgroundResource(R.drawable.pause_player);
+                    if (UmiwiApplication.mainActivity.service != null) {
+                        if (UmiwiApplication.mainActivity.service.isPlaying()) {
+                            //暂停
+                            UmiwiApplication.mainActivity.service.pause();
+                            UmiwiApplication.mainActivity.isPause = true;
+                            startPlayer.setBackgroundResource(R.drawable.pause_player);
+                        } else {
+                            UmiwiApplication.mainActivity.service.play();
+                            startPlayer.setBackgroundResource(R.drawable.start_player);
+                        }
                     } else {
-                        UmiwiApplication.mainActivity.service.play();
-                        startPlayer.setBackgroundResource(R.drawable.start_player);
+                        bind(source);
                     }
+
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }

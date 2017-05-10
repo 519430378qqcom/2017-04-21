@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.umiwi.ui.R;
 import com.umiwi.ui.beans.updatebeans.RecommendBean;
 import com.umiwi.ui.main.UmiwiApplication;
@@ -16,6 +17,8 @@ import com.umiwi.ui.view.XCRoundRectImageView;
 import java.util.ArrayList;
 
 import cn.youmi.framework.util.ImageLoader;
+
+import static com.umiwi.ui.main.YoumiConfiguration.context;
 
 /**
  * 类描述：首页—推荐—行家推荐 Adapter
@@ -65,7 +68,8 @@ public class ExpertRecAdapter extends BaseAdapter {
         }
         RecommendBean.RBean.TColumnBean.TColumnBeanRecord tutorBean = mList.get(position);
 
-        mImageLoader.loadImage(tutorBean.getImage(),viewHolder.expert_header_imageview,R.drawable.ic_launcher);
+//        mImageLoader.loadImage(tutorBean.getImage(),viewHolder.expert_header_imageview,R.drawable.ic_launcher);
+        Glide.with(context).load(tutorBean.getImage()).placeholder(R.drawable.ic_launcher).into(viewHolder.expert_header_imageview);
         viewHolder.expert_name_textView_1.setText(tutorBean.getTitle());
         viewHolder.expert_context_1.setText(tutorBean.getTutortitle().trim());
         viewHolder.expter_time_textView.setText(" "+tutorBean.getUpdatetime() + "更新 ");

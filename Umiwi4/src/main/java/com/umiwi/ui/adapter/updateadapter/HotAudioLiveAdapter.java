@@ -1,6 +1,8 @@
 package com.umiwi.ui.adapter.updateadapter;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -12,6 +14,8 @@ import com.umiwi.ui.beans.updatebeans.RecommendBean;
 import com.umiwi.ui.view.XCRoundRectImageView;
 
 import java.util.ArrayList;
+
+import static com.umiwi.ui.main.YoumiConfiguration.context;
 
 
 /**
@@ -59,10 +63,19 @@ public class HotAudioLiveAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         RecommendBean.RBean.HotLiveBean.HotLiveRecord hotLiveRecord = record.get(position);
-        Glide.with(mContext).load(hotLiveRecord.getLimage()).into(viewHolder.iv_author);
+        Glide.with(context).load(hotLiveRecord.getLimage()).into(viewHolder.iv_author);
         viewHolder.special_name_textView.setText(hotLiveRecord.getTitle());
         viewHolder.special_context.setText(hotLiveRecord.getSubtitle());
-        viewHolder.special_price.setText(hotLiveRecord.getPrice());
+        if (!TextUtils.isEmpty(hotLiveRecord.getPrice())) {
+            viewHolder.special_price.setText(hotLiveRecord.getPrice());
+        } else {
+            viewHolder.special_price.setText("免费");
+        }
+
+        if("已结束".equals(hotLiveRecord.getStatus())) {
+            viewHolder.expter_time_textView.setBackgroundResource(R.drawable.textview_fillet_bg);
+            viewHolder.expter_time_textView.setTextColor(Color.GRAY);
+        }
         viewHolder.expter_time_textView.setText(hotLiveRecord.getStatus());
         viewHolder.special_subscribe_number.setText(hotLiveRecord.getPartakenum() + "参与");
 

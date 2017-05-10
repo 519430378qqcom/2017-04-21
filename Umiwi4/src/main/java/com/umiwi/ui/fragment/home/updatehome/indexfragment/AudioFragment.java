@@ -81,22 +81,18 @@ public class AudioFragment extends BaseConstantFragment {
 
         @Override
         public void onResult(AbstractRequest<AlreadyShopVoiceBean> request, AlreadyShopVoiceBean umiAnwebeans) {
-            if(umiAnwebeans != null) {
-                AlreadyShopVoiceBean.RAlreadyVoice.PageBean page = umiAnwebeans.getR().getPage();
-                totalpage = page.getTotalpage();
-                ArrayList<AlreadyShopVoiceBean.RAlreadyVoice.Record> record = umiAnwebeans.getR().getRecord();
+            AlreadyShopVoiceBean.RAlreadyVoice.PageBean page = umiAnwebeans.getR().getPage();
+            totalpage = page.getTotalpage();
+            ArrayList<AlreadyShopVoiceBean.RAlreadyVoice.Record> record = umiAnwebeans.getR().getRecord();
 
-                if (isRefresh) {
-                    refreshLayout.setRefreshing(false);
-                    infos.clear();
-                } else {
-                    refreshLayout.setLoading(false);
-                }
-                infos.addAll(record);
-                alreadyVoiceAdapter.setData(infos);
-
-
+            if (isRefresh) {
+                refreshLayout.setRefreshing(false);
+                infos.clear();
+            } else {
+                refreshLayout.setLoading(false);
             }
+            infos.addAll(record);
+            alreadyVoiceAdapter.setData(infos);
         }
 
         @Override
@@ -113,7 +109,8 @@ public class AudioFragment extends BaseConstantFragment {
     @Override
     public void onResume() {
         super.onResume();
-        String url = UmiwiAPI.ALREADY_VOICE + "?p=" + 1;
+        page = 1;
+        String url = UmiwiAPI.ALREADY_VOICE + "?p=" + page;
         GetRequest<AlreadyShopVoiceBean> request = new GetRequest<AlreadyShopVoiceBean>(
                 url, GsonParser.class,
                 AlreadyShopVoiceBean.class, new AbstractRequest.Listener<AlreadyShopVoiceBean>() {

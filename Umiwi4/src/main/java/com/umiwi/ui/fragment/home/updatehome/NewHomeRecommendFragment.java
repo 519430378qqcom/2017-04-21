@@ -217,13 +217,10 @@ public class NewHomeRecommendFragment extends BaseConstantFragment {
 //                setIndicator(mTabLayout,1,1);
 //          }
 //        });
-        if(mDataList.size() <= 5) {
-            iv_next_tab.setVisibility(View.GONE);
-        }
 
-        mDataList.add("测试1");
-        mDataList.add("测试2");
-        mDataList.add("测试3");
+//        if(mDataList.size() <= 5) {
+//            iv_next_tab.setVisibility(View.GONE);
+//        }
         viewPager.setAdapter(new MyFragmentStatePagerAdapter(getChildFragmentManager(), mDataList));
 //        viewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
         viewPager.setOffscreenPageLimit(8);//4 comment by wangsan
