@@ -143,7 +143,7 @@ public class ChatRecordBean extends BaseGsonBeans{
             private String msgtimestamp;
             @SerializedName("msgtype")
             private String msgtype;
-            @SerializedName("textattatch")
+            @SerializedName("textattach")
             private String textattach;
             @SerializedName("audioattach")
             private AudioattachBean audioattach;
