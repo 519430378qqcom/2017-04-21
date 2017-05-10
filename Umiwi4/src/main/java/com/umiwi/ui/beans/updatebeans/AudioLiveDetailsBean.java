@@ -70,6 +70,16 @@ public class AudioLiveDetailsBean extends BaseGsonBeans {
             private ArrayList<AudioDetailsDescription> description;
             @SerializedName("isfree")
             private boolean isfree;
+            @SerializedName("istutor")
+            private String istutor;
+
+            public String getIstutor() {
+                return istutor;
+            }
+
+            public void setIstutor(String istutor) {
+                this.istutor = istutor;
+            }
 
             public static class AudioDetailsDescription{
                 @SerializedName("word")

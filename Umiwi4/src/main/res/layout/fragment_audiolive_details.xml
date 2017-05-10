@@ -130,15 +130,24 @@
         android:layout_gravity="bottom"
         android:layout_width="match_parent"
         android:layout_height="50dp">
-        <TextView
-            android:id="@+id/tv_gotoliveroom"
-            android:gravity="center"
-            android:layout_centerInParent="true"
+        <!--<TextView-->
+            <!--android:id="@+id/tv_gotoliveroom"-->
+            <!--android:gravity="center"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:textSize="18sp"-->
+            <!--android:padding="5dp"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:textColor="@color/white"-->
+            <!--/>-->
+        <Button
+            android:id="@+id/btn_gotoliveroom"
+            android:text="立即参与"
             android:textSize="18sp"
-            android:padding="5dp"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
             android:textColor="@color/white"
+            android:background="@color/main_color"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             />
     </RelativeLayout>
 </FrameLayout>

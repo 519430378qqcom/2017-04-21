@@ -234,11 +234,8 @@ public class NewTendencyFragment extends BaseConstantFragment {
 
             @Override
             public void onError(AbstractRequest<AudioVideoBean> requet, int statusCode, String body) {
-                if (isRefresh) {
-                    refreshLayout.setRefreshing(false);
-                } else {
-                    refreshLayout.setLoading(false);
-                }
+                refreshLayout.setRefreshing(false);
+                refreshLayout.setLoading(false);
             }
         });
         request.go();
@@ -500,12 +497,7 @@ public class NewTendencyFragment extends BaseConstantFragment {
                 page++;
                 isRefresh = false;
                 if (page <= totalpage) {
-                    refreshLayout.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            getinfos();
-                        }
-                    }, 1000);
+                    getinfos();
 
                 } else {
                     ToastU.showLong(mContext, "没有更多了!");

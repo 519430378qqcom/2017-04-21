@@ -45,6 +45,7 @@ public class AudioLiveNoStartFragment extends BaseConstantFragment {
     private AudioLiveAdapter audioLiveAdapter;
     private ArrayList<RecommendBean.RBean.HotLiveBean.HotLiveRecord> mList = new ArrayList<>();
     private String sec_live_moreurl;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,8 +71,8 @@ public class AudioLiveNoStartFragment extends BaseConstantFragment {
                 RecommendBean.RBean.HotLiveBean.HotLiveRecord hotLiveRecord = mList.get(position);
                 String liveId = hotLiveRecord.getId();
                 Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
-                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS,AudioLiveDetailsFragment.class);
-                intent.putExtra(AudioLiveDetailsFragment.LIVEID,liveId);
+                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, AudioLiveDetailsFragment.class);
+                intent.putExtra(AudioLiveDetailsFragment.LIVEID, liveId);
                 startActivity(intent);
             }
         });
@@ -86,12 +87,7 @@ public class AudioLiveNoStartFragment extends BaseConstantFragment {
                 page++;
                 isRefresh = false;
                 if (page <= totalpage) {
-                    refreshLayout.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            getInfos();
-                        }
-                    }, 1000);
+                    getInfos();
 
                 } else {
                     ToastU.showLong(getActivity(), "没有更多了!");
@@ -112,7 +108,7 @@ public class AudioLiveNoStartFragment extends BaseConstantFragment {
     }
 
     private void getInfos() {
-        String url = String.format(UmiwiAPI.UMIWI_AUIDOLIVE,status,page);
+        String url = String.format(UmiwiAPI.UMIWI_AUIDOLIVE, status, page);
         GetRequest<AudioLiveBean> request = new GetRequest<AudioLiveBean>(url, GsonParser.class, AudioLiveBean.class, new AbstractRequest.Listener<AudioLiveBean>() {
             @Override
             public void onResult(AbstractRequest<AudioLiveBean> request, AudioLiveBean audioLiveBean) {
@@ -131,7 +127,8 @@ public class AudioLiveNoStartFragment extends BaseConstantFragment {
 
             @Override
             public void onError(AbstractRequest<AudioLiveBean> requet, int statusCode, String body) {
-
+                refreshLayout.setRefreshing(false);
+                refreshLayout.setLoading(false);
             }
         });
         request.go();
@@ -141,7 +138,7 @@ public class AudioLiveNoStartFragment extends BaseConstantFragment {
     public void onResume() {
         super.onResume();
         page = 1;
-        String url = String.format(UmiwiAPI.UMIWI_AUIDOLIVE,status,page);
+        String url = String.format(UmiwiAPI.UMIWI_AUIDOLIVE, status, page);
         GetRequest<AudioLiveBean> request = new GetRequest<AudioLiveBean>(url, GsonParser.class, AudioLiveBean.class, new AbstractRequest.Listener<AudioLiveBean>() {
             @Override
             public void onResult(AbstractRequest<AudioLiveBean> request, AudioLiveBean audioLiveBean) {

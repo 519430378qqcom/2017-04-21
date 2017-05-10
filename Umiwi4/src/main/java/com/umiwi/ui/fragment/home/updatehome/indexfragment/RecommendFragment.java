@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -34,6 +35,7 @@ import com.umiwi.ui.adapter.updateadapter.NewfreeAdapter;
 import com.umiwi.ui.beans.GiftBeans;
 import com.umiwi.ui.beans.HomeADBeans;
 import com.umiwi.ui.beans.UmiwiListBeans;
+import com.umiwi.ui.beans.updatebeans.LunBoBannerBean;
 import com.umiwi.ui.beans.updatebeans.NewFree;
 import com.umiwi.ui.beans.updatebeans.RecommendBean;
 import com.umiwi.ui.fragment.GiftFragment;
@@ -138,6 +140,7 @@ public class RecommendFragment extends BaseConstantFragment {
     MyHandler handler=new  MyHandler(this);
     //直播链接
     public static String sec_live_moreurl;
+
 
 
     static  class  MyHandler extends Handler {
@@ -568,7 +571,6 @@ public class RecommendFragment extends BaseConstantFragment {
                 i.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, GiftFragment.class);
                 startActivity(i);
             }
-
         }
 
         @Override
@@ -590,15 +592,41 @@ public class RecommendFragment extends BaseConstantFragment {
         HttpDispatcher.getInstance().go(request);
         //request.go();
     }
+//    private void loadLunboData() {
+//
+//        GetRequest<LunBoBannerBean> request = new GetRequest<LunBoBannerBean>(
+//                UmiwiAPI.VIDEO_LUNBO_NEW,
+//                GsonParser.class, newlunboListener);
+//        //+ CommonHelper.getChannelModelViesion()
+//        request.addParam("version_name", SystemUtils.getVersionName());
+////        HttpDispatcher.getInstance().go(request);
+//
+//        request.go();
+//    }
+
+    private AbstractRequest.Listener<LunBoBannerBean> newlunboListener= new AbstractRequest.Listener<LunBoBannerBean>() {
+        @Override
+        public void onResult(AbstractRequest<LunBoBannerBean> request, LunBoBannerBean lunBoBannerBean) {
+            int size = lunBoBannerBean.getRecord().size();
+
+        }
+
+        @Override
+        public void onError(AbstractRequest<LunBoBannerBean> requet, int statusCode, String body) {
+            Toast.makeText(getActivity(), "请求失败", Toast.LENGTH_SHORT).show();
+            Log.e("TAG", "statusCode=" + statusCode);
+            Log.e("TAG", "body=" + body.toString());
+        }
+    };
 
     private AbstractRequest.Listener<UmiwiListBeans.ChartsListRequestData> lunboListener = new AbstractRequest.Listener<UmiwiListBeans.ChartsListRequestData>() {
 
         @Override
         public void onResult(AbstractRequest<UmiwiListBeans.ChartsListRequestData> request, UmiwiListBeans.ChartsListRequestData t) {
-//            Log.e("TAG", "轮播数据=" + t.getRecord().toString());
-//            Log.e("TAG", "轮播数据t=" + t.toString());
+            int size = t.getRecord().size();
+            Log.e("TAG", "size=" + size);
             if (null != t && null != t.getRecord()) {
-                mLunboAdapter = new LunboAdapter(getActivity(), t.getRecord());
+//                mLunboAdapter = new LunboAdapter(getActivity(), t.getRecord());
                 mLunboList.clear();
                 mLunboList = t.getRecord();
                 ll_point.removeAllViews();
@@ -609,7 +637,6 @@ public class RecommendFragment extends BaseConstantFragment {
                     }else{
                         point.setImageResource(R.drawable.point_normal);
                     }
-
                     LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,-2);
                     if(i != 0){
                         params.leftMargin = 10;//设置间距为10个像数
@@ -620,8 +647,9 @@ public class RecommendFragment extends BaseConstantFragment {
                     ll_point.addView(point);
                 }
 
-//                mAutoViewPager.setAdapter(mLunboAdapter);
-                mAutoViewPager.setAdapter(new LunboAdapter(getActivity(), mLunboList));
+//                mAutoViewPager.setAdapter(mLunboAdapter);\
+                mLunboAdapter = new LunboAdapter(getActivity(), mLunboList);
+                mAutoViewPager.setAdapter(mLunboAdapter);
 //                mIndicator.setViewPager(mAutoViewPager);
 //                mAutoViewPager.setInterval(5000);
 //                mAutoViewPager.setSlideBorderMode(AutoViewPager.SLIDE_BORDER_MODE_CYCLE);// 循环。
@@ -633,7 +661,6 @@ public class RecommendFragment extends BaseConstantFragment {
 
             }
         }
-
         @SuppressWarnings("deprecation")
         @Override
         public void onError(AbstractRequest<UmiwiListBeans.ChartsListRequestData> requet, int statusCode, String body) {
@@ -651,7 +678,6 @@ public class RecommendFragment extends BaseConstantFragment {
                     }
                 }
             });
-
             refreshLayout.setRefreshing(false);
         }
     };

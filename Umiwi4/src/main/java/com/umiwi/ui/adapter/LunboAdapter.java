@@ -17,9 +17,9 @@ import com.umiwi.ui.fragment.AudioSpecialDetailFragment;
 import com.umiwi.ui.fragment.ShareArticleFragment;
 import com.umiwi.ui.fragment.VideoSpecialDetailFragment;
 import com.umiwi.ui.fragment.WebFragment;
+import com.umiwi.ui.fragment.alreadyboughtfragment.BuyColumnDetailsFragment;
 import com.umiwi.ui.fragment.audiolive.AudioLiveDetailsFragment;
 import com.umiwi.ui.fragment.course.CourseDetailPlayFragment;
-import com.umiwi.ui.fragment.home.alreadyshopping.LogicalThinkingFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.ColumnDetailsFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.ExperDetailsFragment;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.VoiceDetailsFragment;
@@ -111,7 +111,7 @@ public class LunboAdapter extends PagerAdapter {
                 } else if ("column".equals(listBeans.getTypes())) {
                     if (listBeans.isbuy()) {
                         Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
-                        intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, LogicalThinkingFragment.class);
+                        intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, BuyColumnDetailsFragment.class);
                         intent.putExtra("id", listBeans.getAlbumid());
                         intent.putExtra("title", listBeans.getTitle());
                         mContext.startActivity(intent);

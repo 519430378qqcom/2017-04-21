@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.umiwi.ui.R;
 import com.umiwi.ui.activity.LiveChatRoomActivity;
@@ -41,6 +42,7 @@ public class BuyAudioLiveFragment extends BaseConstantFragment {
     private boolean isRefresh = true;
     private BuyAudioLiveAdapter adapter;
     private ArrayList<BuyAudioLiveBean.RBuyAudioLive.BuyAudioLiveRecord> mList = new ArrayList<>();
+    private boolean isRequestSuccess;
 
     @Nullable
     @Override
@@ -74,12 +76,7 @@ public class BuyAudioLiveFragment extends BaseConstantFragment {
                 page++;
                 isRefresh = false;
                 if (page <= totalpage) {
-                    refreshLayout.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            getInfos();
-                        }
-                    }, 1000);
+                    getInfos();
 
                 } else {
                     ToastU.showLong(getActivity(), "没有更多了!");
@@ -99,12 +96,30 @@ public class BuyAudioLiveFragment extends BaseConstantFragment {
         });
     }
 
+    /**
+     * 设置刷新请求超时提示
+     * @param time
+     */
+    private void setRefreshTimeout(int time) {
+        refreshLayout.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(!isRequestSuccess) {
+                    Toast.makeText(getActivity(), "网络不给力", Toast.LENGTH_SHORT).show();
+                    refreshLayout.setLoading(false);
+                }
+            }
+        },time);
+    }
+
     private void getInfos() {
+        isRequestSuccess = false;
         String url = String.format(UmiwiAPI.UMIWI_BUYAUDIOLIVE, page);
         GetRequest<BuyAudioLiveBean> request = new GetRequest<BuyAudioLiveBean>(url, GsonParser.class, BuyAudioLiveBean.class, new AbstractRequest.Listener<BuyAudioLiveBean>() {
             @Override
             public void onResult(AbstractRequest<BuyAudioLiveBean> request, BuyAudioLiveBean buyAudioLiveBean) {
                 if (buyAudioLiveBean != null) {
+                    isRequestSuccess = true;
                     totalpage = buyAudioLiveBean.getR().getPage().getTotalpage();
                     ArrayList<BuyAudioLiveBean.RBuyAudioLive.BuyAudioLiveRecord> record = buyAudioLiveBean.getR().getRecord();
                     if (isRefresh) {
@@ -119,11 +134,8 @@ public class BuyAudioLiveFragment extends BaseConstantFragment {
             }
             @Override
             public void onError(AbstractRequest<BuyAudioLiveBean> requet, int statusCode, String body) {
-                if (isRefresh) {
                     refreshLayout.setRefreshing(false);
-                } else {
                     refreshLayout.setLoading(false);
-                }
             }
         });
         request.go();

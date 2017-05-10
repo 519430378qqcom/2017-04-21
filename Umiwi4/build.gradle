@@ -70,7 +70,7 @@ android {
     defaultConfig {//指令集 是不是用armeabi-v7a
         applicationId PACKAGE_NAME
         minSdkVersion 16
-        targetSdkVersion 23
+        targetSdkVersion 22
         versionCode Integer.parseInt(VERSION_CODE)
         versionName VERSION_NAME
 //        versionName 2.0
@@ -88,10 +88,10 @@ android {
     productFlavors {  //./gradlew assembleRelease
         // itest {}
 //        portalv {}//官网
-        baiduvt {}//百度手机助手
+//        baiduvt {}//百度手机助手
 //        smvpay {}//神马
 //        googleplayv {}
-//        huaweiv {}//华为
+        huaweiv {}//华为
 //        lenovov {}
 //        yingyongbaov {} //应用宝
 //        m91v {}//91助手

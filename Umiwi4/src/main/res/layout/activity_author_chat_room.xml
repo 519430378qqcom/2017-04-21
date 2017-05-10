@@ -57,40 +57,42 @@
             android:layout_marginTop="4dp"
             android:background="@color/black_33" />
     </RelativeLayout>
+
     <com.umiwi.ui.view.RefreshLayout
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/rl_head"
-        android:layout_above="@+id/rl_bottom">
+        android:layout_above="@+id/rl_bottom"
+        android:layout_below="@+id/rl_head">
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rcy_mesagelist"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
-        </android.support.v7.widget.RecyclerView>
+            android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
     </com.umiwi.ui.view.RefreshLayout>
+
     <RelativeLayout
         android:id="@+id/rl_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        >
+        android:layout_alignParentBottom="true">
+
         <RelativeLayout
             android:id="@+id/rl_input_hint"
             android:layout_width="match_parent"
-            android:layout_height="43dp"
-            >
+            android:layout_height="43dp">
+
             <TextView
                 android:id="@+id/tv_record_hint_top"
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textColor="@color/white"
                 android:background="@color/record_hint"
-                android:textSize="14sp"
                 android:gravity="center"
-                android:text="@string/record_60_hint"/>
+                android:text="@string/record_60_hint"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:visibility="gone" />
+
             <RelativeLayout
                 android:id="@+id/rl_input_options"
                 android:layout_width="match_parent"
@@ -99,7 +101,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:layout_above="@+id/ll_input_hint"
+                    android:layout_alignParentTop="true"
                     android:background="@color/black_33" />
 
                 <LinearLayout
@@ -109,54 +111,70 @@
                     android:layout_above="@+id/line1"
                     android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/tv_audio"
+                    <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_weight="1"
-                        android:drawableLeft="@drawable/icon_audio_normal"
-                        android:drawablePadding="15dp"
-                        android:padding="10dp"
-                        android:text="@string/audio"
-                        android:textColor="@color/black_a8"
-                        android:textSize="16sp" />
+                        android:layout_weight="1">
 
-                    <View
-                        android:layout_width="1px"
-                        android:layout_height="40dp"
-                        android:background="@color/black_33" />
+                        <TextView
+                            android:id="@+id/tv_audio"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:drawableLeft="@drawable/icon_audio_normal"
+                            android:drawablePadding="15dp"
+                            android:padding="10dp"
+                            android:text="@string/audio"
+                            android:textColor="@color/black_a8"
+                            android:textSize="16sp" />
+                    </RelativeLayout>
 
-                    <TextView
-                        android:id="@+id/tv_text"
+                    <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_weight="1"
-                        android:drawableLeft="@drawable/icon_text_normal"
-                        android:drawablePadding="15dp"
-                        android:padding="10dp"
-                        android:text="@string/text"
-                        android:textColor="@color/black_a8"
-                        android:textSize="16sp" />
+                        android:layout_weight="1">
 
-                    <View
-                        android:layout_width="1px"
-                        android:layout_height="40dp"
-                        android:background="@color/black_33" />
+                        <TextView
+                            android:id="@+id/tv_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:drawableLeft="@drawable/icon_text_normal"
+                            android:drawablePadding="15dp"
+                            android:padding="10dp"
+                            android:text="@string/text"
+                            android:textColor="@color/black_a8"
+                            android:textSize="16sp" />
 
-                    <TextView
-                        android:id="@+id/tv_picture"
+                        <View
+                            android:layout_width="1px"
+                            android:layout_height="40dp"
+                            android:background="@color/black_33" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_weight="1"
-                        android:drawableLeft="@drawable/icon_picture_normal"
-                        android:drawablePadding="15dp"
-                        android:padding="10dp"
-                        android:text="@string/picture"
-                        android:textColor="@color/black_a8"
-                        android:textSize="16sp" />
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/tv_picture"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:drawableLeft="@drawable/icon_picture_normal"
+                            android:drawablePadding="15dp"
+                            android:padding="10dp"
+                            android:text="@string/picture"
+                            android:textColor="@color/black_a8"
+                            android:textSize="16sp" />
+
+                        <View
+                            android:layout_width="1px"
+                            android:layout_height="40dp"
+                            android:background="@color/black_33" />
+                    </RelativeLayout>
+
                 </LinearLayout>
 
                 <View
@@ -176,9 +194,9 @@
 
             <RelativeLayout
                 android:id="@+id/rl_input_audio"
-                android:visibility="gone"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/tv_record_time"
@@ -196,13 +214,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:visibility="gone"
                     android:layout_marginRight="5dp"
                     android:layout_marginTop="8dp"
                     android:background="@drawable/gray_rectangle_ring"
                     android:text="@string/cancel"
                     android:textColor="@color/black_a8"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:visibility="gone" />
 
                 <ImageView
                     android:id="@+id/iv_record"
@@ -225,21 +243,24 @@
                     android:textSize="12sp" />
             </RelativeLayout>
 
-            <RelativeLayout
+            <LinearLayout
                 android:id="@+id/rl_input_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
+                android:orientation="horizontal"
                 android:paddingBottom="5dp"
                 android:paddingLeft="5dp"
-                android:paddingRight="5dp">
+                android:paddingRight="5dp"
+                android:visibility="gone">
 
                 <EditText
                     android:id="@+id/et_input"
-                    android:layout_width="250dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="50dp"
+                    android:layout_marginRight="20dp"
                     android:layout_marginTop="5dp"
-                    android:background="@color/bg_gray"
+                    android:layout_weight="1"
+                    android:background="@color/umiwi_gray_f7"
                     android:paddingLeft="25dp"
                     android:textColor="@color/black_a8"
                     android:textSize="14sp" />
@@ -251,11 +272,11 @@
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="5dp"
-                    android:background="@drawable/button_send_gray"
+                    android:background="@drawable/button_send_rectangle_selector"
                     android:text="@string/send"
                     android:textColor="@color/white"
                     android:textSize="14sp" />
-            </RelativeLayout>
+            </LinearLayout>
         </RelativeLayout>
     </RelativeLayout>
 </RelativeLayout>

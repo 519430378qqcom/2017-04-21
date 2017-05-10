@@ -46,6 +46,7 @@ public class LivingFragment extends Fragment {
     private int totalpage;
     private boolean isRefresh = true;
     private MyLiveBean myLiveBean1;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -58,8 +59,8 @@ public class LivingFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), AuthorChatRoomActivity.class);
-                intent.putExtra(LiveDetailsFragment.DETAILS_ID,myLiveBean1.getR().getRecord().get(position).getId());
-                intent.putExtra(LiveChatRoomActivity.ROOM_ID,myLiveBean1.getR().getRecord().get(position).getRoomid());
+                intent.putExtra(LiveDetailsFragment.DETAILS_ID, myLiveBean1.getR().getRecord().get(position).getId());
+                intent.putExtra(LiveChatRoomActivity.ROOM_ID, myLiveBean1.getR().getRecord().get(position).getRoomid());
                 getActivity().startActivity(intent);
             }
         });
@@ -70,30 +71,30 @@ public class LivingFragment extends Fragment {
      * 初始化数据
      */
     private void initData() {
-        String url = String.format(UmiwiAPI.MY_LIVE,2,page);
+        String url = String.format(UmiwiAPI.MY_LIVE, 2, page);
         GetRequest<MyLiveBean> request = new GetRequest<>(
-                url , GsonParser.class,MyLiveBean.class, new AbstractRequest.Listener<MyLiveBean>() {
+                url, GsonParser.class, MyLiveBean.class, new AbstractRequest.Listener<MyLiveBean>() {
             @Override
             public void onResult(AbstractRequest<MyLiveBean> request, MyLiveBean myLiveBean) {
-                if(myLiveBean!=null) {
+                if (myLiveBean != null) {
                     myLiveBean1 = myLiveBean;
                     totalpage = myLiveBean.getR().getPage().getTotalpage();
                     List<MyLiveBean.RBean.RecordBean> record = myLiveBean.getR().getRecord();
                     if (isRefresh) {
                         refreshLayout.setRefreshing(false);
-                        if(myLiveAdapter == null) {
+                        if (myLiveAdapter == null) {
                             myLiveAdapter = new MyLiveAdapter(context, record);
                             listview.setAdapter(myLiveAdapter);
-                        }else {
+                        } else {
                             myLiveAdapter.setItems(record);
                             myLiveAdapter.notifyDataSetChanged();
                         }
                     } else {
                         refreshLayout.setLoading(false);
-                        if(myLiveAdapter == null) {
+                        if (myLiveAdapter == null) {
                             myLiveAdapter = new MyLiveAdapter(context, record);
                             listview.setAdapter(myLiveAdapter);
-                        }else {
+                        } else {
                             myLiveAdapter.addItems(record);
                             myLiveAdapter.notifyDataSetChanged();
                         }
@@ -103,11 +104,13 @@ public class LivingFragment extends Fragment {
 
             @Override
             public void onError(AbstractRequest<MyLiveBean> requet, int statusCode, String body) {
-
+                refreshLayout.setRefreshing(false);
+                refreshLayout.setLoading(false);
             }
         });
         request.go();
     }
+
     private void initRefreshLayout() {
         refreshLayout.setColorSchemeColors(getResources().getColor(R.color.main_color));
         refreshLayout.setOnLoadListener(new RefreshLayout.OnLoadListener() {
@@ -116,12 +119,7 @@ public class LivingFragment extends Fragment {
                 page++;
                 isRefresh = false;
                 if (page <= totalpage) {
-                    refreshLayout.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            initData();
-                        }
-                    }, 1000);
+                    initData();
 
                 } else {
                     ToastU.showLong(getActivity(), "没有更多了!");

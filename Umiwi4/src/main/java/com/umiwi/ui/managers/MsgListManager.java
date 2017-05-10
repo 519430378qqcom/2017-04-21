@@ -80,9 +80,17 @@ public class MsgListManager {
             messageListAdapter.notifyItemChanged(chatRoomMessages.size());
         }
         if(isLastMessageVisible) {
-            msgView.scrollToPosition(messageListAdapter.getBottomDataPosition());
+            scrollBottom();
         }
     }
+
+    /**
+     * 使消息列表滚动到底部
+     */
+    public void scrollBottom() {
+        msgView.scrollToPosition(messageListAdapter.getBottomDataPosition());
+    }
+
     /**
      *头部加数据
      */
@@ -126,7 +134,7 @@ public class MsgListManager {
             return;
         }
         //屏蔽没有扩展字段的消息
-        if (message.getRemoteExtension().size()<2) {
+        if (message.getRemoteExtension().size()<3) {
             return;
         }
         if (chatRoomMessages.size() >= MESSAGE_CAPACITY) {

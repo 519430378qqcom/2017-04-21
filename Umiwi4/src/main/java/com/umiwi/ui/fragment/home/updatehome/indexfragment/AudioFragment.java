@@ -97,11 +97,8 @@ public class AudioFragment extends BaseConstantFragment {
 
         @Override
         public void onError(AbstractRequest<AlreadyShopVoiceBean> requet, int statusCode, String body) {
-            if (isRefresh) {
                 refreshLayout.setRefreshing(false);
-            } else {
                 refreshLayout.setLoading(false);
-            }
 
         }
     };
@@ -138,13 +135,7 @@ public class AudioFragment extends BaseConstantFragment {
                 page++;
                 isRefresh = false;
                 if (page <= totalpage) {
-                    refreshLayout.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            getinfos();
-                        }
-                    }, 1000);
-
+                    getinfos();
                 } else {
                     ToastU.showLong(getActivity(), "没有更多了!");
                     refreshLayout.setLoading(false);

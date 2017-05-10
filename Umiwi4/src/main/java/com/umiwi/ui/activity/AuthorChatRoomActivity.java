@@ -121,7 +121,7 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
     @InjectView(R.id.rl_input_audio)
     RelativeLayout rlInputAudio;
     @InjectView(R.id.rl_input_text)
-    RelativeLayout rlInputText;
+    LinearLayout rlInputText;
     @InjectView(R.id.rl_input)
     RelativeLayout rlInput;
     @InjectView(R.id.refreshLayout)
@@ -161,10 +161,14 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
      * 拉取聊天记录的时间撮
      */
     private long chatRecordLastTime = 0;
-
+    /**
+     * 是否第一次获取聊天记录
+     */
+    private Boolean firstGetRecord = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         setContentView(R.layout.activity_author_chat_room);
         ButterKnife.inject(this);
         loginNIM();
@@ -197,7 +201,6 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
                     RequestCallback<LoginInfo> callback = new RequestCallback<LoginInfo>() {
                         @Override
                         public void onSuccess(LoginInfo param) {
-                            Toast.makeText(AuthorChatRoomActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
                             accessChatRoom(roomId);
                             registerObservers(true);
                             registerMultimediaObserver(true);
@@ -276,6 +279,11 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
                             msgListManager.addHeadMessage(imMessage);
                         }
                         refreshLayout.setRefreshing(false);
+                        //第一次加载聊天记录滚到底部
+                        if(firstGetRecord) {
+                            msgListManager.scrollBottom();
+                            firstGetRecord = false;
+                        }
                     } else {
                         Toast.makeText(AuthorChatRoomActivity.this, "没用更多消息了", Toast.LENGTH_SHORT).show();
                         refreshLayout.setRefreshing(false);
@@ -645,8 +653,8 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
         NIMClient.getService(ChatRoomService.class).sendMessage(message, true).setCallback(new RequestCallback<Void>() {
             @Override
             public void onSuccess(Void param) {
-                Toast.makeText(AuthorChatRoomActivity.this, "图片发送成功", Toast.LENGTH_SHORT).show();
                 msgListManager.onImcomingMessage(message);
+                msgListManager.scrollBottom();
             }
 
             @Override
@@ -673,8 +681,8 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
             NIMClient.getService(ChatRoomService.class).sendMessage(message, true).setCallback(new RequestCallback<Void>() {
                 @Override
                 public void onSuccess(Void param) {
-                    Toast.makeText(AuthorChatRoomActivity.this, "录音发送成功", Toast.LENGTH_SHORT).show();
                     msgListManager.onImcomingMessage(message);
+                    msgListManager.scrollBottom();
                 }
 
                 @Override
@@ -707,6 +715,7 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
                 etInput.setText("");
                 //添加自己发送的消息到集合
                 msgListManager.onImcomingMessage(message);
+                msgListManager.scrollBottom();
             }
 
             @Override
@@ -818,7 +827,6 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
                 popupWindow = null;
                 Intent intent = new Intent(this, UmiwiContainerActivity.class);
                 intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, AudioLiveDetailsFragment.class);
-                intent.putExtra("isAuthor", isAthor);
                 intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 intent.putExtra(LIVEID, id);
                 startActivity(intent);

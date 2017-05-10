@@ -59,7 +59,7 @@ public class NewVideoFragment extends BaseConstantFragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String id = buyVideoInfos.get(i).getId();
-                String hrefurl = UmiwiAPI.VODEI_URL +id;
+                String hrefurl = UmiwiAPI.VODEI_URL + id;
                 Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
                 intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, CourseDetailPlayFragment.class);
                 intent.putExtra(CourseDetailPlayFragment.KEY_DETAIURL, hrefurl);
@@ -79,13 +79,7 @@ public class NewVideoFragment extends BaseConstantFragment {
                 page++;
                 isRefresh = false;
                 if (page <= totalpage) {
-                    refreshLayout.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            getInfos();
-                        }
-                    }, 1000);
-
+                    getInfos();
                 } else {
                     ToastU.showLong(getActivity(), "没有更多了!");
                     refreshLayout.setLoading(false);
@@ -105,12 +99,12 @@ public class NewVideoFragment extends BaseConstantFragment {
     }
 
     private void getInfos() {
-        String url = UmiwiAPI.ALREADY_VIDEO+"?p="+page;
+        String url = UmiwiAPI.ALREADY_VIDEO + "?p=" + page;
         Log.e("TAG", "已购视频url=" + url);
         GetRequest<AlreadyVideoBean> req = new GetRequest<AlreadyVideoBean>(url, GsonParser.class, AlreadyVideoBean.class, new AbstractRequest.Listener<AlreadyVideoBean>() {
             @Override
             public void onResult(AbstractRequest<AlreadyVideoBean> request, AlreadyVideoBean alreadyVideoBean) {
-                if(alreadyVideoBean != null) {
+                if (alreadyVideoBean != null) {
                     AlreadyVideoBean.RalreadyVideo r = alreadyVideoBean.getR();
                     AlreadyVideoBean.RalreadyVideo.PageBean page = r.getPage();
                     totalpage = page.getTotalpage();
@@ -128,9 +122,10 @@ public class NewVideoFragment extends BaseConstantFragment {
                 }
             }
 
-             @Override
+            @Override
             public void onError(AbstractRequest<AlreadyVideoBean> requet, int statusCode, String body) {
-
+                refreshLayout.setLoading(false);
+                refreshLayout.setRefreshing(false);
             }
         });
 
@@ -141,7 +136,7 @@ public class NewVideoFragment extends BaseConstantFragment {
     public void onResume() {
         super.onResume();
         page = 1;
-        String url = UmiwiAPI.ALREADY_VIDEO+"?p="+page;
+        String url = UmiwiAPI.ALREADY_VIDEO + "?p=" + page;
         GetRequest<AlreadyVideoBean> req = new GetRequest<AlreadyVideoBean>(url, GsonParser.class, AlreadyVideoBean.class, new AbstractRequest.Listener<AlreadyVideoBean>() {
             @Override
             public void onResult(AbstractRequest<AlreadyVideoBean> request, AlreadyVideoBean alreadyVideoBean) {

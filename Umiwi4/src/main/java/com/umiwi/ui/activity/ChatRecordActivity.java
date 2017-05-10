@@ -109,6 +109,10 @@ public class ChatRecordActivity extends AppCompatActivity implements ModuleProxy
                         chatRecordAdapter.notifyDataSetChanged();
                     }
                     refreshLayout.setRefreshing(false);
+                    //第一次加载数据置底
+                    if(page == 1) {
+                        rcy_mesagelist.smoothScrollToPosition(chatRecordAdapter.chatRecords.size()-1);
+                    }
                 }else {
                     refreshLayout.setRefreshing(false);
                     Toast.makeText(ChatRecordActivity.this, "没用更多消息了", Toast.LENGTH_SHORT).show();

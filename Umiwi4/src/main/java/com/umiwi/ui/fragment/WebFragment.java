@@ -323,7 +323,8 @@ public class WebFragment extends BaseFragment {
         @Override
         public boolean onKey(View v, int keyCode, KeyEvent event) {
             if ((keyCode == KeyEvent.KEYCODE_BACK) && mWebView.canGoBack()) {
-                mWebView.goBack();
+//                mWebView.goBack();
+                getActivity().finish();
                 return true;
             }
             return false;

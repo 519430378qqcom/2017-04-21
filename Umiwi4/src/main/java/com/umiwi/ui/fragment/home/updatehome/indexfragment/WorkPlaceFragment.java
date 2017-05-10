@@ -100,7 +100,7 @@ public class WorkPlaceFragment extends BaseConstantFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_startbus_layout, null);
-        ButterKnife.inject(this,view);
+        ButterKnife.inject(this, view);
 
         ll_visiable_or = (LinearLayout) view.findViewById(R.id.ll_visiable_or);
         mContext = getActivity();
@@ -138,6 +138,7 @@ public class WorkPlaceFragment extends BaseConstantFragment {
         initScrollView();
         return view;
     }
+
     private void initScrollView() {
         //最小滑动距离
         touchSlop = ViewConfiguration.get(mContext).getScaledTouchSlop();
@@ -149,29 +150,29 @@ public class WorkPlaceFragment extends BaseConstantFragment {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
             switch (event.getAction()) {
-                case MotionEvent.ACTION_DOWN :
+                case MotionEvent.ACTION_DOWN:
                     mFirstY = event.getY();
 
                     break;
                 case MotionEvent.ACTION_MOVE:
                     mCurrentY = event.getY();
-                    if(mCurrentY - mFirstY > touchSlop) {
+                    if (mCurrentY - mFirstY > touchSlop) {
                         direction = 0;//down
 
-                    }else if(mFirstY - mCurrentY > touchSlop) {
+                    } else if (mFirstY - mCurrentY > touchSlop) {
                         direction = 1;//up
 
                     }
 
                     break;
                 case MotionEvent.ACTION_UP:
-                    if(direction == 1) {
-                        if(mShow) {
+                    if (direction == 1) {
+                        if (mShow) {
                             showAnim(1);
                             mShow = !mShow;
                         }
-                    }else if(direction == 0) {
-                        if(!mShow) {
+                    } else if (direction == 0) {
+                        if (!mShow) {
                             showAnim(0);
                             mShow = !mShow;
                         }
@@ -182,9 +183,10 @@ public class WorkPlaceFragment extends BaseConstantFragment {
             return false;
         }
     };
+
     private void showAnim(int flag) {
 
-        if(animator != null && animator.isRunning()) {
+        if (animator != null && animator.isRunning()) {
             animator.cancel();
         }
         if (flag == 0) {
@@ -197,7 +199,7 @@ public class WorkPlaceFragment extends BaseConstantFragment {
                 }
             });
         } else {
-            animator = ObjectAnimator.ofFloat(ll_visiable_or,"translationY",ll_visiable_or.getTranslationY(),-ll_visiable_or.getHeight());
+            animator = ObjectAnimator.ofFloat(ll_visiable_or, "translationY", ll_visiable_or.getTranslationY(), -ll_visiable_or.getHeight());
             animator.addListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
@@ -211,14 +213,14 @@ public class WorkPlaceFragment extends BaseConstantFragment {
     }
 
     private void getinfos() {
-        String url = String.format(UmiwiAPI.UMIWI_BUS_WORK_TEND, page, catid, type,price, orderby);
+        String url = String.format(UmiwiAPI.UMIWI_BUS_WORK_TEND, page, catid, type, price, orderby);
 //        Log.e("TAG", "职场数据=" + url);
         GetRequest<AudioVideoBean> request = new GetRequest<AudioVideoBean>(url, GsonParser.class, AudioVideoBean.class, new AbstractRequest.Listener<AudioVideoBean>() {
             @Override
             public void onResult(AbstractRequest<AudioVideoBean> request, AudioVideoBean audioVideoBean) {
                 ArrayList<AudioVideoBean.RAUdioVideo.AudioVideoList> audioVideoLists = audioVideoBean.getR().getRecord();
-                if(audioVideoLists != null) {
-                    totalpage= audioVideoBean.getR().getPage().getTotalpage();
+                if (audioVideoLists != null) {
+                    totalpage = audioVideoBean.getR().getPage().getTotalpage();
                     if (isRefresh) {
                         refreshLayout.setRefreshing(false);
                         audioVideoList.clear();
@@ -233,11 +235,8 @@ public class WorkPlaceFragment extends BaseConstantFragment {
 
             @Override
             public void onError(AbstractRequest<AudioVideoBean> requet, int statusCode, String body) {
-                if (isRefresh) {
-                    refreshLayout.setRefreshing(false);
-                } else {
-                    refreshLayout.setLoading(false);
-                }
+                refreshLayout.setRefreshing(false);
+                refreshLayout.setLoading(false);
             }
         });
         request.go();
@@ -280,12 +279,13 @@ public class WorkPlaceFragment extends BaseConstantFragment {
     private void getCatid1Data() {
         catid1List.clear();
         catid1ListId.clear();
-        for (int i =0; i < mList.size(); i++) {
+        for (int i = 0; i < mList.size(); i++) {
             catid1List.add(mList.get(i).getCatname());
             catid1ListId.add(mList.get(i).getCatid());
         }
         initCatid1Flow();
     }
+
     /**
      * 初始化一级分类流部局
      */
@@ -378,6 +378,7 @@ public class WorkPlaceFragment extends BaseConstantFragment {
             }
         });
     }
+
     /**
      * 初始化free 和charge
      */
@@ -422,6 +423,7 @@ public class WorkPlaceFragment extends BaseConstantFragment {
             }
         });
     }
+
     /**
      * 初始化price流部局
      */
@@ -467,6 +469,7 @@ public class WorkPlaceFragment extends BaseConstantFragment {
         });
 
     }
+
     /**
      * 初始price和orderby数据
      */
@@ -490,6 +493,7 @@ public class WorkPlaceFragment extends BaseConstantFragment {
         priceListId1.add("charge");
 
     }
+
     private void initRefreshLayout() {
         refreshLayout.setColorSchemeColors(getResources().getColor(R.color.main_color));
         refreshLayout.setOnLoadListener(new RefreshLayout.OnLoadListener() {
@@ -498,12 +502,7 @@ public class WorkPlaceFragment extends BaseConstantFragment {
                 page++;
                 isRefresh = false;
                 if (page <= totalpage) {
-                    refreshLayout.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            getinfos();
-                        }
-                    }, 1000);
+                    getinfos();
 
                 } else {
                     ToastU.showLong(mContext, "没有更多了!");
@@ -523,6 +522,7 @@ public class WorkPlaceFragment extends BaseConstantFragment {
         });
 
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
