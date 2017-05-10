@@ -29,8 +29,8 @@
         <item name="photoItemForeground">?android:selectableItemBackground</item>
         <item name="photoItemForegroundBorderless">?android:selectableItemBackground</item>
         <!--color_primary -->
-        <!--<item name="colorPrimary">@color/transparent</item>--><!-- actionbar bg color -->
-        <!--<item name="colorPrimaryDark">@color/transparent</item>--><!--color_primary_dark -->
+        <!--<item name="colorPrimary">@color/black</item>--><!-- actionbar bg color -->
+        <item name="colorPrimaryDark">@color/black</item><!--color_primary_dark -->
         <item name="android:textColorPrimaryInverse">@color/color_secondary_text</item>
         <item name="android:textColorPrimary">@color/color_primary_text</item>
         <item name="colorAccent">@color/color_accent</item>

@@ -14,7 +14,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="8dp"
-            android:src="@drawable/ic_action_bar_return_black" />
+            android:src="@drawable/back_audio_special" />
         <!--<TextView-->
         <!--android:layout_toRightOf="@+id/back"-->
         <!--android:layout_width="match_parent"-->
