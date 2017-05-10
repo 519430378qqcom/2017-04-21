@@ -67,9 +67,9 @@ public class MyLiveAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         MyLiveBean.RBean.RecordBean recordBean = record.get(position);
-        Glide.with(context).load(recordBean.getLimage()).into(holder.ivAuthor);
+        Glide.with(context).load(recordBean.getLimage()).placeholder(R.drawable.ic_launcher).into(holder.ivAuthor);
         holder.tvTitle.setText(recordBean.getTitle());
-        holder.tvPrice.setText(recordBean.getPrice());
+        holder.tvPrice.setText("已参与");
         holder.tvSubtitle.setText(recordBean.getSubtitle());
         if( "直播中".equals(recordBean.getStatus())) {
             holder.tvStarttime.setText("直播中");

@@ -90,7 +90,10 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
      * 拉取聊天记录的时间撮
      */
     private long chatRecordLastTime = 0;
-
+    /**
+     * 是否第一次获取聊天记录
+     */
+    private Boolean firstGetRecord = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -127,6 +130,11 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
                             msgListManager.addHeadMessage(imMessage);
                         }
                         refreshLayout.setRefreshing(false);
+                        //第一次加载聊天记录滚到底部
+                        if(firstGetRecord) {
+                            msgListManager.scrollBottom();
+                            firstGetRecord = false;
+                        }
                     }else {
                         Toast.makeText(LiveChatRoomActivity.this, "没用更多消息了", Toast.LENGTH_SHORT).show();
                         refreshLayout.setRefreshing(false);
@@ -161,7 +169,6 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
                     RequestCallback<LoginInfo> callback = new RequestCallback<LoginInfo>() {
                         @Override
                         public void onSuccess(LoginInfo param) {
-                            Toast.makeText(LiveChatRoomActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
                             accessChatRoom(roomId);
                             registerObservers(true);
                             registerMultimediaObserver(true);
@@ -334,6 +341,7 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
                         etInput.setText("");
                         //添加自己发送的消息到集合
                         msgListManager.onImcomingMessage(message);
+                        msgListManager.scrollBottom();
                     }
 
                     @Override

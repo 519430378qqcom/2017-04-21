@@ -70,7 +70,7 @@ android {
     defaultConfig {//指令集 是不是用armeabi-v7a
         applicationId PACKAGE_NAME
         minSdkVersion 16
-        targetSdkVersion 23
+        targetSdkVersion 22
         versionCode Integer.parseInt(VERSION_CODE)
         versionName VERSION_NAME
 //        versionName 2.0
