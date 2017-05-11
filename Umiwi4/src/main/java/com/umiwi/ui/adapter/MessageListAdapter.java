@@ -177,9 +177,8 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 if (UmiwiApplication.mainActivity.service != null) {
                     String playingUrl = null;
                     try {
-                        playingUrl = UmiwiApplication.mainActivity.service.getAudioPath();
                         //播放的是当前列表的音频
-                        if (isPlayUrl(playingUrl)) {
+                        if (isPlayUrl(audioUrl)) {
                             try {
                                 //判断播放状态
                                 if (mainActivity.service.isPlaying()) {
