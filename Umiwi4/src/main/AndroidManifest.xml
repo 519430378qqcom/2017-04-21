@@ -540,12 +540,16 @@
             android:name="com.netease.cosine.target.receiver"
             android:value="com.netease.nimlib.service.NimReceiver" />
 
-        <activity android:name=".activity.LiveChatRoomActivity"
-            android:launchMode="singleTask"/>
-        <activity android:name=".activity.AuthorChatRoomActivity"
-            android:launchMode="singleTask"></activity>
-        <activity android:name=".activity.ChatRecordActivity"
-            android:launchMode="singleTask"></activity>
+        <activity
+            android:name=".activity.LiveChatRoomActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.AuthorChatRoomActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.ChatRecordActivity"
+            android:launchMode="singleTask" />
+        <activity android:name=".activity.BigPictureActivity"></activity>
     </application>
 
 </manifest>

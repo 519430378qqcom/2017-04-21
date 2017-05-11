@@ -1,6 +1,7 @@
 package com.umiwi.ui.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -20,6 +21,7 @@ import com.netease.nimlib.sdk.msg.attachment.ImageAttachment;
 import com.netease.nimlib.sdk.msg.constant.MsgTypeEnum;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
 import com.umiwi.ui.R;
+import com.umiwi.ui.activity.BigPictureActivity;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.VoiceDetailsFragment;
 import com.umiwi.ui.main.UmiwiApplication;
 import com.umiwi.ui.managers.MsgListManager;
@@ -152,8 +154,16 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 authorViewHolder.rl_text.setVisibility(View.GONE);
                 authorViewHolder.rl_audio.setVisibility(View.GONE);
                 authorViewHolder.rl_picture.setVisibility(View.VISIBLE);
-                ImageAttachment attachment = (ImageAttachment) chatRoomMessage.getAttachment();
+                final ImageAttachment attachment = (ImageAttachment) chatRoomMessage.getAttachment();
                 Glide.with(context).load(attachment.getUrl()).into(authorViewHolder.iv_receive);
+                authorViewHolder.iv_receive.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(context, BigPictureActivity.class);
+                        intent.putExtra(BigPictureActivity.IMG_URL,attachment.getUrl());
+                        context.startActivity(intent);
+                    }
+                });
             } else if (chatRoomMessage.getMsgType() == MsgTypeEnum.audio) {//显示录音
                 authorViewHolder.rl_text.setVisibility(View.GONE);
                 authorViewHolder.rl_audio.setVisibility(View.VISIBLE);

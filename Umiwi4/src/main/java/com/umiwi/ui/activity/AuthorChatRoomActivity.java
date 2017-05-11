@@ -418,13 +418,14 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
                 switchStatus(R.id.tv_audio);
                 switchSoftInput(false);
                 break;
-            case R.id.tv_text://点击文本功能
+            case R.id.tv_text://点击文字功能
                 if (getResources().getString(R.string.pack_up).equals(tvText.getText().toString())) {//点击收起
                     switchStatus(R.id.tv_picture);
                     switchSoftInput(false);
                 } else {
                     switchStatus(R.id.tv_text);
-                    switchSoftInput(true);
+//                    etInput.setFocusable(true);
+//                    switchSoftInput(true);
                 }
                 break;
             case R.id.tv_picture://点击图片功能
@@ -723,7 +724,6 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
 
     /**
      * 切换输入显示状态
-     *
      * @param id
      */
     private void switchStatus(int id) {

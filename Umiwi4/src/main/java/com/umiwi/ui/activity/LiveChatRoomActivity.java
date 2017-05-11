@@ -225,7 +225,22 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
      */
     private void accessChatRoom(String roomId) {
         EnterChatRoomData data = new EnterChatRoomData(roomId);
-        NIMClient.getService(ChatRoomService.class).enterChatRoom(data);
+        NIMClient.getService(ChatRoomService.class).enterChatRoom(data).setCallback(new RequestCallback() {
+            @Override
+            public void onSuccess(Object param) {
+
+            }
+
+            @Override
+            public void onFailed(int code) {
+
+            }
+
+            @Override
+            public void onException(Throwable exception) {
+
+            }
+        });
     }
 
     /**
