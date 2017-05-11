@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.umiwi.ui.R;
@@ -39,6 +40,7 @@ public class NewVideoFragment extends BaseConstantFragment {
 
     private ListView listview;
     private RefreshLayout refreshLayout;
+    private ImageView iv_image_noclass;
     private int page = 1;
     private int totalpage;
     private boolean isRefresh = true;
@@ -52,6 +54,7 @@ public class NewVideoFragment extends BaseConstantFragment {
 
         listview = (ListView) view.findViewById(R.id.listview);
         refreshLayout = (RefreshLayout) view.findViewById(R.id.refreshLayout);
+        iv_image_noclass = (ImageView) view.findViewById(R.id.iv_image_noclass);
         buyVideoAdapter = new BuyVideoAdapter(getActivity());
         buyVideoAdapter.setData(buyVideoInfos);
         listview.setAdapter(buyVideoAdapter);
@@ -109,6 +112,11 @@ public class NewVideoFragment extends BaseConstantFragment {
                     AlreadyVideoBean.RalreadyVideo.PageBean page = r.getPage();
                     totalpage = page.getTotalpage();
                     ArrayList<AlreadyVideoBean.RalreadyVideo.RecordInfo> record = r.getRecord();
+                    if (record.size() == 0) {
+                        iv_image_noclass.setVisibility(View.VISIBLE);
+                    } else {
+                        iv_image_noclass.setVisibility(View.GONE);
+                    }
                     if (isRefresh) {
                         refreshLayout.setRefreshing(false);
                         buyVideoInfos.clear();
@@ -141,6 +149,11 @@ public class NewVideoFragment extends BaseConstantFragment {
             @Override
             public void onResult(AbstractRequest<AlreadyVideoBean> request, AlreadyVideoBean alreadyVideoBean) {
                 ArrayList<AlreadyVideoBean.RalreadyVideo.RecordInfo> record = alreadyVideoBean.getR().getRecord();
+                if (record.size() == 0) {
+                    iv_image_noclass.setVisibility(View.VISIBLE);
+                } else {
+                    iv_image_noclass.setVisibility(View.GONE);
+                }
                 buyVideoInfos.clear();
                 buyVideoInfos.addAll(record);
                 buyVideoAdapter.setData(buyVideoInfos);

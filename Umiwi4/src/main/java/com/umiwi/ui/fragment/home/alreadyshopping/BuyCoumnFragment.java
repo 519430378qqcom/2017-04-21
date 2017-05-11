@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.umeng.analytics.MobclickAgent;
@@ -42,6 +43,8 @@ public class BuyCoumnFragment extends BaseConstantFragment {
     ListView listview;
     @InjectView(R.id.refreshLayout)
     RefreshLayout refreshLayout;
+    @InjectView(R.id.iv_image_noclass)
+    ImageView iv_image_noclass;
     private List<AlreadShopColumnBean.RalreadyColumn.RecordColumn> mList;
     private BuyColumnAdapter buyColumnAdapter;
     private int page = 1;
@@ -116,6 +119,11 @@ public class BuyCoumnFragment extends BaseConstantFragment {
                 AlreadShopColumnBean.RalreadyColumn.PageBean page = infos.getPage();
                 totalpage = page.getTotalpage();
                 ArrayList<AlreadShopColumnBean.RalreadyColumn.RecordColumn> record = infos.getRecord();
+                if (record.size() == 0) {
+                    iv_image_noclass.setVisibility(View.VISIBLE);
+                } else {
+                    iv_image_noclass.setVisibility(View.GONE);
+                }
                 if (isla) {
 //                    listview.setEnabled(true);
                     refreshLayout.setRefreshing(false);
@@ -150,6 +158,11 @@ public class BuyCoumnFragment extends BaseConstantFragment {
             @Override
             public void onResult(AbstractRequest<AlreadShopColumnBean> request, AlreadShopColumnBean alreadShopColumnBean) {
                 ArrayList<AlreadShopColumnBean.RalreadyColumn.RecordColumn> record = alreadShopColumnBean.getR().getRecord();
+                if (record.size() == 0) {
+                    iv_image_noclass.setVisibility(View.VISIBLE);
+                } else {
+                    iv_image_noclass.setVisibility(View.GONE);
+                }
                 mList.clear();
                 mList.addAll(record);
                 buyColumnAdapter.setData(mList);

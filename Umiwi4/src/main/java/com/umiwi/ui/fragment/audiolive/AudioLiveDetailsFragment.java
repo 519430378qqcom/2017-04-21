@@ -318,7 +318,7 @@ public class AudioLiveDetailsFragment extends BaseConstantFragment {
                                 intent.putExtra(ChatRecordActivity.ROOM_ID, detailsRecord.getRoomid());
                                 getActivity().startActivity(intent);
                             } else {
-                                if (isAuthor) {
+                                if ("1".equals(detailsRecord.getIstutor())) {
                                     Intent intent = new Intent(getActivity(), AuthorChatRoomActivity.class);
                                     intent.putExtra(LiveDetailsFragment.DETAILS_ID, detailsRecord.getId());
                                     intent.putExtra(LiveChatRoomActivity.ROOM_ID, detailsRecord.getRoomid());
