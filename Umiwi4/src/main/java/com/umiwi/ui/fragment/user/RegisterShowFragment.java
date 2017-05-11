@@ -180,7 +180,7 @@ public class RegisterShowFragment extends BaseConstantFragment {
 						codeImage, responseListener, errorListener);
 
 				if (!isImageCodeNull) {
-					showMsg("请检查手机号或验证码是否正确");
+					showMsg("请检查手机号或验证码是否正确或是否已经注册");
 //					showMsg(t.showMsg());
 				}
 				dissmiss();
