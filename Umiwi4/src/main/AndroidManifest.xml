@@ -420,6 +420,7 @@
             android:windowSoftInputMode="adjustResize" />
 
         <!-- QZone授权回调Activity AuthActivity 和 AssistActivity -->
+        <!-- <data android:scheme="tencent218165" />-->
         <activity
             android:name="com.tencent.tauth.AuthActivity"
             android:launchMode="singleTask"
@@ -430,7 +431,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="tencent218165" />
+
             </intent-filter>
         </activity>
         <activity
