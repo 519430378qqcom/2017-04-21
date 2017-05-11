@@ -221,7 +221,7 @@ public class MsgListManager {
                             firstGetRecord = false;
                         }
                     } else {
-                        Toast.makeText(context, "没用更多消息了", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "没有更多消息了", Toast.LENGTH_SHORT).show();
                         refreshLayout.setRefreshing(false);
                     }
                 }
