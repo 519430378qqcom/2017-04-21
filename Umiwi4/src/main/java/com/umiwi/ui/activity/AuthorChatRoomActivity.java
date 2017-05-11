@@ -16,7 +16,6 @@ import android.provider.MediaStore;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -425,15 +424,20 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
                     switchSoftInput(false);
                 } else {
                     switchStatus(R.id.tv_text);
+                    switchSoftInput(true);
                 }
                 break;
             case R.id.tv_picture://点击图片功能
                 switchStatus(R.id.tv_picture);
                 switchSoftInput(false);
                 //调起系统相册
-                Intent intent = new Intent(Intent.ACTION_PICK, null);
-                intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                Intent intent = new Intent();
+                intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
+                Intent.createChooser(intent, "Select picture");
+//                Intent intent = new Intent(Intent.ACTION_PICK, null);
+//                intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+//                intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(intent, PICTURE_REQUEST);
                 break;
             case R.id.btn_cancle://取消录制
@@ -558,7 +562,7 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
             handler.removeCallbacksAndMessages(null);
             handler.sendMessageDelayed(Message.obtain(), 1000);
         } else {
-            Toast.makeText(AuthorChatRoomActivity.this, "启动录音失败", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AuthorChatRoomActivity.this, "启动录音失败，请开启录音权限", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -579,12 +583,10 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
         }
 
         public void onRecordStart(File audioFile, RecordType recordType) {
-            Log.e("TAG", "onRecordStart");
             // 开始录音回调
         }
 
         public void onRecordSuccess(File audioFile, long audioLength, RecordType recordType) {
-            Log.e("TAG", "onRecordSuccess");
             // 录音结束，成功
             myAudiofile = audioFile;
             myAudioLength = audioLength;
@@ -595,13 +597,11 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
         }
 
         public void onRecordCancel() {
-            Log.e("TAG", "onRecordCancel");
             // 录音结束， 用户主动取消录音
         }
 
         public void onRecordReachedMaxTime(int maxTime) {
             // 到达指定的最长录音时间
-            Log.e("TAG", "onRecordReachedMaxTime");
         }
     };
 
