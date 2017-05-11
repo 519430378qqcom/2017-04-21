@@ -2,6 +2,7 @@ package com.umiwi.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.RemoteException;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,6 +24,7 @@ import com.umiwi.ui.dialog.ShareDialog;
 import com.umiwi.ui.fragment.audiolive.AudioLiveDetailsFragment;
 import com.umiwi.ui.fragment.audiolive.LiveDetailsFragment;
 import com.umiwi.ui.main.UmiwiAPI;
+import com.umiwi.ui.main.UmiwiApplication;
 import com.umiwi.ui.managers.ModuleProxy;
 import com.umiwi.ui.view.RefreshLayout;
 
@@ -111,7 +113,7 @@ public class ChatRecordActivity extends AppCompatActivity implements ModuleProxy
                     refreshLayout.setRefreshing(false);
                     //第一次加载数据置底
                     if(page == 1) {
-                        rcy_mesagelist.smoothScrollToPosition(chatRecordAdapter.chatRecords.size()-1);
+                        rcy_mesagelist.scrollToPosition(chatRecordAdapter.chatRecords.size()-1);
                     }
                 }else {
                     refreshLayout.setRefreshing(false);
@@ -179,6 +181,15 @@ public class ChatRecordActivity extends AppCompatActivity implements ModuleProxy
         ButterKnife.reset(this);
         if (chatRecordAdapter!=null&&chatRecordAdapter.handler != null) {
             chatRecordAdapter.handler.removeCallbacksAndMessages(null);
+        }
+        if (UmiwiApplication.mainActivity.service != null) {
+            try {
+                if (UmiwiApplication.mainActivity.service.isPlaying()) {
+                    UmiwiApplication.mainActivity.service.pause();
+                }
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
         }
         super.onDestroy();
     }

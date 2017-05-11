@@ -43,6 +43,7 @@ import cn.youmi.framework.http.AbstractRequest;
 import cn.youmi.framework.http.GetRequest;
 import cn.youmi.framework.http.parsers.GsonParser;
 
+
 /**
  * Created by Administrator on 2017/5/4 0004.
  */
@@ -284,6 +285,10 @@ public class AudioLiveDetailsFragment extends BaseConstantFragment {
                 if (!YoumiRoomUserManager.getInstance().isLogin()) {
                     showLogin();
                 } else {
+                    if(detailsRecord == null) {
+                        Toast.makeText(getActivity(), "网络不给力，稍后再试", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     //免费
                     if (detailsRecord.isfree()) {
                         if (detailsRecord.isbuy()) {
