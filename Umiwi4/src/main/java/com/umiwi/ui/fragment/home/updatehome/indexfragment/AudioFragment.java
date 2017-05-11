@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.umiwi.ui.R;
@@ -38,6 +39,8 @@ public class AudioFragment extends BaseConstantFragment {
     ListView listview;
     @InjectView(R.id.refreshLayout)
     RefreshLayout refreshLayout;
+    @InjectView(R.id.iv_image_noclass)
+    ImageView iv_image_noclass;
     private int page = 1;
     private int totalpage;
     private ArrayList<AlreadyShopVoiceBean.RAlreadyVoice.Record> infos = new ArrayList<>();
@@ -84,6 +87,12 @@ public class AudioFragment extends BaseConstantFragment {
             AlreadyShopVoiceBean.RAlreadyVoice.PageBean page = umiAnwebeans.getR().getPage();
             totalpage = page.getTotalpage();
             ArrayList<AlreadyShopVoiceBean.RAlreadyVoice.Record> record = umiAnwebeans.getR().getRecord();
+            Log.e("TAG", "record=" + record.size());
+            if (record.size() == 0) {
+                iv_image_noclass.setVisibility(View.VISIBLE);
+            } else {
+                iv_image_noclass.setVisibility(View.GONE);
+            }
 
             if (isRefresh) {
                 refreshLayout.setRefreshing(false);
@@ -114,6 +123,12 @@ public class AudioFragment extends BaseConstantFragment {
             @Override
             public void onResult(AbstractRequest<AlreadyShopVoiceBean> request, AlreadyShopVoiceBean alreadyShopVoiceBean) {
                 ArrayList<AlreadyShopVoiceBean.RAlreadyVoice.Record> record = alreadyShopVoiceBean.getR().getRecord();
+                Log.e("TAG", "record=onResume=" + record.size());
+                if (record.size() == 0) {
+                    iv_image_noclass.setVisibility(View.VISIBLE);
+                } else {
+                    iv_image_noclass.setVisibility(View.GONE);
+                }
                 infos.clear();
                 infos.addAll(record);
                 alreadyVoiceAdapter.setData(infos);

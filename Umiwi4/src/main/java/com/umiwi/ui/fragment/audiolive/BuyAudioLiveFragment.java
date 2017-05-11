@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -37,6 +38,8 @@ public class BuyAudioLiveFragment extends BaseConstantFragment {
     ListView listview;
     @InjectView(R.id.refreshLayout)
     RefreshLayout refreshLayout;
+    @InjectView(R.id.iv_image_noclass)
+    ImageView iv_image_noclass;
     private int page = 1;
     private int totalpage;
     private boolean isRefresh = true;
@@ -122,6 +125,11 @@ public class BuyAudioLiveFragment extends BaseConstantFragment {
                     isRequestSuccess = true;
                     totalpage = buyAudioLiveBean.getR().getPage().getTotalpage();
                     ArrayList<BuyAudioLiveBean.RBuyAudioLive.BuyAudioLiveRecord> record = buyAudioLiveBean.getR().getRecord();
+                    if (record.size() == 0) {
+                        iv_image_noclass.setVisibility(View.VISIBLE);
+                    } else {
+                        iv_image_noclass.setVisibility(View.GONE);
+                    }
                     if (isRefresh) {
                         refreshLayout.setRefreshing(false);
                         mList.clear();
@@ -151,6 +159,11 @@ public class BuyAudioLiveFragment extends BaseConstantFragment {
             public void onResult(AbstractRequest<BuyAudioLiveBean> request, BuyAudioLiveBean buyAudioLiveBean) {
 
                 ArrayList<BuyAudioLiveBean.RBuyAudioLive.BuyAudioLiveRecord> record = buyAudioLiveBean.getR().getRecord();
+                if (record.size() == 0) {
+                    iv_image_noclass.setVisibility(View.VISIBLE);
+                } else {
+                    iv_image_noclass.setVisibility(View.GONE);
+                }
                 mList.clear();
                 mList.addAll(record);
                 adapter.setData(mList);

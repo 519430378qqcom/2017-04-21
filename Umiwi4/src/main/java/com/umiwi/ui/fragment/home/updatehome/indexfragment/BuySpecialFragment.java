@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.umeng.analytics.MobclickAgent;
@@ -42,6 +43,8 @@ public class BuySpecialFragment extends BaseConstantFragment {
     RefreshLayout refreshLayout;
     @InjectView(R.id.listview)
     ListView listview;
+    @InjectView(R.id.iv_image_noclass)
+    ImageView iv_image_noclass;
     private int page = 1;
     private int totalpage;
     private boolean isla = false;
@@ -117,6 +120,12 @@ public class BuySpecialFragment extends BaseConstantFragment {
             public void onResult(AbstractRequest<BuySpecialBean> request, BuySpecialBean buySpecialBean) {
                 totalpage = buySpecialBean.getR().getPage().getTotalpage();
                 ArrayList<BuySpecialBean.RBuySpecial.BuySpecialRecord> record = buySpecialBean.getR().getRecord();
+                if (record.size() == 0) {
+                    iv_image_noclass.setVisibility(View.VISIBLE);
+                } else {
+                    iv_image_noclass.setVisibility(View.GONE);
+
+                }
                 if (record != null) {
                     mList.clear();
                     mList.addAll(record);
@@ -152,6 +161,11 @@ public class BuySpecialFragment extends BaseConstantFragment {
             @Override
             public void onResult(AbstractRequest<BuySpecialBean> request, BuySpecialBean buySpecialBean) {
                 ArrayList<BuySpecialBean.RBuySpecial.BuySpecialRecord> record = buySpecialBean.getR().getRecord();
+                if (record.size() == 0) {
+                    iv_image_noclass.setVisibility(View.VISIBLE);
+                } else {
+                    iv_image_noclass.setVisibility(View.GONE);
+                }
                 if (record != null) {
                     mList.clear();
                     mList.addAll(record);
