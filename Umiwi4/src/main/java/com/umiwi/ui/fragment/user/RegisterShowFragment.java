@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -155,7 +156,7 @@ public class RegisterShowFragment extends BaseConstantFragment {
 		final String imageCodeNumTemp = imageCodeNum;
 		
 		GetRequest<ResultModel> get = new GetRequest<ResultModel>(loginURL, ResultParser.class, phoneListener);
-		
+		Log.e("loginURL", "loginURL=" + loginURL);
 		if (!TextUtils.isEmpty(imageCodeNumTemp)) {
 			CookieModel model = CookieDao.getInstance(
 					UmiwiApplication.getInstance()).getByName("passport");
@@ -177,8 +178,9 @@ public class RegisterShowFragment extends BaseConstantFragment {
 						String.format(UmiwiAPI.USER_GET_IMAGE_CODE,
 								System.currentTimeMillis() + ""),
 						codeImage, responseListener, errorListener);
+
 				if (!isImageCodeNull) {
-					showMsg("请求参数错误");
+					showMsg("请检查手机号或验证码是否正确");
 //					showMsg(t.showMsg());
 				}
 				dissmiss();
