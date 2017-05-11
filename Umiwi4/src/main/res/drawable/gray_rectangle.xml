@@ -4,7 +4,7 @@
 
     <corners android:radius="10dp" />
     <size android:width="30dp" android:height="30dp"></size>
-    <solid android:color="@color/main_color" />
+    <solid android:color="@color/umiwi_gray_e" />
 
     <padding
         android:bottom="5dp"

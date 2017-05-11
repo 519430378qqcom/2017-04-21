@@ -128,6 +128,8 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 Glide.with(context).load(url).placeholder(R.drawable.fragment_mine_login_no).into(watcherViewHolder.civHead);
                 if (UserManager.getInstance().getUser().getUsername().equals(userName)) {//自己发的消息
                     watcherViewHolder.rl_text.setBackgroundResource(R.drawable.blue_rectangle);
+                }else {
+                    watcherViewHolder.rl_text.setBackgroundResource(R.drawable.gray_rectangle);
                 }
             }
             watcherViewHolder.tv_content.setText(chatRoomMessage.getContent());
@@ -175,9 +177,8 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 if (UmiwiApplication.mainActivity.service != null) {
                     String playingUrl = null;
                     try {
-                        playingUrl = UmiwiApplication.mainActivity.service.getAudioPath();
                         //播放的是当前列表的音频
-                        if (isPlayUrl(playingUrl)) {
+                        if (isPlayUrl(audioUrl)) {
                             try {
                                 //判断播放状态
                                 if (mainActivity.service.isPlaying()) {

@@ -2,6 +2,7 @@ package com.umiwi.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.RemoteException;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.Observer;
 import com.netease.nimlib.sdk.RequestCallback;
+import com.netease.nimlib.sdk.StatusCode;
 import com.netease.nimlib.sdk.auth.AuthService;
 import com.netease.nimlib.sdk.auth.LoginInfo;
 import com.netease.nimlib.sdk.chatroom.ChatRoomMessageBuilder;
@@ -36,6 +38,7 @@ import com.umiwi.ui.dialog.ShareDialog;
 import com.umiwi.ui.fragment.audiolive.AudioLiveDetailsFragment;
 import com.umiwi.ui.fragment.audiolive.LiveDetailsFragment;
 import com.umiwi.ui.main.UmiwiAPI;
+import com.umiwi.ui.main.UmiwiApplication;
 import com.umiwi.ui.managers.Container;
 import com.umiwi.ui.managers.ModuleProxy;
 import com.umiwi.ui.managers.MsgListManager;
@@ -53,6 +56,7 @@ import cn.youmi.framework.http.GetRequest;
 import cn.youmi.framework.http.parsers.GsonParser;
 
 import static com.umiwi.ui.fragment.audiolive.AudioLiveDetailsFragment.LIVEID;
+
 
 public class LiveChatRoomActivity extends AppCompatActivity implements ModuleProxy, View.OnClickListener {
     @InjectView(R.id.iv_back)
@@ -87,13 +91,10 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
     private PopupWindow popupWindow;
     private String id;
     /**
-     * 拉取聊天记录的时间撮
+     * 判断是否已经加载过聊天记录
      */
-    private long chatRecordLastTime = 0;
-    /**
-     * 是否第一次获取聊天记录
-     */
-    private Boolean firstGetRecord = true;
+    private boolean alreadyloadRecord;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,43 +116,12 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
             }
         });
     }
+
     /**
      * 获取聊天记录
      */
     private void getChatRecord() {
-        if("已结束".equals(tvStatus.getText().toString())) {
-        }else {
-            NIMClient.getService(ChatRoomService.class).pullMessageHistory(roomId, chatRecordLastTime, 30).setCallback(new RequestCallback<List<ChatRoomMessage>>() {
-                @Override
-                public void onSuccess(List<ChatRoomMessage> param) {
-                    if(param!=null&&param.size()>0) {
-                        chatRecordLastTime = param.get(param.size() - 1).getTime();
-                        for (IMMessage imMessage:param){
-                            msgListManager.addHeadMessage(imMessage);
-                        }
-                        refreshLayout.setRefreshing(false);
-                        //第一次加载聊天记录滚到底部
-                        if(firstGetRecord) {
-                            msgListManager.scrollBottom();
-                            firstGetRecord = false;
-                        }
-                    }else {
-                        Toast.makeText(LiveChatRoomActivity.this, "没用更多消息了", Toast.LENGTH_SHORT).show();
-                        refreshLayout.setRefreshing(false);
-                    }
-                }
-
-                @Override
-                public void onFailed(int code) {
-
-                }
-
-                @Override
-                public void onException(Throwable exception) {
-
-                }
-            });
-        }
+        msgListManager.loadChatRecord(roomId, refreshLayout);
     }
 
     /**
@@ -172,10 +142,15 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
                             accessChatRoom(roomId);
                             registerObservers(true);
                             registerMultimediaObserver(true);
+                            if (!alreadyloadRecord) {
+                                getChatRecord();
+                                alreadyloadRecord = true;
+                            }
                         }
 
                         @Override
                         public void onFailed(int code) {
+                            Log.e("TAG", code + "");
                             Toast.makeText(LiveChatRoomActivity.this, "登录失败", Toast.LENGTH_SHORT).show();
                         }
 
@@ -220,7 +195,10 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
                             tvStatus.setText("已结束" + partNum);
                             break;
                     }
-                    getChatRecord();
+                    if (StatusCode.LOGINED == NIMClient.getStatus()&&!alreadyloadRecord) {
+                        getChatRecord();
+                        alreadyloadRecord = true;
+                    }
                 }
             }
 
@@ -306,6 +284,15 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
         if (msgListManager.messageListAdapter.handler != null) {
             msgListManager.messageListAdapter.handler.removeCallbacksAndMessages(null);
         }
+        if (UmiwiApplication.mainActivity.service != null) {
+            try {
+                if (UmiwiApplication.mainActivity.service.isPlaying()) {
+                    UmiwiApplication.mainActivity.service.pause();
+                }
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
         super.onDestroy();
     }
 
@@ -324,7 +311,7 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
                 break;
             case R.id.btn_comfirm:
                 String content = etInput.getText().toString().trim();
-                if(content == null||content.equals("")) {
+                if (content == null || content.equals("")) {
                     Toast.makeText(LiveChatRoomActivity.this, "发送空消息不能为空", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -333,7 +320,7 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
                 HashMap<String, Object> map = new HashMap<>();
                 map.put(MsgListManager.IS_AUTHOR, false);
                 map.put(MsgListManager.HEAD_PHOTO_URL, UserManager.getInstance().getUser().getAvatar());
-                map.put(MsgListManager.USER_NAME,UserManager.getInstance().getUser().getUsername());
+                map.put(MsgListManager.USER_NAME, UserManager.getInstance().getUser().getUsername());
                 message.setRemoteExtension(map);
                 NIMClient.getService(ChatRoomService.class).sendMessage(message, true).setCallback(new RequestCallback<Void>() {
                     @Override

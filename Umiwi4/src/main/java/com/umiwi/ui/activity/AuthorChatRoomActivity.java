@@ -16,7 +16,6 @@ import android.provider.MediaStore;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -32,6 +31,7 @@ import android.widget.Toast;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.Observer;
 import com.netease.nimlib.sdk.RequestCallback;
+import com.netease.nimlib.sdk.StatusCode;
 import com.netease.nimlib.sdk.auth.AuthService;
 import com.netease.nimlib.sdk.auth.LoginInfo;
 import com.netease.nimlib.sdk.chatroom.ChatRoomMessageBuilder;
@@ -156,15 +156,11 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
 
     private PopupWindow popupWindow;
     private String id;
-    private boolean isAthor = true;
     /**
-     * 拉取聊天记录的时间撮
+     * 判断是否已经加载过聊天记录
      */
-    private long chatRecordLastTime = 0;
-    /**
-     * 是否第一次获取聊天记录
-     */
-    private Boolean firstGetRecord = true;
+    private boolean alreadyloadRecord;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -204,6 +200,10 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
                             accessChatRoom(roomId);
                             registerObservers(true);
                             registerMultimediaObserver(true);
+                            if (!alreadyloadRecord) {
+                                getChatRecord();
+                                alreadyloadRecord = true;
+                            }
                         }
 
                         @Override
@@ -252,7 +252,10 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
                             tvStatus.setText("已结束" + partNum);
                             break;
                     }
-                    getChatRecord();
+                    if (StatusCode.LOGINED == NIMClient.getStatus()&&!alreadyloadRecord) {
+                        getChatRecord();
+                        alreadyloadRecord = true;
+                    }
                 }
             }
 
@@ -268,39 +271,7 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
      * 获取聊天记录
      */
     private void getChatRecord() {
-        if ("已结束".equals(tvStatus.getText().toString())) {
-        } else {
-            NIMClient.getService(ChatRoomService.class).pullMessageHistory(roomId, chatRecordLastTime, 30).setCallback(new RequestCallback<List<ChatRoomMessage>>() {
-                @Override
-                public void onSuccess(List<ChatRoomMessage> param) {
-                    if (param != null && param.size() > 0) {
-                        chatRecordLastTime = param.get(param.size() - 1).getTime();
-                        for (IMMessage imMessage : param) {
-                            msgListManager.addHeadMessage(imMessage);
-                        }
-                        refreshLayout.setRefreshing(false);
-                        //第一次加载聊天记录滚到底部
-                        if(firstGetRecord) {
-                            msgListManager.scrollBottom();
-                            firstGetRecord = false;
-                        }
-                    } else {
-                        Toast.makeText(AuthorChatRoomActivity.this, "没用更多消息了", Toast.LENGTH_SHORT).show();
-                        refreshLayout.setRefreshing(false);
-                    }
-                }
-
-                @Override
-                public void onFailed(int code) {
-
-                }
-
-                @Override
-                public void onException(Throwable exception) {
-
-                }
-            });
-        }
+        msgListManager.loadChatRecord(roomId, refreshLayout);
     }
 
     /**
@@ -368,6 +339,15 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
         }
         if (msgListManager.messageListAdapter.handler != null) {
             msgListManager.messageListAdapter.handler.removeCallbacksAndMessages(null);
+        }
+        if (UmiwiApplication.mainActivity.service != null) {
+            try {
+                if (UmiwiApplication.mainActivity.service.isPlaying()) {
+                    UmiwiApplication.mainActivity.service.pause();
+                }
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
         }
         super.onDestroy();
     }
@@ -444,15 +424,20 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
                     switchSoftInput(false);
                 } else {
                     switchStatus(R.id.tv_text);
+                    switchSoftInput(true);
                 }
                 break;
             case R.id.tv_picture://点击图片功能
                 switchStatus(R.id.tv_picture);
                 switchSoftInput(false);
                 //调起系统相册
-                Intent intent = new Intent(Intent.ACTION_PICK, null);
-                intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                Intent intent = new Intent();
+                intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
+                Intent.createChooser(intent, "Select picture");
+//                Intent intent = new Intent(Intent.ACTION_PICK, null);
+//                intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+//                intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(intent, PICTURE_REQUEST);
                 break;
             case R.id.btn_cancle://取消录制
@@ -577,14 +562,10 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
             handler.removeCallbacksAndMessages(null);
             handler.sendMessageDelayed(Message.obtain(), 1000);
         } else {
-            Toast.makeText(AuthorChatRoomActivity.this, "启动录音失败", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AuthorChatRoomActivity.this, "启动录音失败，请开启录音权限", Toast.LENGTH_SHORT).show();
         }
     }
 
-    /**
-     * 是否自动到达最大录音时间
-     */
-    private Boolean isAutoMax;
     // 定义录音过程回调对象
     IAudioRecordCallback callback = new IAudioRecordCallback() {
 
@@ -602,12 +583,10 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
         }
 
         public void onRecordStart(File audioFile, RecordType recordType) {
-            Log.e("TAG", "onRecordStart");
             // 开始录音回调
         }
 
         public void onRecordSuccess(File audioFile, long audioLength, RecordType recordType) {
-            Log.e("TAG", "onRecordSuccess");
             // 录音结束，成功
             myAudiofile = audioFile;
             myAudioLength = audioLength;
@@ -618,13 +597,11 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
         }
 
         public void onRecordCancel() {
-            Log.e("TAG", "onRecordCancel");
             // 录音结束， 用户主动取消录音
         }
 
         public void onRecordReachedMaxTime(int maxTime) {
             // 到达指定的最长录音时间
-            Log.e("TAG", "onRecordReachedMaxTime");
         }
     };
 
@@ -870,6 +847,7 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
                 boolean audioLiveStopBeanR = audioLiveStopBean.isR();
                 if (audioLiveStopBeanR) {
                     finish();
+                    Toast.makeText(AuthorChatRoomActivity.this, "直播已成功结束", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(AuthorChatRoomActivity.this, audioLiveStopBean.getM().trim().toString(), Toast.LENGTH_SHORT).show();
                     dialog.dismiss();

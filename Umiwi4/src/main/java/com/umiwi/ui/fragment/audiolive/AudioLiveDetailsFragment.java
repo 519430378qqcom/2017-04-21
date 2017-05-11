@@ -43,6 +43,7 @@ import cn.youmi.framework.http.AbstractRequest;
 import cn.youmi.framework.http.GetRequest;
 import cn.youmi.framework.http.parsers.GsonParser;
 
+
 /**
  * Created by Administrator on 2017/5/4 0004.
  */
@@ -225,13 +226,13 @@ public class AudioLiveDetailsFragment extends BaseConstantFragment {
             if (detailsRecord.isfree()) {
                 //底部参与价格
                 btn_gotoliveroom.setText("立即参与");
-                rlBottomBack.setBackgroundColor(getResources().getColor(R.color.green_color));
+                btn_gotoliveroom.setBackgroundColor(getResources().getColor(R.color.green_color));
             } else {
                 if (detailsRecord.isbuy()) {
                     btn_gotoliveroom.setText("立即参与");
-                    rlBottomBack.setBackgroundColor(getResources().getColor(R.color.green_color));
+                    btn_gotoliveroom.setBackgroundColor(getResources().getColor(R.color.green_color));
                 } else {
-                    rlBottomBack.setBackgroundColor(getResources().getColor(R.color.main_color));
+                    btn_gotoliveroom.setBackgroundColor(getResources().getColor(R.color.main_color));
                     btn_gotoliveroom.setText("立即参与(" + detailsRecord.getPrice() + ")");
                 }
             }
@@ -284,6 +285,10 @@ public class AudioLiveDetailsFragment extends BaseConstantFragment {
                 if (!YoumiRoomUserManager.getInstance().isLogin()) {
                     showLogin();
                 } else {
+                    if(detailsRecord == null) {
+                        Toast.makeText(getActivity(), "网络不给力，稍后再试", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     //免费
                     if (detailsRecord.isfree()) {
                         if (detailsRecord.isbuy()) {
@@ -318,7 +323,7 @@ public class AudioLiveDetailsFragment extends BaseConstantFragment {
                                 intent.putExtra(ChatRecordActivity.ROOM_ID, detailsRecord.getRoomid());
                                 getActivity().startActivity(intent);
                             } else {
-                                if (isAuthor) {
+                                if ("1".equals(detailsRecord.getIstutor())) {
                                     Intent intent = new Intent(getActivity(), AuthorChatRoomActivity.class);
                                     intent.putExtra(LiveDetailsFragment.DETAILS_ID, detailsRecord.getId());
                                     intent.putExtra(LiveChatRoomActivity.ROOM_ID, detailsRecord.getRoomid());

@@ -474,14 +474,15 @@ public abstract class AbstractLoginActivity extends BaseSwipeBackActivity {
 					}
 					break;
 				case TOKEN_FAIL:
-					Toast.makeText(AbstractLoginActivity.this, model.getErrmsg(), Toast.LENGTH_SHORT).show();
+//					Toast.makeText(AbstractLoginActivity.this, model.getErrmsg(), Toast.LENGTH_SHORT).show();
+					Toast.makeText(AbstractLoginActivity.this, "授权取消", Toast.LENGTH_SHORT).show();
 					progressFinish();
 					break;
 				case ERROR:
-					Toast.makeText(AbstractLoginActivity.this, model.getErrmsg(), Toast.LENGTH_SHORT).show();
+//					Toast.makeText(AbstractLoginActivity.this, model.getErrmsg(), Toast.LENGTH_SHORT).show();
+					Toast.makeText(AbstractLoginActivity.this, "登陆错误", Toast.LENGTH_SHORT).show();
 					progressFinish();
 					break;
-
 				default:
 					break;
 			}
@@ -489,7 +490,9 @@ public abstract class AbstractLoginActivity extends BaseSwipeBackActivity {
 		}
 
 		@Override
-		public void onModelsGet(WeiXinLoginTokenEvent key, List<WXTokenModel> models) {}
+		public void onModelsGet(WeiXinLoginTokenEvent key, List<WXTokenModel> models) {
+
+		}
 	};
 
 	private ModelStatusListener<ClassesEvent, OAuthResultModel> oAuthLoginListener = new ModelStatusListener<ClassesEvent, OAuthResultModel>() {
