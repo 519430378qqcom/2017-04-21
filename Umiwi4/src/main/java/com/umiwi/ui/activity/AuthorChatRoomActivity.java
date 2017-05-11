@@ -847,6 +847,7 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
                 boolean audioLiveStopBeanR = audioLiveStopBean.isR();
                 if (audioLiveStopBeanR) {
                     finish();
+                    Toast.makeText(AuthorChatRoomActivity.this, "直播已成功结束", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(AuthorChatRoomActivity.this, audioLiveStopBean.getM().trim().toString(), Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
