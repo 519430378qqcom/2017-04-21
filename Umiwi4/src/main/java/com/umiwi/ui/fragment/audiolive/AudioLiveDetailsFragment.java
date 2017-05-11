@@ -225,13 +225,13 @@ public class AudioLiveDetailsFragment extends BaseConstantFragment {
             if (detailsRecord.isfree()) {
                 //底部参与价格
                 btn_gotoliveroom.setText("立即参与");
-                rlBottomBack.setBackgroundColor(getResources().getColor(R.color.green_color));
+                btn_gotoliveroom.setBackgroundColor(getResources().getColor(R.color.green_color));
             } else {
                 if (detailsRecord.isbuy()) {
                     btn_gotoliveroom.setText("立即参与");
-                    rlBottomBack.setBackgroundColor(getResources().getColor(R.color.green_color));
+                    btn_gotoliveroom.setBackgroundColor(getResources().getColor(R.color.green_color));
                 } else {
-                    rlBottomBack.setBackgroundColor(getResources().getColor(R.color.main_color));
+                    btn_gotoliveroom.setBackgroundColor(getResources().getColor(R.color.main_color));
                     btn_gotoliveroom.setText("立即参与(" + detailsRecord.getPrice() + ")");
                 }
             }
