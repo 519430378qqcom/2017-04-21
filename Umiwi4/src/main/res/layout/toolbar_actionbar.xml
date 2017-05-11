@@ -11,7 +11,7 @@
         android:background="?attr/colorPrimary"
         android:theme="@style/Theme.Apptheme_umiwi"
         android:title="测试"
-        app:navigationIcon="@drawable/ic_action_bar_return_black"
+        app:navigationIcon="@drawable/back_audio_special"
         app:popupTheme="@style/ActionBarPopupTheme"
         app:theme="@style/ActionBarTheme"
         app:titleTextAppearance="@style/ActionBar.TitleTextStyle.Umiwi" />
