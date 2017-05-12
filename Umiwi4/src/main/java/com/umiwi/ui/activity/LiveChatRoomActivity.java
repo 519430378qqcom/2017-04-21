@@ -225,9 +225,31 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
      */
     private void accessChatRoom(String roomId) {
         EnterChatRoomData data = new EnterChatRoomData(roomId);
-        NIMClient.getService(ChatRoomService.class).enterChatRoom(data);
+        NIMClient.getService(ChatRoomService.class).enterChatRoom(data).setCallback(new RequestCallback() {
+            @Override
+            public void onSuccess(Object param) {
+
+            }
+
+            @Override
+            public void onFailed(int code) {
+
+            }
+
+            @Override
+            public void onException(Throwable exception) {
+
+            }
+        });
     }
 
+    /**
+     * 离开聊天室
+     * @param roomId
+     */
+    private void exitChatRoom(String roomId){
+        NIMClient.getService(ChatRoomService.class).exitChatRoom(roomId);
+    }
     /**
      * 注册消息接收器
      *
@@ -293,6 +315,7 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
                 e.printStackTrace();
             }
         }
+        exitChatRoom(roomId);
         super.onDestroy();
     }
 
@@ -303,6 +326,9 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
                 finish();
                 break;
             case R.id.iv_more:
+                if(chatRoomDetailsBean == null) {
+                    Toast.makeText(LiveChatRoomActivity.this, "未获取直播间信息，请稍候再试", Toast.LENGTH_SHORT).show();
+                }
                 if (popupWindow != null && popupWindow.isShowing()) {
                     popupWindow.dismiss();
                 } else {

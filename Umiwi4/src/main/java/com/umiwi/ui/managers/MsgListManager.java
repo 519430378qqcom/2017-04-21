@@ -141,7 +141,7 @@ public class MsgListManager {
             return false;
         }
         //屏蔽没有扩展字段的消息
-        if (message.getRemoteExtension().size() < 3) {
+        if (message.getRemoteExtension() == null || message.getRemoteExtension().size() < 3) {
             return false;
         }
         return true;
@@ -221,7 +221,14 @@ public class MsgListManager {
                             firstGetRecord = false;
                         }
                     } else {
-                        Toast.makeText(context, "没用更多消息了", Toast.LENGTH_SHORT).show();
+                        //如果此时缓存池中还有剩余的消息
+                        if(chatRecordMessages.size()>0) {
+                            for (int i = 0; i < chatRecordMessages.size(); i++) {
+                                addHeadMessage(chatRecordMessages.get(0));
+                                chatRecordMessages.removeFirst();
+                            }
+                        }
+                        Toast.makeText(context, "没有更多消息了", Toast.LENGTH_SHORT).show();
                         refreshLayout.setRefreshing(false);
                     }
                 }

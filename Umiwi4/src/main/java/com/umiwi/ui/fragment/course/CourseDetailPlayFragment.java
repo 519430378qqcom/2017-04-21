@@ -450,7 +450,7 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
         if (TextUtils.isEmpty(detaiURL)) {
             return;
         }
-        showLoading();
+//        showLoading();
         GetRequest<ListDetailRequestData> req = new GetRequest<ListDetailRequestData>(
                 detaiURL, CourseDetailParser.class, detailListener);
         HttpDispatcher.getInstance().go(req);
@@ -625,7 +625,7 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
     }
 
     private void dismissLoading() {
-        mProgressBar.setVisibility(View.GONE);
+//        mProgressBar.setVisibility(View.GONE);
         try {
             //让正在播放的音频暂停
             if (UmiwiApplication.mainActivity.service != null && UmiwiApplication.mainActivity.service.isPlaying()) {
@@ -1319,6 +1319,7 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
                 if (TextUtils.isEmpty(mEt_menu.getText().toString().trim())) {
                     ToastU.showShort(getActivity(), "说点什么吧！");
                     return;
+
                 }
                 showComment();
             }
@@ -1339,7 +1340,7 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
             // 窗口显示前显示输入法软键盘
             showKeyBoard();
             // 显示输入窗口
-            mEditMenuWindow.showAtLocation(rootView, Gravity.CENTER, 0, 0);
+            mEditMenuWindow.showAtLocation(rootView, Gravity.BOTTOM, 0, 0);
         }
     }
 
