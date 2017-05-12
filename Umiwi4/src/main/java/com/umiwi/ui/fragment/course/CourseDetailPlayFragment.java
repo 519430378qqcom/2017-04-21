@@ -1319,6 +1319,7 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
                 if (TextUtils.isEmpty(mEt_menu.getText().toString().trim())) {
                     ToastU.showShort(getActivity(), "说点什么吧！");
                     return;
+
                 }
                 showComment();
             }

@@ -450,7 +450,7 @@
                 android:value="cn.sharesdk.demo.MyAdapter" />
 
             <intent-filter>
-                <data android:scheme="tencent218165" />
+                <data android:scheme="tencent100888852" />
 
                 <action android:name="android.intent.action.VIEW" />
 
