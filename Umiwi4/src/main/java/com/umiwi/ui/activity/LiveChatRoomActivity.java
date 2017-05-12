@@ -326,6 +326,9 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
                 finish();
                 break;
             case R.id.iv_more:
+                if(chatRoomDetailsBean == null) {
+                    Toast.makeText(LiveChatRoomActivity.this, "未获取直播间信息，请稍候再试", Toast.LENGTH_SHORT).show();
+                }
                 if (popupWindow != null && popupWindow.isShowing()) {
                     popupWindow.dismiss();
                 } else {
