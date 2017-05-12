@@ -53,7 +53,7 @@
                     android:id="@+id/tv_content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black_a8"
+                    android:textColor="@color/white"
                     android:textSize="14sp"
                     android:text="@string/a_umiwi_login"/>
             </RelativeLayout>
