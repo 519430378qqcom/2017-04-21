@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.umiwi.ui.R;
@@ -38,6 +39,8 @@ public class AudioLiveOnFragment extends BaseConstantFragment {
     RefreshLayout refreshLayout;
     @InjectView(R.id.listview)
     ListView listview;
+    @InjectView(R.id.iv_image_noclass)
+    ImageView iv_image_noclass;
     private int page = 1;
     private int status = 2;
     private int totalpage;
@@ -120,6 +123,11 @@ public class AudioLiveOnFragment extends BaseConstantFragment {
             @Override
             public void onResult(AbstractRequest<AudioLiveBean> request, AudioLiveBean audioLiveBean) {
                 ArrayList<RecommendBean.RBean.HotLiveBean.HotLiveRecord> record = audioLiveBean.getR().getRecord();
+                if (record.size() == 0) {
+                    iv_image_noclass.setVisibility(View.VISIBLE);
+                } else {
+                    iv_image_noclass.setVisibility(View.GONE);
+                }
                 mList.clear();
                 mList.addAll(record);
                 audioLiveAdapter.setData(mList);
@@ -140,6 +148,11 @@ public class AudioLiveOnFragment extends BaseConstantFragment {
             @Override
             public void onResult(AbstractRequest<AudioLiveBean> request, AudioLiveBean audioLiveBean) {
                 ArrayList<RecommendBean.RBean.HotLiveBean.HotLiveRecord> record = audioLiveBean.getR().getRecord();
+                if (record.size() == 0) {
+                    iv_image_noclass.setVisibility(View.VISIBLE);
+                } else {
+                    iv_image_noclass.setVisibility(View.GONE);
+                }
                 totalpage = audioLiveBean.getR().getPage().getTotalpage();
                 if (isRefresh) {
                     refreshLayout.setRefreshing(false);

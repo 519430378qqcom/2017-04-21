@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.umiwi.ui.R;
@@ -40,6 +41,8 @@ public class EndLiveFragment extends Fragment {
     ListView listview;
     @InjectView(R.id.refreshLayout)
     RefreshLayout refreshLayout;
+    @InjectView(R.id.iv_image_noclass)
+    ImageView iv_image_noclass;
     private Context context;
     private MyLiveAdapter myLiveAdapter;
     private int page = 1;
@@ -80,6 +83,11 @@ public class EndLiveFragment extends Fragment {
                     myLiveBean1 = myLiveBean;
                     totalpage = myLiveBean.getR().getPage().getTotalpage();
                     List<MyLiveBean.RBean.RecordBean> record = myLiveBean.getR().getRecord();
+                    if (record.size() == 0) {
+                        iv_image_noclass.setVisibility(View.VISIBLE);
+                    } else {
+                        iv_image_noclass.setVisibility(View.GONE);
+                    }
                     if (isRefresh) {
                         refreshLayout.setRefreshing(false);
                         if (myLiveAdapter == null) {
