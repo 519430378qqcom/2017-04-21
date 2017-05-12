@@ -219,6 +219,7 @@
             android:layout_marginRight="5dp"
             android:background="#22ffffff"
             android:padding="5dp"
+            android:visibility="gone"
             android:src="@drawable/category_hot" />
     </LinearLayout>
 
