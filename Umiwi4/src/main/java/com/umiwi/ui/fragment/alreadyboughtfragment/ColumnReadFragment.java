@@ -155,12 +155,13 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
         //底部加载更多布局
         footView = View.inflate(getActivity(), R.layout.column_foot_view,null);
         progressBar2 = (ProgressBar) footView.findViewById(R.id.progressBar2);
+        footView.setVisibility(View.GONE);
+
         nsl_message_list.addHeaderView(inflate);
         nsl_message_list.addFooterView(footView);
         nsl_message_list.setVerticalScrollBarEnabled(false);
         nsl_message_list.setFastScrollEnabled(false);
         nsl_message_list.setOnScrollListener(mScrollListener);
-
         iv_back.setOnClickListener(this);
         iv_shared.setOnClickListener(this);
         record.setOnClickListener(this);
@@ -169,7 +170,6 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
         iv_leaveword2.setOnClickListener(this);
         tv_buy_column.setOnClickListener(this);
         iv_play.setOnClickListener(this);
-        ll_leave_word1.setVisibility(View.GONE);
 
 
         ViewTreeObserver vto = ll_leave_word.getViewTreeObserver();
@@ -189,23 +189,6 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
             }
         });
 
-
-//
-//        ViewTreeObserver observer = ll_leave_word2.getViewTreeObserver();
-//        observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-//            @Override
-//            public void onGlobalLayout() {
-//                ll_leave_word2.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-//                float y = ll_leave_word2.getY();
-//                int top = ll_leave_word2.getTop();
-//
-//                int height = ll_leave_word2.getHeight();
-//
-////                Log.e("TAG", "底部悬浮=" + y);
-////                Log.e("TAG", "底部悬浮top=" + top);
-////                Log.e("TAG", "底部悬浮height=" + height);
-//            }
-//        });
     }
 
 
@@ -218,9 +201,9 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
 
         @Override
         public void onScrollStateChanged(AbsListView view, int scrollState) {
-            if(nsl_message_list.getLastVisiblePosition() == mList.size() +1
+            int lastVisiblePosition = nsl_message_list.getLastVisiblePosition();
+            if( lastVisiblePosition== mList.size() +1
                     && scrollState == SCROLL_STATE_IDLE
-                    && progressBar2.isShown()
                     && !isLoading ) {
                 getDataMore();
             }
@@ -229,21 +212,11 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
 
         @Override
         public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-            if (isLoading) {
-                footView.setVisibility(View.VISIBLE);
-            }
-//            lastVisibleItem = firstVisibleItem + visibleItemCount;
-//            totalItem = totalItemCount;
-//            Log.e("TAG", "totalItemCount=" + totalItemCount);
-//            int[] location = new int[2];
-//            ll_leave_word2.getLocationOnScreen(location);
-//            int x = location[0];
-//            int y = location[1];
-//            Log.e("TAG", "top121=" + y);
-
+//            if (isLoading) {
+//                footView.setVisibility(View.VISIBLE);
+//            }
 
             int top = ll_leave_word2.getTop();
-//            Log.e("TAG", "top=" + top);
             mCurrentfirstVisibleItem = firstVisibleItem;
 
             View firstView  = view.getChildAt(0);
@@ -257,7 +230,7 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
                 recordSp.append(firstVisibleItem,itemRecord);
                 int h = getScrollY();
                 //顶部悬浮
-                if (h >= floaty) {
+                if (h > floaty) {
                     ll_leave_word1.setVisibility(View.VISIBLE);
                 } else {
                     ll_leave_word1.setVisibility(View.GONE);
@@ -280,14 +253,9 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
     private void getDataMore() {
         isLoading = true;
         currentpage ++;
-        Log.e("TAG", "currentpage=" + currentpage);
+        footView.setVisibility(View.VISIBLE);
         if (currentpage <= totalpage) {
-            footView.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    getMore();
-                }
-            }, 1000);
+            getMore();
         } else {
             ToastU.showLong(getActivity(), "没有更多了!");
             isLoading = false;
@@ -295,14 +263,13 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
         }
     }
 
-    private void getMore() {
+    private void   getMore() {
         String url = String.format(UmiwiAPI.UMIWI_COLUM_MESSAGE,id,currentpage);
         Log.e("TAG", "阅读界面url=" + url);
         GetRequest<AudioTmessageListBeans> request = new GetRequest<AudioTmessageListBeans>(url, GsonParser.class, AudioTmessageListBeans.class, new AbstractRequest.Listener<AudioTmessageListBeans>() {
             @Override
             public void onResult(AbstractRequest<AudioTmessageListBeans> request, AudioTmessageListBeans audioTmessageListBeans) {
                 ArrayList<AudioTmessageListBeans.RecordX.Record> record = audioTmessageListBeans.getR().getRecord();
-//                Log.e("TAG", "阅读界面record=" + record.toString());
                 currentpage = audioTmessageListBeans.getR().getPage().getCurrentpage();
 
                 isLoading = false;
@@ -312,7 +279,7 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
 
             @Override
             public void onError(AbstractRequest<AudioTmessageListBeans> requet, int statusCode, String body) {
-
+                isLoading = false;
             }
         });
         request.go();
@@ -380,9 +347,6 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
         request.go();
     }
 
-//    private void initMediaPlay() {
-//
-//    }
 
     @Override
     public void onClick(View v) {
@@ -448,8 +412,6 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
                         }
                         UmiwiApplication.mainActivity.service.openAudio(url);
                         UmiwiApplication.mainActivity.musicUrl = url;
-//                        Log.e("TAG", "source=" + source);
-//                        Log.e("TAG", "UmiwiApplication.mainActivity.musicUrl=" + UmiwiApplication.mainActivity.musicUrl);
 
                         iv_play.setBackgroundResource(R.drawable.image_pause);
 
@@ -459,8 +421,6 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
                 } else {
                     VoiceDetailsFragment.bind(url);
                     UmiwiApplication.mainActivity.musicUrl = url;
-//                    Log.e("TAG", "source1=" + source);
-//                    Log.e("TAG", "UmiwiApplication.mainActivity.musicUrl1=" + UmiwiApplication.mainActivity.musicUrl);
                     iv_play.setBackgroundResource(R.drawable.image_pause);
                     AnimationDrawable background = (AnimationDrawable) record.getBackground();
                     background.start();
@@ -474,7 +434,6 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
             try {
                 if (UmiwiApplication.mainActivity.service.isPlaying() || UmiwiApplication.mainActivity.isPause) {
                     if (UmiwiApplication.mainActivity.herfUrl != null) {
-//                        Log.e("TAG", "UmiwiApplication.mainActivity.herfUrl=" + UmiwiApplication.mainActivity.herfUrl);
                         Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
                         intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, VoiceDetailsFragment.class);
                         intent.putExtra(VoiceDetailsFragment.KEY_DETAILURL, UmiwiApplication.mainActivity.herfUrl);
@@ -500,7 +459,6 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
                 totalpage = audioTmessageListBeans.getR().getPage().getTotalpage();
                 currentpage = audioTmessageListBeans.getR().getPage().getCurrentpage();
                 ArrayList<AudioTmessageListBeans.RecordX.Record> record = audioTmessageListBeans.getR().getRecord();
-//                Log.e("TAG", "阅读界面record=" + record.toString());
                 if(record.size() == 0) {
                     footView.setVisibility(View.GONE);
                 }
@@ -541,7 +499,6 @@ public class ColumnReadFragment extends BaseConstantFragment implements View.OnC
                 aid = details.getAudiofile().getAid();
                 source = details.getAudiofile().getSource();
 
-//                UmiwiApplication.mainActivity.herfUrl = detailurl;
                 getAudioSource(source);
             }
 

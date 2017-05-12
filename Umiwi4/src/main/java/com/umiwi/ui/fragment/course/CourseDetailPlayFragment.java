@@ -450,7 +450,7 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
         if (TextUtils.isEmpty(detaiURL)) {
             return;
         }
-        showLoading();
+//        showLoading();
         GetRequest<ListDetailRequestData> req = new GetRequest<ListDetailRequestData>(
                 detaiURL, CourseDetailParser.class, detailListener);
         HttpDispatcher.getInstance().go(req);
@@ -625,7 +625,7 @@ public class CourseDetailPlayFragment extends BaseFragment implements QuickRetur
     }
 
     private void dismissLoading() {
-        mProgressBar.setVisibility(View.GONE);
+//        mProgressBar.setVisibility(View.GONE);
         try {
             //让正在播放的音频暂停
             if (UmiwiApplication.mainActivity.service != null && UmiwiApplication.mainActivity.service.isPlaying()) {
