@@ -749,7 +749,7 @@ public class VoiceDetailsFragment extends BaseConstantFragment implements View.O
             // 窗口显示前显示输入法软键盘
             showKeyBoard();
             // 显示输入窗口
-            mEditMenuWindow.showAtLocation(rootView, Gravity.CENTER, 0, 0);
+            mEditMenuWindow.showAtLocation(rootView, Gravity.BOTTOM, 0, 0);
         }
     }
 
