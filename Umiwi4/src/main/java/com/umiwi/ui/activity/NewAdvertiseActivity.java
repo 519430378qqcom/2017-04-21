@@ -134,6 +134,7 @@ public class NewAdvertiseActivity extends Activity {
                             intent5.putExtra(CourseDetailPlayFragment.KEY_DETAIURL, advertisementBeanR.get(0).getUrl());
                             startActivity(intent5);
                         } else if ("column".equals(advertisementBeanR.get(0).getType())) {
+
                             Intent intent6 = new Intent(NewAdvertiseActivity.this, UmiwiContainerActivity.class);
                             intent6.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, ColumnDetailsFragment.class);//详情页
                             intent6.putExtra("columnurl", advertisementBeanR.get(0).getUrl());

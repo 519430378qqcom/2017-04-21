@@ -112,8 +112,7 @@ public class LunboAdapter extends PagerAdapter {
                     if (listBeans.isbuy()) {
                         Intent intent = new Intent(mContext, UmiwiContainerActivity.class);
                         intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, BuyColumnDetailsFragment.class);
-                        intent.putExtra("id", listBeans.getAlbumid());
-                        intent.putExtra("title", listBeans.getTitle());
+                        intent.putExtra("id", listBeans.getColumnid());
                         mContext.startActivity(intent);
                     } else {
                         Intent intent = new Intent(mContext, UmiwiContainerActivity.class);

@@ -29,6 +29,16 @@ public class UmiwiListBeans extends BaseGsonBeans {
     private long id;
     @SerializedName("albumid")
     private String albumid;
+    @SerializedName("columnid")
+    private String columnid;
+
+    public String getColumnid() {
+        return columnid;
+    }
+
+    public void setColumnid(String columnid) {
+        this.columnid = columnid;
+    }
 
     public String getAlbumid() {
         return albumid;

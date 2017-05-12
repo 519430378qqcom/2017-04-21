@@ -27,6 +27,7 @@ import com.umiwi.ui.adapter.ColumnRecordAdapter;
 import com.umiwi.ui.beans.UmiwiBuyCreateOrderBeans;
 import com.umiwi.ui.beans.updatebeans.AudioSpecialDetailsBean;
 import com.umiwi.ui.dialog.ShareDialog;
+import com.umiwi.ui.fragment.alreadyboughtfragment.BuyColumnDetailsFragment;
 import com.umiwi.ui.fragment.home.alreadyshopping.LogicalThinkingFragment;
 import com.umiwi.ui.fragment.pay.PayingFragment;
 import com.umiwi.ui.main.BaseConstantFragment;
@@ -115,11 +116,18 @@ public class ColumnDetailsFragment extends BaseConstantFragment {
             @Override
             public void onClick(View view) {
 //                Toast.makeText(getActivity(), "免费试读", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
-                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, LogicalThinkingFragment.class);
-                intent.putExtra("id", details.getId());
-                intent.putExtra("title", details.getTitle());
-                startActivity(intent);
+                if (details.isbuy()) {
+                    Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
+                    intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, BuyColumnDetailsFragment.class);
+                    intent.putExtra("id", details.getId());
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
+                    intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS, LogicalThinkingFragment.class);
+                    intent.putExtra("id", details.getId());
+                    intent.putExtra("title", details.getTitle());
+                    startActivity(intent);
+                }
             }
         });
 
