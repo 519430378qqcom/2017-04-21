@@ -18,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -164,7 +165,7 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         setContentView(R.layout.activity_author_chat_room);
         ButterKnife.inject(this);
         loginNIM();
@@ -252,7 +253,7 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
                             tvStatus.setText("已结束" + partNum);
                             break;
                     }
-                    if (StatusCode.LOGINED == NIMClient.getStatus()&&!alreadyloadRecord) {
+                    if (StatusCode.LOGINED == NIMClient.getStatus() && !alreadyloadRecord) {
                         getChatRecord();
                         alreadyloadRecord = true;
                     }
@@ -290,6 +291,15 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
     private void accessChatRoom(String roomId) {
         EnterChatRoomData data = new EnterChatRoomData(roomId);
         NIMClient.getService(ChatRoomService.class).enterChatRoom(data);
+    }
+
+    /**
+     * 离开聊天室
+     *
+     * @param roomId
+     */
+    private void exitChatRoom(String roomId) {
+        NIMClient.getService(ChatRoomService.class).exitChatRoom(roomId);
     }
 
     /**
@@ -349,6 +359,7 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
                 e.printStackTrace();
             }
         }
+        exitChatRoom(roomId);
         super.onDestroy();
     }
 
@@ -424,8 +435,10 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
                     switchSoftInput(false);
                 } else {
                     switchStatus(R.id.tv_text);
-//                    etInput.setFocusable(true);
-//                    switchSoftInput(true);
+                    etInput.setFocusable(true);
+                    etInput.setFocusableInTouchMode(true);
+                    etInput.requestFocus();
+                    switchSoftInput(true);
                 }
                 break;
             case R.id.tv_picture://点击图片功能
@@ -716,7 +729,7 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
     private void switchSoftInput(Boolean isShow) {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         if (isShow) {
-            imm.showSoftInput(etInput, InputMethodManager.SHOW_FORCED);
+            imm.showSoftInput(etInput, 0);
         } else {
             imm.hideSoftInputFromWindow(etInput.getWindowToken(), 0); //强制隐藏键盘
         }
@@ -724,6 +737,7 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
 
     /**
      * 切换输入显示状态
+     *
      * @param id
      */
     private void switchStatus(int id) {

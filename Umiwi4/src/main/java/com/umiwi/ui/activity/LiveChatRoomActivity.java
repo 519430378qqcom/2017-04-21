@@ -244,6 +244,13 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
     }
 
     /**
+     * 离开聊天室
+     * @param roomId
+     */
+    private void exitChatRoom(String roomId){
+        NIMClient.getService(ChatRoomService.class).exitChatRoom(roomId);
+    }
+    /**
      * 注册消息接收器
      *
      * @param register
@@ -308,6 +315,7 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
                 e.printStackTrace();
             }
         }
+        exitChatRoom(roomId);
         super.onDestroy();
     }
 

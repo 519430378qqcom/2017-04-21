@@ -2,6 +2,7 @@ package com.umiwi.ui.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -130,8 +131,10 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 Glide.with(context).load(url).placeholder(R.drawable.fragment_mine_login_no).into(watcherViewHolder.civHead);
                 if (UserManager.getInstance().getUser().getUsername().equals(userName)) {//自己发的消息
                     watcherViewHolder.rl_text.setBackgroundResource(R.drawable.blue_rectangle);
+                    watcherViewHolder.tv_content.setTextColor(Color.WHITE);
                 }else {
                     watcherViewHolder.rl_text.setBackgroundResource(R.drawable.gray_rectangle);
+                    watcherViewHolder.tv_content.setTextColor(Color.BLACK);
                 }
             }
             watcherViewHolder.tv_content.setText(chatRoomMessage.getContent());
@@ -155,7 +158,7 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 authorViewHolder.rl_audio.setVisibility(View.GONE);
                 authorViewHolder.rl_picture.setVisibility(View.VISIBLE);
                 final ImageAttachment attachment = (ImageAttachment) chatRoomMessage.getAttachment();
-                Glide.with(context).load(attachment.getUrl()).into(authorViewHolder.iv_receive);
+                Glide.with(context).load(attachment.getThumbPath()).into(authorViewHolder.iv_receive);
                 authorViewHolder.iv_receive.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
