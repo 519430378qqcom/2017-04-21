@@ -378,7 +378,7 @@ public class AudioLiveDetailsFragment extends BaseConstantFragment {
                     }
                 }
             } else if("1007".equals(jewelBuyAudioBena.getE())) {
-                Toast.makeText(getActivity(), jewelBuyAudioBena.getM().toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), jewelBuyAudioBena.getM().toString(), Toast.LENGTH_LONG).show();
             }
         }
 
