@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.umiwi.ui.R;
+import com.umiwi.ui.activity.ChatRecordActivity;
 import com.umiwi.ui.activity.UmiwiContainerActivity;
 import com.umiwi.ui.adapter.updateadapter.AudioLiveAdapter;
 import com.umiwi.ui.beans.updatebeans.AudioLiveBean;
@@ -71,10 +72,19 @@ public class AudioLiveAlreadyOffFrgament extends BaseConstantFragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 RecommendBean.RBean.HotLiveBean.HotLiveRecord hotLiveRecord = mList.get(position);
                 String liveId = hotLiveRecord.getId();
-                Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
-                intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS,AudioLiveDetailsFragment.class);
-                intent.putExtra(AudioLiveDetailsFragment.LIVEID,liveId);
-                startActivity(intent);
+                String roomid = hotLiveRecord.getRoomid();
+                boolean isbuy = hotLiveRecord.isbuy();
+                if (isbuy) {
+                    Intent intent = new Intent(getActivity(), ChatRecordActivity.class);
+                    intent.putExtra(LiveDetailsFragment.DETAILS_ID, liveId);
+                    intent.putExtra(ChatRecordActivity.ROOM_ID, roomid);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(getActivity(), UmiwiContainerActivity.class);
+                    intent.putExtra(UmiwiContainerActivity.KEY_FRAGMENT_CLASS,AudioLiveDetailsFragment.class);
+                    intent.putExtra(AudioLiveDetailsFragment.LIVEID,liveId);
+                    startActivity(intent);
+                }
             }
         });
 

@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.umiwi.ui.R;
+import com.umiwi.ui.activity.ChatRecordActivity;
 import com.umiwi.ui.activity.LiveChatRoomActivity;
 import com.umiwi.ui.adapter.updateadapter.BuyAudioLiveAdapter;
 import com.umiwi.ui.beans.updatebeans.BuyAudioLiveBean;
@@ -59,10 +60,20 @@ public class BuyAudioLiveFragment extends BaseConstantFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 BuyAudioLiveBean.RBuyAudioLive.BuyAudioLiveRecord buyAudioLiveRecord = mList.get(position);
-                Intent intent = new Intent(getActivity(), LiveChatRoomActivity.class);
-                intent.putExtra(LiveDetailsFragment.DETAILS_ID, buyAudioLiveRecord.getId());
-                intent.putExtra(LiveChatRoomActivity.ROOM_ID, buyAudioLiveRecord.getRoomid());
-                getActivity().startActivity(intent);
+                String id1 = buyAudioLiveRecord.getId();
+                String status = buyAudioLiveRecord.getStatus();
+                String roomid = buyAudioLiveRecord.getRoomid();
+                if ("已结束".equals(status)) {
+                    Intent intent = new Intent(getActivity(), ChatRecordActivity.class);
+                    intent.putExtra(LiveDetailsFragment.DETAILS_ID, id1);
+                    intent.putExtra(ChatRecordActivity.ROOM_ID, roomid);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(getActivity(), LiveChatRoomActivity.class);
+                    intent.putExtra(LiveDetailsFragment.DETAILS_ID, buyAudioLiveRecord.getId());
+                    intent.putExtra(LiveChatRoomActivity.ROOM_ID, buyAudioLiveRecord.getRoomid());
+                    getActivity().startActivity(intent);
+                }
             }
         });
 

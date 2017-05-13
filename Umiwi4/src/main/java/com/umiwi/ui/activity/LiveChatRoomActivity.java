@@ -180,7 +180,12 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
             public void onResult(AbstractRequest<ChatRoomDetailsBean> request, ChatRoomDetailsBean chatRoomDetails) {
                 if (chatRoomDetails != null) {
                     chatRoomDetailsBean = chatRoomDetails;
+                    
                     ChatRoomDetailsBean.RBean.RecordBean record = chatRoomDetails.getR().getRecord();
+                    String istutor = record.getIstutor();
+                    if("1".equals(istutor)) {
+                        Toast.makeText(LiveChatRoomActivity.this, "您是播主，您现在进的是普通直播间", Toast.LENGTH_LONG).show();
+                    }
                     tvTitle.setText(record.getTitle());
                     String partNum = "(" + record.getPartakenum() + "人)";
                     String status = record.getStatus();

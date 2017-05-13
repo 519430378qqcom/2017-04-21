@@ -253,13 +253,12 @@ public class AudioLiveDetailsFragment extends BaseConstantFragment {
                     startActivity(intent);
                     getActivity().finish();
                 }
-
             }
         }
 
         @Override
         public void onError(AbstractRequest<AudioLiveDetailsBean> requet, int statusCode, String body) {
-            Toast.makeText(getActivity(), "ERROR", Toast.LENGTH_LONG).show();
+
         }
     };
 
@@ -363,27 +362,30 @@ public class AudioLiveDetailsFragment extends BaseConstantFragment {
         public void onResult(AbstractRequest<JewelBuyAudioBena> request, JewelBuyAudioBena jewelBuyAudioBena) {
 //            payurl = umiwiBuyCreateOrderBeans.getR().getPayurl();
 //            subscriberBuyDialog(payurl);
-            if(jewelBuyAudioBena.getR().getId() != null) {
-                if ("已结束".equals(detailsRecord.getStatus())) {
-                    Intent intent = new Intent(getActivity(), ChatRecordActivity.class);
-                    intent.putExtra(LiveDetailsFragment.DETAILS_ID, detailsRecord.getId());
-                    intent.putExtra(ChatRecordActivity.ROOM_ID, detailsRecord.getRoomid());
-                    getActivity().startActivity(intent);
-                } else {
-                    Intent intent = new Intent(getActivity(), LiveChatRoomActivity.class);
-                    intent.putExtra(LiveDetailsFragment.DETAILS_ID, detailsRecord.getId());
-                    intent.putExtra(LiveChatRoomActivity.ROOM_ID, detailsRecord.getRoomid());
-                    startActivity(intent);
-                    getActivity().finish();
+            if ("9999".equals(jewelBuyAudioBena.getE())) {
+                if (jewelBuyAudioBena.getR().getId() != null) {
+                    if ("已结束".equals(detailsRecord.getStatus())) {
+                        Intent intent = new Intent(getActivity(), ChatRecordActivity.class);
+                        intent.putExtra(LiveDetailsFragment.DETAILS_ID, detailsRecord.getId());
+                        intent.putExtra(ChatRecordActivity.ROOM_ID, detailsRecord.getRoomid());
+                        getActivity().startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(getActivity(), LiveChatRoomActivity.class);
+                        intent.putExtra(LiveDetailsFragment.DETAILS_ID, detailsRecord.getId());
+                        intent.putExtra(LiveChatRoomActivity.ROOM_ID, detailsRecord.getRoomid());
+                        startActivity(intent);
+                        getActivity().finish();
+                    }
                 }
+            } else if("1007".equals(jewelBuyAudioBena.getE())) {
+                Toast.makeText(getActivity(), jewelBuyAudioBena.getM().toString(), Toast.LENGTH_SHORT).show();
             }
-
-
         }
 
         @Override
         public void onError(AbstractRequest<JewelBuyAudioBena> requet, int statusCode, String body) {
-
+           
+            
         }
     };
     //跳转登陆
