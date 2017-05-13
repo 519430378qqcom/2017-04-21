@@ -65,9 +65,12 @@ public class BuyAudioLiveAdapter extends BaseAdapter {
         viewHolder.special_name_textView.setText(buyAudioLiveRecord.getTitle());
         viewHolder.special_context.setText(buyAudioLiveRecord.getSubtitle());
         viewHolder.special_price.setText(buyAudioLiveRecord.getPrice());
-        if("已结束".equals(buyAudioLiveRecord.getStatus())) {
+        if ("已结束".equals(buyAudioLiveRecord.getStatus())) {
             viewHolder.expter_time_textView.setBackgroundResource(R.drawable.textview_fillet_bg);
             viewHolder.expter_time_textView.setTextColor(Color.GRAY);
+        } else {
+            viewHolder.expter_time_textView.setBackgroundResource(R.drawable.textview_orange_bg);
+            viewHolder.expter_time_textView.setTextColor(activity.getColor(R.color.main_color));
         }
         viewHolder.expter_time_textView.setText(buyAudioLiveRecord.getStatus());
         viewHolder.special_subscribe_number.setText(buyAudioLiveRecord.getPartakenum() + "参与");

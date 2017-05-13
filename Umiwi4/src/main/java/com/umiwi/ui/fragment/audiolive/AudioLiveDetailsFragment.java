@@ -406,8 +406,12 @@ public class AudioLiveDetailsFragment extends BaseConstantFragment {
     private AbstractRequest.Listener<UmiwiBuyCreateOrderBeans> buyListener = new AbstractRequest.Listener<UmiwiBuyCreateOrderBeans>() {
         @Override
         public void onResult(AbstractRequest<UmiwiBuyCreateOrderBeans> request, UmiwiBuyCreateOrderBeans umiwiBuyCreateOrderBeans) {
-            payurl = umiwiBuyCreateOrderBeans.getR().getPayurl();
-            subscriberBuyDialog(payurl);
+            if("9999".equals(umiwiBuyCreateOrderBeans.getE())) {
+                payurl = umiwiBuyCreateOrderBeans.getR().getPayurl();
+                subscriberBuyDialog(payurl);
+            }else if("1007".equals(umiwiBuyCreateOrderBeans.getE())) {
+                Toast.makeText(getActivity(), umiwiBuyCreateOrderBeans.getM().toString(), Toast.LENGTH_LONG).show();
+            }
 //            Log.e("TAG", "buypayurl==" + payurl);
         }
 
