@@ -339,6 +339,12 @@ public class YouMiPushMessageReceiver extends PushMessageReceiver {
                     intent1.putExtra(WebFragment.WEB_URL, url);
                     context.startActivity(intent1);
                     break;
+                case 3:
+                    Intent intent212 = new Intent(context.getApplicationContext(), SplashActivity.class);
+                    intent212.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    intent212.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent212);
+                    break;
                 case 2:
                     //2017年4月11 10.51调试可以
                     Intent intent22 = new Intent(context.getApplicationContext(), HomeMainActivity.class);
