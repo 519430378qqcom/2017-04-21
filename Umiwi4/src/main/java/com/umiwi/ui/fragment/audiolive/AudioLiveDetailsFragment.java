@@ -218,7 +218,7 @@ public class AudioLiveDetailsFragment extends BaseConstantFragment {
                 tvStarttime.setTextColor(getResources().getColor(R.color.main_color));
                 tvStarttime.setBackgroundResource(R.drawable.textview_orange_bg);
             }
-            tvTakepart.setText(detailsRecord.getPartakenum() + "参与");
+            tvTakepart.setText(detailsRecord.getPartakenum() + "人参与");
             //开始时间
             tvStarttime.setText(detailsRecord.getLive_time());
 

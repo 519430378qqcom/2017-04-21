@@ -91,8 +91,8 @@ android {
 //        baiduvt {}//百度手机助手
 //        smvpay {}//神马
 //        googleplayv {}
-        huaweiv {}//华为
-//        lenovov {}
+//        huaweiv {}//华为
+        lenovov {}
 //        yingyongbaov {} //应用宝
 //        m91v {}//91助手
 //        m360vt {}  //360 手机助手
