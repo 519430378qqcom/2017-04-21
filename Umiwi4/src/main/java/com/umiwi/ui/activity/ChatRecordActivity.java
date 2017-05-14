@@ -117,7 +117,7 @@ public class ChatRecordActivity extends AppCompatActivity implements ModuleProxy
                     }
                 }else {
                     refreshLayout.setRefreshing(false);
-                    Toast.makeText(ChatRecordActivity.this, "没用更多消息了", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ChatRecordActivity.this, "没有更多消息了", Toast.LENGTH_SHORT).show();
                 }
             }
 

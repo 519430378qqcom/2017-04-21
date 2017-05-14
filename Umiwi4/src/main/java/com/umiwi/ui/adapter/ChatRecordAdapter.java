@@ -1,6 +1,7 @@
 package com.umiwi.ui.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.umiwi.ui.R;
+import com.umiwi.ui.activity.BigPictureActivity;
 import com.umiwi.ui.beans.ChatRecordBean;
 import com.umiwi.ui.fragment.home.updatehome.indexfragment.VoiceDetailsFragment;
 import com.umiwi.ui.managers.MsgListManager;
@@ -128,8 +130,16 @@ public class ChatRecordAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 authorViewHolder.rl_text.setVisibility(View.GONE);
                 authorViewHolder.rl_audio.setVisibility(View.GONE);
                 authorViewHolder.rl_picture.setVisibility(View.VISIBLE);
-                String url1 = chatRecord.getPictureattach().getUrl();
+                final String url1 = chatRecord.getPictureattach().getUrl();
                 Glide.with(context).load(url1).into(authorViewHolder.iv_receive);
+                authorViewHolder.iv_receive.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(context, BigPictureActivity.class);
+                        intent.putExtra(BigPictureActivity.IMG_URL,url1);
+                        context.startActivity(intent);
+                    }
+                });
             } else if ("AUDIO".equals(chatRecord.getMsgtype())) {//显示录音
                 authorViewHolder.rl_text.setVisibility(View.GONE);
                 authorViewHolder.rl_audio.setVisibility(View.VISIBLE);

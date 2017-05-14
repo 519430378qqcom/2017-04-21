@@ -70,7 +70,7 @@ public class BuyAudioLiveAdapter extends BaseAdapter {
             viewHolder.expter_time_textView.setTextColor(Color.GRAY);
         } else {
             viewHolder.expter_time_textView.setBackgroundResource(R.drawable.textview_orange_bg);
-            viewHolder.expter_time_textView.setTextColor(activity.getColor(R.color.main_color));
+            viewHolder.expter_time_textView.setTextColor(Color.parseColor("#ff7000"));
         }
         viewHolder.expter_time_textView.setText(buyAudioLiveRecord.getStatus());
         viewHolder.special_subscribe_number.setText(buyAudioLiveRecord.getPartakenum() + "参与");
