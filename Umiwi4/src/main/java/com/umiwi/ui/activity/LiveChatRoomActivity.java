@@ -2,11 +2,12 @@ package com.umiwi.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.os.RemoteException;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -34,6 +35,7 @@ import com.netease.nimlib.sdk.msg.model.IMMessage;
 import com.umiwi.ui.R;
 import com.umiwi.ui.beans.ChatRoomDetailsBean;
 import com.umiwi.ui.beans.NIMAccountBean;
+import com.umiwi.ui.beans.OnlineSumBean;
 import com.umiwi.ui.dialog.ShareDialog;
 import com.umiwi.ui.fragment.audiolive.AudioLiveDetailsFragment;
 import com.umiwi.ui.fragment.audiolive.LiveDetailsFragment;
@@ -94,7 +96,21 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
      * 判断是否已经加载过聊天记录
      */
     private boolean alreadyloadRecord;
-
+    private final int TIME = 1;
+    private final int UPDATE_SUM = 2;
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case UPDATE_SUM:
+                    updateSum();
+                    Message message = Message.obtain();
+                    message.what = UPDATE_SUM;
+                    handler.sendMessageDelayed(message,30000);
+                    break;
+            }
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,6 +121,9 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
         initData();
         initMessageList();
         initRefreshLayout();
+        Message message = Message.obtain();
+        message.what = UPDATE_SUM;
+        handler.sendMessageDelayed(message,30000);
     }
 
     private void initRefreshLayout() {
@@ -134,7 +153,6 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
             public void onResult(AbstractRequest<NIMAccountBean> request, NIMAccountBean nimAccountBean) {
                 if (nimAccountBean != null) {
                     final LoginInfo loginInfo = new LoginInfo(nimAccountBean.getR().getAccid(), nimAccountBean.getR().getToken());
-                    Log.e("TAG", loginInfo.getAccount() + "----" + loginInfo.getToken());
                     //请求网易云信登录
                     RequestCallback<LoginInfo> callback = new RequestCallback<LoginInfo>() {
                         @Override
@@ -150,7 +168,6 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
 
                         @Override
                         public void onFailed(int code) {
-                            Log.e("TAG", code + "");
                             Toast.makeText(LiveChatRoomActivity.this, "登录失败", Toast.LENGTH_SHORT).show();
                         }
 
@@ -170,7 +187,48 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
         });
         request.go();
     }
+    /**
+     * 更新在线人数
+     */
+    private void updateSum(){
+        String url = String.format(UmiwiAPI.UMIWI_ONLINE_NUM,id);
+        GetRequest<OnlineSumBean> request = new GetRequest<>(
+                url, GsonParser.class, OnlineSumBean.class, new AbstractRequest.Listener<OnlineSumBean>() {
 
+            @Override
+            public void onResult(AbstractRequest<OnlineSumBean> request, OnlineSumBean onlineSumBean) {
+                String partakenum = onlineSumBean.getR().getPartakenum();
+                if(partakenum!=null&&!"".equals(partakenum)) {
+                    String partNum = "(" + partakenum + "人)";
+                    String status = chatRoomDetailsBean.getR().getRecord().getStatus();
+                    String content;
+                    if(status !=null&&!"".equals(status)) {
+                        switch (status) {
+                            case "1":
+                                status = "未开始";
+                                break;
+                            case "2":
+                                status = "直播中";
+                                break;
+                            case "3":
+                                status = "已结束";
+                                break;
+                        }
+                        content = status + partNum;
+                    }else {
+                        content = partNum;
+                    }
+                    tvStatus.setText(content);
+                }
+            }
+
+            @Override
+            public void onError(AbstractRequest<OnlineSumBean> requet, int statusCode, String body) {
+
+            }
+        });
+        request.go();
+    }
     private void initData() {
         id = getIntent().getStringExtra(LiveDetailsFragment.DETAILS_ID);
         roomId = getIntent().getStringExtra(ROOM_ID);

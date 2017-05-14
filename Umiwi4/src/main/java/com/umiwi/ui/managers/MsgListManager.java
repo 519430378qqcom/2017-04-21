@@ -79,6 +79,9 @@ public class MsgListManager {
         chatRoomMessages = new LinkedList<>();
         msgView.setLayoutManager(new LinearLayoutManager(context));
         messageListAdapter = new MessageListAdapter(context, chatRoomMessages);
+//        RecyclerView.RecycledViewPool pool =msgView.getRecycledViewPool();
+//        pool.setMaxRecycledViews(0,10);
+//        msgView.setRecycledViewPool(pool);
         msgView.setAdapter(messageListAdapter);
     }
 

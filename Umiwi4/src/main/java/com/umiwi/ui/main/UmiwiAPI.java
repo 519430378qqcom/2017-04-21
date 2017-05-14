@@ -8,7 +8,10 @@ package com.umiwi.ui.main;
  */
 public final class UmiwiAPI {
     // ===============================直播  相关===================================================//
-
+    /**
+     * 直播间在线人数
+     */
+    public static final String UMIWI_ONLINE_NUM="http://i.v.youmi.cn/Telecast/getOnlineApi?id=%s";
     /**
      * 已购直播
      */

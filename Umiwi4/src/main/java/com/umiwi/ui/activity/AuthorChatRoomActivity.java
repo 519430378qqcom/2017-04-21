@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.os.RemoteException;
@@ -49,6 +50,7 @@ import com.netease.nimlib.sdk.msg.model.IMMessage;
 import com.umiwi.ui.R;
 import com.umiwi.ui.beans.ChatRoomDetailsBean;
 import com.umiwi.ui.beans.NIMAccountBean;
+import com.umiwi.ui.beans.OnlineSumBean;
 import com.umiwi.ui.beans.updatebeans.AudioLiveStopBean;
 import com.umiwi.ui.dialog.ShareDialog;
 import com.umiwi.ui.fragment.audiolive.AudioLiveDetailsFragment;
@@ -139,7 +141,6 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
      * 聊天室信息
      */
     private ChatRoomDetailsBean chatRoomDetailsBean;
-    private Handler handler;
     private Long time;
     /**
      * 录音的对象
@@ -161,7 +162,34 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
      * 判断是否已经加载过聊天记录
      */
     private boolean alreadyloadRecord;
-
+    private final int TIME = 1;
+    private final int UPDATE_SUM = 2;
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case TIME:
+                time += 1000;
+                tvRecordTime.setText(DateUtils.formatmmss(time));
+                if (time >= 60 * 1000) {
+                    recorder.completeRecord(false);
+                    sendAudioMsg();
+                    startRecord();
+                } else {
+                    Message message = Message.obtain();
+                    message.what = TIME;
+                    handler.sendMessageDelayed(message, 1000);
+                }
+                    break;
+                case UPDATE_SUM:
+                    updateSum();
+                    Message message = Message.obtain();
+                    message.what = UPDATE_SUM;
+                    handler.sendMessageDelayed(message,30000);
+                    break;
+            }
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -172,6 +200,9 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
         initData();
         initMessageList();
         initRefreshLayout();
+        Message message = Message.obtain();
+        message.what = UPDATE_SUM;
+        handler.sendMessageDelayed(message,30000);
     }
 
     private void initRefreshLayout() {
@@ -229,6 +260,48 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
         request.go();
     }
 
+    /**
+     * 更新在线人数
+     */
+    private void updateSum(){
+        String url = String.format(UmiwiAPI.UMIWI_ONLINE_NUM,id);
+        GetRequest<OnlineSumBean> request = new GetRequest<>(
+                url, GsonParser.class, OnlineSumBean.class, new AbstractRequest.Listener<OnlineSumBean>() {
+
+            @Override
+            public void onResult(AbstractRequest<OnlineSumBean> request, OnlineSumBean onlineSumBean) {
+                String partakenum = onlineSumBean.getR().getPartakenum();
+                if(partakenum!=null&&!"".equals(partakenum)) {
+                    String partNum = "(" + partakenum + "人)";
+                    String status = chatRoomDetailsBean.getR().getRecord().getStatus();
+                    String content;
+                    if(status !=null&&!"".equals(status)) {
+                        switch (status) {
+                            case "1":
+                                status = "未开始";
+                                break;
+                            case "2":
+                                status = "直播中";
+                                break;
+                            case "3":
+                                status = "已结束";
+                                break;
+                        }
+                        content = status + partNum;
+                    }else {
+                        content = partNum;
+                    }
+                    tvStatus.setText(content);
+                }
+            }
+
+            @Override
+            public void onError(AbstractRequest<OnlineSumBean> requet, int statusCode, String body) {
+
+            }
+        });
+        request.go();
+    }
     private void initData() {
         id = getIntent().getStringExtra(LiveDetailsFragment.DETAILS_ID);
         roomId = getIntent().getStringExtra(ROOM_ID);
@@ -366,11 +439,30 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == PICTURE_REQUEST & resultCode == RESULT_OK) {
-            Uri uri = data.getData();
-            userSelectPath = getAbsolutePath(context, uri);
-            if (new File(userSelectPath).exists()) {
-                sendPictureMsg();
+            if (data == null) {
+                Toast.makeText(this, "取消", Toast.LENGTH_SHORT).show();
+                return;
             }
+            if (!Environment.getExternalStorageState().equals(
+                    Environment.MEDIA_MOUNTED)) {
+                Toast.makeText(this, "SD卡不可用", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            Uri uri = data.getData();
+            if (uri != null) {
+                userSelectPath = getAbsolutePath(context, uri);
+                if(userSelectPath != null) {
+                    if (new File(userSelectPath).exists()) {
+                        sendPictureMsg();
+                    }
+                }else {
+
+                }
+            } else {
+                Toast.makeText(this, "图片未找到", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(this, "获取错误", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -445,13 +537,16 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
                 switchStatus(R.id.tv_picture);
                 switchSoftInput(false);
                 //调起系统相册
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                Intent.createChooser(intent, "Select picture");
+//                Intent intent = new Intent();
+//                intent.setType("image/*");
+//                intent.setAction(Intent.ACTION_GET_CONTENT);
+//                Intent.createChooser(intent, "Select picture");
 //                Intent intent = new Intent(Intent.ACTION_PICK, null);
 //                intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
 //                intent.setAction(Intent.ACTION_GET_CONTENT);
+                Intent intent = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,"image/*");
+//                startActivityForResult(intent, CHOOSE_PICTURE);
                 startActivityForResult(intent, PICTURE_REQUEST);
                 break;
             case R.id.btn_cancle://取消录制
@@ -510,7 +605,7 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
             startRecord();
         } else if (getResources().getString(R.string.click_stop_record).equals(tvRecordHint.getText().toString())) {//停止录音
             tvRecordHintTop.setText(R.string.send_hint);
-            handler.removeCallbacksAndMessages(null);
+            handler.removeMessages(TIME);
             ivRecord.setImageResource(R.drawable.record_send);
             tvRecordHint.setText(R.string.click_send_record);
             recorder.completeRecord(false);
@@ -524,7 +619,7 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
      * 初始化录音状态
      */
     private void initRecordStatus() {
-        handler.removeCallbacksAndMessages(null);
+        handler.removeMessages(TIME);
         rlInputOptions.setVisibility(View.VISIBLE);
         tvRecordHintTop.setVisibility(View.GONE);
         tvRecordTime.setText("00:00");
@@ -556,25 +651,11 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
             ivRecord.setImageResource(R.drawable.record_pause);
             tvRecordHint.setText(R.string.click_stop_record);
             //录音计时
-            if (handler == null) {
-                handler = new Handler() {
-                    @Override
-                    public void handleMessage(Message msg) {
-                        time += 1000;
-                        tvRecordTime.setText(DateUtils.formatmmss(time));
-                        if (time >= 60 * 1000) {
-                            recorder.completeRecord(false);
-                            sendAudioMsg();
-                            startRecord();
-                        } else {
-                            handler.sendMessageDelayed(Message.obtain(), 1000);
-                        }
-                    }
-                };
-            }
             time = 0L;
-            handler.removeCallbacksAndMessages(null);
-            handler.sendMessageDelayed(Message.obtain(), 1000);
+            handler.removeMessages(TIME);
+            Message message = Message.obtain();
+            message.what = TIME;
+            handler.sendMessageDelayed(message, 1000);
         } else {
             Toast.makeText(AuthorChatRoomActivity.this, "启动录音失败，请开启录音权限", Toast.LENGTH_SHORT).show();
         }
