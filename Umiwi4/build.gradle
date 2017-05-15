@@ -88,13 +88,13 @@ android {
     productFlavors {  //./gradlew assembleRelease
         // itest {}
 //        portalv {}//官网
-//        baiduvt {}//百度手机助手
+        baiduvt {}//百度手机助手
 //        smvpay {}//神马
 //        googleplayv {}
 //        huaweiv {}//华为
 //        lenovov {}
 //        yingyongbaov {} //应用宝
-        m91v {}//91助手
+//        m91v {}//91助手
 //        m360vt {}  //360 手机助手
 //        anzhuov {} //安卓市场
 //        oppov {}//oppo

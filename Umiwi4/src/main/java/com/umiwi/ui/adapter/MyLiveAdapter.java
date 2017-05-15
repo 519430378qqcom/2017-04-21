@@ -86,7 +86,7 @@ public class MyLiveAdapter extends BaseAdapter {
             holder.tv_starttime1.setText(recordBean.getLive_time());
         }
         holder.tvProfit.setText("累计收益"+recordBean.getProfit());
-        holder.tvPartakenum.setText(recordBean.getPartakenum()+"参与");
+        holder.tvPartakenum.setText(recordBean.getPartakenum()+"人参与");
         return convertView;
     }
 
