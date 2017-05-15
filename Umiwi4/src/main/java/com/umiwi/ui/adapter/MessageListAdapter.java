@@ -159,7 +159,7 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 authorViewHolder.rl_audio.setVisibility(View.GONE);
                 authorViewHolder.rl_picture.setVisibility(View.VISIBLE);
                 final ImageAttachment attachment = (ImageAttachment) chatRoomMessage.getAttachment();
-                Glide.with(context).load(attachment.getThumbPath()).placeholder(R.drawable.image_placeholder).error(R.drawable.image_error).priority( Priority.HIGH).into(authorViewHolder.iv_receive);
+                Glide.with(context).load(attachment.getThumbPath()).placeholder(R.drawable.image_placeholder).priority( Priority.HIGH).into(authorViewHolder.iv_receive);
                 authorViewHolder.iv_receive.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
