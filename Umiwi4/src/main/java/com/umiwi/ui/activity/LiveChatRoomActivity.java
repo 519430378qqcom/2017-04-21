@@ -366,6 +366,9 @@ public class LiveChatRoomActivity extends AppCompatActivity implements ModulePro
         ButterKnife.reset(this);
         registerObservers(false);
         registerMultimediaObserver(false);
+        if (handler != null) {
+            handler.removeCallbacksAndMessages(null);
+        }
         if (msgListManager.messageListAdapter.handler != null) {
             msgListManager.messageListAdapter.handler.removeCallbacksAndMessages(null);
         }
