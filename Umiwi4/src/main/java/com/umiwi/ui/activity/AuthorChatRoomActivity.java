@@ -456,13 +456,13 @@ public class AuthorChatRoomActivity extends AppCompatActivity implements ModuleP
                         sendPictureMsg();
                     }
                 }else {
-
+                    Toast.makeText(this, "获取错误", Toast.LENGTH_SHORT).show();
                 }
             } else {
                 Toast.makeText(this, "图片未找到", Toast.LENGTH_SHORT).show();
             }
         } else {
-            Toast.makeText(this, "获取错误", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "取消", Toast.LENGTH_SHORT).show();
         }
     }
 
