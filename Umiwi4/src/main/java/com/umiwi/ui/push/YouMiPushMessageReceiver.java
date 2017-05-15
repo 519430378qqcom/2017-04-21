@@ -325,6 +325,7 @@ public class YouMiPushMessageReceiver extends PushMessageReceiver {
 //
 
             switch (Integer.valueOf(type)) {
+
                 case 1:
                     Log.e("TAG", "在后台状态打开h5页面");
                     //2017年4月11 10.38调试可以
@@ -341,7 +342,7 @@ public class YouMiPushMessageReceiver extends PushMessageReceiver {
                     context.startActivity(intent1);
                     break;
                 case 10:
-                    Log.e("TAG", "在后台状态打开应用");
+
                     Intent intent212 = new Intent(context.getApplicationContext(), SplashActivity.class);
                     intent212.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     intent212.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -423,6 +424,13 @@ public class YouMiPushMessageReceiver extends PushMessageReceiver {
                     intent15.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     context.startActivity(intent15);
                     break;
+                default://默认打开应用
+                    Log.e("TAG", "默认在后台状态打开应用");
+                    Intent intent312 = new Intent(context.getApplicationContext(), SplashActivity.class);
+                    intent312.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    intent312.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent312);
+                    break;
             }
         }
 
@@ -433,7 +441,7 @@ public class YouMiPushMessageReceiver extends PushMessageReceiver {
     /**
      * @param title
      * @param description
-     * @param type        msgtype = 1 去任意活动页，msgurl 会给出要去的活动页面
+     * @param type        msgtype=1 去任意活动页，msgurl 会给出要去的活动页面
      *                    msgtype=2 去课程播放页  ，msgurl 会给出detailurl，msgid 会给出课程id
      *                    msgtype=3 去 我的-》学习周报
      *                    msgtype=4 去 我的=》优惠券
