@@ -65,7 +65,7 @@ public class XCRoundRectImageView extends ImageView {
         }
         int w = drawable.getIntrinsicWidth();
         int h = drawable.getIntrinsicHeight();
-        Bitmap bitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Bitmap bitmap = Bitmap.createBitmap(w, h, Bitmap.Config.RGB_565);
         Canvas canvas = new Canvas(bitmap);
         drawable.setBounds(0, 0, w, h);
         drawable.draw(canvas);
@@ -79,7 +79,7 @@ public class XCRoundRectImageView extends ImageView {
      * @return
      */
     private Bitmap getRoundBitmap(Bitmap bitmap, int roundPx) {
-        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.RGB_565);
         Canvas canvas = new Canvas(output);
         final int color = 0xff424242;
         final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());

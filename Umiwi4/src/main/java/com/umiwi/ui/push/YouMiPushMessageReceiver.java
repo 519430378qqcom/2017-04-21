@@ -326,6 +326,7 @@ public class YouMiPushMessageReceiver extends PushMessageReceiver {
 
             switch (Integer.valueOf(type)) {
                 case 1:
+                    Log.e("TAG", "在后台状态打开h5页面");
                     //2017年4月11 10.38调试可以
                     Intent intent21 = new Intent(context.getApplicationContext(), HomeMainActivity.class);
                     intent21.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -340,6 +341,7 @@ public class YouMiPushMessageReceiver extends PushMessageReceiver {
                     context.startActivity(intent1);
                     break;
                 case 3:
+                    Log.e("TAG", "在后台状态打开应用");
                     Intent intent212 = new Intent(context.getApplicationContext(), SplashActivity.class);
                     intent212.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     intent212.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
