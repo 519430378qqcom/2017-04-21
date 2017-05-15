@@ -231,7 +231,7 @@ public class YouMiPushMessageReceiver extends PushMessageReceiver {
      * 根据推送，去开启页面
      *
      * @param
-     * @param type 类型:3,打开应用
+     * @param type 类型:10,打开应用
      *             1,H5活动页面
      *             2,视频播放页
      *             12,视频专题
@@ -246,7 +246,7 @@ public class YouMiPushMessageReceiver extends PushMessageReceiver {
             Intent intent = new Intent();
 //            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             switch (Integer.valueOf(type)) {
-                case 3:
+                case 10:
                     break;
                 case 1:
 
@@ -340,7 +340,7 @@ public class YouMiPushMessageReceiver extends PushMessageReceiver {
                     intent1.putExtra(WebFragment.WEB_URL, url);
                     context.startActivity(intent1);
                     break;
-                case 3:
+                case 10:
                     Log.e("TAG", "在后台状态打开应用");
                     Intent intent212 = new Intent(context.getApplicationContext(), SplashActivity.class);
                     intent212.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
