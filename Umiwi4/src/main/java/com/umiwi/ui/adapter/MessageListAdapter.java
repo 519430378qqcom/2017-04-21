@@ -81,7 +81,7 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             }
         }
     };
-
+ 
     public MessageListAdapter(Context context, LinkedList<IMMessage> messages) {
         this.context = context;
         this.messages = messages;
@@ -146,7 +146,10 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 String userName = (String) chatRoomMessage.getRemoteExtension().get(MsgListManager.USER_NAME);
                 authorViewHolder.tvId.setText(userName);
                 String url = (String) map.get(MsgListManager.HEAD_PHOTO_URL);
-                Glide.with(context).load(url).placeholder(R.drawable.fragment_mine_login_no).into(authorViewHolder.civHead);
+                Glide.with(context)
+                        .load(url)
+                        .placeholder(R.drawable.fragment_mine_login_no)
+                        .into(authorViewHolder.civHead);
                 authorViewHolder.rl_text.setBackgroundResource(R.drawable.maincolor_rectangle);
             }
             if (chatRoomMessage.getMsgType() == MsgTypeEnum.text) {//显示文本消息
@@ -159,7 +162,11 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 authorViewHolder.rl_audio.setVisibility(View.GONE);
                 authorViewHolder.rl_picture.setVisibility(View.VISIBLE);
                 final ImageAttachment attachment = (ImageAttachment) chatRoomMessage.getAttachment();
-                Glide.with(context).load(attachment.getThumbPath()).placeholder(R.drawable.image_placeholder).priority( Priority.HIGH).into(authorViewHolder.iv_receive);
+                Glide.with(context)
+                        .load(attachment.getThumbPath())
+                        .placeholder(R.drawable.image_placeholder)
+                        .priority( Priority.HIGH)
+                        .into(authorViewHolder.iv_receive);
                 authorViewHolder.iv_receive.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
