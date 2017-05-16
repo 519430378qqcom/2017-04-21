@@ -434,8 +434,6 @@ public class YouMiPushMessageReceiver extends PushMessageReceiver {
             }
         }
 
-//
-
     }
 
     /**

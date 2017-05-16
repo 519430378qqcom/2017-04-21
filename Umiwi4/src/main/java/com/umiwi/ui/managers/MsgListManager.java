@@ -225,13 +225,15 @@ public class MsgListManager {
                         }
                     } else {
                         //如果此时缓存池中还有剩余的消息
-                        if(chatRecordMessages.size()>0) {
+                        if (chatRecordMessages.size() > 0) {
                             for (int i = 0; i < chatRecordMessages.size(); i++) {
                                 addHeadMessage(chatRecordMessages.get(0));
                                 chatRecordMessages.removeFirst();
                             }
+
+                        } else {
+                            Toast.makeText(context, "没有更多消息了", Toast.LENGTH_SHORT).show();
                         }
-                        Toast.makeText(context, "没有更多消息了", Toast.LENGTH_SHORT).show();
                         refreshLayout.setRefreshing(false);
                     }
                 }

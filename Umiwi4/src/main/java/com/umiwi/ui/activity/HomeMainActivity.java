@@ -19,8 +19,6 @@ import android.widget.ProgressBar;
 
 import com.baidu.android.pushservice.PushConstants;
 import com.baidu.android.pushservice.PushManager;
-import com.baidu.soleagencysdk.api.CheckCompletion;
-import com.baidu.soleagencysdk.api.SoleAgencySDK;
 import com.bumptech.glide.Glide;
 import com.umeng.analytics.MobclickAgent;
 import com.umiwi.ui.IVoiceService;
@@ -112,7 +110,7 @@ public class HomeMainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("独家SDK—V" + SoleAgencySDK.version());
+//        setTitle("独家SDK—V" + SoleAgencySDK.version());
         setContentView(R.layout.activity_main_home);
 
         mSpUtil = UmiwiApplication.getInstance().getSpUtil();
@@ -158,18 +156,18 @@ public class HomeMainActivity extends AppCompatActivity {
             saveAd();
         }
 //        百度独家sdk
-        SoleAgencySDK.startToCheckShouzhu(this, new CheckCompletion() {
-            @Override
-            public void checkDidComplete() {
-//                new AlertDialog.Builder(HomeMainActivity.this).setMessage("SDK checked complete!")
-//                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                dialog.dismiss();
-//                            }
-//                        }).create().show();
-            }
-        });
+//        SoleAgencySDK.startToCheckShouzhu(this, new CheckCompletion() {
+//            @Override
+//            public void checkDidComplete() {
+////                new AlertDialog.Builder(HomeMainActivity.this).setMessage("SDK checked complete!")
+////                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+////                            @Override
+////                            public void onClick(DialogInterface dialog, int which) {
+////                                dialog.dismiss();
+////                            }
+////                        }).create().show();
+//            }
+//        });
     }
 
 
