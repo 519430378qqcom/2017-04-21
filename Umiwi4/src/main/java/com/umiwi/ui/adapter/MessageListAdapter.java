@@ -129,7 +129,10 @@ public class MessageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 String userName = (String) chatRoomMessage.getRemoteExtension().get(MsgListManager.USER_NAME);
                 watcherViewHolder.tvId.setText(userName);
                 String url = (String) map.get(MsgListManager.HEAD_PHOTO_URL);
-                Glide.with(context).load(url).placeholder(R.drawable.fragment_mine_login_no).into(watcherViewHolder.civHead);
+                Glide.with(context)
+                        .load(url)
+                        .placeholder(R.drawable.fragment_mine_login_no)
+                        .into(watcherViewHolder.civHead);
                 if (UserManager.getInstance().getUser().getUsername().equals(userName)) {//自己发的消息
                     watcherViewHolder.rl_text.setBackgroundResource(R.drawable.blue_rectangle);
                     watcherViewHolder.tv_content.setTextColor(Color.WHITE);
